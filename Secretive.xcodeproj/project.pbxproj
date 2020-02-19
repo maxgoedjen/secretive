@@ -1,0 +1,780 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		50617D8323FCE48E0099B055 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50617D8223FCE48E0099B055 /* AppDelegate.swift */; };
+		50617D8523FCE48E0099B055 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50617D8423FCE48E0099B055 /* ContentView.swift */; };
+		50617D8723FCE48E0099B055 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 50617D8623FCE48E0099B055 /* Assets.xcassets */; };
+		50617D8A23FCE48E0099B055 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 50617D8923FCE48E0099B055 /* Preview Assets.xcassets */; };
+		50617D8D23FCE48E0099B055 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 50617D8B23FCE48E0099B055 /* Main.storyboard */; };
+		50617D9923FCE48E0099B055 /* SecretiveTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50617D9823FCE48E0099B055 /* SecretiveTests.swift */; };
+		50617DB123FCE4AB0099B055 /* SecretKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50617DA823FCE4AB0099B055 /* SecretKit.framework */; };
+		50617DB823FCE4AB0099B055 /* SecretKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50617DB723FCE4AB0099B055 /* SecretKitTests.swift */; };
+		50617DBA23FCE4AB0099B055 /* SecretKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 50617DAA23FCE4AB0099B055 /* SecretKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		50617DBD23FCE4AB0099B055 /* SecretKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50617DA823FCE4AB0099B055 /* SecretKit.framework */; };
+		50617DBE23FCE4AB0099B055 /* SecretKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 50617DA823FCE4AB0099B055 /* SecretKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		50617D9523FCE48E0099B055 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 50617D7723FCE48D0099B055 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 50617D7E23FCE48D0099B055;
+			remoteInfo = Secretive;
+		};
+		50617DB223FCE4AB0099B055 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 50617D7723FCE48D0099B055 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 50617DA723FCE4AB0099B055;
+			remoteInfo = SecretKit;
+		};
+		50617DB423FCE4AB0099B055 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 50617D7723FCE48D0099B055 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 50617D7E23FCE48D0099B055;
+			remoteInfo = Secretive;
+		};
+		50617DBB23FCE4AB0099B055 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 50617D7723FCE48D0099B055 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 50617DA723FCE4AB0099B055;
+			remoteInfo = SecretKit;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		50617DBF23FCE4AB0099B055 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				50617DBE23FCE4AB0099B055 /* SecretKit.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		50617D7F23FCE48E0099B055 /* Secretive.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Secretive.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		50617D8223FCE48E0099B055 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		50617D8423FCE48E0099B055 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		50617D8623FCE48E0099B055 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		50617D8923FCE48E0099B055 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		50617D8C23FCE48E0099B055 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		50617D8E23FCE48E0099B055 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		50617D8F23FCE48E0099B055 /* Secretive.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Secretive.entitlements; sourceTree = "<group>"; };
+		50617D9423FCE48E0099B055 /* SecretiveTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SecretiveTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		50617D9823FCE48E0099B055 /* SecretiveTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecretiveTests.swift; sourceTree = "<group>"; };
+		50617D9A23FCE48E0099B055 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		50617DA823FCE4AB0099B055 /* SecretKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SecretKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		50617DAA23FCE4AB0099B055 /* SecretKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SecretKit.h; sourceTree = "<group>"; };
+		50617DAB23FCE4AB0099B055 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		50617DB023FCE4AB0099B055 /* SecretKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SecretKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		50617DB723FCE4AB0099B055 /* SecretKitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecretKitTests.swift; sourceTree = "<group>"; };
+		50617DB923FCE4AB0099B055 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		50617D7C23FCE48D0099B055 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				50617DBD23FCE4AB0099B055 /* SecretKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		50617D9123FCE48E0099B055 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		50617DA523FCE4AB0099B055 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		50617DAD23FCE4AB0099B055 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				50617DB123FCE4AB0099B055 /* SecretKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		50617D7623FCE48D0099B055 = {
+			isa = PBXGroup;
+			children = (
+				50617D8123FCE48E0099B055 /* Secretive */,
+				50617D9723FCE48E0099B055 /* SecretiveTests */,
+				50617DA923FCE4AB0099B055 /* SecretKit */,
+				50617DB623FCE4AB0099B055 /* SecretKitTests */,
+				50617D8023FCE48E0099B055 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		50617D8023FCE48E0099B055 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				50617D7F23FCE48E0099B055 /* Secretive.app */,
+				50617D9423FCE48E0099B055 /* SecretiveTests.xctest */,
+				50617DA823FCE4AB0099B055 /* SecretKit.framework */,
+				50617DB023FCE4AB0099B055 /* SecretKitTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		50617D8123FCE48E0099B055 /* Secretive */ = {
+			isa = PBXGroup;
+			children = (
+				50617D8223FCE48E0099B055 /* AppDelegate.swift */,
+				50617D8423FCE48E0099B055 /* ContentView.swift */,
+				50617D8623FCE48E0099B055 /* Assets.xcassets */,
+				50617D8B23FCE48E0099B055 /* Main.storyboard */,
+				50617D8E23FCE48E0099B055 /* Info.plist */,
+				50617D8F23FCE48E0099B055 /* Secretive.entitlements */,
+				50617D8823FCE48E0099B055 /* Preview Content */,
+			);
+			path = Secretive;
+			sourceTree = "<group>";
+		};
+		50617D8823FCE48E0099B055 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				50617D8923FCE48E0099B055 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		50617D9723FCE48E0099B055 /* SecretiveTests */ = {
+			isa = PBXGroup;
+			children = (
+				50617D9823FCE48E0099B055 /* SecretiveTests.swift */,
+				50617D9A23FCE48E0099B055 /* Info.plist */,
+			);
+			path = SecretiveTests;
+			sourceTree = "<group>";
+		};
+		50617DA923FCE4AB0099B055 /* SecretKit */ = {
+			isa = PBXGroup;
+			children = (
+				50617DAA23FCE4AB0099B055 /* SecretKit.h */,
+				50617DAB23FCE4AB0099B055 /* Info.plist */,
+			);
+			path = SecretKit;
+			sourceTree = "<group>";
+		};
+		50617DB623FCE4AB0099B055 /* SecretKitTests */ = {
+			isa = PBXGroup;
+			children = (
+				50617DB723FCE4AB0099B055 /* SecretKitTests.swift */,
+				50617DB923FCE4AB0099B055 /* Info.plist */,
+			);
+			path = SecretKitTests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		50617DA323FCE4AB0099B055 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				50617DBA23FCE4AB0099B055 /* SecretKit.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		50617D7E23FCE48D0099B055 /* Secretive */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 50617D9D23FCE48E0099B055 /* Build configuration list for PBXNativeTarget "Secretive" */;
+			buildPhases = (
+				50617D7B23FCE48D0099B055 /* Sources */,
+				50617D7C23FCE48D0099B055 /* Frameworks */,
+				50617D7D23FCE48D0099B055 /* Resources */,
+				50617DBF23FCE4AB0099B055 /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				50617DBC23FCE4AB0099B055 /* PBXTargetDependency */,
+			);
+			name = Secretive;
+			productName = Secretive;
+			productReference = 50617D7F23FCE48E0099B055 /* Secretive.app */;
+			productType = "com.apple.product-type.application";
+		};
+		50617D9323FCE48E0099B055 /* SecretiveTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 50617DA023FCE48E0099B055 /* Build configuration list for PBXNativeTarget "SecretiveTests" */;
+			buildPhases = (
+				50617D9023FCE48E0099B055 /* Sources */,
+				50617D9123FCE48E0099B055 /* Frameworks */,
+				50617D9223FCE48E0099B055 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				50617D9623FCE48E0099B055 /* PBXTargetDependency */,
+			);
+			name = SecretiveTests;
+			productName = SecretiveTests;
+			productReference = 50617D9423FCE48E0099B055 /* SecretiveTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		50617DA723FCE4AB0099B055 /* SecretKit */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 50617DC423FCE4AB0099B055 /* Build configuration list for PBXNativeTarget "SecretKit" */;
+			buildPhases = (
+				50617DA323FCE4AB0099B055 /* Headers */,
+				50617DA423FCE4AB0099B055 /* Sources */,
+				50617DA523FCE4AB0099B055 /* Frameworks */,
+				50617DA623FCE4AB0099B055 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SecretKit;
+			productName = SecretKit;
+			productReference = 50617DA823FCE4AB0099B055 /* SecretKit.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		50617DAF23FCE4AB0099B055 /* SecretKitTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 50617DC523FCE4AB0099B055 /* Build configuration list for PBXNativeTarget "SecretKitTests" */;
+			buildPhases = (
+				50617DAC23FCE4AB0099B055 /* Sources */,
+				50617DAD23FCE4AB0099B055 /* Frameworks */,
+				50617DAE23FCE4AB0099B055 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				50617DB323FCE4AB0099B055 /* PBXTargetDependency */,
+				50617DB523FCE4AB0099B055 /* PBXTargetDependency */,
+			);
+			name = SecretKitTests;
+			productName = SecretKitTests;
+			productReference = 50617DB023FCE4AB0099B055 /* SecretKitTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		50617D7723FCE48D0099B055 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1130;
+				LastUpgradeCheck = 1130;
+				ORGANIZATIONNAME = "Max Goedjen";
+				TargetAttributes = {
+					50617D7E23FCE48D0099B055 = {
+						CreatedOnToolsVersion = 11.3;
+					};
+					50617D9323FCE48E0099B055 = {
+						CreatedOnToolsVersion = 11.3;
+						TestTargetID = 50617D7E23FCE48D0099B055;
+					};
+					50617DA723FCE4AB0099B055 = {
+						CreatedOnToolsVersion = 11.3;
+					};
+					50617DAF23FCE4AB0099B055 = {
+						CreatedOnToolsVersion = 11.3;
+						TestTargetID = 50617D7E23FCE48D0099B055;
+					};
+				};
+			};
+			buildConfigurationList = 50617D7A23FCE48D0099B055 /* Build configuration list for PBXProject "Secretive" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 50617D7623FCE48D0099B055;
+			productRefGroup = 50617D8023FCE48E0099B055 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				50617D7E23FCE48D0099B055 /* Secretive */,
+				50617D9323FCE48E0099B055 /* SecretiveTests */,
+				50617DA723FCE4AB0099B055 /* SecretKit */,
+				50617DAF23FCE4AB0099B055 /* SecretKitTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		50617D7D23FCE48D0099B055 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				50617D8D23FCE48E0099B055 /* Main.storyboard in Resources */,
+				50617D8A23FCE48E0099B055 /* Preview Assets.xcassets in Resources */,
+				50617D8723FCE48E0099B055 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		50617D9223FCE48E0099B055 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		50617DA623FCE4AB0099B055 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		50617DAE23FCE4AB0099B055 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		50617D7B23FCE48D0099B055 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				50617D8523FCE48E0099B055 /* ContentView.swift in Sources */,
+				50617D8323FCE48E0099B055 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		50617D9023FCE48E0099B055 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				50617D9923FCE48E0099B055 /* SecretiveTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		50617DA423FCE4AB0099B055 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		50617DAC23FCE4AB0099B055 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				50617DB823FCE4AB0099B055 /* SecretKitTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		50617D9623FCE48E0099B055 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 50617D7E23FCE48D0099B055 /* Secretive */;
+			targetProxy = 50617D9523FCE48E0099B055 /* PBXContainerItemProxy */;
+		};
+		50617DB323FCE4AB0099B055 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 50617DA723FCE4AB0099B055 /* SecretKit */;
+			targetProxy = 50617DB223FCE4AB0099B055 /* PBXContainerItemProxy */;
+		};
+		50617DB523FCE4AB0099B055 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 50617D7E23FCE48D0099B055 /* Secretive */;
+			targetProxy = 50617DB423FCE4AB0099B055 /* PBXContainerItemProxy */;
+		};
+		50617DBC23FCE4AB0099B055 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 50617DA723FCE4AB0099B055 /* SecretKit */;
+			targetProxy = 50617DBB23FCE4AB0099B055 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		50617D8B23FCE48E0099B055 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				50617D8C23FCE48E0099B055 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		50617D9B23FCE48E0099B055 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		50617D9C23FCE48E0099B055 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+			};
+			name = Release;
+		};
+		50617D9E23FCE48E0099B055 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Secretive/Secretive.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_ASSET_PATHS = "\"Secretive/Preview Content\"";
+				DEVELOPMENT_TEAM = Z72PRUAWF6;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = Secretive/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				PRODUCT_BUNDLE_IDENTIFIER = com.maxgoedjen.Secretive;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		50617D9F23FCE48E0099B055 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Secretive/Secretive.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_ASSET_PATHS = "\"Secretive/Preview Content\"";
+				DEVELOPMENT_TEAM = Z72PRUAWF6;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = Secretive/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				PRODUCT_BUNDLE_IDENTIFIER = com.maxgoedjen.Secretive;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		50617DA123FCE48E0099B055 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = Z72PRUAWF6;
+				INFOPLIST_FILE = SecretiveTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				PRODUCT_BUNDLE_IDENTIFIER = com.maxgoedjen.SecretiveTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Secretive.app/Contents/MacOS/Secretive";
+			};
+			name = Debug;
+		};
+		50617DA223FCE48E0099B055 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = Z72PRUAWF6;
+				INFOPLIST_FILE = SecretiveTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				PRODUCT_BUNDLE_IDENTIFIER = com.maxgoedjen.SecretiveTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Secretive.app/Contents/MacOS/Secretive";
+			};
+			name = Release;
+		};
+		50617DC023FCE4AB0099B055 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = Z72PRUAWF6;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = SecretKit/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.maxgoedjen.SecretKit;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		50617DC123FCE4AB0099B055 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = Z72PRUAWF6;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = SecretKit/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.maxgoedjen.SecretKit;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		50617DC223FCE4AB0099B055 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = Z72PRUAWF6;
+				INFOPLIST_FILE = SecretKitTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.maxgoedjen.SecretKitTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Secretive.app/Contents/MacOS/Secretive";
+			};
+			name = Debug;
+		};
+		50617DC323FCE4AB0099B055 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = Z72PRUAWF6;
+				INFOPLIST_FILE = SecretKitTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.maxgoedjen.SecretKitTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Secretive.app/Contents/MacOS/Secretive";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		50617D7A23FCE48D0099B055 /* Build configuration list for PBXProject "Secretive" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				50617D9B23FCE48E0099B055 /* Debug */,
+				50617D9C23FCE48E0099B055 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		50617D9D23FCE48E0099B055 /* Build configuration list for PBXNativeTarget "Secretive" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				50617D9E23FCE48E0099B055 /* Debug */,
+				50617D9F23FCE48E0099B055 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		50617DA023FCE48E0099B055 /* Build configuration list for PBXNativeTarget "SecretiveTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				50617DA123FCE48E0099B055 /* Debug */,
+				50617DA223FCE48E0099B055 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		50617DC423FCE4AB0099B055 /* Build configuration list for PBXNativeTarget "SecretKit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				50617DC023FCE4AB0099B055 /* Debug */,
+				50617DC123FCE4AB0099B055 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		50617DC523FCE4AB0099B055 /* Build configuration list for PBXNativeTarget "SecretKitTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				50617DC223FCE4AB0099B055 /* Debug */,
+				50617DC323FCE4AB0099B055 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 50617D7723FCE48D0099B055 /* Project object */;
+}
