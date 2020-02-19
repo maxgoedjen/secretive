@@ -7,17 +7,33 @@
 //
 
 import SwiftUI
+import SecretKit
 
-struct ContentView: View {
+struct ContentView<StoreType: SecretStore>: View {
+
+    @ObservedObject var store: StoreType
+
+    @State var pk: String = ""
+
     var body: some View {
-        Text("Hello, World!")
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
+        HSplitView {
+            List {
+                ForEach(store.secrets) { secret in
+                    Text(secret.id)
+                }
+            }.listStyle(SidebarListStyle())
+            Form {
+                Text("Public Key")
+            }
+        }
+    .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 }
 
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        ContentView(store: Preview.Store(numberOfRandomSecrets: 10))
     }
 }
+

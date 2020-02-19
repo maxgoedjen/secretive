@@ -1,13 +1,6 @@
-//
-//  AppDelegate.swift
-//  Secretive
-//
-//  Created by Max Goedjen on 2/18/20.
-//  Copyright © 2020 Max Goedjen. All rights reserved.
-//
-
 import Cocoa
 import SwiftUI
+import SecretKit
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
@@ -16,10 +9,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        // Create the SwiftUI view that provides the window contents.
-        let contentView = ContentView()
 
-        // Create the window and set the content view. 
+        let secureEnclave = SecureEnclave.Store()
+        let contentView = ContentView(store: secureEnclave)
+
+        // Create the window and set the content view.
         window = NSWindow(
             contentRect: NSRect(x: 0, y: 0, width: 480, height: 300),
             styleMask: [.titled, .closable, .miniaturizable, .resizable, .fullSizeContentView],
