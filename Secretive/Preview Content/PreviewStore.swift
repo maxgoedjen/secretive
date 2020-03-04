@@ -8,9 +8,8 @@ extension Preview {
     struct Secret: SecretKit.Secret {
 
         let id = UUID().uuidString
-        var name: String {
-            return id
-        }
+        let name: String
+        let publicKey = UUID().uuidString.data(using: .utf8)!
 
     }
 
@@ -20,6 +19,7 @@ extension Preview {
 
     class Store: SecretStore, ObservableObject {
 
+        let name = "Preview Store"
         @Published var secrets: [Secret] = []
 
         init(secrets: [Secret]) {
@@ -27,8 +27,15 @@ extension Preview {
         }
 
         init(numberOfRandomSecrets: Int) {
-            let new = (0...numberOfRandomSecrets).map { _ in Secret() }
+            let new = (0...numberOfRandomSecrets).map { Secret(name: String(describing: $0)) }
             self.secrets.append(contentsOf: new)
+        }
+
+        func sign(data: Data, with secret: Preview.Secret) throws -> Data {
+            return data
+        }
+
+        func delete(secret: Preview.Secret) throws {
         }
 
     }

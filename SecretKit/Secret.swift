@@ -1,5 +1,6 @@
-import Foundation
-
 public protocol Secret: Identifiable, Hashable {
-    var id: String { get }
+
+    var name: String { get }
+    var publicKey: Data { get }
+
 }

@@ -1,7 +1,7 @@
 import Foundation
 import Combine
 
-extension SecureEnclave {
+extension SmartCard {
 
     public struct Secret: SecretKit.Secret {
 
