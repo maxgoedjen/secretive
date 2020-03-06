@@ -2,6 +2,8 @@ import Foundation
 import Security
 import CryptoTokenKit
 
+// TODO: Might need to split this up into "sub-stores?"
+// ie, each token has its own Store.
 extension SmartCard {
 
     public class Store: SecretStore {
@@ -13,7 +15,12 @@ extension SmartCard {
 
         public init() {
             watcher.setInsertionHandler { (string) in
-                print(string)
+                guard !string.contains("setoken") else { return }
+                let driver = TKSmartCardTokenDriver()
+                let token = TKToken(tokenDriver: driver, instanceID: string)
+                let session = TKSmartCardTo kenSession(token: token)
+                print(session)
+
             }
             print(watcher.tokenIDs)
         }
