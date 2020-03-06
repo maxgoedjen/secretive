@@ -19,11 +19,11 @@ struct SecretDetailView<SecretType: Secret>: View {
                 }.onDrag {
                     return NSItemProvider(item: NSData(data: self.keyWriter.openSSHFingerprint(secret: self.secret).data(using: .utf8)!), typeIdentifier: kUTTypeUTF8PlainText as String)
                 }
-                Spacer()
+                Spacer().frame(height: 10)
                 GroupBox(label: Text("Public Key")) {
                     Text(keyWriter.openSSHString(secret: secret))
                         .multilineTextAlignment(.leading)
-                        .frame(minWidth: 150, maxWidth: .infinity, minHeight: 150)
+                        .frame(minWidth: 150, maxWidth: .infinity)
                         .padding()
                 }
                 .onDrag {
@@ -34,7 +34,7 @@ struct SecretDetailView<SecretType: Secret>: View {
                         Text("Copy")
                     }.padding(),
                     alignment: .bottomTrailing)
-
+                Spacer()
             }
         }.padding()
             .frame(minHeight: 150, maxHeight: .infinity)
