@@ -18,7 +18,7 @@ extension SmartCard {
                 guard !string.contains("setoken") else { return }
                 let driver = TKSmartCardTokenDriver()
                 let token = TKToken(tokenDriver: driver, instanceID: string)
-                let session = TKSmartCardTo kenSession(token: token)
+                let session = TKSmartCardTokenSession(token: token)
                 print(session)
 
             }
