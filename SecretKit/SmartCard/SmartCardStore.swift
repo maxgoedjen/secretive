@@ -77,8 +77,7 @@ extension SmartCard.Store {
             kSecReturnAttributes: true
             ] as CFDictionary
         var untyped: CFTypeRef?
-        let status = SecItemCopyMatching(attributes, &untyped)
-        print(status)
+        SecItemCopyMatching(attributes, &untyped)
         guard let typed = untyped as? [[CFString: Any]] else { return }
         let wrapped: [SmartCard.Secret] = typed.map {
             let name = $0[kSecAttrLabel] as? String ?? "Unnamed"
