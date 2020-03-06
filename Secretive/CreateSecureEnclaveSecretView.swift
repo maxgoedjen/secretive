@@ -15,7 +15,7 @@ struct CreateSecureEnclaveSecretView: View {
             Section(header: Text("Secret Name")) {
                 TextField("Name", text: $name)
             }
-            Section(header: Text("Authentication")) {
+            Section {
                 Toggle(isOn: $requiresAuthentication) {
                     Text("Requires Authentication (Biometrics or Password)")
                 }

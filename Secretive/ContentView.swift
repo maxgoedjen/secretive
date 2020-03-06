@@ -32,9 +32,9 @@ struct ContentView<StoreType: SecretStore>: View {
     }
 
 }
-
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView(store: Preview.Store(numberOfRandomSecrets: 10))
-    }
-}
+//
+//struct ContentView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ContentView(store: Preview.Store(numberOfRandomSecrets: 10))
+//    }
+//}

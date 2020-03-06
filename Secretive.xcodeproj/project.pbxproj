@@ -26,6 +26,7 @@
 		50617DCE23FCECFA0099B055 /* SecureEnclaveSecret.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50617DCD23FCECFA0099B055 /* SecureEnclaveSecret.swift */; };
 		50617DD023FCED2C0099B055 /* SecureEnclave.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50617DCF23FCED2C0099B055 /* SecureEnclave.swift */; };
 		50617DD223FCEFA90099B055 /* PreviewStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50617DD123FCEFA90099B055 /* PreviewStore.swift */; };
+		506AB87E2412334700335D91 /* SecretAgent.app in CopyFiles */ = {isa = PBXBuildFile; fileRef = 50A3B78A24026B7500D209EA /* SecretAgent.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		5099A02423FD2AAA0062B6F2 /* CreateSecureEnclaveSecretView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5099A02323FD2AAA0062B6F2 /* CreateSecureEnclaveSecretView.swift */; };
 		5099A02723FE34FA0062B6F2 /* SmartCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5099A02623FE34FA0062B6F2 /* SmartCard.swift */; };
 		5099A02923FE35240062B6F2 /* SmartCardStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5099A02823FE35240062B6F2 /* SmartCardStore.swift */; };
@@ -47,8 +48,6 @@
 		50C385A3240789E600AF2719 /* OpenSSHReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C385A2240789E600AF2719 /* OpenSSHReader.swift */; };
 		50C385A52407A76D00AF2719 /* SecretDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C385A42407A76D00AF2719 /* SecretDetailView.swift */; };
 		50C385A9240B636500AF2719 /* SetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C385A8240B636500AF2719 /* SetupView.swift */; };
-		50C385AA240E434400AF2719 /* SecretAgent.app in Resources */ = {isa = PBXBuildFile; fileRef = 50A3B78A24026B7500D209EA /* SecretAgent.app */; };
-		50C385B0240E439A00AF2719 /* SecretAgent.app in CopyFiles */ = {isa = PBXBuildFile; fileRef = 50A3B78A24026B7500D209EA /* SecretAgent.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -108,13 +107,6 @@
 			remoteGlobalIDString = 50617D7E23FCE48D0099B055;
 			remoteInfo = Secretive;
 		};
-		50C385AB240E434400AF2719 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 50617D7723FCE48D0099B055 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 50A3B78924026B7500D209EA;
-			remoteInfo = SecretAgent;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -147,7 +139,7 @@
 			dstPath = Contents/Library/LoginItems;
 			dstSubfolderSpec = 1;
 			files = (
-				50C385B0240E439A00AF2719 /* SecretAgent.app in CopyFiles */,
+				506AB87E2412334700335D91 /* SecretAgent.app in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -464,7 +456,6 @@
 			);
 			dependencies = (
 				50617DBC23FCE4AB0099B055 /* PBXTargetDependency */,
-				50C385AC240E434400AF2719 /* PBXTargetDependency */,
 			);
 			name = Secretive;
 			productName = Secretive;
@@ -653,7 +644,6 @@
 				50617D8D23FCE48E0099B055 /* Main.storyboard in Resources */,
 				50617D8A23FCE48E0099B055 /* Preview Assets.xcassets in Resources */,
 				50617D8723FCE48E0099B055 /* Assets.xcassets in Resources */,
-				50C385AA240E434400AF2719 /* SecretAgent.app in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -821,11 +811,6 @@
 			target = 50617D7E23FCE48D0099B055 /* Secretive */;
 			targetProxy = 5099A078240242BA0062B6F2 /* PBXContainerItemProxy */;
 		};
-		50C385AC240E434400AF2719 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 50A3B78924026B7500D209EA /* SecretAgent */;
-			targetProxy = 50C385AB240E434400AF2719 /* PBXContainerItemProxy */;
-		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
@@ -967,7 +952,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Secretive/Secretive.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"Secretive/Preview Content\"";
@@ -980,8 +965,9 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
-				PRODUCT_BUNDLE_IDENTIFIER = com.maxgoedjen.Secretive;
+				PRODUCT_BUNDLE_IDENTIFIER = com.maxgoedjen.Secretive.Host;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
@@ -992,8 +978,8 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Secretive/Secretive.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "Developer ID Application";
+				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"Secretive/Preview Content\"";
 				DEVELOPMENT_TEAM = Z72PRUAWF6;
@@ -1005,8 +991,9 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
-				PRODUCT_BUNDLE_IDENTIFIER = com.maxgoedjen.Secretive;
+				PRODUCT_BUNDLE_IDENTIFIER = com.maxgoedjen.Secretive.Host;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "Secretive - Host";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
@@ -1279,7 +1266,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = SecretAgent/SecretAgent.entitlements;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "Developer ID Application";
+				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"SecretAgent/Preview Content\"";
 				DEVELOPMENT_TEAM = Z72PRUAWF6;
@@ -1293,6 +1281,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				PRODUCT_BUNDLE_IDENTIFIER = com.maxgoedjen.Secretive.SecretAgent;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "Secretive - Secret Agent";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
