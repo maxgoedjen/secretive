@@ -21,19 +21,22 @@ struct SecretDetailView<SecretType: Secret>: View {
                 }
                 Spacer().frame(height: 10)
                 GroupBox(label: Text("Public Key")) {
-                    Text(keyWriter.openSSHString(secret: secret))
-                        .multilineTextAlignment(.leading)
-                        .frame(minWidth: 150, maxWidth: .infinity)
-                        .padding()
+                    VStack {
+                        Text(keyWriter.openSSHString(secret: secret))
+                            .multilineTextAlignment(.leading)
+                            .frame(minWidth: 150, maxWidth: .infinity)
+                        HStack {
+                            Spacer()
+                            Button(action: copy) {
+                                Text("Copy")
+                            }
+                        }
+                    }
+                    .padding()
                 }
                 .onDrag {
                     return NSItemProvider(item: NSData(data: self.keyString.data(using: .utf8)!), typeIdentifier: kUTTypeUTF8PlainText as String)
                 }
-                .overlay(
-                    Button(action: copy) {
-                        Text("Copy")
-                    }.padding(),
-                    alignment: .bottomTrailing)
                 Spacer()
             }
         }.padding()
