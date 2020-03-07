@@ -4,13 +4,14 @@ import SecretKit
 struct ContentView<StoreType: SecretStore>: View {
 
     @ObservedObject var store: StoreType
+    @State var active: StoreType.SecretType?
 
     var body: some View {
         NavigationView {
             List {
                 Section(header: Text(store.name)) {
                     ForEach(store.secrets) { secret in
-                        NavigationLink(destination: SecretDetailView(secret: secret)) {
+                        NavigationLink(destination: SecretDetailView(secret: secret), tag: secret, selection: self.$active) {
                             Text(secret.name)
                         }.contextMenu {
                             Button(action: { self.delete(secret: secret) }) {
@@ -19,10 +20,14 @@ struct ContentView<StoreType: SecretStore>: View {
                         }
                     }
                 }
+            }.onAppear {
+                self.active = self.store.secrets.first
             }
             .listStyle(SidebarListStyle())
             .frame(minWidth: 100, idealWidth: 240)
-        }.navigationViewStyle(DoubleColumnNavigationViewStyle())
+        }
+        .navigationViewStyle(DoubleColumnNavigationViewStyle())
+
     }
 
 
