@@ -9,6 +9,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBOutlet var toolbar: NSToolbar!
     let secureEnclave = SecureEnclave.Store()
     let smartCard = SmartCard.Store()
+    lazy var allStores: [AnySecretStore] = {
+        [AnySecretStore(secureEnclave), AnySecretStore(smartCard)]
+    }()
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
 
