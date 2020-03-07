@@ -33,7 +33,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     @IBAction func add(sender: AnyObject?) {
         var addWindow: NSWindow!
-        let addView = CreateSecureEnclaveSecretView(store: secureEnclave) {
+        let addView = CreateSecretView(store: secureEnclave) {
             self.window.endSheet(addWindow)
         }
         addWindow = NSWindow(

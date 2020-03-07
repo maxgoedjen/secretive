@@ -1,11 +1,14 @@
 import SwiftUI
 import SecretKit
 
-struct ContentView<StoreType: SecretStore>: View {
-
-    @ObservedObject var store: StoreType
-    @State var active: StoreType.SecretType?
-
+struct ContentView: View {
+    
+    @ObservedObject var store: SecureEnclave.Store
+    @State var active: SecureEnclave.Secret?
+    
+    @State var showingDeletion = false
+    @State var deletingSecret: SecureEnclave.Secret?
+    
     var body: some View {
         NavigationView {
             List {
@@ -27,15 +30,20 @@ struct ContentView<StoreType: SecretStore>: View {
             .frame(minWidth: 100, idealWidth: 240)
         }
         .navigationViewStyle(DoubleColumnNavigationViewStyle())
-
+        .sheet(isPresented: $showingDeletion) {
+            DeleteSecretView(secret: self.deletingSecret!, store: self.store) {
+                self.showingDeletion = false
+            }
+        }
+        
     }
-
-
-    func delete(secret: StoreType.SecretType) {
-        // TODO: Add "type the name of the key to delete" dialogue
-        try! store.delete(secret: secret)
+    
+    
+    func delete(secret: SecureEnclave.Secret) {
+        deletingSecret = secret
+        showingDeletion = true
     }
-
+    
 }
 //
 //struct ContentView_Previews: PreviewProvider {

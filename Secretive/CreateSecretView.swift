@@ -1,7 +1,7 @@
 import SwiftUI
 import SecretKit
 
-struct CreateSecureEnclaveSecretView: View {
+struct CreateSecretView: View {
     
     @ObservedObject var store: SecureEnclave.Store
     
