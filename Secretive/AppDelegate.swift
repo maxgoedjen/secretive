@@ -27,10 +27,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         window.makeKeyAndOrderFront(nil)
         window.titleVisibility = .hidden
         window.toolbar = toolbar
-        let plus = NSTitlebarAccessoryViewController()
-        plus.view = NSButton(image: NSImage(named: NSImage.addTemplateName)!, target: self, action: #selector(add(sender:)))
-        plus.layoutAttribute = .right
-        window.addTitlebarAccessoryViewController(plus)
+        if secureEnclave.isAvailable {
+            let plus = NSTitlebarAccessoryViewController()
+            plus.view = NSButton(image: NSImage(named: NSImage.addTemplateName)!, target: self, action: #selector(add(sender:)))
+            plus.layoutAttribute = .right
+            window.addTitlebarAccessoryViewController(plus)
+        }
         runSetupIfNeeded()
     }
 

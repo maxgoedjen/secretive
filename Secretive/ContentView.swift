@@ -13,21 +13,25 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             List(selection: $active) {
-                Section(header: Text(secureEnclave.name)) {
-                    ForEach(secureEnclave.secrets) { secret in
-                        NavigationLink(destination: SecretDetailView(secret: secret), tag: secret.id, selection: self.$active) {
-                            Text(secret.name)
-                        }.contextMenu {
-                            Button(action: { self.delete(secret: secret) }) {
-                                Text("Delete")
+                if secureEnclave.isAvailable {
+                    Section(header: Text(secureEnclave.name)) {
+                        ForEach(secureEnclave.secrets) { secret in
+                            NavigationLink(destination: SecretDetailView(secret: secret), tag: secret.id, selection: self.$active) {
+                                Text(secret.name)
+                            }.contextMenu {
+                                Button(action: { self.delete(secret: secret) }) {
+                                    Text("Delete")
+                                }
                             }
                         }
                     }
                 }
-                Section(header: Text(smartCard.name)) {
-                    ForEach(smartCard.secrets) { secret in
-                        NavigationLink(destination: SecretDetailView(secret: secret), tag: secret.id, selection: self.$active) {
-                            Text(secret.name)
+                if smartCard.isAvailable {
+                    Section(header: Text(smartCard.name)) {
+                        ForEach(smartCard.secrets) { secret in
+                            NavigationLink(destination: SecretDetailView(secret: secret), tag: secret.id, selection: self.$active) {
+                                Text(secret.name)
+                            }
                         }
                     }
                 }

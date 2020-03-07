@@ -9,6 +9,7 @@ extension SmartCard {
     public class Store: SecretStore {
 
         // TODO: Read actual smart card name, eg "YubiKey 5c"
+        @Published public var isAvailable: Bool = false
         public let name = NSLocalizedString("Smart Card", comment: "Smart Card")
         @Published public fileprivate(set) var secrets: [Secret] = []
         fileprivate let watcher = TKTokenWatcher()
@@ -21,10 +22,11 @@ extension SmartCard {
                 guard !string.contains("setoken") else { return }
                 self.id = string
                 self.reloadSecrets()
-                self.watcher.addRemovalHandler(self.reloadSecrets, forTokenID: string)
+                self.watcher.addRemovalHandler(self.smartcardRemoved, forTokenID: string)
             }
             if let id = id {
-                self.watcher.addRemovalHandler(self.reloadSecrets, forTokenID: id)
+                self.isAvailable = true
+                self.watcher.addRemovalHandler(self.smartcardRemoved, forTokenID: id)
             }
             loadSecrets()
         }
@@ -70,8 +72,14 @@ extension SmartCard {
 
 extension SmartCard.Store {
 
-    fileprivate func reloadSecrets(for tokenID: String? = nil) {
+    fileprivate func smartcardRemoved(for tokenID: String? = nil) {
+        id = nil
+        reloadSecrets()
+    }
+
+    fileprivate func reloadSecrets() {
         DispatchQueue.main.async {
+            self.isAvailable = self.id != nil
             self.secrets.removeAll()
             self.loadSecrets()
         }
