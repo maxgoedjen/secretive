@@ -3,8 +3,9 @@ import SecretKit
 
 struct ContentView: View {
     
-    @ObservedObject var store: SecureEnclave.Store
-    @State var active: SecureEnclave.Secret.ID?
+    @ObservedObject var secureEnclave: SecureEnclave.Store
+    @ObservedObject var smartCard: SmartCard.Store
+    @State var active: Data?
     
     @State var showingDeletion = false
     @State var deletingSecret: SecureEnclave.Secret?
@@ -12,8 +13,8 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             List(selection: $active) {
-                Section(header: Text(store.name)) {
-                    ForEach(store.secrets) { secret in
+                Section(header: Text(secureEnclave.name)) {
+                    ForEach(secureEnclave.secrets) { secret in
                         NavigationLink(destination: SecretDetailView(secret: secret), tag: secret.id, selection: self.$active) {
                             Text(secret.name)
                         }.contextMenu {
@@ -23,15 +24,22 @@ struct ContentView: View {
                         }
                     }
                 }
+                Section(header: Text(smartCard.name)) {
+                    ForEach(smartCard.secrets) { secret in
+                        NavigationLink(destination: SecretDetailView(secret: secret), tag: secret.id, selection: self.$active) {
+                            Text(secret.name)
+                        }
+                    }
+                }
             }.onAppear {
-                self.active = self.store.secrets.first?.id
+                self.active = self.secureEnclave.secrets.first?.id ?? self.smartCard.secrets.first?.id
             }
             .listStyle(SidebarListStyle())
             .frame(minWidth: 100, idealWidth: 240)
         }
         .navigationViewStyle(DoubleColumnNavigationViewStyle())
         .sheet(isPresented: $showingDeletion) {
-            DeleteSecretView(secret: self.deletingSecret!, store: self.store) {
+            DeleteSecretView(secret: self.deletingSecret!, store: self.secureEnclave) {
                 self.showingDeletion = false
             }
         }

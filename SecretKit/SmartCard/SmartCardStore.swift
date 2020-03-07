@@ -20,8 +20,11 @@ extension SmartCard {
                 guard self.id == nil else { return }
                 guard !string.contains("setoken") else { return }
                 self.id = string
-                self.secrets.removeAll()
-                self.loadSecrets()
+                self.reloadSecrets()
+                self.watcher.addRemovalHandler(self.reloadSecrets, forTokenID: string)
+            }
+            if let id = id {
+                self.watcher.addRemovalHandler(self.reloadSecrets, forTokenID: id)
             }
             loadSecrets()
         }
@@ -66,6 +69,13 @@ extension SmartCard {
 }
 
 extension SmartCard.Store {
+
+    fileprivate func reloadSecrets(for tokenID: String? = nil) {
+        DispatchQueue.main.async {
+            self.secrets.removeAll()
+            self.loadSecrets()
+        }
+    }
 
     fileprivate func loadSecrets() {
         guard let id = id else { return }
