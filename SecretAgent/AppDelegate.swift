@@ -5,7 +5,7 @@ import OSLog
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
 
-    let store = SmartCard.Store()
+    let store = SecureEnclave.Store()
     let notifier = Notifier()
     lazy var agent: Agent = {
         Agent(store: store, notifier: notifier)

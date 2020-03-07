@@ -8,11 +8,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     var window: NSWindow!
     @IBOutlet var toolbar: NSToolbar!
     let secureEnclave = SecureEnclave.Store()
-    let yubikey = SmartCard.Store()
+    let smartCard = SmartCard.Store()
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
 
-        let contentView = ContentView(store: yubikey)
+        let contentView = ContentView(store: secureEnclave)
         // Create the window and set the content view.
         window = NSWindow(
             contentRect: NSRect(x: 0, y: 0, width: 480, height: 300),
