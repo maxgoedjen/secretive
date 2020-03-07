@@ -19,7 +19,7 @@ public struct OpenSSHKeyWriter {
 
     public func openSSHFingerprint<SecretType: Secret>(secret: SecretType) -> String {
         Insecure.MD5.hash(data: data(secret: secret))
-            .compactMap { String($0, radix: 16, uppercase: false) }
+            .compactMap { ("0" + String($0, radix: 16, uppercase: false)).suffix(2) }
             .joined(separator: ":")
     }
 
