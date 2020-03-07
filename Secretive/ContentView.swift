@@ -11,7 +11,7 @@ struct ContentView: View {
     
     var body: some View {
         NavigationView {
-            List {
+            List(selection: self.$active) {
                 Section(header: Text(store.name)) {
                     ForEach(store.secrets) { secret in
                         NavigationLink(destination: SecretDetailView(secret: secret), tag: secret, selection: self.$active) {
@@ -21,6 +21,7 @@ struct ContentView: View {
                                 Text("Delete")
                             }
                         }
+                        .tag(secret)
                     }
                 }
             }.onAppear {
