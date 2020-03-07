@@ -116,7 +116,7 @@ extension SetupView {
 extension SetupView {
 
     enum Constants {
-        static let socketPath = (NSHomeDirectory() as NSString).appendingPathComponent("socket.ssh") as String
+        static let socketPath = (NSHomeDirectory().replacingOccurrences(of: "com.maxgoedjen.Secretive.Host", with: "com.maxgoedjen.Secretive.SecretAgent") as NSString).appendingPathComponent("socket.ssh") as String
         static let socketPrompt = "export SSH_AUTH_SOCK=\(socketPath)"
     }
 
