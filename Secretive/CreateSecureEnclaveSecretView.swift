@@ -27,7 +27,7 @@ struct CreateSecureEnclaveSecretView: View {
                         Text("Cancel")
                     }
                     Button(action: save) {
-                        Text("Save")
+                        Text("Create")
                     }.disabled(name.isEmpty)
                 }
             }
