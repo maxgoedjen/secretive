@@ -19,12 +19,14 @@ extension NSNotification.Name {
 
 public class AnySecretStore: SecretStore {
 
+    fileprivate let base: Any
     fileprivate let _name: () -> String
     fileprivate let _secrets: () -> [AnySecret]
     fileprivate let _sign: (Data, AnySecret) throws -> Data
     fileprivate let _delete: (AnySecret) throws -> Void
 
     public init<T>(_ secretStore: T) where T: SecretStore {
+        base = secretStore
         _name = { secretStore.name }
         _secrets = { secretStore.secrets.map { AnySecret($0) } }
         _sign = { try secretStore.sign(data: $0, with: $1 as! T.SecretType) }
