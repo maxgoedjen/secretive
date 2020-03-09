@@ -27,6 +27,8 @@
 		50617DD023FCED2C0099B055 /* SecureEnclave.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50617DCF23FCED2C0099B055 /* SecureEnclave.swift */; };
 		50617DD223FCEFA90099B055 /* PreviewStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50617DD123FCEFA90099B055 /* PreviewStore.swift */; };
 		5068389E241471CD00F55094 /* SecretStoreList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5068389D241471CD00F55094 /* SecretStoreList.swift */; };
+		506838A12415EA5600F55094 /* AnySecret.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506838A02415EA5600F55094 /* AnySecret.swift */; };
+		506838A32415EA5D00F55094 /* AnySecretStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506838A22415EA5D00F55094 /* AnySecretStore.swift */; };
 		506AB87E2412334700335D91 /* SecretAgent.app in CopyFiles */ = {isa = PBXBuildFile; fileRef = 50A3B78A24026B7500D209EA /* SecretAgent.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		5099A02423FD2AAA0062B6F2 /* CreateSecretView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5099A02323FD2AAA0062B6F2 /* CreateSecretView.swift */; };
 		5099A02723FE34FA0062B6F2 /* SmartCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5099A02623FE34FA0062B6F2 /* SmartCard.swift */; };
@@ -174,6 +176,8 @@
 		50617DCF23FCED2C0099B055 /* SecureEnclave.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureEnclave.swift; sourceTree = "<group>"; };
 		50617DD123FCEFA90099B055 /* PreviewStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewStore.swift; sourceTree = "<group>"; };
 		5068389D241471CD00F55094 /* SecretStoreList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecretStoreList.swift; sourceTree = "<group>"; };
+		506838A02415EA5600F55094 /* AnySecret.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnySecret.swift; sourceTree = "<group>"; };
+		506838A22415EA5D00F55094 /* AnySecretStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnySecretStore.swift; sourceTree = "<group>"; };
 		5099A02323FD2AAA0062B6F2 /* CreateSecretView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateSecretView.swift; sourceTree = "<group>"; };
 		5099A02623FE34FA0062B6F2 /* SmartCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmartCard.swift; sourceTree = "<group>"; };
 		5099A02823FE35240062B6F2 /* SmartCardStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmartCardStore.swift; sourceTree = "<group>"; };
@@ -195,7 +199,7 @@
 		50A3B79D24026B9900D209EA /* SocketController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocketController.swift; sourceTree = "<group>"; };
 		50A3B79F24026B9900D209EA /* Agent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Agent.swift; sourceTree = "<group>"; };
 		50B8550C24138C4F009958AC /* DeleteSecretView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeleteSecretView.swift; sourceTree = "<group>"; };
-		50C385A2240789E600AF2719 /* OpenSSHReader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OpenSSHReader.swift; path = SecretAgentKit/OpenSSHReader.swift; sourceTree = SOURCE_ROOT; };
+		50C385A2240789E600AF2719 /* OpenSSHReader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OpenSSHReader.swift; path = SecretKit/Common/OpenSSH/OpenSSHReader.swift; sourceTree = SOURCE_ROOT; };
 		50C385A42407A76D00AF2719 /* SecretDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecretDetailView.swift; sourceTree = "<group>"; };
 		50C385A8240B636500AF2719 /* SetupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -329,7 +333,6 @@
 				50617DAA23FCE4AB0099B055 /* SecretKit.h */,
 				50617DCA23FCECA10099B055 /* Secret.swift */,
 				50617DC623FCE4EA0099B055 /* SecretStore.swift */,
-				5068389D241471CD00F55094 /* SecretStoreList.swift */,
 				5099A02C23FE56D70062B6F2 /* Common */,
 				50617DCC23FCECEE0099B055 /* SecureEnclave */,
 				5099A02523FE34DE0062B6F2 /* SmartCard */,
@@ -357,6 +360,24 @@
 			path = SecureEnclave;
 			sourceTree = "<group>";
 		};
+		5068389F2415EA4F00F55094 /* Erasers */ = {
+			isa = PBXGroup;
+			children = (
+				506838A02415EA5600F55094 /* AnySecret.swift */,
+				506838A22415EA5D00F55094 /* AnySecretStore.swift */,
+			);
+			path = Erasers;
+			sourceTree = "<group>";
+		};
+		506838A42415EA6800F55094 /* OpenSSH */ = {
+			isa = PBXGroup;
+			children = (
+				5099A02D23FE56E10062B6F2 /* OpenSSHKeyWriter.swift */,
+				50C385A2240789E600AF2719 /* OpenSSHReader.swift */,
+			);
+			path = OpenSSH;
+			sourceTree = "<group>";
+		};
 		5099A02523FE34DE0062B6F2 /* SmartCard */ = {
 			isa = PBXGroup;
 			children = (
@@ -370,8 +391,9 @@
 		5099A02C23FE56D70062B6F2 /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				5099A02D23FE56E10062B6F2 /* OpenSSHKeyWriter.swift */,
-				50C385A2240789E600AF2719 /* OpenSSHReader.swift */,
+				5068389F2415EA4F00F55094 /* Erasers */,
+				506838A42415EA6800F55094 /* OpenSSH */,
+				5068389D241471CD00F55094 /* SecretStoreList.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -732,9 +754,11 @@
 				50617DCB23FCECA10099B055 /* Secret.swift in Sources */,
 				5099A02E23FE56E10062B6F2 /* OpenSSHKeyWriter.swift in Sources */,
 				50617DC923FCE50E0099B055 /* SecureEnclaveStore.swift in Sources */,
+				506838A32415EA5D00F55094 /* AnySecretStore.swift in Sources */,
 				50617DCE23FCECFA0099B055 /* SecureEnclaveSecret.swift in Sources */,
 				50617DD023FCED2C0099B055 /* SecureEnclave.swift in Sources */,
 				5068389E241471CD00F55094 /* SecretStoreList.swift in Sources */,
+				506838A12415EA5600F55094 /* AnySecret.swift in Sources */,
 				5099A02923FE35240062B6F2 /* SmartCardStore.swift in Sources */,
 				5099A02B23FE352C0062B6F2 /* SmartCardSecret.swift in Sources */,
 				50C385A3240789E600AF2719 /* OpenSSHReader.swift in Sources */,
