@@ -90,6 +90,8 @@ extension SmartCard.Store {
         guard let tokenID = tokenID else { return }
         let attributes = [
             kSecClass: kSecClassKey,
+            kSecAttrKeyType: kSecAttrKeyTypeEC,
+            kSecAttrKeySizeInBits: 256,
             kSecAttrTokenID: tokenID,
             kSecReturnRef: true,
             kSecMatchLimit: kSecMatchLimitAll,
