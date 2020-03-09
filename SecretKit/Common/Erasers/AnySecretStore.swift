@@ -1,4 +1,5 @@
 import Foundation
+import Combine
 
 public class AnySecretStore: SecretStore {
 
@@ -8,6 +9,7 @@ public class AnySecretStore: SecretStore {
     fileprivate let _name: () -> String
     fileprivate let _secrets: () -> [AnySecret]
     fileprivate let _sign: (Data, AnySecret) throws -> Data
+    fileprivate var sink: AnyCancellable?
 
     public init<SecretStoreType>(_ secretStore: SecretStoreType) where SecretStoreType: SecretStore {
         base = secretStore
@@ -16,6 +18,9 @@ public class AnySecretStore: SecretStore {
         _id = { secretStore.id }
         _secrets = { secretStore.secrets.map { AnySecret($0) } }
         _sign = { try secretStore.sign(data: $0, with: $1 as! SecretStoreType.SecretType) }
+        sink = secretStore.objectWillChange.sink { _ in
+            self.objectWillChange.send()
+        }
     }
 
     public var isAvailable: Bool {
