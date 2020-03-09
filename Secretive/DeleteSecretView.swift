@@ -1,16 +1,16 @@
 import SwiftUI
 import SecretKit
 
-struct DeleteSecretView: View {
+struct DeleteSecretView<StoreType: SecretStoreModifiable>: View {
     
-    let secret: SecureEnclave.Secret
-    @ObservedObject var store: SecureEnclave.Store
+    let secret: StoreType.SecretType
+    @ObservedObject var store: StoreType
     
     @State var confirm = ""
     
     fileprivate var dismissalBlock: () -> ()
     
-    init(secret: SecureEnclave.Secret, store: SecureEnclave.Store, dismissalBlock: @escaping () -> ()) {
+    init(secret: StoreType.SecretType, store: StoreType, dismissalBlock: @escaping () -> ()) {
         self.secret = secret
         self.store = store
         self.dismissalBlock = dismissalBlock

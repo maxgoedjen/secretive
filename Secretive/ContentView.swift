@@ -3,57 +3,53 @@ import SecretKit
 
 struct ContentView: View {
     
-    @ObservedObject var secureEnclave: SecureEnclave.Store
-    @ObservedObject var smartCard: SmartCard.Store
-    @State var active: Data?
+    @ObservedObject var storeList: SecretStoreList
+    @State var active: AnySecret.ID?
     
     @State var showingDeletion = false
-    @State var deletingSecret: SecureEnclave.Secret?
+    @State var deletingSecret: AnySecret?
     
     var body: some View {
         NavigationView {
             List(selection: $active) {
-                if secureEnclave.isAvailable {
-                    Section(header: Text(secureEnclave.name)) {
-                        ForEach(secureEnclave.secrets) { secret in
-                            NavigationLink(destination: SecretDetailView(secret: secret), tag: secret.id, selection: self.$active) {
-                                Text(secret.name)
-                            }.contextMenu {
-                                Button(action: { self.delete(secret: secret) }) {
-                                    Text("Delete")
+                ForEach(storeList.stores) { store in
+                    if store.isAvailable {
+                        Section(header: Text(store.name)) {
+                            ForEach(store.secrets) { secret in
+                                NavigationLink(destination: SecretDetailView(secret: secret), tag: secret.id, selection: self.$active) {
+                                    Text(secret.name)
+                                }.contextMenu {
+                                    if store is AnySecretStoreModifiable {
+                                        Button(action: { self.delete(secret: secret) }) {
+                                            Text("Delete")
+                                        }
+                                    }
                                 }
                             }
                         }
                     }
                 }
-                if smartCard.isAvailable {
-                    Section(header: Text(smartCard.name)) {
-                        ForEach(smartCard.secrets) { secret in
-                            NavigationLink(destination: SecretDetailView(secret: secret), tag: secret.id, selection: self.$active) {
-                                Text(secret.name)
-                            }
-                        }
-                    }
-                }
             }.onAppear {
-                self.active = self.secureEnclave.secrets.first?.id ?? self.smartCard.secrets.first?.id
+                self.active = self.storeList.stores.compactMap { $0.secrets.first }.first?.id
             }
             .listStyle(SidebarListStyle())
             .frame(minWidth: 100, idealWidth: 240)
         }
         .navigationViewStyle(DoubleColumnNavigationViewStyle())
         .sheet(isPresented: $showingDeletion) {
-            DeleteSecretView(secret: self.deletingSecret!, store: self.secureEnclave) {
-                self.showingDeletion = false
+            if self.storeList.modifiableStore != nil {
+                DeleteSecretView(secret: self.deletingSecret!, store: self.storeList.modifiableStore!) {
+                    self.showingDeletion = false
+                }
             }
         }
         
     }
     
     
-    func delete(secret: SecureEnclave.Secret) {
-        deletingSecret = secret
-        showingDeletion = true
+    func delete<SecretType: Secret>(secret: SecretType) {
+        deletingSecret = AnySecret(secret)
+        self.showingDeletion = true
     }
     
 }

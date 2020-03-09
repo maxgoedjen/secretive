@@ -7,15 +7,16 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     var window: NSWindow!
     @IBOutlet var toolbar: NSToolbar!
-    let secureEnclave = SecureEnclave.Store()
-    let smartCard = SmartCard.Store()
-    lazy var allStores: [AnySecretStore] = {
-        [AnySecretStore(secureEnclave), AnySecretStore(smartCard)]
+    let storeList: SecretStoreList = {
+        let list = SecretStoreList()
+        list.add(store: SecureEnclave.Store())
+        list.add(store: SmartCard.Store())
+        return list
     }()
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
 
-        let contentView = ContentView(secureEnclave: secureEnclave, smartCard: smartCard)
+        let contentView = ContentView(storeList: storeList)
         // Create the window and set the content view.
         window = NSWindow(
             contentRect: NSRect(x: 0, y: 0, width: 480, height: 300),
@@ -27,7 +28,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         window.makeKeyAndOrderFront(nil)
         window.titleVisibility = .hidden
         window.toolbar = toolbar
-        if secureEnclave.isAvailable {
+        if storeList.modifiableStore?.isAvailable ?? false {
             let plus = NSTitlebarAccessoryViewController()
             plus.view = NSButton(image: NSImage(named: NSImage.addTemplateName)!, target: self, action: #selector(add(sender:)))
             plus.layoutAttribute = .right
@@ -38,7 +39,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     @IBAction func add(sender: AnyObject?) {
         var addWindow: NSWindow!
-        let addView = CreateSecretView(store: secureEnclave) {
+        let addView = CreateSecretView(store: storeList.modifiableStore!) {
             self.window.endSheet(addWindow)
         }
         addWindow = NSWindow(

@@ -9,16 +9,26 @@ public protocol Secret: Identifiable, Hashable {
 
 public struct AnySecret: Secret {
 
+    let base: Any
     fileprivate let hashable: AnyHashable
     fileprivate let _id: () -> AnyHashable
     fileprivate let _name: () -> String
     fileprivate let _publicKey: () -> Data
 
     public init<T>(_ secret: T) where T: Secret {
-        self.hashable = secret
-        _id = { secret.id as AnyHashable }
-        _name = { secret.name }
-        _publicKey = { secret.publicKey }
+        if let secret = secret as? AnySecret {
+            base = secret.base
+            hashable = secret.hashable
+            _id = secret._id
+            _name = secret._name
+            _publicKey = secret._publicKey
+        } else {
+            base = secret as Any
+            self.hashable = secret
+            _id = { secret.id as AnyHashable }
+            _name = { secret.name }
+            _publicKey = { secret.publicKey }
+        }
     }
 
     public var id: AnyHashable {
