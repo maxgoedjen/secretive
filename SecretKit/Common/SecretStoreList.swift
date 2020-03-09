@@ -20,7 +20,11 @@ public class SecretStoreList: ObservableObject {
         addInternal(store: modifiable)
     }
 
-    public func addInternal(store: AnySecretStore) {
+}
+
+extension SecretStoreList {
+
+    fileprivate func addInternal(store: AnySecretStore) {
         stores.append(store)
         let sink = store.objectWillChange.sink {
             self.objectWillChange.send()

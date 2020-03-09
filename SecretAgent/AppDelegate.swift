@@ -5,10 +5,15 @@ import OSLog
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
 
-    let store = SecureEnclave.Store()
+    let storeList: SecretStoreList = {
+        let list = SecretStoreList()
+        list.add(store: SecureEnclave.Store())
+        list.add(store: SmartCard.Store())
+        return list
+    }()
     let notifier = Notifier()
     lazy var agent: Agent = {
-        Agent(store: store, notifier: notifier)
+        Agent(storeList: storeList, notifier: notifier)
     }()
     lazy var socketController: SocketController = {
         let path = (NSHomeDirectory() as NSString).appendingPathComponent("socket.ssh") as String

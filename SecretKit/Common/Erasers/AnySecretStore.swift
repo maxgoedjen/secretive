@@ -17,7 +17,7 @@ public class AnySecretStore: SecretStore {
         _name = { secretStore.name }
         _id = { secretStore.id }
         _secrets = { secretStore.secrets.map { AnySecret($0) } }
-        _sign = { try secretStore.sign(data: $0, with: $1 as! SecretStoreType.SecretType) }
+        _sign = { try secretStore.sign(data: $0, with: $1.base as! SecretStoreType.SecretType) }
         sink = secretStore.objectWillChange.sink { _ in
             self.objectWillChange.send()
         }
@@ -65,5 +65,3 @@ public class AnySecretStoreModifiable: AnySecretStore, SecretStoreModifiable {
     }
 
 }
-
-
