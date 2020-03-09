@@ -3,7 +3,7 @@ import SecretKit
 
 struct CreateSecretView: View {
     
-    @ObservedObject var store: SecureEnclave.Store
+    @ObservedObject var store: AnySecretStoreModifiable
     
     @State var name = ""
     @State var requiresAuthentication = true

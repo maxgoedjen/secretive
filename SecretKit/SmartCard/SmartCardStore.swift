@@ -9,19 +9,25 @@ extension SmartCard {
     public class Store: SecretStore {
 
         // TODO: Read actual smart card name, eg "YubiKey 5c"
+        @Published public var isAvailable: Bool = false
+        public let id = UUID()
         public let name = NSLocalizedString("Smart Card", comment: "Smart Card")
         @Published public fileprivate(set) var secrets: [Secret] = []
         fileprivate let watcher = TKTokenWatcher()
-        fileprivate var id: String?
+        fileprivate var tokenID: String?
 
         public init() {
-            id = watcher.tokenIDs.filter { !$0.contains("setoken") }.first
+            tokenID = watcher.tokenIDs.filter { !$0.contains("setoken") }.first
             watcher.setInsertionHandler { string in
-                guard self.id == nil else { return }
+                guard self.tokenID == nil else { return }
                 guard !string.contains("setoken") else { return }
-                self.id = string
-                self.secrets.removeAll()
-                self.loadSecrets()
+                self.tokenID = string
+                self.reloadSecrets()
+                self.watcher.addRemovalHandler(self.smartcardRemoved, forTokenID: string)
+            }
+            if let tokenID = tokenID {
+                self.isAvailable = true
+                self.watcher.addRemovalHandler(self.smartcardRemoved, forTokenID: tokenID)
             }
             loadSecrets()
         }
@@ -37,12 +43,12 @@ extension SmartCard {
         }
 
         public func sign(data: Data, with secret: SecretType) throws -> Data {
-            guard let id = id else { fatalError() }
+            guard let tokenID = tokenID else { fatalError() }
             let attributes = [
                 kSecClass: kSecClassKey,
                 kSecAttrKeyClass: kSecAttrKeyClassPrivate,
                 kSecAttrApplicationLabel: secret.id as CFData,
-                kSecAttrTokenID: id,
+                kSecAttrTokenID: tokenID,
                 kSecReturnRef: true
                 ] as CFDictionary
             var untyped: CFTypeRef?
@@ -67,11 +73,26 @@ extension SmartCard {
 
 extension SmartCard.Store {
 
+    fileprivate func smartcardRemoved(for tokenID: String? = nil) {
+        self.tokenID = nil
+        reloadSecrets()
+    }
+
+    fileprivate func reloadSecrets() {
+        DispatchQueue.main.async {
+            self.isAvailable = self.tokenID != nil
+            self.secrets.removeAll()
+            self.loadSecrets()
+        }
+    }
+
     fileprivate func loadSecrets() {
-        guard let id = id else { return }
+        guard let tokenID = tokenID else { return }
         let attributes = [
             kSecClass: kSecClassKey,
-            kSecAttrTokenID: id,
+            kSecAttrKeyType: kSecAttrKeyTypeEC,
+            kSecAttrKeySizeInBits: 256,
+            kSecAttrTokenID: tokenID,
             kSecReturnRef: true,
             kSecMatchLimit: kSecMatchLimitAll,
             kSecReturnAttributes: true
@@ -81,12 +102,12 @@ extension SmartCard.Store {
         guard let typed = untyped as? [[CFString: Any]] else { return }
         let wrapped: [SmartCard.Secret] = typed.map {
             let name = $0[kSecAttrLabel] as? String ?? "Unnamed"
-            let id = $0[kSecAttrApplicationLabel] as! Data
+            let tokenID = $0[kSecAttrApplicationLabel] as! Data
             let publicKeyRef = $0[kSecValueRef] as! SecKey
             let publicKeySecRef = SecKeyCopyPublicKey(publicKeyRef)!
             let publicKeyAttributes = SecKeyCopyAttributes(publicKeySecRef) as! [CFString: Any]
             let publicKey = publicKeyAttributes[kSecValueData] as! Data
-            return SmartCard.Secret(id: id, name: name, publicKey: publicKey)
+            return SmartCard.Secret(id: tokenID, name: name, publicKey: publicKey)
         }
         secrets.append(contentsOf: wrapped)
     }

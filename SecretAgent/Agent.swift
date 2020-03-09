@@ -4,14 +4,14 @@ import OSLog
 import SecretKit
 import SecretAgentKit
 
-class Agent<StoreType: SecretStore> {
+class Agent {
 
-    fileprivate let store: StoreType
+    fileprivate let storeList: SecretStoreList
     fileprivate let notifier: Notifier
 
-    public init(store: StoreType, notifier: Notifier) {
+    public init(storeList: SecretStoreList, notifier: Notifier) {
         os_log(.debug, "Agent is running")
-        self.store = store
+        self.storeList = storeList
         self.notifier = notifier
     }
     
@@ -57,17 +57,18 @@ extension Agent {
 extension Agent {
 
     func identities() throws -> Data {
-        var count = UInt32(store.secrets.count).bigEndian
+        let secrets = storeList.stores.flatMap(\.secrets)
+        var count = UInt32(secrets.count).bigEndian
         let countData = Data(bytes: &count, count: UInt32.bitWidth/8)
         var keyData = Data()
         let writer = OpenSSHKeyWriter()
-        for secret in store.secrets {
+        for secret in secrets {
             let keyBlob = writer.data(secret: secret)
             keyData.append(writer.lengthAndData(of: keyBlob))
             let curveData = OpenSSHKeyWriter.Constants.curveType.data(using: .utf8)!
             keyData.append(writer.lengthAndData(of: curveData))
         }
-        os_log(.debug, "Agent enumerated %@ identities", store.secrets.count as NSNumber)
+        os_log(.debug, "Agent enumerated %@ identities", secrets.count as NSNumber)
         return countData + keyData
     }
 
@@ -75,10 +76,16 @@ extension Agent {
         let reader = OpenSSHReader(data: data)
         let writer = OpenSSHKeyWriter()
         let hash = try reader.readNextChunk()
-        let matching = store.secrets.filter { secret in
-            hash == writer.data(secret: secret)
+        let matching = storeList.stores.compactMap { store -> (AnySecretStore, AnySecret)? in
+            let allMatching = store.secrets.filter { secret in
+                hash == writer.data(secret: secret)
+            }
+            if let matching = allMatching.first {
+                return (store, matching)
+            }
+            return nil
         }
-        guard let secret = matching.first else {
+        guard let (store, secret) = matching.first else {
             throw AgentError.noMatchingKey
         }
         let dataToSign = try reader.readNextChunk()

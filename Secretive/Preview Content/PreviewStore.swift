@@ -19,6 +19,8 @@ extension Preview {
 
     class Store: SecretStore, ObservableObject {
 
+        let isAvailable = true
+        let id = UUID()
         let name = "Preview Store"
         @Published var secrets: [Secret] = []
 

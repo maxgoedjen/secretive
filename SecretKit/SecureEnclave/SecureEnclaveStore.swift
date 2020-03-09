@@ -1,10 +1,18 @@
 import Foundation
 import Security
+import CryptoTokenKit
 
 extension SecureEnclave {
 
-    public class Store: SecretStore {
+    public class Store: SecretStoreModifiable {
 
+        public var isAvailable: Bool {
+            // For some reason, as of build time, CryptoKit.SecureEnclave.isAvailable always returns false
+            // error msg "Received error sending GET UNIQUE DEVICE command"
+            // Verify it with TKTokenWatcher manually.
+            return TKTokenWatcher().tokenIDs.contains("com.apple.setoken")
+        }
+        public let id = UUID()
         public let name = NSLocalizedString("Secure Enclave", comment: "Secure Enclave")
         @Published public fileprivate(set) var secrets: [Secret] = []
 

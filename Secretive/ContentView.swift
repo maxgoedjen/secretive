@@ -3,45 +3,53 @@ import SecretKit
 
 struct ContentView: View {
     
-    @ObservedObject var store: SecureEnclave.Store
-    @State var active: SecureEnclave.Secret.ID?
+    @ObservedObject var storeList: SecretStoreList
+    @State var active: AnySecret.ID?
     
     @State var showingDeletion = false
-    @State var deletingSecret: SecureEnclave.Secret?
+    @State var deletingSecret: AnySecret?
     
     var body: some View {
         NavigationView {
             List(selection: $active) {
-                Section(header: Text(store.name)) {
-                    ForEach(store.secrets) { secret in
-                        NavigationLink(destination: SecretDetailView(secret: secret), tag: secret.id, selection: self.$active) {
-                            Text(secret.name)
-                        }.contextMenu {
-                            Button(action: { self.delete(secret: secret) }) {
-                                Text("Delete")
+                ForEach(storeList.stores) { store in
+                    if store.isAvailable {
+                        Section(header: Text(store.name)) {
+                            ForEach(store.secrets) { secret in
+                                NavigationLink(destination: SecretDetailView(secret: secret), tag: secret.id, selection: self.$active) {
+                                    Text(secret.name)
+                                }.contextMenu {
+                                    if store is AnySecretStoreModifiable {
+                                        Button(action: { self.delete(secret: secret) }) {
+                                            Text("Delete")
+                                        }
+                                    }
+                                }
                             }
                         }
                     }
                 }
             }.onAppear {
-                self.active = self.store.secrets.first?.id
+                self.active = self.storeList.stores.compactMap { $0.secrets.first }.first?.id
             }
             .listStyle(SidebarListStyle())
             .frame(minWidth: 100, idealWidth: 240)
         }
         .navigationViewStyle(DoubleColumnNavigationViewStyle())
         .sheet(isPresented: $showingDeletion) {
-            DeleteSecretView(secret: self.deletingSecret!, store: self.store) {
-                self.showingDeletion = false
+            if self.storeList.modifiableStore != nil {
+                DeleteSecretView(secret: self.deletingSecret!, store: self.storeList.modifiableStore!) {
+                    self.showingDeletion = false
+                }
             }
         }
         
     }
     
     
-    func delete(secret: SecureEnclave.Secret) {
-        deletingSecret = secret
-        showingDeletion = true
+    func delete<SecretType: Secret>(secret: SecretType) {
+        deletingSecret = AnySecret(secret)
+        self.showingDeletion = true
     }
     
 }
