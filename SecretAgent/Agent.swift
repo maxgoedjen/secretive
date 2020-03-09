@@ -65,7 +65,7 @@ extension Agent {
         for secret in secrets {
             let keyBlob = writer.data(secret: secret)
             keyData.append(writer.lengthAndData(of: keyBlob))
-            let curveData = OpenSSHKeyWriter.Constants.curveType.data(using: .utf8)!
+            let curveData = writer.curveType(for: secret.algorithm, length: secret.keySize).data(using: .utf8)!
             keyData.append(writer.lengthAndData(of: curveData))
         }
         os_log(.debug, "Agent enumerated %@ identities", secrets.count as NSNumber)
@@ -92,13 +92,28 @@ extension Agent {
         let derSignature = try store.sign(data: dataToSign, with: secret)
         // TODO: Move this
         notifier.notify(accessTo: secret)
-        let curveData = OpenSSHKeyWriter.Constants.curveType.data(using: .utf8)!
+        let curveData = writer.curveType(for: secret.algorithm, length: secret.keySize).data(using: .utf8)!
 
         // Convert from DER formatted rep to raw (r||s)
-        let signature = try CryptoKit.P256.Signing.ECDSASignature(derRepresentation: derSignature)
-        let rawLength = signature.rawRepresentation.count/2
-        let r = signature.rawRepresentation[0..<rawLength]
-        let s = signature.rawRepresentation[rawLength...]
+
+        let rawRepresentation: Data
+        switch (secret.algorithm, secret.keySize) {
+        case (.ellipticCurve, 256):
+            rawRepresentation = try CryptoKit.P256.Signing.ECDSASignature(derRepresentation: derSignature).rawRepresentation
+        case (.ellipticCurve, 384):
+            rawRepresentation = try CryptoKit.P384.Signing.ECDSASignature(derRepresentation: derSignature).rawRepresentation
+        case (.rsa, 1024):
+            fatalError()
+        case (.rsa, 2048):
+            fatalError()
+        default:
+            fatalError()
+        }
+
+
+        let rawLength = rawRepresentation.count/2
+        let r = rawRepresentation[0..<rawLength]
+        let s = rawRepresentation[rawLength...]
 
         var signatureChunk = Data()
         signatureChunk.append(writer.lengthAndData(of: r))

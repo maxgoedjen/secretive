@@ -61,7 +61,18 @@ extension SmartCard {
             }
             let key = untypedSafe as! SecKey
             var signError: SecurityError?
-            guard let signature = SecKeyCreateSignature(key, .ecdsaSignatureMessageX962SHA256, data as CFData, &signError) else {
+            let signatureAlgorithm: SecKeyAlgorithm
+            switch (secret.algorithm, secret.keySize) {
+            case (.ellipticCurve, 256):
+                signatureAlgorithm = .ecdsaSignatureMessageX962SHA256
+            case (.ellipticCurve, 384):
+                signatureAlgorithm = .ecdsaSignatureMessageX962SHA384
+            case (.rsa, _):
+                signatureAlgorithm = .rsaSignatureRaw
+            default:
+                fatalError()
+            }
+            guard let signature = SecKeyCreateSignature(key, signatureAlgorithm, data as CFData, &signError) else {
                 throw SigningError(error: signError)
             }
             return signature as Data
@@ -90,8 +101,6 @@ extension SmartCard.Store {
         guard let tokenID = tokenID else { return }
         let attributes = [
             kSecClass: kSecClassKey,
-            kSecAttrKeyType: kSecAttrKeyTypeEC,
-            kSecAttrKeySizeInBits: 256,
             kSecAttrTokenID: tokenID,
             kSecReturnRef: true,
             kSecMatchLimit: kSecMatchLimitAll,
@@ -103,11 +112,13 @@ extension SmartCard.Store {
         let wrapped: [SmartCard.Secret] = typed.map {
             let name = $0[kSecAttrLabel] as? String ?? "Unnamed"
             let tokenID = $0[kSecAttrApplicationLabel] as! Data
+            let algorithm = Algorithm(secAttr: $0[kSecAttrKeyType] as! NSNumber)
+            let keySize = $0[kSecAttrKeySizeInBits] as! Int
             let publicKeyRef = $0[kSecValueRef] as! SecKey
             let publicKeySecRef = SecKeyCopyPublicKey(publicKeyRef)!
             let publicKeyAttributes = SecKeyCopyAttributes(publicKeySecRef) as! [CFString: Any]
             let publicKey = publicKeyAttributes[kSecValueData] as! Data
-            return SmartCard.Secret(id: tokenID, name: name, publicKey: publicKey)
+            return SmartCard.Secret(id: tokenID, name: name, algorithm: algorithm, keySize: keySize, publicKey: publicKey)
         }
         secrets.append(contentsOf: wrapped)
     }

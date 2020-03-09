@@ -6,6 +6,8 @@ public struct AnySecret: Secret {
     fileprivate let hashable: AnyHashable
     fileprivate let _id: () -> AnyHashable
     fileprivate let _name: () -> String
+    fileprivate let _algorithm: () -> Algorithm
+    fileprivate let _keySize: () -> Int
     fileprivate let _publicKey: () -> Data
 
     public init<T>(_ secret: T) where T: Secret {
@@ -14,26 +16,38 @@ public struct AnySecret: Secret {
             hashable = secret.hashable
             _id = secret._id
             _name = secret._name
+            _algorithm = secret._algorithm
+            _keySize = secret._keySize
             _publicKey = secret._publicKey
         } else {
             base = secret as Any
             self.hashable = secret
             _id = { secret.id as AnyHashable }
             _name = { secret.name }
+            _algorithm = { secret.algorithm }
+            _keySize = { secret.keySize }
             _publicKey = { secret.publicKey }
         }
     }
 
     public var id: AnyHashable {
-        return _id()
+        _id()
     }
 
     public var name: String {
-        return _name()
+        _name()
+    }
+
+    public var algorithm: Algorithm {
+        _algorithm()
+    }
+
+    public var keySize: Int {
+        _keySize()
     }
 
     public var publicKey: Data {
-        return _publicKey()
+        _publicKey()
     }
 
     public static func == (lhs: AnySecret, rhs: AnySecret) -> Bool {
