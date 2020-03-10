@@ -37,8 +37,6 @@ extension OpenSSHKeyWriter {
         switch algorithm {
         case .ellipticCurve:
             return "nistp" + String(describing: length)
-        case .rsa:
-            return "ssh-rsa"
         }
     }
 
@@ -46,8 +44,6 @@ extension OpenSSHKeyWriter {
         switch algorithm {
         case .ellipticCurve:
             return "ecdsa-sha2-nistp" + String(describing: length)
-        case .rsa:
-            return "ssh-rsa"
         }
     }
 }

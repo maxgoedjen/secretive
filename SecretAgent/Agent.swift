@@ -102,10 +102,6 @@ extension Agent {
             rawRepresentation = try CryptoKit.P256.Signing.ECDSASignature(derRepresentation: derSignature).rawRepresentation
         case (.ellipticCurve, 384):
             rawRepresentation = try CryptoKit.P384.Signing.ECDSASignature(derRepresentation: derSignature).rawRepresentation
-        case (.rsa, 1024):
-            fatalError()
-        case (.rsa, 2048):
-            fatalError()
         default:
             fatalError()
         }

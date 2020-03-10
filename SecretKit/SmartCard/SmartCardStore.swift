@@ -67,8 +67,6 @@ extension SmartCard {
                 signatureAlgorithm = .ecdsaSignatureMessageX962SHA256
             case (.ellipticCurve, 384):
                 signatureAlgorithm = .ecdsaSignatureMessageX962SHA384
-            case (.rsa, _):
-                signatureAlgorithm = .rsaSignatureRaw
             default:
                 fatalError()
             }
@@ -102,6 +100,7 @@ extension SmartCard.Store {
         let attributes = [
             kSecClass: kSecClassKey,
             kSecAttrTokenID: tokenID,
+            kSecAttrKeyType: kSecAttrKeyTypeEC, // Restrict to EC
             kSecReturnRef: true,
             kSecMatchLimit: kSecMatchLimitAll,
             kSecReturnAttributes: true

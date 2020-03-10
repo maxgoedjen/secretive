@@ -8,14 +8,12 @@ public protocol Secret: Identifiable, Hashable {
 }
 
 public enum Algorithm {
-    case ellipticCurve, rsa
+    case ellipticCurve
     public init(secAttr: NSNumber) {
         let secAttrString = secAttr.stringValue as CFString
         switch secAttrString {
         case kSecAttrKeyTypeEC:
             self = .ellipticCurve
-        case kSecAttrKeyTypeRSA:
-            self = .rsa
         default:
             fatalError()
         }
