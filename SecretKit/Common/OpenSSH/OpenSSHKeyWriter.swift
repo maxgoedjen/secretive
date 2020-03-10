@@ -1,20 +1,20 @@
 import Foundation
 import CryptoKit
 
-// For the moment, only supports ecdsa-sha2-nistp256 keys
+// For the moment, only supports ecdsa-sha2-nistp256 and ecdsa-sha2-nistp386 keys
 public struct OpenSSHKeyWriter {
 
     public init() {
     }
 
     public func data<SecretType: Secret>(secret: SecretType) -> Data {
-        lengthAndData(of: Constants.curveType.data(using: .utf8)!) +
-            lengthAndData(of: Constants.curveIdentifier.data(using: .utf8)!) +
+        lengthAndData(of: curveType(for: secret.algorithm, length: secret.keySize).data(using: .utf8)!) +
+            lengthAndData(of: curveIdentifier(for: secret.algorithm, length: secret.keySize).data(using: .utf8)!) +
             lengthAndData(of: secret.publicKey)
     }
 
     public func openSSHString<SecretType: Secret>(secret: SecretType) -> String {
-        "\(Constants.curveType) \(data(secret: secret).base64EncodedString())"
+        "\(curveType(for: secret.algorithm, length: secret.keySize)) \(data(secret: secret).base64EncodedString())"
     }
 
     public func openSSHFingerprint<SecretType: Secret>(secret: SecretType) -> String {
@@ -33,14 +33,17 @@ extension OpenSSHKeyWriter {
         return Data(bytes: &endian, count: UInt32.bitWidth/8) + data
     }
 
-    public func readData() {}
-}
-
-extension OpenSSHKeyWriter {
-
-    public enum Constants {
-        public static let curveIdentifier = "nistp256"
-        public static let curveType = "ecdsa-sha2-nistp256"
+    public func curveIdentifier(for algorithm: Algorithm, length: Int) -> String {
+        switch algorithm {
+        case .ellipticCurve:
+            return "nistp" + String(describing: length)
+        }
     }
 
+    public func curveType(for algorithm: Algorithm, length: Int) -> String {
+        switch algorithm {
+        case .ellipticCurve:
+            return "ecdsa-sha2-nistp" + String(describing: length)
+        }
+    }
 }
