@@ -47,7 +47,6 @@ struct EmptyStoreModifiableView_Previews: PreviewProvider {
         Group {
             EmptyStoreView()
             EmptyStoreModifiableView()
-
         }
     }
 }
