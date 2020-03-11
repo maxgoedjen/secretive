@@ -17,11 +17,11 @@ struct ContentView: View {
                         Section(header: Text(store.name)) {
                             if store.secrets.isEmpty {
                                 if store is AnySecretStoreModifiable {
-                                    NavigationLink(destination: EmptyStoreModifiableView()) {
+                                    NavigationLink(destination: EmptyStoreModifiableView(), tag: Constants.emptyStoreModifiableTag, selection: self.$active) {
                                         Text("No Secrets")
                                     }
                                 } else {
-                                    NavigationLink(destination: EmptyStoreView()) {
+                                    NavigationLink(destination: EmptyStoreView(), tag: Constants.emptyStoreTag, selection: self.$active) {
                                         Text("No Secrets")
                                     }
                                 }
@@ -42,7 +42,13 @@ struct ContentView: View {
                     }
                 }
             }.onAppear {
-                self.active = self.storeList.stores.compactMap { $0.secrets.first }.first?.id
+                let fallback: AnyHashable
+                if self.storeList.modifiableStore?.isAvailable ?? false {
+                    fallback = Constants.emptyStoreModifiableTag
+                } else {
+                    fallback = Constants.emptyStoreTag
+                }
+                self.active = self.storeList.stores.compactMap { $0.secrets.first }.first?.id ?? fallback
             }
             .listStyle(SidebarListStyle())
             .frame(minWidth: 100, idealWidth: 240)
@@ -64,6 +70,15 @@ struct ContentView: View {
         self.showingDeletion = true
     }
     
+}
+
+extension ContentView {
+
+    enum Constants {
+        static let emptyStoreModifiableTag: AnyHashable = "emptyStoreModifiableTag"
+        static let emptyStoreTag: AnyHashable = "emptyStoreModifiableTag"
+    }
+
 }
 
 struct ContentView_Previews: PreviewProvider {
