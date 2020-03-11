@@ -15,13 +15,25 @@ struct ContentView: View {
                 ForEach(storeList.stores) { store in
                     if store.isAvailable {
                         Section(header: Text(store.name)) {
-                            ForEach(store.secrets) { secret in
-                                NavigationLink(destination: SecretDetailView(secret: secret), tag: secret.id, selection: self.$active) {
-                                    Text(secret.name)
-                                }.contextMenu {
-                                    if store is AnySecretStoreModifiable {
-                                        Button(action: { self.delete(secret: secret) }) {
-                                            Text("Delete")
+                            if store.secrets.isEmpty {
+                                if store is AnySecretStoreModifiable {
+                                    NavigationLink(destination: EmptyStoreModifiableView()) {
+                                        Text("No Secrets")
+                                    }
+                                } else {
+                                    NavigationLink(destination: EmptyStoreView()) {
+                                        Text("No Secrets")
+                                    }
+                                }
+                            } else {
+                                ForEach(store.secrets) { secret in
+                                    NavigationLink(destination: SecretDetailView(secret: secret), tag: secret.id, selection: self.$active) {
+                                        Text(secret.name)
+                                    }.contextMenu {
+                                        if store is AnySecretStoreModifiable {
+                                            Button(action: { self.delete(secret: secret) }) {
+                                                Text("Delete")
+                                            }
                                         }
                                     }
                                 }
