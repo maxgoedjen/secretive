@@ -23,15 +23,15 @@ extension Preview {
 
         let isAvailable = true
         let id = UUID()
-        let name = "Preview Store"
+        var name: String { "Preview Store" }
         @Published var secrets: [Secret] = []
 
         init(secrets: [Secret]) {
             self.secrets.append(contentsOf: secrets)
         }
 
-        init(numberOfRandomSecrets: Int) {
-            let new = (0...numberOfRandomSecrets).map { Secret(name: String(describing: $0)) }
+        init(numberOfRandomSecrets: Int = 5) {
+            let new = (0..<numberOfRandomSecrets).map { Secret(name: String(describing: $0)) }
             self.secrets.append(contentsOf: new)
         }
 
@@ -39,9 +39,32 @@ extension Preview {
             return data
         }
 
-        func delete(secret: Preview.Secret) throws {
+    }
+
+    class StoreModifiable: Store, SecretStoreModifiable {
+
+        override var name: String { "Modifiable Preview Store" }
+
+        func create(name: String, requiresAuthentication: Bool) throws {
         }
 
+        func delete(secret: Preview.Secret) throws {
+        }
+    }
+
+}
+
+extension Preview {
+
+    static func storeList(stores: [Store] = [], modifiableStores: [StoreModifiable] = []) -> SecretStoreList {
+        let list = SecretStoreList()
+        for store in stores {
+            list.add(store: store)
+        }
+        for storeModifiable in modifiableStores {
+            list.add(store: storeModifiable)
+        }
+        return list
     }
 
 }
