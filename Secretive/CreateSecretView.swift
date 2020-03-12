@@ -24,7 +24,7 @@ struct CreateSecretView: View {
                     }
                     HStack {
                         Text("Name:")
-                        TextField("Name", text: $name)
+                        TextField("Shhhhh", text: $name)
                     }
                     HStack {
                         Toggle(isOn: $requiresAuthentication) {
