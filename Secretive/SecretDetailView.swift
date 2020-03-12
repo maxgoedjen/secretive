@@ -55,3 +55,9 @@ struct SecretDetailView<SecretType: Secret>: View {
 
 
 }
+
+struct SecretDetailView_Previews: PreviewProvider {
+    static var previews: some View {
+        SecretDetailView(secret: Preview.Store(numberOfRandomSecrets: 1).secrets[0])
+    }
+}
