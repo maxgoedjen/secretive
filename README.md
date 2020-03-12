@@ -1,7 +1,6 @@
 # Secretive
 
-Secretive is an app for storing and managing SSH keys in the Secure Enclave.
-Heavily inspired by https://github.com/sekey/sekey
+Secretive is an app for storing and managing SSH keys in the Secure Enclave. It is inspired by the [https://github.com/sekey/sekey], but rewritten in Swift with no external dependencies and with a handy native management app.
 
 <img src="/.github/readme/app.png" alt="Screenshot of Secretive" width="600">
 
