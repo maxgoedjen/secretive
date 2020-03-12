@@ -122,8 +122,12 @@ extension SetupView {
 
 }
 
+#if DEBUG
+
 struct SetupView_Previews: PreviewProvider {
     static var previews: some View {
         SetupView()
     }
 }
+
+#endif
