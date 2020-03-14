@@ -31,3 +31,11 @@ For Macs without Secure Enclaves, you can configure a Smart Card (such as a Yubi
 ### Security Considerations
 
 For the moment, you must build Secretive from source. For an app like this, it's critical that you trust that the app you're running is the app whose source you've checked out. To this end, Secretive has no third party dependecies, and is designed to be easy for you to audit for exploits.
+
+### A Note Around Code Signing and Keychains
+
+While Secretive uses the Secure Enclave for key storage, it still relies on Keychain APIs to access them. Keychain restricts reads of keys to the app (and specifically, the bundle ID) that created them. If you build Secretive from source, make sure you are consistent in which bundle ID you use so that the Keychain is able to locate your keys.
+
+### Backups and Transfers to New Machines
+
+Beacuse secrets in the Secure Enclave are not exportable, they are not able to be backed up, and you will not be able to transfer them to a new machine. If you get a new Mac, just create a new set of secrets specific to that Mac.
