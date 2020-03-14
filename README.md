@@ -28,6 +28,14 @@ For Macs without Secure Enclaves, you can configure a Smart Card (such as a Yubi
 
 ## Getting Started
 
+### Setup for Third Party Apps
+
+When you first launch Secretive, you'll be prompted to set up your command line environment. You can redisplay this prompt at any time by going to `Menu > Help -> Set Up Helper App`.
+For non-command-line based apps, like GUI Git clients, you may need to go through app-specific setup.
+
+[Tower](https://www.git-tower.com/help/mac/integration/environment)
+
+
 ### Security Considerations
 
 For the moment, you must build Secretive from source. For an app like this, it's critical that you trust that the app you're running is the app whose source you've checked out. To this end, Secretive has no third party dependecies, and is designed to be easy for you to audit for exploits.
