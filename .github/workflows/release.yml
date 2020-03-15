@@ -21,7 +21,7 @@ jobs:
         body: ''
         draft: true
         prerelease: false
-    - name: Set up signing
+    - name: Setup Signing
       env: 
         SIGNING_DATA: ${{ secrets.SIGNING_DATA }}
         SIGNING_PASSWORD: ${{ secrets.SIGNING_PASSWORD }}
@@ -32,7 +32,7 @@ jobs:
       env:
         TAG_NAME: ${{ github.ref }}
       run: |
-            export CLEAN_TAG=$(echo $TAG_NAME | sed -e 's/v//')
+            export CLEAN_TAG=$(echo $TAG_NAME | sed -e 's/refs\/tags\/v//')
             sed -i '' -e "s/CI_VERSION = 0.0.0/CI_VERSION = $CLEAN_TAG/g" Config/Config.xcconfig
     - name: Build
       run: xcrun xcodebuild -project Secretive.xcodeproj -scheme Secretive -configuration Release -archivePath Archive.xcarchive archive
