@@ -679,7 +679,6 @@
 					};
 					50617DAF23FCE4AB0099B055 = {
 						CreatedOnToolsVersion = 11.3;
-						TestTargetID = 50617D7E23FCE48D0099B055;
 					};
 					5099A06B240242BA0062B6F2 = {
 						CreatedOnToolsVersion = 11.4;
@@ -687,7 +686,6 @@
 					};
 					5099A073240242BA0062B6F2 = {
 						CreatedOnToolsVersion = 11.4;
-						TestTargetID = 50617D7E23FCE48D0099B055;
 					};
 					50A3B78924026B7500D209EA = {
 						CreatedOnToolsVersion = 11.4;
@@ -1205,7 +1203,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.maxgoedjen.SecretKitTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Secretive.app/Contents/MacOS/Secretive";
 			};
 			name = Debug;
 		};
@@ -1225,7 +1222,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.maxgoedjen.SecretKitTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Secretive.app/Contents/MacOS/Secretive";
 			};
 			name = Release;
 		};
@@ -1296,7 +1292,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Secretive/Secretive.entitlements;
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_IDENTITY = "Developer ID Application";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
@@ -1313,7 +1309,7 @@
 				MARKETING_VERSION = 1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.maxgoedjen.Secretive.Host;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = "Secretive - Host";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Test;
@@ -1323,6 +1319,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = Z72PRUAWF6;
@@ -1345,8 +1342,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = SecretAgent/SecretAgent.entitlements;
-				CODE_SIGN_IDENTITY = "-";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "Developer ID Application";
+				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"SecretAgent/Preview Content\"";
 				DEVELOPMENT_TEAM = Z72PRUAWF6;
@@ -1361,6 +1358,7 @@
 				MARKETING_VERSION = 1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.maxgoedjen.Secretive.SecretAgent;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "Secretive - Secret Agent";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Test;
@@ -1399,6 +1397,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = Z72PRUAWF6;
@@ -1411,7 +1410,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.maxgoedjen.SecretKitTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Secretive.app/Contents/MacOS/Secretive";
 			};
 			name = Test;
 		};
@@ -1449,6 +1447,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = Z72PRUAWF6;
 				INFOPLIST_FILE = SecretAgentKitTests/Info.plist;
@@ -1460,7 +1459,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.maxgoedjen.SecretAgentKitTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Secretive.app/Contents/MacOS/Secretive";
 			};
 			name = Test;
 		};
@@ -1538,7 +1536,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.maxgoedjen.SecretAgentKitTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Secretive.app/Contents/MacOS/Secretive";
 			};
 			name = Debug;
 		};
@@ -1557,7 +1554,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.maxgoedjen.SecretAgentKitTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Secretive.app/Contents/MacOS/Secretive";
 			};
 			name = Release;
 		};
