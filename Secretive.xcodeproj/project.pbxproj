@@ -6,6 +6,19 @@
 	objectVersion = 50;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		508A590B241EEE900069DC07 /* Tests */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 508A590E241EEE900069DC07 /* Build configuration list for PBXAggregateTarget "Tests" */;
+			buildPhases = (
+			);
+			dependencies = (
+			);
+			name = Tests;
+			productName = Tests;
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
 		50020BB024064869003D4025 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50020BAF24064869003D4025 /* AppDelegate.swift */; };
 		5018F54F24064786002EB505 /* Notifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5018F54E24064786002EB505 /* Notifier.swift */; };
@@ -671,6 +684,9 @@
 						CreatedOnToolsVersion = 11.3;
 						TestTargetID = 50617D7E23FCE48D0099B055;
 					};
+					508A590B241EEE900069DC07 = {
+						CreatedOnToolsVersion = 11.4;
+					};
 					5099A06B240242BA0062B6F2 = {
 						CreatedOnToolsVersion = 11.4;
 						LastSwiftMigration = 1140;
@@ -704,6 +720,7 @@
 				50617DAF23FCE4AB0099B055 /* SecretKitTests */,
 				5099A06B240242BA0062B6F2 /* SecretAgentKit */,
 				5099A073240242BA0062B6F2 /* SecretAgentKitTests */,
+				508A590B241EEE900069DC07 /* Tests */,
 			);
 		};
 /* End PBXProject section */
@@ -1229,6 +1246,24 @@
 			};
 			name = Release;
 		};
+		508A590C241EEE900069DC07 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = Z72PRUAWF6;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		508A590D241EEE900069DC07 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = Z72PRUAWF6;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 		5099A084240242BA0062B6F2 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1422,6 +1457,15 @@
 			buildConfigurations = (
 				50617DC223FCE4AB0099B055 /* Debug */,
 				50617DC323FCE4AB0099B055 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		508A590E241EEE900069DC07 /* Build configuration list for PBXAggregateTarget "Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				508A590C241EEE900069DC07 /* Debug */,
+				508A590D241EEE900069DC07 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
