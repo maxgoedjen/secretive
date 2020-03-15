@@ -13,10 +13,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         list.add(store: SmartCard.Store())
         return list
     }()
+    let updater = PreviewUpdater()
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
 
-        let contentView = ContentView(storeList: storeList)
+        let contentView = ContentView(storeList: storeList, updater: updater)
         // Create the window and set the content view.
         window = NSWindow(
             contentRect: NSRect(x: 0, y: 0, width: 480, height: 300),
