@@ -8,9 +8,9 @@ struct DeleteSecretView<StoreType: SecretStoreModifiable>: View {
     
     @State var confirm = ""
     
-    fileprivate var dismissalBlock: () -> ()
+    fileprivate var dismissalBlock: (Bool) -> ()
     
-    init(secret: StoreType.SecretType, store: StoreType, dismissalBlock: @escaping () -> ()) {
+    init(secret: StoreType.SecretType, store: StoreType, dismissalBlock: @escaping (Bool) -> ()) {
         self.secret = secret
         self.store = store
         self.dismissalBlock = dismissalBlock
@@ -37,14 +37,16 @@ struct DeleteSecretView<StoreType: SecretStoreModifiable>: View {
                         TextField(secret.name, text: $confirm)
                     }
                 }
-                .onExitCommand(perform: dismissalBlock)
+                .onExitCommand {
+                    self.dismissalBlock(false)
+                }
             }
             HStack {
                 Spacer()
                 Button(action: delete) {
                     Text("Delete")
                 }.disabled(confirm != secret.name)
-                Button(action: dismissalBlock) {
+                Button(action: { self.dismissalBlock(false) }) {
                     Text("Don't Delete")
                 }
             }
@@ -53,6 +55,6 @@ struct DeleteSecretView<StoreType: SecretStoreModifiable>: View {
     
     func delete() {
         try! store.delete(secret: secret)
-        dismissalBlock()
+        self.dismissalBlock(true)
     }
 }

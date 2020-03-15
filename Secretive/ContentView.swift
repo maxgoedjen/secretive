@@ -47,13 +47,7 @@ struct ContentView<UpdaterType: UpdaterProtocol>: View {
                         }
                     }
                 }.onAppear {
-                    let fallback: AnyHashable
-                    if self.storeList.modifiableStore?.isAvailable ?? false {
-                        fallback = Constants.emptyStoreModifiableTag
-                    } else {
-                        fallback = Constants.emptyStoreTag
-                    }
-                    self.active = self.storeList.stores.compactMap { $0.secrets.first }.first?.id ?? fallback
+                    self.active = self.nextDefaultSecret
                 }
                 .listStyle(SidebarListStyle())
                 .frame(minWidth: 100, idealWidth: 240)
@@ -61,8 +55,11 @@ struct ContentView<UpdaterType: UpdaterProtocol>: View {
             .navigationViewStyle(DoubleColumnNavigationViewStyle())
             .sheet(isPresented: $showingDeletion) {
                 if self.storeList.modifiableStore != nil {
-                    DeleteSecretView(secret: self.deletingSecret!, store: self.storeList.modifiableStore!) {
+                    DeleteSecretView(secret: self.deletingSecret!, store: self.storeList.modifiableStore!) { deleted in
                         self.showingDeletion = false
+                        if deleted {
+                            self.active = self.nextDefaultSecret
+                        }
                     }
                 }
             }
@@ -88,6 +85,16 @@ struct ContentView<UpdaterType: UpdaterProtocol>: View {
     func delete<SecretType: Secret>(secret: SecretType) {
         deletingSecret = AnySecret(secret)
         self.showingDeletion = true
+    }
+
+    var nextDefaultSecret: AnyHashable? {
+        let fallback: AnyHashable
+        if self.storeList.modifiableStore?.isAvailable ?? false {
+            fallback = Constants.emptyStoreModifiableTag
+        } else {
+            fallback = Constants.emptyStoreTag
+        }
+        return self.storeList.stores.compactMap { $0.secrets.first }.first?.id ?? fallback
     }
     
 }
