@@ -3,7 +3,7 @@ name: Release
 on: 
   push:
     branches:
-      - 'github_actions'
+      - 'master'
     tags:
       - '*'
 jobs:
