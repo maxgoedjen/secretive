@@ -1,10 +1,12 @@
 import SwiftUI
 import SecretKit
 
-struct ContentView<UpdaterType: UpdaterProtocol>: View {
+struct ContentView<UpdaterType: UpdaterProtocol, AgentStatusCheckerType: AgentStatusCheckerProtocol>: View {
     
     @ObservedObject var storeList: SecretStoreList
     @ObservedObject var updater: UpdaterType
+    @ObservedObject var agentStatusChecker: AgentStatusCheckerType
+    var runSetupBlock: (() -> Void)?
 
     @State fileprivate var active: AnySecret.ID?
     @State fileprivate var showingDeletion = false
@@ -14,6 +16,9 @@ struct ContentView<UpdaterType: UpdaterProtocol>: View {
         VStack {
             if updater.update != nil {
                 updateNotice()
+            }
+            if !agentStatusChecker.running {
+                agentNotice()
             }
             NavigationView {
                 List(selection: $active) {
@@ -82,6 +87,12 @@ struct ContentView<UpdaterType: UpdaterProtocol>: View {
         })
     }
 
+    func agentNotice() -> some View {
+        NoticeView(text: "Secret Agent isn't running. Run setup again to fix.", severity: .advisory, actionTitle: "Run Setup") {
+            self.runSetupBlock?()
+        }
+    }
+
     func delete<SecretType: Secret>(secret: SecretType) {
         deletingSecret = AnySecret(secret)
         self.showingDeletion = true
@@ -110,12 +121,22 @@ fileprivate enum Constants {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            ContentView(storeList: Preview.storeList(stores: [Preview.Store(numberOfRandomSecrets: 0)], modifiableStores: [Preview.StoreModifiable(numberOfRandomSecrets: 0)]), updater: PreviewUpdater())
-            ContentView(storeList: Preview.storeList(stores: [Preview.Store()], modifiableStores: [Preview.StoreModifiable()]), updater: PreviewUpdater())
-            ContentView(storeList: Preview.storeList(stores: [Preview.Store()]), updater: PreviewUpdater())
-            ContentView(storeList: Preview.storeList(modifiableStores: [Preview.StoreModifiable()]), updater: PreviewUpdater())
-            ContentView(storeList: Preview.storeList(stores: [Preview.Store(numberOfRandomSecrets: 0)], modifiableStores: [Preview.StoreModifiable(numberOfRandomSecrets: 0)]), updater: PreviewUpdater(update: .advisory))
-            ContentView(storeList: Preview.storeList(stores: [Preview.Store(numberOfRandomSecrets: 0)], modifiableStores: [Preview.StoreModifiable(numberOfRandomSecrets: 0)]), updater: PreviewUpdater(update: .critical))
+            ContentView(storeList: Preview.storeList(stores: [Preview.Store(numberOfRandomSecrets: 0)],
+                                                     modifiableStores: [Preview.StoreModifiable(numberOfRandomSecrets: 0)]),
+                        updater: PreviewUpdater(),
+                        agentStatusChecker: PreviewAgentStatusChecker())
+            ContentView(storeList: Preview.storeList(stores: [Preview.Store()], modifiableStores: [Preview.StoreModifiable()]), updater: PreviewUpdater(),
+                        agentStatusChecker: PreviewAgentStatusChecker())
+            ContentView(storeList: Preview.storeList(stores: [Preview.Store()]), updater: PreviewUpdater(),
+                        agentStatusChecker: PreviewAgentStatusChecker())
+            ContentView(storeList: Preview.storeList(modifiableStores: [Preview.StoreModifiable()]), updater: PreviewUpdater(),
+                        agentStatusChecker: PreviewAgentStatusChecker())
+            ContentView(storeList: Preview.storeList(stores: [Preview.Store(numberOfRandomSecrets: 0)], modifiableStores: [Preview.StoreModifiable(numberOfRandomSecrets: 0)]), updater: PreviewUpdater(update: .advisory),
+                        agentStatusChecker: PreviewAgentStatusChecker())
+            ContentView(storeList: Preview.storeList(stores: [Preview.Store(numberOfRandomSecrets: 0)], modifiableStores: [Preview.StoreModifiable(numberOfRandomSecrets: 0)]), updater: PreviewUpdater(update: .critical),
+                        agentStatusChecker: PreviewAgentStatusChecker())
+            ContentView(storeList: Preview.storeList(stores: [Preview.Store(numberOfRandomSecrets: 0)], modifiableStores: [Preview.StoreModifiable(numberOfRandomSecrets: 0)]), updater: PreviewUpdater(update: .critical),
+                        agentStatusChecker: PreviewAgentStatusChecker(running: false))
         }
     }
 }

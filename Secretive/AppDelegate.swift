@@ -14,10 +14,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         return list
     }()
     let updater = Updater()
+    let agentStatusChecker = AgentStatusChecker()
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-
-        let contentView = ContentView(storeList: storeList, updater: updater)
+        let contentView = ContentView(storeList: storeList, updater: updater, agentStatusChecker: agentStatusChecker, runSetupBlock: { self.runSetup(sender: nil) })
         // Create the window and set the content view.
         window = NSWindow(
             contentRect: NSRect(x: 0, y: 0, width: 480, height: 300),
@@ -36,6 +36,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             window.addTitlebarAccessoryViewController(plus)
         }
         runSetupIfNeeded()
+    }
+
+    func applicationDidBecomeActive(_ notification: Notification) {
+        agentStatusChecker.check()
     }
 
     @IBAction func add(sender: AnyObject?) {
