@@ -13,7 +13,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         list.add(store: SmartCard.Store())
         return list
     }()
-    let updater = Updater()
+    let updater = PreviewUpdater()
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
 

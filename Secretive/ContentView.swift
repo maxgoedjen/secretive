@@ -1,10 +1,10 @@
 import SwiftUI
 import SecretKit
 
-struct ContentView: View {
+struct ContentView<UpdaterType: UpdaterProtocol>: View {
     
     @ObservedObject var storeList: SecretStoreList
-    @ObservedObject var updater: Updater
+    @ObservedObject var updater: UpdaterType
 
     @State fileprivate var active: AnySecret.ID?
     @State fileprivate var showingDeletion = false
@@ -92,26 +92,25 @@ struct ContentView: View {
     
 }
 
-extension ContentView {
-
-    enum Constants {
-        static let emptyStoreModifiableTag: AnyHashable = "emptyStoreModifiableTag"
-        static let emptyStoreTag: AnyHashable = "emptyStoreModifiableTag"
-    }
-
+fileprivate enum Constants {
+    static let emptyStoreModifiableTag: AnyHashable = "emptyStoreModifiableTag"
+    static let emptyStoreTag: AnyHashable = "emptyStoreModifiableTag"
 }
 
-//#if DEBUG
-//
-//struct ContentView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        Group {
-//            ContentView(storeList: Preview.storeList(stores: [Preview.Store(numberOfRandomSecrets: 0)], modifiableStores: [Preview.StoreModifiable(numberOfRandomSecrets: 0)]), updater: PreviewUpdater())
-//            ContentView(storeList: Preview.storeList(stores: [Preview.Store()], modifiableStores: [Preview.StoreModifiable()]), updater: PreviewUpdater())
-//            ContentView(storeList: Preview.storeList(stores: [Preview.Store()]), updater: PreviewUpdater())
-//            ContentView(storeList: Preview.storeList(modifiableStores: [Preview.StoreModifiable()]), updater: PreviewUpdater())
-//        }
-//    }
-//}
-//
-//#endif
+
+#if DEBUG
+
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        Group {
+            ContentView(storeList: Preview.storeList(stores: [Preview.Store(numberOfRandomSecrets: 0)], modifiableStores: [Preview.StoreModifiable(numberOfRandomSecrets: 0)]), updater: PreviewUpdater())
+            ContentView(storeList: Preview.storeList(stores: [Preview.Store()], modifiableStores: [Preview.StoreModifiable()]), updater: PreviewUpdater())
+            ContentView(storeList: Preview.storeList(stores: [Preview.Store()]), updater: PreviewUpdater())
+            ContentView(storeList: Preview.storeList(modifiableStores: [Preview.StoreModifiable()]), updater: PreviewUpdater())
+            ContentView(storeList: Preview.storeList(stores: [Preview.Store(numberOfRandomSecrets: 0)], modifiableStores: [Preview.StoreModifiable(numberOfRandomSecrets: 0)]), updater: PreviewUpdater(update: .advisory))
+            ContentView(storeList: Preview.storeList(stores: [Preview.Store(numberOfRandomSecrets: 0)], modifiableStores: [Preview.StoreModifiable(numberOfRandomSecrets: 0)]), updater: PreviewUpdater(update: .critical))
+        }
+    }
+}
+
+#endif

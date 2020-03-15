@@ -2,7 +2,9 @@ import Foundation
 import Combine
 
 protocol UpdaterProtocol: ObservableObject {
+
     var update: Release? { get }
+
 }
 
 class Updater: ObservableObject, UpdaterProtocol {
@@ -10,9 +12,11 @@ class Updater: ObservableObject, UpdaterProtocol {
     @Published var update: Release?
 
     init() {
-        DispatchQueue.global().asyncAfter(deadline: .now() + 3) {
+        checkForUpdates()
+        let timer = Timer.scheduledTimer(withTimeInterval: 60*60*24, repeats: true) { _ in
             self.checkForUpdates()
         }
+        timer.tolerance = 60*60
     }
 
     func checkForUpdates() {
@@ -49,16 +53,15 @@ class Updater: ObservableObject, UpdaterProtocol {
 extension Updater {
 
     enum Constants {
-        static let updateURL = URL(string: "https://api.github.com/repos/rails/rails/releases/latest")!
+        static let updateURL = URL(string: "https://api.github.com/repos/maxgoedjen/secretive/releases/latest")!
     }
 
 }
 
-
 struct Release: Codable {
     let name: String
     let html_url: URL
-    fileprivate let body: String
+    let body: String
 }
 
 
