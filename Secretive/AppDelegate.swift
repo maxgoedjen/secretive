@@ -62,6 +62,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             backing: .buffered, defer: false)
         let setupView = SetupView() { success in
             self.window.endSheet(setupWindow)
+            agentStatusChecker.check()
         }
         setupWindow.contentView = NSHostingView(rootView: setupView)
         window.beginSheet(setupWindow, completionHandler: nil)
