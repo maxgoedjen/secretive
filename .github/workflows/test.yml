@@ -1,8 +1,6 @@
 name: Test
 
-on: 
-  push:
-    - '*'
+on: push
 jobs:
   build:
     runs-on: macOS-latest
