@@ -35,6 +35,8 @@
 		508A58AA241E06B40069DC07 /* PreviewUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508A58A9241E06B40069DC07 /* PreviewUpdater.swift */; };
 		508A58B3241ED2180069DC07 /* AgentStatusChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508A58B2241ED2180069DC07 /* AgentStatusChecker.swift */; };
 		508A58B5241ED48F0069DC07 /* PreviewAgentStatusChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508A58B4241ED48F0069DC07 /* PreviewAgentStatusChecker.swift */; };
+		508A5911241EF09C0069DC07 /* SecretAgentKit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 5099A06C240242BA0062B6F2 /* SecretAgentKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		508A5913241EF0B20069DC07 /* SecretKit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 50617DA823FCE4AB0099B055 /* SecretKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		5099A02423FD2AAA0062B6F2 /* CreateSecretView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5099A02323FD2AAA0062B6F2 /* CreateSecretView.swift */; };
 		5099A02723FE34FA0062B6F2 /* SmartCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5099A02623FE34FA0062B6F2 /* SmartCard.swift */; };
 		5099A02923FE35240062B6F2 /* SmartCardStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5099A02823FE35240062B6F2 /* SmartCardStore.swift */; };
@@ -115,6 +117,26 @@
 				50617DBE23FCE4AB0099B055 /* SecretKit.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		508A5910241EF0920069DC07 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				508A5911241EF09C0069DC07 /* SecretAgentKit.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		508A5912241EF0AC0069DC07 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				508A5913241EF0B20069DC07 /* SecretKit.framework in CopyFiles */,
+			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		50A5C18E240E4B4B00E2996C /* Embed Frameworks */ = {
@@ -565,6 +587,7 @@
 				50617DAC23FCE4AB0099B055 /* Sources */,
 				50617DAD23FCE4AB0099B055 /* Frameworks */,
 				50617DAE23FCE4AB0099B055 /* Resources */,
+				508A5912241EF0AC0069DC07 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -601,6 +624,7 @@
 				5099A070240242BA0062B6F2 /* Sources */,
 				5099A071240242BA0062B6F2 /* Frameworks */,
 				5099A072240242BA0062B6F2 /* Resources */,
+				508A5910241EF0920069DC07 /* CopyFiles */,
 			);
 			buildRules = (
 			);
