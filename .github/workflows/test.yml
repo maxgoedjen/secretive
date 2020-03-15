@@ -2,7 +2,7 @@ name: Test
 
 on: push
 jobs:
-  build:
+  test:
     runs-on: macOS-latest
     timeout-minutes: 10
     steps:
