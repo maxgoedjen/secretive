@@ -1,0 +1,13 @@
+name: Test
+
+on: 
+  push:
+    - '*'
+jobs:
+  build:
+    runs-on: macOS-latest
+    timeout-minutes: 10
+    steps:
+    - uses: actions/checkout@v1
+    - name: Test
+      run: xcrun xcodebuild test -project Secretive.xcodeproj -scheme Secretive
