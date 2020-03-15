@@ -30,6 +30,9 @@
 		506838A12415EA5600F55094 /* AnySecret.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506838A02415EA5600F55094 /* AnySecret.swift */; };
 		506838A32415EA5D00F55094 /* AnySecretStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506838A22415EA5D00F55094 /* AnySecretStore.swift */; };
 		506AB87E2412334700335D91 /* SecretAgent.app in CopyFiles */ = {isa = PBXBuildFile; fileRef = 50A3B78A24026B7500D209EA /* SecretAgent.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		50731666241DF8660023809E /* Updater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50731665241DF8660023809E /* Updater.swift */; };
+		50731669241E00C20023809E /* NoticeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50731668241E00C20023809E /* NoticeView.swift */; };
+		508A58AA241E06B40069DC07 /* PreviewUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508A58A9241E06B40069DC07 /* PreviewUpdater.swift */; };
 		5099A02423FD2AAA0062B6F2 /* CreateSecretView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5099A02323FD2AAA0062B6F2 /* CreateSecretView.swift */; };
 		5099A02723FE34FA0062B6F2 /* SmartCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5099A02623FE34FA0062B6F2 /* SmartCard.swift */; };
 		5099A02923FE35240062B6F2 /* SmartCardStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5099A02823FE35240062B6F2 /* SmartCardStore.swift */; };
@@ -179,6 +182,9 @@
 		5068389D241471CD00F55094 /* SecretStoreList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecretStoreList.swift; sourceTree = "<group>"; };
 		506838A02415EA5600F55094 /* AnySecret.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnySecret.swift; sourceTree = "<group>"; };
 		506838A22415EA5D00F55094 /* AnySecretStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnySecretStore.swift; sourceTree = "<group>"; };
+		50731665241DF8660023809E /* Updater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Updater.swift; sourceTree = "<group>"; };
+		50731668241E00C20023809E /* NoticeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeView.swift; sourceTree = "<group>"; };
+		508A58A9241E06B40069DC07 /* PreviewUpdater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewUpdater.swift; sourceTree = "<group>"; };
 		5099A02323FD2AAA0062B6F2 /* CreateSecretView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateSecretView.swift; sourceTree = "<group>"; };
 		5099A02623FE34FA0062B6F2 /* SmartCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmartCard.swift; sourceTree = "<group>"; };
 		5099A02823FE35240062B6F2 /* SmartCardStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmartCardStore.swift; sourceTree = "<group>"; };
@@ -298,11 +304,13 @@
 			children = (
 				50617D8223FCE48E0099B055 /* AppDelegate.swift */,
 				50617D8423FCE48E0099B055 /* ContentView.swift */,
+				50731668241E00C20023809E /* NoticeView.swift */,
 				50C385A42407A76D00AF2719 /* SecretDetailView.swift */,
 				5099A02323FD2AAA0062B6F2 /* CreateSecretView.swift */,
 				50B8550C24138C4F009958AC /* DeleteSecretView.swift */,
 				50BB046A2418AAAE00D6E079 /* EmptyStoreView.swift */,
 				50C385A8240B636500AF2719 /* SetupView.swift */,
+				50731665241DF8660023809E /* Updater.swift */,
 				50617D8623FCE48E0099B055 /* Assets.xcassets */,
 				50617D8B23FCE48E0099B055 /* Main.storyboard */,
 				50617D8E23FCE48E0099B055 /* Info.plist */,
@@ -317,6 +325,7 @@
 			children = (
 				50617D8923FCE48E0099B055 /* Preview Assets.xcassets */,
 				50617DD123FCEFA90099B055 /* PreviewStore.swift */,
+				508A58A9241E06B40069DC07 /* PreviewUpdater.swift */,
 			);
 			path = "Preview Content";
 			sourceTree = "<group>";
@@ -735,9 +744,12 @@
 				50617DD223FCEFA90099B055 /* PreviewStore.swift in Sources */,
 				50C385A52407A76D00AF2719 /* SecretDetailView.swift in Sources */,
 				5099A02423FD2AAA0062B6F2 /* CreateSecretView.swift in Sources */,
+				50731666241DF8660023809E /* Updater.swift in Sources */,
 				50B8550D24138C4F009958AC /* DeleteSecretView.swift in Sources */,
 				50BB046B2418AAAE00D6E079 /* EmptyStoreView.swift in Sources */,
+				50731669241E00C20023809E /* NoticeView.swift in Sources */,
 				50617D8323FCE48E0099B055 /* AppDelegate.swift in Sources */,
+				508A58AA241E06B40069DC07 /* PreviewUpdater.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1001,6 +1013,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MARKETING_VERSION = 0.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.maxgoedjen.Secretive.Host;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1027,6 +1040,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MARKETING_VERSION = 0.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.maxgoedjen.Secretive.Host;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "Secretive - Host";
