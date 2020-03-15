@@ -28,6 +28,12 @@ jobs:
         HOST_PROFILE_DATA: ${{ secrets.HOST_PROFILE_DATA }}
         AGENT_PROFILE_DATA: ${{ secrets.AGENT_PROFILE_DATA }}
       run: ./.github/scripts/signing.sh
+    - name: Update Build Number
+      env:
+        TAG_NAME: ${{ github.ref }}
+      run: |
+            export CLEAN_TAG=$(echo $TAG_NAME | sed -e 's/v//')
+            sed -i '' -e "s/CI_VERSION = 0.0.0/CI_VERSION = $CLEAN_TAG/g" Config/Config.xcconfig
     - name: Build
       run: xcrun xcodebuild -project Secretive.xcodeproj -scheme Secretive -configuration Release -archivePath Archive.xcarchive archive
     - name: Create ZIPs
