@@ -305,14 +305,8 @@
 			isa = PBXGroup;
 			children = (
 				50617D8223FCE48E0099B055 /* AppDelegate.swift */,
-				50617D8423FCE48E0099B055 /* ContentView.swift */,
-				50731668241E00C20023809E /* NoticeView.swift */,
-				50C385A42407A76D00AF2719 /* SecretDetailView.swift */,
-				5099A02323FD2AAA0062B6F2 /* CreateSecretView.swift */,
-				50B8550C24138C4F009958AC /* DeleteSecretView.swift */,
-				50BB046A2418AAAE00D6E079 /* EmptyStoreView.swift */,
-				50C385A8240B636500AF2719 /* SetupView.swift */,
-				50731665241DF8660023809E /* Updater.swift */,
+				508A58B0241ED1C40069DC07 /* Views */,
+				508A58B1241ED1EA0069DC07 /* Controllers */,
 				50617D8623FCE48E0099B055 /* Assets.xcassets */,
 				50617D8B23FCE48E0099B055 /* Main.storyboard */,
 				50617D8E23FCE48E0099B055 /* Info.plist */,
@@ -398,6 +392,28 @@
 				508A58AB241E121B0069DC07 /* Config.xcconfig */,
 			);
 			path = Config;
+			sourceTree = "<group>";
+		};
+		508A58B0241ED1C40069DC07 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				50617D8423FCE48E0099B055 /* ContentView.swift */,
+				50731668241E00C20023809E /* NoticeView.swift */,
+				50C385A42407A76D00AF2719 /* SecretDetailView.swift */,
+				5099A02323FD2AAA0062B6F2 /* CreateSecretView.swift */,
+				50B8550C24138C4F009958AC /* DeleteSecretView.swift */,
+				50BB046A2418AAAE00D6E079 /* EmptyStoreView.swift */,
+				50C385A8240B636500AF2719 /* SetupView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		508A58B1241ED1EA0069DC07 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				50731665241DF8660023809E /* Updater.swift */,
+			);
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 		5099A02523FE34DE0062B6F2 /* SmartCard */ = {
