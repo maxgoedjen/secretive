@@ -38,7 +38,7 @@ For non-command-line based apps, like GUI Git clients, you may need to go throug
 
 ### Security Considerations
 
-For the moment, you must build Secretive from source. For an app like this, it's critical that you trust that the app you're running is the app whose source you've checked out. To this end, Secretive has no third party dependecies, and is designed to be easy for you to audit for exploits.
+Builds are produced by GitHub Actions with an auditable build and release generation process. Each build has a "Document SHAs" step, which will output SHA checksums for the build produced by the GitHub Action, so you can verify that the source code for a given build corresponds to any given release.
 
 ### A Note Around Code Signing and Keychains
 
