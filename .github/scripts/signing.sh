@@ -11,9 +11,9 @@ security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k ci ci.keyc
 # Import Profiles
 mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
 
-echo $HOST_PROFILE_DATA | base64 -d -o Host.mobileprovision
-HOST_UUID=`grep UUID -A1 -a Profile.mobileprovision | grep -io "[-A-F0-9]\{36\}"`
-cp Host.mobileprovision ~/Library/MobileDevice/Provisioning\ Profiles/$HOST_UUID.mobileprovision
+echo $HOST_PROFILE_DATA | base64 -d -o Host.provisionprofile
+HOST_UUID=`grep UUID -A1 -a Profile.provisionprofile | grep -io "[-A-F0-9]\{36\}"`
+cp Host.mobileprovision ~/Library/MobileDevice/Provisioning\ Profiles/$HOST_UUID.provisionprofile
 echo $AGENT_PROFILE_DATA | base64 -d -o Agent.mobileprovision
-AGENT_UUID=`grep UUID -A1 -a Agent.mobileprovision | grep -io "[-A-F0-9]\{36\}"`
-cp Agent.mobileprovision ~/Library/MobileDevice/Provisioning\ Profiles/$AGENT_UUID.mobileprovision
+AGENT_UUID=`grep UUID -A1 -a Agent.provisionprofile | grep -io "[-A-F0-9]\{36\}"`
+cp Agent.provisionprofile ~/Library/MobileDevice/Provisioning\ Profiles/$AGENT_UUID.provisionprofile
