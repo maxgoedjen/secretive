@@ -40,7 +40,7 @@ jobs:
       env: 
         APPLE_USERNAME: ${{ secrets.APPLE_USERNAME }}
         APPLE_PASSWORD: ${{ secrets.APPLE_PASSWORD }}
-      run: xcrun altool --notarize-app --primary-bundle-id "com.maxgoedjen.secretive.host" --username "$APPLE_USERNAME" --password "$APPLE_PASSWORD" --file Secretive.zip
+      run: xcrun altool --notarize-app --primary-bundle-id "com.maxgoedjen.secretive.host" --username $APPLE_USERNAME --password $APPLE_PASSWORD --file Secretive.zip
     - name: Document SHAs
       run: |
             shasum -a 512 Secretive.zip
