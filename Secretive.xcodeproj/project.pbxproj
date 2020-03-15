@@ -6,19 +6,6 @@
 	objectVersion = 50;
 	objects = {
 
-/* Begin PBXAggregateTarget section */
-		508A590B241EEE900069DC07 /* Tests */ = {
-			isa = PBXAggregateTarget;
-			buildConfigurationList = 508A590E241EEE900069DC07 /* Build configuration list for PBXAggregateTarget "Tests" */;
-			buildPhases = (
-			);
-			dependencies = (
-			);
-			name = Tests;
-			productName = Tests;
-		};
-/* End PBXAggregateTarget section */
-
 /* Begin PBXBuildFile section */
 		50020BB024064869003D4025 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50020BAF24064869003D4025 /* AppDelegate.swift */; };
 		5018F54F24064786002EB505 /* Notifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5018F54E24064786002EB505 /* Notifier.swift */; };
@@ -102,13 +89,6 @@
 			remoteGlobalIDString = 50617DA723FCE4AB0099B055;
 			remoteInfo = SecretKit;
 		};
-		50617DB423FCE4AB0099B055 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 50617D7723FCE48D0099B055 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 50617D7E23FCE48D0099B055;
-			remoteInfo = Secretive;
-		};
 		50617DBB23FCE4AB0099B055 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 50617D7723FCE48D0099B055 /* Project object */;
@@ -122,13 +102,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = 5099A06B240242BA0062B6F2;
 			remoteInfo = SecretAgentKit;
-		};
-		5099A078240242BA0062B6F2 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 50617D7723FCE48D0099B055 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 50617D7E23FCE48D0099B055;
-			remoteInfo = Secretive;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -203,6 +176,7 @@
 		508A58AB241E121B0069DC07 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		508A58B2241ED2180069DC07 /* AgentStatusChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgentStatusChecker.swift; sourceTree = "<group>"; };
 		508A58B4241ED48F0069DC07 /* PreviewAgentStatusChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewAgentStatusChecker.swift; sourceTree = "<group>"; };
+		508A590F241EEF6D0069DC07 /* Secretive.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = Secretive.xctestplan; sourceTree = "<group>"; };
 		5099A02323FD2AAA0062B6F2 /* CreateSecretView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateSecretView.swift; sourceTree = "<group>"; };
 		5099A02623FE34FA0062B6F2 /* SmartCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmartCard.swift; sourceTree = "<group>"; };
 		5099A02823FE35240062B6F2 /* SmartCardStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmartCardStore.swift; sourceTree = "<group>"; };
@@ -407,6 +381,7 @@
 		508A58AF241E144C0069DC07 /* Config */ = {
 			isa = PBXGroup;
 			children = (
+				508A590F241EEF6D0069DC07 /* Secretive.xctestplan */,
 				508A58AB241E121B0069DC07 /* Config.xcconfig */,
 			);
 			path = Config;
@@ -595,7 +570,6 @@
 			);
 			dependencies = (
 				50617DB323FCE4AB0099B055 /* PBXTargetDependency */,
-				50617DB523FCE4AB0099B055 /* PBXTargetDependency */,
 			);
 			name = SecretKitTests;
 			productName = SecretKitTests;
@@ -632,7 +606,6 @@
 			);
 			dependencies = (
 				5099A077240242BA0062B6F2 /* PBXTargetDependency */,
-				5099A079240242BA0062B6F2 /* PBXTargetDependency */,
 			);
 			name = SecretAgentKitTests;
 			productName = SecretAgentKitTests;
@@ -684,9 +657,6 @@
 						CreatedOnToolsVersion = 11.3;
 						TestTargetID = 50617D7E23FCE48D0099B055;
 					};
-					508A590B241EEE900069DC07 = {
-						CreatedOnToolsVersion = 11.4;
-					};
 					5099A06B240242BA0062B6F2 = {
 						CreatedOnToolsVersion = 11.4;
 						LastSwiftMigration = 1140;
@@ -720,7 +690,6 @@
 				50617DAF23FCE4AB0099B055 /* SecretKitTests */,
 				5099A06B240242BA0062B6F2 /* SecretAgentKit */,
 				5099A073240242BA0062B6F2 /* SecretAgentKitTests */,
-				508A590B241EEE900069DC07 /* Tests */,
 			);
 		};
 /* End PBXProject section */
@@ -890,11 +859,6 @@
 			target = 50617DA723FCE4AB0099B055 /* SecretKit */;
 			targetProxy = 50617DB223FCE4AB0099B055 /* PBXContainerItemProxy */;
 		};
-		50617DB523FCE4AB0099B055 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 50617D7E23FCE48D0099B055 /* Secretive */;
-			targetProxy = 50617DB423FCE4AB0099B055 /* PBXContainerItemProxy */;
-		};
 		50617DBC23FCE4AB0099B055 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 50617DA723FCE4AB0099B055 /* SecretKit */;
@@ -904,11 +868,6 @@
 			isa = PBXTargetDependency;
 			target = 5099A06B240242BA0062B6F2 /* SecretAgentKit */;
 			targetProxy = 5099A076240242BA0062B6F2 /* PBXContainerItemProxy */;
-		};
-		5099A079240242BA0062B6F2 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 50617D7E23FCE48D0099B055 /* Secretive */;
-			targetProxy = 5099A078240242BA0062B6F2 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1246,24 +1205,6 @@
 			};
 			name = Release;
 		};
-		508A590C241EEE900069DC07 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = Z72PRUAWF6;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Debug;
-		};
-		508A590D241EEE900069DC07 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = Z72PRUAWF6;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Release;
-		};
 		5099A084240242BA0062B6F2 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1457,15 +1398,6 @@
 			buildConfigurations = (
 				50617DC223FCE4AB0099B055 /* Debug */,
 				50617DC323FCE4AB0099B055 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		508A590E241EEE900069DC07 /* Build configuration list for PBXAggregateTarget "Tests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				508A590C241EEE900069DC07 /* Debug */,
-				508A590D241EEE900069DC07 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
