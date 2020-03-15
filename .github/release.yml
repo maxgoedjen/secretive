@@ -1,0 +1,67 @@
+name: Release
+
+on: 
+  push:
+    branches:
+      - 'github_actions'
+    tags:
+      - '*'
+jobs:
+  build:
+    runs-on: macOS-latest
+    timeout-minutes: 10
+    steps:
+    - uses: actions/checkout@v1
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ github.ref }}
+        release_name: ${{ github.ref }}
+        body: ''
+        draft: true
+        prerelease: false
+    - name: Set up signing
+      env: 
+        SIGNING_DATA: ${{ secrets.SIGNING_DATA }}
+        SIGNING_PASSWORD: ${{ secrets.SIGNING_PASSWORD }}
+        HOST_PROFILE_DATA: ${{ secrets.HOST_PROFILE_DATA }}
+        AGENT_PROFILE_DATA: ${{ secrets.AGENT_PROFILE_DATA }}
+      run: ./scripts/signing.sh
+    - name: Build
+      run: xcrun xcodebuild -project Secretive.xcodeproj -scheme Secretive -configuration Release -archivePath Archive.xcarchive archive
+    - name: Create ZIPs
+      run: |
+            ditto -c -k --sequesterRsrc --keepParent Archive.xcarchive/Products/Applications/Secretive.app ./Secretive.zip
+            ditto -c -k --sequesterRsrc --keepParent Archive.xcarchive ./Archive.zip
+    - name: Notarize
+      env: 
+        APPLE_USERNAME: ${{ secrets.APPLE_USERNAME }}
+        APPLE_PASSWORD: ${{ secrets.APPLE_PASSWORD }}
+      run: xcrun altool --notarize-app --primary-bundle-id "com.maxgoedjen.secretive.host" --username "$APPLE_USERNAME" --password "$APPLE_PASSWORD" --file Secretive.zip
+    - name: Document SHAs
+      run: |
+            shasum -a 512 Secretive.zip
+            shasum -a 512 Archive.zip
+    - name: Upload App
+      id: upload-release-asset 
+      uses: actions/upload-release-asset@v1.0.1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./Secretive.zip
+        asset_name: Secretive.zip
+        asset_content_type: application/zip
+    - name: Upload Archive
+      id: upload-release-asset 
+      uses: actions/upload-release-asset@v1.0.1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./Archive.zip
+        asset_name: Archive.zip
+        asset_content_type: application/zip
