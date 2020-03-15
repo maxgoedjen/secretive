@@ -47,3 +47,7 @@ While Secretive uses the Secure Enclave for key storage, it still relies on Keyc
 ### Backups and Transfers to New Machines
 
 Beacuse secrets in the Secure Enclave are not exportable, they are not able to be backed up, and you will not be able to transfer them to a new machine. If you get a new Mac, just create a new set of secrets specific to that Mac.
+
+## Security
+
+If you discover any vulnerabilities in this project, please notify max.goedjen@gmail.com
