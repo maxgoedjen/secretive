@@ -29,6 +29,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         window.makeKeyAndOrderFront(nil)
         window.titleVisibility = .hidden
         window.toolbar = toolbar
+        window.isReleasedWhenClosed = false
         if storeList.modifiableStore?.isAvailable ?? false {
             let plus = NSTitlebarAccessoryViewController()
             plus.view = NSButton(image: NSImage(named: NSImage.addTemplateName)!, target: self, action: #selector(add(sender:)))
@@ -40,6 +41,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     func applicationDidBecomeActive(_ notification: Notification) {
         agentStatusChecker.check()
+    }
+
+    func applicationShouldHandleReopen(_ sender: NSApplication, hasVisibleWindows flag: Bool) -> Bool {
+        guard !flag else { return false }
+        window.makeKeyAndOrderFront(self)
+        return true
     }
 
     @IBAction func add(sender: AnyObject?) {
