@@ -1,6 +1,7 @@
 import Foundation
 import SecretKit
 import UserNotifications
+import AppKit
 
 class Notifier {
 
@@ -10,11 +11,11 @@ class Notifier {
         }
     }
 
-    func notify<SecretType: Secret>(accessTo secret: SecretType) {
+    func notify<SecretType: Secret>(accessTo secret: SecretType, from caller: NSRunningApplication) {
         let notificationCenter = UNUserNotificationCenter.current()
         let notificationContent = UNMutableNotificationContent()
         notificationContent.title = "Signed Request"
-        notificationContent.body = "\(secret.name) was used to sign a request."
+        notificationContent.body = "\(secret.name) was used to sign a request from \(caller.localizedName!)."
         let request = UNNotificationRequest(identifier: UUID().uuidString, content: notificationContent, trigger: nil)
         notificationCenter.add(request, withCompletionHandler: nil)
     }

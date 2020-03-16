@@ -3,6 +3,7 @@ import CryptoKit
 import OSLog
 import SecretKit
 import SecretAgentKit
+import AppKit
 
 class Agent {
 
@@ -40,7 +41,7 @@ extension Agent {
                 os_log(.debug, "Agent returned %@", SSHAgent.ResponseType.agentIdentitiesAnswer.debugDescription)
             case .signRequest:
                 response.append(SSHAgent.ResponseType.agentSignResponse.data)
-                response.append(try sign(data: data))
+                response.append(try sign(data: data, from: fileHandle.fileDescriptor))
                 os_log(.debug, "Agent returned %@", SSHAgent.ResponseType.agentSignResponse.debugDescription)
             }
         } catch {
@@ -74,7 +75,7 @@ extension Agent {
         return countData + keyData
     }
 
-    func sign(data: Data) throws -> Data {
+    func sign(data: Data, from pid: Int32) throws -> Data {
         let reader = OpenSSHReader(data: data)
         let writer = OpenSSHKeyWriter()
         let hash = try reader.readNextChunk()
@@ -92,8 +93,10 @@ extension Agent {
         }
         let dataToSign = try reader.readNextChunk()
         let derSignature = try store.sign(data: dataToSign, with: secret)
+        let callerApp = caller(from: pid)
         // TODO: Move this
-        notifier.notify(accessTo: secret)
+        notifier.notify(accessTo: secret, from: callerApp)
+
         let curveData = writer.curveType(for: secret.algorithm, length: secret.keySize).data(using: .utf8)!
 
         // Convert from DER formatted rep to raw (r||s)
@@ -126,6 +129,29 @@ extension Agent {
         os_log(.debug, "Agent signed request")
 
         return signedData
+    }
+
+    func caller(from pid: Int32) -> NSRunningApplication {
+        let pidPointer = UnsafeMutableRawPointer.allocate(byteCount: 4, alignment: 1)
+        var len = socklen_t(MemoryLayout<Int32>.size)
+        getsockopt(pid, SOCK_STREAM, LOCAL_PEERPID, pidPointer, &len)
+        let pid = pidPointer.load(as: Int32.self)
+
+        var current = pid
+        while NSRunningApplication(processIdentifier: current) == nil {
+            current = originalProcess(of: current)
+        }
+        return NSRunningApplication(processIdentifier: current)!
+    }
+
+    func originalProcess(of pid: Int32) -> Int32 {
+        var len = MemoryLayout<kinfo_proc>.size
+        let infoPointer = UnsafeMutableRawPointer.allocate(byteCount: len, alignment: 1)
+        var name: [Int32] = [CTL_KERN, KERN_PROC, KERN_PROC_PID, pid]
+        sysctl(&name, UInt32(name.count), infoPointer, &len, nil, 0)
+        let info =  infoPointer.load(as: kinfo_proc.self)
+        let parent = info.kp_eproc.e_ppid
+        return parent
     }
 
 }
