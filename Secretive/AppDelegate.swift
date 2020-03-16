@@ -6,6 +6,7 @@ import SecretKit
 class AppDelegate: NSObject, NSApplicationDelegate {
 
     var window: NSWindow!
+    @IBOutlet var newMenuItem: NSMenuItem!
     @IBOutlet var toolbar: NSToolbar!
     let storeList: SecretStoreList = {
         let list = SecretStoreList()
@@ -35,6 +36,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             plus.view = NSButton(image: NSImage(named: NSImage.addTemplateName)!, target: self, action: #selector(add(sender:)))
             plus.layoutAttribute = .right
             window.addTitlebarAccessoryViewController(plus)
+            newMenuItem.isEnabled = true
         }
         runSetupIfNeeded()
     }
