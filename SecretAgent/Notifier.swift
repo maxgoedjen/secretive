@@ -11,11 +11,11 @@ class Notifier {
         }
     }
 
-    func notify(accessTo secret: AnySecret) {
+    func notify(accessTo secret: AnySecret, by provenance: SigningRequestProvenance) {
         let notificationCenter = UNUserNotificationCenter.current()
         let notificationContent = UNMutableNotificationContent()
         notificationContent.title = "Signed Request"
-        notificationContent.body = "\(secret.name) was used to sign a request."
+        notificationContent.body = "\(secret.name) was used to sign a request from \(provenance.origin.name)."
         let request = UNNotificationRequest(identifier: UUID().uuidString, content: notificationContent, trigger: nil)
         notificationCenter.add(request, withCompletionHandler: nil)
     }
@@ -24,8 +24,8 @@ class Notifier {
 
 extension Notifier: SigningWitness {
 
-    func witness(accessTo secret: AnySecret) throws {
-        notify(accessTo: secret)
+    func witness(accessTo secret: AnySecret, by provenance: SigningRequestProvenance) throws {
+        notify(accessTo: secret, by: provenance)
     }
 
 }

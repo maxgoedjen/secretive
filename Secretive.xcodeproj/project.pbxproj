@@ -35,6 +35,8 @@
 		507CE4ED2420A3C70029F750 /* Agent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50A3B79F24026B9900D209EA /* Agent.swift */; };
 		507CE4EE2420A3CA0029F750 /* SocketController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50A3B79D24026B9900D209EA /* SocketController.swift */; };
 		507CE4F02420A4C50029F750 /* SigningWitness.swift in Sources */ = {isa = PBXBuildFile; fileRef = 507CE4EF2420A4C50029F750 /* SigningWitness.swift */; };
+		507CE4F42420A8C10029F750 /* SigningRequestProvenance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 507CE4F32420A8C10029F750 /* SigningRequestProvenance.swift */; };
+		507CE4F62420A96F0029F750 /* SigningRequestTracer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 507CE4F52420A96F0029F750 /* SigningRequestTracer.swift */; };
 		508A58AA241E06B40069DC07 /* PreviewUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508A58A9241E06B40069DC07 /* PreviewUpdater.swift */; };
 		508A58B3241ED2180069DC07 /* AgentStatusChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508A58B2241ED2180069DC07 /* AgentStatusChecker.swift */; };
 		508A58B5241ED48F0069DC07 /* PreviewAgentStatusChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508A58B4241ED48F0069DC07 /* PreviewAgentStatusChecker.swift */; };
@@ -203,6 +205,8 @@
 		50731665241DF8660023809E /* Updater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Updater.swift; sourceTree = "<group>"; };
 		50731668241E00C20023809E /* NoticeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeView.swift; sourceTree = "<group>"; };
 		507CE4EF2420A4C50029F750 /* SigningWitness.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SigningWitness.swift; sourceTree = "<group>"; };
+		507CE4F32420A8C10029F750 /* SigningRequestProvenance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SigningRequestProvenance.swift; sourceTree = "<group>"; };
+		507CE4F52420A96F0029F750 /* SigningRequestTracer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SigningRequestTracer.swift; sourceTree = "<group>"; };
 		508A58A9241E06B40069DC07 /* PreviewUpdater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewUpdater.swift; sourceTree = "<group>"; };
 		508A58AB241E121B0069DC07 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		508A58B2241ED2180069DC07 /* AgentStatusChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgentStatusChecker.swift; sourceTree = "<group>"; };
@@ -468,6 +472,8 @@
 				5099A089240242C20062B6F2 /* SSHAgentProtocol.swift */,
 				50A3B79D24026B9900D209EA /* SocketController.swift */,
 				507CE4EF2420A4C50029F750 /* SigningWitness.swift */,
+				507CE4F32420A8C10029F750 /* SigningRequestProvenance.swift */,
+				507CE4F52420A96F0029F750 /* SigningRequestTracer.swift */,
 				50A3B79F24026B9900D209EA /* Agent.swift */,
 				5099A06F240242BA0062B6F2 /* Info.plist */,
 			);
@@ -850,6 +856,8 @@
 				5099A08A240242C20062B6F2 /* SSHAgentProtocol.swift in Sources */,
 				507CE4ED2420A3C70029F750 /* Agent.swift in Sources */,
 				507CE4F02420A4C50029F750 /* SigningWitness.swift in Sources */,
+				507CE4F62420A96F0029F750 /* SigningRequestTracer.swift in Sources */,
+				507CE4F42420A8C10029F750 /* SigningRequestProvenance.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

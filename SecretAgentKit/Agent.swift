@@ -2,12 +2,15 @@ import Foundation
 import CryptoKit
 import OSLog
 import SecretKit
+import SecretAgentKit
+import AppKit
 
 public class Agent {
 
     fileprivate let storeList: SecretStoreList
     fileprivate let witness: SigningWitness?
     fileprivate let writer = OpenSSHKeyWriter()
+    fileprivate let requestTracer = SigningRequestTracer()
 
     public init(storeList: SecretStoreList, witness: SigningWitness? = nil) {
         os_log(.debug, "Agent is running")
@@ -40,7 +43,7 @@ extension Agent {
                 os_log(.debug, "Agent returned %@", SSHAgent.ResponseType.agentIdentitiesAnswer.debugDescription)
             case .signRequest:
                 response.append(SSHAgent.ResponseType.agentSignResponse.data)
-                response.append(try sign(data: data))
+                response.append(try sign(data: data, from: fileHandle.fileDescriptor))
                 os_log(.debug, "Agent returned %@", SSHAgent.ResponseType.agentSignResponse.debugDescription)
             }
         } catch {
@@ -74,7 +77,7 @@ extension Agent {
         return countData + keyData
     }
 
-    func sign(data: Data) throws -> Data {
+    func sign(data: Data, from pid: Int32) throws -> Data {
         let reader = OpenSSHReader(data: data)
         let hash = try reader.readNextChunk()
         guard let (store, secret) = secret(matching: hash) else {
@@ -82,8 +85,9 @@ extension Agent {
             throw AgentError.noMatchingKey
         }
 
+        let provenance = requestTracer.provenance(from: pid)
         if let witness = witness {
-            try witness.witness(accessTo: secret)
+            try witness.witness(accessTo: secret, by: provenance)
         }
 
         let dataToSign = try reader.readNextChunk()
