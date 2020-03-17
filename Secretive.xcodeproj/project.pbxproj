@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		50020BB024064869003D4025 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50020BAF24064869003D4025 /* AppDelegate.swift */; };
 		5018F54F24064786002EB505 /* Notifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5018F54E24064786002EB505 /* Notifier.swift */; };
+		50524B442420969E008DBD97 /* OpenSSHWriterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50524B432420969D008DBD97 /* OpenSSHWriterTests.swift */; };
 		50617D8323FCE48E0099B055 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50617D8223FCE48E0099B055 /* AppDelegate.swift */; };
 		50617D8523FCE48E0099B055 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50617D8423FCE48E0099B055 /* ContentView.swift */; };
 		50617D8723FCE48E0099B055 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 50617D8623FCE48E0099B055 /* Assets.xcassets */; };
@@ -16,7 +17,6 @@
 		50617D8D23FCE48E0099B055 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 50617D8B23FCE48E0099B055 /* Main.storyboard */; };
 		50617D9923FCE48E0099B055 /* SecretiveTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50617D9823FCE48E0099B055 /* SecretiveTests.swift */; };
 		50617DB123FCE4AB0099B055 /* SecretKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50617DA823FCE4AB0099B055 /* SecretKit.framework */; };
-		50617DB823FCE4AB0099B055 /* SecretKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50617DB723FCE4AB0099B055 /* SecretKitTests.swift */; };
 		50617DBA23FCE4AB0099B055 /* SecretKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 50617DAA23FCE4AB0099B055 /* SecretKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		50617DBD23FCE4AB0099B055 /* SecretKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50617DA823FCE4AB0099B055 /* SecretKit.framework */; };
 		50617DBE23FCE4AB0099B055 /* SecretKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 50617DA823FCE4AB0099B055 /* SecretKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -166,6 +166,7 @@
 /* Begin PBXFileReference section */
 		50020BAF24064869003D4025 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5018F54E24064786002EB505 /* Notifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifier.swift; sourceTree = "<group>"; };
+		50524B432420969D008DBD97 /* OpenSSHWriterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenSSHWriterTests.swift; sourceTree = "<group>"; };
 		50617D7F23FCE48E0099B055 /* Secretive.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Secretive.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		50617D8223FCE48E0099B055 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		50617D8423FCE48E0099B055 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -181,7 +182,6 @@
 		50617DAA23FCE4AB0099B055 /* SecretKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SecretKit.h; sourceTree = "<group>"; };
 		50617DAB23FCE4AB0099B055 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		50617DB023FCE4AB0099B055 /* SecretKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SecretKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		50617DB723FCE4AB0099B055 /* SecretKitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecretKitTests.swift; sourceTree = "<group>"; };
 		50617DB923FCE4AB0099B055 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		50617DC623FCE4EA0099B055 /* SecretStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecretStore.swift; sourceTree = "<group>"; };
 		50617DC823FCE50E0099B055 /* SecureEnclaveStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureEnclaveStore.swift; sourceTree = "<group>"; };
@@ -366,7 +366,7 @@
 		50617DB623FCE4AB0099B055 /* SecretKitTests */ = {
 			isa = PBXGroup;
 			children = (
-				50617DB723FCE4AB0099B055 /* SecretKitTests.swift */,
+				50524B432420969D008DBD97 /* OpenSSHWriterTests.swift */,
 				50617DB923FCE4AB0099B055 /* Info.plist */,
 			);
 			path = SecretKitTests;
@@ -827,7 +827,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				50617DB823FCE4AB0099B055 /* SecretKitTests.swift in Sources */,
+				50524B442420969E008DBD97 /* OpenSSHWriterTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
