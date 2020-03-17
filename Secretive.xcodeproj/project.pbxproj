@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		50020BB024064869003D4025 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50020BAF24064869003D4025 /* AppDelegate.swift */; };
 		5018F54F24064786002EB505 /* Notifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5018F54E24064786002EB505 /* Notifier.swift */; };
+		50524B442420969E008DBD97 /* OpenSSHWriterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50524B432420969D008DBD97 /* OpenSSHWriterTests.swift */; };
 		50617D8323FCE48E0099B055 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50617D8223FCE48E0099B055 /* AppDelegate.swift */; };
 		50617D8523FCE48E0099B055 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50617D8423FCE48E0099B055 /* ContentView.swift */; };
 		50617D8723FCE48E0099B055 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 50617D8623FCE48E0099B055 /* Assets.xcassets */; };
@@ -16,7 +17,6 @@
 		50617D8D23FCE48E0099B055 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 50617D8B23FCE48E0099B055 /* Main.storyboard */; };
 		50617D9923FCE48E0099B055 /* SecretiveTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50617D9823FCE48E0099B055 /* SecretiveTests.swift */; };
 		50617DB123FCE4AB0099B055 /* SecretKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50617DA823FCE4AB0099B055 /* SecretKit.framework */; };
-		50617DB823FCE4AB0099B055 /* SecretKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50617DB723FCE4AB0099B055 /* SecretKitTests.swift */; };
 		50617DBA23FCE4AB0099B055 /* SecretKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 50617DAA23FCE4AB0099B055 /* SecretKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		50617DBD23FCE4AB0099B055 /* SecretKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50617DA823FCE4AB0099B055 /* SecretKit.framework */; };
 		50617DBE23FCE4AB0099B055 /* SecretKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 50617DA823FCE4AB0099B055 /* SecretKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -32,6 +32,11 @@
 		506AB87E2412334700335D91 /* SecretAgent.app in CopyFiles */ = {isa = PBXBuildFile; fileRef = 50A3B78A24026B7500D209EA /* SecretAgent.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		50731666241DF8660023809E /* Updater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50731665241DF8660023809E /* Updater.swift */; };
 		50731669241E00C20023809E /* NoticeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50731668241E00C20023809E /* NoticeView.swift */; };
+		507CE4ED2420A3C70029F750 /* Agent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50A3B79F24026B9900D209EA /* Agent.swift */; };
+		507CE4EE2420A3CA0029F750 /* SocketController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50A3B79D24026B9900D209EA /* SocketController.swift */; };
+		507CE4F02420A4C50029F750 /* SigningWitness.swift in Sources */ = {isa = PBXBuildFile; fileRef = 507CE4EF2420A4C50029F750 /* SigningWitness.swift */; };
+		507CE4F42420A8C10029F750 /* SigningRequestProvenance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 507CE4F32420A8C10029F750 /* SigningRequestProvenance.swift */; };
+		507CE4F62420A96F0029F750 /* SigningRequestTracer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 507CE4F52420A96F0029F750 /* SigningRequestTracer.swift */; };
 		508A58AA241E06B40069DC07 /* PreviewUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508A58A9241E06B40069DC07 /* PreviewUpdater.swift */; };
 		508A58B3241ED2180069DC07 /* AgentStatusChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508A58B2241ED2180069DC07 /* AgentStatusChecker.swift */; };
 		508A58B5241ED48F0069DC07 /* PreviewAgentStatusChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508A58B4241ED48F0069DC07 /* PreviewAgentStatusChecker.swift */; };
@@ -49,8 +54,6 @@
 		50A3B79124026B7600D209EA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 50A3B79024026B7600D209EA /* Assets.xcassets */; };
 		50A3B79424026B7600D209EA /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 50A3B79324026B7600D209EA /* Preview Assets.xcassets */; };
 		50A3B79724026B7600D209EA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 50A3B79524026B7600D209EA /* Main.storyboard */; };
-		50A3B7A024026B9900D209EA /* SocketController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50A3B79D24026B9900D209EA /* SocketController.swift */; };
-		50A3B7A224026B9900D209EA /* Agent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50A3B79F24026B9900D209EA /* Agent.swift */; };
 		50A5C18C240E4B4B00E2996C /* SecretAgentKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5099A06C240242BA0062B6F2 /* SecretAgentKit.framework */; };
 		50A5C18D240E4B4B00E2996C /* SecretAgentKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5099A06C240242BA0062B6F2 /* SecretAgentKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		50A5C18F240E4B4C00E2996C /* SecretKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50617DA823FCE4AB0099B055 /* SecretKit.framework */; };
@@ -92,6 +95,13 @@
 			remoteInfo = SecretKit;
 		};
 		50617DBB23FCE4AB0099B055 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 50617D7723FCE48D0099B055 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 50617DA723FCE4AB0099B055;
+			remoteInfo = SecretKit;
+		};
+		507CE4F12420A6B50029F750 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 50617D7723FCE48D0099B055 /* Project object */;
 			proxyType = 1;
@@ -166,6 +176,7 @@
 /* Begin PBXFileReference section */
 		50020BAF24064869003D4025 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5018F54E24064786002EB505 /* Notifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifier.swift; sourceTree = "<group>"; };
+		50524B432420969D008DBD97 /* OpenSSHWriterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenSSHWriterTests.swift; sourceTree = "<group>"; };
 		50617D7F23FCE48E0099B055 /* Secretive.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Secretive.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		50617D8223FCE48E0099B055 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		50617D8423FCE48E0099B055 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -181,7 +192,6 @@
 		50617DAA23FCE4AB0099B055 /* SecretKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SecretKit.h; sourceTree = "<group>"; };
 		50617DAB23FCE4AB0099B055 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		50617DB023FCE4AB0099B055 /* SecretKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SecretKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		50617DB723FCE4AB0099B055 /* SecretKitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecretKitTests.swift; sourceTree = "<group>"; };
 		50617DB923FCE4AB0099B055 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		50617DC623FCE4EA0099B055 /* SecretStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecretStore.swift; sourceTree = "<group>"; };
 		50617DC823FCE50E0099B055 /* SecureEnclaveStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureEnclaveStore.swift; sourceTree = "<group>"; };
@@ -194,6 +204,9 @@
 		506838A22415EA5D00F55094 /* AnySecretStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnySecretStore.swift; sourceTree = "<group>"; };
 		50731665241DF8660023809E /* Updater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Updater.swift; sourceTree = "<group>"; };
 		50731668241E00C20023809E /* NoticeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeView.swift; sourceTree = "<group>"; };
+		507CE4EF2420A4C50029F750 /* SigningWitness.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SigningWitness.swift; sourceTree = "<group>"; };
+		507CE4F32420A8C10029F750 /* SigningRequestProvenance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SigningRequestProvenance.swift; sourceTree = "<group>"; };
+		507CE4F52420A96F0029F750 /* SigningRequestTracer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SigningRequestTracer.swift; sourceTree = "<group>"; };
 		508A58A9241E06B40069DC07 /* PreviewUpdater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewUpdater.swift; sourceTree = "<group>"; };
 		508A58AB241E121B0069DC07 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		508A58B2241ED2180069DC07 /* AgentStatusChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgentStatusChecker.swift; sourceTree = "<group>"; };
@@ -366,7 +379,7 @@
 		50617DB623FCE4AB0099B055 /* SecretKitTests */ = {
 			isa = PBXGroup;
 			children = (
-				50617DB723FCE4AB0099B055 /* SecretKitTests.swift */,
+				50524B432420969D008DBD97 /* OpenSSHWriterTests.swift */,
 				50617DB923FCE4AB0099B055 /* Info.plist */,
 			);
 			path = SecretKitTests;
@@ -457,6 +470,11 @@
 			children = (
 				5099A06E240242BA0062B6F2 /* SecretAgentKit.h */,
 				5099A089240242C20062B6F2 /* SSHAgentProtocol.swift */,
+				50A3B79D24026B9900D209EA /* SocketController.swift */,
+				507CE4EF2420A4C50029F750 /* SigningWitness.swift */,
+				507CE4F32420A8C10029F750 /* SigningRequestProvenance.swift */,
+				507CE4F52420A96F0029F750 /* SigningRequestTracer.swift */,
+				50A3B79F24026B9900D209EA /* Agent.swift */,
 				5099A06F240242BA0062B6F2 /* Info.plist */,
 			);
 			path = SecretAgentKit;
@@ -482,9 +500,7 @@
 			isa = PBXGroup;
 			children = (
 				50020BAF24064869003D4025 /* AppDelegate.swift */,
-				50A3B79F24026B9900D209EA /* Agent.swift */,
 				5018F54E24064786002EB505 /* Notifier.swift */,
-				50A3B79D24026B9900D209EA /* SocketController.swift */,
 				50A3B79024026B7600D209EA /* Assets.xcassets */,
 				50A3B79524026B7600D209EA /* Main.storyboard */,
 				50A3B79824026B7600D209EA /* Info.plist */,
@@ -611,6 +627,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				507CE4F22420A6B50029F750 /* PBXTargetDependency */,
 			);
 			name = SecretAgentKit;
 			productName = SecretAgentKit;
@@ -827,7 +844,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				50617DB823FCE4AB0099B055 /* SecretKitTests.swift in Sources */,
+				50524B442420969E008DBD97 /* OpenSSHWriterTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -835,7 +852,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				507CE4EE2420A3CA0029F750 /* SocketController.swift in Sources */,
 				5099A08A240242C20062B6F2 /* SSHAgentProtocol.swift in Sources */,
+				507CE4ED2420A3C70029F750 /* Agent.swift in Sources */,
+				507CE4F02420A4C50029F750 /* SigningWitness.swift in Sources */,
+				507CE4F62420A96F0029F750 /* SigningRequestTracer.swift in Sources */,
+				507CE4F42420A8C10029F750 /* SigningRequestProvenance.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -853,8 +875,6 @@
 			files = (
 				50020BB024064869003D4025 /* AppDelegate.swift in Sources */,
 				5018F54F24064786002EB505 /* Notifier.swift in Sources */,
-				50A3B7A224026B9900D209EA /* Agent.swift in Sources */,
-				50A3B7A024026B9900D209EA /* SocketController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -885,6 +905,11 @@
 			isa = PBXTargetDependency;
 			target = 50617DA723FCE4AB0099B055 /* SecretKit */;
 			targetProxy = 50617DBB23FCE4AB0099B055 /* PBXContainerItemProxy */;
+		};
+		507CE4F22420A6B50029F750 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 50617DA723FCE4AB0099B055 /* SecretKit */;
+			targetProxy = 507CE4F12420A6B50029F750 /* PBXContainerItemProxy */;
 		};
 		5099A077240242BA0062B6F2 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;

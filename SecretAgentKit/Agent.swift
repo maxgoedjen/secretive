@@ -5,22 +5,24 @@ import SecretKit
 import SecretAgentKit
 import AppKit
 
-class Agent {
+public class Agent {
 
     fileprivate let storeList: SecretStoreList
-    fileprivate let notifier: Notifier
+    fileprivate let witness: SigningWitness?
+    fileprivate let writer = OpenSSHKeyWriter()
+    fileprivate let requestTracer = SigningRequestTracer()
 
-    public init(storeList: SecretStoreList, notifier: Notifier) {
+    public init(storeList: SecretStoreList, witness: SigningWitness? = nil) {
         os_log(.debug, "Agent is running")
         self.storeList = storeList
-        self.notifier = notifier
+        self.witness = witness
     }
     
 }
 
 extension Agent {
 
-    func handle(fileHandle: FileHandle) {
+    public func handle(fileHandle: FileHandle) {
         os_log(.debug, "Agent handling new data")
         let data = fileHandle.availableData
         guard !data.isEmpty else { return }
@@ -77,25 +79,19 @@ extension Agent {
 
     func sign(data: Data, from pid: Int32) throws -> Data {
         let reader = OpenSSHReader(data: data)
-        let writer = OpenSSHKeyWriter()
         let hash = try reader.readNextChunk()
-        let matching = storeList.stores.compactMap { store -> (AnySecretStore, AnySecret)? in
-            let allMatching = store.secrets.filter { secret in
-                hash == writer.data(secret: secret)
-            }
-            if let matching = allMatching.first {
-                return (store, matching)
-            }
-            return nil
-        }
-        guard let (store, secret) = matching.first else {
+        guard let (store, secret) = secret(matching: hash) else {
+            os_log(.debug, "Agent did not have a key matching %@", hash as NSData)
             throw AgentError.noMatchingKey
         }
+
+        let provenance = requestTracer.provenance(from: pid)
+        if let witness = witness {
+            try witness.witness(accessTo: secret, by: provenance)
+        }
+
         let dataToSign = try reader.readNextChunk()
         let derSignature = try store.sign(data: dataToSign, with: secret)
-        let callerApp = caller(from: pid)
-        // TODO: Move this
-        notifier.notify(accessTo: secret, from: callerApp)
 
         let curveData = writer.curveType(for: secret.algorithm, length: secret.keySize).data(using: .utf8)!
 
@@ -131,27 +127,20 @@ extension Agent {
         return signedData
     }
 
-    func caller(from pid: Int32) -> NSRunningApplication {
-        let pidPointer = UnsafeMutableRawPointer.allocate(byteCount: 4, alignment: 1)
-        var len = socklen_t(MemoryLayout<Int32>.size)
-        getsockopt(pid, SOCK_STREAM, LOCAL_PEERPID, pidPointer, &len)
-        let pid = pidPointer.load(as: Int32.self)
+}
 
-        var current = pid
-        while NSRunningApplication(processIdentifier: current) == nil {
-            current = originalProcess(of: current)
-        }
-        return NSRunningApplication(processIdentifier: current)!
-    }
+extension Agent {
 
-    func originalProcess(of pid: Int32) -> Int32 {
-        var len = MemoryLayout<kinfo_proc>.size
-        let infoPointer = UnsafeMutableRawPointer.allocate(byteCount: len, alignment: 1)
-        var name: [Int32] = [CTL_KERN, KERN_PROC, KERN_PROC_PID, pid]
-        sysctl(&name, UInt32(name.count), infoPointer, &len, nil, 0)
-        let info =  infoPointer.load(as: kinfo_proc.self)
-        let parent = info.kp_eproc.e_ppid
-        return parent
+    func secret(matching hash: Data) -> (AnySecretStore, AnySecret)? {
+        storeList.stores.compactMap { store -> (AnySecretStore, AnySecret)? in
+            let allMatching = store.secrets.filter { secret in
+                hash == writer.data(secret: secret)
+            }
+            if let matching = allMatching.first {
+                return (store, matching)
+            }
+            return nil
+        }.first
     }
 
 }
