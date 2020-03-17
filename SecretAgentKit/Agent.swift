@@ -2,24 +2,24 @@ import Foundation
 import CryptoKit
 import OSLog
 import SecretKit
-import SecretAgentKit
 
-class Agent {
+public class Agent {
 
     fileprivate let storeList: SecretStoreList
-    fileprivate let notifier: Notifier
+    fileprivate let witness: SigningWitness?
+    fileprivate let writer = OpenSSHKeyWriter()
 
-    public init(storeList: SecretStoreList, notifier: Notifier) {
+    public init(storeList: SecretStoreList, witness: SigningWitness? = nil) {
         os_log(.debug, "Agent is running")
         self.storeList = storeList
-        self.notifier = notifier
+        self.witness = witness
     }
     
 }
 
 extension Agent {
 
-    func handle(fileHandle: FileHandle) {
+    public func handle(fileHandle: FileHandle) {
         os_log(.debug, "Agent handling new data")
         let data = fileHandle.availableData
         guard !data.isEmpty else { return }
@@ -76,24 +76,19 @@ extension Agent {
 
     func sign(data: Data) throws -> Data {
         let reader = OpenSSHReader(data: data)
-        let writer = OpenSSHKeyWriter()
         let hash = try reader.readNextChunk()
-        let matching = storeList.stores.compactMap { store -> (AnySecretStore, AnySecret)? in
-            let allMatching = store.secrets.filter { secret in
-                hash == writer.data(secret: secret)
-            }
-            if let matching = allMatching.first {
-                return (store, matching)
-            }
-            return nil
-        }
-        guard let (store, secret) = matching.first else {
+        guard let (store, secret) = secret(matching: hash) else {
+            os_log(.debug, "Agent did not have a key matching %@", hash as NSData)
             throw AgentError.noMatchingKey
         }
+
+        if let witness = witness {
+            try witness.witness(accessTo: secret)
+        }
+
         let dataToSign = try reader.readNextChunk()
         let derSignature = try store.sign(data: dataToSign, with: secret)
-        // TODO: Move this
-        notifier.notify(accessTo: secret)
+
         let curveData = writer.curveType(for: secret.algorithm, length: secret.keySize).data(using: .utf8)!
 
         // Convert from DER formatted rep to raw (r||s)
@@ -126,6 +121,22 @@ extension Agent {
         os_log(.debug, "Agent signed request")
 
         return signedData
+    }
+
+}
+
+extension Agent {
+
+    func secret(matching hash: Data) -> (AnySecretStore, AnySecret)? {
+        storeList.stores.compactMap { store -> (AnySecretStore, AnySecret)? in
+            let allMatching = store.secrets.filter { secret in
+                hash == writer.data(secret: secret)
+            }
+            if let matching = allMatching.first {
+                return (store, matching)
+            }
+            return nil
+        }.first
     }
 
 }

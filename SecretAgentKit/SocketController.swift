@@ -1,13 +1,13 @@
 import Foundation
 import OSLog
 
-class SocketController {
+public class SocketController {
 
     fileprivate var fileHandle: FileHandle?
     fileprivate var port: SocketPort?
-    var handler: ((FileHandle) -> Void)?
+    public var handler: ((FileHandle) -> Void)?
 
-    init(path: String) {
+    public init(path: String) {
         os_log(.debug, "Socket controller setting up at %@", path)
         if let _ = try? FileManager.default.removeItem(atPath: path) {
             os_log(.debug, "Socket controller removed existing socket")
