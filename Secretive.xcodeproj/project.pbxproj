@@ -32,6 +32,8 @@
 		506AB87E2412334700335D91 /* SecretAgent.app in CopyFiles */ = {isa = PBXBuildFile; fileRef = 50A3B78A24026B7500D209EA /* SecretAgent.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		50731666241DF8660023809E /* Updater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50731665241DF8660023809E /* Updater.swift */; };
 		50731669241E00C20023809E /* NoticeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50731668241E00C20023809E /* NoticeView.swift */; };
+		507CE4ED2420A3C70029F750 /* Agent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50A3B79F24026B9900D209EA /* Agent.swift */; };
+		507CE4EE2420A3CA0029F750 /* SocketController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50A3B79D24026B9900D209EA /* SocketController.swift */; };
 		508A58AA241E06B40069DC07 /* PreviewUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508A58A9241E06B40069DC07 /* PreviewUpdater.swift */; };
 		508A58B3241ED2180069DC07 /* AgentStatusChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508A58B2241ED2180069DC07 /* AgentStatusChecker.swift */; };
 		508A58B5241ED48F0069DC07 /* PreviewAgentStatusChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508A58B4241ED48F0069DC07 /* PreviewAgentStatusChecker.swift */; };
@@ -49,8 +51,6 @@
 		50A3B79124026B7600D209EA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 50A3B79024026B7600D209EA /* Assets.xcassets */; };
 		50A3B79424026B7600D209EA /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 50A3B79324026B7600D209EA /* Preview Assets.xcassets */; };
 		50A3B79724026B7600D209EA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 50A3B79524026B7600D209EA /* Main.storyboard */; };
-		50A3B7A024026B9900D209EA /* SocketController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50A3B79D24026B9900D209EA /* SocketController.swift */; };
-		50A3B7A224026B9900D209EA /* Agent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50A3B79F24026B9900D209EA /* Agent.swift */; };
 		50A5C18C240E4B4B00E2996C /* SecretAgentKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5099A06C240242BA0062B6F2 /* SecretAgentKit.framework */; };
 		50A5C18D240E4B4B00E2996C /* SecretAgentKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5099A06C240242BA0062B6F2 /* SecretAgentKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		50A5C18F240E4B4C00E2996C /* SecretKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50617DA823FCE4AB0099B055 /* SecretKit.framework */; };
@@ -457,6 +457,8 @@
 			children = (
 				5099A06E240242BA0062B6F2 /* SecretAgentKit.h */,
 				5099A089240242C20062B6F2 /* SSHAgentProtocol.swift */,
+				50A3B79D24026B9900D209EA /* SocketController.swift */,
+				50A3B79F24026B9900D209EA /* Agent.swift */,
 				5099A06F240242BA0062B6F2 /* Info.plist */,
 			);
 			path = SecretAgentKit;
@@ -482,9 +484,7 @@
 			isa = PBXGroup;
 			children = (
 				50020BAF24064869003D4025 /* AppDelegate.swift */,
-				50A3B79F24026B9900D209EA /* Agent.swift */,
 				5018F54E24064786002EB505 /* Notifier.swift */,
-				50A3B79D24026B9900D209EA /* SocketController.swift */,
 				50A3B79024026B7600D209EA /* Assets.xcassets */,
 				50A3B79524026B7600D209EA /* Main.storyboard */,
 				50A3B79824026B7600D209EA /* Info.plist */,
@@ -835,7 +835,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				507CE4EE2420A3CA0029F750 /* SocketController.swift in Sources */,
 				5099A08A240242C20062B6F2 /* SSHAgentProtocol.swift in Sources */,
+				507CE4ED2420A3C70029F750 /* Agent.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -853,8 +855,6 @@
 			files = (
 				50020BB024064869003D4025 /* AppDelegate.swift in Sources */,
 				5018F54F24064786002EB505 /* Notifier.swift in Sources */,
-				50A3B7A224026B9900D209EA /* Agent.swift in Sources */,
-				50A3B7A024026B9900D209EA /* SocketController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

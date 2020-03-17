@@ -2,25 +2,24 @@ import Foundation
 import CryptoKit
 import OSLog
 import SecretKit
-import SecretAgentKit
 
-class Agent {
+public class Agent {
 
     fileprivate let storeList: SecretStoreList
-    fileprivate let notifier: Notifier
+//    fileprivate let notifier: Notifier
     fileprivate let writer = OpenSSHKeyWriter()
 
-    public init(storeList: SecretStoreList, notifier: Notifier) {
+    public init(storeList: SecretStoreList/*, notifier: Notifier*/) {
         os_log(.debug, "Agent is running")
         self.storeList = storeList
-        self.notifier = notifier
+//        self.notifier = notifier
     }
     
 }
 
 extension Agent {
 
-    func handle(fileHandle: FileHandle) {
+    public tfunc handle(fileHandle: FileHandle) {
         os_log(.debug, "Agent handling new data")
         let data = fileHandle.availableData
         guard !data.isEmpty else { return }
@@ -84,7 +83,7 @@ extension Agent {
         let dataToSign = try reader.readNextChunk()
         let derSignature = try store.sign(data: dataToSign, with: secret)
         // TODO: Move this
-        notifier.notify(accessTo: secret)
+//        notifier.notify(accessTo: secret)
         let curveData = writer.curveType(for: secret.algorithm, length: secret.keySize).data(using: .utf8)!
 
         // Convert from DER formatted rep to raw (r||s)
