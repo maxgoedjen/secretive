@@ -2,7 +2,6 @@ import Foundation
 import SecretKit
 import SecretAgentKit
 import UserNotifications
-import AppKit
 
 class Notifier {
 
