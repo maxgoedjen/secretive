@@ -8,6 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
+// Forward declaration of proc_pidpath from libproc.h
+int proc_pidpath(int pid, void * buffer, uint32_t  buffersize);
+
 //! Project version number for SecretAgentKit.
 FOUNDATION_EXPORT double SecretAgentKitVersionNumber;
 
