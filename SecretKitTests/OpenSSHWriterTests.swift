@@ -15,6 +15,10 @@ class OpenSSHWriterTests: XCTestCase {
         "ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBOVEjgAA5PHqRgwykjN5qM21uWCHFSY/Sqo5gkHAkn+e1MMQKHOLga7ucB9b3mif33MBid59GRK9GEPVlMiSQwo=")
     }
 
+    func testECDSA256Hash() {
+    XCTAssertEqual(writer.data(secret: Constants.ecdsa256Secret), Data(base64Encoded: "AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBOVEjgAA5PHqRgwykjN5qM21uWCHFSY/Sqo5gkHAkn+e1MMQKHOLga7ucB9b3mif33MBid59GRK9GEPVlMiSQwo="))
+    }
+
     func testECDSA384Fingerprint() {
         XCTAssertEqual(writer.openSSHFingerprint(secret:  Constants.ecdsa384Secret), "66:e0:66:d7:41:ed:19:8e:e2:20:df:ce:ac:7e:2b:6e")
     }
@@ -22,6 +26,10 @@ class OpenSSHWriterTests: XCTestCase {
     func testECDSA384PublicKey() {
         XCTAssertEqual(writer.openSSHString(secret:  Constants.ecdsa384Secret),
                        "ecdsa-sha2-nistp384 AAAAE2VjZHNhLXNoYTItbmlzdHAzODQAAAAIbmlzdHAzODQAAABhBG2MNc/C5OTHFE2tBvbZCVcpOGa8vBMquiTLkH4lwkeqOPxhi+PyYUfQZMTRJNPiTyWPoMBqNiCIFRVv60yPN/AHufHaOgbdTP42EgMlMMImkAjYUEv9DESHTVIs2PW1yQ==")
+    }
+
+    func testECDSA384Hash() {
+        XCTAssertEqual(writer.data(secret: Constants.ecdsa384Secret), Data(base64Encoded: "AAAAE2VjZHNhLXNoYTItbmlzdHAzODQAAAAIbmlzdHAzODQAAABhBG2MNc/C5OTHFE2tBvbZCVcpOGa8vBMquiTLkH4lwkeqOPxhi+PyYUfQZMTRJNPiTyWPoMBqNiCIFRVv60yPN/AHufHaOgbdTP42EgMlMMImkAjYUEv9DESHTVIs2PW1yQ=="))
     }
 
 }

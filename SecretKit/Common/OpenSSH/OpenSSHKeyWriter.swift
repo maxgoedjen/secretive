@@ -1,7 +1,7 @@
 import Foundation
 import CryptoKit
 
-// For the moment, only supports ecdsa-sha2-nistp256 and ecdsa-sha2-nistp384 keys
+// For the moment, only supports ecdsa-sha2-nistp256 and ecdsa-sha2-nistp386 keys
 public struct OpenSSHKeyWriter {
 
     public init() {
