@@ -8,6 +8,7 @@ class Agent {
 
     fileprivate let storeList: SecretStoreList
     fileprivate let notifier: Notifier
+    fileprivate let writer = OpenSSHKeyWriter()
 
     public init(storeList: SecretStoreList, notifier: Notifier) {
         os_log(.debug, "Agent is running")
@@ -76,18 +77,8 @@ extension Agent {
 
     func sign(data: Data) throws -> Data {
         let reader = OpenSSHReader(data: data)
-        let writer = OpenSSHKeyWriter()
         let hash = try reader.readNextChunk()
-        let matching = storeList.stores.compactMap { store -> (AnySecretStore, AnySecret)? in
-            let allMatching = store.secrets.filter { secret in
-                hash == writer.data(secret: secret)
-            }
-            if let matching = allMatching.first {
-                return (store, matching)
-            }
-            return nil
-        }
-        guard let (store, secret) = matching.first else {
+        guard let (store, secret) = secret(matching: hash) else {
             throw AgentError.noMatchingKey
         }
         let dataToSign = try reader.readNextChunk()
@@ -126,6 +117,22 @@ extension Agent {
         os_log(.debug, "Agent signed request")
 
         return signedData
+    }
+
+}
+
+extension Agent {
+
+    func secret(matching hash: Data) -> (AnySecretStore, AnySecret)? {
+        storeList.stores.compactMap { store -> (AnySecretStore, AnySecret)? in
+            let allMatching = store.secrets.filter { secret in
+                hash == writer.data(secret: secret)
+            }
+            if let matching = allMatching.first {
+                return (store, matching)
+            }
+            return nil
+        }.first
     }
 
 }
