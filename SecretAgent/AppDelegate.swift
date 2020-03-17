@@ -14,7 +14,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }()
     let notifier = Notifier()
     lazy var agent: Agent = {
-        Agent(storeList: storeList/*, notifier: notifier*/)
+        Agent(storeList: storeList, witness: notifier)
     }()
     lazy var socketController: SocketController = {
         let path = (NSHomeDirectory() as NSString).appendingPathComponent("socket.ssh") as String
