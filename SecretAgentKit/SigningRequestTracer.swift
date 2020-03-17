@@ -29,7 +29,10 @@ struct SigningRequestTracer {
         var pidAndNameInfo = self.pidAndNameInfo(from: pid)
         let ppid = pidAndNameInfo.kp_eproc.e_ppid != 0 ? pidAndNameInfo.kp_eproc.e_ppid : nil
         let procName = String(cString: &pidAndNameInfo.kp_proc.p_comm.0)
-        return SigningRequestProvenance.Process(pid: pid, name: procName, path: "", parentPID: ppid)
+        let pathPointer = UnsafeMutablePointer<UInt8>.allocate(capacity: Int(MAXPATHLEN))
+        _ = proc_pidpath(pid, pathPointer, UInt32(MAXPATHLEN))
+        let path = String(cString: pathPointer)
+        return SigningRequestProvenance.Process(pid: pid, name: procName, path: path, parentPID: ppid)
     }
 
 }
