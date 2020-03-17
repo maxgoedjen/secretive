@@ -1380,7 +1380,6 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				LIBRARY_SEARCH_PATHS = /usr/include;
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				MARKETING_VERSION = 1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.maxgoedjen.Secretive.SecretAgent;
@@ -1600,7 +1599,6 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				LIBRARY_SEARCH_PATHS = /usr/include;
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				MARKETING_VERSION = 1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.maxgoedjen.Secretive.SecretAgent;
@@ -1626,7 +1624,6 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				LIBRARY_SEARCH_PATHS = /usr/include;
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				MARKETING_VERSION = 1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.maxgoedjen.Secretive.SecretAgent;
