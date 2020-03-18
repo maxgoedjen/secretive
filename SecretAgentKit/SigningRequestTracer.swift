@@ -1,5 +1,6 @@
 import Foundation
 import AppKit
+import Security
 
 struct SigningRequestTracer {
 
@@ -32,7 +33,11 @@ struct SigningRequestTracer {
         let pathPointer = UnsafeMutablePointer<UInt8>.allocate(capacity: Int(MAXPATHLEN))
         _ = proc_pidpath(pid, pathPointer, UInt32(MAXPATHLEN))
         let path = String(cString: pathPointer)
-        return SigningRequestProvenance.Process(pid: pid, name: procName, path: path, parentPID: ppid)
+        var secCode: Unmanaged<SecCode>!
+        let flags: SecCSFlags = [SecCSFlags.considerExpiration, SecCSFlags.enforceRevocationChecks]
+        SecCodeCreateWithPID(pid, SecCSFlags(), &secCode)
+        let valid = SecCodeCheckValidity(secCode.takeRetainedValue(), flags, nil) == ERR_SUCCESS
+        return SigningRequestProvenance.Process(pid: pid, name: procName, path: path, validSignature: valid, parentPID: ppid)
     }
 
 }

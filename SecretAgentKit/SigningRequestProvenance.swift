@@ -25,12 +25,14 @@ extension SigningRequestProvenance {
         public let pid: Int32
         public let name: String
         public let path: String
+        public let validSignature: Bool
         let parentPID: Int32?
 
-        init(pid: Int32, name: String, path: String, parentPID: Int32?) {
+        init(pid: Int32, name: String, path: String, validSignature: Bool, parentPID: Int32?) {
             self.pid = pid
             self.name = name
             self.path = path
+            self.validSignature = true
             self.parentPID = parentPID
         }
 
