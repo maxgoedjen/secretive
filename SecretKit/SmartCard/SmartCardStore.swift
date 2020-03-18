@@ -11,16 +11,17 @@ extension SmartCard {
         // TODO: Read actual smart card name, eg "YubiKey 5c"
         @Published public var isAvailable: Bool = false
         public let id = UUID()
-        public let name = NSLocalizedString("Smart Card", comment: "Smart Card")
+        public fileprivate(set) var name = NSLocalizedString("Smart Card", comment: "Smart Card")
         @Published public fileprivate(set) var secrets: [Secret] = []
         fileprivate let watcher = TKTokenWatcher()
         fileprivate var tokenID: String?
 
         public init() {
-            tokenID = watcher.tokenIDs.filter { !$0.contains("setoken") }.first
+            tokenID = watcher.nonSecureEnclaveTokens.first
             watcher.setInsertionHandler { string in
                 guard self.tokenID == nil else { return }
                 guard !string.contains("setoken") else { return }
+
                 self.tokenID = string
                 self.reloadSecrets()
                 self.watcher.addRemovalHandler(self.smartcardRemoved, forTokenID: string)
@@ -97,6 +98,14 @@ extension SmartCard.Store {
 
     fileprivate func loadSecrets() {
         guard let tokenID = tokenID else { return }
+        // Hack to read name if there's only one smart card
+        let slotNames = TKSmartCardSlotManager().slotNames
+        if watcher.nonSecureEnclaveTokens.count == 1 && slotNames.count == 1 {
+            name = slotNames.first!
+        } else {
+            name = NSLocalizedString("Smart Card", comment: "Smart Card")
+        }
+
         let attributes = [
             kSecClass: kSecClassKey,
             kSecAttrTokenID: tokenID,
@@ -120,6 +129,14 @@ extension SmartCard.Store {
             return SmartCard.Secret(id: tokenID, name: name, algorithm: algorithm, keySize: keySize, publicKey: publicKey)
         }
         secrets.append(contentsOf: wrapped)
+    }
+
+}
+
+extension TKTokenWatcher {
+
+    fileprivate var nonSecureEnclaveTokens: [String] {
+        tokenIDs.filter { !$0.contains("setoken") }
     }
 
 }
