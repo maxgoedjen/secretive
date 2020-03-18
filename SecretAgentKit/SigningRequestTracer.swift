@@ -34,9 +34,9 @@ struct SigningRequestTracer {
         _ = proc_pidpath(pid, pathPointer, UInt32(MAXPATHLEN))
         let path = String(cString: pathPointer)
         var secCode: Unmanaged<SecCode>!
-        let flags: SecCSFlags = [SecCSFlags.considerExpiration, SecCSFlags.enforceRevocationChecks]
+        let flags: SecCSFlags = [.considerExpiration, .enforceRevocationChecks]
         SecCodeCreateWithPID(pid, SecCSFlags(), &secCode)
-        let valid = SecCodeCheckValidity(secCode.takeRetainedValue(), flags, nil) == ERR_SUCCESS
+        let valid = SecCodeCheckValidity(secCode.takeRetainedValue(), flags, nil) == errSecSuccess
         return SigningRequestProvenance.Process(pid: pid, name: procName, path: path, validSignature: valid, parentPID: ppid)
     }
 

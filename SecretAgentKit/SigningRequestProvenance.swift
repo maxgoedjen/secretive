@@ -16,6 +16,10 @@ extension SigningRequestProvenance {
         chain.last!
     }
 
+    public var intact: Bool {
+        return chain.reduce(true) { $0 && $1.validSignature }
+    }
+
 }
 
 extension SigningRequestProvenance {
@@ -32,7 +36,7 @@ extension SigningRequestProvenance {
             self.pid = pid
             self.name = name
             self.path = path
-            self.validSignature = true
+            self.validSignature = validSignature
             self.parentPID = parentPID
         }
 
