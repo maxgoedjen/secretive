@@ -24,6 +24,9 @@ class Notifier {
 
 extension Notifier: SigningWitness {
 
+    func speakNowOrForeverHoldYourPeace(forAccessTo secret: AnySecret, by provenance: SigningRequestProvenance) throws {
+    }
+
     func witness(accessTo secret: AnySecret, by provenance: SigningRequestProvenance) throws {
         notify(accessTo: secret, by: provenance)
     }

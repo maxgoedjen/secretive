@@ -87,7 +87,7 @@ extension Agent {
 
         let provenance = requestTracer.provenance(from: pid)
         if let witness = witness {
-            try witness.witness(accessTo: secret, by: provenance)
+            try witness.speakNowOrForeverHoldYourPeace(forAccessTo: secret, by: provenance)
         }
 
         let dataToSign = try reader.readNextChunk()
@@ -121,6 +121,10 @@ extension Agent {
         sub.append(writer.lengthAndData(of: curveData))
         sub.append(writer.lengthAndData(of: signatureChunk))
         signedData.append(writer.lengthAndData(of: sub))
+
+        if let witness = witness {
+            try witness.witness(accessTo: secret, by: provenance)
+        }
 
         os_log(.debug, "Agent signed request")
 
