@@ -26,6 +26,7 @@
 		50617DCE23FCECFA0099B055 /* SecureEnclaveSecret.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50617DCD23FCECFA0099B055 /* SecureEnclaveSecret.swift */; };
 		50617DD023FCED2C0099B055 /* SecureEnclave.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50617DCF23FCED2C0099B055 /* SecureEnclave.swift */; };
 		50617DD223FCEFA90099B055 /* PreviewStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50617DD123FCEFA90099B055 /* PreviewStore.swift */; };
+		506772C72424784600034DED /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 506772C62424784600034DED /* Credits.rtf */; };
 		5068389E241471CD00F55094 /* SecretStoreList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5068389D241471CD00F55094 /* SecretStoreList.swift */; };
 		506838A12415EA5600F55094 /* AnySecret.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506838A02415EA5600F55094 /* AnySecret.swift */; };
 		506838A32415EA5D00F55094 /* AnySecretStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506838A22415EA5D00F55094 /* AnySecretStore.swift */; };
@@ -199,6 +200,7 @@
 		50617DCD23FCECFA0099B055 /* SecureEnclaveSecret.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureEnclaveSecret.swift; sourceTree = "<group>"; };
 		50617DCF23FCED2C0099B055 /* SecureEnclave.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureEnclave.swift; sourceTree = "<group>"; };
 		50617DD123FCEFA90099B055 /* PreviewStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewStore.swift; sourceTree = "<group>"; };
+		506772C62424784600034DED /* Credits.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = Credits.rtf; sourceTree = "<group>"; };
 		5068389D241471CD00F55094 /* SecretStoreList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecretStoreList.swift; sourceTree = "<group>"; };
 		506838A02415EA5600F55094 /* AnySecret.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnySecret.swift; sourceTree = "<group>"; };
 		506838A22415EA5D00F55094 /* AnySecretStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnySecretStore.swift; sourceTree = "<group>"; };
@@ -337,6 +339,7 @@
 				50617D8B23FCE48E0099B055 /* Main.storyboard */,
 				50617D8E23FCE48E0099B055 /* Info.plist */,
 				50617D8F23FCE48E0099B055 /* Secretive.entitlements */,
+				506772C62424784600034DED /* Credits.rtf */,
 				50617D8823FCE48E0099B055 /* Preview Content */,
 			);
 			path = Secretive;
@@ -741,6 +744,7 @@
 				50617D8D23FCE48E0099B055 /* Main.storyboard in Resources */,
 				50617D8A23FCE48E0099B055 /* Preview Assets.xcassets in Resources */,
 				50617D8723FCE48E0099B055 /* Assets.xcassets in Resources */,
+				506772C72424784600034DED /* Credits.rtf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
