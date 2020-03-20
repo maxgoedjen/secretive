@@ -19,7 +19,7 @@
 	<key>CFBundleShortVersionString</key>
 	<string>$(CI_VERSION)</string>
 	<key>CFBundleVersion</key>
-	<string>$(CI_VERSION)</string>
+	<string>$(CI_BUILD_NUMBER)</string>
 	<key>LSMinimumSystemVersion</key>
 	<string>$(MACOSX_DEPLOYMENT_TARGET)</string>
 	<key>NSHumanReadableCopyright</key>
