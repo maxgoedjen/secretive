@@ -1,11 +1,3 @@
-//
-//  SecretKit.h
-//  SecretKit
-//
-//  Created by Max Goedjen on 2/18/20.
-//  Copyright © 2020 Max Goedjen. All rights reserved.
-//
-
 #import <Foundation/Foundation.h>
 
 //! Project version number for SecretKit.

@@ -1,11 +1,3 @@
-//
-//  SecretAgentKit.h
-//  SecretAgentKit
-//
-//  Created by Max Goedjen on 2/22/20.
-//  Copyright © 2020 Max Goedjen. All rights reserved.
-//
-
 #import <Foundation/Foundation.h>
 #import <Security/Security.h>
 

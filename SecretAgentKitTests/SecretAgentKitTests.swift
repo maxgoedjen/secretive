@@ -1,11 +1,3 @@
-//
-//  SecretAgentKitTests.swift
-//  SecretAgentKitTests
-//
-//  Created by Max Goedjen on 2/22/20.
-//  Copyright © 2020 Max Goedjen. All rights reserved.
-//
-
 import XCTest
 @testable import SecretAgentKit
 
