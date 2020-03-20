@@ -2,7 +2,6 @@ import Foundation
 import CryptoKit
 import OSLog
 import SecretKit
-import SecretAgentKit
 import AppKit
 
 public class Agent {
