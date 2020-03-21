@@ -14,7 +14,7 @@ struct SetupView: View {
                                   actionText: "Install") {
                                     self.installLaunchAgent()
             }
-            SetupStepView(text: "You need to add a line to your shell config (.bashrc or .zshrc) telling SSH to talk to SecretAgent when it wants to authenticate. Drag this into your config file.",
+            SetupStepView(text: "Add this line to your shell config (.bashrc or .zshrc) telling SSH to talk to SecretAgent when it wants to authenticate. Drag this into your config file.",
                           index: 2,
                           nestedView: SetupStepCommandView(text: Constants.socketPrompt),
                           actionText: "Added") {
