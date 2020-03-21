@@ -20,6 +20,7 @@ struct ContentView<UpdaterType: UpdaterProtocol, AgentStatusCheckerType: AgentSt
             if !agentStatusChecker.running {
                 agentNotice()
             }
+            if storeList.anyAvailable {
             NavigationView {
                 List(selection: $active) {
                     ForEach(storeList.stores) { store in
@@ -67,6 +68,9 @@ struct ContentView<UpdaterType: UpdaterProtocol, AgentStatusCheckerType: AgentSt
                         }
                     }
                 }
+            }
+            } else {
+                NoStoresView()
             }
         }
     }
