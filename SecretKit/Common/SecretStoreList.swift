@@ -20,6 +20,10 @@ public class SecretStoreList: ObservableObject {
         addInternal(store: modifiable)
     }
 
+    public var anyAvailable: Bool {
+        stores.reduce(false, { $0 || $1.isAvailable })
+    }
+
 }
 
 extension SecretStoreList {
