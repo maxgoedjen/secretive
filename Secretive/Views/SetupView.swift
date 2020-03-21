@@ -87,16 +87,30 @@ struct SetupStepCommandView: View {
     let text: String
 
     var body: some View {
-        Text(text)
-            .font(.system(.caption, design: .monospaced))
-            .lineLimit(nil)
-            .frame(idealHeight: 0, maxHeight: .infinity)
-            .padding()
-            .background(Color(white: 0, opacity: 0.10))
-            .cornerRadius(10)
-            .onDrag {
-                return NSItemProvider(item: NSData(data: self.text.data(using: .utf8)!), typeIdentifier: kUTTypeUTF8PlainText as String)
+        VStack(alignment: .leading) {
+            Text(text)
+                .lineLimit(nil)
+                .font(.system(.caption, design: .monospaced))
+                .multilineTextAlignment(.leading)
+            HStack {
+                Spacer()
+                Button(action: copy) {
+                    Text("Copy")
+                }
+            }
         }
+        .padding()
+        .background(Color(white: 0, opacity: 0.10))
+        .cornerRadius(10)
+        .onDrag {
+            return NSItemProvider(item: NSData(data: self.text.data(using: .utf8)!), typeIdentifier: kUTTypeUTF8PlainText as String)
+
+        }
+    }
+
+    func copy() {
+        NSPasteboard.general.declareTypes([.string], owner: nil)
+        NSPasteboard.general.setString(text, forType: .string)
     }
 
 }
