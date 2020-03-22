@@ -21,18 +21,19 @@ public class Agent {
 
 extension Agent {
 
-    public func handle(fileHandle: FileHandle) {
+    public func handle(reader: FileHandleReader, writer: FileHandleWriter) {
         os_log(.debug, "Agent handling new data")
-        let data = fileHandle.availableData
+        let data = reader.availableData
         guard !data.isEmpty else { return }
         let requestTypeInt = data[4]
         guard let requestType = SSHAgent.RequestType(rawValue: requestTypeInt) else { return }
         os_log(.debug, "Agent handling request of type %@", requestType.debugDescription)
         let subData = Data(data[5...])
-        handle(requestType: requestType, data: subData, fileHandle: fileHandle)
+        let response = handle(requestType: requestType, data: subData, reader: reader)
+        writer.write(response)
     }
 
-    func handle(requestType: SSHAgent.RequestType, data: Data, fileHandle: FileHandle) {
+    func handle(requestType: SSHAgent.RequestType, data: Data, reader: FileHandleReader) -> Data {
         var response = Data()
         do {
             switch requestType {
@@ -42,7 +43,7 @@ extension Agent {
                 os_log(.debug, "Agent returned %@", SSHAgent.ResponseType.agentIdentitiesAnswer.debugDescription)
             case .signRequest:
                 response.append(SSHAgent.ResponseType.agentSignResponse.data)
-                response.append(try sign(data: data, from: fileHandle.fileDescriptor))
+                response.append(try sign(data: data, from: reader.fileDescriptor))
                 os_log(.debug, "Agent returned %@", SSHAgent.ResponseType.agentSignResponse.debugDescription)
             }
         } catch {
@@ -51,7 +52,7 @@ extension Agent {
             os_log(.debug, "Agent returned %@", SSHAgent.ResponseType.agentFailure.debugDescription)
         }
         let full = OpenSSHKeyWriter().lengthAndData(of: response)
-        fileHandle.write(full)
+        return full
     }
 
 }

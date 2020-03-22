@@ -28,7 +28,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         os_log(.debug, "SecretAgent finished launching")
         DispatchQueue.main.async {
-            self.socketController.handler = self.agent.handle(fileHandle:)
+            self.socketController.handler = self.agent.handle(reader:writer:)
         }
         notifier.prompt()
         updateSink = updater.$update.sink { release in
