@@ -48,6 +48,7 @@
 		507EE34224281E12003C4FE3 /* FileHandleProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 507EE34124281E12003C4FE3 /* FileHandleProtocols.swift */; };
 		507EE34624281F89003C4FE3 /* StubFileHandleReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 507EE34524281F89003C4FE3 /* StubFileHandleReader.swift */; };
 		507EE34824281FB8003C4FE3 /* StubFileHandleWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 507EE34724281FB8003C4FE3 /* StubFileHandleWriter.swift */; };
+		507EE34A2428263B003C4FE3 /* StubStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 507EE3492428263B003C4FE3 /* StubStore.swift */; };
 		508A58AA241E06B40069DC07 /* PreviewUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508A58A9241E06B40069DC07 /* PreviewUpdater.swift */; };
 		508A58B3241ED2180069DC07 /* AgentStatusChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508A58B2241ED2180069DC07 /* AgentStatusChecker.swift */; };
 		508A58B5241ED48F0069DC07 /* PreviewAgentStatusChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508A58B4241ED48F0069DC07 /* PreviewAgentStatusChecker.swift */; };
@@ -244,6 +245,7 @@
 		507EE34124281E12003C4FE3 /* FileHandleProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileHandleProtocols.swift; sourceTree = "<group>"; };
 		507EE34524281F89003C4FE3 /* StubFileHandleReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StubFileHandleReader.swift; sourceTree = "<group>"; };
 		507EE34724281FB8003C4FE3 /* StubFileHandleWriter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StubFileHandleWriter.swift; sourceTree = "<group>"; };
+		507EE3492428263B003C4FE3 /* StubStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StubStore.swift; sourceTree = "<group>"; };
 		508A58A9241E06B40069DC07 /* PreviewUpdater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewUpdater.swift; sourceTree = "<group>"; };
 		508A58AB241E121B0069DC07 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		508A58B2241ED2180069DC07 /* AgentStatusChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgentStatusChecker.swift; sourceTree = "<group>"; };
@@ -547,6 +549,7 @@
 				5099A07B240242BA0062B6F2 /* AgentTests.swift */,
 				507EE34524281F89003C4FE3 /* StubFileHandleReader.swift */,
 				507EE34724281FB8003C4FE3 /* StubFileHandleWriter.swift */,
+				507EE3492428263B003C4FE3 /* StubStore.swift */,
 				5099A07D240242BA0062B6F2 /* Info.plist */,
 			);
 			path = SecretAgentKitTests;
@@ -981,6 +984,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				507EE34624281F89003C4FE3 /* StubFileHandleReader.swift in Sources */,
+				507EE34A2428263B003C4FE3 /* StubStore.swift in Sources */,
 				5099A07C240242BA0062B6F2 /* AgentTests.swift in Sources */,
 				507EE34824281FB8003C4FE3 /* StubFileHandleWriter.swift in Sources */,
 			);
