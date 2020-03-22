@@ -38,7 +38,7 @@ extension Agent {
             switch requestType {
             case .requestIdentities:
                 response.append(SSHAgent.ResponseType.agentIdentitiesAnswer.data)
-                response.append(try identities())
+                response.append(identities())
                 os_log(.debug, "Agent returned %@", SSHAgent.ResponseType.agentIdentitiesAnswer.debugDescription)
             case .signRequest:
                 response.append(SSHAgent.ResponseType.agentSignResponse.data)
@@ -58,7 +58,7 @@ extension Agent {
 
 extension Agent {
 
-    func identities() throws -> Data {
+    func identities() -> Data {
         // TODO: RESTORE ONCE XCODE 11.4 IS GM
         let secrets = storeList.stores.flatMap { $0.secrets }
 //        let secrets = storeList.stores.flatMap(\.secrets)
@@ -103,7 +103,7 @@ extension Agent {
         case (.ellipticCurve, 384):
             rawRepresentation = try CryptoKit.P384.Signing.ECDSASignature(derRepresentation: derSignature).rawRepresentation
         default:
-            fatalError()
+            throw AgentError.unsupportedKeyType
         }
 
 
@@ -154,6 +154,7 @@ extension Agent {
     enum AgentError: Error {
         case unhandledType
         case noMatchingKey
+        case unsupportedKeyType
     }
 
 }
