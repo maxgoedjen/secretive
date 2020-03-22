@@ -64,7 +64,7 @@ public struct Release: Codable {
     public let html_url: URL
     public let body: String
 
-    public  init(name: String, html_url: URL, body: String) {
+    public init(name: String, html_url: URL, body: String) {
         self.name = name
         self.html_url = html_url
         self.body = body
