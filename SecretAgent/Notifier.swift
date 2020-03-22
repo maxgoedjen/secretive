@@ -10,9 +10,11 @@ class Notifier {
     fileprivate let notificationDelegate = NotificationDelegate()
 
     init() {
-        let action = UNNotificationAction(identifier: Constants.updateIdentitifier, title: "Update", options: [])
-        let categories = UNNotificationCategory(identifier: Constants.updateIdentitifier, actions: [action], intentIdentifiers: [], options: [])
-        UNUserNotificationCenter.current().setNotificationCategories([categories])
+        let updateAction = UNNotificationAction(identifier: Constants.updateActionIdentitifier, title: "Update", options: [])
+        let ignoreAction = UNNotificationAction(identifier: Constants.ignoreActionIdentitifier, title: "Ignore", options: [])
+        let updateCategory = UNNotificationCategory(identifier: Constants.updateCategoryIdentitifier, actions: [updateAction, ignoreAction], intentIdentifiers: [], options: [])
+        let criticalUpdateCategory = UNNotificationCategory(identifier: Constants.updateCategoryIdentitifier, actions: [updateAction], intentIdentifiers: [], options: [])
+        UNUserNotificationCenter.current().setNotificationCategories([updateCategory, criticalUpdateCategory])
         UNUserNotificationCenter.current().delegate = notificationDelegate
     }
 
@@ -34,8 +36,9 @@ class Notifier {
         notificationCenter.add(request, withCompletionHandler: nil)
     }
 
-    func notify(update: Release) {
+    func notify(update: Release, ignore: ((Release) -> Void)?) {
         notificationDelegate.release = update
+        notificationDelegate.ignore = ignore
         let notificationCenter = UNUserNotificationCenter.current()
         let notificationContent = UNMutableNotificationContent()
         if update.critical {
@@ -45,7 +48,7 @@ class Notifier {
         }
         notificationContent.subtitle = "Click to Update"
         notificationContent.body = update.body
-        notificationContent.categoryIdentifier = Constants.updateIdentitifier
+        notificationContent.categoryIdentifier = update.critical ? Constants.criticalUpdateCategoryIdentitifier : Constants.updateCategoryIdentitifier
         let request = UNNotificationRequest(identifier: UUID().uuidString, content: notificationContent, trigger: nil)
         notificationCenter.add(request, withCompletionHandler: nil)
     }
@@ -83,7 +86,10 @@ extension Notifier: SigningWitness {
 extension Notifier {
 
     enum Constants {
-        static let updateIdentitifier  = "com.maxgoedjen.Secretive.SecretAgent.update"
+        static let updateCategoryIdentitifier  = "com.maxgoedjen.Secretive.SecretAgent.update"
+        static let criticalUpdateCategoryIdentitifier  = "com.maxgoedjen.Secretive.SecretAgent.update.critical"
+        static let updateActionIdentitifier  = "com.maxgoedjen.Secretive.SecretAgent.update.updateaction"
+        static let ignoreActionIdentitifier  = "com.maxgoedjen.Secretive.SecretAgent.update.ignoreaction"
     }
 
 }
@@ -91,15 +97,22 @@ extension Notifier {
 class NotificationDelegate: NSObject, UNUserNotificationCenterDelegate {
 
     fileprivate var release: Release?
+    fileprivate var ignore: ((Release) -> Void)?
 
     func userNotificationCenter(_ center: UNUserNotificationCenter, openSettingsFor notification: UNNotification?) {
 
     }
 
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
-        guard response.notification.request.content.categoryIdentifier == Notifier.Constants.updateIdentitifier else { return }
         guard let update = release else { return }
-        NSWorkspace.shared.open(update.html_url)
+        switch response.actionIdentifier {
+        case Notifier.Constants.updateActionIdentitifier, UNNotificationDefaultActionIdentifier:
+            NSWorkspace.shared.open(update.html_url)
+        case Notifier.Constants.ignoreActionIdentitifier:
+            ignore?(update)
+        default:
+            fatalError()
+        }
         completionHandler()
     }
 

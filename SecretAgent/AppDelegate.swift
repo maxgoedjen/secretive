@@ -31,9 +31,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             self.socketController.handler = self.agent.handle(fileHandle:)
         }
         notifier.prompt()
-        updateSink = updater.$update.sink { release in
-            guard let release = release else { return }
-            self.notifier.notify(update: release)
+        updateSink = updater.$update.sink { update in
+            guard let update = update else { return }
+            self.notifier.notify(update: update, ignore: self.updater.ignore(release:))
         }
     }
 
