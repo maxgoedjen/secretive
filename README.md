@@ -4,6 +4,9 @@ Secretive is an app for storing and managing SSH keys in the Secure Enclave. It 
 
 <img src="/.github/readme/app.png" alt="Screenshot of Secretive" width="600">
 
+![Test](https://github.com/maxgoedjen/secretive/workflows/Test/badge.svg)
+![Release](https://github.com/maxgoedjen/secretive/workflows/Release/badge.svg)
+
 ## Why?
 
 ### Safer Storage
