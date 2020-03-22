@@ -1,5 +1,6 @@
 import Foundation
 import Combine
+import Brief
 
 class PreviewUpdater: UpdaterProtocol {
 

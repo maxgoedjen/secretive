@@ -1,7 +1,9 @@
 import Cocoa
+import OSLog
+import Combine
 import SecretKit
 import SecretAgentKit
-import OSLog
+import Brief
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
@@ -12,6 +14,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         list.add(store: SmartCard.Store())
         return list
     }()
+    let updater = Updater()
     let notifier = Notifier()
     lazy var agent: Agent = {
         Agent(storeList: storeList, witness: notifier)
@@ -20,6 +23,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let path = (NSHomeDirectory() as NSString).appendingPathComponent("socket.ssh") as String
         return SocketController(path: path)
     }()
+    fileprivate var updateSink: AnyCancellable?
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         os_log(.debug, "SecretAgent finished launching")
@@ -27,10 +31,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             self.socketController.handler = self.agent.handle(fileHandle:)
         }
         notifier.prompt()
-    }
-
-    func applicationWillTerminate(_ aNotification: Notification) {
-        // Insert code here to tear down your application
+        updateSink = updater.$update.sink { release in
+            guard let release = release else { return }
+            self.notifier.notify(update: release)
+        }
     }
 
 

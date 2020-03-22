@@ -29,11 +29,15 @@
 		506772C72424784600034DED /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 506772C62424784600034DED /* Credits.rtf */; };
 		506772C92425BB8500034DED /* NoStoresView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506772C82425BB8500034DED /* NoStoresView.swift */; };
 		506772CB2426CCC200034DED /* Untitled.png in Resources */ = {isa = PBXBuildFile; fileRef = 506772CA2426CCC200034DED /* Untitled.png */; };
+		506772FF2426F3F400034DED /* Brief.h in Headers */ = {isa = PBXBuildFile; fileRef = 506772FD2426F3F400034DED /* Brief.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		506773022426F3F400034DED /* Brief.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 506772FB2426F3F400034DED /* Brief.framework */; };
+		506773032426F3F400034DED /* Brief.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 506772FB2426F3F400034DED /* Brief.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		506773092426F3FD00034DED /* Updater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506773082426F3FD00034DED /* Updater.swift */; };
+		5067730C2426F40E00034DED /* Brief.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 506772FB2426F3F400034DED /* Brief.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		5068389E241471CD00F55094 /* SecretStoreList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5068389D241471CD00F55094 /* SecretStoreList.swift */; };
 		506838A12415EA5600F55094 /* AnySecret.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506838A02415EA5600F55094 /* AnySecret.swift */; };
 		506838A32415EA5D00F55094 /* AnySecretStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506838A22415EA5D00F55094 /* AnySecretStore.swift */; };
 		506AB87E2412334700335D91 /* SecretAgent.app in CopyFiles */ = {isa = PBXBuildFile; fileRef = 50A3B78A24026B7500D209EA /* SecretAgent.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		50731666241DF8660023809E /* Updater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50731665241DF8660023809E /* Updater.swift */; };
 		50731669241E00C20023809E /* NoticeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50731668241E00C20023809E /* NoticeView.swift */; };
 		507CE4ED2420A3C70029F750 /* Agent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50A3B79F24026B9900D209EA /* Agent.swift */; };
 		507CE4EE2420A3CA0029F750 /* SocketController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50A3B79D24026B9900D209EA /* SocketController.swift */; };
@@ -104,6 +108,20 @@
 			remoteGlobalIDString = 50617DA723FCE4AB0099B055;
 			remoteInfo = SecretKit;
 		};
+		506773002426F3F400034DED /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 50617D7723FCE48D0099B055 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 506772FA2426F3F400034DED;
+			remoteInfo = Brief;
+		};
+		5067730A2426F40A00034DED /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 50617D7723FCE48D0099B055 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 506772FA2426F3F400034DED;
+			remoteInfo = Brief;
+		};
 		507CE4F12420A6B50029F750 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 50617D7723FCE48D0099B055 /* Project object */;
@@ -128,6 +146,7 @@
 			dstSubfolderSpec = 10;
 			files = (
 				50617DBE23FCE4AB0099B055 /* SecretKit.framework in Embed Frameworks */,
+				506773032426F3F400034DED /* Brief.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -158,6 +177,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				5067730C2426F40E00034DED /* Brief.framework in Embed Frameworks */,
 				50A5C18D240E4B4B00E2996C /* SecretAgentKit.framework in Embed Frameworks */,
 				50A5C190240E4B4C00E2996C /* SecretKit.framework in Embed Frameworks */,
 			);
@@ -205,10 +225,13 @@
 		506772C62424784600034DED /* Credits.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = Credits.rtf; sourceTree = "<group>"; };
 		506772C82425BB8500034DED /* NoStoresView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoStoresView.swift; sourceTree = "<group>"; };
 		506772CA2426CCC200034DED /* Untitled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Untitled.png; sourceTree = "<group>"; };
+		506772FB2426F3F400034DED /* Brief.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Brief.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		506772FD2426F3F400034DED /* Brief.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Brief.h; sourceTree = "<group>"; };
+		506772FE2426F3F400034DED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		506773082426F3FD00034DED /* Updater.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Updater.swift; sourceTree = "<group>"; };
 		5068389D241471CD00F55094 /* SecretStoreList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecretStoreList.swift; sourceTree = "<group>"; };
 		506838A02415EA5600F55094 /* AnySecret.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnySecret.swift; sourceTree = "<group>"; };
 		506838A22415EA5D00F55094 /* AnySecretStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnySecretStore.swift; sourceTree = "<group>"; };
-		50731665241DF8660023809E /* Updater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Updater.swift; sourceTree = "<group>"; };
 		50731668241E00C20023809E /* NoticeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeView.swift; sourceTree = "<group>"; };
 		507CE4EF2420A4C50029F750 /* SigningWitness.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SigningWitness.swift; sourceTree = "<group>"; };
 		507CE4F32420A8C10029F750 /* SigningRequestProvenance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SigningRequestProvenance.swift; sourceTree = "<group>"; };
@@ -251,6 +274,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				50617DBD23FCE4AB0099B055 /* SecretKit.framework in Frameworks */,
+				506773022426F3F400034DED /* Brief.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -273,6 +297,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				50617DB123FCE4AB0099B055 /* SecretKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		506772F82426F3F400034DED /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -314,6 +345,7 @@
 				5099A06D240242BA0062B6F2 /* SecretAgentKit */,
 				5099A07A240242BA0062B6F2 /* SecretAgentKitTests */,
 				508A58AF241E144C0069DC07 /* Config */,
+				506772FC2426F3F400034DED /* Brief */,
 				50617D8023FCE48E0099B055 /* Products */,
 				5099A08B240243730062B6F2 /* Frameworks */,
 			);
@@ -329,6 +361,7 @@
 				5099A06C240242BA0062B6F2 /* SecretAgentKit.framework */,
 				5099A074240242BA0062B6F2 /* SecretAgentKitTests.xctest */,
 				50A3B78A24026B7500D209EA /* SecretAgent.app */,
+				506772FB2426F3F400034DED /* Brief.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -402,6 +435,16 @@
 			path = SecureEnclave;
 			sourceTree = "<group>";
 		};
+		506772FC2426F3F400034DED /* Brief */ = {
+			isa = PBXGroup;
+			children = (
+				506773082426F3FD00034DED /* Updater.swift */,
+				506772FD2426F3F400034DED /* Brief.h */,
+				506772FE2426F3F400034DED /* Info.plist */,
+			);
+			path = Brief;
+			sourceTree = "<group>";
+		};
 		5068389F2415EA4F00F55094 /* Erasers */ = {
 			isa = PBXGroup;
 			children = (
@@ -447,7 +490,6 @@
 		508A58B1241ED1EA0069DC07 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				50731665241DF8660023809E /* Updater.swift */,
 				508A58B2241ED2180069DC07 /* AgentStatusChecker.swift */,
 			);
 			path = Controllers;
@@ -538,6 +580,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		506772F62426F3F400034DED /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				506772FF2426F3F400034DED /* Brief.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		5099A067240242BA0062B6F2 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -563,6 +613,7 @@
 			);
 			dependencies = (
 				50617DBC23FCE4AB0099B055 /* PBXTargetDependency */,
+				506773012426F3F400034DED /* PBXTargetDependency */,
 			);
 			name = Secretive;
 			productName = Secretive;
@@ -624,6 +675,24 @@
 			productReference = 50617DB023FCE4AB0099B055 /* SecretKitTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		506772FA2426F3F400034DED /* Brief */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 506773042426F3F400034DED /* Build configuration list for PBXNativeTarget "Brief" */;
+			buildPhases = (
+				506772F62426F3F400034DED /* Headers */,
+				506772F72426F3F400034DED /* Sources */,
+				506772F82426F3F400034DED /* Frameworks */,
+				506772F92426F3F400034DED /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Brief;
+			productName = Brief;
+			productReference = 506772FB2426F3F400034DED /* Brief.framework */;
+			productType = "com.apple.product-type.framework";
+		};
 		5099A06B240242BA0062B6F2 /* SecretAgentKit */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5099A083240242BA0062B6F2 /* Build configuration list for PBXNativeTarget "SecretAgentKit" */;
@@ -676,6 +745,7 @@
 			dependencies = (
 				5018F5492402736A002EB505 /* PBXTargetDependency */,
 				5018F54B2402736A002EB505 /* PBXTargetDependency */,
+				5067730B2426F40A00034DED /* PBXTargetDependency */,
 			);
 			name = SecretAgent;
 			productName = SecretAgent;
@@ -705,6 +775,10 @@
 					};
 					50617DAF23FCE4AB0099B055 = {
 						CreatedOnToolsVersion = 11.3;
+					};
+					506772FA2426F3F400034DED = {
+						CreatedOnToolsVersion = 11.4;
+						LastSwiftMigration = 1140;
 					};
 					5099A06B240242BA0062B6F2 = {
 						CreatedOnToolsVersion = 11.4;
@@ -738,6 +812,7 @@
 				50617DAF23FCE4AB0099B055 /* SecretKitTests */,
 				5099A06B240242BA0062B6F2 /* SecretAgentKit */,
 				5099A073240242BA0062B6F2 /* SecretAgentKitTests */,
+				506772FA2426F3F400034DED /* Brief */,
 			);
 		};
 /* End PBXProject section */
@@ -769,6 +844,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		50617DAE23FCE4AB0099B055 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		506772F92426F3F400034DED /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -813,7 +895,6 @@
 				508A58B3241ED2180069DC07 /* AgentStatusChecker.swift in Sources */,
 				50C385A52407A76D00AF2719 /* SecretDetailView.swift in Sources */,
 				5099A02423FD2AAA0062B6F2 /* CreateSecretView.swift in Sources */,
-				50731666241DF8660023809E /* Updater.swift in Sources */,
 				50B8550D24138C4F009958AC /* DeleteSecretView.swift in Sources */,
 				50BB046B2418AAAE00D6E079 /* EmptyStoreView.swift in Sources */,
 				50731669241E00C20023809E /* NoticeView.swift in Sources */,
@@ -857,6 +938,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				50524B442420969E008DBD97 /* OpenSSHWriterTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		506772F72426F3F400034DED /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				506773092426F3FD00034DED /* Updater.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -917,6 +1006,16 @@
 			isa = PBXTargetDependency;
 			target = 50617DA723FCE4AB0099B055 /* SecretKit */;
 			targetProxy = 50617DBB23FCE4AB0099B055 /* PBXContainerItemProxy */;
+		};
+		506773012426F3F400034DED /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 506772FA2426F3F400034DED /* Brief */;
+			targetProxy = 506773002426F3F400034DED /* PBXContainerItemProxy */;
+		};
+		5067730B2426F40A00034DED /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 506772FA2426F3F400034DED /* Brief */;
+			targetProxy = 5067730A2426F40A00034DED /* PBXContainerItemProxy */;
 		};
 		507CE4F22420A6B50029F750 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -1259,6 +1358,95 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.maxgoedjen.SecretKitTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		506773052426F3F400034DED /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = Z72PRUAWF6;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = Brief/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.maxgoedjen.Brief;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		506773062426F3F400034DED /* Test */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "Developer ID Application";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = Z72PRUAWF6;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = Brief/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.maxgoedjen.Brief;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Test;
+		};
+		506773072426F3F400034DED /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "Developer ID Application";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = Z72PRUAWF6;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = Brief/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.maxgoedjen.Brief;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
 			};
 			name = Release;
 		};
@@ -1694,6 +1882,16 @@
 				50617DC223FCE4AB0099B055 /* Debug */,
 				508A5919241EF1A00069DC07 /* Test */,
 				50617DC323FCE4AB0099B055 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		506773042426F3F400034DED /* Build configuration list for PBXNativeTarget "Brief" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				506773052426F3F400034DED /* Debug */,
+				506773062426F3F400034DED /* Test */,
+				506773072426F3F400034DED /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

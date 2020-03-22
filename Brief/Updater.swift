@@ -1,17 +1,17 @@
 import Foundation
 import Combine
 
-protocol UpdaterProtocol: ObservableObject {
+public protocol UpdaterProtocol: ObservableObject {
 
     var update: Release? { get }
 
 }
 
-class Updater: ObservableObject, UpdaterProtocol {
+public class Updater: ObservableObject, UpdaterProtocol {
 
-    @Published var update: Release?
+    @Published public var update: Release?
 
-    init() {
+    public init() {
         checkForUpdates()
         let timer = Timer.scheduledTimer(withTimeInterval: 60*60*24, repeats: true) { _ in
             self.checkForUpdates()
@@ -19,7 +19,7 @@ class Updater: ObservableObject, UpdaterProtocol {
         timer.tolerance = 60*60
     }
 
-    func checkForUpdates() {
+    public func checkForUpdates() {
         URLSession.shared.dataTask(with: Constants.updateURL) { data, _, _ in
             guard let data = data else { return }
             guard let release = try? JSONDecoder().decode(Release.self, from: data) else { return }
@@ -58,16 +58,24 @@ extension Updater {
 
 }
 
-struct Release: Codable {
-    let name: String
-    let html_url: URL
-    let body: String
+public struct Release: Codable {
+
+    public let name: String
+    public let html_url: URL
+    public let body: String
+
+    public  init(name: String, html_url: URL, body: String) {
+        self.name = name
+        self.html_url = html_url
+        self.body = body
+    }
+
 }
 
 
 extension Release {
 
-    var critical: Bool {
+    public var critical: Bool {
         return body.contains(Constants.securityContent)
     }
 

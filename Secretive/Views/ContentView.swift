@@ -1,5 +1,6 @@
 import SwiftUI
 import SecretKit
+import Brief
 
 struct ContentView<UpdaterType: UpdaterProtocol, AgentStatusCheckerType: AgentStatusCheckerProtocol>: View {
     
