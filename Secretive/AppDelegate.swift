@@ -1,6 +1,7 @@
 import Cocoa
 import SwiftUI
 import SecretKit
+import Brief
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
