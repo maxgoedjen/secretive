@@ -34,6 +34,7 @@
 		506773032426F3F400034DED /* Brief.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 506772FB2426F3F400034DED /* Brief.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		506773092426F3FD00034DED /* Updater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506773082426F3FD00034DED /* Updater.swift */; };
 		5067730C2426F40E00034DED /* Brief.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 506772FB2426F3F400034DED /* Brief.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		5067730E242701BA00034DED /* OpenSSHReaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5067730D242701BA00034DED /* OpenSSHReaderTests.swift */; };
 		5068389E241471CD00F55094 /* SecretStoreList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5068389D241471CD00F55094 /* SecretStoreList.swift */; };
 		506838A12415EA5600F55094 /* AnySecret.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506838A02415EA5600F55094 /* AnySecret.swift */; };
 		506838A32415EA5D00F55094 /* AnySecretStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506838A22415EA5D00F55094 /* AnySecretStore.swift */; };
@@ -229,6 +230,7 @@
 		506772FD2426F3F400034DED /* Brief.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Brief.h; sourceTree = "<group>"; };
 		506772FE2426F3F400034DED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		506773082426F3FD00034DED /* Updater.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Updater.swift; sourceTree = "<group>"; };
+		5067730D242701BA00034DED /* OpenSSHReaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenSSHReaderTests.swift; sourceTree = "<group>"; };
 		5068389D241471CD00F55094 /* SecretStoreList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecretStoreList.swift; sourceTree = "<group>"; };
 		506838A02415EA5600F55094 /* AnySecret.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnySecret.swift; sourceTree = "<group>"; };
 		506838A22415EA5D00F55094 /* AnySecretStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnySecretStore.swift; sourceTree = "<group>"; };
@@ -420,6 +422,7 @@
 			isa = PBXGroup;
 			children = (
 				50524B432420969D008DBD97 /* OpenSSHWriterTests.swift */,
+				5067730D242701BA00034DED /* OpenSSHReaderTests.swift */,
 				50617DB923FCE4AB0099B055 /* Info.plist */,
 			);
 			path = SecretKitTests;
@@ -938,6 +941,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				50524B442420969E008DBD97 /* OpenSSHWriterTests.swift in Sources */,
+				5067730E242701BA00034DED /* OpenSSHReaderTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

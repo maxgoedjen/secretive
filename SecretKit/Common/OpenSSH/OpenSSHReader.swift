@@ -8,7 +8,7 @@ public class OpenSSHReader {
         remaining = Data(data)
     }
 
-    public func readNextChunk() throws -> Data {
+    public func readNextChunk() -> Data {
         let lengthRange = 0..<(UInt32.bitWidth/8)
         let lengthChunk = remaining[lengthRange]
         remaining.removeSubrange(lengthRange)

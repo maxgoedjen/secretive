@@ -78,7 +78,7 @@ extension Agent {
 
     func sign(data: Data, from pid: Int32) throws -> Data {
         let reader = OpenSSHReader(data: data)
-        let hash = try reader.readNextChunk()
+        let hash = reader.readNextChunk()
         guard let (store, secret) = secret(matching: hash) else {
             os_log(.debug, "Agent did not have a key matching %@", hash as NSData)
             throw AgentError.noMatchingKey
@@ -89,7 +89,7 @@ extension Agent {
             try witness.speakNowOrForeverHoldYourPeace(forAccessTo: secret, by: provenance)
         }
 
-        let dataToSign = try reader.readNextChunk()
+        let dataToSign = reader.readNextChunk()
         let derSignature = try store.sign(data: dataToSign, with: secret)
 
         let curveData = writer.curveType(for: secret.algorithm, length: secret.keySize).data(using: .utf8)!
