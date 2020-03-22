@@ -26,7 +26,11 @@ extension Agent {
         let data = reader.availableData
         guard !data.isEmpty else { return }
         let requestTypeInt = data[4]
-        guard let requestType = SSHAgent.RequestType(rawValue: requestTypeInt) else { return }
+        guard let requestType = SSHAgent.RequestType(rawValue: requestTypeInt) else {
+            writer.write(SSHAgent.ResponseType.agentFailure.data)
+            os_log(.debug, "Agent returned %@", SSHAgent.ResponseType.agentFailure.debugDescription)
+            return
+        }
         os_log(.debug, "Agent handling request of type %@", requestType.debugDescription)
         let subData = Data(data[5...])
         let response = handle(requestType: requestType, data: subData, reader: reader)
