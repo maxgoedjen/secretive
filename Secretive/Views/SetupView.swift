@@ -3,9 +3,9 @@ import SwiftUI
 import ServiceManagement
 
 struct SetupView: View {
-    
+
     var completion: ((Bool) -> Void)?
-    
+
     var body: some View {
         Form {
             SetupStepView<Spacer>(text: "Secretive needs to install a helper app to sign requests when the main app isn't running. This app is called \"SecretAgent\" and you might see it in Activity Manager from time to time.",
@@ -29,18 +29,18 @@ struct SetupView: View {
             }
         }
     }
-    
+
 }
 
 struct SetupStepView<NestedViewType: View>: View {
-    
+
     let text: String
     let index: Int
     let nestedView: NestedViewType?
     @State var completed = false
     let actionText: String
     let action: (() -> Bool)
-    
+
     var body: some View {
         Section {
             HStack {
@@ -83,9 +83,9 @@ struct SetupStepView<NestedViewType: View>: View {
 }
 
 struct SetupStepCommandView: View {
-    
+
     let text: String
-    
+
     var body: some View {
         VStack(alignment: .leading) {
             Text(text)
@@ -104,36 +104,36 @@ struct SetupStepCommandView: View {
         .cornerRadius(10)
         .onDrag {
             return NSItemProvider(item: NSData(data: self.text.data(using: .utf8)!), typeIdentifier: kUTTypeUTF8PlainText as String)
-            
+
         }
     }
-    
+
     func copy() {
         NSPasteboard.general.declareTypes([.string], owner: nil)
         NSPasteboard.general.setString(text, forType: .string)
     }
-    
+
 }
 
 extension SetupView {
-    
+
     func installLaunchAgent() -> Bool {
         SMLoginItemSetEnabled("com.maxgoedjen.Secretive.SecretAgent" as CFString, true)
     }
-    
+
     func markAsDone() -> Bool {
         return true
     }
-    
+
 }
 
 extension SetupView {
-    
+
     enum Constants {
         static let socketPath = (NSHomeDirectory().replacingOccurrences(of: "com.maxgoedjen.Secretive.Host", with: "com.maxgoedjen.Secretive.SecretAgent") as NSString).appendingPathComponent("socket.ssh") as String
         static let socketPrompt = "export SSH_AUTH_SOCK=\(socketPath)"
     }
-    
+
 }
 
 #if DEBUG
