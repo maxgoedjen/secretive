@@ -16,7 +16,7 @@ class Notifier {
         let notificationCenter = UNUserNotificationCenter.current()
         let notificationContent = UNMutableNotificationContent()
         notificationContent.title = "Signed Request from \(provenance.origin.name)"
-        notificationContent.subtitle = secret.name
+        notificationContent.subtitle = "Using secret \"\(secret.name)\""
         if let iconURL = iconURL(for: provenance), let attachment = try? UNNotificationAttachment(identifier: "icon", url: iconURL, options: nil) {
             notificationContent.attachments = [attachment]
         }
