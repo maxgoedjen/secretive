@@ -66,7 +66,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     @IBAction func runSetup(sender: AnyObject?) {
         let setupWindow = NSWindow(
-            contentRect: NSRect(x: 0, y: 0, width: 00, height: 00),
+            contentRect: NSRect(x: 0, y: 0, width: 0, height: 0),
             styleMask: [.titled, .closable, .miniaturizable, .resizable, .fullSizeContentView],
             backing: .buffered, defer: false)
         let setupView = SetupView() { success in
@@ -74,7 +74,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             self.agentStatusChecker.check()
         }
         setupWindow.contentView = NSHostingView(rootView: setupView)
-        setupWindow.setContentSize(setupWindow.contentView!.fittingSize)
         window.beginSheet(setupWindow, completionHandler: nil)
     }
 

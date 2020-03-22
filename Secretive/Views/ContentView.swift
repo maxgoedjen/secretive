@@ -72,7 +72,7 @@ struct ContentView<UpdaterType: UpdaterProtocol, AgentStatusCheckerType: AgentSt
             } else {
                 NoStoresView()
             }
-        }
+        }.frame(minWidth: 640, minHeight: 320)
     }
 
     func updateNotice() -> some View {

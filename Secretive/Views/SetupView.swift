@@ -27,7 +27,7 @@ struct SetupView: View {
                 }
                 .padding()
             }
-        }
+        }.frame(minWidth: 640, minHeight: 400)
     }
     
 }
@@ -64,10 +64,8 @@ struct SetupStepView<NestedViewType: View>: View {
                     Text(text)
                         .opacity(completed ? 0.5 : 1)
                         .lineLimit(nil)
-                        .frame(idealHeight: 0, maxHeight: .infinity)
                     if nestedView != nil {
-                        Spacer()
-                        nestedView!
+                        nestedView!.padding()
                     }
                 }
                 .padding()
@@ -92,6 +90,7 @@ struct SetupStepCommandView: View {
                 .lineLimit(nil)
                 .font(.system(.caption, design: .monospaced))
                 .multilineTextAlignment(.leading)
+                .frame(minHeight: 50)
             HStack {
                 Spacer()
                 Button(action: copy) {
