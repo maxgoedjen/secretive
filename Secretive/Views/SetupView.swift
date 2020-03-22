@@ -9,12 +9,12 @@ struct SetupView: View {
     var body: some View {
         Form {
             SetupStepView<Spacer>(text: "Secretive needs to install a helper app to sign requests when the main app isn't running. This app is called \"SecretAgent\" and you might see it in Activity Manager from time to time.",
-                                index: 1,
-                                nestedView: nil,
-                                actionText: "Install") {
+                                  index: 1,
+                                  nestedView: nil,
+                                  actionText: "Install") {
                                     self.installLaunchAgent()
             }
-            SetupStepView(text: "You need to add a line to your shell config (.bashrc or .zshrc) telling SSH to talk to SecretAgent when it wants to authenticate. Drag this into your config file.",
+            SetupStepView(text: "Add this line to your shell config (.bashrc or .zshrc) telling SSH to talk to SecretAgent when it wants to authenticate. Drag this into your config file.",
                           index: 2,
                           nestedView: SetupStepCommandView(text: Constants.socketPrompt),
                           actionText: "Added") {
@@ -22,9 +22,9 @@ struct SetupView: View {
             }
             HStack {
                 Spacer()
-                    Button(action: { self.completion?(true) }) {
-                        Text("Finish")
-                    }
+                Button(action: { self.completion?(true) }) {
+                    Text("Finish")
+                }
                 .padding()
             }
         }

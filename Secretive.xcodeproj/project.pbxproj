@@ -28,6 +28,7 @@
 		50617DD223FCEFA90099B055 /* PreviewStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50617DD123FCEFA90099B055 /* PreviewStore.swift */; };
 		506772C72424784600034DED /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 506772C62424784600034DED /* Credits.rtf */; };
 		506772C92425BB8500034DED /* NoStoresView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506772C82425BB8500034DED /* NoStoresView.swift */; };
+		506772CB2426CCC200034DED /* Untitled.png in Resources */ = {isa = PBXBuildFile; fileRef = 506772CA2426CCC200034DED /* Untitled.png */; };
 		5068389E241471CD00F55094 /* SecretStoreList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5068389D241471CD00F55094 /* SecretStoreList.swift */; };
 		506838A12415EA5600F55094 /* AnySecret.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506838A02415EA5600F55094 /* AnySecret.swift */; };
 		506838A32415EA5D00F55094 /* AnySecretStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506838A22415EA5D00F55094 /* AnySecretStore.swift */; };
@@ -203,6 +204,7 @@
 		50617DD123FCEFA90099B055 /* PreviewStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewStore.swift; sourceTree = "<group>"; };
 		506772C62424784600034DED /* Credits.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = Credits.rtf; sourceTree = "<group>"; };
 		506772C82425BB8500034DED /* NoStoresView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoStoresView.swift; sourceTree = "<group>"; };
+		506772CA2426CCC200034DED /* Untitled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Untitled.png; sourceTree = "<group>"; };
 		5068389D241471CD00F55094 /* SecretStoreList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecretStoreList.swift; sourceTree = "<group>"; };
 		506838A02415EA5600F55094 /* AnySecret.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnySecret.swift; sourceTree = "<group>"; };
 		506838A22415EA5D00F55094 /* AnySecretStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnySecretStore.swift; sourceTree = "<group>"; };
@@ -507,6 +509,7 @@
 			children = (
 				50020BAF24064869003D4025 /* AppDelegate.swift */,
 				5018F54E24064786002EB505 /* Notifier.swift */,
+				506772CA2426CCC200034DED /* Untitled.png */,
 				50A3B79024026B7600D209EA /* Assets.xcassets */,
 				50A3B79524026B7600D209EA /* Main.storyboard */,
 				50A3B79824026B7600D209EA /* Info.plist */,
@@ -790,6 +793,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				506772CB2426CCC200034DED /* Untitled.png in Resources */,
 				50A3B79724026B7600D209EA /* Main.storyboard in Resources */,
 				50A3B79424026B7600D209EA /* Preview Assets.xcassets in Resources */,
 				50A3B79124026B7600D209EA /* Assets.xcassets in Resources */,
