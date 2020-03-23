@@ -13,7 +13,7 @@ extension Stub {
         public var secrets: [Secret] = []
 
         public init() {
-            try! create(size: 256)
+            //            try! create(size: 256)
         }
 
         public func create(size: Int) throws {
@@ -32,7 +32,7 @@ extension Stub {
                     kSecAttrIsPermanent: true,
                     kSecAttrAccessControl: access
                 ]
-            ] as CFDictionary
+                ] as CFDictionary
 
             var privateKey: SecKey! = nil
             var publicKey: SecKey! = nil
@@ -46,11 +46,23 @@ extension Stub {
             print("Public Key OpenSSH: \(OpenSSHKeyWriter().openSSHString(secret: secret))")
         }
 
-        public func delete(secret: Secret) throws {
-        }
-
         public func sign(data: Data, with secret: Secret) throws -> Data {
-            return Data()
+            let privateKey = SecKeyCreateWithData(secret.privateKey as CFData, [
+                kSecAttrKeyType: kSecAttrKeyTypeECSECPrimeRandom,
+                kSecAttrKeySizeInBits: secret.keySize,
+                kSecAttrKeyClass: kSecAttrKeyClassPrivate
+                ] as CFDictionary
+                , nil)!
+            let signatureAlgorithm: SecKeyAlgorithm
+            switch secret.keySize {
+            case 256:
+                signatureAlgorithm = .ecdsaSignatureMessageX962SHA256
+            case 384:
+                signatureAlgorithm = .ecdsaSignatureMessageX962SHA384
+            default:
+                fatalError()
+            }
+            return SecKeyCreateSignature(privateKey, signatureAlgorithm, data as CFData, nil) as! Data
         }
 
     }
