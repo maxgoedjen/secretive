@@ -1,5 +1,6 @@
 import Foundation
 import XCTest
+import CryptoKit
 @testable import SecretKit
 @testable import SecretAgentKit
 
@@ -36,13 +37,25 @@ class AgentTests: XCTestCase {
 
     func testSignature() {
         let stubReader = StubFileHandleReader(availableData: Constants.Requests.requestSignature)
-        let list = storeList(with: [Constants.Secrets.ecdsa256Secret])
+        let requestReader = OpenSSHReader(data: Constants.Requests.requestSignature[5...])
+        _ = requestReader.readNextChunk()
+        let dataToSign = requestReader.readNextChunk()
+        let list = storeList(with: [Constants.Secrets.ecdsa256Secret, Constants.Secrets.ecdsa384Secret])
         let agent = Agent(storeList: list)
         agent.handle(reader: stubReader, writer: stubWriter)
-        let reader = OpenSSHReader(data: stubWriter.data)
-        // TODO: VERIFY
-        XCTAssertFalse(true)
-        print(stubWriter.data.base64EncodedString())
+        let outer = OpenSSHReader(data: stubWriter.data[5...])
+        let payload = outer.readNextChunk()
+        let inner = OpenSSHReader(data: payload)
+        _ = inner.readNextChunk()
+        let signedData = inner.readNextChunk()
+        let rsData = OpenSSHReader(data: signedData)
+        let r = rsData.readNextChunk()
+        let s = rsData.readNextChunk()
+        var rs = r
+        rs.append(s)
+        let signature = try! P256.Signing.ECDSASignature(rawRepresentation: rs)
+        let valid = try! P256.Signing.PublicKey(x963Representation: Constants.Secrets.ecdsa256Secret.publicKey).isValidSignature(signature, for: dataToSign)
+        XCTAssertTrue(valid)
     }
 
     // MARK: Witness protocol
