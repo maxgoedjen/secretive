@@ -59,11 +59,17 @@ class AgentTests: XCTestCase {
     }
 
     func testWitnessSignature() {
-        let stubReader = StubFileHandleReader(availableData: Constants.Requests.requestIdentities)
-        let list = storeList(with: [Constants.Secrets.ecdsa256Secret, Constants.Secrets.ecdsa384Secret])
-        let agent = Agent(storeList: list)
+        let stubReader = StubFileHandleReader(availableData: Constants.Requests.requestSignature)
+        let list = storeList(with: [Constants.Secrets.ecdsa256Secret])
+        var witnessed = false
+        let witness = StubWitness(speakNow: { _, trace  in
+            return false
+        }, witness: { _, trace in
+            witnessed = true
+        })
+        let agent = Agent(storeList: list, witness: witness)
         agent.handle(reader: stubReader, writer: stubWriter)
-        XCTAssertEqual(stubWriter.data, Constants.Responses.requestIdentitiesMultiple)
+        XCTAssertTrue(witnessed)
     }
 
     func testRequestTracing() {
@@ -129,7 +135,7 @@ extension AgentTests {
 
         enum Responses {
             static let requestIdentitiesEmpty = Data(base64Encoded: "AAAABQwAAAAA")!
-            static let requestIdentitiesMultiple = Data(base64Encoded: "AAABKwwAAAACAAAAaAAAABNlY2RzYS1zaGEyLW5pc3RwMjU2AAAACG5pc3RwMjU2AAAAQQTlRI4AAOTx6kYMMpIzeajNtblghxUmP0qqOYJBwJJ/ntTDEChzi4Gu7nAfW95on99zAYnefRkSvRhD1ZTIkkMKAAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAACIAAAAE2VjZHNhLXNoYTItbmlzdHAzODQAAAAIbmlzdHAzODQAAABhBG2MNc/C5OTHFE2tBvbZCVcpOGa8vBMquiTLkH4lwkeqOPxhi+PyYUfQZMTRJNPiTyWPoMBqNiCIFRVv60yPN/AHufHaOgbdTP42EgMlMMImkAjYUEv9DESHTVIs2PW1yQAAABNlY2RzYS1zaGEyLW5pc3RwMzg0")!
+            static let requestIdentitiesMultiple = Data(base64Encoded: "AAABKwwAAAACAAAAaAAAABNlY2RzYS1zaGEyLW5pc3RwMjU2AAAACG5pc3RwMjU2AAAAQQSszpFIlSRHAAjLQHfV+8WpW3NBWGcoW5r9nbFpeCD9hliIvkXLGh0DcPpwCEPAihGJi55dFSw6eRH/CjIYCMtPAAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAACIAAAAE2VjZHNhLXNoYTItbmlzdHAzODQAAAAIbmlzdHAzODQAAABhBLKSzA5q3jCb3q0JKigvcxfWVGrJ+bklpG0Zc9YzUwrbsh9SipvlSJi+sHQI+O0m88DOpRBAtuAHX60euD/Yv250tovN7/+MEFbXGZ/hLdd0BoFpWbLfJcQj806KJGlcDAAAABNlY2RzYS1zaGEyLW5pc3RwMzg0")!
             static let requestFailure = Data(base64Encoded: "AAAAAQU=")!
         }
 
