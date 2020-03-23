@@ -15,6 +15,7 @@
 		50617D8723FCE48E0099B055 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 50617D8623FCE48E0099B055 /* Assets.xcassets */; };
 		50617D8A23FCE48E0099B055 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 50617D8923FCE48E0099B055 /* Preview Assets.xcassets */; };
 		50617D8D23FCE48E0099B055 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 50617D8B23FCE48E0099B055 /* Main.storyboard */; };
+		50617D9923FCE48E0099B055 /* SecretiveTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50617D9823FCE48E0099B055 /* SecretiveTests.swift */; };
 		50617DB123FCE4AB0099B055 /* SecretKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50617DA823FCE4AB0099B055 /* SecretKit.framework */; };
 		50617DBA23FCE4AB0099B055 /* SecretKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 50617DAA23FCE4AB0099B055 /* SecretKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		50617DBD23FCE4AB0099B055 /* SecretKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50617DA823FCE4AB0099B055 /* SecretKit.framework */; };
@@ -92,6 +93,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 50617DA723FCE4AB0099B055;
 			remoteInfo = SecretKit;
+		};
+		50617D9523FCE48E0099B055 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 50617D7723FCE48D0099B055 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 50617D7E23FCE48D0099B055;
+			remoteInfo = Secretive;
 		};
 		50617DB223FCE4AB0099B055 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -207,6 +215,9 @@
 		50617D8C23FCE48E0099B055 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		50617D8E23FCE48E0099B055 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		50617D8F23FCE48E0099B055 /* Secretive.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Secretive.entitlements; sourceTree = "<group>"; };
+		50617D9423FCE48E0099B055 /* SecretiveTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SecretiveTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		50617D9823FCE48E0099B055 /* SecretiveTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecretiveTests.swift; sourceTree = "<group>"; };
+		50617D9A23FCE48E0099B055 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		50617DA823FCE4AB0099B055 /* SecretKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SecretKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		50617DAA23FCE4AB0099B055 /* SecretKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SecretKit.h; sourceTree = "<group>"; };
 		50617DAB23FCE4AB0099B055 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -280,6 +291,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		50617D9123FCE48E0099B055 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		50617DA523FCE4AB0099B055 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -333,6 +351,7 @@
 			isa = PBXGroup;
 			children = (
 				50617D8123FCE48E0099B055 /* Secretive */,
+				50617D9723FCE48E0099B055 /* SecretiveTests */,
 				50617DA923FCE4AB0099B055 /* SecretKit */,
 				50617DB623FCE4AB0099B055 /* SecretKitTests */,
 				50A3B78B24026B7500D209EA /* SecretAgent */,
@@ -349,6 +368,7 @@
 			isa = PBXGroup;
 			children = (
 				50617D7F23FCE48E0099B055 /* Secretive.app */,
+				50617D9423FCE48E0099B055 /* SecretiveTests.xctest */,
 				50617DA823FCE4AB0099B055 /* SecretKit.framework */,
 				50617DB023FCE4AB0099B055 /* SecretKitTests.xctest */,
 				5099A06C240242BA0062B6F2 /* SecretAgentKit.framework */,
@@ -384,6 +404,15 @@
 				508A58B4241ED48F0069DC07 /* PreviewAgentStatusChecker.swift */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		50617D9723FCE48E0099B055 /* SecretiveTests */ = {
+			isa = PBXGroup;
+			children = (
+				50617D9823FCE48E0099B055 /* SecretiveTests.swift */,
+				50617D9A23FCE48E0099B055 /* Info.plist */,
+			);
+			path = SecretiveTests;
 			sourceTree = "<group>";
 		};
 		50617DA923FCE4AB0099B055 /* SecretKit */ = {
@@ -610,6 +639,24 @@
 			productReference = 50617D7F23FCE48E0099B055 /* Secretive.app */;
 			productType = "com.apple.product-type.application";
 		};
+		50617D9323FCE48E0099B055 /* SecretiveTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 50617DA023FCE48E0099B055 /* Build configuration list for PBXNativeTarget "SecretiveTests" */;
+			buildPhases = (
+				50617D9023FCE48E0099B055 /* Sources */,
+				50617D9123FCE48E0099B055 /* Frameworks */,
+				50617D9223FCE48E0099B055 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				50617D9623FCE48E0099B055 /* PBXTargetDependency */,
+			);
+			name = SecretiveTests;
+			productName = SecretiveTests;
+			productReference = 50617D9423FCE48E0099B055 /* SecretiveTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		50617DA723FCE4AB0099B055 /* SecretKit */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 50617DC423FCE4AB0099B055 /* Build configuration list for PBXNativeTarget "SecretKit" */;
@@ -737,6 +784,10 @@
 					50617D7E23FCE48D0099B055 = {
 						CreatedOnToolsVersion = 11.3;
 					};
+					50617D9323FCE48E0099B055 = {
+						CreatedOnToolsVersion = 11.3;
+						TestTargetID = 50617D7E23FCE48D0099B055;
+					};
 					50617DA723FCE4AB0099B055 = {
 						CreatedOnToolsVersion = 11.3;
 						LastSwiftMigration = 1130;
@@ -774,6 +825,7 @@
 			projectRoot = "";
 			targets = (
 				50617D7E23FCE48D0099B055 /* Secretive */,
+				50617D9323FCE48E0099B055 /* SecretiveTests */,
 				50A3B78924026B7500D209EA /* SecretAgent */,
 				50617DA723FCE4AB0099B055 /* SecretKit */,
 				50617DAF23FCE4AB0099B055 /* SecretKitTests */,
@@ -793,6 +845,13 @@
 				50617D8A23FCE48E0099B055 /* Preview Assets.xcassets in Resources */,
 				50617D8723FCE48E0099B055 /* Assets.xcassets in Resources */,
 				506772C72424784600034DED /* Credits.rtf in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		50617D9223FCE48E0099B055 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -861,6 +920,14 @@
 				506772C92425BB8500034DED /* NoStoresView.swift in Sources */,
 				508A58B5241ED48F0069DC07 /* PreviewAgentStatusChecker.swift in Sources */,
 				508A58AA241E06B40069DC07 /* PreviewUpdater.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		50617D9023FCE48E0099B055 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				50617D9923FCE48E0099B055 /* SecretiveTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -950,6 +1017,11 @@
 			isa = PBXTargetDependency;
 			target = 50617DA723FCE4AB0099B055 /* SecretKit */;
 			targetProxy = 5018F54A2402736A002EB505 /* PBXContainerItemProxy */;
+		};
+		50617D9623FCE48E0099B055 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 50617D7E23FCE48D0099B055 /* Secretive */;
+			targetProxy = 50617D9523FCE48E0099B055 /* PBXContainerItemProxy */;
 		};
 		50617DB323FCE4AB0099B055 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -1171,6 +1243,54 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "Secretive - Host";
 				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		50617DA123FCE48E0099B055 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Manual;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = "";
+				INFOPLIST_FILE = SecretiveTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				PRODUCT_BUNDLE_IDENTIFIER = com.maxgoedjen.SecretiveTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Secretive.app/Contents/MacOS/Secretive";
+			};
+			name = Debug;
+		};
+		50617DA223FCE48E0099B055 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Manual;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = "";
+				INFOPLIST_FILE = SecretiveTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				PRODUCT_BUNDLE_IDENTIFIER = com.maxgoedjen.SecretiveTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Secretive.app/Contents/MacOS/Secretive";
 			};
 			name = Release;
 		};
@@ -1448,6 +1568,30 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "Secretive - Host";
 				SWIFT_VERSION = 5.0;
+			};
+			name = Test;
+		};
+		508A5916241EF1A00069DC07 /* Test */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Manual;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = "";
+				INFOPLIST_FILE = SecretiveTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				PRODUCT_BUNDLE_IDENTIFIER = com.maxgoedjen.SecretiveTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Secretive.app/Contents/MacOS/Secretive";
 			};
 			name = Test;
 		};
@@ -1743,6 +1887,16 @@
 				50617D9E23FCE48E0099B055 /* Debug */,
 				508A5915241EF1A00069DC07 /* Test */,
 				50617D9F23FCE48E0099B055 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		50617DA023FCE48E0099B055 /* Build configuration list for PBXNativeTarget "SecretiveTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				50617DA123FCE48E0099B055 /* Debug */,
+				508A5916241EF1A00069DC07 /* Test */,
+				50617DA223FCE48E0099B055 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
