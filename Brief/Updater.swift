@@ -27,7 +27,20 @@ public class Updater: ObservableObject, UpdaterProtocol {
         }.resume()
     }
 
+    public func ignore(release: Release) {
+        guard !release.critical else { return }
+        defaults.set(true, forKey: release.name)
+        DispatchQueue.main.async {
+            self.update = nil
+        }
+    }
+
+}
+
+extension Updater {
+
     func evaluate(release: Release) {
+        guard !userIgnored(release: release) else { return }
         let latestVersion = semVer(from: release.name)
         let currentVersion = semVer(from: Bundle.main.infoDictionary!["CFBundleShortVersionString"] as! String)
         for (latest, current) in zip(latestVersion, currentVersion) {
@@ -48,6 +61,14 @@ public class Updater: ObservableObject, UpdaterProtocol {
         return split
     }
 
+    func userIgnored(release: Release) -> Bool {
+        guard !release.critical else { return false }
+        return defaults.bool(forKey: release.name)
+    }
+
+    var defaults: UserDefaults {
+        UserDefaults(suiteName: "com.maxgoedjen.Secretive.updater.ignorelist")!
+    }
 }
 
 extension Updater {

@@ -1,8 +1,10 @@
-# Secretive
+# Secretive ![Test](https://github.com/maxgoedjen/secretive/workflows/Test/badge.svg) ![Release](https://github.com/maxgoedjen/secretive/workflows/Release/badge.svg)
+
 
 Secretive is an app for storing and managing SSH keys in the Secure Enclave. It is inspired by the [sekey project](https://github.com/sekey/sekey), but rewritten in Swift with no external dependencies and with a handy native management app.
 
 <img src="/.github/readme/app.png" alt="Screenshot of Secretive" width="600">
+
 
 ## Why?
 
