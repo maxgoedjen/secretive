@@ -11,9 +11,11 @@ extension Stub {
         public let id = UUID()
         public let name = "Stub"
         public var secrets: [Secret] = []
+        public var shouldThrow = false
 
         public init() {
-            //            try! create(size: 256)
+//            try! create(size: 256)
+//            try! create(size: 384)
         }
 
         public func create(size: Int) throws {
@@ -47,6 +49,9 @@ extension Stub {
         }
 
         public func sign(data: Data, with secret: Secret) throws -> Data {
+            guard !shouldThrow else {
+                throw NSError()
+            }
             let privateKey = SecKeyCreateWithData(secret.privateKey as CFData, [
                 kSecAttrKeyType: kSecAttrKeyTypeECSECPrimeRandom,
                 kSecAttrKeySizeInBits: secret.keySize,
@@ -62,7 +67,7 @@ extension Stub {
             default:
                 fatalError()
             }
-            return SecKeyCreateSignature(privateKey, signatureAlgorithm, data as CFData, nil) as! Data
+            return SecKeyCreateSignature(privateKey, signatureAlgorithm, data as CFData, nil)! as Data
         }
 
     }

@@ -46,8 +46,9 @@ extension Agent {
                 response.append(identities())
                 os_log(.debug, "Agent returned %@", SSHAgent.ResponseType.agentIdentitiesAnswer.debugDescription)
             case .signRequest:
+                let provenance = requestTracer.provenance(from: reader)
                 response.append(SSHAgent.ResponseType.agentSignResponse.data)
-                response.append(try sign(data: data, from: reader.fileDescriptor))
+                response.append(try sign(data: data, provenance: provenance))
                 os_log(.debug, "Agent returned %@", SSHAgent.ResponseType.agentSignResponse.debugDescription)
             }
         } catch {
@@ -81,7 +82,7 @@ extension Agent {
         return countData + keyData
     }
 
-    func sign(data: Data, from pid: Int32) throws -> Data {
+    func sign(data: Data, provenance: SigningRequestProvenance) throws -> Data {
         let reader = OpenSSHReader(data: data)
         let hash = reader.readNextChunk()
         guard let (store, secret) = secret(matching: hash) else {
@@ -89,7 +90,6 @@ extension Agent {
             throw AgentError.noMatchingKey
         }
 
-        let provenance = requestTracer.provenance(from: pid)
         if let witness = witness {
             try witness.speakNowOrForeverHoldYourPeace(forAccessTo: secret, by: provenance)
         }
