@@ -27,7 +27,7 @@ extension Agent {
         guard !data.isEmpty else { return }
         let requestTypeInt = data[4]
         guard let requestType = SSHAgent.RequestType(rawValue: requestTypeInt) else {
-            writer.write(SSHAgent.ResponseType.agentFailure.data)
+            writer.write(OpenSSHKeyWriter().lengthAndData(of: SSHAgent.ResponseType.agentFailure.data))
             os_log(.debug, "Agent returned %@", SSHAgent.ResponseType.agentFailure.debugDescription)
             return
         }

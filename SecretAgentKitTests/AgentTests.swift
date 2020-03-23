@@ -41,6 +41,7 @@ class AgentTests: XCTestCase {
         agent.handle(reader: stubReader, writer: stubWriter)
         let reader = OpenSSHReader(data: stubWriter.data)
         // TODO: VERIFY
+        XCTAssertFalse(true)
         print(stubWriter.data.base64EncodedString())
     }
 
@@ -87,7 +88,7 @@ class AgentTests: XCTestCase {
     // MARK: Exception Handling
 
     func testSignatureException() {
-        let stubReader = StubFileHandleReader(availableData: Constants.Requests.requestIdentities)
+        let stubReader = StubFileHandleReader(availableData: Constants.Requests.requestSignature)
         let list = storeList(with: [Constants.Secrets.ecdsa256Secret, Constants.Secrets.ecdsa384Secret])
         let store = list.stores.first?.base as! Stub.Store
         store.shouldThrow = true
