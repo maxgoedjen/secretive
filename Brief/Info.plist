@@ -19,6 +19,6 @@
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>NSHumanReadableCopyright</key>
-	<string>Copyright © 2020 Max Goedjen. All rights reserved.</string>
+	<string>$(PRODUCT_NAME) is MIT Licensed.</string>
 </dict>
 </plist>
