@@ -16,11 +16,3 @@ jobs:
       run: ./.github/scripts/signing.sh
     - name: Test
       run: xcrun xcodebuild test -project Secretive.xcodeproj -scheme Secretive
-    - name: Zip test run
-      run: |
-            ditto -c -k --sequesterRsrc --keepParent /Users/runner/Library/Developer/Xcode/DerivedData ./Archive.zip
-    - name: Upload Archive to Artifacts
-      uses: actions/upload-artifact@v1
-      with:
-        name: Archive.zip
-        path: Archive.zip
