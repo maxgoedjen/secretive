@@ -49,7 +49,6 @@
 		507EE34624281F89003C4FE3 /* StubFileHandleReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 507EE34524281F89003C4FE3 /* StubFileHandleReader.swift */; };
 		507EE34824281FB8003C4FE3 /* StubFileHandleWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 507EE34724281FB8003C4FE3 /* StubFileHandleWriter.swift */; };
 		507EE34A2428263B003C4FE3 /* StubStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 507EE3492428263B003C4FE3 /* StubStore.swift */; };
-		507EE34C24282B4C003C4FE3 /* StubStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 507EE3492428263B003C4FE3 /* StubStore.swift */; };
 		507EE34E2428784F003C4FE3 /* StubWitness.swift in Sources */ = {isa = PBXBuildFile; fileRef = 507EE34D2428784F003C4FE3 /* StubWitness.swift */; };
 		508A58AA241E06B40069DC07 /* PreviewUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508A58A9241E06B40069DC07 /* PreviewUpdater.swift */; };
 		508A58B3241ED2180069DC07 /* AgentStatusChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508A58B2241ED2180069DC07 /* AgentStatusChecker.swift */; };
@@ -1000,7 +999,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				50020BB024064869003D4025 /* AppDelegate.swift in Sources */,
-				507EE34C24282B4C003C4FE3 /* StubStore.swift in Sources */,
 				5018F54F24064786002EB505 /* Notifier.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
