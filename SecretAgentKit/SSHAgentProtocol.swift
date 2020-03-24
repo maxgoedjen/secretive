@@ -12,7 +12,7 @@ extension SSHAgent {
             switch self {
             case .requestIdentities:
                 return "RequestIdentities"
-            default:
+            case .signRequest:
                 return "SignRequest"
             }
         }

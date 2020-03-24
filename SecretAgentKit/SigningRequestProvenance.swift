@@ -1,7 +1,7 @@
 import Foundation
 import AppKit
 
-public struct SigningRequestProvenance {
+public struct SigningRequestProvenance: Equatable {
 
     public var chain: [Process]
     public init(root: Process) {
@@ -24,7 +24,7 @@ extension SigningRequestProvenance {
 
 extension SigningRequestProvenance {
 
-    public struct Process {
+    public struct Process: Equatable {
 
         public let pid: Int32
         public let name: String

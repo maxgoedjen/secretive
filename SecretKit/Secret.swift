@@ -7,7 +7,7 @@ public protocol Secret: Identifiable, Hashable {
 
 }
 
-public enum Algorithm {
+public enum Algorithm: Hashable {
     case ellipticCurve
     public init(secAttr: NSNumber) {
         let secAttrString = secAttr.stringValue as CFString
