@@ -38,7 +38,7 @@ For non-command-line based apps, like GUI Git clients, you may need to go throug
 [Tower](https://www.git-tower.com/help/mac/integration/environment)
 
 
-### Security Considerations
+### Auditable Build Process
 
 Builds are produced by GitHub Actions with an auditable build and release generation process. Each build has a "Document SHAs" step, which will output SHA checksums for the build produced by the GitHub Action, so you can verify that the source code for a given build corresponds to any given release.
 
