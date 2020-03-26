@@ -30,14 +30,6 @@ For Macs without Secure Enclaves, you can configure a Smart Card (such as a Yubi
 
 ## Getting Started
 
-### Setup for Third Party Apps
-
-When you first launch Secretive, you'll be prompted to set up your command line environment. You can redisplay this prompt at any time by going to `Menu > Help -> Set Up Helper App`.
-For non-command-line based apps, like GUI Git clients, you may need to go through app-specific setup.
-
-[Tower](https://www.git-tower.com/help/mac/integration/environment)
-
-
 ### Auditable Build Process
 
 Builds are produced by GitHub Actions with an auditable build and release generation process. Each build has a "Document SHAs" step, which will output SHA checksums for the build produced by the GitHub Action, so you can verify that the source code for a given build corresponds to any given release.
