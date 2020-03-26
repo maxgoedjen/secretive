@@ -17,7 +17,7 @@ Awesome! Just bear in mind that because an app only has access to the keychain i
 
 ### I have a security issue
 
-Please contact [mailto:max.goedjen@gmail.com](max.goedjen@gmail.com) immediately with details, and I'll address the issue and credit you ASAP.
+Please contact [mailto:max.goedjen@gmail.com](max.goedjen@gmail.com) with a subject containing "SECRETIVE SECURITY" immediately with details, and I'll address the issue and credit you ASAP.
 
 ### I want to contribute to Secretive
 

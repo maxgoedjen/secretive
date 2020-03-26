@@ -30,6 +30,10 @@ For Macs without Secure Enclaves, you can configure a Smart Card (such as a Yubi
 
 ## Getting Started
 
+### FAQ
+
+There's a [FAQ here](FAQ.md).
+
 ### Auditable Build Process
 
 Builds are produced by GitHub Actions with an auditable build and release generation process. Each build has a "Document SHAs" step, which will output SHA checksums for the build produced by the GitHub Action, so you can verify that the source code for a given build corresponds to any given release.
@@ -44,4 +48,4 @@ Beacuse secrets in the Secure Enclave are not exportable, they are not able to b
 
 ## Security
 
-If you discover any vulnerabilities in this project, please notify max.goedjen@gmail.com
+If you discover any vulnerabilities in this project, please notify [mailto:max.goedjen@gmail.com](max.goedjen@gmail.com) with the subject containing "SECRETIVE SECURITY."
