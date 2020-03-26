@@ -5,6 +5,7 @@
 Secretive relies on the `SSH_AUTH_SOCK` environment variable being respected. The `git` and `ssh` command line tools natively respect this, but third party apps may require some configuration to work. A non-exhaustive list of clients is provided here:
 
 Tower - [Instructions](https://www.git-tower.com/help/mac/integration/environment)
+
 GitHub Desktop: Should just work, no configuration needed
 
 ### Why should I trust you?
