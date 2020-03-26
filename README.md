@@ -30,13 +30,9 @@ For Macs without Secure Enclaves, you can configure a Smart Card (such as a Yubi
 
 ## Getting Started
 
-### Setup for Third Party Apps
+### FAQ
 
-When you first launch Secretive, you'll be prompted to set up your command line environment. You can redisplay this prompt at any time by going to `Menu > Help -> Set Up Helper App`.
-For non-command-line based apps, like GUI Git clients, you may need to go through app-specific setup.
-
-[Tower](https://www.git-tower.com/help/mac/integration/environment)
-
+There's a [FAQ here](FAQ.md).
 
 ### Auditable Build Process
 
@@ -52,4 +48,4 @@ Beacuse secrets in the Secure Enclave are not exportable, they are not able to b
 
 ## Security
 
-If you discover any vulnerabilities in this project, please notify max.goedjen@gmail.com
+If you discover any vulnerabilities in this project, please notify [max.goedjen@gmail.com](mailto:max.goedjen@gmail.com) with the subject containing "SECRETIVE SECURITY."
