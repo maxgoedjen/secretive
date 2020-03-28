@@ -1,5 +1,9 @@
 # FAQ
 
+### How do I import my current SSH keys, or export my Secretive Keys?
+
+The secure enclave doesn't allow import or export of private keys. For any new computer, you should just create a new set of keys. If you're using a smart card, you _might_ be able to export your private key from the vendor's software.
+
 ### Secretive doesn't work with my git client
 
 Secretive relies on the `SSH_AUTH_SOCK` environment variable being respected. The `git` and `ssh` command line tools natively respect this, but third party apps may require some configuration to work. A non-exhaustive list of clients is provided here:
