@@ -346,6 +346,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		504BA92D243171F20064740E /* Types */ = {
+			isa = PBXGroup;
+			children = (
+				50617DCA23FCECA10099B055 /* Secret.swift */,
+				50617DC623FCE4EA0099B055 /* SecretStore.swift */,
+			);
+			path = Types;
+			sourceTree = "<group>";
+		};
 		50617D7623FCE48D0099B055 = {
 			isa = PBXGroup;
 			children = (
@@ -418,8 +427,6 @@
 			isa = PBXGroup;
 			children = (
 				50617DAA23FCE4AB0099B055 /* SecretKit.h */,
-				50617DCA23FCECA10099B055 /* Secret.swift */,
-				50617DC623FCE4EA0099B055 /* SecretStore.swift */,
 				5099A02C23FE56D70062B6F2 /* Common */,
 				50617DCC23FCECEE0099B055 /* SecureEnclave */,
 				5099A02523FE34DE0062B6F2 /* SmartCard */,
@@ -522,6 +529,7 @@
 		5099A02C23FE56D70062B6F2 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				504BA92D243171F20064740E /* Types */,
 				5068389F2415EA4F00F55094 /* Erasers */,
 				506838A42415EA6800F55094 /* OpenSSH */,
 				5068389D241471CD00F55094 /* SecretStoreList.swift */,
