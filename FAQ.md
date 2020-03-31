@@ -24,6 +24,10 @@ Awesome! Just bear in mind that because an app only has access to the keychain i
 
 Please contact [max.goedjen@gmail.com](mailto:max.goedjen@gmail.com) with a subject containing "SECRETIVE SECURITY" immediately with details, and I'll address the issue and credit you ASAP.
 
+### I have a non-security related bug
+
+Please file a [GitHub issue](https://github.com/maxgoedjen/secretive/issues) for it.
+
 ### I want to contribute to Secretive
 
 Sweet! Please check out the [contributing guidelines](CONTRIBUTING.md) and go from there.
