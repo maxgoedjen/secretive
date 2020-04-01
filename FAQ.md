@@ -12,6 +12,10 @@ Tower - [Instructions](https://www.git-tower.com/help/mac/integration/environmen
 
 GitHub Desktop: Should just work, no configuration needed
 
+### Secretive isn't working for me
+
+Please run `ssh -Tv git@github.com` in your terminal and paste the output in a [new GitHub issue](https://github.com/maxgoedjen/secretive/issues/new) with a description of your issue.
+
 ### Why should I trust you?
 
 You shouldn't, for a piece of software like this. Secretive, by design, has an auditable build process. Each build has a fully auditable build log, showing the source it was built from and a SHA of the build product. You can check the SHA of the zip you download against the SHA output in the build log (which is linked in the About window).
@@ -26,7 +30,7 @@ Please contact [max.goedjen@gmail.com](mailto:max.goedjen@gmail.com) with a subj
 
 ### I have a non-security related bug
 
-Please file a [GitHub issue](https://github.com/maxgoedjen/secretive/issues) for it.
+Please file a [GitHub issue](https://github.com/maxgoedjen/secretive/issues/new) for it.
 
 ### I want to contribute to Secretive
 
