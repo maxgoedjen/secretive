@@ -30,7 +30,7 @@ Please contact [max.goedjen@gmail.com](mailto:max.goedjen@gmail.com) with a subj
 
 ### I have a non-security related bug
 
-Please file a [GitHub issue](https://github.com/maxgoedjen/secretive/issues/new) for it.
+Please file a [GitHub issue](https://github.com/maxgoedjen/secretive/issues/new) for it. I will not provide email support with the exception of the critical security issues mentioned above.
 
 ### I want to contribute to Secretive
 
