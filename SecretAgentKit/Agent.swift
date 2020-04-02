@@ -113,8 +113,17 @@ extension Agent {
 
 
         let rawLength = rawRepresentation.count/2
-        let r = rawRepresentation[0..<rawLength]
-        let s = rawRepresentation[rawLength...]
+        // Check if we need to pad with 0x00 to prevent certain
+        // ssh servers from thinking r or s is negative
+        let paddingRange: ClosedRange<UInt8> = 0x80...0xFF
+        var r = Data(rawRepresentation[0..<rawLength])
+        if paddingRange ~= r.first! {
+            r.insert(0x00, at: 0)
+        }
+        var s = Data(rawRepresentation[rawLength...])
+        if paddingRange ~= s.first! {
+            s.insert(0x00, at: 0)
+        }
 
         var signatureChunk = Data()
         signatureChunk.append(writer.lengthAndData(of: r))
