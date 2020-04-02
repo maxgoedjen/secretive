@@ -49,8 +49,15 @@ class AgentTests: XCTestCase {
         _ = inner.readNextChunk()
         let signedData = inner.readNextChunk()
         let rsData = OpenSSHReader(data: signedData)
-        let r = rsData.readNextChunk()
-        let s = rsData.readNextChunk()
+        var r = rsData.readNextChunk()
+        var s = rsData.readNextChunk()
+        // This is fine IRL, but it freaks out CryptoKit
+        if r[0] == 0 {
+            r.removeFirst()
+        }
+        if s[0] == 0 {
+            s.removeFirst()
+        }
         var rs = r
         rs.append(s)
         let signature = try! P256.Signing.ECDSASignature(rawRepresentation: rs)
