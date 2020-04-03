@@ -110,7 +110,7 @@ struct ContentView<UpdaterType: UpdaterProtocol, AgentStatusCheckerType: AgentSt
         } else {
             fallback = Constants.emptyStoreTag
         }
-        return self.storeList.stores.compactMap(\.secrets.first).first?.id ?? fallback
+        return self.storeList.stores.compactMap { $0.secrets.first }.first?.id ?? fallback
     }
     
 }
