@@ -1,6 +1,5 @@
 import Foundation
 import SwiftUI
-import ServiceManagement
 
 struct SetupView: View {
     
@@ -117,7 +116,7 @@ struct SetupStepCommandView: View {
 extension SetupView {
     
     func installLaunchAgent() -> Bool {
-        SMLoginItemSetEnabled("com.maxgoedjen.Secretive.SecretAgent" as CFString, true)
+        LaunchAgentController().install()
     }
     
     func markAsDone() -> Bool {

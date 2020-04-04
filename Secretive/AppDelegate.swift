@@ -17,6 +17,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }()
     let updater = Updater()
     let agentStatusChecker = AgentStatusChecker()
+    let justUpdatedChecker = JustUpdatedChecker()
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         let contentView = ContentView(storeList: storeList, updater: updater, agentStatusChecker: agentStatusChecker, runSetupBlock: { self.runSetup(sender: nil) })
@@ -40,6 +41,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             newMenuItem.isEnabled = true
         }
         runSetupIfNeeded()
+        relaunchAgentIfNeeded()
     }
 
     func applicationDidBecomeActive(_ notification: Notification) {
@@ -86,6 +88,12 @@ extension AppDelegate {
         if !UserDefaults.standard.bool(forKey: Constants.defaultsHasRunSetup) {
             UserDefaults.standard.set(true, forKey: Constants.defaultsHasRunSetup)
             runSetup(sender: nil)
+        }
+    }
+
+    func relaunchAgentIfNeeded() {
+        if agentStatusChecker.running && justUpdatedChecker.justUpdated {
+            LaunchAgentController().relaunch()
         }
     }
 
