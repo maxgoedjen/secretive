@@ -14,7 +14,7 @@ extension SecureEnclave {
         }
         public let id = UUID()
         public let name = NSLocalizedString("Secure Enclave", comment: "Secure Enclave")
-        @Published public fileprivate(set) var secrets: [Secret] = []
+        @Published public private(set) var secrets: [Secret] = []
 
         public init() {
             DistributedNotificationCenter.default().addObserver(forName: .secretStoreUpdated, object: nil, queue: .main) { _ in
@@ -107,7 +107,7 @@ extension SecureEnclave {
 
 extension SecureEnclave.Store {
 
-    fileprivate func reloadSecrets(notify: Bool = true) {
+    private func reloadSecrets(notify: Bool = true) {
         secrets.removeAll()
         loadSecrets()
         if notify {
@@ -115,7 +115,7 @@ extension SecureEnclave.Store {
         }
     }
 
-    fileprivate func loadSecrets() {
+    private func loadSecrets() {
         let attributes = [
             kSecClass: kSecClassKey,
             kSecAttrKeyType: SecureEnclave.Constants.keyType,
@@ -139,7 +139,7 @@ extension SecureEnclave.Store {
         secrets.append(contentsOf: wrapped)
     }
 
-    fileprivate func savePublicKey(_ publicKey: SecKey, name: String) throws {
+    private func savePublicKey(_ publicKey: SecKey, name: String) throws {
         let attributes = [
             kSecClass: kSecClassKey,
             kSecAttrKeyType: SecureEnclave.Constants.keyType,
@@ -178,8 +178,8 @@ extension SecureEnclave {
 extension SecureEnclave {
 
     enum Constants {
-        fileprivate static let keyTag = "com.maxgoedjen.secretive.secureenclave.key".data(using: .utf8)! as CFData
-        fileprivate static let keyType = kSecAttrKeyTypeECSECPrimeRandom
+        static let keyTag = "com.maxgoedjen.secretive.secureenclave.key".data(using: .utf8)! as CFData
+        static let keyType = kSecAttrKeyTypeECSECPrimeRandom
     }
 
 }

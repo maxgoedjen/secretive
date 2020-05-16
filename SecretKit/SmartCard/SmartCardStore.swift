@@ -11,10 +11,10 @@ extension SmartCard {
         // TODO: Read actual smart card name, eg "YubiKey 5c"
         @Published public var isAvailable: Bool = false
         public let id = UUID()
-        public fileprivate(set) var name = NSLocalizedString("Smart Card", comment: "Smart Card")
-        @Published public fileprivate(set) var secrets: [Secret] = []
-        fileprivate let watcher = TKTokenWatcher()
-        fileprivate var tokenID: String?
+        public private(set) var name = NSLocalizedString("Smart Card", comment: "Smart Card")
+        @Published public private(set) var secrets: [Secret] = []
+        private let watcher = TKTokenWatcher()
+        private var tokenID: String?
 
         public init() {
             tokenID = watcher.nonSecureEnclaveTokens.first
@@ -83,12 +83,12 @@ extension SmartCard {
 
 extension SmartCard.Store {
 
-    fileprivate func smartcardRemoved(for tokenID: String? = nil) {
+    private func smartcardRemoved(for tokenID: String? = nil) {
         self.tokenID = nil
         reloadSecrets()
     }
 
-    fileprivate func reloadSecrets() {
+    private func reloadSecrets() {
         DispatchQueue.main.async {
             self.isAvailable = self.tokenID != nil
             self.secrets.removeAll()
@@ -96,7 +96,7 @@ extension SmartCard.Store {
         }
     }
 
-    fileprivate func loadSecrets() {
+    private func loadSecrets() {
         guard let tokenID = tokenID else { return }
         // Hack to read name if there's only one smart card
         let slotNames = TKSmartCardSlotManager().slotNames
