@@ -65,9 +65,7 @@ extension Agent {
 extension Agent {
 
     func identities() -> Data {
-        // TODO: RESTORE ONCE XCODE 11.4 IS GM
-        let secrets = storeList.stores.flatMap { $0.secrets }
-//        let secrets = storeList.stores.flatMap(\.secrets)
+        let secrets = storeList.stores.flatMap(\.secrets)
         var count = UInt32(secrets.count).bigEndian
         let countData = Data(bytes: &count, count: UInt32.bitWidth/8)
         var keyData = Data()
