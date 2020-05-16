@@ -3,12 +3,12 @@ import Foundation
 public struct AnySecret: Secret {
 
     let base: Any
-    fileprivate let hashable: AnyHashable
-    fileprivate let _id: () -> AnyHashable
-    fileprivate let _name: () -> String
-    fileprivate let _algorithm: () -> Algorithm
-    fileprivate let _keySize: () -> Int
-    fileprivate let _publicKey: () -> Data
+    private let hashable: AnyHashable
+    private let _id: () -> AnyHashable
+    private let _name: () -> String
+    private let _algorithm: () -> Algorithm
+    private let _keySize: () -> Int
+    private let _publicKey: () -> Data
 
     public init<T>(_ secret: T) where T: Secret {
         if let secret = secret as? AnySecret {

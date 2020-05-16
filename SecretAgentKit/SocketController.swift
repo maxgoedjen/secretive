@@ -3,8 +3,8 @@ import OSLog
 
 public class SocketController {
 
-    fileprivate var fileHandle: FileHandle?
-    fileprivate var port: SocketPort?
+    private var fileHandle: FileHandle?
+    private var port: SocketPort?
     public var handler: ((FileHandleReader, FileHandleWriter) -> Void)?
 
     public init(path: String) {

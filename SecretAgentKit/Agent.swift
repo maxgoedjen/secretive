@@ -6,10 +6,10 @@ import AppKit
 
 public class Agent {
 
-    fileprivate let storeList: SecretStoreList
-    fileprivate let witness: SigningWitness?
-    fileprivate let writer = OpenSSHKeyWriter()
-    fileprivate let requestTracer = SigningRequestTracer()
+    private let storeList: SecretStoreList
+    private let witness: SigningWitness?
+    private let writer = OpenSSHKeyWriter()
+    private let requestTracer = SigningRequestTracer()
 
     public init(storeList: SecretStoreList, witness: SigningWitness? = nil) {
         os_log(.debug, "Agent is running")

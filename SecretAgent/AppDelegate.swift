@@ -23,7 +23,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let path = (NSHomeDirectory() as NSString).appendingPathComponent("socket.ssh") as String
         return SocketController(path: path)
     }()
-    fileprivate var updateSink: AnyCancellable?
+    private var updateSink: AnyCancellable?
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         os_log(.debug, "SecretAgent finished launching")

@@ -5,7 +5,7 @@ public class SecretStoreList: ObservableObject {
 
     @Published public var stores: [AnySecretStore] = []
     @Published public var modifiableStore: AnySecretStoreModifiable?
-    fileprivate var sinks: [AnyCancellable] = []
+    private var sinks: [AnyCancellable] = []
 
     public init() {
     }
@@ -28,7 +28,7 @@ public class SecretStoreList: ObservableObject {
 
 extension SecretStoreList {
 
-    fileprivate func addInternal(store: AnySecretStore) {
+    private func addInternal(store: AnySecretStore) {
         stores.append(store)
         let sink = store.objectWillChange.sink {
             self.objectWillChange.send()
