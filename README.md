@@ -20,7 +20,7 @@ If your Mac has a Secure Enclave, it also has support for strong access controls
 
 ### Notifications
 
-Secretive also notifies you whenever your keys are acceessed, so you're never caught off guard.
+Secretive also notifies you whenever your keys are accessed, so you're never caught off guard.
 
 <img src="/.github/readme/notification.png" alt="Screenshot of Secretive notifying the user">
 
