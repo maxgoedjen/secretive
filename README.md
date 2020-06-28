@@ -30,6 +30,10 @@ For Macs without Secure Enclaves, you can configure a Smart Card (such as a Yubi
 
 ## Getting Started
 
+### Installation
+
+You can download the latest release over on the [Releases Page](https://github.com/maxgoedjen/secretive/releases)
+
 ### FAQ
 
 There's a [FAQ here](FAQ.md).
