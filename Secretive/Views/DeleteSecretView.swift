@@ -51,6 +51,7 @@ struct DeleteSecretView<StoreType: SecretStoreModifiable>: View {
                 }
             }
         }.padding()
+        .frame(minWidth: 400)
     }
     
     func delete() {
