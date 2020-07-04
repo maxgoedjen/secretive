@@ -4,12 +4,8 @@ import Security
 
 struct SigningRequestTracer {
 
-    func provenance(from pid: Int32) -> SigningRequestProvenance {
-        let pidPointer = UnsafeMutableRawPointer.allocate(byteCount: 4, alignment: 1)
-        var len = socklen_t(MemoryLayout<Int32>.size)
-        getsockopt(pid, SOCK_STREAM, LOCAL_PEERPID, pidPointer, &len)
-        let pid = pidPointer.load(as: Int32.self)
-        let firstInfo = process(from: pid)
+    func provenance(from fileHandleReader: FileHandleReader) -> SigningRequestProvenance {
+        let firstInfo = process(from: fileHandleReader.pidOfConnectedProcess)
 
         var provenance = SigningRequestProvenance(root: firstInfo)
         while NSRunningApplication(processIdentifier: provenance.origin.pid) == nil && provenance.origin.parentPID != nil {

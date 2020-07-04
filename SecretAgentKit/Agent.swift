@@ -6,10 +6,10 @@ import AppKit
 
 public class Agent {
 
-    fileprivate let storeList: SecretStoreList
-    fileprivate let witness: SigningWitness?
-    fileprivate let writer = OpenSSHKeyWriter()
-    fileprivate let requestTracer = SigningRequestTracer()
+    private let storeList: SecretStoreList
+    private let witness: SigningWitness?
+    private let writer = OpenSSHKeyWriter()
+    private let requestTracer = SigningRequestTracer()
 
     public init(storeList: SecretStoreList, witness: SigningWitness? = nil) {
         os_log(.debug, "Agent is running")
@@ -21,28 +21,34 @@ public class Agent {
 
 extension Agent {
 
-    public func handle(fileHandle: FileHandle) {
+    public func handle(reader: FileHandleReader, writer: FileHandleWriter) {
         os_log(.debug, "Agent handling new data")
-        let data = fileHandle.availableData
+        let data = reader.availableData
         guard !data.isEmpty else { return }
         let requestTypeInt = data[4]
-        guard let requestType = SSHAgent.RequestType(rawValue: requestTypeInt) else { return }
+        guard let requestType = SSHAgent.RequestType(rawValue: requestTypeInt) else {
+            writer.write(OpenSSHKeyWriter().lengthAndData(of: SSHAgent.ResponseType.agentFailure.data))
+            os_log(.debug, "Agent returned %@", SSHAgent.ResponseType.agentFailure.debugDescription)
+            return
+        }
         os_log(.debug, "Agent handling request of type %@", requestType.debugDescription)
         let subData = Data(data[5...])
-        handle(requestType: requestType, data: subData, fileHandle: fileHandle)
+        let response = handle(requestType: requestType, data: subData, reader: reader)
+        writer.write(response)
     }
 
-    func handle(requestType: SSHAgent.RequestType, data: Data, fileHandle: FileHandle) {
+    func handle(requestType: SSHAgent.RequestType, data: Data, reader: FileHandleReader) -> Data {
         var response = Data()
         do {
             switch requestType {
             case .requestIdentities:
                 response.append(SSHAgent.ResponseType.agentIdentitiesAnswer.data)
-                response.append(try identities())
+                response.append(identities())
                 os_log(.debug, "Agent returned %@", SSHAgent.ResponseType.agentIdentitiesAnswer.debugDescription)
             case .signRequest:
+                let provenance = requestTracer.provenance(from: reader)
                 response.append(SSHAgent.ResponseType.agentSignResponse.data)
-                response.append(try sign(data: data, from: fileHandle.fileDescriptor))
+                response.append(try sign(data: data, provenance: provenance))
                 os_log(.debug, "Agent returned %@", SSHAgent.ResponseType.agentSignResponse.debugDescription)
             }
         } catch {
@@ -51,17 +57,15 @@ extension Agent {
             os_log(.debug, "Agent returned %@", SSHAgent.ResponseType.agentFailure.debugDescription)
         }
         let full = OpenSSHKeyWriter().lengthAndData(of: response)
-        fileHandle.write(full)
+        return full
     }
 
 }
 
 extension Agent {
 
-    func identities() throws -> Data {
-        // TODO: RESTORE ONCE XCODE 11.4 IS GM
-        let secrets = storeList.stores.flatMap { $0.secrets }
-//        let secrets = storeList.stores.flatMap(\.secrets)
+    func identities() -> Data {
+        let secrets = storeList.stores.flatMap(\.secrets)
         var count = UInt32(secrets.count).bigEndian
         let countData = Data(bytes: &count, count: UInt32.bitWidth/8)
         var keyData = Data()
@@ -76,7 +80,7 @@ extension Agent {
         return countData + keyData
     }
 
-    func sign(data: Data, from pid: Int32) throws -> Data {
+    func sign(data: Data, provenance: SigningRequestProvenance) throws -> Data {
         let reader = OpenSSHReader(data: data)
         let hash = reader.readNextChunk()
         guard let (store, secret) = secret(matching: hash) else {
@@ -84,7 +88,6 @@ extension Agent {
             throw AgentError.noMatchingKey
         }
 
-        let provenance = requestTracer.provenance(from: pid)
         if let witness = witness {
             try witness.speakNowOrForeverHoldYourPeace(forAccessTo: secret, by: provenance)
         }
@@ -103,13 +106,22 @@ extension Agent {
         case (.ellipticCurve, 384):
             rawRepresentation = try CryptoKit.P384.Signing.ECDSASignature(derRepresentation: derSignature).rawRepresentation
         default:
-            fatalError()
+            throw AgentError.unsupportedKeyType
         }
 
 
         let rawLength = rawRepresentation.count/2
-        let r = rawRepresentation[0..<rawLength]
-        let s = rawRepresentation[rawLength...]
+        // Check if we need to pad with 0x00 to prevent certain
+        // ssh servers from thinking r or s is negative
+        let paddingRange: ClosedRange<UInt8> = 0x80...0xFF
+        var r = Data(rawRepresentation[0..<rawLength])
+        if paddingRange ~= r.first! {
+            r.insert(0x00, at: 0)
+        }
+        var s = Data(rawRepresentation[rawLength...])
+        if paddingRange ~= s.first! {
+            s.insert(0x00, at: 0)
+        }
 
         var signatureChunk = Data()
         signatureChunk.append(writer.lengthAndData(of: r))
@@ -154,6 +166,7 @@ extension Agent {
     enum AgentError: Error {
         case unhandledType
         case noMatchingKey
+        case unsupportedKeyType
     }
 
 }

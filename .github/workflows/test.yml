@@ -14,5 +14,7 @@ jobs:
         HOST_PROFILE_DATA: ${{ secrets.HOST_PROFILE_DATA }}
         AGENT_PROFILE_DATA: ${{ secrets.AGENT_PROFILE_DATA }}
       run: ./.github/scripts/signing.sh
+    - name: Set Environment
+      run: sudo xcrun xcode-select -s /Applications/Xcode_11.4.app
     - name: Test
       run: xcrun xcodebuild test -project Secretive.xcodeproj -scheme Secretive

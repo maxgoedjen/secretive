@@ -4,12 +4,12 @@ import Combine
 public class AnySecretStore: SecretStore {
 
     let base: Any
-    fileprivate let _isAvailable: () -> Bool
-    fileprivate let _id: () -> UUID
-    fileprivate let _name: () -> String
-    fileprivate let _secrets: () -> [AnySecret]
-    fileprivate let _sign: (Data, AnySecret) throws -> Data
-    fileprivate var sink: AnyCancellable?
+    private let _isAvailable: () -> Bool
+    private let _id: () -> UUID
+    private let _name: () -> String
+    private let _secrets: () -> [AnySecret]
+    private let _sign: (Data, AnySecret) throws -> Data
+    private var sink: AnyCancellable?
 
     public init<SecretStoreType>(_ secretStore: SecretStoreType) where SecretStoreType: SecretStore {
         base = secretStore
@@ -47,8 +47,8 @@ public class AnySecretStore: SecretStore {
 
 public class AnySecretStoreModifiable: AnySecretStore, SecretStoreModifiable {
 
-    fileprivate let _create: (String, Bool) throws -> Void
-    fileprivate let _delete: (AnySecret) throws -> Void
+    private let _create: (String, Bool) throws -> Void
+    private let _delete: (AnySecret) throws -> Void
 
     public init<SecretStoreType>(modifiable secretStore: SecretStoreType) where SecretStoreType: SecretStoreModifiable {
         _create = { try secretStore.create(name: $0, requiresAuthentication: $1) }

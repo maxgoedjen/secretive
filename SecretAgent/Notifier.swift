@@ -7,7 +7,7 @@ import Brief
 
 class Notifier {
 
-    fileprivate let notificationDelegate = NotificationDelegate()
+    private let notificationDelegate = NotificationDelegate()
 
     init() {
         let updateAction = UNNotificationAction(identifier: Constants.updateActionIdentitifier, title: "Update", options: [])

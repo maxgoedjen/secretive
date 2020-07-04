@@ -9,9 +9,9 @@ struct ContentView<UpdaterType: UpdaterProtocol, AgentStatusCheckerType: AgentSt
     @ObservedObject var agentStatusChecker: AgentStatusCheckerType
     var runSetupBlock: (() -> Void)?
 
-    @State fileprivate var active: AnySecret.ID?
-    @State fileprivate var showingDeletion = false
-    @State fileprivate var deletingSecret: AnySecret?
+    @State private var active: AnySecret.ID?
+    @State private var showingDeletion = false
+    @State private var deletingSecret: AnySecret?
     
     var body: some View {
         VStack {
@@ -110,12 +110,12 @@ struct ContentView<UpdaterType: UpdaterProtocol, AgentStatusCheckerType: AgentSt
         } else {
             fallback = Constants.emptyStoreTag
         }
-        return self.storeList.stores.compactMap { $0.secrets.first }.first?.id ?? fallback
+        return self.storeList.stores.compactMap(\.secrets.first).first?.id ?? fallback
     }
     
 }
 
-fileprivate enum Constants {
+private enum Constants {
     static let emptyStoreModifiableTag: AnyHashable = "emptyStoreModifiableTag"
     static let emptyStoreTag: AnyHashable = "emptyStoreModifiableTag"
 }

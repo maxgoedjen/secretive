@@ -8,7 +8,7 @@ struct DeleteSecretView<StoreType: SecretStoreModifiable>: View {
     
     @State var confirm = ""
     
-    fileprivate var dismissalBlock: (Bool) -> ()
+    private var dismissalBlock: (Bool) -> ()
     
     init(secret: StoreType.SecretType, store: StoreType, dismissalBlock: @escaping (Bool) -> ()) {
         self.secret = secret

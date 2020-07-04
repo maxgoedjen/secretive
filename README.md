@@ -14,7 +14,7 @@ The most common setup for SSH keys is just keeping them on disk, guarded by prop
 
 ### Access Control
 
-If your Mac has a Secure Enclave, it also has support for strong biometric access controls like Touch ID. You can configure your key so that they require Touch ID (or Watch) authentication before they're accessed.
+If your Mac has a Secure Enclave, it also has support for strong access controls like Touch ID, or authentication with Apple Watch. You can configure your key so that they require Touch ID (or Watch) authentication before they're accessed.
 
 <img src="/.github/readme/touchid.png" alt="Screenshot of Secretive authenticating with Touch ID">
 
@@ -30,15 +30,15 @@ For Macs without Secure Enclaves, you can configure a Smart Card (such as a Yubi
 
 ## Getting Started
 
-### Setup for Third Party Apps
+### Installation
 
-When you first launch Secretive, you'll be prompted to set up your command line environment. You can redisplay this prompt at any time by going to `Menu > Help -> Set Up Helper App`.
-For non-command-line based apps, like GUI Git clients, you may need to go through app-specific setup.
+You can download the latest release over on the [Releases Page](https://github.com/maxgoedjen/secretive/releases)
 
-[Tower](https://www.git-tower.com/help/mac/integration/environment)
+### FAQ
 
+There's a [FAQ here](FAQ.md).
 
-### Security Considerations
+### Auditable Build Process
 
 Builds are produced by GitHub Actions with an auditable build and release generation process. Each build has a "Document SHAs" step, which will output SHA checksums for the build produced by the GitHub Action, so you can verify that the source code for a given build corresponds to any given release.
 
@@ -48,8 +48,8 @@ While Secretive uses the Secure Enclave for key storage, it still relies on Keyc
 
 ### Backups and Transfers to New Machines
 
-Beacuse secrets in the Secure Enclave are not exportable, they are not able to be backed up, and you will not be able to transfer them to a new machine. If you get a new Mac, just create a new set of secrets specific to that Mac.
+Because secrets in the Secure Enclave are not exportable, they are not able to be backed up, and you will not be able to transfer them to a new machine. If you get a new Mac, just create a new set of secrets specific to that Mac.
 
 ## Security
 
-If you discover any vulnerabilities in this project, please notify max.goedjen@gmail.com
+If you discover any vulnerabilities in this project, please notify [max.goedjen@gmail.com](mailto:max.goedjen@gmail.com) with the subject containing "SECRETIVE SECURITY."

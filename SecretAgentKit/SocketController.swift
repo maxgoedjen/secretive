@@ -3,9 +3,9 @@ import OSLog
 
 public class SocketController {
 
-    fileprivate var fileHandle: FileHandle?
-    fileprivate var port: SocketPort?
-    public var handler: ((FileHandle) -> Void)?
+    private var fileHandle: FileHandle?
+    private var port: SocketPort?
+    public var handler: ((FileHandleReader, FileHandleWriter) -> Void)?
 
     public init(path: String) {
         os_log(.debug, "Socket controller setting up at %@", path)
@@ -52,7 +52,7 @@ public class SocketController {
     @objc func handleConnectionAccept(notification: Notification) {
         os_log(.debug, "Socket controller accepted connection")
         guard let new = notification.userInfo?[NSFileHandleNotificationFileHandleItem] as? FileHandle else { return }
-        handler?(new)
+        handler?(new, new)
         new.waitForDataInBackgroundAndNotify()
         fileHandle?.acceptConnectionInBackgroundAndNotify(forModes: [RunLoop.current.currentMode!])
     }
@@ -61,7 +61,7 @@ public class SocketController {
         os_log(.debug, "Socket controller has new data available")
         guard let new = notification.object as? FileHandle else { return }
         os_log(.debug, "Socket controller received new file handle")
-        handler?(new)
+        handler?(new, new)
     }
 
 }
