@@ -8,7 +8,7 @@ Security is obviously paramount for a project like Secretive. As such, any contr
 
 ### Dependencies
 
-Secretive is desigend to be easily auditable by people who are considering using it. In keeping with this, Secretive has no third party dependencies, and any contributions which bring in new dependencies will be rejected.
+Secretive is designed to be easily auditable by people who are considering using it. In keeping with this, Secretive has no third party dependencies, and any contributions which bring in new dependencies will be rejected.
 
 ## Code of Conduct
 
