@@ -1,19 +1,12 @@
 name: Test
 
-on: [push]
+on: [push, pull_request]
 jobs:
   test:
     runs-on: macOS-latest
     timeout-minutes: 10
     steps:
     - uses: actions/checkout@v1
-    - name: Setup Signing
-      env: 
-        SIGNING_DATA: ${{ secrets.SIGNING_DATA }}
-        SIGNING_PASSWORD: ${{ secrets.SIGNING_PASSWORD }}
-        HOST_PROFILE_DATA: ${{ secrets.HOST_PROFILE_DATA }}
-        AGENT_PROFILE_DATA: ${{ secrets.AGENT_PROFILE_DATA }}
-      run: ./.github/scripts/signing.sh
     - name: Set Environment
       run: sudo xcrun xcode-select -s /Applications/Xcode_11.4.app
     - name: Test
