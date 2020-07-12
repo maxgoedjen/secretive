@@ -32,7 +32,13 @@ For Macs without Secure Enclaves, you can configure a Smart Card (such as a Yubi
 
 ### Installation
 
+#### Direct Download
+
 You can download the latest release over on the [Releases Page](https://github.com/maxgoedjen/secretive/releases)
+
+#### Using Homebrew
+
+    brew cask install secretive
 
 ### FAQ
 
