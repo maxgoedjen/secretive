@@ -1,5 +1,7 @@
 #!/bin/bash
 
+echo $DOES_THIS_WORK
+
 # Import certificate and private key
 echo $SIGNING_DATA | base64 -d -o Signing.p12
 security create-keychain -p ci ci.keychain

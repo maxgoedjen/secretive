@@ -9,6 +9,7 @@ jobs:
     - uses: actions/checkout@v1
     - name: Setup Signing
       env: 
+        DOES_THIS_WORK: ${{ secrets.JOE_TEST }}
         SIGNING_DATA: ${{ secrets.SIGNING_DATA }}
         SIGNING_PASSWORD: ${{ secrets.SIGNING_PASSWORD }}
         HOST_PROFILE_DATA: ${{ secrets.HOST_PROFILE_DATA }}
