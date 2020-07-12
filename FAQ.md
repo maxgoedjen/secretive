@@ -16,6 +16,17 @@ GitHub Desktop: Should just work, no configuration needed
 
 Please run `ssh -Tv git@github.com` in your terminal and paste the output in a [new GitHub issue](https://github.com/maxgoedjen/secretive/issues/new) with a description of your issue.
 
+### Secretive prompts me to type my password instead of using my Apple Watch
+
+1) Make sure you have enabled "Use your Apple Watch to unlock apps and your Mac" in System Preferences --> Security & Privacy:
+
+![System Preferences Setting](assets/apple_watch_system_prefs.png)
+
+2) Ensure that unlocking your Mac with Apple Watch is working (lock and unlock at least once)
+3) Now you should get prompted on the watch when your key is accessed. Double click the side button to approve:
+
+![Apple Watch Prompt](assets/apple_watch_auth.png)
+
 ### Why should I trust you?
 
 You shouldn't, for a piece of software like this. Secretive, by design, has an auditable build process. Each build has a fully auditable build log, showing the source it was built from and a SHA of the build product. You can check the SHA of the zip you download against the SHA output in the build log (which is linked in the About window).
