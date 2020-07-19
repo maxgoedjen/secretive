@@ -15,12 +15,12 @@ struct ContentView<UpdaterType: UpdaterProtocol, AgentStatusCheckerType: AgentSt
     
     var body: some View {
         VStack {
-            if updater.update != nil {
-                updateNotice()
-            }
-            if !agentStatusChecker.running {
-                agentNotice()
-            }
+//            if updater.update != nil {
+//                updateNotice()
+//            }
+//            if !agentStatusChecker.running {
+//                agentNotice()
+//            }
             if storeList.anyAvailable {
             NavigationView {
                 List(selection: $active) {
@@ -73,7 +73,21 @@ struct ContentView<UpdaterType: UpdaterProtocol, AgentStatusCheckerType: AgentSt
             } else {
                 NoStoresView()
             }
-        }.frame(minWidth: 640, minHeight: 320)
+        }
+        .frame(minWidth: 640, minHeight: 320)
+        .toolbar {
+            self.toolbar
+        }
+    }
+
+    var toolbar: ToolbarItem<Void, Button<Image>> {
+        ToolbarItem {
+            Button(action: {
+                print("OK")
+            }, label: {
+                Image(systemName: "plus")
+            })
+        }
     }
 
     func updateNotice() -> some View {
