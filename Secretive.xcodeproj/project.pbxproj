@@ -12,11 +12,10 @@
 		50524B442420969E008DBD97 /* OpenSSHWriterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50524B432420969D008DBD97 /* OpenSSHWriterTests.swift */; };
 		50571E0324393C2600F76F6C /* JustUpdatedChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50571E0224393C2600F76F6C /* JustUpdatedChecker.swift */; };
 		50571E0524393D1500F76F6C /* LaunchAgentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50571E0424393D1500F76F6C /* LaunchAgentController.swift */; };
-		50617D8323FCE48E0099B055 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50617D8223FCE48E0099B055 /* AppDelegate.swift */; };
+		50617D8323FCE48E0099B055 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50617D8223FCE48E0099B055 /* App.swift */; };
 		50617D8523FCE48E0099B055 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50617D8423FCE48E0099B055 /* ContentView.swift */; };
 		50617D8723FCE48E0099B055 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 50617D8623FCE48E0099B055 /* Assets.xcassets */; };
 		50617D8A23FCE48E0099B055 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 50617D8923FCE48E0099B055 /* Preview Assets.xcassets */; };
-		50617D8D23FCE48E0099B055 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 50617D8B23FCE48E0099B055 /* Main.storyboard */; };
 		50617D9923FCE48E0099B055 /* SecretiveTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50617D9823FCE48E0099B055 /* SecretiveTests.swift */; };
 		50617DB123FCE4AB0099B055 /* SecretKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50617DA823FCE4AB0099B055 /* SecretKit.framework */; };
 		50617DBA23FCE4AB0099B055 /* SecretKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 50617DAA23FCE4AB0099B055 /* SecretKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -41,7 +40,6 @@
 		506838A12415EA5600F55094 /* AnySecret.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506838A02415EA5600F55094 /* AnySecret.swift */; };
 		506838A32415EA5D00F55094 /* AnySecretStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506838A22415EA5D00F55094 /* AnySecretStore.swift */; };
 		506AB87E2412334700335D91 /* SecretAgent.app in CopyFiles */ = {isa = PBXBuildFile; fileRef = 50A3B78A24026B7500D209EA /* SecretAgent.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		50731669241E00C20023809E /* NoticeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50731668241E00C20023809E /* NoticeView.swift */; };
 		507CE4ED2420A3C70029F750 /* Agent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50A3B79F24026B9900D209EA /* Agent.swift */; };
 		507CE4EE2420A3CA0029F750 /* SocketController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50A3B79D24026B9900D209EA /* SocketController.swift */; };
 		507CE4F02420A4C50029F750 /* SigningWitness.swift in Sources */ = {isa = PBXBuildFile; fileRef = 507CE4EF2420A4C50029F750 /* SigningWitness.swift */; };
@@ -211,11 +209,10 @@
 		50571E0224393C2600F76F6C /* JustUpdatedChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JustUpdatedChecker.swift; sourceTree = "<group>"; };
 		50571E0424393D1500F76F6C /* LaunchAgentController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchAgentController.swift; sourceTree = "<group>"; };
 		50617D7F23FCE48E0099B055 /* Secretive.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Secretive.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		50617D8223FCE48E0099B055 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		50617D8223FCE48E0099B055 /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		50617D8423FCE48E0099B055 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		50617D8623FCE48E0099B055 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		50617D8923FCE48E0099B055 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		50617D8C23FCE48E0099B055 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		50617D8E23FCE48E0099B055 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		50617D8F23FCE48E0099B055 /* Secretive.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Secretive.entitlements; sourceTree = "<group>"; };
 		50617D9423FCE48E0099B055 /* SecretiveTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SecretiveTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -243,7 +240,6 @@
 		5068389D241471CD00F55094 /* SecretStoreList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecretStoreList.swift; sourceTree = "<group>"; };
 		506838A02415EA5600F55094 /* AnySecret.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnySecret.swift; sourceTree = "<group>"; };
 		506838A22415EA5D00F55094 /* AnySecretStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnySecretStore.swift; sourceTree = "<group>"; };
-		50731668241E00C20023809E /* NoticeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeView.swift; sourceTree = "<group>"; };
 		507CE4EF2420A4C50029F750 /* SigningWitness.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SigningWitness.swift; sourceTree = "<group>"; };
 		507CE4F32420A8C10029F750 /* SigningRequestProvenance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SigningRequestProvenance.swift; sourceTree = "<group>"; };
 		507CE4F52420A96F0029F750 /* SigningRequestTracer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SigningRequestTracer.swift; sourceTree = "<group>"; };
@@ -394,11 +390,10 @@
 		50617D8123FCE48E0099B055 /* Secretive */ = {
 			isa = PBXGroup;
 			children = (
-				50617D8223FCE48E0099B055 /* AppDelegate.swift */,
+				50617D8223FCE48E0099B055 /* App.swift */,
 				508A58B0241ED1C40069DC07 /* Views */,
 				508A58B1241ED1EA0069DC07 /* Controllers */,
 				50617D8623FCE48E0099B055 /* Assets.xcassets */,
-				50617D8B23FCE48E0099B055 /* Main.storyboard */,
 				50617D8E23FCE48E0099B055 /* Info.plist */,
 				50617D8F23FCE48E0099B055 /* Secretive.entitlements */,
 				506772C62424784600034DED /* Credits.rtf */,
@@ -501,7 +496,6 @@
 			isa = PBXGroup;
 			children = (
 				50617D8423FCE48E0099B055 /* ContentView.swift */,
-				50731668241E00C20023809E /* NoticeView.swift */,
 				50C385A42407A76D00AF2719 /* SecretDetailView.swift */,
 				5099A02323FD2AAA0062B6F2 /* CreateSecretView.swift */,
 				50B8550C24138C4F009958AC /* DeleteSecretView.swift */,
@@ -854,7 +848,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				50617D8D23FCE48E0099B055 /* Main.storyboard in Resources */,
 				50617D8A23FCE48E0099B055 /* Preview Assets.xcassets in Resources */,
 				50617D8723FCE48E0099B055 /* Assets.xcassets in Resources */,
 				506772C72424784600034DED /* Credits.rtf in Resources */,
@@ -930,8 +923,7 @@
 				50571E0524393D1500F76F6C /* LaunchAgentController.swift in Sources */,
 				50B8550D24138C4F009958AC /* DeleteSecretView.swift in Sources */,
 				50BB046B2418AAAE00D6E079 /* EmptyStoreView.swift in Sources */,
-				50731669241E00C20023809E /* NoticeView.swift in Sources */,
-				50617D8323FCE48E0099B055 /* AppDelegate.swift in Sources */,
+				50617D8323FCE48E0099B055 /* App.swift in Sources */,
 				506772C92425BB8500034DED /* NoStoresView.swift in Sources */,
 				508A58B5241ED48F0069DC07 /* PreviewAgentStatusChecker.swift in Sources */,
 				508A58AA241E06B40069DC07 /* PreviewUpdater.swift in Sources */,
@@ -1070,14 +1062,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		50617D8B23FCE48E0099B055 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				50617D8C23FCE48E0099B055 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		50A3B79524026B7600D209EA /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (

@@ -10,17 +10,12 @@ struct ContentView<UpdaterType: UpdaterProtocol, AgentStatusCheckerType: AgentSt
     var runSetupBlock: (() -> Void)?
 
     @State private var active: AnySecret.ID?
+    @State private var showingCreation = false
     @State private var showingDeletion = false
     @State private var deletingSecret: AnySecret?
     
     var body: some View {
         VStack {
-//            if updater.update != nil {
-//                updateNotice()
-//            }
-//            if !agentStatusChecker.running {
-//                agentNotice()
-//            }
             if storeList.anyAvailable {
             NavigationView {
                 List(selection: $active) {
@@ -74,43 +69,67 @@ struct ContentView<UpdaterType: UpdaterProtocol, AgentStatusCheckerType: AgentSt
                 NoStoresView()
             }
         }
+        .sheet(isPresented: $showingCreation) {
+            CreateSecretView(store: storeList.modifiableStore!) {
+                self.showingCreation = false
+            }
+        }
+
         .frame(minWidth: 640, minHeight: 320)
         .toolbar {
-            self.toolbar
+//            if updater.update != nil {
+//                updateNotice()
+//            }
+//            if !agentStatusChecker.running {
+//                agentNotice()
+//            }
+            ToolbarItem {
+                Button(action: {
+                    self.showingCreation = true
+                }, label: {
+                    Image(systemName: "plus")
+                })
+            }
         }
     }
 
-    var toolbar: ToolbarItem<Void, Button<Image>> {
-        ToolbarItem {
-            Button(action: {
-                print("OK")
-            }, label: {
-                Image(systemName: "plus")
-            })
-        }
-    }
-
-    func updateNotice() -> some View {
-        guard let update = updater.update else { return AnyView(Spacer()) }
-        let severity: NoticeView.Severity
-        let text: String
-        if update.critical {
-            severity = .critical
-            text = "Critical Security Update Required"
-        } else {
-            severity = .advisory
-            text = "Update Available"
-        }
-        return AnyView(NoticeView(text: text, severity: severity, actionTitle: "Update") {
-            NSWorkspace.shared.open(update.html_url)
-        })
-    }
-
-    func agentNotice() -> some View {
-        NoticeView(text: "Secret Agent isn't running. Run setup again to fix.", severity: .advisory, actionTitle: "Run Setup") {
-            self.runSetupBlock?()
-        }
-    }
+//    func updateNotice() -> ToolbarItem<Void, some View> {
+//        guard let update = updater.update else { fatalError() }
+//        let color: Color
+//        let text: String
+//        if update.critical {
+//            text = "Critical Security Update Required"
+//            color = .orange
+//        } else {
+//            text = "Update Available"
+//            color = .red
+//        }
+//        return ToolbarItem {
+//            Button(action: {
+//                NSWorkspace.shared.open(update.html_url)
+//            }, label: {
+//                Text(text)
+//                    .font(.headline)
+//                    .foregroundColor(.white)
+//            })
+//            .background(color)
+//            .cornerRadius(5)
+//        }
+//    }
+//
+//    func agentNotice() -> ToolbarItem<Void, AnyView> {
+//        ToolbarItem {
+//            Button(action: {
+//                self.runSetupBlock?()
+//            }, label: {
+//                Text("Agent is not running.")
+//                    .font(.headline)
+//                    .foregroundColor(.white)
+//            })
+//            .background(Color.orange)
+//            .cornerRadius(5)
+//        }
+//    }
 
     func delete<SecretType: Secret>(secret: SecretType) {
         deletingSecret = AnySecret(secret)

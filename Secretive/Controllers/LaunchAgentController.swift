@@ -8,8 +8,6 @@ struct LaunchAgentController {
     }
 
     func relaunch() {
-        _ = setEnabled(false)
-        _ = setEnabled(true)
     }
 
     private func setEnabled(_ enabled: Bool) -> Bool {
