@@ -33,7 +33,7 @@ public class SocketController {
         addr.sun_family = sa_family_t(AF_UNIX)
 
         var len: Int = 0
-        _ = withUnsafeMutablePointer(to: &addr.sun_path.0) { pointer in
+        withUnsafeMutablePointer(to: &addr.sun_path.0) { pointer in
             path.withCString { cstring in
                 len = strlen(cstring)
                 strncpy(pointer, cstring, len)
@@ -42,7 +42,7 @@ public class SocketController {
         addr.sun_len = UInt8(len+2)
 
         var data: Data!
-        _ = withUnsafePointer(to: &addr) { pointer in
+        withUnsafePointer(to: &addr) { pointer in
             data = Data(bytes: pointer, count: MemoryLayout<sockaddr_un>.size)
         }
 
