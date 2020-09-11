@@ -93,6 +93,13 @@ public struct Release: Codable {
 
 }
 
+extension Release: Identifiable {
+
+    public var id: String {
+        html_url.absoluteString
+    }
+
+}
 
 extension Release {
 
