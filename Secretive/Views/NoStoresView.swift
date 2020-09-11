@@ -1,11 +1,3 @@
-//
-//  NoStoresView.swift
-//  Secretive
-//
-//  Created by Max Goedjen on 3/20/20.
-//  Copyright © 2020 Max Goedjen. All rights reserved.
-//
-
 import SwiftUI
 
 struct NoStoresView: View {
