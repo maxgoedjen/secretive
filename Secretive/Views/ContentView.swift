@@ -3,10 +3,10 @@ import SecretKit
 import Brief
 
 struct ContentView<UpdaterType: UpdaterProtocol, AgentStatusCheckerType: AgentStatusCheckerProtocol>: View {
-    
-    @ObservedObject var storeList: SecretStoreList
-    @ObservedObject var updater: UpdaterType
-    @ObservedObject var agentStatusChecker: AgentStatusCheckerType
+
+    @EnvironmentObject var storeList: SecretStoreList
+    @EnvironmentObject var updater: UpdaterType
+    @EnvironmentObject var agentStatusChecker: AgentStatusCheckerType
     var runSetupBlock: (() -> Void)?
 
     @State private var active: AnySecret.ID?
@@ -68,7 +68,7 @@ struct ContentView<UpdaterType: UpdaterProtocol, AgentStatusCheckerType: AgentSt
             }
         }
         .sheet(isPresented: $showingCreation) {
-            CreateSecretView(store: storeList.modifiableStore!) {
+            CreateSecretView {
                 self.showingCreation = false
             }
         }
@@ -154,30 +154,30 @@ private enum Constants {
     static let emptyStoreTag: AnyHashable = "emptyStoreModifiableTag"
 }
 
-
-#if DEBUG
-
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        Group {
-            ContentView(storeList: Preview.storeList(stores: [Preview.Store(numberOfRandomSecrets: 0)],
-                                                     modifiableStores: [Preview.StoreModifiable(numberOfRandomSecrets: 0)]),
-                        updater: PreviewUpdater(),
-                        agentStatusChecker: PreviewAgentStatusChecker())
-            ContentView(storeList: Preview.storeList(stores: [Preview.Store()], modifiableStores: [Preview.StoreModifiable()]), updater: PreviewUpdater(),
-                        agentStatusChecker: PreviewAgentStatusChecker())
-            ContentView(storeList: Preview.storeList(stores: [Preview.Store()]), updater: PreviewUpdater(),
-                        agentStatusChecker: PreviewAgentStatusChecker())
-            ContentView(storeList: Preview.storeList(modifiableStores: [Preview.StoreModifiable()]), updater: PreviewUpdater(),
-                        agentStatusChecker: PreviewAgentStatusChecker())
-            ContentView(storeList: Preview.storeList(stores: [Preview.Store(numberOfRandomSecrets: 0)], modifiableStores: [Preview.StoreModifiable(numberOfRandomSecrets: 0)]), updater: PreviewUpdater(update: .advisory),
-                        agentStatusChecker: PreviewAgentStatusChecker())
-            ContentView(storeList: Preview.storeList(stores: [Preview.Store(numberOfRandomSecrets: 0)], modifiableStores: [Preview.StoreModifiable(numberOfRandomSecrets: 0)]), updater: PreviewUpdater(update: .critical),
-                        agentStatusChecker: PreviewAgentStatusChecker())
-            ContentView(storeList: Preview.storeList(stores: [Preview.Store(numberOfRandomSecrets: 0)], modifiableStores: [Preview.StoreModifiable(numberOfRandomSecrets: 0)]), updater: PreviewUpdater(update: .critical),
-                        agentStatusChecker: PreviewAgentStatusChecker(running: false))
-        }
-    }
-}
-
-#endif
+//
+//#if DEBUG
+//
+//struct ContentView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        Group {
+//            ContentView(storeList: Preview.storeList(stores: [Preview.Store(numberOfRandomSecrets: 0)],
+//                                                     modifiableStores: [Preview.StoreModifiable(numberOfRandomSecrets: 0)]),
+//                        updater: PreviewUpdater(),
+//                        agentStatusChecker: PreviewAgentStatusChecker())
+//            ContentView(storeList: Preview.storeList(stores: [Preview.Store()], modifiableStores: [Preview.StoreModifiable()]), updater: PreviewUpdater(),
+//                        agentStatusChecker: PreviewAgentStatusChecker())
+//            ContentView(storeList: Preview.storeList(stores: [Preview.Store()]), updater: PreviewUpdater(),
+//                        agentStatusChecker: PreviewAgentStatusChecker())
+//            ContentView(storeList: Preview.storeList(modifiableStores: [Preview.StoreModifiable()]), updater: PreviewUpdater(),
+//                        agentStatusChecker: PreviewAgentStatusChecker())
+//            ContentView(storeList: Preview.storeList(stores: [Preview.Store(numberOfRandomSecrets: 0)], modifiableStores: [Preview.StoreModifiable(numberOfRandomSecrets: 0)]), updater: PreviewUpdater(update: .advisory),
+//                        agentStatusChecker: PreviewAgentStatusChecker())
+//            ContentView(storeList: Preview.storeList(stores: [Preview.Store(numberOfRandomSecrets: 0)], modifiableStores: [Preview.StoreModifiable(numberOfRandomSecrets: 0)]), updater: PreviewUpdater(update: .critical),
+//                        agentStatusChecker: PreviewAgentStatusChecker())
+//            ContentView(storeList: Preview.storeList(stores: [Preview.Store(numberOfRandomSecrets: 0)], modifiableStores: [Preview.StoreModifiable(numberOfRandomSecrets: 0)]), updater: PreviewUpdater(update: .critical),
+//                        agentStatusChecker: PreviewAgentStatusChecker(running: false))
+//        }
+//    }
+//}
+//
+//#endif
