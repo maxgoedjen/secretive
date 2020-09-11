@@ -11,7 +11,6 @@ struct ContentView<UpdaterType: UpdaterProtocol, AgentStatusCheckerType: AgentSt
 
     @State private var active: AnySecret.ID?
     @State private var showingCreation = false
-    @State private var showingDeletion = false
     @State private var deletingSecret: AnySecret?
     
     var body: some View {
@@ -51,16 +50,14 @@ struct ContentView<UpdaterType: UpdaterProtocol, AgentStatusCheckerType: AgentSt
                 }.onAppear {
                     self.active = self.nextDefaultSecret
                 }
-                .listStyle(SidebarListStyle())
                 .frame(minWidth: 100, idealWidth: 240)
-            }
-            .navigationViewStyle(DoubleColumnNavigationViewStyle())
-            .sheet(isPresented: $showingDeletion) {
-                if self.storeList.modifiableStore != nil {
-                    DeleteSecretView(secret: self.deletingSecret!, store: self.storeList.modifiableStore!) { deleted in
-                        self.showingDeletion = false
-                        if deleted {
-                            self.active = self.nextDefaultSecret
+                .sheet(item: $deletingSecret) { secret in
+                    if self.storeList.modifiableStore != nil {
+                        DeleteSecretView(secret: secret, store: self.storeList.modifiableStore!) { deleted in
+                            self.deletingSecret = nil
+                            if deleted {
+                                self.active = self.nextDefaultSecret
+                            }
                         }
                     }
                 }
@@ -74,14 +71,13 @@ struct ContentView<UpdaterType: UpdaterProtocol, AgentStatusCheckerType: AgentSt
                 self.showingCreation = false
             }
         }
-
         .frame(minWidth: 640, minHeight: 320)
         .toolbar {
 //            if updater.update != nil {
 //                updateNotice()
 //            }
 //            if !agentStatusChecker.running {
-//                agentNotice()
+//                agentNotice()z
 //            }
             ToolbarItem {
                 Button(action: {
@@ -133,7 +129,6 @@ struct ContentView<UpdaterType: UpdaterProtocol, AgentStatusCheckerType: AgentSt
 
     func delete<SecretType: Secret>(secret: SecretType) {
         deletingSecret = AnySecret(secret)
-        self.showingDeletion = true
     }
 
     var nextDefaultSecret: AnyHashable? {
