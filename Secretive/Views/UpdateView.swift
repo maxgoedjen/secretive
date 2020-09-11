@@ -1,14 +1,10 @@
 import SwiftUI
 import Brief
 
-//struct UpdateView<UpdaterType: UpdaterProtocol>: View {
-//
-//    
-//}
-
-struct UpdateDetailView: View {
+struct UpdateDetailView<UpdaterType: Updater>: View {
 
     private let update: Release
+    @EnvironmentObject var updater: UpdaterType
 
     init(update: Release) {
         self.update = update
@@ -22,11 +18,19 @@ struct UpdateDetailView: View {
                     attributedBody
                 }
             }
-            Button(action: {
-                NSWorkspace.shared.open(update.html_url)
-            }, label: {
-                Text("Update")
-            })
+            HStack {
+                if !update.critical {
+                    Button("Ignore") {
+                        updater.ignore(release: update)
+                    }
+                    Spacer()
+                }
+                Button("Update") {
+                    NSWorkspace.shared.open(update.html_url)
+                }
+                .keyboardShortcut(.defaultAction)
+            }
+            
         }
         .padding()
         .frame(maxWidth: 500)

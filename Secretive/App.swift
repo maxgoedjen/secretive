@@ -16,56 +16,51 @@ struct AppDelegate: App {
     let agentStatusChecker = AgentStatusChecker()
     let justUpdatedChecker = JustUpdatedChecker()
 
+    @State var showingSetup = false
+    @AppStorage("defaultsHasRunSetup") var hasRunSetup = false
+
     @SceneBuilder var body: some Scene {
         WindowGroup {
-            ContentView<Updater, AgentStatusChecker>(runSetupBlock: { self.runSetup(sender: nil) })
+            ContentView<Updater, AgentStatusChecker>()
                 .environmentObject(storeList)
                 .environmentObject(updater)
                 .environmentObject(agentStatusChecker)
+                .sheet(isPresented: $showingSetup) {
+                    SetupView { completed in
+                        self.showingSetup = false
+                        self.hasRunSetup = completed
+                    }
+                }
+                .onAppear {
+                    if !hasRunSetup {
+                        showingSetup = true
+                    }
+                }
         }
-        WindowGroup {
-            SetupView() { _ in
-                print("Setup")
+        .commands {
+            CommandGroup(after: CommandGroupPlacement.newItem) {
+                Button("New Secret") {
+                    // TODO: Add
+                }
+                .keyboardShortcut(KeyboardShortcut(KeyEquivalent("N"), modifiers: .command))
+            }
+            CommandGroup(replacing: .help) {
+                Button("Help") {
+                    NSWorkspace.shared.open(Constants.helpURL)
+                }
+            }
+            CommandGroup(after: .help) {
+                Button("Setup Secret Agent") {
+                    self.showingSetup = true
+                }
             }
         }
     }
 
 }
 
-extension AppDelegate {
 
-    func runSetup(sender: AnyObject?) {
-        let setupWindow = NSWindow(
-            contentRect: NSRect(x: 0, y: 0, width: 0, height: 0),
-            styleMask: [.titled, .closable, .miniaturizable, .resizable, .fullSizeContentView],
-            backing: .buffered, defer: false)
-        let setupView = SetupView() { success in
-//            self.window.endSheet(setupWindow)
-            self.agentStatusChecker.check()
-        }
-        setupWindow.contentView = NSHostingView(rootView: setupView)
-//        window.beginSheet(setupWindow, completionHandler: nil)
-    }
-
-    func runSetupIfNeeded() {
-        if !UserDefaults.standard.bool(forKey: Constants.defaultsHasRunSetup) {
-            UserDefaults.standard.set(true, forKey: Constants.defaultsHasRunSetup)
-            runSetup(sender: nil)
-        }
-    }
-
-    func relaunchAgentIfNeeded() {
-        if agentStatusChecker.running && justUpdatedChecker.justUpdated {
-            LaunchAgentController().relaunch()
-        }
-    }
-
+private enum Constants {
+    static let helpURL = URL(string: "https://github.com/maxgoedjen/secretive/blob/main/FAQ.md")!
 }
 
-extension AppDelegate {
-
-    enum Constants {
-        static let defaultsHasRunSetup = "defaultsHasRunSetup"
-    }
-
-}

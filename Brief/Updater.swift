@@ -104,7 +104,7 @@ extension Release: Identifiable {
 extension Release {
 
     public var critical: Bool {
-        return body.contains(Constants.securityContent)
+        body.contains(Constants.securityContent)
     }
 
 }

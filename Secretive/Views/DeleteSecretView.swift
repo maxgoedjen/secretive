@@ -43,14 +43,16 @@ struct DeleteSecretView<StoreType: SecretStoreModifiable>: View {
             }
             HStack {
                 Spacer()
-                Button(action: delete) {
-                    Text("Delete")
-                }.disabled(confirm != secret.name)
-                Button(action: { self.dismissalBlock(false) }) {
-                    Text("Don't Delete")
+                Button("Delete", action: delete)
+                    .disabled(confirm != secret.name)
+                    .keyboardShortcut(.delete)
+                Button("Don't Delete") {
+                    self.dismissalBlock(false)
                 }
+                .keyboardShortcut(.cancelAction)
             }
-        }.padding()
+        }
+        .padding()
         .frame(minWidth: 400)
     }
     

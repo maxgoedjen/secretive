@@ -91,8 +91,12 @@ struct ContentView<UpdaterType: UpdaterProtocol, AgentStatusCheckerType: AgentSt
     }
 
     func updateNotice() -> ToolbarItem<Void, AnyView> {
-        let update =  updater.update ?? Release(name: "", html_url: URL(string:"https://example.com")!, body: "")
-//        guard let update = updater.update else { fatalError() }
+//        let update =  updater.update ?? Release(name: "", html_url: URL(string:"https://example.com")!, body: "")
+        guard let update = updater.update else {
+            return ToolbarItem {
+                AnyView(Spacer())
+            }
+        }
         let color: Color
         let text: String
         if update.critical {

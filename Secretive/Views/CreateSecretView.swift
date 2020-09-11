@@ -33,16 +33,14 @@ struct CreateSecretView: View {
                         Spacer()
                     }
                 }
-                .onExitCommand(perform: dismissalBlock)
             }
             HStack {
                 Spacer()
-                Button(action: dismissalBlock) {
-                    Text("Cancel")
-                }
-                Button(action: save) {
-                    Text("Create")
-                }.disabled(name.isEmpty)
+                Button("Cancel", action: dismissalBlock)
+                    .keyboardShortcut(.cancelAction)
+                Button("Create", action: save)
+                    .disabled(name.isEmpty)
+                    .keyboardShortcut(.defaultAction)
             }
         }.padding()
     }
