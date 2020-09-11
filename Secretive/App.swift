@@ -35,6 +35,10 @@ struct AppDelegate: App {
                     if !hasRunSetup {
                         showingSetup = true
                     }
+                    if agentStatusChecker.running && justUpdatedChecker.justUpdated {
+                        _ = LaunchAgentController().install()
+                    }
+
                 }
         }
         .commands {
