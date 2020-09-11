@@ -12,7 +12,8 @@ struct ContentView<UpdaterType: UpdaterProtocol, AgentStatusCheckerType: AgentSt
     @State private var active: AnySecret.ID?
     @State private var showingCreation = false
     @State private var deletingSecret: AnySecret?
-    
+    @State private var selectedUpdate: Release?
+
     var body: some View {
         VStack {
             if storeList.anyAvailable {
@@ -74,7 +75,7 @@ struct ContentView<UpdaterType: UpdaterProtocol, AgentStatusCheckerType: AgentSt
         .frame(minWidth: 640, minHeight: 320)
         .toolbar {
 //            if updater.update != nil {
-//                updateNotice()
+                updateNotice()
 //            }
 //            if !agentStatusChecker.running {
 //                agentNotice()z
@@ -89,29 +90,34 @@ struct ContentView<UpdaterType: UpdaterProtocol, AgentStatusCheckerType: AgentSt
         }
     }
 
-//    func updateNotice() -> ToolbarItem<Void, some View> {
+    func updateNotice() -> ToolbarItem<Void, AnyView> {
+        let update =  updater.update ?? Release(name: "", html_url: URL(string:"https://example.com")!, body: "")
 //        guard let update = updater.update else { fatalError() }
-//        let color: Color
-//        let text: String
-//        if update.critical {
-//            text = "Critical Security Update Required"
-//            color = .orange
-//        } else {
-//            text = "Update Available"
-//            color = .red
-//        }
-//        return ToolbarItem {
-//            Button(action: {
-//                NSWorkspace.shared.open(update.html_url)
-//            }, label: {
-//                Text(text)
-//                    .font(.headline)
-//                    .foregroundColor(.white)
-//            })
-//            .background(color)
-//            .cornerRadius(5)
-//        }
-//    }
+        let color: Color
+        let text: String
+        if update.critical {
+            text = "Critical Security Update Required"
+            color = .red
+        } else {
+            text = "Update Available"
+            color = .orange
+        }
+        return ToolbarItem {
+            AnyView(Button(action: {
+                self.selectedUpdate = update
+            }, label: {
+                Text(text)
+                    .font(.headline)
+                    .foregroundColor(.white)
+            })
+            .background(color)
+            .cornerRadius(5)
+            .popover(item: $selectedUpdate, attachmentAnchor: .point(.bottom), arrowEdge: .bottom) { update in
+                UpdateDetailView(update: update)
+            }
+            )
+        }
+    }
 //
 //    func agentNotice() -> ToolbarItem<Void, AnyView> {
 //        ToolbarItem {
