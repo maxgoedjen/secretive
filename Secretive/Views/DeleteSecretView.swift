@@ -38,7 +38,7 @@ struct DeleteSecretView<StoreType: SecretStoreModifiable>: View {
                     }
                 }
                 .onExitCommand {
-                    self.dismissalBlock(false)
+                    dismissalBlock(false)
                 }
             }
             HStack {
@@ -47,7 +47,7 @@ struct DeleteSecretView<StoreType: SecretStoreModifiable>: View {
                     .disabled(confirm != secret.name)
                     .keyboardShortcut(.delete)
                 Button("Don't Delete") {
-                    self.dismissalBlock(false)
+                    dismissalBlock(false)
                 }
                 .keyboardShortcut(.cancelAction)
             }
@@ -58,6 +58,6 @@ struct DeleteSecretView<StoreType: SecretStoreModifiable>: View {
     
     func delete() {
         try! store.delete(secret: secret)
-        self.dismissalBlock(true)
+        dismissalBlock(true)
     }
 }

@@ -7,39 +7,40 @@ struct ContentView<UpdaterType: UpdaterProtocol, AgentStatusCheckerType: AgentSt
     @EnvironmentObject var storeList: SecretStoreList
     @EnvironmentObject var updater: UpdaterType
     @EnvironmentObject var agentStatusChecker: AgentStatusCheckerType
-    var runSetupBlock: (() -> Void)?
 
     @State private var active: AnySecret.ID?
     @State private var showingCreation = false
     @State private var deletingSecret: AnySecret?
     @State private var selectedUpdate: Release?
+    @Binding var runningSetup: Bool
 
     var body: some View {
         VStack {
             if storeList.anyAvailable {
-            NavigationView {
-                List(selection: $active) {
-                    ForEach(storeList.stores) { store in
-                        if store.isAvailable {
-                            Section(header: Text(store.name)) {
-                                if store.secrets.isEmpty {
-                                    if store is AnySecretStoreModifiable {
-                                        NavigationLink(destination: EmptyStoreModifiableView(), tag: Constants.emptyStoreModifiableTag, selection: self.$active) {
-                                            Text("No Secrets")
+                NavigationView {
+                    List(selection: $active) {
+                        ForEach(storeList.stores) { store in
+                            if store.isAvailable {
+                                Section(header: Text(store.name)) {
+                                    if store.secrets.isEmpty {
+                                        if store is AnySecretStoreModifiable {
+                                            NavigationLink(destination: EmptyStoreModifiableView(), tag: Constants.emptyStoreModifiableTag, selection: $active) {
+                                                Text("No Secrets")
+                                            }
+                                        } else {
+                                            NavigationLink(destination: EmptyStoreView(), tag: Constants.emptyStoreTag, selection: $active) {
+                                                Text("No Secrets")
+                                            }
                                         }
                                     } else {
-                                        NavigationLink(destination: EmptyStoreView(), tag: Constants.emptyStoreTag, selection: self.$active) {
-                                            Text("No Secrets")
-                                        }
-                                    }
-                                } else {
-                                    ForEach(store.secrets) { secret in
-                                        NavigationLink(destination: SecretDetailView(secret: secret), tag: secret.id, selection: self.$active) {
-                                            Text(secret.name)
-                                        }.contextMenu {
-                                            if store is AnySecretStoreModifiable {
-                                                Button(action: { self.delete(secret: secret) }) {
-                                                    Text("Delete")
+                                        ForEach(store.secrets) { secret in
+                                            NavigationLink(destination: SecretDetailView(secret: secret), tag: secret.id, selection: $active) {
+                                                Text(secret.name)
+                                            }.contextMenu {
+                                                if store is AnySecretStoreModifiable {
+                                                    Button(action: { delete(secret: secret) }) {
+                                                        Text("Delete")
+                                                    }
                                                 }
                                             }
                                         }
@@ -47,42 +48,35 @@ struct ContentView<UpdaterType: UpdaterProtocol, AgentStatusCheckerType: AgentSt
                                 }
                             }
                         }
+                    }.onAppear {
+                        active = nextDefaultSecret
                     }
-                }.onAppear {
-                    self.active = self.nextDefaultSecret
-                }
-                .frame(minWidth: 100, idealWidth: 240)
-                .sheet(item: $deletingSecret) { secret in
-                    if self.storeList.modifiableStore != nil {
-                        DeleteSecretView(secret: secret, store: self.storeList.modifiableStore!) { deleted in
-                            self.deletingSecret = nil
-                            if deleted {
-                                self.active = self.nextDefaultSecret
+                    .frame(minWidth: 100, idealWidth: 240)
+                    .sheet(item: $deletingSecret) { secret in
+                        if storeList.modifiableStore != nil {
+                            DeleteSecretView(secret: secret, store: storeList.modifiableStore!) { deleted in
+                                deletingSecret = nil
+                                if deleted {
+                                    active = nextDefaultSecret
+                                }
                             }
                         }
                     }
                 }
-            }
             } else {
                 NoStoresView()
             }
         }
         .sheet(isPresented: $showingCreation) {
-            CreateSecretView {
-                self.showingCreation = false
-            }
+            CreateSecretView(showing: $showingCreation)
         }
         .frame(minWidth: 640, minHeight: 320)
         .toolbar {
-//            if updater.update != nil {
-                updateNotice()
-//            }
-//            if !agentStatusChecker.running {
-//                agentNotice()z
-//            }
+            updateNotice
+            agentNotice
             ToolbarItem {
                 Button(action: {
-                    self.showingCreation = true
+                    showingCreation = true
                 }, label: {
                     Image(systemName: "plus")
                 })
@@ -90,12 +84,9 @@ struct ContentView<UpdaterType: UpdaterProtocol, AgentStatusCheckerType: AgentSt
         }
     }
 
-    func updateNotice() -> ToolbarItem<Void, AnyView> {
-//        let update =  updater.update ?? Release(name: "", html_url: URL(string:"https://example.com")!, body: "")
+    var updateNotice: ToolbarItem<Void, AnyView> {
         guard let update = updater.update else {
-            return ToolbarItem {
-                AnyView(Spacer())
-            }
+            return ToolbarItem { AnyView(Spacer()) }
         }
         let color: Color
         let text: String
@@ -108,7 +99,7 @@ struct ContentView<UpdaterType: UpdaterProtocol, AgentStatusCheckerType: AgentSt
         }
         return ToolbarItem {
             AnyView(Button(action: {
-                self.selectedUpdate = update
+                selectedUpdate = update
             }, label: {
                 Text(text)
                     .font(.headline)
@@ -122,20 +113,25 @@ struct ContentView<UpdaterType: UpdaterProtocol, AgentStatusCheckerType: AgentSt
             )
         }
     }
-//
-//    func agentNotice() -> ToolbarItem<Void, AnyView> {
-//        ToolbarItem {
-//            Button(action: {
-//                self.runSetupBlock?()
-//            }, label: {
-//                Text("Agent is not running.")
-//                    .font(.headline)
-//                    .foregroundColor(.white)
-//            })
-//            .background(Color.orange)
-//            .cornerRadius(5)
-//        }
-//    }
+
+    var agentNotice: ToolbarItem<Void, AnyView> {
+        guard agentStatusChecker.running else {
+            return ToolbarItem { AnyView(Spacer()) }
+        }
+        return ToolbarItem {
+            AnyView(
+                Button(action: {
+                    runningSetup = true
+                }, label: {
+                    Text("Secret Agent Is Not Running")
+                        .font(.headline)
+                        .foregroundColor(.white)
+                })
+                .background(Color.orange)
+                .cornerRadius(5)
+            )
+        }
+    }
 
     func delete<SecretType: Secret>(secret: SecretType) {
         deletingSecret = AnySecret(secret)
@@ -143,12 +139,12 @@ struct ContentView<UpdaterType: UpdaterProtocol, AgentStatusCheckerType: AgentSt
 
     var nextDefaultSecret: AnyHashable? {
         let fallback: AnyHashable
-        if self.storeList.modifiableStore?.isAvailable ?? false {
+        if storeList.modifiableStore?.isAvailable ?? false {
             fallback = Constants.emptyStoreModifiableTag
         } else {
             fallback = Constants.emptyStoreTag
         }
-        return self.storeList.stores.compactMap(\.secrets.first).first?.id ?? fallback
+        return storeList.stores.compactMap(\.secrets.first).first?.id ?? fallback
     }
     
 }

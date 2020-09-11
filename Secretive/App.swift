@@ -21,14 +21,14 @@ struct AppDelegate: App {
 
     @SceneBuilder var body: some Scene {
         WindowGroup {
-            ContentView<Updater, AgentStatusChecker>()
+            ContentView<Updater, AgentStatusChecker>(runningSetup: $showingSetup)
                 .environmentObject(storeList)
                 .environmentObject(updater)
                 .environmentObject(agentStatusChecker)
                 .sheet(isPresented: $showingSetup) {
                     SetupView { completed in
-                        self.showingSetup = false
-                        self.hasRunSetup = completed
+                        showingSetup = false
+                        hasRunSetup = completed
                     }
                 }
                 .onAppear {
@@ -51,7 +51,7 @@ struct AppDelegate: App {
             }
             CommandGroup(after: .help) {
                 Button("Setup Secret Agent") {
-                    self.showingSetup = true
+                    showingSetup = true
                 }
             }
         }

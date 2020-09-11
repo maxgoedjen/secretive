@@ -7,9 +7,8 @@ struct CreateSecretView: View {
     
     @State var name = ""
     @State var requiresAuthentication = true
-    
-    var dismissalBlock: () -> ()
-    
+    @Binding var showing: Bool
+
     var body: some View {
         VStack {
             HStack {
@@ -36,8 +35,10 @@ struct CreateSecretView: View {
             }
             HStack {
                 Spacer()
-                Button("Cancel", action: dismissalBlock)
-                    .keyboardShortcut(.cancelAction)
+                Button("Cancel") {
+                    showing = false
+                }
+                .keyboardShortcut(.cancelAction)
                 Button("Create", action: save)
                     .disabled(name.isEmpty)
                     .keyboardShortcut(.defaultAction)
@@ -47,6 +48,6 @@ struct CreateSecretView: View {
     
     func save() {
         try! store.create(name: name, requiresAuthentication: requiresAuthentication)
-        dismissalBlock()
+        showing = false
     }
 }

@@ -17,7 +17,7 @@ struct SecretDetailView<SecretType: Secret>: View {
                         .frame(minWidth: 150, maxWidth: .infinity)
                         .padding()
                 }.onDrag {
-                    return NSItemProvider(item: NSData(data: self.keyWriter.openSSHFingerprint(secret: self.secret).data(using: .utf8)!), typeIdentifier: kUTTypeUTF8PlainText as String)
+                    return NSItemProvider(item: NSData(data: keyWriter.openSSHFingerprint(secret: secret).data(using: .utf8)!), typeIdentifier: kUTTypeUTF8PlainText as String)
                 }
                 Spacer().frame(height: 10)
                 GroupBox(label: Text("Public Key")) {
@@ -35,7 +35,7 @@ struct SecretDetailView<SecretType: Secret>: View {
                     .padding()
                 }
                 .onDrag {
-                    return NSItemProvider(item: NSData(data: self.keyString.data(using: .utf8)!), typeIdentifier: kUTTypeUTF8PlainText as String)
+                    return NSItemProvider(item: NSData(data: keyString.data(using: .utf8)!), typeIdentifier: kUTTypeUTF8PlainText as String)
                 }
                 Spacer()
             }

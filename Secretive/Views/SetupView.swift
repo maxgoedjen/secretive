@@ -11,17 +11,17 @@ struct SetupView: View {
                                   index: 1,
                                   nestedView: nil,
                                   actionText: "Install") {
-                                    self.installLaunchAgent()
+                                    installLaunchAgent()
             }
             SetupStepView(text: "Add this line to your shell config (.bashrc or .zshrc) telling SSH to talk to SecretAgent when it wants to authenticate. Drag this into your config file.",
                           index: 2,
                           nestedView: SetupStepCommandView(text: Constants.socketPrompt),
                           actionText: "Added") {
-                            self.markAsDone()
+                            markAsDone()
             }
             HStack {
                 Spacer()
-                Button(action: { self.completion?(true) }) {
+                Button(action: { completion?(true) }) {
                     Text("Finish")
                 }
                 .padding()
@@ -69,7 +69,7 @@ struct SetupStepView<NestedViewType: View>: View {
                 }
                 .padding()
                 Button(action: {
-                    self.completed = self.action()
+                    completed = action()
                 }) {
                     Text(actionText)
                 }.disabled(completed)
@@ -101,8 +101,7 @@ struct SetupStepCommandView: View {
         .background(Color(white: 0, opacity: 0.10))
         .cornerRadius(10)
         .onDrag {
-            return NSItemProvider(item: NSData(data: self.text.data(using: .utf8)!), typeIdentifier: kUTTypeUTF8PlainText as String)
-            
+            return NSItemProvider(item: NSData(data: text.data(using: .utf8)!), typeIdentifier: kUTTypeUTF8PlainText as String)
         }
     }
     
