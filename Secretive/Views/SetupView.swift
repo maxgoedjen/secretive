@@ -101,7 +101,7 @@ struct SetupStepCommandView: View {
         .background(Color(white: 0, opacity: 0.10))
         .cornerRadius(10)
         .onDrag {
-            return NSItemProvider(item: NSData(data: text.data(using: .utf8)!), typeIdentifier: kUTTypeUTF8PlainText as String)
+            NSItemProvider(item: NSData(data: text.data(using: .utf8)!), typeIdentifier: kUTTypeUTF8PlainText as String)
         }
     }
     

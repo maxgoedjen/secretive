@@ -74,13 +74,7 @@ struct ContentView<UpdaterType: UpdaterProtocol, AgentStatusCheckerType: AgentSt
         .toolbar {
             updateNotice
             agentNotice
-            ToolbarItem {
-                Button(action: {
-                    showingCreation = true
-                }, label: {
-                    Image(systemName: "plus")
-                })
-            }
+            newItem
         }
     }
 
@@ -111,6 +105,19 @@ struct ContentView<UpdaterType: UpdaterProtocol, AgentStatusCheckerType: AgentSt
                 UpdateDetailView(update: update)
             }
             )
+        }
+    }
+
+    var newItem: ToolbarItem<Void, AnyView> {
+        guard storeList.modifiableStore?.isAvailable ?? false else {
+            return ToolbarItem { AnyView(Spacer()) }
+        }
+        return ToolbarItem {
+            AnyView(Button(action: {
+                showingCreation = true
+            }, label: {
+                Image(systemName: "plus")
+            }))
         }
     }
 
