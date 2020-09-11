@@ -26,7 +26,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     private var updateSink: AnyCancellable?
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        os_log(.debug, "SecretAgent finished launching")
+        Logger().debug("SecretAgent finished launching")
         DispatchQueue.main.async {
             self.socketController.handler = self.agent.handle(reader:writer:)
         }

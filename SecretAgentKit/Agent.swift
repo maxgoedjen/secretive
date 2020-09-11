@@ -12,7 +12,7 @@ public class Agent {
     private let requestTracer = SigningRequestTracer()
 
     public init(storeList: SecretStoreList, witness: SigningWitness? = nil) {
-        os_log(.debug, "Agent is running")
+        Logger().debug("Agent is running")
         self.storeList = storeList
         self.witness = witness
     }
@@ -22,16 +22,16 @@ public class Agent {
 extension Agent {
 
     public func handle(reader: FileHandleReader, writer: FileHandleWriter) {
-        os_log(.debug, "Agent handling new data")
+        Logger().debug("Agent handling new data")
         let data = reader.availableData
         guard !data.isEmpty else { return }
         let requestTypeInt = data[4]
         guard let requestType = SSHAgent.RequestType(rawValue: requestTypeInt) else {
             writer.write(OpenSSHKeyWriter().lengthAndData(of: SSHAgent.ResponseType.agentFailure.data))
-            os_log(.debug, "Agent returned %@", SSHAgent.ResponseType.agentFailure.debugDescription)
+            Logger().debug("Agent returned \(SSHAgent.ResponseType.agentFailure.debugDescription)")
             return
         }
-        os_log(.debug, "Agent handling request of type %@", requestType.debugDescription)
+        Logger().debug("Agent handling request of type \(requestType.debugDescription)")
         let subData = Data(data[5...])
         let response = handle(requestType: requestType, data: subData, reader: reader)
         writer.write(response)
@@ -44,17 +44,17 @@ extension Agent {
             case .requestIdentities:
                 response.append(SSHAgent.ResponseType.agentIdentitiesAnswer.data)
                 response.append(identities())
-                os_log(.debug, "Agent returned %@", SSHAgent.ResponseType.agentIdentitiesAnswer.debugDescription)
+                Logger().debug("Agent returned \(SSHAgent.ResponseType.agentIdentitiesAnswer.debugDescription)")
             case .signRequest:
                 let provenance = requestTracer.provenance(from: reader)
                 response.append(SSHAgent.ResponseType.agentSignResponse.data)
                 response.append(try sign(data: data, provenance: provenance))
-                os_log(.debug, "Agent returned %@", SSHAgent.ResponseType.agentSignResponse.debugDescription)
+                Logger().debug("Agent returned \(SSHAgent.ResponseType.agentSignResponse.debugDescription)")
             }
         } catch {
             response.removeAll()
             response.append(SSHAgent.ResponseType.agentFailure.data)
-            os_log(.debug, "Agent returned %@", SSHAgent.ResponseType.agentFailure.debugDescription)
+            Logger().debug("Agent returned \(SSHAgent.ResponseType.agentFailure.debugDescription)")
         }
         let full = OpenSSHKeyWriter().lengthAndData(of: response)
         return full
@@ -76,7 +76,7 @@ extension Agent {
             let curveData = writer.curveType(for: secret.algorithm, length: secret.keySize).data(using: .utf8)!
             keyData.append(writer.lengthAndData(of: curveData))
         }
-        os_log(.debug, "Agent enumerated %@ identities", secrets.count as NSNumber)
+        Logger().debug("Agent enumerated \(secrets.count) identities")
         return countData + keyData
     }
 
@@ -84,7 +84,7 @@ extension Agent {
         let reader = OpenSSHReader(data: data)
         let hash = reader.readNextChunk()
         guard let (store, secret) = secret(matching: hash) else {
-            os_log(.debug, "Agent did not have a key matching %@", hash as NSData)
+            Logger().debug("Agent did not have a key matching \(hash as NSData)")
             throw AgentError.noMatchingKey
         }
 
@@ -137,7 +137,7 @@ extension Agent {
             try witness.witness(accessTo: secret, by: provenance)
         }
 
-        os_log(.debug, "Agent signed request")
+        Logger().debug("Agent signed request")
 
         return signedData
     }
