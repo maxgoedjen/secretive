@@ -43,6 +43,16 @@ struct ContentView<UpdaterType: UpdaterProtocol, AgentStatusCheckerType: AgentSt
                                                     }
                                                 }
                                             }
+                                            .sheet(item: $deletingSecret) { secret in
+                                                if let store = storeList.modifiableStore {
+                                                    DeleteSecretView(secret: secret, store: store) { deleted in
+                                                        deletingSecret = nil
+                                                        if deleted {
+                                                            active = nextDefaultSecret
+                                                        }
+                                                    }
+                                                }
+                                            }
                                         }
                                     }
                                 }
@@ -52,16 +62,6 @@ struct ContentView<UpdaterType: UpdaterProtocol, AgentStatusCheckerType: AgentSt
                         active = nextDefaultSecret
                     }
                     .frame(minWidth: 100, idealWidth: 240)
-                    .sheet(item: $deletingSecret) { secret in
-                        if let store = storeList.modifiableStore {
-                            DeleteSecretView(secret: secret, store: store) { deleted in
-                                deletingSecret = nil
-                                if deleted {
-                                    active = nextDefaultSecret
-                                }
-                            }
-                        }
-                    }
                     .sheet(isPresented: $showingCreation) {
                         if let store = storeList.modifiableStore {
                             CreateSecretView(store: store, showing: $showingCreation)
