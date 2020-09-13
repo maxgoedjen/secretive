@@ -62,13 +62,13 @@ struct ContentView<UpdaterType: UpdaterProtocol, AgentStatusCheckerType: AgentSt
                             }
                         }
                     }
+                    .sheet(isPresented: $showingCreation) {
+                        CreateSecretView(showing: $showingCreation)
+                    }
                 }
             } else {
                 NoStoresView()
             }
-        }
-        .sheet(isPresented: $showingCreation) {
-            CreateSecretView(showing: $showingCreation)
         }
         .frame(minWidth: 640, minHeight: 320)
         .toolbar {
