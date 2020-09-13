@@ -53,8 +53,8 @@ struct ContentView<UpdaterType: UpdaterProtocol, AgentStatusCheckerType: AgentSt
                     }
                     .frame(minWidth: 100, idealWidth: 240)
                     .sheet(item: $deletingSecret) { secret in
-                        if storeList.modifiableStore != nil {
-                            DeleteSecretView(secret: secret, store: storeList.modifiableStore!) { deleted in
+                        if let store = storeList.modifiableStore {
+                            DeleteSecretView(secret: secret, store: store) { deleted in
                                 deletingSecret = nil
                                 if deleted {
                                     active = nextDefaultSecret
@@ -63,7 +63,9 @@ struct ContentView<UpdaterType: UpdaterProtocol, AgentStatusCheckerType: AgentSt
                         }
                     }
                     .sheet(isPresented: $showingCreation) {
-                        CreateSecretView(showing: $showingCreation)
+                        if let store = storeList.modifiableStore {
+                            CreateSecretView(store: store, showing: $showingCreation)
+                        }
                     }
                 }
             } else {

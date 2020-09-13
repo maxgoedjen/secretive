@@ -1,13 +1,13 @@
 import SwiftUI
 import SecretKit
 
-struct CreateSecretView: View {
+struct CreateSecretView<StoreType: SecretStoreModifiable>: View {
     
-    @EnvironmentObject var store: AnySecretStoreModifiable
+    @ObservedObject var store: StoreType
+    @Binding var showing: Bool
     
     @State var name = ""
     @State var requiresAuthentication = true
-    @Binding var showing: Bool
 
     var body: some View {
         VStack {
