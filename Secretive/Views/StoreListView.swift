@@ -15,15 +15,7 @@ struct StoreListView: View {
                     if store.isAvailable {
                         Section(header: Text(store.name)) {
                             if store.secrets.isEmpty {
-                                if store is AnySecretStoreModifiable {
-                                    NavigationLink(destination: EmptyStoreModifiableView(), tag: Constants.emptyStoreModifiableTag, selection: $activeSecret) {
-                                        Text("No Secrets")
-                                    }
-                                } else {
-                                    NavigationLink(destination: EmptyStoreView(), tag: Constants.emptyStoreTag, selection: $activeSecret) {
-                                        Text("No Secrets")
-                                    }
-                                }
+                                EmptyStoreView(store: store, activeSecret: $activeSecret)
                             } else {
                                 SecretListView(store: store, activeSecret: $activeSecret, deletingSecret: $deletingSecret, deletedSecret: { _ in
                                     activeSecret = nextDefaultSecret
@@ -48,16 +40,11 @@ extension StoreListView {
     var nextDefaultSecret: AnyHashable? {
         let fallback: AnyHashable
         if storeList.modifiableStore?.isAvailable ?? false {
-            fallback = Constants.emptyStoreModifiableTag
+            fallback = EmptyStoreView.Constants.emptyStoreModifiableTag
         } else {
-            fallback = Constants.emptyStoreTag
+            fallback = EmptyStoreView.Constants.emptyStoreTag
         }
         return storeList.stores.compactMap(\.secrets.first).first?.id ?? fallback
     }
     
-}
-
-private enum Constants {
-    static let emptyStoreModifiableTag: AnyHashable = "emptyStoreModifiableTag"
-    static let emptyStoreTag: AnyHashable = "emptyStoreModifiableTag"
 }

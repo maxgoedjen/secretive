@@ -1,6 +1,34 @@
 import SwiftUI
+import SecretKit
 
 struct EmptyStoreView: View {
+
+    @ObservedObject var store: AnySecretStore
+    @Binding var activeSecret: AnySecret.ID?
+
+    var body: some View {
+        if store is AnySecretStoreModifiable {
+            NavigationLink(destination: EmptyStoreModifiableView(), tag: Constants.emptyStoreModifiableTag, selection: $activeSecret) {
+                Text("No Secrets")
+            }
+        } else {
+            NavigationLink(destination: EmptyStoreImmutableView(), tag: Constants.emptyStoreTag, selection: $activeSecret) {
+                Text("No Secrets")
+            }
+        }
+    }
+}
+
+extension EmptyStoreView {
+    
+    enum Constants {
+        static let emptyStoreModifiableTag: AnyHashable = "emptyStoreModifiableTag"
+        static let emptyStoreTag: AnyHashable = "emptyStoreModifiableTag"
+    }
+
+}
+
+struct EmptyStoreImmutableView: View {
     
     var body: some View {
         VStack {
@@ -48,7 +76,7 @@ struct EmptyStoreModifiableView: View {
 struct EmptyStoreModifiableView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            EmptyStoreView()
+            EmptyStoreImmutableView()
             EmptyStoreModifiableView()
         }
     }
