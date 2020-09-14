@@ -33,6 +33,10 @@ struct ContentView<UpdaterType: UpdaterProtocol, AgentStatusCheckerType: AgentSt
         }
     }
 
+}
+
+extension ContentView {
+
     var updateNotice: ToolbarItem<Void, AnyView> {
         guard let update = updater.update else {
             return ToolbarItem { AnyView(Spacer()) }
@@ -94,7 +98,7 @@ struct ContentView<UpdaterType: UpdaterProtocol, AgentStatusCheckerType: AgentSt
             )
         }
     }
-    
+
 }
 
 //
