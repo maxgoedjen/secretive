@@ -8,66 +8,19 @@ struct ContentView<UpdaterType: UpdaterProtocol, AgentStatusCheckerType: AgentSt
     @EnvironmentObject var updater: UpdaterType
     @EnvironmentObject var agentStatusChecker: AgentStatusCheckerType
 
-    @State private var active: AnySecret.ID?
     @State private var showingCreation = false
-    @State private var deletingSecret: AnySecret?
     @State private var selectedUpdate: Release?
     @Binding var runningSetup: Bool
 
     var body: some View {
         VStack {
             if storeList.anyAvailable {
-                NavigationView {
-                    List(selection: $active) {
-                        ForEach(storeList.stores) { store in
-                            if store.isAvailable {
-                                Section(header: Text(store.name)) {
-                                    if store.secrets.isEmpty {
-                                        if store is AnySecretStoreModifiable {
-                                            NavigationLink(destination: EmptyStoreModifiableView(), tag: Constants.emptyStoreModifiableTag, selection: $active) {
-                                                Text("No Secrets")
-                                            }
-                                        } else {
-                                            NavigationLink(destination: EmptyStoreView(), tag: Constants.emptyStoreTag, selection: $active) {
-                                                Text("No Secrets")
-                                            }
-                                        }
-                                    } else {
-                                        ForEach(store.secrets) { secret in
-                                            NavigationLink(destination: SecretDetailView(secret: secret), tag: secret.id, selection: $active) {
-                                                Text(secret.name)
-                                            }.contextMenu {
-                                                if store is AnySecretStoreModifiable {
-                                                    Button(action: { delete(secret: secret) }) {
-                                                        Text("Delete")
-                                                    }
-                                                }
-                                            }
-                                            .sheet(item: $deletingSecret) { secret in
-                                                if let store = storeList.modifiableStore {
-                                                    DeleteSecretView(secret: secret, store: store) { deleted in
-                                                        deletingSecret = nil
-                                                        if deleted {
-                                                            active = nextDefaultSecret
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }.onAppear {
-                        active = nextDefaultSecret
-                    }
-                    .frame(minWidth: 100, idealWidth: 240)
+                StoreListView()
                     .sheet(isPresented: $showingCreation) {
                         if let store = storeList.modifiableStore {
                             CreateSecretView(store: store, showing: $showingCreation)
                         }
                     }
-                }
             } else {
                 NoStoresView()
             }
@@ -141,26 +94,7 @@ struct ContentView<UpdaterType: UpdaterProtocol, AgentStatusCheckerType: AgentSt
             )
         }
     }
-
-    func delete<SecretType: Secret>(secret: SecretType) {
-        deletingSecret = AnySecret(secret)
-    }
-
-    var nextDefaultSecret: AnyHashable? {
-        let fallback: AnyHashable
-        if storeList.modifiableStore?.isAvailable ?? false {
-            fallback = Constants.emptyStoreModifiableTag
-        } else {
-            fallback = Constants.emptyStoreTag
-        }
-        return storeList.stores.compactMap(\.secrets.first).first?.id ?? fallback
-    }
     
-}
-
-private enum Constants {
-    static let emptyStoreModifiableTag: AnyHashable = "emptyStoreModifiableTag"
-    static let emptyStoreTag: AnyHashable = "emptyStoreModifiableTag"
 }
 
 //
