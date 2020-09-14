@@ -16,12 +16,13 @@ struct AppDelegate: App {
     let agentStatusChecker = AgentStatusChecker()
     let justUpdatedChecker = JustUpdatedChecker()
 
-    @State var showingSetup = false
+    @State private var showingSetup = false
+    @State private var showingCreation = false
     @AppStorage("defaultsHasRunSetup") var hasRunSetup = false
 
     @SceneBuilder var body: some Scene {
         WindowGroup {
-            ContentView<Updater, AgentStatusChecker>(runningSetup: $showingSetup)
+            ContentView<Updater, AgentStatusChecker>(showingCreation: $showingCreation, runningSetup: $showingSetup)
                 .environmentObject(storeList)
                 .environmentObject(updater)
                 .environmentObject(agentStatusChecker)
@@ -44,7 +45,7 @@ struct AppDelegate: App {
         .commands {
             CommandGroup(after: CommandGroupPlacement.newItem) {
                 Button("New Secret") {
-                    // TODO: Add
+                    showingCreation = true
                 }
                 .keyboardShortcut(KeyboardShortcut(KeyEquivalent("N"), modifiers: .command))
             }

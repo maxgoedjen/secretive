@@ -3,10 +3,12 @@ import SecretKit
 
 struct StoreListView: View {
 
+    @Binding var showingCreation: Bool
+    
     @State private var activeSecret: AnySecret.ID?
     @State private var deletingSecret: AnySecret?
 
-    @EnvironmentObject var storeList: SecretStoreList
+    @EnvironmentObject private var storeList: SecretStoreList
 
     var body: some View {
         NavigationView {
@@ -31,6 +33,7 @@ struct StoreListView: View {
             }
             .frame(minWidth: 100, idealWidth: 240)
         }
+
     }
 
 }

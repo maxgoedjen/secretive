@@ -4,7 +4,8 @@ import SecretKit
 struct SecretDetailView<SecretType: Secret>: View {
 
     @State var secret: SecretType
-    let keyWriter = OpenSSHKeyWriter()
+    
+    private let keyWriter = OpenSSHKeyWriter()
 
     var body: some View {
         Form {

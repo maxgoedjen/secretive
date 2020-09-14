@@ -6,8 +6,8 @@ struct CreateSecretView<StoreType: SecretStoreModifiable>: View {
     @ObservedObject var store: StoreType
     @Binding var showing: Bool
     
-    @State var name = ""
-    @State var requiresAuthentication = true
+    @State private var name = ""
+    @State private var requiresAuthentication = true
 
     var body: some View {
         VStack {

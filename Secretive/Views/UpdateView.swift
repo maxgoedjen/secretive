@@ -3,8 +3,9 @@ import Brief
 
 struct UpdateDetailView<UpdaterType: Updater>: View {
 
-    private let update: Release
     @EnvironmentObject var updater: UpdaterType
+
+    private let update: Release
 
     init(update: Release) {
         self.update = update

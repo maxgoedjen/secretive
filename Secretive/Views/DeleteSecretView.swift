@@ -3,11 +3,11 @@ import SecretKit
 
 struct DeleteSecretView<StoreType: SecretStoreModifiable>: View {
     
-    let secret: StoreType.SecretType
     @ObservedObject var store: StoreType
     
-    @State var confirm = ""
-    
+    @State private var confirm = ""
+
+    private let secret: StoreType.SecretType
     private var dismissalBlock: (Bool) -> ()
     
     init(secret: StoreType.SecretType, store: StoreType, dismissalBlock: @escaping (Bool) -> ()) {
@@ -60,4 +60,5 @@ struct DeleteSecretView<StoreType: SecretStoreModifiable>: View {
         try! store.delete(secret: secret)
         dismissalBlock(true)
     }
+
 }

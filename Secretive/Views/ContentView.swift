@@ -4,25 +4,26 @@ import Brief
 
 struct ContentView<UpdaterType: UpdaterProtocol, AgentStatusCheckerType: AgentStatusCheckerProtocol>: View {
 
-    @EnvironmentObject var storeList: SecretStoreList
-    @EnvironmentObject var updater: UpdaterType
-    @EnvironmentObject var agentStatusChecker: AgentStatusCheckerType
-
-    @State private var showingCreation = false
-    @State private var selectedUpdate: Release?
+    @Binding var showingCreation: Bool
     @Binding var runningSetup: Bool
+
+    @EnvironmentObject private var storeList: SecretStoreList
+    @EnvironmentObject private var updater: UpdaterType
+    @EnvironmentObject private var agentStatusChecker: AgentStatusCheckerType
+
+    @State private var selectedUpdate: Release?
 
     var body: some View {
         VStack {
             if storeList.anyAvailable {
-                StoreListView()
-                    .sheet(isPresented: $showingCreation) {
-                        if let store = storeList.modifiableStore {
-                            CreateSecretView(store: store, showing: $showingCreation)
-                        }
-                    }
+                StoreListView(showingCreation: $showingCreation)
             } else {
                 NoStoresView()
+            }
+        }
+        .sheet(isPresented: $showingCreation) {
+            if let modifiable = storeList.modifiableStore {
+                CreateSecretView(store: modifiable, showing: $showingCreation)
             }
         }
         .frame(minWidth: 640, minHeight: 320)

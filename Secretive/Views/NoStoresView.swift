@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct NoStoresView: View {
+
     var body: some View {
         VStack {
             Text("No Secure Storage Available").bold()
@@ -12,6 +13,7 @@ struct NoStoresView: View {
             }
         }.padding()
     }
+    
 }
 
 struct NoStoresView_Previews: PreviewProvider {
