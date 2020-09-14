@@ -37,6 +37,7 @@ struct AppDelegate: App {
                         showingSetup = true
                     }
                     if agentStatusChecker.running && justUpdatedChecker.justUpdated {
+                        // Relaunch the agent, since it'll be running from earlier update still
                         _ = LaunchAgentController().install()
                     }
 
