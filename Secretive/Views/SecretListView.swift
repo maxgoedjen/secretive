@@ -22,7 +22,7 @@ struct SecretListView: View {
             }
             .sheet(item: $deletingSecret) { secret in
                 if let modifiable = store as? AnySecretStoreModifiable {
-                    DeleteSecretView(secret: secret, store: modifiable) { deleted in
+                    DeleteSecretView(store: modifiable, secret: secret) { deleted in
                         deletingSecret = nil
                         if deleted {
                             deletedSecret(AnySecret(secret))

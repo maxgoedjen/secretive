@@ -2,20 +2,13 @@ import SwiftUI
 import SecretKit
 
 struct DeleteSecretView<StoreType: SecretStoreModifiable>: View {
-    
+
     @ObservedObject var store: StoreType
-    
+    let secret: StoreType.SecretType
+    var dismissalBlock: (Bool) -> ()
+
     @State private var confirm = ""
 
-    private let secret: StoreType.SecretType
-    private var dismissalBlock: (Bool) -> ()
-    
-    init(secret: StoreType.SecretType, store: StoreType, dismissalBlock: @escaping (Bool) -> ()) {
-        self.secret = secret
-        self.store = store
-        self.dismissalBlock = dismissalBlock
-    }
-    
     var body: some View {
         VStack {
             HStack {

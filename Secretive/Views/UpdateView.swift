@@ -5,11 +5,7 @@ struct UpdateDetailView<UpdaterType: Updater>: View {
 
     @EnvironmentObject var updater: UpdaterType
 
-    private let update: Release
-
-    init(update: Release) {
-        self.update = update
-    }
+    let update: Release
 
     var body: some View {
         VStack {
