@@ -82,7 +82,7 @@ extension ContentView {
     }
 
     var agentNotice: ToolbarItem<Void, AnyView> {
-        guard agentStatusChecker.running else {
+        guard !agentStatusChecker.running else {
             return ToolbarItem { AnyView(Spacer()) }
         }
         return ToolbarItem {
