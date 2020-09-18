@@ -14,7 +14,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         list.add(store: SmartCard.Store())
         return list
     }()
-    private let updater = Updater(hasRunSetup: false)
+    private let updater = Updater(checkOnLaunch: false)
     private let notifier = Notifier()
     private lazy var agent: Agent = {
         Agent(storeList: storeList, witness: notifier)

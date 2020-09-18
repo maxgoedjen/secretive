@@ -23,7 +23,7 @@ struct AppDelegate: App {
         WindowGroup {
             ContentView<Updater, AgentStatusChecker>(showingCreation: $showingCreation, runningSetup: $showingSetup)
                 .environmentObject(storeList)
-                .environmentObject(Updater(hasRunSetup: hasRunSetup))
+                .environmentObject(Updater(checkOnLaunch: hasRunSetup))
                 .environmentObject(agentStatusChecker)
                 .sheet(isPresented: $showingSetup) {
                     SetupView { completed in

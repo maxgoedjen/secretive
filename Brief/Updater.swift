@@ -11,8 +11,8 @@ public class Updater: ObservableObject, UpdaterProtocol {
 
     @Published public var update: Release?
 
-    public init(hasRunSetup: Bool) {
-        if hasRunSetup {
+    public init(checkOnLaunch: Bool) {
+        if checkOnLaunch {
             // Don't do a launch check if the user hasn't seen the setup prompt explaining updater yet.
             checkForUpdates()
         }
