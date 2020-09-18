@@ -4,7 +4,7 @@ import SecretKit
 import Brief
 
 @main
-struct AppDelegate: App {
+struct Secretive: App {
 
     private let storeList: SecretStoreList = {
         let list = SecretStoreList()
