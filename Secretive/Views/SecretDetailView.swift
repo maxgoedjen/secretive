@@ -2,11 +2,11 @@ import SwiftUI
 import SecretKit
 
 struct SecretDetailView<SecretType: Secret>: View {
-
+    
     @State var secret: SecretType
     
     private let keyWriter = OpenSSHKeyWriter()
-
+    
     var body: some View {
         Form {
             Section {
@@ -15,8 +15,8 @@ struct SecretDetailView<SecretType: Secret>: View {
                         Text(keyWriter.openSSHFingerprint(secret: secret))
                         Spacer()
                     }
-                        .frame(minWidth: 150, maxWidth: .infinity)
-                        .padding()
+                    .frame(minWidth: 150, maxWidth: .infinity)
+                    .padding()
                 }.onDrag {
                     return NSItemProvider(item: NSData(data: keyWriter.openSSHFingerprint(secret: secret).data(using: .utf8)!), typeIdentifier: kUTTypeUTF8PlainText as String)
                 }
@@ -40,21 +40,22 @@ struct SecretDetailView<SecretType: Secret>: View {
                 }
                 Spacer()
             }
-        }.padding()
-            .frame(minHeight: 150, maxHeight: .infinity)
-
+        }
+        .padding()
+        .frame(minHeight: 150, maxHeight: .infinity)
+        
     }
-
+    
     var keyString: String {
         keyWriter.openSSHString(secret: secret)
     }
-
+    
     func copy() {
         NSPasteboard.general.declareTypes([.string], owner: nil)
         NSPasteboard.general.setString(keyString, forType: .string)
     }
-
-
+    
+    
 }
 
 #if DEBUG
