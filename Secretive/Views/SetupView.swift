@@ -11,13 +11,14 @@ struct SetupView: View {
                                   index: 1,
                                   nestedView: nil,
                                   actionText: "Install") {
-                                    installLaunchAgent()
+                installLaunchAgent()
             }
             SetupStepView(text: "Add this line to your shell config (.bashrc or .zshrc) telling SSH to talk to SecretAgent when it wants to authenticate. Drag this into your config file.",
                           index: 2,
-                          nestedView: SetupStepCommandView(text: Constants.socketPrompt),
+                          nestedView: SetupStepCommandView(instructions: Constants.socketPrompts, selectedShellInstruction: Constants.socketPrompts.first!),
                           actionText: "Added") {
-                            markAsDone()
+                markAsDone()
+            }
             SetupStepView<Spacer>(text: "Secretive will periodically check with GitHub to see if there's a new release. If you see any network requests to GitHub, that's why.",
                                   index: 3,
                                   nestedView: nil,
@@ -78,7 +79,7 @@ struct SetupStepView<NestedViewType: View>: View {
                 }) {
                     Text(actionText)
                 }.disabled(completed)
-                    .padding()
+                .padding()
             }
         }
     }
@@ -86,33 +87,40 @@ struct SetupStepView<NestedViewType: View>: View {
 
 struct SetupStepCommandView: View {
     
-    let text: String
-    
+    let instructions: [ShellConfigInstruction]
+
+    @State var selectedShellInstruction: ShellConfigInstruction
+
     var body: some View {
-        VStack(alignment: .leading) {
-            Text(text)
-                .lineLimit(nil)
-                .font(.system(.caption, design: .monospaced))
-                .multilineTextAlignment(.leading)
-                .frame(minHeight: 50)
-            HStack {
-                Spacer()
-                Button(action: copy) {
-                    Text("Copy")
+        TabView(selection: $selectedShellInstruction) {
+            ForEach(instructions) { instruction in
+                VStack(alignment: .leading) {
+                    Text(instruction.text)
+                        .lineLimit(nil)
+                        .font(.system(.caption, design: .monospaced))
+                        .multilineTextAlignment(.leading)
+                        .frame(minHeight: 50)
+                    HStack {
+                        Spacer()
+                        Button(action: copy) {
+                            Text("Copy")
+                        }
+                    }
+                }.tabItem {
+                    Text(instruction.shell)
                 }
+                .tag(instruction)
+                .padding()
             }
         }
-        .padding()
-        .background(Color(white: 0, opacity: 0.10))
-        .cornerRadius(10)
         .onDrag {
-            NSItemProvider(item: NSData(data: text.data(using: .utf8)!), typeIdentifier: kUTTypeUTF8PlainText as String)
+            return NSItemProvider(item: NSData(data: selectedShellInstruction.text.data(using: .utf8)!), typeIdentifier: kUTTypeUTF8PlainText as String)
         }
     }
     
     func copy() {
         NSPasteboard.general.declareTypes([.string], owner: nil)
-        NSPasteboard.general.setString(text, forType: .string)
+        NSPasteboard.general.setString(selectedShellInstruction.text, forType: .string)
     }
     
 }
@@ -133,9 +141,24 @@ extension SetupView {
     
     enum Constants {
         static let socketPath = (NSHomeDirectory().replacingOccurrences(of: "com.maxgoedjen.Secretive.Host", with: "com.maxgoedjen.Secretive.SecretAgent") as NSString).appendingPathComponent("socket.ssh") as String
-        static let socketPrompt = "export SSH_AUTH_SOCK=\(socketPath)"
+        static let socketPrompts: [ShellConfigInstruction] = [
+            ShellConfigInstruction(shell: "zsh", text: "export SSH_AUTH_SOCK=\(socketPath)"),
+            ShellConfigInstruction(shell: "bash", text: "export SSH_AUTH_SOCK=\(socketPath)"),
+            ShellConfigInstruction(shell: "fish", text: "set -x SSH_AUTH_SOCK=\(socketPath)"),
+        ]
     }
     
+}
+
+struct ShellConfigInstruction: Identifiable, Hashable {
+
+    var shell: String
+    var text: String
+
+    var id: String {
+        shell
+    }
+
 }
 
 #if DEBUG
