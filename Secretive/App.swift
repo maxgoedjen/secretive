@@ -15,6 +15,7 @@ struct Secretive: App {
     private let agentStatusChecker = AgentStatusChecker()
     private let justUpdatedChecker = JustUpdatedChecker()
 
+    @AppStorage("defaultsHasRunSetup") var hasRunSetup = false
     @State private var showingSetup = false
     @State private var showingCreation = false
 
