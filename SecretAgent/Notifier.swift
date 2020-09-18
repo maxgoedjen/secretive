@@ -20,8 +20,7 @@ class Notifier {
 
     func prompt() {
         let notificationCenter = UNUserNotificationCenter.current()
-        notificationCenter.requestAuthorization(options: .alert) { _, _ in
-        }
+        notificationCenter.requestAuthorization(options: .alert) { _, _ in }
     }
 
     func notify(accessTo secret: AnySecret, by provenance: SigningRequestProvenance) {
