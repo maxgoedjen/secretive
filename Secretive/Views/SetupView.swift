@@ -4,32 +4,37 @@ import SwiftUI
 struct SetupView: View {
     
     var completion: ((Bool) -> Void)?
+    @State var completedSteps: Set<Step> = []
     
     var body: some View {
         Form {
             SetupStepView<Spacer>(text: "Secretive needs to install a helper app to sign requests when the main app isn't running. This app is called \"SecretAgent\" and you might see it in Activity Manager from time to time.",
-                                  index: 1,
+                                  stepID: .agent,
                                   nestedView: nil,
                                   actionText: "Install") {
-                installLaunchAgent()
+                let success = installLaunchAgent()
+                if success {
+                    completedSteps.insert(.agent)
+                }
+                return success
             }
-            SetupStepView(text: "Add this line to your shell config (.bashrc or .zshrc) telling SSH to talk to SecretAgent when it wants to authenticate. Drag this into your config file.",
-                          index: 2,
+            SetupStepView(text: "Add this line to your shell config telling SSH to talk to SecretAgent when it wants to authenticate. Drag this into your config file.",
+                          stepID: .shellConfig,
                           nestedView: SetupStepCommandView(instructions: Constants.socketPrompts, selectedShellInstruction: Constants.socketPrompts.first!),
                           actionText: "Added") {
-                markAsDone()
+                markAsDone(.shellConfig)
             }
-            SetupStepView<Spacer>(text: "Secretive will periodically check with GitHub to see if there's a new release. If you see any network requests to GitHub, that's why.",
-                                  index: 3,
-                                  nestedView: nil,
-                                  actionText: "Got it") {
-                markAsDone()
+            SetupStepView<Link>(text: "Secretive will periodically check with GitHub to see if there's a new release. If you see any network requests to GitHub, that's why.",
+                                stepID: .updateNotice,
+                                nestedView: Link("Read more about this here.", destination: Constants.updaterFAQURL),
+                                actionText: "Got it") {
+                markAsDone(.updateNotice)
             }
             HStack {
                 Spacer()
-                Button(action: { completion?(true) }) {
-                    Text("Finish")
-                }
+                Button("Finish") {
+                    completion?(completedAllSteps)
+                }.disabled(!completedAllSteps)
                 .padding()
             }
         }.frame(minWidth: 640, minHeight: 400)
@@ -40,7 +45,7 @@ struct SetupView: View {
 struct SetupStepView<NestedViewType: View>: View {
     
     let text: String
-    let index: Int
+    let stepID: Step
     let nestedView: NestedViewType?
     @State var completed = false
     let actionText: String
@@ -59,7 +64,7 @@ struct SetupStepView<NestedViewType: View>: View {
                     } else {
                         Circle().foregroundColor(.blue)
                             .frame(width: 30, height: 30)
-                        Text(String(describing: index))
+                        Text(String(describing: stepID.rawValue + 1))
                             .foregroundColor(.white)
                             .bold()
                     }
@@ -74,11 +79,10 @@ struct SetupStepView<NestedViewType: View>: View {
                     }
                 }
                 .padding()
-                Button(action: {
+                Button(actionText) {
                     completed = action()
-                }) {
-                    Text(actionText)
-                }.disabled(completed)
+                }.frame(alignment: .trailing)
+                .disabled(completed)
                 .padding()
             }
         }
@@ -131,8 +135,13 @@ extension SetupView {
         LaunchAgentController().install()
     }
     
-    func markAsDone() -> Bool {
+    func markAsDone(_ step: Step) -> Bool {
+        completedSteps.insert(step)
         return true
+    }
+
+    var completedAllSteps: Bool {
+        completedSteps == Set(Step.allCases)
     }
     
 }
@@ -146,6 +155,7 @@ extension SetupView {
             ShellConfigInstruction(shell: "bash", text: "export SSH_AUTH_SOCK=\(socketPath)"),
             ShellConfigInstruction(shell: "fish", text: "set -x SSH_AUTH_SOCK=\(socketPath)"),
         ]
+        static let updaterFAQURL = URL(string: "https://github.com/maxgoedjen/secretive/blob/main/FAQ.md#whats-this-network-request-to-github")!
     }
     
 }
@@ -161,11 +171,25 @@ struct ShellConfigInstruction: Identifiable, Hashable {
 
 }
 
+enum Step: Int, Identifiable, Hashable, CaseIterable {
+
+    case agent, shellConfig, updateNotice
+
+    var id: Int {
+        rawValue
+    }
+
+}
+
 #if DEBUG
 
 struct SetupView_Previews: PreviewProvider {
     static var previews: some View {
-        SetupView()
+        Group {
+            SetupView()
+            SetupView()
+                .frame(width: 1500, height: 400)
+        }
     }
 }
 

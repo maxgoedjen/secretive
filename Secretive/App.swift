@@ -17,29 +17,20 @@ struct Secretive: App {
 
     @State private var showingSetup = false
     @State private var showingCreation = false
-    @AppStorage("defaultsHasRunSetup") var hasRunSetup = false
 
     @SceneBuilder var body: some Scene {
         WindowGroup {
-            ContentView<Updater, AgentStatusChecker>(showingCreation: $showingCreation, runningSetup: $showingSetup)
+            ContentView<Updater, AgentStatusChecker>(showingCreation: $showingCreation, runningSetup: $showingSetup, hasRunSetup: $hasRunSetup)
                 .environmentObject(storeList)
                 .environmentObject(Updater(checkOnLaunch: hasRunSetup))
                 .environmentObject(agentStatusChecker)
-                .sheet(isPresented: $showingSetup) {
-                    SetupView { completed in
-                        showingSetup = false
-                        hasRunSetup = completed
-                    }
-                }
                 .onAppear {
                     if !hasRunSetup {
                         showingSetup = true
-                    }
-                    if agentStatusChecker.running && justUpdatedChecker.justUpdated {
+                    } else if agentStatusChecker.running && justUpdatedChecker.justUpdated {
                         // Relaunch the agent, since it'll be running from earlier update still
                         _ = LaunchAgentController().install()
                     }
-
                 }
         }
         .commands {
@@ -55,7 +46,7 @@ struct Secretive: App {
                 }
             }
             CommandGroup(after: .help) {
-                Button("Setup Secret Agent") {
+                Button("Setup Secretive") {
                     showingSetup = true
                 }
             }

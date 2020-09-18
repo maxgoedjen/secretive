@@ -6,6 +6,7 @@ struct ContentView<UpdaterType: UpdaterProtocol, AgentStatusCheckerType: AgentSt
 
     @Binding var showingCreation: Bool
     @Binding var runningSetup: Bool
+    @Binding var hasRunSetup: Bool
 
     @EnvironmentObject private var storeList: SecretStoreList
     @EnvironmentObject private var updater: UpdaterType
@@ -29,7 +30,7 @@ struct ContentView<UpdaterType: UpdaterProtocol, AgentStatusCheckerType: AgentSt
         .frame(minWidth: 640, minHeight: 320)
         .toolbar {
             updateNotice
-            agentNotice
+            setupNotice
             newItem
         }
     }
@@ -81,8 +82,8 @@ extension ContentView {
         }
     }
 
-    var agentNotice: ToolbarItem<Void, AnyView> {
-        guard !agentStatusChecker.running else {
+    var setupNotice: ToolbarItem<Void, AnyView> {
+        guard runningSetup || !hasRunSetup || !agentStatusChecker.running else {
             return ToolbarItem { AnyView(Spacer()) }
         }
         return ToolbarItem {
@@ -90,12 +91,24 @@ extension ContentView {
                 Button(action: {
                     runningSetup = true
                 }, label: {
-                    Text("Secret Agent Is Not Running")
-                        .font(.headline)
-                        .foregroundColor(.white)
+                    Group {
+                        if hasRunSetup && !agentStatusChecker.running {
+                            Text("Secret Agent Is Not Running")
+                        } else {
+                            Text("Setup Secretive")
+                        }
+                    }
+                    .font(.headline)
+                    .foregroundColor(.white)
                 })
                 .background(Color.orange)
                 .cornerRadius(5)
+                .popover(isPresented: $runningSetup, attachmentAnchor: .point(.bottom), arrowEdge: .bottom) {
+                    SetupView { completed in
+                        runningSetup = false
+                        hasRunSetup = completed
+                    }
+                }
             )
         }
     }
