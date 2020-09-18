@@ -59,6 +59,7 @@ struct Secretive: App {
                     showingSetup = true
                 }
             }
+            SidebarCommands()
         }
     }
 
