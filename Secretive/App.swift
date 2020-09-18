@@ -6,15 +6,14 @@ import Brief
 @main
 struct AppDelegate: App {
 
-    let storeList: SecretStoreList = {
+    private let storeList: SecretStoreList = {
         let list = SecretStoreList()
         list.add(store: SecureEnclave.Store())
         list.add(store: SmartCard.Store())
         return list
     }()
-    let updater = Updater()
-    let agentStatusChecker = AgentStatusChecker()
-    let justUpdatedChecker = JustUpdatedChecker()
+    private let agentStatusChecker = AgentStatusChecker()
+    private let justUpdatedChecker = JustUpdatedChecker()
 
     @State private var showingSetup = false
     @State private var showingCreation = false
@@ -24,7 +23,7 @@ struct AppDelegate: App {
         WindowGroup {
             ContentView<Updater, AgentStatusChecker>(showingCreation: $showingCreation, runningSetup: $showingSetup)
                 .environmentObject(storeList)
-                .environmentObject(updater)
+                .environmentObject(Updater(hasRunSetup: hasRunSetup))
                 .environmentObject(agentStatusChecker)
                 .sheet(isPresented: $showingSetup) {
                     SetupView { completed in
@@ -48,7 +47,7 @@ struct AppDelegate: App {
                 Button("New Secret") {
                     showingCreation = true
                 }
-                .keyboardShortcut(KeyboardShortcut(KeyEquivalent("N"), modifiers: .command))
+                .keyboardShortcut(KeyboardShortcut(KeyEquivalent("N"), modifiers: [.command, .shift]))
             }
             CommandGroup(replacing: .help) {
                 Button("Help") {

@@ -11,8 +11,11 @@ public class Updater: ObservableObject, UpdaterProtocol {
 
     @Published public var update: Release?
 
-    public init() {
-        checkForUpdates()
+    public init(hasRunSetup: Bool) {
+        if hasRunSetup {
+            // Don't do a launch check if the user hasn't seen the setup prompt explaining updater yet.
+            checkForUpdates()
+        }
         let timer = Timer.scheduledTimer(withTimeInterval: 60*60*24, repeats: true) { _ in
             self.checkForUpdates()
         }
