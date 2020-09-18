@@ -18,6 +18,11 @@ struct SetupView: View {
                           nestedView: SetupStepCommandView(text: Constants.socketPrompt),
                           actionText: "Added") {
                             markAsDone()
+            SetupStepView<Spacer>(text: "Secretive will periodically check with GitHub to see if there's a new release. If you see any network requests to GitHub, that's why.",
+                                  index: 3,
+                                  nestedView: nil,
+                                  actionText: "Got it") {
+                markAsDone()
             }
             HStack {
                 Spacer()
