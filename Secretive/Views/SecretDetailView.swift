@@ -22,10 +22,9 @@ struct SecretDetailView<SecretType: Secret>: View {
                 }
                 Spacer().frame(height: 10)
                 GroupBox(label: Text("Public Key")) {
-                    VStack {
+                    VStack(alignment: .leading) {
                         Text(keyWriter.openSSHString(secret: secret))
                             .multilineTextAlignment(.leading)
-                            .frame(minWidth: 150, maxWidth: .infinity)
                         HStack {
                             Spacer()
                             Button(action: copy) {
@@ -33,6 +32,7 @@ struct SecretDetailView<SecretType: Secret>: View {
                             }
                         }
                     }
+                    .frame(minWidth: 150, maxWidth: .infinity)
                     .padding()
                 }
                 .onDrag {
