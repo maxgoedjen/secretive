@@ -115,30 +115,36 @@ extension ContentView {
 
 }
 
-//
-//#if DEBUG
-//
-//struct ContentView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        Group {
-//            ContentView(storeList: Preview.storeList(stores: [Preview.Store(numberOfRandomSecrets: 0)],
-//                                                     modifiableStores: [Preview.StoreModifiable(numberOfRandomSecrets: 0)]),
-//                        updater: PreviewUpdater(),
-//                        agentStatusChecker: PreviewAgentStatusChecker())
-//            ContentView(storeList: Preview.storeList(stores: [Preview.Store()], modifiableStores: [Preview.StoreModifiable()]), updater: PreviewUpdater(),
-//                        agentStatusChecker: PreviewAgentStatusChecker())
-//            ContentView(storeList: Preview.storeList(stores: [Preview.Store()]), updater: PreviewUpdater(),
-//                        agentStatusChecker: PreviewAgentStatusChecker())
-//            ContentView(storeList: Preview.storeList(modifiableStores: [Preview.StoreModifiable()]), updater: PreviewUpdater(),
-//                        agentStatusChecker: PreviewAgentStatusChecker())
-//            ContentView(storeList: Preview.storeList(stores: [Preview.Store(numberOfRandomSecrets: 0)], modifiableStores: [Preview.StoreModifiable(numberOfRandomSecrets: 0)]), updater: PreviewUpdater(update: .advisory),
-//                        agentStatusChecker: PreviewAgentStatusChecker())
-//            ContentView(storeList: Preview.storeList(stores: [Preview.Store(numberOfRandomSecrets: 0)], modifiableStores: [Preview.StoreModifiable(numberOfRandomSecrets: 0)]), updater: PreviewUpdater(update: .critical),
-//                        agentStatusChecker: PreviewAgentStatusChecker())
-//            ContentView(storeList: Preview.storeList(stores: [Preview.Store(numberOfRandomSecrets: 0)], modifiableStores: [Preview.StoreModifiable(numberOfRandomSecrets: 0)]), updater: PreviewUpdater(update: .critical),
-//                        agentStatusChecker: PreviewAgentStatusChecker(running: false))
-//        }
-//    }
-//}
-//
-//#endif
+struct ContentView_Previews: PreviewProvider {
+
+    private static let storeList: SecretStoreList = {
+        let list = SecretStoreList()
+        list.add(store: SecureEnclave.Store())
+        list.add(store: SmartCard.Store())
+        return list
+    }()
+    private static let agentStatusChecker = AgentStatusChecker()
+    private static let justUpdatedChecker = JustUpdatedChecker()
+
+    @State var hasRunSetup = false
+    @State private var showingSetup = false
+    @State private var showingCreation = false
+
+    static var previews: some View {
+        Group {
+            // Empty on modifiable and nonmodifiable
+            ContentView<PreviewUpdater, AgentStatusChecker>(showingCreation: .constant(false), runningSetup: .constant(false), hasRunSetup: .constant(true))
+                .environmentObject(Preview.storeList(stores: [Preview.Store(numberOfRandomSecrets: 0)], modifiableStores: [Preview.StoreModifiable(numberOfRandomSecrets: 0)]))
+                .environmentObject(PreviewUpdater())
+                .environmentObject(agentStatusChecker)
+
+            // 5 items on modifiable and nonmodifiable
+            ContentView<PreviewUpdater, AgentStatusChecker>(showingCreation: .constant(false), runningSetup: .constant(false), hasRunSetup: .constant(true))
+                .environmentObject(Preview.storeList(stores: [Preview.Store()], modifiableStores: [Preview.StoreModifiable()]))
+                .environmentObject(PreviewUpdater())
+                .environmentObject(agentStatusChecker)
+        }
+        .environmentObject(agentStatusChecker)
+
+    }
+}

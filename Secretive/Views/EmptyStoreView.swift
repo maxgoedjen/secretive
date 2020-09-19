@@ -71,8 +71,6 @@ struct EmptyStoreModifiableView: View {
     }
 }
 
-#if DEBUG
-
 struct EmptyStoreModifiableView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
@@ -81,5 +79,3 @@ struct EmptyStoreModifiableView_Previews: PreviewProvider {
         }
     }
 }
-
-#endif

@@ -181,8 +181,6 @@ enum Step: Int, Identifiable, Hashable, CaseIterable {
 
 }
 
-#if DEBUG
-
 struct SetupView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
@@ -192,5 +190,3 @@ struct SetupView_Previews: PreviewProvider {
         }
     }
 }
-
-#endif
