@@ -52,16 +52,20 @@ struct CopyableView: View {
             HStack {
                 image
                     .renderingMode(.template)
+                    .imageScale(.large)
                     .foregroundColor(primaryTextColor)
                 Text(title)
                     .font(.headline)
                     .foregroundColor(primaryTextColor)
                 Spacer()
-                Text(hoverText)
-                    .bold()
-                    .textCase(.uppercase)
-                    .foregroundColor(secondaryTextColor)
-                    .transition(.opacity)
+                if interactionState != .normal {
+                    Text(hoverText)
+                        .bold()
+                        .textCase(.uppercase)
+                        .foregroundColor(secondaryTextColor)
+                        .transition(.opacity)
+                }
+
             }
             .padding(EdgeInsets(top: 20, leading: 20, bottom: 10, trailing: 20))
             Divider()
@@ -71,24 +75,29 @@ struct CopyableView: View {
                 .multilineTextAlignment(.leading)
                 .font(.system(.body, design: .monospaced))
         }
-        .frame(minWidth: 150, maxWidth: .infinity)
         .background(backgroundColor)
+        .frame(minWidth: 150, maxWidth: .infinity)
         .cornerRadius(10)
         .onHover { hovering in
-            interactionState = hovering ? .hovering : .normal
+            withAnimation {
+                interactionState = hovering ? .hovering : .normal
+            }
         }
         .onDrag {
             NSItemProvider(item: NSData(data: text.data(using: .utf8)!), typeIdentifier: kUTTypeUTF8PlainText as String)
         }
-        .animation(.spring())
         .onTapGesture {
             copy()
-            interactionState = .clicking
+            withAnimation {
+                interactionState = .clicking
+            }
         }
         .gesture(
             TapGesture()
                 .onEnded {
-                    interactionState = .normal
+                    withAnimation {
+                        interactionState = .normal
+                    }
                 }
         )
     }
@@ -100,9 +109,8 @@ struct CopyableView: View {
         case .clicking:
             return "Copied!"
         case .normal:
-            return ""
+            fatalError()
         }
-
     }
 
     var backgroundColor: Color {
