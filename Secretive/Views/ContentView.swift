@@ -53,18 +53,19 @@ extension ContentView {
             color = .orange
         }
         return ToolbarItem {
-            AnyView(Button(action: {
-                selectedUpdate = update
-            }, label: {
-                Text(text)
-                    .font(.headline)
-                    .foregroundColor(.white)
-            })
-            .background(color)
-            .cornerRadius(5)
-            .popover(item: $selectedUpdate, attachmentAnchor: .point(.bottom), arrowEdge: .bottom) { update in
-                UpdateDetailView(update: update)
-            }
+            AnyView(
+                Button(action: {
+                    selectedUpdate = update
+                }, label: {
+                    Text(text)
+                        .font(.headline)
+                        .foregroundColor(.white)
+                })
+                .background(color)
+                .cornerRadius(5)
+                .popover(item: $selectedUpdate, attachmentAnchor: .point(.bottom), arrowEdge: .bottom) { update in
+                    UpdateDetailView(update: update)
+                }
             )
         }
     }
@@ -74,11 +75,13 @@ extension ContentView {
             return ToolbarItem { AnyView(Spacer()) }
         }
         return ToolbarItem {
-            AnyView(Button(action: {
-                showingCreation = true
-            }, label: {
-                Image(systemName: "plus")
-            }))
+            AnyView(
+                Button(action: {
+                    showingCreation = true
+                }, label: {
+                    Image(systemName: "plus")
+                })
+            )
         }
     }
 
@@ -104,10 +107,11 @@ extension ContentView {
                 .background(Color.orange)
                 .cornerRadius(5)
                 .popover(isPresented: $runningSetup, attachmentAnchor: .point(.bottom), arrowEdge: .bottom) {
-                    SetupView { completed in
-                        runningSetup = false
-                        hasRunSetup = completed
-                    }
+//                    SetupView { completed in
+//                        runningSetup = false
+//                        hasRunSetup = completed
+//                    }
+                    SetupView(visible: $runningSetup)
                 }
             )
         }

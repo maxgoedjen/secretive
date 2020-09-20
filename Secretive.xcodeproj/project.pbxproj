@@ -29,6 +29,8 @@
 		50617DCE23FCECFA0099B055 /* SecureEnclaveSecret.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50617DCD23FCECFA0099B055 /* SecureEnclaveSecret.swift */; };
 		50617DD023FCED2C0099B055 /* SecureEnclave.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50617DCF23FCED2C0099B055 /* SecureEnclave.swift */; };
 		50617DD223FCEFA90099B055 /* PreviewStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50617DD123FCEFA90099B055 /* PreviewStore.swift */; };
+		5066A6C22516F303004B5A36 /* SetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5066A6C12516F303004B5A36 /* SetupView.swift */; };
+		5066A6C82516FE6E004B5A36 /* CopyableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5066A6C72516FE6E004B5A36 /* CopyableView.swift */; };
 		506772C72424784600034DED /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 506772C62424784600034DED /* Credits.rtf */; };
 		506772C92425BB8500034DED /* NoStoresView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506772C82425BB8500034DED /* NoStoresView.swift */; };
 		506772FF2426F3F400034DED /* Brief.h in Headers */ = {isa = PBXBuildFile; fileRef = 506772FD2426F3F400034DED /* Brief.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -78,7 +80,6 @@
 		50BB046B2418AAAE00D6E079 /* EmptyStoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50BB046A2418AAAE00D6E079 /* EmptyStoreView.swift */; };
 		50C385A3240789E600AF2719 /* OpenSSHReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C385A2240789E600AF2719 /* OpenSSHReader.swift */; };
 		50C385A52407A76D00AF2719 /* SecretDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C385A42407A76D00AF2719 /* SecretDetailView.swift */; };
-		50C385A9240B636500AF2719 /* SetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C385A8240B636500AF2719 /* SetupView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -234,6 +235,8 @@
 		50617DCD23FCECFA0099B055 /* SecureEnclaveSecret.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureEnclaveSecret.swift; sourceTree = "<group>"; };
 		50617DCF23FCED2C0099B055 /* SecureEnclave.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureEnclave.swift; sourceTree = "<group>"; };
 		50617DD123FCEFA90099B055 /* PreviewStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewStore.swift; sourceTree = "<group>"; };
+		5066A6C12516F303004B5A36 /* SetupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupView.swift; sourceTree = "<group>"; };
+		5066A6C72516FE6E004B5A36 /* CopyableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CopyableView.swift; sourceTree = "<group>"; };
 		506772C62424784600034DED /* Credits.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = Credits.rtf; sourceTree = "<group>"; };
 		506772C82425BB8500034DED /* NoStoresView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoStoresView.swift; sourceTree = "<group>"; };
 		506772FB2426F3F400034DED /* Brief.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Brief.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -283,7 +286,6 @@
 		50BB046A2418AAAE00D6E079 /* EmptyStoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStoreView.swift; sourceTree = "<group>"; };
 		50C385A2240789E600AF2719 /* OpenSSHReader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OpenSSHReader.swift; path = SecretKit/Common/OpenSSH/OpenSSHReader.swift; sourceTree = SOURCE_ROOT; };
 		50C385A42407A76D00AF2719 /* SecretDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecretDetailView.swift; sourceTree = "<group>"; };
-		50C385A8240B636500AF2719 /* SetupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -510,7 +512,8 @@
 				50BB046A2418AAAE00D6E079 /* EmptyStoreView.swift */,
 				506772C82425BB8500034DED /* NoStoresView.swift */,
 				50153E1F250AFCB200525160 /* UpdateView.swift */,
-				50C385A8240B636500AF2719 /* SetupView.swift */,
+				5066A6C12516F303004B5A36 /* SetupView.swift */,
+				5066A6C72516FE6E004B5A36 /* CopyableView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -922,7 +925,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				50C385A9240B636500AF2719 /* SetupView.swift in Sources */,
+				5066A6C22516F303004B5A36 /* SetupView.swift in Sources */,
 				50617D8523FCE48E0099B055 /* ContentView.swift in Sources */,
 				50571E0324393C2600F76F6C /* JustUpdatedChecker.swift in Sources */,
 				5079BA0F250F29BF00EA86F4 /* StoreListView.swift in Sources */,
@@ -932,6 +935,7 @@
 				5099A02423FD2AAA0062B6F2 /* CreateSecretView.swift in Sources */,
 				50153E20250AFCB200525160 /* UpdateView.swift in Sources */,
 				50571E0524393D1500F76F6C /* LaunchAgentController.swift in Sources */,
+				5066A6C82516FE6E004B5A36 /* CopyableView.swift in Sources */,
 				50B8550D24138C4F009958AC /* DeleteSecretView.swift in Sources */,
 				50BB046B2418AAAE00D6E079 /* EmptyStoreView.swift in Sources */,
 				50617D8323FCE48E0099B055 /* App.swift in Sources */,
