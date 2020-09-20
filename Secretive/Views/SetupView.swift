@@ -6,25 +6,28 @@ struct SetupView: View {
     @Binding var visible: Bool
 
     var body: some View {
-        VStack {
-            StepView(numberOfSteps: 3, currentStep: stepIndex)
-            GeometryReader { proxy in
-                HStack {
-                    SecretAgentSetupView(buttonAction: advance)
+        GeometryReader { proxy in
+            VStack {
+                StepView(numberOfSteps: 3, currentStep: stepIndex, width: 500)
+                GeometryReader { proxy in
+                    HStack {
+                        SecretAgentSetupView(buttonAction: advance)
+                            .frame(width: proxy.size.width)
+                        SSHAgentSetupView(buttonAction: advance)
+                            .frame(width: proxy.size.width)
+                        UpdaterExplainerView {
+                            visible = false
+                        }
                         .frame(width: proxy.size.width)
-                    SSHAgentSetupView(buttonAction: advance)
-                        .frame(width: proxy.size.width)
-                    UpdaterExplainerView {
-                        visible = false
                     }
-                        .frame(width: proxy.size.width)
+                    .offset(x: -proxy.size.width * CGFloat(stepIndex), y: 0)
+                    .animation(.spring())
                 }
-                .offset(x: -proxy.size.width * CGFloat(stepIndex), y: 0)
-                .animation(.spring())
             }
         }
         .frame(idealWidth: 500, idealHeight: 500)
     }
+
 
     func advance() {
         stepIndex += 1
@@ -47,11 +50,18 @@ struct StepView: View {
     let numberOfSteps: Int
     let currentStep: Int
 
+    // Ideally we'd have a geometry reader inside this view doing this for us, but that crashes on 11.0b7
+    let width: CGFloat
+
     var body: some View {
-        ZStack {
+        ZStack(alignment: .leading) {
             Rectangle()
                 .foregroundColor(.blue)
                 .frame(height: 5)
+            Rectangle()
+                .foregroundColor(.green)
+                .frame(width: max(0, (width / CGFloat(numberOfSteps - 1)) * CGFloat(currentStep) - 15), height: 5)
+                .animation(.spring())
             HStack {
                 ForEach(0..<numberOfSteps) { index in
                     ZStack {
@@ -64,10 +74,15 @@ struct StepView: View {
                                 .bold()
                         } else {
                             Circle()
-                                .foregroundColor(currentStep == index ? .white : .blue)
+                                .foregroundColor(.blue)
                                 .frame(width: 30, height: 30)
+                            if currentStep == index {
+                                Circle()
+                                    .strokeBorder(Color.white, lineWidth: 3)
+                                    .frame(width: 30, height: 30)
+                            }
                             Text(String(describing: index + 1))
-                                .foregroundColor(currentStep == index ? .blue : .white)
+                                .foregroundColor(.white)
                                 .bold()
                         }
                     }
@@ -130,10 +145,10 @@ struct SecretAgentSetupView: View {
 
     var body: some View {
         SetupStepView(title: "Setup Secret Agent",
-                     image: Image(nsImage: NSApp.applicationIconImage),
-                     bodyText: "Secretive needs to set up a helper app to work properly. It will sign requests from SSH clients in the background, so you don't need to keep the main Secretive app open.",
-                     buttonTitle: "Install",
-                     buttonAction: install) {
+                      image: Image(nsImage: NSApp.applicationIconImage),
+                      bodyText: "Secretive needs to set up a helper app to work properly. It will sign requests from SSH clients in the background, so you don't need to keep the main Secretive app open.",
+                      buttonTitle: "Install",
+                      buttonAction: install) {
             (Text("This helper app is called ") + Text("Secret Agent").bold().underline() + Text(" and you may see it in Activity Manager from time to time."))
                 .multilineTextAlignment(.center)
         }
@@ -164,10 +179,10 @@ struct SSHAgentSetupView: View {
 
     var body: some View {
         SetupStepView(title: "Configure your SSH Agent",
-                     image: Image(systemName: "terminal"),
-                     bodyText: "Add this line to your shell config telling SSH to talk to Secret Agent when it wants to authenticate. Drag this into your config file.",
-                     buttonTitle: "Done",
-                    buttonAction: buttonAction) {
+                      image: Image(systemName: "terminal"),
+                      bodyText: "Add this line to your shell config telling SSH to talk to Secret Agent when it wants to authenticate. Drag this into your config file.",
+                      buttonTitle: "Done",
+                      buttonAction: buttonAction) {
             Picker(selection: $selectedShellInstruction, label: EmptyView()) {
                 ForEach(SetupView.Constants.socketPrompts) { instruction in
                     Text(instruction.shell)
@@ -198,10 +213,10 @@ struct UpdaterExplainerView: View {
 
     var body: some View {
         SetupStepView(title: "Updates",
-                     image: Image(systemName: "dot.radiowaves.left.and.right"),
-                     bodyText: "Secretive will periodically check with GitHub to see if there's a new release. If you see any network requests to GitHub, that's why.",
-                     buttonTitle: "Okay",
-                     buttonAction: buttonAction) {
+                      image: Image(systemName: "dot.radiowaves.left.and.right"),
+                      bodyText: "Secretive will periodically check with GitHub to see if there's a new release. If you see any network requests to GitHub, that's why.",
+                      buttonTitle: "Okay",
+                      buttonAction: buttonAction) {
             Link("Read more about this here.", destination: SetupView.Constants.updaterFAQURL)
         }
     }
