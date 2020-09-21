@@ -7,11 +7,11 @@ struct SetupView: View {
     @Binding var setupComplete: Bool
 
     var body: some View {
-        GeometryReader { outerProxy in
+        GeometryReader { proxy in
             VStack {
-                StepView(numberOfSteps: 3, currentStep: stepIndex, width: 100)
-                GeometryReader { proxy in
-                    HStack {
+                StepView(numberOfSteps: 3, currentStep: stepIndex, width: proxy.size.width)
+                GeometryReader { _ in
+                    HStack(spacing: 0) {
                         SecretAgentSetupView(buttonAction: advance)
                             .frame(width: proxy.size.width)
                         SSHAgentSetupView(buttonAction: advance)
@@ -63,7 +63,7 @@ struct StepView: View {
                 .frame(height: 5)
             Rectangle()
                 .foregroundColor(.green)
-                .frame(width: max(0, (width / CGFloat(numberOfSteps - 1)) * CGFloat(currentStep)), height: 5)
+                .frame(width: max(0, ((width - (Constants.padding * 2)) / CGFloat(numberOfSteps - 1)) * CGFloat(currentStep) - (Constants.circleWidth / 2)), height: 5)
                 .animation(.spring())
             HStack {
                 ForEach(0..<numberOfSteps) { index in
@@ -71,18 +71,18 @@ struct StepView: View {
                         if currentStep > index {
                             Circle()
                                 .foregroundColor(.green)
-                                .frame(width: 30, height: 30)
+                                .frame(width: Constants.circleWidth, height: Constants.circleWidth)
                             Text("✓")
                                 .foregroundColor(.white)
                                 .bold()
                         } else {
                             Circle()
                                 .foregroundColor(.blue)
-                                .frame(width: 30, height: 30)
+                                .frame(width: Constants.circleWidth, height: Constants.circleWidth)
                             if currentStep == index {
                                 Circle()
                                     .strokeBorder(Color.white, lineWidth: 3)
-                                    .frame(width: 30, height: 30)
+                                    .frame(width: Constants.circleWidth, height: Constants.circleWidth)
                             }
                             Text(String(describing: index + 1))
                                 .foregroundColor(.white)
@@ -94,8 +94,18 @@ struct StepView: View {
                     }
                 }
             }
-        }
-        .padding()
+        }.padding(Constants.padding)
+    }
+
+}
+
+extension StepView {
+
+    enum Constants {
+
+        static let padding: CGFloat = 15
+        static let circleWidth: CGFloat = 30
+
     }
 
 }
@@ -136,8 +146,7 @@ struct SetupStepView<Content> : View where Content : View {
             Button(buttonTitle) {
                 buttonAction()
             }
-        }
-        .padding()
+        }.padding()
     }
 
 }
