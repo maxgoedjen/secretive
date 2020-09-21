@@ -23,7 +23,7 @@ struct CreateSecretView<StoreType: SecretStoreModifiable>: View {
                     }
                     HStack {
                         Text("Name:")
-                        TextField("Shhhhh", text: $name).focusable()
+                        TextField("Shhhhh", text: $name)
                     }
                     HStack {
                         Toggle(isOn: $requiresAuthentication) {
