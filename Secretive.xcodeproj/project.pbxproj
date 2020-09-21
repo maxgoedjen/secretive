@@ -31,6 +31,7 @@
 		50617DD223FCEFA90099B055 /* PreviewStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50617DD123FCEFA90099B055 /* PreviewStore.swift */; };
 		5066A6C22516F303004B5A36 /* SetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5066A6C12516F303004B5A36 /* SetupView.swift */; };
 		5066A6C82516FE6E004B5A36 /* CopyableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5066A6C72516FE6E004B5A36 /* CopyableView.swift */; };
+		5066A6F7251829B1004B5A36 /* ShellConfigurationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5066A6F6251829B1004B5A36 /* ShellConfigurationController.swift */; };
 		506772C72424784600034DED /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 506772C62424784600034DED /* Credits.rtf */; };
 		506772C92425BB8500034DED /* NoStoresView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506772C82425BB8500034DED /* NoStoresView.swift */; };
 		506772FF2426F3F400034DED /* Brief.h in Headers */ = {isa = PBXBuildFile; fileRef = 506772FD2426F3F400034DED /* Brief.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -237,6 +238,7 @@
 		50617DD123FCEFA90099B055 /* PreviewStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewStore.swift; sourceTree = "<group>"; };
 		5066A6C12516F303004B5A36 /* SetupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupView.swift; sourceTree = "<group>"; };
 		5066A6C72516FE6E004B5A36 /* CopyableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CopyableView.swift; sourceTree = "<group>"; };
+		5066A6F6251829B1004B5A36 /* ShellConfigurationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShellConfigurationController.swift; sourceTree = "<group>"; };
 		506772C62424784600034DED /* Credits.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = Credits.rtf; sourceTree = "<group>"; };
 		506772C82425BB8500034DED /* NoStoresView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoStoresView.swift; sourceTree = "<group>"; };
 		506772FB2426F3F400034DED /* Brief.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Brief.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -524,6 +526,7 @@
 				508A58B2241ED2180069DC07 /* AgentStatusChecker.swift */,
 				50571E0224393C2600F76F6C /* JustUpdatedChecker.swift */,
 				50571E0424393D1500F76F6C /* LaunchAgentController.swift */,
+				5066A6F6251829B1004B5A36 /* ShellConfigurationController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -930,6 +933,7 @@
 				50571E0324393C2600F76F6C /* JustUpdatedChecker.swift in Sources */,
 				5079BA0F250F29BF00EA86F4 /* StoreListView.swift in Sources */,
 				50617DD223FCEFA90099B055 /* PreviewStore.swift in Sources */,
+				5066A6F7251829B1004B5A36 /* ShellConfigurationController.swift in Sources */,
 				508A58B3241ED2180069DC07 /* AgentStatusChecker.swift in Sources */,
 				50C385A52407A76D00AF2719 /* SecretDetailView.swift in Sources */,
 				5099A02423FD2AAA0062B6F2 /* CreateSecretView.swift in Sources */,
@@ -1551,6 +1555,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Secretive/Secretive.entitlements;
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;

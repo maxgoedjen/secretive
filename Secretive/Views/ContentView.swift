@@ -41,7 +41,7 @@ extension ContentView {
 
     var updateNotice: ToolbarItem<Void, AnyView> {
         guard let update = updater.update else {
-            return ToolbarItem { AnyView(Spacer()) }
+            return ToolbarItem { AnyView(EmptyView()) }
         }
         let color: Color
         let text: String
@@ -72,7 +72,7 @@ extension ContentView {
 
     var newItem: ToolbarItem<Void, AnyView> {
         guard storeList.modifiableStore?.isAvailable ?? false else {
-            return ToolbarItem { AnyView(Spacer()) }
+            return ToolbarItem { AnyView(EmptyView()) }
         }
         return ToolbarItem {
             AnyView(
@@ -86,32 +86,31 @@ extension ContentView {
     }
 
     var setupNotice: ToolbarItem<Void, AnyView> {
-        guard runningSetup || !hasRunSetup || !agentStatusChecker.running else {
-            return ToolbarItem { AnyView(Spacer()) }
-        }
         return ToolbarItem {
             AnyView(
-                Button(action: {
-                    runningSetup = true
-                }, label: {
-                    Group {
-                        if hasRunSetup && !agentStatusChecker.running {
-                            Text("Secret Agent Is Not Running")
-                        } else {
-                            Text("Setup Secretive")
-                        }
+                Group {
+                    if runningSetup || !hasRunSetup || !agentStatusChecker.running  {
+                        Button(action: {
+                            runningSetup = true
+                        }, label: {
+                            Group {
+                                if hasRunSetup && !agentStatusChecker.running {
+                                    Text("Secret Agent Is Not Running")
+                                } else {
+                                    Text("Setup Secretive")
+                                }
+                            }
+                            .font(.headline)
+                            .foregroundColor(.white)
+                        })
+                        .background(Color.orange)
+                        .cornerRadius(5)
+                    } else {
+                        EmptyView()
                     }
-                    .font(.headline)
-                    .foregroundColor(.white)
-                })
-                .background(Color.orange)
-                .cornerRadius(5)
-                .popover(isPresented: $runningSetup, attachmentAnchor: .point(.bottom), arrowEdge: .bottom) {
-//                    SetupView { completed in
-//                        runningSetup = false
-//                        hasRunSetup = completed
-//                    }
-                    SetupView(visible: $runningSetup)
+                }
+                .sheet(isPresented: $runningSetup) {
+                    SetupView(visible: $runningSetup, setupComplete: $hasRunSetup)
                 }
             )
         }

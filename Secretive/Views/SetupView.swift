@@ -4,11 +4,12 @@ struct SetupView: View {
 
     @State var stepIndex = 0
     @Binding var visible: Bool
+    @Binding var setupComplete: Bool
 
     var body: some View {
-        GeometryReader { proxy in
+        GeometryReader { outerProxy in
             VStack {
-                StepView(numberOfSteps: 3, currentStep: stepIndex, width: 500)
+                StepView(numberOfSteps: 3, currentStep: stepIndex, width: 100)
                 GeometryReader { proxy in
                     HStack {
                         SecretAgentSetupView(buttonAction: advance)
@@ -17,11 +18,11 @@ struct SetupView: View {
                             .frame(width: proxy.size.width)
                         UpdaterExplainerView {
                             visible = false
+                            setupComplete = true
                         }
                         .frame(width: proxy.size.width)
                     }
                     .offset(x: -proxy.size.width * CGFloat(stepIndex), y: 0)
-                    .animation(.spring())
                 }
             }
         }
@@ -30,7 +31,9 @@ struct SetupView: View {
 
 
     func advance() {
-        stepIndex += 1
+        withAnimation(.spring()) {
+            stepIndex += 1
+        }
     }
 
 }
@@ -39,7 +42,7 @@ struct SetupView_Previews: PreviewProvider {
 
     static var previews: some View {
         Group {
-            SetupView(visible: .constant(true))
+            SetupView(visible: .constant(true), setupComplete: .constant(false))
         }
     }
 
@@ -60,7 +63,7 @@ struct StepView: View {
                 .frame(height: 5)
             Rectangle()
                 .foregroundColor(.green)
-                .frame(width: max(0, (width / CGFloat(numberOfSteps - 1)) * CGFloat(currentStep) - 15), height: 5)
+                .frame(width: max(0, (width / CGFloat(numberOfSteps - 1)) * CGFloat(currentStep)), height: 5)
                 .animation(.spring())
             HStack {
                 ForEach(0..<numberOfSteps) { index in
@@ -173,25 +176,46 @@ struct SecretAgentSetupView_Previews: PreviewProvider {
 
 struct SSHAgentSetupView: View {
 
-    @State var selectedShellInstruction: ShellConfigInstruction = SetupView.Constants.socketPrompts.first!
-
     let buttonAction: () -> Void
+
+    private static let controller = ShellConfigurationController()
+    @State private var selectedShellInstruction: ShellConfigInstruction = controller.shellInstructions.first!
 
     var body: some View {
         SetupStepView(title: "Configure your SSH Agent",
                       image: Image(systemName: "terminal"),
-                      bodyText: "Add this line to your shell config telling SSH to talk to Secret Agent when it wants to authenticate. Drag this into your config file.",
-                      buttonTitle: "Done",
+                      bodyText: "Add this line to your shell config telling SSH to talk to Secret Agent when it wants to authenticate. Secretive can either do this for you automatically, or you can copy and paste this into your config file.",
+                      buttonTitle: "I Added it Manually",
                       buttonAction: buttonAction) {
             Picker(selection: $selectedShellInstruction, label: EmptyView()) {
-                ForEach(SetupView.Constants.socketPrompts) { instruction in
+                ForEach(SSHAgentSetupView.controller.shellInstructions) { instruction in
                     Text(instruction.shell)
                         .tag(instruction)
                         .padding()
                 }
             }.pickerStyle(SegmentedPickerStyle())
             CopyableView(title: "Add to \(selectedShellInstruction.shellConfigPath)", image: Image(systemName: "greaterthan.square"), text: selectedShellInstruction.text)
+            Button("Add it For Me") {
+                let controller = ShellConfigurationController()
+                if controller.addToShell(shellInstructions: selectedShellInstruction) {
+                    buttonAction()
+                }
+            }
         }
+    }
+
+}
+
+class Delegate: NSObject, NSOpenSavePanelDelegate {
+
+    private let name: String
+
+    init(name: String) {
+        self.name = name
+    }
+
+    func panel(_ sender: Any, shouldEnable url: URL) -> Bool {
+        return url.lastPathComponent == name
     }
 
 }
@@ -234,18 +258,6 @@ struct UpdaterExplainerView_Previews: PreviewProvider {
 extension SetupView {
 
     enum Constants {
-        static let socketPath = (NSHomeDirectory().replacingOccurrences(of: "com.maxgoedjen.Secretive.Host", with: "com.maxgoedjen.Secretive.SecretAgent") as NSString).appendingPathComponent("socket.ssh") as String
-        static let socketPrompts: [ShellConfigInstruction] = [
-            ShellConfigInstruction(shell: "zsh",
-                                   shellConfigPath: "~/.zshrc",
-                                   text: "export SSH_AUTH_SOCK=\(socketPath)"),
-            ShellConfigInstruction(shell: "bash",
-                                   shellConfigPath: "~/.bashrc",
-                                   text: "export SSH_AUTH_SOCK=\(socketPath)"),
-            ShellConfigInstruction(shell: "fish",
-                                   shellConfigPath: "~/.config/fish/config.fish",
-                                   text: "set -x SSH_AUTH_SOCK=\(socketPath)"),
-        ]
         static let updaterFAQURL = URL(string: "https://github.com/maxgoedjen/secretive/blob/main/FAQ.md#whats-this-network-request-to-github")!
     }
 
@@ -254,11 +266,16 @@ extension SetupView {
 struct ShellConfigInstruction: Identifiable, Hashable {
 
     var shell: String
-    var shellConfigPath: String
+    var shellConfigDirectory: String
+    var shellConfigFilename: String
     var text: String
 
     var id: String {
         shell
+    }
+
+    var shellConfigPath: String {
+        return (shellConfigDirectory as NSString).appendingPathComponent(shellConfigFilename)
     }
 
 }
