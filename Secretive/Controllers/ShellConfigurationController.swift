@@ -2,33 +2,28 @@ import Foundation
 import Cocoa
 
 struct ShellConfigurationController {
-
+    
     let socketPath = (NSHomeDirectory().replacingOccurrences(of: "com.maxgoedjen.Secretive.Host", with: "com.maxgoedjen.Secretive.SecretAgent") as NSString).appendingPathComponent("socket.ssh") as String
-
+    
     var shellInstructions: [ShellConfigInstruction] {
         [
-        ShellConfigInstruction(shell: "test",
-                               shellConfigDirectory: "~/",
-                               shellConfigFilename: ".test",
-                               text: "export SSH_AUTH_SOCK=\(socketPath)"),
-
-        //            ShellConfigInstruction(shell: "zsh",
-        //                                   shellConfigDirectory: "~/",
-        //                                   shellConfigFilename: ".zshrc",
-        //                                   text: "export SSH_AUTH_SOCK=\(socketPath)"),
-        ShellConfigInstruction(shell: "bash",
-                               shellConfigDirectory: "~/",
-                               shellConfigFilename: ".bashrc",
-                               text: "export SSH_AUTH_SOCK=\(socketPath)"),
-        ShellConfigInstruction(shell: "fish",
-                               shellConfigDirectory: "~/.config/fish",
-                               shellConfigFilename: "config.fish",
-                               text: "set -x SSH_AUTH_SOCK=\(socketPath)"),
-    ]
-
+            ShellConfigInstruction(shell: "zsh",
+                                   shellConfigDirectory: "~/",
+                                   shellConfigFilename: ".zshrc",
+                                   text: "export SSH_AUTH_SOCK=\(socketPath)"),
+            ShellConfigInstruction(shell: "bash",
+                                   shellConfigDirectory: "~/",
+                                   shellConfigFilename: ".bashrc",
+                                   text: "export SSH_AUTH_SOCK=\(socketPath)"),
+            ShellConfigInstruction(shell: "fish",
+                                   shellConfigDirectory: "~/.config/fish",
+                                   shellConfigFilename: "config.fish",
+                                   text: "set -x SSH_AUTH_SOCK=\(socketPath)"),
+        ]
+        
     }
-
-
+    
+    
     func addToShell(shellInstructions: ShellConfigInstruction) -> Bool {
         let openPanel = NSOpenPanel()
         // This is sync, so no need to strongly retain
@@ -59,5 +54,5 @@ struct ShellConfigurationController {
         handle.write("\n# Secretive Config\n\(shellInstructions.text)\n".data(using: .utf8)!)
         return true
     }
-
+    
 }
