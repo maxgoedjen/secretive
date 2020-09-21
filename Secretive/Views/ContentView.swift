@@ -13,6 +13,7 @@ struct ContentView<UpdaterType: UpdaterProtocol, AgentStatusCheckerType: AgentSt
     @EnvironmentObject private var agentStatusChecker: AgentStatusCheckerType
 
     @State private var selectedUpdate: Release?
+    @State private var showingAppPathNotice = false
 
     var body: some View {
         VStack {
@@ -31,6 +32,7 @@ struct ContentView<UpdaterType: UpdaterProtocol, AgentStatusCheckerType: AgentSt
         .toolbar {
             updateNotice
             setupNotice
+            appPathNotice
             newItem
         }
     }
@@ -111,6 +113,39 @@ extension ContentView {
                 }
                 .sheet(isPresented: $runningSetup) {
                     SetupView(visible: $runningSetup, setupComplete: $hasRunSetup)
+                }
+            )
+        }
+    }
+
+    var appPathNotice: ToolbarItem<Void, AnyView> {
+        let controller = ApplicationDirectoryController()
+        guard !controller.isInApplicationsDirectory else {
+            return ToolbarItem { AnyView(EmptyView()) }
+        }
+        return ToolbarItem {
+            AnyView(
+                Button(action: {
+                    showingAppPathNotice = true
+                }, label: {
+                    Group {
+                        Text("Secretive Is Not in Applications Folder")
+                    }
+                    .font(.headline)
+                    .foregroundColor(.white)
+                })
+                .background(Color.orange)
+                .cornerRadius(5)
+                .popover(isPresented: $showingAppPathNotice, attachmentAnchor: .point(.bottom), arrowEdge: .bottom) {
+                    VStack {
+                        Image(systemName: "exclamationmark.triangle")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 64)
+                        Text("Secretive needs to be in your Applications folder to work properly. Please move it and relaunch.")
+                            .frame(maxWidth: 300)
+                    }
+                    .padding()
                 }
             )
         }

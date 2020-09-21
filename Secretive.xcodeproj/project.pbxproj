@@ -61,6 +61,7 @@
 		508A58B5241ED48F0069DC07 /* PreviewAgentStatusChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508A58B4241ED48F0069DC07 /* PreviewAgentStatusChecker.swift */; };
 		508A5911241EF09C0069DC07 /* SecretAgentKit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 5099A06C240242BA0062B6F2 /* SecretAgentKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		508A5913241EF0B20069DC07 /* SecretKit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 50617DA823FCE4AB0099B055 /* SecretKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		5091D2BC25183B830049FD9B /* ApplicationDirectoryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5091D2BB25183B830049FD9B /* ApplicationDirectoryController.swift */; };
 		5099A02423FD2AAA0062B6F2 /* CreateSecretView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5099A02323FD2AAA0062B6F2 /* CreateSecretView.swift */; };
 		5099A02723FE34FA0062B6F2 /* SmartCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5099A02623FE34FA0062B6F2 /* SmartCard.swift */; };
 		5099A02923FE35240062B6F2 /* SmartCardStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5099A02823FE35240062B6F2 /* SmartCardStore.swift */; };
@@ -264,6 +265,7 @@
 		508A58B2241ED2180069DC07 /* AgentStatusChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgentStatusChecker.swift; sourceTree = "<group>"; };
 		508A58B4241ED48F0069DC07 /* PreviewAgentStatusChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewAgentStatusChecker.swift; sourceTree = "<group>"; };
 		508A590F241EEF6D0069DC07 /* Secretive.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = Secretive.xctestplan; sourceTree = "<group>"; };
+		5091D2BB25183B830049FD9B /* ApplicationDirectoryController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationDirectoryController.swift; sourceTree = "<group>"; };
 		5099A02323FD2AAA0062B6F2 /* CreateSecretView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateSecretView.swift; sourceTree = "<group>"; };
 		5099A02623FE34FA0062B6F2 /* SmartCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmartCard.swift; sourceTree = "<group>"; };
 		5099A02823FE35240062B6F2 /* SmartCardStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmartCardStore.swift; sourceTree = "<group>"; };
@@ -524,6 +526,7 @@
 			isa = PBXGroup;
 			children = (
 				508A58B2241ED2180069DC07 /* AgentStatusChecker.swift */,
+				5091D2BB25183B830049FD9B /* ApplicationDirectoryController.swift */,
 				50571E0224393C2600F76F6C /* JustUpdatedChecker.swift */,
 				50571E0424393D1500F76F6C /* LaunchAgentController.swift */,
 				5066A6F6251829B1004B5A36 /* ShellConfigurationController.swift */,
@@ -928,6 +931,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5091D2BC25183B830049FD9B /* ApplicationDirectoryController.swift in Sources */,
 				5066A6C22516F303004B5A36 /* SetupView.swift in Sources */,
 				50617D8523FCE48E0099B055 /* ContentView.swift in Sources */,
 				50571E0324393C2600F76F6C /* JustUpdatedChecker.swift in Sources */,
