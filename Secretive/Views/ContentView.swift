@@ -153,6 +153,8 @@ extension ContentView {
 
 }
 
+#if DEBUG
+
 struct ContentView_Previews: PreviewProvider {
 
     private static let storeList: SecretStoreList = {
@@ -186,3 +188,5 @@ struct ContentView_Previews: PreviewProvider {
 
     }
 }
+
+#endif

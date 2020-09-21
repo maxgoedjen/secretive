@@ -38,16 +38,6 @@ struct SetupView: View {
 
 }
 
-struct SetupView_Previews: PreviewProvider {
-
-    static var previews: some View {
-        Group {
-            SetupView(visible: .constant(true), setupComplete: .constant(false))
-        }
-    }
-
-}
-
 struct StepView: View {
 
     let numberOfSteps: Int
@@ -173,16 +163,6 @@ struct SecretAgentSetupView: View {
 
 }
 
-struct SecretAgentSetupView_Previews: PreviewProvider {
-
-    static var previews: some View {
-        Group {
-            SecretAgentSetupView(buttonAction: {})
-        }
-    }
-
-}
-
 struct SSHAgentSetupView: View {
 
     let buttonAction: () -> Void
@@ -229,17 +209,6 @@ class Delegate: NSObject, NSOpenSavePanelDelegate {
 
 }
 
-struct SSHAgentSetupView_Previews: PreviewProvider {
-
-    static var previews: some View {
-        Group {
-            SSHAgentSetupView(buttonAction: {})
-        }
-    }
-
-}
-
-
 struct UpdaterExplainerView: View {
 
     let buttonAction: () -> Void
@@ -254,14 +223,6 @@ struct UpdaterExplainerView: View {
         }
     }
 
-}
-
-struct UpdaterExplainerView_Previews: PreviewProvider {
-    static var previews: some View {
-        Group {
-            UpdaterExplainerView(buttonAction: {})
-        }
-    }
 }
 
 extension SetupView {
@@ -288,3 +249,47 @@ struct ShellConfigInstruction: Identifiable, Hashable {
     }
 
 }
+
+#if DEBUG
+
+struct SetupView_Previews: PreviewProvider {
+
+    static var previews: some View {
+        Group {
+            SetupView(visible: .constant(true), setupComplete: .constant(false))
+        }
+    }
+
+}
+
+struct SecretAgentSetupView_Previews: PreviewProvider {
+
+    static var previews: some View {
+        Group {
+            SecretAgentSetupView(buttonAction: {})
+        }
+    }
+
+}
+
+struct SSHAgentSetupView_Previews: PreviewProvider {
+
+    static var previews: some View {
+        Group {
+            SSHAgentSetupView(buttonAction: {})
+        }
+    }
+
+}
+
+struct UpdaterExplainerView_Previews: PreviewProvider {
+
+    static var previews: some View {
+        Group {
+            UpdaterExplainerView(buttonAction: {})
+        }
+    }
+    
+}
+
+#endif

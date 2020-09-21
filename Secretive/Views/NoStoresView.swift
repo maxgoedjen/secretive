@@ -12,8 +12,12 @@ struct NoStoresView: View {
     
 }
 
+#if DEBUG
+
 struct NoStoresView_Previews: PreviewProvider {
     static var previews: some View {
         NoStoresView()
     }
 }
+
+#endif

@@ -121,6 +121,8 @@ struct CopyableView: View {
 
 }
 
+#if DEBUG
+
 struct CopyableView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
@@ -129,3 +131,5 @@ struct CopyableView_Previews: PreviewProvider {
         }
     }
 }
+
+#endif
