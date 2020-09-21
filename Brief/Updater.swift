@@ -44,6 +44,7 @@ extension Updater {
 
     func evaluate(release: Release) {
         guard !userIgnored(release: release) else { return }
+        guard !release.prerelease else { return }
         let latestVersion = semVer(from: release.name)
         let currentVersion = semVer(from: Bundle.main.infoDictionary!["CFBundleShortVersionString"] as! String)
         for (latest, current) in zip(latestVersion, currentVersion) {
@@ -85,11 +86,13 @@ extension Updater {
 public struct Release: Codable {
 
     public let name: String
+    public let prerelease: Bool
     public let html_url: URL
     public let body: String
 
-    public init(name: String, html_url: URL, body: String) {
+    public init(name: String, prerelease: Bool, html_url: URL, body: String) {
         self.name = name
+        self.prerelease = prerelease
         self.html_url = html_url
         self.body = body
     }

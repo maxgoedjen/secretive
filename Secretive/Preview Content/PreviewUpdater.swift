@@ -11,9 +11,9 @@ class PreviewUpdater: UpdaterProtocol {
         case .none:
             self.update = nil
         case .advisory:
-            self.update = Release(name: "10.10.10", html_url: URL(string: "https://example.com")!, body: "Some regular update")
+            self.update = Release(name: "10.10.10", prerelease: false, html_url: URL(string: "https://example.com")!, body: "Some regular update")
         case .critical:
-            self.update = Release(name: "10.10.10", html_url: URL(string: "https://example.com")!, body: "Critical Security Update")
+            self.update = Release(name: "10.10.10", prerelease: false, html_url: URL(string: "https://example.com")!, body: "Critical Security Update")
         }
     }
 
