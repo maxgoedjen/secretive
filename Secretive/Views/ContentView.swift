@@ -23,11 +23,6 @@ struct ContentView<UpdaterType: UpdaterProtocol, AgentStatusCheckerType: AgentSt
                 NoStoresView()
             }
         }
-        .sheet(isPresented: $showingCreation) {
-            if let modifiable = storeList.modifiableStore {
-                CreateSecretView(store: modifiable, showing: $showingCreation)
-            }
-        }
         .frame(minWidth: 640, minHeight: 320)
         .toolbar {
             updateNotice
@@ -83,6 +78,12 @@ extension ContentView {
                 }, label: {
                     Image(systemName: "plus")
                 })
+                .popover(isPresented: $showingCreation, attachmentAnchor: .point(.bottom), arrowEdge: .bottom) {
+                    if let modifiable = storeList.modifiableStore {
+                        CreateSecretView(store: modifiable, showing: $showingCreation)
+                    }
+                }
+
             )
         }
     }
