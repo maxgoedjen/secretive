@@ -45,24 +45,13 @@ extension Updater {
     func evaluate(release: Release) {
         guard !userIgnored(release: release) else { return }
         guard !release.prerelease else { return }
-        let latestVersion = semVer(from: release.name)
-        let currentVersion = semVer(from: Bundle.main.infoDictionary!["CFBundleShortVersionString"] as! String)
-        for (latest, current) in zip(latestVersion, currentVersion) {
-            if latest > current {
-                DispatchQueue.main.async {
-                    self.update = release
-                }
-                return
+        let latestVersion = SemVer(release.name)
+        let currentVersion = SemVer(Bundle.main.infoDictionary!["CFBundleShortVersionString"] as! String)
+        if latestVersion > currentVersion {
+            DispatchQueue.main.async {
+                self.update = release
             }
         }
-    }
-
-    func semVer(from stringVersion: String) -> [Int] {
-        var split = stringVersion.split(separator: ".").compactMap { Int($0) }
-        while split.count < 3 {
-            split.append(0)
-        }
-        return split
     }
 
     func userIgnored(release: Release) -> Bool {
@@ -73,6 +62,38 @@ extension Updater {
     var defaults: UserDefaults {
         UserDefaults(suiteName: "com.maxgoedjen.Secretive.updater.ignorelist")!
     }
+}
+
+struct SemVer {
+
+    let versionNumbers: [Int]
+
+    init(_ version: String) {
+        // Betas have the format 1.2.3_beta1
+        let strippedBeta = version.split(separator: "_").first!
+        var split = strippedBeta.split(separator: ".").compactMap { Int($0) }
+        while split.count < 3 {
+            split.append(0)
+        }
+        versionNumbers = split
+    }
+
+}
+
+extension SemVer: Comparable {
+
+    static func < (lhs: SemVer, rhs: SemVer) -> Bool {
+        for (latest, current) in zip(lhs.versionNumbers, rhs.versionNumbers) {
+            if latest < current {
+                return true
+            } else if latest > current {
+                return false
+            }
+        }
+        return false
+    }
+
+
 }
 
 extension Updater {

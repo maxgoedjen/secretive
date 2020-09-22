@@ -62,6 +62,8 @@
 		508A5911241EF09C0069DC07 /* SecretAgentKit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 5099A06C240242BA0062B6F2 /* SecretAgentKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		508A5913241EF0B20069DC07 /* SecretKit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 50617DA823FCE4AB0099B055 /* SecretKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		5091D2BC25183B830049FD9B /* ApplicationDirectoryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5091D2BB25183B830049FD9B /* ApplicationDirectoryController.swift */; };
+		5091D3222519D56D0049FD9B /* BriefTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5091D3212519D56D0049FD9B /* BriefTests.swift */; };
+		5091D3242519D56D0049FD9B /* Brief.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 506772FB2426F3F400034DED /* Brief.framework */; };
 		5099A02423FD2AAA0062B6F2 /* CreateSecretView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5099A02323FD2AAA0062B6F2 /* CreateSecretView.swift */; };
 		5099A02723FE34FA0062B6F2 /* SmartCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5099A02623FE34FA0062B6F2 /* SmartCard.swift */; };
 		5099A02923FE35240062B6F2 /* SmartCardStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5099A02823FE35240062B6F2 /* SmartCardStore.swift */; };
@@ -140,6 +142,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 50617DA723FCE4AB0099B055;
 			remoteInfo = SecretKit;
+		};
+		5091D3252519D56D0049FD9B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 50617D7723FCE48D0099B055 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 506772FA2426F3F400034DED;
+			remoteInfo = Brief;
 		};
 		5099A076240242BA0062B6F2 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -266,6 +275,9 @@
 		508A58B4241ED48F0069DC07 /* PreviewAgentStatusChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewAgentStatusChecker.swift; sourceTree = "<group>"; };
 		508A590F241EEF6D0069DC07 /* Secretive.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = Secretive.xctestplan; sourceTree = "<group>"; };
 		5091D2BB25183B830049FD9B /* ApplicationDirectoryController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationDirectoryController.swift; sourceTree = "<group>"; };
+		5091D31F2519D56D0049FD9B /* BriefTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BriefTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		5091D3212519D56D0049FD9B /* BriefTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BriefTests.swift; sourceTree = "<group>"; };
+		5091D3232519D56D0049FD9B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5099A02323FD2AAA0062B6F2 /* CreateSecretView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateSecretView.swift; sourceTree = "<group>"; };
 		5099A02623FE34FA0062B6F2 /* SmartCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmartCard.swift; sourceTree = "<group>"; };
 		5099A02823FE35240062B6F2 /* SmartCardStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmartCardStore.swift; sourceTree = "<group>"; };
@@ -331,6 +343,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		5091D31C2519D56D0049FD9B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5091D3242519D56D0049FD9B /* Brief.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		5099A069240242BA0062B6F2 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -379,6 +399,7 @@
 				5099A07A240242BA0062B6F2 /* SecretAgentKitTests */,
 				508A58AF241E144C0069DC07 /* Config */,
 				506772FC2426F3F400034DED /* Brief */,
+				5091D3202519D56D0049FD9B /* BriefTests */,
 				50617D8023FCE48E0099B055 /* Products */,
 				5099A08B240243730062B6F2 /* Frameworks */,
 			);
@@ -395,6 +416,7 @@
 				5099A074240242BA0062B6F2 /* SecretAgentKitTests.xctest */,
 				50A3B78A24026B7500D209EA /* SecretAgent.app */,
 				506772FB2426F3F400034DED /* Brief.framework */,
+				5091D31F2519D56D0049FD9B /* BriefTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -532,6 +554,15 @@
 				5066A6F6251829B1004B5A36 /* ShellConfigurationController.swift */,
 			);
 			path = Controllers;
+			sourceTree = "<group>";
+		};
+		5091D3202519D56D0049FD9B /* BriefTests */ = {
+			isa = PBXGroup;
+			children = (
+				5091D3212519D56D0049FD9B /* BriefTests.swift */,
+				5091D3232519D56D0049FD9B /* Info.plist */,
+			);
+			path = BriefTests;
 			sourceTree = "<group>";
 		};
 		5099A02523FE34DE0062B6F2 /* SmartCard */ = {
@@ -737,6 +768,24 @@
 			productReference = 506772FB2426F3F400034DED /* Brief.framework */;
 			productType = "com.apple.product-type.framework";
 		};
+		5091D31E2519D56D0049FD9B /* BriefTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5091D32A2519D56D0049FD9B /* Build configuration list for PBXNativeTarget "BriefTests" */;
+			buildPhases = (
+				5091D31B2519D56D0049FD9B /* Sources */,
+				5091D31C2519D56D0049FD9B /* Frameworks */,
+				5091D31D2519D56D0049FD9B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				5091D3262519D56D0049FD9B /* PBXTargetDependency */,
+			);
+			name = BriefTests;
+			productName = BriefTests;
+			productReference = 5091D31F2519D56D0049FD9B /* BriefTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		5099A06B240242BA0062B6F2 /* SecretAgentKit */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5099A083240242BA0062B6F2 /* Build configuration list for PBXNativeTarget "SecretAgentKit" */;
@@ -802,7 +851,7 @@
 		50617D7723FCE48D0099B055 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1140;
+				LastSwiftUpdateCheck = 1220;
 				LastUpgradeCheck = 1130;
 				ORGANIZATIONNAME = "Max Goedjen";
 				TargetAttributes = {
@@ -823,6 +872,9 @@
 					506772FA2426F3F400034DED = {
 						CreatedOnToolsVersion = 11.4;
 						LastSwiftMigration = 1140;
+					};
+					5091D31E2519D56D0049FD9B = {
+						CreatedOnToolsVersion = 12.2;
 					};
 					5099A06B240242BA0062B6F2 = {
 						CreatedOnToolsVersion = 11.4;
@@ -857,6 +909,7 @@
 				5099A06B240242BA0062B6F2 /* SecretAgentKit */,
 				5099A073240242BA0062B6F2 /* SecretAgentKitTests */,
 				506772FA2426F3F400034DED /* Brief */,
+				5091D31E2519D56D0049FD9B /* BriefTests */,
 			);
 		};
 /* End PBXProject section */
@@ -894,6 +947,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		506772F92426F3F400034DED /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5091D31D2519D56D0049FD9B /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1000,6 +1060,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		5091D31B2519D56D0049FD9B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5091D3222519D56D0049FD9B /* BriefTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		5099A068240242BA0062B6F2 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1077,6 +1145,11 @@
 			isa = PBXTargetDependency;
 			target = 50617DA723FCE4AB0099B055 /* SecretKit */;
 			targetProxy = 507CE4F12420A6B50029F750 /* PBXContainerItemProxy */;
+		};
+		5091D3262519D56D0049FD9B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 506772FA2426F3F400034DED /* Brief */;
+			targetProxy = 5091D3252519D56D0049FD9B /* PBXContainerItemProxy */;
 		};
 		5099A077240242BA0062B6F2 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -1729,6 +1802,63 @@
 			};
 			name = Test;
 		};
+		5091D3272519D56D0049FD9B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = Z72PRUAWF6;
+				INFOPLIST_FILE = BriefTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.maxgoedjen.BriefTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		5091D3282519D56D0049FD9B /* Test */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = Z72PRUAWF6;
+				INFOPLIST_FILE = BriefTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.maxgoedjen.BriefTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Test;
+		};
+		5091D3292519D56D0049FD9B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = Z72PRUAWF6;
+				INFOPLIST_FILE = BriefTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.maxgoedjen.BriefTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
 		5099A084240242BA0062B6F2 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1937,6 +2067,16 @@
 				506773052426F3F400034DED /* Debug */,
 				506773062426F3F400034DED /* Test */,
 				506773072426F3F400034DED /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5091D32A2519D56D0049FD9B /* Build configuration list for PBXNativeTarget "BriefTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5091D3272519D56D0049FD9B /* Debug */,
+				5091D3282519D56D0049FD9B /* Test */,
+				5091D3292519D56D0049FD9B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
