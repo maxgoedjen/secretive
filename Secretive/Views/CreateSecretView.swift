@@ -1,15 +1,14 @@
 import SwiftUI
 import SecretKit
 
-struct CreateSecretView: View {
+struct CreateSecretView<StoreType: SecretStoreModifiable>: View {
     
-    @ObservedObject var store: AnySecretStoreModifiable
+    @ObservedObject var store: StoreType
+    @Binding var showing: Bool
     
-    @State var name = ""
-    @State var requiresAuthentication = true
-    
-    var dismissalBlock: () -> ()
-    
+    @State private var name = ""
+    @State private var requiresAuthentication = true
+
     var body: some View {
         VStack {
             HStack {
@@ -33,22 +32,22 @@ struct CreateSecretView: View {
                         Spacer()
                     }
                 }
-                .onExitCommand(perform: dismissalBlock)
             }
             HStack {
                 Spacer()
-                Button(action: dismissalBlock) {
-                    Text("Cancel")
+                Button("Cancel") {
+                    showing = false
                 }
-                Button(action: save) {
-                    Text("Create")
-                }.disabled(name.isEmpty)
+                .keyboardShortcut(.cancelAction)
+                Button("Create", action: save)
+                    .disabled(name.isEmpty)
+                    .keyboardShortcut(.defaultAction)
             }
         }.padding()
     }
     
     func save() {
         try! store.create(name: name, requiresAuthentication: requiresAuthentication)
-        dismissalBlock()
+        showing = false
     }
 }

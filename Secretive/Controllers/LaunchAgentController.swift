@@ -4,12 +4,8 @@ import ServiceManagement
 struct LaunchAgentController {
 
     func install() -> Bool {
-        setEnabled(true)
-    }
-
-    func relaunch() {
         _ = setEnabled(false)
-        _ = setEnabled(true)
+        return setEnabled(true)
     }
 
     private func setEnabled(_ enabled: Bool) -> Bool {

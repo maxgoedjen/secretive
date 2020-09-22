@@ -20,12 +20,13 @@ Please run `ssh -Tv git@github.com` in your terminal and paste the output in a [
 
 1) Make sure you have enabled "Use your Apple Watch to unlock apps and your Mac" in System Preferences --> Security & Privacy:
 
-![System Preferences Setting](assets/apple_watch_system_prefs.png)
+![System Preferences Setting](.github/readme/apple_watch_system_prefs.png)
 
 2) Ensure that unlocking your Mac with Apple Watch is working (lock and unlock at least once)
 3) Now you should get prompted on the watch when your key is accessed. Double click the side button to approve:
 
-![Apple Watch Prompt](assets/apple_watch_auth.png)
+![Apple Watch Prompt](.github/readme/apple_watch_auth_mac.png)
+![Apple Watch Prompt](.github/readme/apple_watch_auth_watch.png)
 
 ### Why should I trust you?
 

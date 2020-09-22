@@ -13,15 +13,14 @@ class Notifier {
         let updateAction = UNNotificationAction(identifier: Constants.updateActionIdentitifier, title: "Update", options: [])
         let ignoreAction = UNNotificationAction(identifier: Constants.ignoreActionIdentitifier, title: "Ignore", options: [])
         let updateCategory = UNNotificationCategory(identifier: Constants.updateCategoryIdentitifier, actions: [updateAction, ignoreAction], intentIdentifiers: [], options: [])
-        let criticalUpdateCategory = UNNotificationCategory(identifier: Constants.updateCategoryIdentitifier, actions: [updateAction], intentIdentifiers: [], options: [])
+        let criticalUpdateCategory = UNNotificationCategory(identifier: Constants.criticalUpdateCategoryIdentitifier, actions: [updateAction], intentIdentifiers: [], options: [])
         UNUserNotificationCenter.current().setNotificationCategories([updateCategory, criticalUpdateCategory])
         UNUserNotificationCenter.current().delegate = notificationDelegate
     }
 
     func prompt() {
         let notificationCenter = UNUserNotificationCenter.current()
-        notificationCenter.requestAuthorization(options: .alert) { _, _ in
-        }
+        notificationCenter.requestAuthorization(options: .alert) { _, _ in }
     }
 
     func notify(accessTo secret: AnySecret, by provenance: SigningRequestProvenance) {
@@ -117,7 +116,7 @@ class NotificationDelegate: NSObject, UNUserNotificationCenterDelegate {
     }
 
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        completionHandler(.alert)
+        completionHandler([.list, .banner])
     }
 
 }

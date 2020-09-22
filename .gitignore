@@ -91,3 +91,4 @@ iOSInjectionProject/
 
 # Build script products
 Archive.xcarchive
+.DS_Store
