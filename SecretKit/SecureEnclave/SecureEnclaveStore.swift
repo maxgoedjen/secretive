@@ -78,7 +78,7 @@ extension SecureEnclave {
 
         public func sign(data: Data, with secret: SecretType, for provenance: SigningRequestProvenance) throws -> Data {
             let context = LAContext()
-            context.localizedReason = "sign a request from \(provenance.origin) using secret \"\(secret.name)\""
+            context.localizedReason = "sign a request from \"\(provenance.origin.name)\" using secret \"\(secret.name)\""
             context.localizedCancelTitle = "Deny"
             let attributes = [
                 kSecClass: kSecClassKey,
