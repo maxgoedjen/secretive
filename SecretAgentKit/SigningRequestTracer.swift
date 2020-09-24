@@ -1,6 +1,7 @@
 import Foundation
 import AppKit
 import Security
+import SecretKit
 
 struct SigningRequestTracer {
 

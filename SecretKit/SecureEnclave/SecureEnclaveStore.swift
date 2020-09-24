@@ -76,9 +76,9 @@ extension SecureEnclave {
             reloadSecrets()
         }
 
-        public func sign(data: Data, with secret: SecretType) throws -> Data {
+        public func sign(data: Data, with secret: SecretType, for provenance: SigningRequestProvenance) throws -> Data {
             let context = LAContext()
-            context.localizedReason = "sign a request from Terminal using secret \"\(secret.name)\""
+            context.localizedReason = "sign a request from \(provenance.origin) using secret \"\(secret.name)\""
             context.localizedCancelTitle = "Deny"
             let attributes = [
                 kSecClass: kSecClassKey,
