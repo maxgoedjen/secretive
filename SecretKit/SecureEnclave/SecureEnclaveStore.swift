@@ -1,6 +1,7 @@
 import Foundation
 import Security
 import CryptoTokenKit
+import LocalAuthentication
 
 extension SecureEnclave {
 
@@ -75,7 +76,10 @@ extension SecureEnclave {
             reloadSecrets()
         }
 
-        public func sign(data: Data, with secret: SecretType) throws -> Data {
+        public func sign(data: Data, with secret: SecretType, for provenance: SigningRequestProvenance) throws -> Data {
+            let context = LAContext()
+            context.localizedReason = "sign a request from \"\(provenance.origin.name)\" using secret \"\(secret.name)\""
+            context.localizedCancelTitle = "Deny"
             let attributes = [
                 kSecClass: kSecClassKey,
                 kSecAttrKeyClass: kSecAttrKeyClassPrivate,
@@ -83,6 +87,7 @@ extension SecureEnclave {
                 kSecAttrKeyType: Constants.keyType,
                 kSecAttrTokenID: kSecAttrTokenIDSecureEnclave,
                 kSecAttrApplicationTag: Constants.keyTag,
+                kSecUseAuthenticationContext: context,
                 kSecReturnRef: true
                 ] as CFDictionary
             var untyped: CFTypeRef?

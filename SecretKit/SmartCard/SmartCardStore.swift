@@ -1,6 +1,7 @@
 import Foundation
 import Security
 import CryptoTokenKit
+import LocalAuthentication
 
 // TODO: Might need to split this up into "sub-stores?"
 // ie, each token has its own Store.
@@ -43,13 +44,17 @@ extension SmartCard {
             fatalError("Keys must be deleted on the smart card.")
         }
 
-        public func sign(data: Data, with secret: SecretType) throws -> Data {
+        public func sign(data: Data, with secret: SecretType, for provenance: SigningRequestProvenance) throws -> Data {
             guard let tokenID = tokenID else { fatalError() }
+            let context = LAContext()
+            context.localizedReason = "sign a request from \"\(provenance.origin.name)\" using secret \"\(secret.name)\""
+            context.localizedCancelTitle = "Deny"
             let attributes = [
                 kSecClass: kSecClassKey,
                 kSecAttrKeyClass: kSecAttrKeyClassPrivate,
                 kSecAttrApplicationLabel: secret.id as CFData,
                 kSecAttrTokenID: tokenID,
+                kSecUseAuthenticationContext: context,
                 kSecReturnRef: true
                 ] as CFDictionary
             var untyped: CFTypeRef?
