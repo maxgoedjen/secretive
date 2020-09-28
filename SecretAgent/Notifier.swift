@@ -26,9 +26,9 @@ class Notifier {
     func notify(accessTo secret: AnySecret, by provenance: SigningRequestProvenance) {
         let notificationCenter = UNUserNotificationCenter.current()
         let notificationContent = UNMutableNotificationContent()
-        notificationContent.title = "Signed Request from \(provenance.origin.name)"
+        notificationContent.title = "Signed Request from \(provenance.origin.displayName)"
         notificationContent.subtitle = "Using secret \"\(secret.name)\""
-        if let iconURL = iconURL(for: provenance), let attachment = try? UNNotificationAttachment(identifier: "icon", url: iconURL, options: nil) {
+        if let iconURL = provenance.origin.iconURL, let attachment = try? UNNotificationAttachment(identifier: "icon", url: iconURL, options: nil) {
             notificationContent.attachments = [attachment]
         }
         let request = UNNotificationRequest(identifier: UUID().uuidString, content: notificationContent, trigger: nil)
@@ -50,23 +50,6 @@ class Notifier {
         notificationContent.categoryIdentifier = update.critical ? Constants.criticalUpdateCategoryIdentitifier : Constants.updateCategoryIdentitifier
         let request = UNNotificationRequest(identifier: UUID().uuidString, content: notificationContent, trigger: nil)
         notificationCenter.add(request, withCompletionHandler: nil)
-    }
-
-}
-
-extension Notifier {
-
-    func iconURL(for provenance: SigningRequestProvenance) -> URL? {
-        do {
-            if let app = NSRunningApplication(processIdentifier: provenance.origin.pid), let icon = app.icon?.tiffRepresentation {
-                let temporaryURL = URL(fileURLWithPath: (NSTemporaryDirectory() as NSString).appendingPathComponent("\(UUID().uuidString).png"))
-                let bitmap = NSBitmapImageRep(data: icon)
-                try bitmap?.representation(using: .png, properties: [:])?.write(to: temporaryURL)
-                return temporaryURL
-            }
-        } catch {
-        }
-        return nil
     }
 
 }
