@@ -4,6 +4,9 @@ import Security
 import SecretKit
 
 struct SigningRequestTracer {
+}
+
+extension SigningRequestTracer {
 
     func provenance(from fileHandleReader: FileHandleReader) -> SigningRequestProvenance {
         let firstInfo = process(from: fileHandleReader.pidOfConnectedProcess)
@@ -34,7 +37,24 @@ struct SigningRequestTracer {
         let flags: SecCSFlags = [.considerExpiration, .enforceRevocationChecks]
         SecCodeCreateWithPID(pid, SecCSFlags(), &secCode)
         let valid = SecCodeCheckValidity(secCode.takeRetainedValue(), flags, nil) == errSecSuccess
-        return SigningRequestProvenance.Process(pid: pid, name: procName, path: path, validSignature: valid, parentPID: ppid)
+        return SigningRequestProvenance.Process(pid: pid, processName: procName, appName: appName(for: pid), iconURL: iconURL(for: pid), path: path, validSignature: valid, parentPID: ppid)
+    }
+
+    func iconURL(for pid: Int32) -> URL? {
+        do {
+            if let app = NSRunningApplication(processIdentifier: pid), let icon = app.icon?.tiffRepresentation {
+                let temporaryURL = URL(fileURLWithPath: (NSTemporaryDirectory() as NSString).appendingPathComponent("\(UUID().uuidString).png"))
+                let bitmap = NSBitmapImageRep(data: icon)
+                try bitmap?.representation(using: .png, properties: [:])?.write(to: temporaryURL)
+                return temporaryURL
+            }
+        } catch {
+        }
+        return nil
+    }
+
+    func appName(for pid: Int32) -> String? {
+        NSRunningApplication(processIdentifier: pid)?.localizedName
     }
 
 }

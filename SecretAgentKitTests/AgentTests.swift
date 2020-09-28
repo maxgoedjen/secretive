@@ -106,7 +106,7 @@ class AgentTests: XCTestCase {
         let agent = Agent(storeList: list, witness: witness)
         agent.handle(reader: stubReader, writer: stubWriter)
         XCTAssertEqual(witnessTrace, speakNowTrace)
-        XCTAssertEqual(witnessTrace.origin.name, "Finder")
+        XCTAssertEqual(witnessTrace.origin.displayName, "Finder")
         XCTAssertEqual(witnessTrace.origin.validSignature, true)
         XCTAssertEqual(witnessTrace.origin.parentPID, 1)
     }
