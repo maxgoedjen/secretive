@@ -8,7 +8,7 @@ public class AnySecretStore: SecretStore {
     private let _id: () -> UUID
     private let _name: () -> String
     private let _secrets: () -> [AnySecret]
-    private let _sign: (Data, AnySecret) throws -> Data
+    private let _sign: (Data, AnySecret, SigningRequestProvenance) throws -> Data
     private var sink: AnyCancellable?
 
     public init<SecretStoreType>(_ secretStore: SecretStoreType) where SecretStoreType: SecretStore {
@@ -17,7 +17,7 @@ public class AnySecretStore: SecretStore {
         _name = { secretStore.name }
         _id = { secretStore.id }
         _secrets = { secretStore.secrets.map { AnySecret($0) } }
-        _sign = { try secretStore.sign(data: $0, with: $1.base as! SecretStoreType.SecretType) }
+        _sign = { try secretStore.sign(data: $0, with: $1.base as! SecretStoreType.SecretType, for: $2) }
         sink = secretStore.objectWillChange.sink { _ in
             self.objectWillChange.send()
         }
@@ -39,8 +39,8 @@ public class AnySecretStore: SecretStore {
         return _secrets()
     }
 
-    public func sign(data: Data, with secret: AnySecret) throws -> Data {
-        try _sign(data, secret)
+    public func sign(data: Data, with secret: AnySecret, for provenance: SigningRequestProvenance) throws -> Data {
+        try _sign(data, secret, provenance)
     }
 
 }

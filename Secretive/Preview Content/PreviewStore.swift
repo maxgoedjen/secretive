@@ -35,7 +35,7 @@ extension Preview {
             self.secrets.append(contentsOf: new)
         }
 
-        func sign(data: Data, with secret: Preview.Secret) throws -> Data {
+        func sign(data: Data, with secret: Preview.Secret, for provenance: SigningRequestProvenance) throws -> Data {
             return data
         }
 

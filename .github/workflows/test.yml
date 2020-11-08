@@ -6,7 +6,7 @@ jobs:
     runs-on: macOS-latest
     timeout-minutes: 10
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v2
     - name: Set Environment
       run: sudo xcrun xcode-select -s /Applications/Xcode_12_beta.app
     - name: Test

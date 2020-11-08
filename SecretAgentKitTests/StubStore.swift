@@ -48,7 +48,7 @@ extension Stub {
             print("Public Key OpenSSH: \(OpenSSHKeyWriter().openSSHString(secret: secret))")
         }
 
-        public func sign(data: Data, with secret: Secret) throws -> Data {
+        public func sign(data: Data, with secret: Secret, for provenance: SigningRequestProvenance) throws -> Data {
             guard !shouldThrow else {
                 throw NSError()
             }
