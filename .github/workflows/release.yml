@@ -6,7 +6,7 @@ on:
       - '*'
 jobs:
   test:
-    runs-on: macOS-latest
+    runs-on: macos-11.0
     timeout-minutes: 10
     steps:
     - uses: actions/checkout@v1
@@ -18,7 +18,7 @@ jobs:
         AGENT_PROFILE_DATA: ${{ secrets.AGENT_PROFILE_DATA }}
       run: ./.github/scripts/signing.sh
     - name: Set Environment
-      run: sudo xcrun xcode-select -s /Applications/Xcode_12_beta.app
+      run: sudo xcrun xcode-select -s /Applications/Xcode_12.2.app
     - name: Test
       run: xcrun xcodebuild test -project Secretive.xcodeproj -scheme Secretive
   build:
