@@ -20,7 +20,7 @@ struct SecretListView: View {
                     }
                 }
             }
-            .sheet(item: $deletingSecret) { secret in
+            .popover(isPresented: .constant(deletingSecret == secret)) {
                 if let modifiable = store as? AnySecretStoreModifiable {
                     DeleteSecretView(store: modifiable, secret: secret) { deleted in
                         deletingSecret = nil
@@ -30,6 +30,7 @@ struct SecretListView: View {
                     }
                 }
             }
+
         }
     }
 
