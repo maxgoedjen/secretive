@@ -176,6 +176,7 @@ struct SSHAgentSetupView: View {
                       bodyText: "Add this line to your shell config telling SSH to talk to Secret Agent when it wants to authenticate. Secretive can either do this for you automatically, or you can copy and paste this into your config file.",
                       buttonTitle: "I Added it Manually",
                       buttonAction: buttonAction) {
+        Link("If you're trying to set up a third party app, check out the FAQ.", destination: URL(string: "https://github.com/maxgoedjen/secretive/APP_CONFIG.md")!)
             Picker(selection: $selectedShellInstruction, label: EmptyView()) {
                 ForEach(SSHAgentSetupView.controller.shellInstructions) { instruction in
                     Text(instruction.shell)
