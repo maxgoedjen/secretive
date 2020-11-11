@@ -12,7 +12,7 @@ Tower - [Instructions](https://www.git-tower.com/help/mac/integration/environmen
 
 GitHub Desktop: Should just work, no configuration needed
 
-Fork - Add this to your ~/.ssh/config
+Fork - Add this to your `~/.ssh/config` (the path should match the socket path from the setup flow).
 
 ```
 Host *
