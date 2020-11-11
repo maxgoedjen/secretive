@@ -3,7 +3,7 @@ name: Test
 on: [push, pull_request]
 jobs:
   test:
-    runs-on: macOS-latest
+    runs-on: macos-11.0
     timeout-minutes: 10
     steps:
     - uses: actions/checkout@v2
