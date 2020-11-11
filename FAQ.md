@@ -12,6 +12,13 @@ Tower - [Instructions](https://www.git-tower.com/help/mac/integration/environmen
 
 GitHub Desktop: Should just work, no configuration needed
 
+Fork - Add this to your ~/.ssh/config
+
+```
+Host *
+	IdentityAgent /Users/$YOUR_USERNAME/Library/Containers/com.maxgoedjen.Secretive.SecretAgent/Data/socket.ssh
+```
+
 ### Secretive isn't working for me
 
 Please run `ssh -Tv git@github.com` in your terminal and paste the output in a [new GitHub issue](https://github.com/maxgoedjen/secretive/issues/new) with a description of your issue.
