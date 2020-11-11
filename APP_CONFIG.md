@@ -27,7 +27,7 @@ Host *
 ```
 
 
-### The app I use isn't listed here!
+# The app I use isn't listed here!
 
 If you know how to get it set up, please open a PR for this page and add it! Contributions are very welcome.
 If you're not able to get it working, please file a [GitHub issue](https://github.com/maxgoedjen/secretive/issues/new) for it. No guarantees we'll be able to get it working, but chances are someone else in the community might be able to.
