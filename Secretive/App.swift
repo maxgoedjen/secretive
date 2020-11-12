@@ -33,6 +33,9 @@ struct Secretive: App {
                         _ = LaunchAgentController().install()
                     }
                 }
+                .onReceive(NotificationCenter.default.publisher(for: NSApplication.willBecomeActiveNotification)) { _ in
+                    agentStatusChecker.check()
+                }
         }
         .commands {
             CommandGroup(after: CommandGroupPlacement.newItem) {
