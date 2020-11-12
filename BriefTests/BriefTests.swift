@@ -21,6 +21,12 @@ class SemVerTests: XCTestCase {
         XCTAssert(current < new)
     }
 
+    func testMajorGreaterMinorLesser() {
+        let current = SemVer("1.0.2")
+        let new = SemVer("2.0.0")
+        XCTAssert(current < new)
+    }
+
     func testBeta() {
         let current = SemVer("1.0.2")
         let new = SemVer("1.1.0_beta1")
