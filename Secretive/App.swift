@@ -28,9 +28,19 @@ struct Secretive: App {
                 .onAppear {
                     if !hasRunSetup {
                         showingSetup = true
-                    } else if agentStatusChecker.running && justUpdatedChecker.justUpdated {
-                        // Relaunch the agent, since it'll be running from earlier update still
-                        _ = LaunchAgentController().install()
+                    } else {
+                        if agentStatusChecker.running && justUpdatedChecker.justUpdated {
+                            // Relaunch the agent, since it'll be running from earlier update still
+                            _ = LaunchAgentController().install()
+                        }
+                    }
+                }
+                .onReceive(NotificationCenter.default.publisher(for: NSApplication.willBecomeActiveNotification)) { _ in
+                    agentStatusChecker.check()
+                    if hasRunSetup && !agentStatusChecker.running {
+                        // We've run setup, we didn't just update, launchd is just not doing it's thing.
+                        // Force a launch directly.
+                        LaunchAgentController().forceLaunch()
                     }
                 }
         }
