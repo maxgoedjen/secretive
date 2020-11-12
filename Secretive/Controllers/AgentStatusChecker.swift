@@ -15,11 +15,24 @@ class AgentStatusChecker: ObservableObject, AgentStatusCheckerProtocol {
     }
 
     func check() {
-        running = secretAgentProcess != nil
+        running = instanceSecretAgentProcess != nil
     }
 
-    var secretAgentProcess: NSRunningApplication? {
-        NSRunningApplication.runningApplications(withBundleIdentifier: Constants.secretAgentAppID).first
+    // All processes, including ones from older versions, etc
+    var secretAgentProcesses: [NSRunningApplication] {
+        NSRunningApplication.runningApplications(withBundleIdentifier: Constants.secretAgentAppID)
+    }
+
+    // The process corresponding to this instance of Secretive
+    var instanceSecretAgentProcess: NSRunningApplication? {
+        let agents = secretAgentProcesses
+        for agent in agents {
+            guard let url = agent.bundleURL else { continue }
+            if url.absoluteString.hasPrefix(Bundle.main.bundleURL.absoluteString) {
+                return agent
+            }
+        }
+        return nil
     }
 
 }
