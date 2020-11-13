@@ -11,10 +11,11 @@ struct LaunchAgentController {
         return setEnabled(true)
     }
 
-    func forceLaunch() {
+    func forceLaunch(completion: ((Bool) -> Void)?) {
         Logger().debug("Agent is not running, attempting to force launch")
         let url = Bundle.main.bundleURL.appendingPathComponent("Contents/Library/LoginItems/SecretAgent.app")
         NSWorkspace.shared.openApplication(at: url, configuration: NSWorkspace.OpenConfiguration()) { app, error in
+            completion?(error == nil)
             if let error = error {
                 Logger().error("Error force launching \(error.localizedDescription)")
             } else {

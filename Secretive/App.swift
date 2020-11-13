@@ -40,8 +40,9 @@ struct Secretive: App {
                     if hasRunSetup && !agentStatusChecker.running {
                         // We've run setup, we didn't just update, launchd is just not doing it's thing.
                         // Force a launch directly.
-                        LaunchAgentController().forceLaunch()
-                        agentStatusChecker.check()
+                        LaunchAgentController().forceLaunch { _ in
+                            agentStatusChecker.check()
+                        }
                     }
                 }
         }
