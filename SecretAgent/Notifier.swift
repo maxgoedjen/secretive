@@ -13,7 +13,7 @@ class Notifier {
         let updateAction = UNNotificationAction(identifier: Constants.updateActionIdentitifier, title: "Update", options: [])
         let ignoreAction = UNNotificationAction(identifier: Constants.ignoreActionIdentitifier, title: "Ignore", options: [])
         let updateCategory = UNNotificationCategory(identifier: Constants.updateCategoryIdentitifier, actions: [updateAction, ignoreAction], intentIdentifiers: [], options: [])
-        let criticalUpdateCategory = UNNotificationCategory(identifier: Constants.updateCategoryIdentitifier, actions: [updateAction], intentIdentifiers: [], options: [])
+        let criticalUpdateCategory = UNNotificationCategory(identifier: Constants.criticalUpdateCategoryIdentitifier, actions: [updateAction], intentIdentifiers: [], options: [])
         UNUserNotificationCenter.current().setNotificationCategories([updateCategory, criticalUpdateCategory])
         UNUserNotificationCenter.current().delegate = notificationDelegate
     }

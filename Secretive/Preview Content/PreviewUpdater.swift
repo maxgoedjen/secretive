@@ -16,7 +16,9 @@ class PreviewUpdater: UpdaterProtocol {
             self.update = Release(name: "10.10.10", html_url: URL(string: "https://example.com")!, body: "Critical Security Update")
         }
     }
-
+    
+    func ignore(release: Release) {
+    }
 }
 
 extension PreviewUpdater {

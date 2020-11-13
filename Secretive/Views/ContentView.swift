@@ -87,9 +87,13 @@ struct ContentView<UpdaterType: UpdaterProtocol, AgentStatusCheckerType: AgentSt
             severity = .advisory
             text = "Update Available"
         }
-        return AnyView(NoticeView(text: text, severity: severity, actionTitle: "Update") {
-            NSWorkspace.shared.open(update.html_url)
-        })
+        let action = {
+            _ = NSWorkspace.shared.open(update.html_url)
+        }
+        let ignoreAction = {
+            updater.ignore(release: update)
+        }
+        return AnyView(NoticeView(text: text, severity: severity, actionTitle: "Update", action: action, secondaryActionTitle: "Ignore", secondaryAction: ignoreAction))
     }
 
     func agentNotice() -> some View {

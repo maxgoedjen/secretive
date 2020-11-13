@@ -7,12 +7,28 @@ struct NoticeView: View {
     let severity: Severity
     let actionTitle: String?
     let action: (() -> Void)?
+    let secondaryActionTitle: String?
+    let secondaryAction: (() -> Void)?
+
+    public init(text: String, severity: NoticeView.Severity, actionTitle: String?, action: (() -> Void)?, secondaryActionTitle: String? = nil, secondaryAction: (() -> Void)? = nil) {
+        self.text = text
+        self.severity = severity
+        self.actionTitle = actionTitle
+        self.action = action
+        self.secondaryActionTitle = secondaryActionTitle
+        self.secondaryAction = secondaryAction
+    }
 
     var body: some View {
         HStack {
             Text(text).bold()
             Spacer()
             if action != nil {
+                if secondaryAction != nil {
+                    Button(action: secondaryAction!) {
+                        Text(secondaryActionTitle!)
+                    }
+                }
                 Button(action: action!) {
                     Text(actionTitle!)
                 }
