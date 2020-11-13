@@ -41,6 +41,7 @@ struct Secretive: App {
                         // We've run setup, we didn't just update, launchd is just not doing it's thing.
                         // Force a launch directly.
                         LaunchAgentController().forceLaunch()
+                        agentStatusChecker.check()
                     }
                 }
         }
