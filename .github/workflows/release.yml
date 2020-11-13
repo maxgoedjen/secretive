@@ -34,7 +34,7 @@ jobs:
       with:
         tag_name: ${{ github.ref }}
         release_name: ${{ github.ref }}
-        body: "Build: https://github.com/maxgoedjen/secretive/actions/runs/${{ github.run_id }}"
+        body: "## Build\nhttps://github.com/maxgoedjen/secretive/actions/runs/${{ github.run_id }}"
         draft: true
         prerelease: false
     - name: Setup Signing
