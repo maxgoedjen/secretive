@@ -18,7 +18,7 @@ struct ShellConfigurationController {
             ShellConfigInstruction(shell: "fish",
                                    shellConfigDirectory: "~/.config/fish",
                                    shellConfigFilename: "config.fish",
-                                   text: "set -x SSH_AUTH_SOCK=\(socketPath)"),
+                                   text: "set -x SSH_AUTH_SOCK \(socketPath)"),
         ]
         
     }
