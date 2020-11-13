@@ -28,19 +28,16 @@ struct Secretive: App {
                 .onAppear {
                     if !hasRunSetup {
                         showingSetup = true
-                    } else {
-                        if agentStatusChecker.running && justUpdatedChecker.justUpdated {
-                            // Relaunch the agent, since it'll be running from earlier update still
-                            _ = LaunchAgentController().install()
-                        }
                     }
                 }
-                .onReceive(NotificationCenter.default.publisher(for: NSApplication.willBecomeActiveNotification)) { _ in
+                .onReceive(NotificationCenter.default.publisher(for: NSApplication.didBecomeActiveNotification)) { _ in
+                    guard hasRunSetup else { return }
                     agentStatusChecker.check()
-                    if hasRunSetup && !agentStatusChecker.running {
-                        // We've run setup, we didn't just update, launchd is just not doing it's thing.
-                        // Force a launch directly.
-                        LaunchAgentController().forceLaunch()
+                    if agentStatusChecker.running && justUpdatedChecker.justUpdated {
+                        // Relaunch the agent, since it'll be running from earlier update still
+                        reinstallAgent()
+                    } else if !agentStatusChecker.running {
+                        forceLaunchAgent()
                     }
                 }
         }
@@ -62,6 +59,31 @@ struct Secretive: App {
                 }
             }
             SidebarCommands()
+        }
+    }
+
+}
+
+extension Secretive {
+
+    private func reinstallAgent() {
+        justUpdatedChecker.check()
+        LaunchAgentController().install {
+            // Wait a second for launchd to kick in (next runloop isn't enough).
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                agentStatusChecker.check()
+                if !agentStatusChecker.running {
+                    forceLaunchAgent()
+                }
+            }
+        }
+    }
+
+    private func forceLaunchAgent() {
+        // We've run setup, we didn't just update, launchd is just not doing it's thing.
+        // Force a launch directly.
+        LaunchAgentController().forceLaunch { _ in
+            agentStatusChecker.check()
         }
     }
 

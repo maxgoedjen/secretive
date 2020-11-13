@@ -18,9 +18,7 @@ class JustUpdatedChecker: ObservableObject, JustUpdatedCheckerProtocol {
         let lastBuild = UserDefaults.standard.object(forKey: Constants.previousVersionUserDefaultsKey) as? String ?? "None"
         let currentBuild = Bundle.main.infoDictionary!["CFBundleShortVersionString"] as! String
         UserDefaults.standard.set(currentBuild, forKey: Constants.previousVersionUserDefaultsKey)
-        if lastBuild != currentBuild {
-            justUpdated = true
-        }
+        justUpdated = lastBuild != currentBuild
     }
 
 
