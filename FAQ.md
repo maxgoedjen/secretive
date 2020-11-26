@@ -24,6 +24,10 @@ Please run `ssh -Tv git@github.com` in your terminal and paste the output in a [
 ![Apple Watch Prompt](.github/readme/apple_watch_auth_mac.png)
 ![Apple Watch Prompt](.github/readme/apple_watch_auth_watch.png)
 
+### How do I tell SSH to use a specific key?
+
+You can create a `mykey.pub` (where `mykey` is the name of your key) in your `~/.ssh/` directory with the contents of your public key, and specify that you want to use that key in your `~/.ssh/config`.  [This ServerFault answer](https://serverfault.com/a/295771) has more details on setting that up
+
 ### Why should I trust you?
 
 You shouldn't, for a piece of software like this. Secretive, by design, has an auditable build process. Each build has a fully auditable build log, showing the source it was built from and a SHA of the build product. You can check the SHA of the zip you download against the SHA output in the build log (which is linked in the About window).
