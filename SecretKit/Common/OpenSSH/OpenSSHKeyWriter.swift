@@ -13,8 +13,10 @@ public struct OpenSSHKeyWriter {
             lengthAndData(of: secret.publicKey)
     }
 
-    public func openSSHString<SecretType: Secret>(secret: SecretType) -> String {
-        "\(curveType(for: secret.algorithm, length: secret.keySize)) \(data(secret: secret).base64EncodedString())"
+    public func openSSHString<SecretType: Secret>(secret: SecretType, comment: String? = nil) -> String {
+        [curveType(for: secret.algorithm, length: secret.keySize), data(secret: secret).base64EncodedString(), comment]
+            .compactMap { $0 }
+            .joined(separator: " ")
     }
 
     public func openSSHFingerprint<SecretType: Secret>(secret: SecretType) -> String {

@@ -13,16 +13,27 @@ struct SecretDetailView<SecretType: Secret>: View {
                 CopyableView(title: "Fingerprint", image: Image(systemName: "touchid"), text: keyWriter.openSSHFingerprint(secret: secret))
                 Spacer()
                     .frame(height: 20)
-                CopyableView(title: "Public Key", image: Image(systemName: "key"), text: keyWriter.openSSHString(secret: secret))
+                CopyableView(title: "Public Key", image: Image(systemName: "key"), text: keyString)
                 Spacer()
             }
         }
         .padding()
         .frame(minHeight: 200, maxHeight: .infinity)
     }
+
+    var dashedKeyName: String {
+        secret.name.replacingOccurrences(of: " ", with: "-")
+    }
+
+    var dashedHostName: String {
+        ["secretive", Host.current().localizedName, "local"]
+            .compactMap { $0 }
+            .joined(separator: ".")
+            .replacingOccurrences(of: " ", with: "-")
+    }
     
     var keyString: String {
-        keyWriter.openSSHString(secret: secret)
+        keyWriter.openSSHString(secret: secret, comment: "\(dashedKeyName)@\(dashedHostName)")
     }
     
     func copy() {
