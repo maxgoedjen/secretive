@@ -3,7 +3,7 @@ import Cocoa
 
 struct ShellConfigurationController {
     
-    let socketPath = (NSHomeDirectory().replacingOccurrences(of: "com.maxgoedjen.Secretive.Host", with: "com.maxgoedjen.Secretive.SecretAgent") as NSString).appendingPathComponent("socket.ssh") as String
+    let socketPath = (NSHomeDirectory().replacingOccurrences(of: "Secretive.Host", with: "Secretive.SecretAgent") as NSString).appendingPathComponent("socket.ssh") as String
     
     var shellInstructions: [ShellConfigInstruction] {
         [
