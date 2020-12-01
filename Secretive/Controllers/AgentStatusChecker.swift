@@ -9,7 +9,7 @@ protocol AgentStatusCheckerProtocol: ObservableObject {
 class AgentStatusChecker: ObservableObject, AgentStatusCheckerProtocol {
 
     @Published var running: Bool = false
-    let bundleID = Bundle.main.bundleIdentifier?.replacingOccurrences(of: "Host", with: "SecretAgent")
+    let bundleID = Bundle.main.bundleIdentifier!.replacingOccurrences(of: "Host", with: "SecretAgent")
 
     init() {
         check()
@@ -21,7 +21,7 @@ class AgentStatusChecker: ObservableObject, AgentStatusCheckerProtocol {
 
     // All processes, including ones from older versions, etc
     var secretAgentProcesses: [NSRunningApplication] {
-        NSRunningApplication.runningApplications(withBundleIdentifier: bundleID ?? "com.maxgoedjen.Secretive.SecretAgent")
+        NSRunningApplication.runningApplications(withBundleIdentifier: bundleID )
     }
 
     // The process corresponding to this instance of Secretive
