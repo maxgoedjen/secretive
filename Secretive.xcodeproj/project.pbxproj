@@ -84,6 +84,7 @@
 		50BB046B2418AAAE00D6E079 /* EmptyStoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50BB046A2418AAAE00D6E079 /* EmptyStoreView.swift */; };
 		50C385A3240789E600AF2719 /* OpenSSHReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C385A2240789E600AF2719 /* OpenSSHReader.swift */; };
 		50C385A52407A76D00AF2719 /* SecretDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C385A42407A76D00AF2719 /* SecretDetailView.swift */; };
+		FA0B34672599619E0013AB3A /* bundleIDs.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0B34662599619E0013AB3A /* bundleIDs.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -302,6 +303,7 @@
 		50BB046A2418AAAE00D6E079 /* EmptyStoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStoreView.swift; sourceTree = "<group>"; };
 		50C385A2240789E600AF2719 /* OpenSSHReader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OpenSSHReader.swift; path = SecretKit/Common/OpenSSH/OpenSSHReader.swift; sourceTree = SOURCE_ROOT; };
 		50C385A42407A76D00AF2719 /* SecretDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecretDetailView.swift; sourceTree = "<group>"; };
+		FA0B34662599619E0013AB3A /* bundleIDs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = bundleIDs.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -583,6 +585,7 @@
 				5068389F2415EA4F00F55094 /* Erasers */,
 				506838A42415EA6800F55094 /* OpenSSH */,
 				5068389D241471CD00F55094 /* SecretStoreList.swift */,
+				FA0B34662599619E0013AB3A /* bundleIDs.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -1026,6 +1029,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FA0B34672599619E0013AB3A /* bundleIDs.swift in Sources */,
 				501B7AE1251C56F700776EC7 /* SigningRequestProvenance.swift in Sources */,
 				50617DC723FCE4EA0099B055 /* SecretStore.swift in Sources */,
 				5099A02723FE34FA0062B6F2 /* SmartCard.swift in Sources */,
