@@ -20,7 +20,11 @@ public struct OpenSSHKeyWriter {
     }
 
     public func openSSHSHA256Fingerprint<SecretType: Secret>(secret: SecretType) -> String {
-        "SHA256:\(Data(SHA256.hash(data: data(secret: secret))).base64EncodedString())"
+        // OpenSSL format seems to strip the padding at the end.
+        let base64 = Data(SHA256.hash(data: data(secret: secret))).base64EncodedString()
+        let paddingRange = base64.index(base64.endIndex, offsetBy: -2)..<base64.endIndex
+        let cleaned = base64.replacingOccurrences(of: "=", with: "", range: paddingRange)
+        return "SHA256:\(cleaned)"
     }
 
     public func openSSHMD5Fingerprint<SecretType: Secret>(secret: SecretType) -> String {
