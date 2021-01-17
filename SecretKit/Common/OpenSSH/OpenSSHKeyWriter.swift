@@ -20,7 +20,7 @@ public struct OpenSSHKeyWriter {
     }
 
     public func openSSHSHA256Fingerprint<SecretType: Secret>(secret: SecretType) -> String {
-        Data(SHA256.hash(data: data(secret: secret))).base64EncodedString()
+        "SHA256:\(Data(SHA256.hash(data: data(secret: secret))).base64EncodedString())"
     }
 
     public func openSSHMD5Fingerprint<SecretType: Secret>(secret: SecretType) -> String {
