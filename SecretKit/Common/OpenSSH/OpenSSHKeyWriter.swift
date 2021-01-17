@@ -19,7 +19,11 @@ public struct OpenSSHKeyWriter {
             .joined(separator: " ")
     }
 
-    public func openSSHFingerprint<SecretType: Secret>(secret: SecretType) -> String {
+    public func openSSHSHA256Fingerprint<SecretType: Secret>(secret: SecretType) -> String {
+        Data(SHA256.hash(data: data(secret: secret))).base64EncodedString()
+    }
+
+    public func openSSHMD5Fingerprint<SecretType: Secret>(secret: SecretType) -> String {
         Insecure.MD5.hash(data: data(secret: secret))
             .compactMap { ("0" + String($0, radix: 16, uppercase: false)).suffix(2) }
             .joined(separator: ":")
