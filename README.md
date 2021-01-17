@@ -38,7 +38,7 @@ You can download the latest release over on the [Releases Page](https://github.c
 
 #### Using Homebrew
 
-    brew cask install secretive
+    brew install secretive
 
 ### FAQ
 
