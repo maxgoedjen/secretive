@@ -24,8 +24,8 @@ struct SecretDetailView<SecretType: Secret>: View {
         .frame(minHeight: 200, maxHeight: .infinity)
     }
 
-    var dashedUserName: String {
-        NSUserName().replacingOccurrences(of: " ", with: "-")
+    var dashedKeyName: String {
+             secret.name.replacingOccurrences(of: " ", with: "-")
     }
     
     var dashedHostName: String {
@@ -36,7 +36,7 @@ struct SecretDetailView<SecretType: Secret>: View {
     }
     
     var keyString: String {
-        keyWriter.openSSHString(secret: secret, comment: "\(dashedUserName)@\(dashedHostName)")
+        keyWriter.openSSHString(secret: secret, comment: "\(dashedKeyName)@\(dashedHostName)")
     }
     
     func copy() {
