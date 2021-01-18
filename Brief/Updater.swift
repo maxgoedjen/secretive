@@ -49,6 +49,7 @@ extension Updater {
         guard let release = releases
                 .sorted()
                 .reversed()
+                .filter({ !$0.prerelease })
                 .first(where: { $0.minimumOSVersion <= osVersion }) else { return }
         guard !userIgnored(release: release) else { return }
         guard !release.prerelease else { return }
