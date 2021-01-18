@@ -64,7 +64,7 @@
 		508BF28E25B4F005009EFB7E /* InternetAccessPolicy.plist in Resources */ = {isa = PBXBuildFile; fileRef = 508BF28D25B4F005009EFB7E /* InternetAccessPolicy.plist */; };
 		508BF2AA25B4F1CB009EFB7E /* InternetAccessPolicy.plist in Resources */ = {isa = PBXBuildFile; fileRef = 508BF29425B4F140009EFB7E /* InternetAccessPolicy.plist */; };
 		5091D2BC25183B830049FD9B /* ApplicationDirectoryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5091D2BB25183B830049FD9B /* ApplicationDirectoryController.swift */; };
-		5091D3222519D56D0049FD9B /* BriefTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5091D3212519D56D0049FD9B /* BriefTests.swift */; };
+		5091D3222519D56D0049FD9B /* SemVerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5091D3212519D56D0049FD9B /* SemVerTests.swift */; };
 		5091D3242519D56D0049FD9B /* Brief.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 506772FB2426F3F400034DED /* Brief.framework */; };
 		5099A02423FD2AAA0062B6F2 /* CreateSecretView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5099A02323FD2AAA0062B6F2 /* CreateSecretView.swift */; };
 		5099A02723FE34FA0062B6F2 /* SmartCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5099A02623FE34FA0062B6F2 /* SmartCard.swift */; };
@@ -75,6 +75,7 @@
 		5099A07C240242BA0062B6F2 /* AgentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5099A07B240242BA0062B6F2 /* AgentTests.swift */; };
 		5099A07E240242BA0062B6F2 /* SecretAgentKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 5099A06E240242BA0062B6F2 /* SecretAgentKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5099A08A240242C20062B6F2 /* SSHAgentProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5099A089240242C20062B6F2 /* SSHAgentProtocol.swift */; };
+		509FA3B625B53C49005E2535 /* ReleaseParsingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509FA3B525B53C49005E2535 /* ReleaseParsingTests.swift */; };
 		50A3B79124026B7600D209EA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 50A3B79024026B7600D209EA /* Assets.xcassets */; };
 		50A3B79424026B7600D209EA /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 50A3B79324026B7600D209EA /* Preview Assets.xcassets */; };
 		50A3B79724026B7600D209EA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 50A3B79524026B7600D209EA /* Main.storyboard */; };
@@ -281,7 +282,7 @@
 		508BF29425B4F140009EFB7E /* InternetAccessPolicy.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; name = InternetAccessPolicy.plist; path = SecretAgent/InternetAccessPolicy.plist; sourceTree = SOURCE_ROOT; };
 		5091D2BB25183B830049FD9B /* ApplicationDirectoryController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationDirectoryController.swift; sourceTree = "<group>"; };
 		5091D31F2519D56D0049FD9B /* BriefTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BriefTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		5091D3212519D56D0049FD9B /* BriefTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BriefTests.swift; sourceTree = "<group>"; };
+		5091D3212519D56D0049FD9B /* SemVerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SemVerTests.swift; sourceTree = "<group>"; };
 		5091D3232519D56D0049FD9B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5099A02323FD2AAA0062B6F2 /* CreateSecretView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateSecretView.swift; sourceTree = "<group>"; };
 		5099A02623FE34FA0062B6F2 /* SmartCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmartCard.swift; sourceTree = "<group>"; };
@@ -295,6 +296,7 @@
 		5099A07B240242BA0062B6F2 /* AgentTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgentTests.swift; sourceTree = "<group>"; };
 		5099A07D240242BA0062B6F2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5099A089240242C20062B6F2 /* SSHAgentProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSHAgentProtocol.swift; sourceTree = "<group>"; };
+		509FA3B525B53C49005E2535 /* ReleaseParsingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReleaseParsingTests.swift; sourceTree = "<group>"; };
 		50A3B78A24026B7500D209EA /* SecretAgent.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SecretAgent.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		50A3B79024026B7600D209EA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		50A3B79324026B7600D209EA /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -567,7 +569,8 @@
 		5091D3202519D56D0049FD9B /* BriefTests */ = {
 			isa = PBXGroup;
 			children = (
-				5091D3212519D56D0049FD9B /* BriefTests.swift */,
+				5091D3212519D56D0049FD9B /* SemVerTests.swift */,
+				509FA3B525B53C49005E2535 /* ReleaseParsingTests.swift */,
 				5091D3232519D56D0049FD9B /* Info.plist */,
 			);
 			path = BriefTests;
@@ -1077,7 +1080,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5091D3222519D56D0049FD9B /* BriefTests.swift in Sources */,
+				509FA3B625B53C49005E2535 /* ReleaseParsingTests.swift in Sources */,
+				5091D3222519D56D0049FD9B /* SemVerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
