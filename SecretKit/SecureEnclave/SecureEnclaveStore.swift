@@ -121,27 +121,27 @@ extension SecureEnclave.Store {
     }
 
     private func loadSecrets() {
-//        let attributes = [
-//            kSecClass: kSecClassKey,
-//            kSecAttrKeyType: SecureEnclave.Constants.keyType,
-//            kSecAttrApplicationTag: SecureEnclave.Constants.keyTag,
-//            kSecAttrKeyClass: kSecAttrKeyClassPublic,
-//            kSecReturnRef: true,
-//            kSecMatchLimit: kSecMatchLimitAll,
-//            kSecReturnAttributes: true
-//            ] as CFDictionary
-//        var untyped: CFTypeRef?
-//        SecItemCopyMatching(attributes, &untyped)
-//        guard let typed = untyped as? [[CFString: Any]] else { return }
-//        let wrapped: [SecureEnclave.Secret] = typed.map {
-//            let name = $0[kSecAttrLabel] as? String ?? "Unnamed"
-//            let id = $0[kSecAttrApplicationLabel] as! Data
-//            let publicKeyRef = $0[kSecValueRef] as! SecKey
-//            let publicKeyAttributes = SecKeyCopyAttributes(publicKeyRef) as! [CFString: Any]
-//            let publicKey = publicKeyAttributes[kSecValueData] as! Data
-//            return SecureEnclave.Secret(id: id, name: name, publicKey: publicKey)
-//        }
-//        secrets.append(contentsOf: wrapped)
+        let attributes = [
+            kSecClass: kSecClassKey,
+            kSecAttrKeyType: SecureEnclave.Constants.keyType,
+            kSecAttrApplicationTag: SecureEnclave.Constants.keyTag,
+            kSecAttrKeyClass: kSecAttrKeyClassPublic,
+            kSecReturnRef: true,
+            kSecMatchLimit: kSecMatchLimitAll,
+            kSecReturnAttributes: true
+            ] as CFDictionary
+        var untyped: CFTypeRef?
+        SecItemCopyMatching(attributes, &untyped)
+        guard let typed = untyped as? [[CFString: Any]] else { return }
+        let wrapped: [SecureEnclave.Secret] = typed.map {
+            let name = $0[kSecAttrLabel] as? String ?? "Unnamed"
+            let id = $0[kSecAttrApplicationLabel] as! Data
+            let publicKeyRef = $0[kSecValueRef] as! SecKey
+            let publicKeyAttributes = SecKeyCopyAttributes(publicKeyRef) as! [CFString: Any]
+            let publicKey = publicKeyAttributes[kSecValueData] as! Data
+            return SecureEnclave.Secret(id: id, name: name, publicKey: publicKey)
+        }
+        secrets.append(contentsOf: wrapped)
     }
 
     private func savePublicKey(_ publicKey: SecKey, name: String) throws {
