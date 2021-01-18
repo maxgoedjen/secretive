@@ -28,6 +28,11 @@ class ReleaseParsingTests: XCTestCase {
         XCTAssert(release.minimumOSVersion == SemVer("1.2.3"))
     }
 
+    func testOSWithMacOSPrefix() {
+        let release = Release(name: "1.0.0", prerelease: false, html_url: URL(string: "https://example.com")!, body: "Critical Security Update Minimum macOS Version: macOS 1.2.3")
+        XCTAssert(release.minimumOSVersion == SemVer("1.2.3"))
+    }
+
     func testOSGreaterThanMinimum() {
         let release = Release(name: "1.0.0", prerelease: false, html_url: URL(string: "https://example.com")!, body: "Critical Security Update Minimum macOS Version: 1.2.3")
         XCTAssert(release.minimumOSVersion < SemVer("11.0.0"))
