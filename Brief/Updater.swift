@@ -25,8 +25,8 @@ public class Updater: ObservableObject, UpdaterProtocol {
     public func checkForUpdates() {
         URLSession.shared.dataTask(with: Constants.updateURL) { data, _, _ in
             guard let data = data else { return }
-            guard let release = try? JSONDecoder().decode(Release.self, from: data) else { return }
-            self.evaluate(release: release)
+            guard let releases = try? JSONDecoder().decode([Release].self, from: data) else { return }
+            self.evaluate(releases: releases)
         }.resume()
     }
 
@@ -42,7 +42,10 @@ public class Updater: ObservableObject, UpdaterProtocol {
 
 extension Updater {
 
-    func evaluate(release: Release) {
+    func evaluate(releases: [Release]) {
+        guard let release = releases
+            .sorted()
+                .first(where: { $0.minimumOSVersion < SemVer(ProcessInfo.processInfo.operatingSystemVersionString) }) else { return }
         guard !userIgnored(release: release) else { return }
         guard !release.prerelease else { return }
         let latestVersion = SemVer(release.name)
@@ -64,7 +67,7 @@ extension Updater {
     }
 }
 
-struct SemVer {
+public struct SemVer {
 
     let versionNumbers: [Int]
 
@@ -82,7 +85,7 @@ struct SemVer {
 
 extension SemVer: Comparable {
 
-    static func < (lhs: SemVer, rhs: SemVer) -> Bool {
+    public static func < (lhs: SemVer, rhs: SemVer) -> Bool {
         for (latest, current) in zip(lhs.versionNumbers, rhs.versionNumbers) {
             if latest < current {
                 return true
@@ -99,7 +102,7 @@ extension SemVer: Comparable {
 extension Updater {
 
     enum Constants {
-        static let updateURL = URL(string: "https://api.github.com/repos/maxgoedjen/secretive/releases/latest")!
+        static let updateURL = URL(string: "https://api.github.com/repos/maxgoedjen/secretive/releases")!
     }
 
 }
@@ -128,10 +131,26 @@ extension Release: Identifiable {
 
 }
 
+extension Release: Comparable {
+
+    public static func < (lhs: Release, rhs: Release) -> Bool {
+        lhs.version < rhs.version
+    }
+
+}
+
 extension Release {
 
     public var critical: Bool {
         body.contains(Constants.securityContent)
+    }
+
+    public var version: SemVer {
+        SemVer(name)
+    }
+
+    public var minimumOSVersion: SemVer {
+        SemVer("1.1.1")
     }
 
 }
