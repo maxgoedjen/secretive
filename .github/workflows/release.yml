@@ -67,15 +67,17 @@ jobs:
       with:
         tag_name: ${{ github.ref }}
         release_name: ${{ github.ref }}
-        body: >
+        body: |
           Update description
 
           ## Features
 
+
           ## Fixes
 
+
           ## Minimum macOS Version
-          $(/usr/libexec/PlistBuddy -c 'print ":LSMinimumSystemVersion"'  Archive.xcarchive/Products/Applications/Secretive.app/Info.plist)
+
 
           ## Build
           https://github.com/maxgoedjen/secretive/actions/runs/${{ github.run_id }}
