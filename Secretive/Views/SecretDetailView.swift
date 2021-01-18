@@ -5,8 +5,6 @@ struct SecretDetailView<SecretType: Secret>: View {
     
     @State var secret: SecretType
 
-    let defaults = UserDefaults.standard
-    
     private let keyWriter = OpenSSHKeyWriter()
     
     var body: some View {
@@ -38,11 +36,7 @@ struct SecretDetailView<SecretType: Secret>: View {
     }
     
     var keyString: String {
-        if defaults.string(forKey: secret.name) != "" {
-            return keyWriter.openSSHString(secret: secret, comment: defaults.string(forKey: secret.name))
-        } else {
-            return keyWriter.openSSHString(secret: secret, comment: "\(dashedUserName)@\(dashedHostName)")
-        }
+        keyWriter.openSSHString(secret: secret, comment: "\(dashedUserName)@\(dashedHostName)")
     }
     
     func copy() {

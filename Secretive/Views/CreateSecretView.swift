@@ -5,10 +5,9 @@ struct CreateSecretView<StoreType: SecretStoreModifiable>: View {
     
     @ObservedObject var store: StoreType
     @Binding var showing: Bool
-    @State private var comment = ""
+    
     @State private var name = ""
     @State private var requiresAuthentication = true
-    let defaults = UserDefaults.standard
 
     var body: some View {
         VStack {
@@ -25,10 +24,6 @@ struct CreateSecretView<StoreType: SecretStoreModifiable>: View {
                     HStack {
                         Text("Name:")
                         TextField("Shhhhh", text: $name).focusable()
-                    }
-                    HStack {
-                        Text("Comment:")
-                        TextField("\(dashedUserName)@\(dashedHostName)", text: $comment).focusable()
                     }
                     HStack {
                         Toggle(isOn: $requiresAuthentication) {
@@ -50,22 +45,9 @@ struct CreateSecretView<StoreType: SecretStoreModifiable>: View {
             }
         }.padding()
     }
-    var dashedUserName: String {
-        NSUserName().replacingOccurrences(of: " ", with: "-")
-    }
-    var dashedHostName: String {
-        [Host.current().localizedName, "local"]
-            .compactMap { $0 }
-            .joined(separator: ".")
-            .replacingOccurrences(of: " ", with: "-")
-    }
     
     func save() {
         try! store.create(name: name, requiresAuthentication: requiresAuthentication)
-        if comment != "" {
-            defaults.set(comment, forKey: name)
-        }
-        defaults.set(comment, forKey: name)
         showing = false
     }
 }
