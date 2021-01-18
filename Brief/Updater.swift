@@ -11,7 +11,10 @@ public class Updater: ObservableObject, UpdaterProtocol {
 
     @Published public var update: Release?
 
-    public init(checkOnLaunch: Bool) {
+    private let osVersion: SemVer
+
+    public init(checkOnLaunch: Bool, osVersion: SemVer = SemVer(ProcessInfo.processInfo.operatingSystemVersion)) {
+        self.osVersion = osVersion
         if checkOnLaunch {
             // Don't do a launch check if the user hasn't seen the setup prompt explaining updater yet.
             checkForUpdates()
@@ -25,8 +28,8 @@ public class Updater: ObservableObject, UpdaterProtocol {
     public func checkForUpdates() {
         URLSession.shared.dataTask(with: Constants.updateURL) { data, _, _ in
             guard let data = data else { return }
-            guard let release = try? JSONDecoder().decode(Release.self, from: data) else { return }
-            self.evaluate(release: release)
+            guard let releases = try? JSONDecoder().decode([Release].self, from: data) else { return }
+            self.evaluate(releases: releases)
         }.resume()
     }
 
@@ -42,11 +45,16 @@ public class Updater: ObservableObject, UpdaterProtocol {
 
 extension Updater {
 
-    func evaluate(release: Release) {
+    func evaluate(releases: [Release]) {
+        guard let release = releases
+                .sorted()
+                .reversed()
+                .filter({ !$0.prerelease })
+                .first(where: { $0.minimumOSVersion <= osVersion }) else { return }
         guard !userIgnored(release: release) else { return }
         guard !release.prerelease else { return }
         let latestVersion = SemVer(release.name)
-        let currentVersion = SemVer(Bundle.main.infoDictionary!["CFBundleShortVersionString"] as! String)
+        let currentVersion = SemVer(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "0.0.0")
         if latestVersion > currentVersion {
             DispatchQueue.main.async {
                 self.update = release
@@ -64,11 +72,11 @@ extension Updater {
     }
 }
 
-struct SemVer {
+public struct SemVer {
 
     let versionNumbers: [Int]
 
-    init(_ version: String) {
+    public init(_ version: String) {
         // Betas have the format 1.2.3_beta1
         let strippedBeta = version.split(separator: "_").first!
         var split = strippedBeta.split(separator: ".").compactMap { Int($0) }
@@ -78,11 +86,15 @@ struct SemVer {
         versionNumbers = split
     }
 
+    public init(_ version: OperatingSystemVersion) {
+        versionNumbers = [version.majorVersion, version.minorVersion, version.patchVersion]
+    }
+
 }
 
 extension SemVer: Comparable {
 
-    static func < (lhs: SemVer, rhs: SemVer) -> Bool {
+    public static func < (lhs: SemVer, rhs: SemVer) -> Bool {
         for (latest, current) in zip(lhs.versionNumbers, rhs.versionNumbers) {
             if latest < current {
                 return true
@@ -99,7 +111,7 @@ extension SemVer: Comparable {
 extension Updater {
 
     enum Constants {
-        static let updateURL = URL(string: "https://api.github.com/repos/maxgoedjen/secretive/releases/latest")!
+        static let updateURL = URL(string: "https://api.github.com/repos/maxgoedjen/secretive/releases")!
     }
 
 }
@@ -128,10 +140,30 @@ extension Release: Identifiable {
 
 }
 
+extension Release: Comparable {
+
+    public static func < (lhs: Release, rhs: Release) -> Bool {
+        lhs.version < rhs.version
+    }
+
+}
+
 extension Release {
 
     public var critical: Bool {
         body.contains(Constants.securityContent)
+    }
+
+    public var version: SemVer {
+        SemVer(name)
+    }
+
+    public var minimumOSVersion: SemVer {
+        guard let range = body.range(of: "Minimum macOS Version"),
+              let numberStart = body.rangeOfCharacter(from: CharacterSet.decimalDigits, options: [], range: range.upperBound..<body.endIndex) else { return SemVer("11.0.0") }
+        let numbersEnd = body.rangeOfCharacter(from: CharacterSet.whitespacesAndNewlines, options: [], range: numberStart.upperBound..<body.endIndex)?.lowerBound ?? body.endIndex
+        let version = numberStart.lowerBound..<numbersEnd
+        return SemVer(String(body[version]))
     }
 
 }
