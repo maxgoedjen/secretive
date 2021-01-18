@@ -27,6 +27,16 @@ class SemVerTests: XCTestCase {
         XCTAssert(current < new)
     }
 
+    func testRegularParsing() {
+        let current = SemVer("1.0.2")
+        XCTAssert(current.versionNumbers == [1, 0, 2])
+    }
+
+    func testNoPatch() {
+        let current = SemVer("1.1")
+        XCTAssert(current.versionNumbers == [1, 1, 0])
+    }
+
     func testBeta() {
         let current = SemVer("1.0.2")
         let new = SemVer("1.1.0_beta1")

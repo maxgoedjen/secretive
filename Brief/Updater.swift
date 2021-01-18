@@ -11,7 +11,10 @@ public class Updater: ObservableObject, UpdaterProtocol {
 
     @Published public var update: Release?
 
-    public init(checkOnLaunch: Bool) {
+    private let osVersion: SemVer
+
+    public init(checkOnLaunch: Bool, osVersion: SemVer = SemVer(ProcessInfo.processInfo.operatingSystemVersion)) {
+        self.osVersion = osVersion
         if checkOnLaunch {
             // Don't do a launch check if the user hasn't seen the setup prompt explaining updater yet.
             checkForUpdates()
@@ -44,8 +47,9 @@ extension Updater {
 
     func evaluate(releases: [Release]) {
         guard let release = releases
-            .sorted()
-                .first(where: { $0.minimumOSVersion < SemVer(ProcessInfo.processInfo.operatingSystemVersionString) }) else { return }
+                .sorted()
+                .reversed()
+                .first(where: { $0.minimumOSVersion < osVersion }) else { return }
         guard !userIgnored(release: release) else { return }
         guard !release.prerelease else { return }
         let latestVersion = SemVer(release.name)
@@ -71,7 +75,7 @@ public struct SemVer {
 
     let versionNumbers: [Int]
 
-    init(_ version: String) {
+    public init(_ version: String) {
         // Betas have the format 1.2.3_beta1
         let strippedBeta = version.split(separator: "_").first!
         var split = strippedBeta.split(separator: ".").compactMap { Int($0) }
@@ -79,6 +83,10 @@ public struct SemVer {
             split.append(0)
         }
         versionNumbers = split
+    }
+
+    public init(_ version: OperatingSystemVersion) {
+        versionNumbers = [version.majorVersion, version.minorVersion, version.patchVersion]
     }
 
 }
