@@ -61,6 +61,8 @@
 		508A58B5241ED48F0069DC07 /* PreviewAgentStatusChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508A58B4241ED48F0069DC07 /* PreviewAgentStatusChecker.swift */; };
 		508A5911241EF09C0069DC07 /* SecretAgentKit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 5099A06C240242BA0062B6F2 /* SecretAgentKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		508A5913241EF0B20069DC07 /* SecretKit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 50617DA823FCE4AB0099B055 /* SecretKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		508BF28E25B4F005009EFB7E /* InternetAccessPolicy.plist in Resources */ = {isa = PBXBuildFile; fileRef = 508BF28D25B4F005009EFB7E /* InternetAccessPolicy.plist */; };
+		508BF2AA25B4F1CB009EFB7E /* InternetAccessPolicy.plist in Resources */ = {isa = PBXBuildFile; fileRef = 508BF29425B4F140009EFB7E /* InternetAccessPolicy.plist */; };
 		5091D2BC25183B830049FD9B /* ApplicationDirectoryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5091D2BB25183B830049FD9B /* ApplicationDirectoryController.swift */; };
 		5091D3222519D56D0049FD9B /* BriefTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5091D3212519D56D0049FD9B /* BriefTests.swift */; };
 		5091D3242519D56D0049FD9B /* Brief.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 506772FB2426F3F400034DED /* Brief.framework */; };
@@ -275,6 +277,8 @@
 		508A58B2241ED2180069DC07 /* AgentStatusChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgentStatusChecker.swift; sourceTree = "<group>"; };
 		508A58B4241ED48F0069DC07 /* PreviewAgentStatusChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewAgentStatusChecker.swift; sourceTree = "<group>"; };
 		508A590F241EEF6D0069DC07 /* Secretive.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = Secretive.xctestplan; sourceTree = "<group>"; };
+		508BF28D25B4F005009EFB7E /* InternetAccessPolicy.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = InternetAccessPolicy.plist; sourceTree = "<group>"; };
+		508BF29425B4F140009EFB7E /* InternetAccessPolicy.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; name = InternetAccessPolicy.plist; path = SecretAgent/InternetAccessPolicy.plist; sourceTree = SOURCE_ROOT; };
 		5091D2BB25183B830049FD9B /* ApplicationDirectoryController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationDirectoryController.swift; sourceTree = "<group>"; };
 		5091D31F2519D56D0049FD9B /* BriefTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BriefTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5091D3212519D56D0049FD9B /* BriefTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BriefTests.swift; sourceTree = "<group>"; };
@@ -432,6 +436,7 @@
 				508A58B1241ED1EA0069DC07 /* Controllers */,
 				50617D8623FCE48E0099B055 /* Assets.xcassets */,
 				50617D8E23FCE48E0099B055 /* Info.plist */,
+				508BF28D25B4F005009EFB7E /* InternetAccessPolicy.plist */,
 				50617D8F23FCE48E0099B055 /* Secretive.entitlements */,
 				506772C62424784600034DED /* Credits.rtf */,
 				50617D8823FCE48E0099B055 /* Preview Content */,
@@ -633,6 +638,7 @@
 				50A3B79024026B7600D209EA /* Assets.xcassets */,
 				50A3B79524026B7600D209EA /* Main.storyboard */,
 				50A3B79824026B7600D209EA /* Info.plist */,
+				508BF29425B4F140009EFB7E /* InternetAccessPolicy.plist */,
 				50A3B79924026B7600D209EA /* SecretAgent.entitlements */,
 				50A3B79224026B7600D209EA /* Preview Content */,
 			);
@@ -925,6 +931,7 @@
 				50617D8A23FCE48E0099B055 /* Preview Assets.xcassets in Resources */,
 				50617D8723FCE48E0099B055 /* Assets.xcassets in Resources */,
 				506772C72424784600034DED /* Credits.rtf in Resources */,
+				508BF28E25B4F005009EFB7E /* InternetAccessPolicy.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -984,6 +991,7 @@
 				50A3B79724026B7600D209EA /* Main.storyboard in Resources */,
 				50A3B79424026B7600D209EA /* Preview Assets.xcassets in Resources */,
 				50A3B79124026B7600D209EA /* Assets.xcassets in Resources */,
+				508BF2AA25B4F1CB009EFB7E /* InternetAccessPolicy.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

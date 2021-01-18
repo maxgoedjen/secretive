@@ -53,14 +53,14 @@ struct EmptyStoreModifiableView: View {
                             CGPoint(x: g.size.width / 2, y: g.size.height * (1/2)), control2:
                             CGPoint(x: g.size.width * (3/4), y: g.size.height * (1/2)))
                         path.addCurve(to:
-                            CGPoint(x: g.size.width, y: 0), control1:
-                            CGPoint(x: g.size.width, y: g.size.height * (1/2)), control2:
-                            CGPoint(x: g.size.width, y: 0))
+                            CGPoint(x: g.size.width - 13, y: 0), control1:
+                            CGPoint(x: g.size.width - 13 , y: g.size.height * (1/2)), control2:
+                            CGPoint(x: g.size.width - 13, y: 0))
                     }.stroke(style: StrokeStyle(lineWidth: 5, lineCap: .round))
                     Path { path in
-                        path.move(to: CGPoint(x: g.size.width - 10, y: 0))
-                        path.addLine(to: CGPoint(x: g.size.width, y: -10))
-                        path.addLine(to: CGPoint(x: g.size.width + 10, y: 0))
+                        path.move(to: CGPoint(x: g.size.width - 23, y: 0))
+                        path.addLine(to: CGPoint(x: g.size.width - 13, y: -10))
+                        path.addLine(to: CGPoint(x: g.size.width - 3, y: 0))
                     }.fill()
                 }.frame(height: (windowGeometry.size.height/2) - 20).padding()
                 Text("No Secrets").bold()
