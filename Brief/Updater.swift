@@ -49,11 +49,11 @@ extension Updater {
         guard let release = releases
                 .sorted()
                 .reversed()
-                .first(where: { $0.minimumOSVersion < osVersion }) else { return }
+                .first(where: { $0.minimumOSVersion <= osVersion }) else { return }
         guard !userIgnored(release: release) else { return }
         guard !release.prerelease else { return }
         let latestVersion = SemVer(release.name)
-        let currentVersion = SemVer(Bundle.main.infoDictionary!["CFBundleShortVersionString"] as! String)
+        let currentVersion = SemVer(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "0.0.0")
         if latestVersion > currentVersion {
             DispatchQueue.main.async {
                 self.update = release
@@ -158,7 +158,11 @@ extension Release {
     }
 
     public var minimumOSVersion: SemVer {
-        SemVer("1.1.1")
+        guard let range = body.range(of: "Minimum macOS Version"),
+              let numberStart = body.rangeOfCharacter(from: CharacterSet.decimalDigits, options: [], range: range.upperBound..<body.endIndex) else { return SemVer("11.0.0") }
+        let numbersEnd = body.rangeOfCharacter(from: CharacterSet.whitespacesAndNewlines, options: [], range: numberStart.upperBound..<body.endIndex)?.lowerBound ?? body.endIndex
+        let version = numberStart.lowerBound..<numbersEnd
+        return SemVer(String(body[version]))
     }
 
 }
