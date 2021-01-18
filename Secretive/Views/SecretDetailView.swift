@@ -24,10 +24,10 @@ struct SecretDetailView<SecretType: Secret>: View {
         .frame(minHeight: 200, maxHeight: .infinity)
     }
 
-    var dashedKeyName: String {
-        secret.name.replacingOccurrences(of: " ", with: "-")
+    var dashedUserName: String {
+        NSUserName().replacingOccurrences(of: " ", with: "-")
     }
-
+    
     var dashedHostName: String {
         ["secretive", Host.current().localizedName, "local"]
             .compactMap { $0 }
