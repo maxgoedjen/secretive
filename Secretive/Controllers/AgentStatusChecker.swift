@@ -1,6 +1,7 @@
 import Foundation
 import Combine
 import AppKit
+import SecretKit
 
 protocol AgentStatusCheckerProtocol: ObservableObject {
     var running: Bool { get }
@@ -20,7 +21,7 @@ class AgentStatusChecker: ObservableObject, AgentStatusCheckerProtocol {
 
     // All processes, including ones from older versions, etc
     var secretAgentProcesses: [NSRunningApplication] {
-        NSRunningApplication.runningApplications(withBundleIdentifier: Constants.secretAgentAppID)
+        NSRunningApplication.runningApplications(withBundleIdentifier: Bundle.main.agentBundleID)
     }
 
     // The process corresponding to this instance of Secretive
@@ -37,10 +38,4 @@ class AgentStatusChecker: ObservableObject, AgentStatusCheckerProtocol {
 
 }
 
-extension AgentStatusChecker {
 
-    enum Constants {
-        static let secretAgentAppID = "com.maxgoedjen.Secretive.SecretAgent"
-    }
-
-}

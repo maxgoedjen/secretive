@@ -2,9 +2,10 @@ import Foundation
 import ServiceManagement
 import AppKit
 import OSLog
+import SecretKit
 
 struct LaunchAgentController {
-
+    
     func install(completion: (() -> Void)? = nil) {
         Logger().debug("Installing agent")
         _ = setEnabled(false)
@@ -32,7 +33,7 @@ struct LaunchAgentController {
     }
 
     private func setEnabled(_ enabled: Bool) -> Bool {
-        SMLoginItemSetEnabled("com.maxgoedjen.Secretive.SecretAgent" as CFString, enabled)
+        SMLoginItemSetEnabled(Bundle.main.agentBundleID as CFString, enabled)
     }
 
 }

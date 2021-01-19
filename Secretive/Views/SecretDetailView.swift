@@ -25,9 +25,9 @@ struct SecretDetailView<SecretType: Secret>: View {
     }
 
     var dashedKeyName: String {
-        secret.name.replacingOccurrences(of: " ", with: "-")
+             secret.name.replacingOccurrences(of: " ", with: "-")
     }
-
+    
     var dashedHostName: String {
         ["secretive", Host.current().localizedName, "local"]
             .compactMap { $0 }
