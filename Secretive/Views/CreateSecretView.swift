@@ -27,9 +27,9 @@ struct CreateSecretView<StoreType: SecretStoreModifiable>: View {
                     }
                     HStack {
                         VStack(spacing: 20) {
-                            Picker("", selection: $requiresAuthentication) {
-                                Text("Requires authentication (Biometrics or Password) before each use").tag(true)
-                                Text("Does not require authentication for each use once the user unlocks the computer").tag(false)
+                            Picker("Authentication", selection: $requiresAuthentication) {
+                                Text("Required (Biometrics or Password) before each use").tag(true)
+                                Text("Not required for each use once the user unlocks the computer").tag(false)
                             }
                             .pickerStyle(RadioGroupPickerStyle())
                         }
