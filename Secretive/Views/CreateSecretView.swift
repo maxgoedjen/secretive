@@ -2,10 +2,10 @@ import SwiftUI
 import SecretKit
 
 struct CreateSecretView<StoreType: SecretStoreModifiable>: View {
-    
+
     @ObservedObject var store: StoreType
     @Binding var showing: Bool
-    
+
     @State private var name = ""
     @State private var requiresAuthentication = true
 
@@ -26,8 +26,12 @@ struct CreateSecretView<StoreType: SecretStoreModifiable>: View {
                         TextField("Shhhhh", text: $name).focusable()
                     }
                     HStack {
-                        Toggle(isOn: $requiresAuthentication) {
-                            Text("Requires Authentication (Biometrics or Password)")
+                        VStack(spacing: 20) {
+                            Picker("", selection: $requiresAuthentication) {
+                                Text("Requires Authentication (Biometrics or Password) before each use").tag(true)
+                                Text("Authentication not required when Mac is unlocked").tag(false)
+                            }
+                            .pickerStyle(RadioGroupPickerStyle())
                         }
                         Spacer()
                     }
@@ -45,7 +49,7 @@ struct CreateSecretView<StoreType: SecretStoreModifiable>: View {
             }
         }.padding()
     }
-    
+
     func save() {
         try! store.create(name: name, requiresAuthentication: requiresAuthentication)
         showing = false
