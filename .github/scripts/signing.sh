@@ -19,4 +19,4 @@ cp Agent.provisionprofile ~/Library/MobileDevice/Provisioning\ Profiles/$AGENT_U
 
 # Create directories for ASC key
 mkdir ~/.private_keys
-echo $APPLE_API_KEY_DATA > ~/.private_keys/AuthKey_$APPLE_API_KEY_ID.p8
+echo -n "$APPLE_API_KEY_DATA" > ~/.private_keys/AuthKey_$APPLE_API_KEY_ID.p8
