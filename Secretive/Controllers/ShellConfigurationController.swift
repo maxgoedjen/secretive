@@ -8,6 +8,10 @@ struct ShellConfigurationController {
     
     var shellInstructions: [ShellConfigInstruction] {
         [
+            ShellConfigInstruction(shell: "global",
+                                   shellConfigDirectory: "~/.ssh/",
+                                   shellConfigFilename: "config",
+                                   text: "Host *\n\tIdentityAgent \(socketPath)"),
             ShellConfigInstruction(shell: "zsh",
                                    shellConfigDirectory: "~/",
                                    shellConfigFilename: ".zshrc",
