@@ -68,8 +68,25 @@ extension SecureEnclave {
             let deleteAttributes = [
                 kSecClass: kSecClassKey,
                 kSecAttrApplicationLabel: secret.id as CFData
-                ] as CFDictionary
+            ] as CFDictionary
             let status = SecItemDelete(deleteAttributes)
+            if status != errSecSuccess {
+                throw KeychainError(statusCode: status)
+            }
+            reloadSecrets()
+        }
+
+        public func update(secret: Secret, name: String) throws {
+            let updateQuery = [
+                kSecClass: kSecClassKey,
+                kSecAttrApplicationLabel: secret.id as CFData
+            ] as CFDictionary
+
+            let updatedAttributes = [
+                kSecAttrLabel: name,
+            ] as CFDictionary
+
+            let status = SecItemUpdate(updateQuery, updatedAttributes)
             if status != errSecSuccess {
                 throw KeychainError(statusCode: status)
             }
