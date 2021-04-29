@@ -6,20 +6,18 @@ struct StoreListView: View {
     @Binding var showingCreation: Bool
     
     @State private var activeSecret: AnySecret.ID?
-    @State private var deletingSecret: AnySecret?
-    @State private var renamingSecret: AnySecret?
 
     @EnvironmentObject private var storeList: SecretStoreList
 
+    private func secretDeleted(secret: AnySecret) {
+        activeSecret = nextDefaultSecret
+    }
+
+    private func secretRenamed(secret: AnySecret) {
+        activeSecret = nextDefaultSecret
+    }
+
     var body: some View {
-        let secretDeleted = { (secret: AnySecret) in
-            activeSecret = nextDefaultSecret
-        }
-
-        let secretRenamed = { (secret: AnySecret) in
-            activeSecret = nextDefaultSecret
-        }
-
         NavigationView {
             List(selection: $activeSecret) {
                 ForEach(storeList.stores) { store in
@@ -28,14 +26,15 @@ struct StoreListView: View {
                             if store.secrets.isEmpty {
                                 EmptyStoreView(store: store, activeSecret: $activeSecret)
                             } else {
-                                SecretListView(
-                                    store: store,
-                                    activeSecret: $activeSecret,
-                                    deletingSecret: $deletingSecret,
-                                    renamingSecret: $renamingSecret,
-                                    deletedSecret: secretDeleted,
-                                    renamedSecret: secretRenamed
-                                )
+                                ForEach(store.secrets) { secret in
+                                    SecretListItemView(
+                                        store: store,
+                                        secret: secret,
+                                        activeSecret: $activeSecret,
+                                        deletedSecret: self.secretDeleted,
+                                        renamedSecret: self.secretRenamed
+                                    )
+                                }
                             }
                         }
                     }
@@ -47,9 +46,7 @@ struct StoreListView: View {
             }
             .frame(minWidth: 100, idealWidth: 240)
         }
-
     }
-
 }
 
 extension StoreListView {

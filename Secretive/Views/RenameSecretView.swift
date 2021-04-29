@@ -1,11 +1,3 @@
-//
-//  RenameSecretView.swift
-//  Secretive
-//
-//  Created by Diesal11 on 26/4/21.
-//  Copyright © 2021 Max Goedjen. All rights reserved.
-//
-
 import SwiftUI
 import SecretKit
 
@@ -36,7 +28,7 @@ struct RenameSecretView<StoreType: SecretStoreModifiable>: View {
             }
             HStack {
                 Spacer()
-                Button("Save", action: rename)
+                Button("Rename", action: rename)
                     .disabled(newName.count == 0)
                     .keyboardShortcut(.return)
                 Button("Cancel") {
@@ -46,6 +38,9 @@ struct RenameSecretView<StoreType: SecretStoreModifiable>: View {
         }
         .padding()
         .frame(minWidth: 400)
+        .onExitCommand {
+            dismissalBlock(false)
+        }
     }
 
     func rename() {

@@ -49,12 +49,12 @@ public class AnySecretStoreModifiable: AnySecretStore, SecretStoreModifiable {
 
     private let _create: (String, Bool) throws -> Void
     private let _delete: (AnySecret) throws -> Void
-    private let _updateName: (AnySecret, String) throws -> Void
+    private let _update: (AnySecret, String) throws -> Void
 
     public init<SecretStoreType>(modifiable secretStore: SecretStoreType) where SecretStoreType: SecretStoreModifiable {
         _create = { try secretStore.create(name: $0, requiresAuthentication: $1) }
         _delete = { try secretStore.delete(secret: $0.base as! SecretStoreType.SecretType) }
-        _updateName = { try secretStore.update(secret: $0.base as! SecretStoreType.SecretType, name: $1) }
+        _update = { try secretStore.update(secret: $0.base as! SecretStoreType.SecretType, name: $1) }
         super.init(secretStore)
     }
 
@@ -67,6 +67,6 @@ public class AnySecretStoreModifiable: AnySecretStore, SecretStoreModifiable {
     }
 
     public func update(secret: AnySecret, name: String) throws {
-        try _updateName(secret, name)
+        try _update(secret, name)
     }
 }
