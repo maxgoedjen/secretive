@@ -6,9 +6,16 @@ struct StoreListView: View {
     @Binding var showingCreation: Bool
     
     @State private var activeSecret: AnySecret.ID?
-    @State private var deletingSecret: AnySecret?
 
     @EnvironmentObject private var storeList: SecretStoreList
+
+    private func secretDeleted(secret: AnySecret) {
+        activeSecret = nextDefaultSecret
+    }
+
+    private func secretRenamed(secret: AnySecret) {
+        activeSecret = nextDefaultSecret
+    }
 
     var body: some View {
         NavigationView {
@@ -19,9 +26,15 @@ struct StoreListView: View {
                             if store.secrets.isEmpty {
                                 EmptyStoreView(store: store, activeSecret: $activeSecret)
                             } else {
-                                SecretListView(store: store, activeSecret: $activeSecret, deletingSecret: $deletingSecret, deletedSecret: { _ in
-                                    activeSecret = nextDefaultSecret
-                                })
+                                ForEach(store.secrets) { secret in
+                                    SecretListItemView(
+                                        store: store,
+                                        secret: secret,
+                                        activeSecret: $activeSecret,
+                                        deletedSecret: self.secretDeleted,
+                                        renamedSecret: self.secretRenamed
+                                    )
+                                }
                             }
                         }
                     }
@@ -33,9 +46,7 @@ struct StoreListView: View {
             }
             .frame(minWidth: 100, idealWidth: 240)
         }
-
     }
-
 }
 
 extension StoreListView {

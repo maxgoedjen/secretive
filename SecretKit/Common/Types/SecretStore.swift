@@ -17,6 +17,7 @@ public protocol SecretStoreModifiable: SecretStore {
 
     func create(name: String, requiresAuthentication: Bool) throws
     func delete(secret: SecretType) throws
+    func update(secret: SecretType, name: String) throws
 
 }
 

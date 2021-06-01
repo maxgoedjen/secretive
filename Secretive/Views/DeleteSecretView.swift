@@ -30,9 +30,6 @@ struct DeleteSecretView<StoreType: SecretStoreModifiable>: View {
                         TextField(secret.name, text: $confirm)
                     }
                 }
-                .onExitCommand {
-                    dismissalBlock(false)
-                }
             }
             HStack {
                 Spacer()
@@ -47,6 +44,9 @@ struct DeleteSecretView<StoreType: SecretStoreModifiable>: View {
         }
         .padding()
         .frame(minWidth: 400)
+        .onExitCommand {
+            dismissalBlock(false)
+        }
     }
     
     func delete() {

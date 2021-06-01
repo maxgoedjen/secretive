@@ -7,9 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2C4A9D2F2636FFD3008CC8E2 /* RenameSecretView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4A9D2E2636FFD3008CC8E2 /* RenameSecretView.swift */; };
 		50020BB024064869003D4025 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50020BAF24064869003D4025 /* AppDelegate.swift */; };
 		50153E20250AFCB200525160 /* UpdateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50153E1F250AFCB200525160 /* UpdateView.swift */; };
-		50153E22250DECA300525160 /* SecretListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50153E21250DECA300525160 /* SecretListView.swift */; };
+		50153E22250DECA300525160 /* SecretListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50153E21250DECA300525160 /* SecretListItemView.swift */; };
 		5018F54F24064786002EB505 /* Notifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5018F54E24064786002EB505 /* Notifier.swift */; };
 		501B7AE1251C56F700776EC7 /* SigningRequestProvenance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 507CE4F32420A8C10029F750 /* SigningRequestProvenance.swift */; };
 		50524B442420969E008DBD97 /* OpenSSHWriterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50524B432420969D008DBD97 /* OpenSSHWriterTests.swift */; };
@@ -222,9 +223,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		2C4A9D2E2636FFD3008CC8E2 /* RenameSecretView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenameSecretView.swift; sourceTree = "<group>"; };
 		50020BAF24064869003D4025 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		50153E1F250AFCB200525160 /* UpdateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateView.swift; sourceTree = "<group>"; };
-		50153E21250DECA300525160 /* SecretListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecretListView.swift; sourceTree = "<group>"; };
+		50153E21250DECA300525160 /* SecretListItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecretListItemView.swift; sourceTree = "<group>"; };
 		5018F54E24064786002EB505 /* Notifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifier.swift; sourceTree = "<group>"; };
 		50524B432420969D008DBD97 /* OpenSSHWriterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenSSHWriterTests.swift; sourceTree = "<group>"; };
 		50571E0224393C2600F76F6C /* JustUpdatedChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JustUpdatedChecker.swift; sourceTree = "<group>"; };
@@ -541,10 +543,11 @@
 			children = (
 				50617D8423FCE48E0099B055 /* ContentView.swift */,
 				5079BA0E250F29BF00EA86F4 /* StoreListView.swift */,
-				50153E21250DECA300525160 /* SecretListView.swift */,
+				50153E21250DECA300525160 /* SecretListItemView.swift */,
 				50C385A42407A76D00AF2719 /* SecretDetailView.swift */,
 				5099A02323FD2AAA0062B6F2 /* CreateSecretView.swift */,
 				50B8550C24138C4F009958AC /* DeleteSecretView.swift */,
+				2C4A9D2E2636FFD3008CC8E2 /* RenameSecretView.swift */,
 				50BB046A2418AAAE00D6E079 /* EmptyStoreView.swift */,
 				506772C82425BB8500034DED /* NoStoresView.swift */,
 				50153E1F250AFCB200525160 /* UpdateView.swift */,
@@ -1005,6 +1008,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C4A9D2F2636FFD3008CC8E2 /* RenameSecretView.swift in Sources */,
 				5091D2BC25183B830049FD9B /* ApplicationDirectoryController.swift in Sources */,
 				5066A6C22516F303004B5A36 /* SetupView.swift in Sources */,
 				50617D8523FCE48E0099B055 /* ContentView.swift in Sources */,
@@ -1022,7 +1026,7 @@
 				50BB046B2418AAAE00D6E079 /* EmptyStoreView.swift in Sources */,
 				50617D8323FCE48E0099B055 /* App.swift in Sources */,
 				506772C92425BB8500034DED /* NoStoresView.swift in Sources */,
-				50153E22250DECA300525160 /* SecretListView.swift in Sources */,
+				50153E22250DECA300525160 /* SecretListItemView.swift in Sources */,
 				508A58B5241ED48F0069DC07 /* PreviewAgentStatusChecker.swift in Sources */,
 				508A58AA241E06B40069DC07 /* PreviewUpdater.swift in Sources */,
 			);
