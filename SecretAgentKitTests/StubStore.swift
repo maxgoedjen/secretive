@@ -50,7 +50,7 @@ extension Stub {
 
         public func sign(data: Data, with secret: Secret, for provenance: SigningRequestProvenance) throws -> Data {
             guard !shouldThrow else {
-                throw NSError()
+                throw NSError(domain: "test", code: 0, userInfo: nil)
             }
             let privateKey = SecKeyCreateWithData(secret.privateKey as CFData, [
                 kSecAttrKeyType: kSecAttrKeyTypeECSECPrimeRandom,
