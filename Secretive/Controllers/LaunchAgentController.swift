@@ -22,7 +22,9 @@ struct LaunchAgentController {
     func forceLaunch(completion: ((Bool) -> Void)?) {
         Logger().debug("Agent is not running, attempting to force launch")
         let url = Bundle.main.bundleURL.appendingPathComponent("Contents/Library/LoginItems/SecretAgent.app")
-        NSWorkspace.shared.openApplication(at: url, configuration: NSWorkspace.OpenConfiguration()) { app, error in
+        let config = NSWorkspace.OpenConfiguration()
+        config.activates = false
+        NSWorkspace.shared.openApplication(at: url, configuration: config) { app, error in
             DispatchQueue.main.async {
                 completion?(error == nil)
             }
