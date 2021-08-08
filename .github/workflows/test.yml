@@ -8,6 +8,6 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Set Environment
-      run: sudo xcrun xcode-select -s /Applications/Xcode_12.3.app
+      run: sudo xcrun xcode-select -s /Applications/Xcode_12.5.1.app
     - name: Test
       run: xcrun xcodebuild test -project Secretive.xcodeproj -scheme Secretive
