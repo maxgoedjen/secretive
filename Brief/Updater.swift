@@ -12,9 +12,11 @@ public class Updater: ObservableObject, UpdaterProtocol {
     @Published public var update: Release?
 
     private let osVersion: SemVer
+    private let currentVersion: SemVer
 
-    public init(checkOnLaunch: Bool, osVersion: SemVer = SemVer(ProcessInfo.processInfo.operatingSystemVersion)) {
+    public init(checkOnLaunch: Bool, osVersion: SemVer = SemVer(ProcessInfo.processInfo.operatingSystemVersion), currentVersion: SemVer = SemVer(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "0.0.0")) {
         self.osVersion = osVersion
+        self.currentVersion = currentVersion
         if checkOnLaunch {
             // Don't do a launch check if the user hasn't seen the setup prompt explaining updater yet.
             checkForUpdates()
@@ -54,7 +56,6 @@ extension Updater {
         guard !userIgnored(release: release) else { return }
         guard !release.prerelease else { return }
         let latestVersion = SemVer(release.name)
-        let currentVersion = SemVer(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "0.0.0")
         if latestVersion > currentVersion {
             DispatchQueue.main.async {
                 self.update = release
