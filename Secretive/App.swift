@@ -68,13 +68,13 @@ extension Secretive {
 
     private func reinstallAgent() {
         justUpdatedChecker.check()
-        LaunchAgentController().install {
+        Task {
+            await LaunchAgentController().install()
             // Wait a second for launchd to kick in (next runloop isn't enough).
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                agentStatusChecker.check()
-                if !agentStatusChecker.running {
-                    forceLaunchAgent()
-                }
+            await Task.sleep(UInt64(Measurement(value: 1, unit: UnitDuration.seconds).converted(to: .nanoseconds).value))
+            agentStatusChecker.check()
+            if !agentStatusChecker.running {
+                forceLaunchAgent()
             }
         }
     }
@@ -82,7 +82,8 @@ extension Secretive {
     private func forceLaunchAgent() {
         // We've run setup, we didn't just update, launchd is just not doing it's thing.
         // Force a launch directly.
-        LaunchAgentController().forceLaunch { _ in
+        Task {
+            try? await LaunchAgentController().forceLaunch()
             agentStatusChecker.check()
         }
     }
