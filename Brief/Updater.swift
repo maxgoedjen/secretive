@@ -3,11 +3,11 @@ import Combine
 
 public protocol UpdaterProtocol: ObservableObject {
 
-    var update: Release? { get }
+    @MainActor var update: Release? { get }
 
 }
 
-public class Updater: ObservableObject, UpdaterProtocol {
+@MainActor public class Updater: ObservableObject, UpdaterProtocol {
 
     @Published public var update: Release?
 
@@ -19,28 +19,28 @@ public class Updater: ObservableObject, UpdaterProtocol {
         self.currentVersion = currentVersion
         if checkOnLaunch {
             // Don't do a launch check if the user hasn't seen the setup prompt explaining updater yet.
-            checkForUpdates()
+            Task { await checkForUpdates() }
         }
         let timer = Timer.scheduledTimer(withTimeInterval: 60*60*24, repeats: true) { _ in
-            self.checkForUpdates()
+            Task { await self.checkForUpdates() }
         }
         timer.tolerance = 60*60
     }
 
-    public func checkForUpdates() {
-        URLSession.shared.dataTask(with: Constants.updateURL) { data, _, _ in
-            guard let data = data else { return }
-            guard let releases = try? JSONDecoder().decode([Release].self, from: data) else { return }
-            self.evaluate(releases: releases)
-        }.resume()
+    public func checkForUpdates() async {
+        guard let (data, _) = try? await URLSession.shared.data(from: Constants.updateURL) else { return }
+        guard let releases = try? JSONDecoder().decode([Release].self, from: data) else { return }
+        evaluate(releases: releases)
     }
 
     public func ignore(release: Release) {
         guard !release.critical else { return }
         defaults.set(true, forKey: release.name)
-        DispatchQueue.main.async {
-            self.update = nil
-        }
+        update = release
+    }
+    
+    @MainActor private func setRelease(release: Release) {
+        update = release
     }
 
 }
@@ -57,9 +57,7 @@ extension Updater {
         guard !release.prerelease else { return }
         let latestVersion = SemVer(release.name)
         if latestVersion > currentVersion {
-            DispatchQueue.main.async {
-                self.update = release
-            }
+            setRelease(release: release)
         }
     }
 
