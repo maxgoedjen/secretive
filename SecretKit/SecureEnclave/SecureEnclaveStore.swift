@@ -7,6 +7,14 @@ extension SecureEnclave {
 
     public class Store: SecretStoreModifiable {
 
+        private let context: LAContext = {
+            let context = LAContext()
+            context.localizedReason = "test"
+            context.localizedCancelTitle = "Deny"
+            context.touchIDAuthenticationAllowableReuseDuration = 60 * 60
+            return context
+        }()
+
         public var isAvailable: Bool {
             // For some reason, as of build time, CryptoKit.SecureEnclave.isAvailable always returns false
             // error msg "Received error sending GET UNIQUE DEVICE command"
@@ -94,9 +102,6 @@ extension SecureEnclave {
         }
 
         public func sign(data: Data, with secret: SecretType, for provenance: SigningRequestProvenance) throws -> Data {
-            let context = LAContext()
-            context.localizedReason = "sign a request from \"\(provenance.origin.displayName)\" using secret \"\(secret.name)\""
-            context.localizedCancelTitle = "Deny"
             let attributes = [
                 kSecClass: kSecClassKey,
                 kSecAttrKeyClass: kSecAttrKeyClassPrivate,
