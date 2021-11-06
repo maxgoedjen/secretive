@@ -7,14 +7,6 @@ extension SecureEnclave {
 
     public class Store: SecretStoreModifiable {
 
-        private let context: LAContext = {
-            let context = LAContext()
-            context.localizedReason = "test"
-            context.localizedCancelTitle = "Deny"
-            context.touchIDAuthenticationAllowableReuseDuration = 60 * 60
-            return context
-        }()
-
         public var isAvailable: Bool {
             // For some reason, as of build time, CryptoKit.SecureEnclave.isAvailable always returns false
             // error msg "Received error sending GET UNIQUE DEVICE command"
@@ -24,6 +16,7 @@ extension SecureEnclave {
         public let id = UUID()
         public let name = NSLocalizedString("Secure Enclave", comment: "Secure Enclave")
         @Published public private(set) var secrets: [Secret] = []
+        private var existingLAContexts: [Secret: LAContext] = [:]
 
         public init() {
             DistributedNotificationCenter.default().addObserver(forName: .secretStoreUpdated, object: nil, queue: .main) { _ in
@@ -102,6 +95,17 @@ extension SecureEnclave {
         }
 
         public func sign(data: Data, with secret: SecretType, for provenance: SigningRequestProvenance) throws -> Data {
+            let context: LAContext
+            if let existing = existingLAContexts[secret] {
+                context = existing
+            } else {
+                let newContext = LAContext()
+                newContext.localizedCancelTitle = "Deny"
+                newContext.touchIDAuthenticationAllowableReuseDuration = 60 * 5
+                existingLAContexts[secret] = newContext
+                context = newContext
+            }
+            context.localizedReason = "sign a request from \"\(provenance.origin.displayName)\" using secret \"\(secret.name)\""
             let attributes = [
                 kSecClass: kSecClassKey,
                 kSecAttrKeyClass: kSecAttrKeyClassPrivate,
@@ -182,6 +186,7 @@ extension SecureEnclave.Store {
             throw SecureEnclave.KeychainError(statusCode: status)
         }
     }
+
 }
 
 extension SecureEnclave {
