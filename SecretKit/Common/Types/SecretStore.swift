@@ -21,6 +21,12 @@ public protocol SecretStoreModifiable: SecretStore {
 
 }
 
+public protocol SecretStoreAuthenticationPersistable: SecretStore {
+
+    func persistAuthentication(secret: SecretType, forDuration: TimeInterval) throws
+
+}
+
 extension NSNotification.Name {
 
     static let secretStoreUpdated = NSNotification.Name("com.maxgoedjen.Secretive.secretStore.updated")

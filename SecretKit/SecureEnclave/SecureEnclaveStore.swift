@@ -5,7 +5,7 @@ import LocalAuthentication
 
 extension SecureEnclave {
 
-    public class Store: SecretStoreModifiable {
+    public class Store: SecretStoreModifiable, SecretStoreAuthenticationPersistable {
 
         public var isAvailable: Bool {
             // For some reason, as of build time, CryptoKit.SecureEnclave.isAvailable always returns false
@@ -16,7 +16,9 @@ extension SecureEnclave {
         public let id = UUID()
         public let name = NSLocalizedString("Secure Enclave", comment: "Secure Enclave")
         @Published public private(set) var secrets: [Secret] = []
-        private var existingLAContexts: [Secret: LAContext] = [:]
+
+        private var pendingAuthenticationContext: PersistentAuthenticationContext? = nil
+        private var persistedAuthenticationContexts: [Secret: PersistentAuthenticationContext] = [:]
 
         public init() {
             DistributedNotificationCenter.default().addObserver(forName: .secretStoreUpdated, object: nil, queue: .main) { _ in
@@ -96,16 +98,15 @@ extension SecureEnclave {
 
         public func sign(data: Data, with secret: SecretType, for provenance: SigningRequestProvenance) throws -> Data {
             let context: LAContext
-            if let existing = existingLAContexts[secret] {
-                context = existing
+            if let existing = persistedAuthenticationContexts[secret], existing.valid {
+                context = existing.context
             } else {
                 let newContext = LAContext()
                 newContext.localizedCancelTitle = "Deny"
-                newContext.touchIDAuthenticationAllowableReuseDuration = 60 * 5
-                existingLAContexts[secret] = newContext
+                pendingAuthenticationContext = PersistentAuthenticationContext(secret: secret, context: newContext, expiration: Date(timeIntervalSinceNow: Constants.durationOneMinute))
                 context = newContext
             }
-            context.localizedReason = "sign a request from \"\(provenance.origin.displayName)\" using secret \"\(secret.name)\""
+            context.localizedReason = "saign a request from \"\(provenance.origin.displayName)\" using secret \"\(secret.name)\""
             let attributes = [
                 kSecClass: kSecClassKey,
                 kSecAttrKeyClass: kSecAttrKeyClassPrivate,
@@ -130,6 +131,12 @@ extension SecureEnclave {
                 throw SigningError(error: signError)
             }
             return signature as Data
+        }
+
+        public func persistAuthentication(secret: Secret, forDuration: TimeInterval) throws {
+            guard secret == pendingAuthenticationContext?.secret else { throw AuthenticationPersistenceError() }
+            persistedAuthenticationContexts[secret] = pendingAuthenticationContext
+            pendingAuthenticationContext = nil
         }
 
     }
@@ -165,7 +172,8 @@ extension SecureEnclave.Store {
             let publicKeyRef = $0[kSecValueRef] as! SecKey
             let publicKeyAttributes = SecKeyCopyAttributes(publicKeyRef) as! [CFString: Any]
             let publicKey = publicKeyAttributes[kSecValueData] as! Data
-            return SecureEnclave.Secret(id: id, name: name, publicKey: publicKey)
+            // TODO: FIX
+            return SecureEnclave.Secret(id: id, name: name, publicKey: publicKey, requiresAuthentication: false)
         }
         secrets.append(contentsOf: wrapped)
     }
@@ -199,6 +207,9 @@ extension SecureEnclave {
         public let error: SecurityError?
     }
 
+    public struct AuthenticationPersistenceError: Error {
+    }
+
 }
 
 extension SecureEnclave {
@@ -212,6 +223,25 @@ extension SecureEnclave {
     enum Constants {
         static let keyTag = "com.maxgoedjen.secretive.secureenclave.key".data(using: .utf8)! as CFData
         static let keyType = kSecAttrKeyTypeECSECPrimeRandom
+        static let durationOneMinute: TimeInterval = 60
+        static let durationFiveMinutes = durationOneMinute * 5
+        static let durationSixtyMinutes = durationOneMinute * 60
+    }
+
+}
+
+extension SecureEnclave {
+
+    private struct PersistentAuthenticationContext {
+
+        let secret: Secret
+        let context: LAContext
+        // TODO: monotonic time instead of Date() to prevent people setting the clock back.
+        let expiration: Date
+
+        var valid: Bool {
+            Date() < expiration
+        }
     }
 
 }
