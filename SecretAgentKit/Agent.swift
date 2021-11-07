@@ -93,7 +93,8 @@ extension Agent {
         }
 
         let dataToSign = reader.readNextChunk()
-        let derSignature = try store.sign(data: dataToSign, with: secret, for: provenance)
+        let signed = try store.sign(data: dataToSign, with: secret, for: provenance)
+        let derSignature = signed.data
 
         let curveData = writer.curveType(for: secret.algorithm, length: secret.keySize).data(using: .utf8)!
 
@@ -134,7 +135,7 @@ extension Agent {
         signedData.append(writer.lengthAndData(of: sub))
 
         if let witness = witness {
-            try witness.witness(accessTo: secret, from: store, by: provenance)
+            try witness.witness(accessTo: secret, from: store, by: provenance, requiredAuthentication: signed.requiredAuthentication)
         }
 
         Logger().debug("Agent signed request")

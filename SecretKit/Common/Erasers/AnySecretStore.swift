@@ -8,7 +8,7 @@ public class AnySecretStore: SecretStore {
     private let _id: () -> UUID
     private let _name: () -> String
     private let _secrets: () -> [AnySecret]
-    private let _sign: (Data, AnySecret, SigningRequestProvenance) throws -> Data
+    private let _sign: (Data, AnySecret, SigningRequestProvenance) throws -> SignedData
     private let _persistAuthentication: (AnySecret, TimeInterval) throws -> Void
 
     private var sink: AnyCancellable?
@@ -42,7 +42,7 @@ public class AnySecretStore: SecretStore {
         return _secrets()
     }
 
-    public func sign(data: Data, with secret: AnySecret, for provenance: SigningRequestProvenance) throws -> Data {
+    public func sign(data: Data, with secret: AnySecret, for provenance: SigningRequestProvenance) throws -> SignedData {
         try _sign(data, secret, provenance)
     }
 

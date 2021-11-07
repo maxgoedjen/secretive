@@ -96,14 +96,16 @@ extension SecureEnclave {
             reloadSecrets()
         }
 
-        public func sign(data: Data, with secret: SecretType, for provenance: SigningRequestProvenance) throws -> Data {
+        public func sign(data: Data, with secret: SecretType, for provenance: SigningRequestProvenance) throws -> SignedData {
             let context: LAContext
+            // TODO: RESTORE
             if let existing = persistedAuthenticationContexts[secret], existing.valid {
                 context = existing.context
             } else {
                 let newContext = LAContext()
                 newContext.localizedCancelTitle = "Deny"
-                pendingAuthenticationContext = PersistentAuthenticationContext(secret: secret, context: newContext, expiration: Date(timeIntervalSinceNow: Constants.durationOneMinute))
+                // TODO: FIX
+                pendingAuthenticationContext = PersistentAuthenticationContext(secret: secret, context: newContext, expiration: Date(timeIntervalSinceNow: 100))
                 context = newContext
             }
             context.localizedReason = "sign a request from \"\(provenance.origin.displayName)\" using secret \"\(secret.name)\""
@@ -127,10 +129,17 @@ extension SecureEnclave {
             }
             let key = untypedSafe as! SecKey
             var signError: SecurityError?
+
+            let signingStartTime = Date()
             guard let signature = SecKeyCreateSignature(key, .ecdsaSignatureMessageX962SHA256, data as CFData, &signError) else {
                 throw SigningError(error: signError)
             }
-            return signature as Data
+            let signatureDuration = Date().timeIntervalSince(signingStartTime)
+            // Hack to determine if the user had to authenticate to sign.
+            // Since there's now way to inspect SecAccessControl to determine.
+            let requiredAuthentication = signatureDuration > Constants.unauthenticatedThreshold
+
+            return SignedData(data: signature as Data, requiredAuthentication: requiredAuthentication)
         }
 
         public func persistAuthentication(secret: Secret, forDuration: TimeInterval) throws {
@@ -172,8 +181,7 @@ extension SecureEnclave.Store {
             let publicKeyRef = $0[kSecValueRef] as! SecKey
             let publicKeyAttributes = SecKeyCopyAttributes(publicKeyRef) as! [CFString: Any]
             let publicKey = publicKeyAttributes[kSecValueData] as! Data
-            // TODO: FIX
-            return SecureEnclave.Secret(id: id, name: name, publicKey: publicKey, requiresAuthentication: false)
+            return SecureEnclave.Secret(id: id, name: name, publicKey: publicKey)
         }
         secrets.append(contentsOf: wrapped)
     }
@@ -223,9 +231,7 @@ extension SecureEnclave {
     enum Constants {
         static let keyTag = "com.maxgoedjen.secretive.secureenclave.key".data(using: .utf8)! as CFData
         static let keyType = kSecAttrKeyTypeECSECPrimeRandom
-        static let durationOneMinute: TimeInterval = 60
-        static let durationFiveMinutes = durationOneMinute * 5
-        static let durationSixtyMinutes = durationOneMinute * 60
+        static let unauthenticatedThreshold: TimeInterval = 0.05
     }
 
 }
