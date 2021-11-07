@@ -12,7 +12,7 @@ public protocol SecretStore: ObservableObject, Identifiable {
     func sign(data: Data, with secret: SecretType, for provenance: SigningRequestProvenance) throws -> SignedData
 
     // TODO: MOVE TO SEPARATE PROTOCOL?
-    func persistAuthentication(secret: SecretType, forDuration: TimeInterval) throws
+    func persistAuthentication(secret: SecretType, forDuration duration: TimeInterval) throws
 
 }
 

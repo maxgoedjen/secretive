@@ -98,14 +98,12 @@ extension SecureEnclave {
 
         public func sign(data: Data, with secret: SecretType, for provenance: SigningRequestProvenance) throws -> SignedData {
             let context: LAContext
-            // TODO: RESTORE
             if let existing = persistedAuthenticationContexts[secret], existing.valid {
                 context = existing.context
             } else {
                 let newContext = LAContext()
                 newContext.localizedCancelTitle = "Deny"
-                // TODO: FIX
-                pendingAuthenticationContext = PersistentAuthenticationContext(secret: secret, context: newContext, expiration: Date(timeIntervalSinceNow: 100))
+                pendingAuthenticationContext = PersistentAuthenticationContext(secret: secret, context: newContext, expiration: Date(timeIntervalSinceNow: Constants.authenticationPersistenceOptInWindow))
                 context = newContext
             }
             context.localizedReason = "sign a request from \"\(provenance.origin.displayName)\" using secret \"\(secret.name)\""
@@ -136,15 +134,26 @@ extension SecureEnclave {
             }
             let signatureDuration = Date().timeIntervalSince(signingStartTime)
             // Hack to determine if the user had to authenticate to sign.
-            // Since there's now way to inspect SecAccessControl to determine.
+            // Since there's now way to inspect SecAccessControl to determine (afaict).
             let requiredAuthentication = signatureDuration > Constants.unauthenticatedThreshold
 
             return SignedData(data: signature as Data, requiredAuthentication: requiredAuthentication)
         }
 
-        public func persistAuthentication(secret: Secret, forDuration: TimeInterval) throws {
-            guard secret == pendingAuthenticationContext?.secret else { throw AuthenticationPersistenceError() }
-            persistedAuthenticationContexts[secret] = pendingAuthenticationContext
+        public func persistAuthentication(secret: Secret, forDuration duration: TimeInterval) throws {
+            let newContext = LAContext()
+            newContext.localizedCancelTitle = "Deny"
+            newContext.localizedReason = "sign requests without reprompting"
+            newContext.evaluatePolicy(LAPolicy.deviceOwnerAuthenticationWithBiometricsOrWatch, localizedReason: newContext.localizedReason) { x, y in
+                print(x, y)
+            }
+
+            guard let pending = pendingAuthenticationContext,
+                  secret == pending.secret,
+                  pending.valid
+            else { throw AuthenticationPersistenceExpiredError() }
+            let rewrapped = PersistentAuthenticationContext(secret: secret, context: newContext, expiration: Date(timeIntervalSinceNow: duration))
+            persistedAuthenticationContexts[secret] = rewrapped
             pendingAuthenticationContext = nil
         }
 
@@ -215,8 +224,7 @@ extension SecureEnclave {
         public let error: SecurityError?
     }
 
-    public struct AuthenticationPersistenceError: Error {
-    }
+    public struct AuthenticationPersistenceExpiredError: Error {}
 
 }
 
@@ -232,6 +240,7 @@ extension SecureEnclave {
         static let keyTag = "com.maxgoedjen.secretive.secureenclave.key".data(using: .utf8)! as CFData
         static let keyType = kSecAttrKeyTypeECSECPrimeRandom
         static let unauthenticatedThreshold: TimeInterval = 0.05
+        static let authenticationPersistenceOptInWindow: TimeInterval = 30
     }
 
 }
