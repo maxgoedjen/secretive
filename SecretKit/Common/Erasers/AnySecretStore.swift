@@ -9,6 +9,8 @@ public class AnySecretStore: SecretStore {
     private let _name: () -> String
     private let _secrets: () -> [AnySecret]
     private let _sign: (Data, AnySecret, SigningRequestProvenance) throws -> Data
+    private let _persistAuthentication: (AnySecret, TimeInterval) throws -> Void
+
     private var sink: AnyCancellable?
 
     public init<SecretStoreType>(_ secretStore: SecretStoreType) where SecretStoreType: SecretStore {
@@ -18,6 +20,7 @@ public class AnySecretStore: SecretStore {
         _id = { secretStore.id }
         _secrets = { secretStore.secrets.map { AnySecret($0) } }
         _sign = { try secretStore.sign(data: $0, with: $1.base as! SecretStoreType.SecretType, for: $2) }
+        _persistAuthentication = { try secretStore.persistAuthentication(secret: $0.base as! SecretStoreType.SecretType, forDuration: $1) }
         sink = secretStore.objectWillChange.sink { _ in
             self.objectWillChange.send()
         }
@@ -41,6 +44,10 @@ public class AnySecretStore: SecretStore {
 
     public func sign(data: Data, with secret: AnySecret, for provenance: SigningRequestProvenance) throws -> Data {
         try _sign(data, secret, provenance)
+    }
+
+    public func persistAuthentication(secret: AnySecret, forDuration duration: TimeInterval) throws {
+        try _persistAuthentication(secret, duration)
     }
 
 }
@@ -69,4 +76,5 @@ public class AnySecretStoreModifiable: AnySecretStore, SecretStoreModifiable {
     public func update(secret: AnySecret, name: String) throws {
         try _update(secret, name)
     }
+
 }

@@ -5,7 +5,7 @@ import LocalAuthentication
 
 extension SecureEnclave {
 
-    public class Store: SecretStoreModifiable, SecretStoreAuthenticationPersistable {
+    public class Store: SecretStoreModifiable {
 
         public var isAvailable: Bool {
             // For some reason, as of build time, CryptoKit.SecureEnclave.isAvailable always returns false

@@ -11,6 +11,9 @@ public protocol SecretStore: ObservableObject, Identifiable {
 
     func sign(data: Data, with secret: SecretType, for provenance: SigningRequestProvenance) throws -> Data
 
+    // TODO: MOVE TO SEPARATE PROTOCOL?
+    func persistAuthentication(secret: SecretType, forDuration: TimeInterval) throws
+
 }
 
 public protocol SecretStoreModifiable: SecretStore {
@@ -18,12 +21,6 @@ public protocol SecretStoreModifiable: SecretStore {
     func create(name: String, requiresAuthentication: Bool) throws
     func delete(secret: SecretType) throws
     func update(secret: SecretType, name: String) throws
-
-}
-
-public protocol SecretStoreAuthenticationPersistable: SecretStore {
-
-    func persistAuthentication(secret: SecretType, forDuration: TimeInterval) throws
 
 }
 

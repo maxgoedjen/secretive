@@ -30,7 +30,11 @@ class Notifier {
         notificationCenter.requestAuthorization(options: .alert) { _, _ in }
     }
 
-    func notify(accessTo secret: AnySecret, by provenance: SigningRequestProvenance, promptToPersist: Bool) {
+    func notify(accessTo secret: AnySecret, from store: AnySecretStore, by provenance: SigningRequestProvenance) {
+        notificationDelegate.persistAuthentication = { duration in
+            guard let duration = duration else { return }
+            try? store.persistAuthentication(secret: secret, forDuration: duration)
+        }
         let notificationCenter = UNUserNotificationCenter.current()
         let notificationContent = UNMutableNotificationContent()
         notificationContent.title = "Signed Request from \(provenance.origin.displayName)"
@@ -70,11 +74,11 @@ class Notifier {
 
 extension Notifier: SigningWitness {
 
-    func speakNowOrForeverHoldYourPeace(forAccessTo secret: AnySecret, by provenance: SigningRequestProvenance) throws {
+    func speakNowOrForeverHoldYourPeace(forAccessTo secret: AnySecret, from store: AnySecretStore, by provenance: SigningRequestProvenance) throws {
     }
 
-    func witness(accessTo secret: AnySecret, by provenance: SigningRequestProvenance) throws {
-        notify(accessTo: secret, by: provenance, promptToPersist: false)
+    func witness(accessTo secret: AnySecret, from store: AnySecretStore, by provenance: SigningRequestProvenance) throws {
+        notify(accessTo: secret, from: store, by: provenance)
     }
 
 }
@@ -104,12 +108,27 @@ class NotificationDelegate: NSObject, UNUserNotificationCenterDelegate {
 
     fileprivate var release: Release?
     fileprivate var ignore: ((Release) -> Void)?
+    fileprivate var persistAuthentication: ((TimeInterval?) -> Void)?
 
     func userNotificationCenter(_ center: UNUserNotificationCenter, openSettingsFor notification: UNNotification?) {
 
     }
 
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        let category = response.notification.request.content.categoryIdentifier
+        switch category {
+        case Notifier.Constants.updateCategoryIdentitifier:
+            handleUpdateResponse(response: response)
+        case Notifier.Constants.persistAuthenticationCategoryIdentitifier:
+            handlePersistAuthenticationResponse(response: response)
+        default:
+            fatalError()
+        }
+
+        completionHandler()
+    }
+
+    func handleUpdateResponse(response: UNNotificationResponse) {
         guard let update = release else { return }
         switch response.actionIdentifier {
         case Notifier.Constants.updateActionIdentitifier, UNNotificationDefaultActionIdentifier:
@@ -119,7 +138,24 @@ class NotificationDelegate: NSObject, UNUserNotificationCenterDelegate {
         default:
             fatalError()
         }
-        completionHandler()
+    }
+
+    func handlePersistAuthenticationResponse(response: UNNotificationResponse) {
+        switch response.actionIdentifier {
+        case Notifier.Constants.doNotPersistActionIdentitifier, UNNotificationDefaultActionIdentifier:
+            break
+        case Notifier.Constants.persistForOneMinuteActionIdentitifier:
+            // TODO: CLEANUP CONSTANTS
+            persistAuthentication?(60)
+        case Notifier.Constants.persistForFiveMinutesActionIdentitifier:
+            persistAuthentication?(60 * 5)
+        case Notifier.Constants.persistForOneHourActionIdentitifier:
+            persistAuthentication?(60 * 60)
+        case Notifier.Constants.persistForOneDayActionIdentitifier:
+            persistAuthentication?(60 * 60 * 24)
+        default:
+            fatalError()
+        }
     }
 
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {

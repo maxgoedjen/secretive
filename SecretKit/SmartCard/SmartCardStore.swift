@@ -82,6 +82,9 @@ extension SmartCard {
             return signature as Data
         }
 
+        public func persistAuthentication(secret: SmartCard.Secret, forDuration: TimeInterval) throws {
+        }
+
     }
 
 }

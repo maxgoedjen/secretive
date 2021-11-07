@@ -89,7 +89,7 @@ extension Agent {
         }
 
         if let witness = witness {
-            try witness.speakNowOrForeverHoldYourPeace(forAccessTo: secret, by: provenance)
+            try witness.speakNowOrForeverHoldYourPeace(forAccessTo: secret, from: store, by: provenance)
         }
 
         let dataToSign = reader.readNextChunk()
@@ -134,7 +134,7 @@ extension Agent {
         signedData.append(writer.lengthAndData(of: sub))
 
         if let witness = witness {
-            try witness.witness(accessTo: secret, by: provenance)
+            try witness.witness(accessTo: secret, from: store, by: provenance)
         }
 
         Logger().debug("Agent signed request")
