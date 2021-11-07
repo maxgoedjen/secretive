@@ -144,7 +144,7 @@ extension SecureEnclave {
             newContext.localizedCancelTitle = "Deny"
             newContext.localizedReason = "unlock secret \"\(secret.name)\""
             newContext.evaluatePolicy(LAPolicy.deviceOwnerAuthenticationWithBiometricsOrWatch, localizedReason: newContext.localizedReason) { [weak self] success, _ in
-                let context = PersistentAuthenticationContext(secret: secret, context: newContext, expiration: Date(timeIntervalSinceNow: duration))
+                let context = PersistentAuthenticationContext(secret: secret, context: newContext, duration: duration)
                 self?.persistedAuthenticationContexts[secret] = context
             }
         }
@@ -241,11 +241,18 @@ extension SecureEnclave {
 
         let secret: Secret
         let context: LAContext
-        // TODO: monotonic time instead of Date() to prevent people setting the clock back.
-        let expiration: Date
+        // Monotonic time instead of Date() to prevent people setting the clock back.
+        let expiration: UInt64
+
+        init(secret: Secret, context: LAContext, duration: TimeInterval) {
+            self.secret = secret
+            self.context = context
+            let durationInNanoSeconds = Measurement(value: duration, unit: UnitDuration.seconds).converted(to: UnitDuration.nanoseconds).value
+            self.expiration = clock_gettime_nsec_np(CLOCK_MONOTONIC) + UInt64(durationInNanoSeconds)
+        }
 
         var valid: Bool {
-            Date() < expiration
+            clock_gettime_nsec_np(CLOCK_MONOTONIC) < expiration
         }
     }
 
