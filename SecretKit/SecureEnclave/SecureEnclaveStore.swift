@@ -141,12 +141,11 @@ extension SecureEnclave {
         public func persistAuthentication(secret: Secret, forDuration duration: TimeInterval) throws {
             let newContext = LAContext()
             newContext.localizedCancelTitle = "Deny"
-            newContext.localizedReason = "sign requests without reprompting"
+            newContext.localizedReason = "sign requests using secret \"\(secret.name)\" without reprompting"
             newContext.evaluatePolicy(LAPolicy.deviceOwnerAuthenticationWithBiometricsOrWatch, localizedReason: newContext.localizedReason) { [weak self] success, _ in
                 let context = PersistentAuthenticationContext(secret: secret, context: newContext, expiration: Date(timeIntervalSinceNow: duration))
                 self?.persistedAuthenticationContexts[secret] = context
             }
-
         }
 
     }
