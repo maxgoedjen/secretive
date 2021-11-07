@@ -103,6 +103,7 @@ extension SecureEnclave {
                 let newContext = LAContext()
                 newContext.localizedCancelTitle = "Deny"
                 context = newContext
+                persistedAuthenticationContexts[secret] = nil
             }
             context.localizedReason = "sign a request from \"\(provenance.origin.displayName)\" using secret \"\(secret.name)\""
             let attributes = [
