@@ -21,6 +21,9 @@ class Notifier {
         let persistForOneDayAction = UNNotificationAction(identifier: Constants.persistForOneDayActionIdentitifier, title: "1 Day", options: [])
 
         let persistAuthenticationCategory = UNNotificationCategory(identifier: Constants.persistAuthenticationCategoryIdentitifier, actions: [persistForOneMinuteAction, persistForFiveMinutesAction, persistForOneHourAction, persistForOneDayAction], intentIdentifiers: [], options: [])
+        if persistAuthenticationCategory.responds(to: Selector(("actionsMenuTitle"))) {
+            persistAuthenticationCategory.setValue("Leave Unlocked", forKey: "_actionsMenuTitle")
+        }
         UNUserNotificationCenter.current().setNotificationCategories([updateCategory, criticalUpdateCategory, persistAuthenticationCategory])
         UNUserNotificationCenter.current().delegate = notificationDelegate
     }
