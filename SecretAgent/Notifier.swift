@@ -14,7 +14,14 @@ class Notifier {
         let ignoreAction = UNNotificationAction(identifier: Constants.ignoreActionIdentitifier, title: "Ignore", options: [])
         let updateCategory = UNNotificationCategory(identifier: Constants.updateCategoryIdentitifier, actions: [updateAction, ignoreAction], intentIdentifiers: [], options: [])
         let criticalUpdateCategory = UNNotificationCategory(identifier: Constants.criticalUpdateCategoryIdentitifier, actions: [updateAction], intentIdentifiers: [], options: [])
-        UNUserNotificationCenter.current().setNotificationCategories([updateCategory, criticalUpdateCategory])
+
+        let persistForOneMinuteAction = UNNotificationAction(identifier: Constants.persistForOneMinuteActionIdentitifier, title: "1 Minute", options: [])
+        let persistForFiveMinutesAction = UNNotificationAction(identifier: Constants.persistForFiveMinutesActionIdentitifier, title: "5 Minutes", options: [])
+        let persistForOneHourAction = UNNotificationAction(identifier: Constants.persistForOneHourActionIdentitifier, title: "1 Hour", options: [])
+        let persistForOneDayAction = UNNotificationAction(identifier: Constants.persistForOneDayActionIdentitifier, title: "1 Day", options: [])
+
+        let persistAuthenticationCategory = UNNotificationCategory(identifier: Constants.persistAuthenticationCategoryIdentitifier, actions: [persistForOneMinuteAction, persistForFiveMinutesAction, persistForOneHourAction, persistForOneDayAction], intentIdentifiers: [], options: [])
+        UNUserNotificationCenter.current().setNotificationCategories([updateCategory, criticalUpdateCategory, persistAuthenticationCategory])
         UNUserNotificationCenter.current().delegate = notificationDelegate
     }
 
@@ -23,11 +30,15 @@ class Notifier {
         notificationCenter.requestAuthorization(options: .alert) { _, _ in }
     }
 
-    func notify(accessTo secret: AnySecret, by provenance: SigningRequestProvenance) {
+    func notify(accessTo secret: AnySecret, by provenance: SigningRequestProvenance, promptToPersist: Bool) {
         let notificationCenter = UNUserNotificationCenter.current()
         let notificationContent = UNMutableNotificationContent()
         notificationContent.title = "Signed Request from \(provenance.origin.displayName)"
         notificationContent.subtitle = "Using secret \"\(secret.name)\""
+        if #available(macOS 12.0, *) {
+            notificationContent.interruptionLevel = .timeSensitive
+        }
+        notificationContent.categoryIdentifier = Constants.persistAuthenticationCategoryIdentitifier
         if let iconURL = provenance.origin.iconURL, let attachment = try? UNNotificationAttachment(identifier: "icon", url: iconURL, options: nil) {
             notificationContent.attachments = [attachment]
         }
@@ -41,6 +52,9 @@ class Notifier {
         let notificationCenter = UNUserNotificationCenter.current()
         let notificationContent = UNMutableNotificationContent()
         if update.critical {
+            if #available(macOS 12.0, *) {
+                notificationContent.interruptionLevel = .critical
+            }
             notificationContent.title = "Critical Security Update - \(update.name)"
         } else {
             notificationContent.title = "Update Available - \(update.name)"
@@ -60,7 +74,7 @@ extension Notifier: SigningWitness {
     }
 
     func witness(accessTo secret: AnySecret, by provenance: SigningRequestProvenance) throws {
-        notify(accessTo: secret, by: provenance)
+        notify(accessTo: secret, by: provenance, promptToPersist: false)
     }
 
 }
@@ -68,10 +82,20 @@ extension Notifier: SigningWitness {
 extension Notifier {
 
     enum Constants {
+
+        // Update notifications
         static let updateCategoryIdentitifier  = "com.maxgoedjen.Secretive.SecretAgent.update"
         static let criticalUpdateCategoryIdentitifier  = "com.maxgoedjen.Secretive.SecretAgent.update.critical"
         static let updateActionIdentitifier  = "com.maxgoedjen.Secretive.SecretAgent.update.updateaction"
         static let ignoreActionIdentitifier  = "com.maxgoedjen.Secretive.SecretAgent.update.ignoreaction"
+
+        // Authorization persistence notificatoins
+        static let persistAuthenticationCategoryIdentitifier  = "com.maxgoedjen.Secretive.SecretAgent.persistauthentication"
+        static let doNotPersistActionIdentitifier  = "com.maxgoedjen.Secretive.SecretAgent.persistauthentication.donotpersist"
+        static let persistForOneMinuteActionIdentitifier  = "com.maxgoedjen.Secretive.SecretAgent.persistauthentication.persist1m"
+        static let persistForFiveMinutesActionIdentitifier  = "com.maxgoedjen.Secretive.SecretAgent.persistauthentication.persist5m"
+        static let persistForOneHourActionIdentitifier  = "com.maxgoedjen.Secretive.SecretAgent.persistauthentication.persist1h"
+        static let persistForOneDayActionIdentitifier  = "com.maxgoedjen.Secretive.SecretAgent.persistauthentication.persist1d"
     }
 
 }
