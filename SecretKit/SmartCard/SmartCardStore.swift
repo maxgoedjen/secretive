@@ -9,7 +9,6 @@ extension SmartCard {
 
     public class Store: SecretStore {
 
-        // TODO: Read actual smart card name, eg "YubiKey 5c"
         @Published public var isAvailable: Bool = false
         public let id = UUID()
         public private(set) var name = NSLocalizedString("Smart Card", comment: "Smart Card")
