@@ -17,7 +17,6 @@ extension SecureEnclave {
         public let name = NSLocalizedString("Secure Enclave", comment: "Secure Enclave")
         @Published public private(set) var secrets: [Secret] = []
 
-        private var pendingAuthenticationContext: PersistentAuthenticationContext? = nil
         private var persistedAuthenticationContexts: [Secret: PersistentAuthenticationContext] = [:]
 
         public init() {
@@ -103,7 +102,6 @@ extension SecureEnclave {
             } else {
                 let newContext = LAContext()
                 newContext.localizedCancelTitle = "Deny"
-                pendingAuthenticationContext = PersistentAuthenticationContext(secret: secret, context: newContext, expiration: Date(timeIntervalSinceNow: Constants.authenticationPersistenceOptInWindow))
                 context = newContext
             }
             context.localizedReason = "sign a request from \"\(provenance.origin.displayName)\" using secret \"\(secret.name)\""
@@ -144,17 +142,11 @@ extension SecureEnclave {
             let newContext = LAContext()
             newContext.localizedCancelTitle = "Deny"
             newContext.localizedReason = "sign requests without reprompting"
-            newContext.evaluatePolicy(LAPolicy.deviceOwnerAuthenticationWithBiometricsOrWatch, localizedReason: newContext.localizedReason) { x, y in
-                print(x, y)
+            newContext.evaluatePolicy(LAPolicy.deviceOwnerAuthenticationWithBiometricsOrWatch, localizedReason: newContext.localizedReason) { [weak self] success, _ in
+                let context = PersistentAuthenticationContext(secret: secret, context: newContext, expiration: Date(timeIntervalSinceNow: duration))
+                self?.persistedAuthenticationContexts[secret] = context
             }
 
-            guard let pending = pendingAuthenticationContext,
-                  secret == pending.secret,
-                  pending.valid
-            else { throw AuthenticationPersistenceExpiredError() }
-            let rewrapped = PersistentAuthenticationContext(secret: secret, context: newContext, expiration: Date(timeIntervalSinceNow: duration))
-            persistedAuthenticationContexts[secret] = rewrapped
-            pendingAuthenticationContext = nil
         }
 
     }
@@ -223,8 +215,6 @@ extension SecureEnclave {
     public struct SigningError: Error {
         public let error: SecurityError?
     }
-
-    public struct AuthenticationPersistenceExpiredError: Error {}
 
 }
 
