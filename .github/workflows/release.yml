@@ -20,7 +20,7 @@ jobs:
         APPLE_API_KEY_ID: ${{ secrets.APPLE_API_KEY_ID }}
       run: ./.github/scripts/signing.sh
     - name: Set Environment
-      run: sudo xcrun xcode-select -s /Applications/Xcode_13.0.app
+      run: sudo xcrun xcode-select -s /Applications/Xcode_13.1.app
     - name: Test
       run: xcrun xcodebuild test -project Secretive.xcodeproj -scheme Secretive
   build:
@@ -38,7 +38,7 @@ jobs:
         APPLE_API_KEY_ID: ${{ secrets.APPLE_API_KEY_ID }}
       run: ./.github/scripts/signing.sh
     - name: Set Environment
-      run: sudo xcrun xcode-select -s /Applications/Xcode_13.0.app
+      run: sudo xcrun xcode-select -s /Applications/Xcode_13.1.app
     - name: Update Build Number
       env:
         TAG_NAME: ${{ github.ref }}
