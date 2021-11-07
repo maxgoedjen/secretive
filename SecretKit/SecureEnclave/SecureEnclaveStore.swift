@@ -106,7 +106,7 @@ extension SecureEnclave {
                 pendingAuthenticationContext = PersistentAuthenticationContext(secret: secret, context: newContext, expiration: Date(timeIntervalSinceNow: Constants.durationOneMinute))
                 context = newContext
             }
-            context.localizedReason = "saign a request from \"\(provenance.origin.displayName)\" using secret \"\(secret.name)\""
+            context.localizedReason = "sign a request from \"\(provenance.origin.displayName)\" using secret \"\(secret.name)\""
             let attributes = [
                 kSecClass: kSecClassKey,
                 kSecAttrKeyClass: kSecAttrKeyClassPrivate,
