@@ -9,7 +9,6 @@ extension SmartCard {
 
     public class Store: SecretStore {
 
-        // TODO: Read actual smart card name, eg "YubiKey 5c"
         @Published public var isAvailable: Bool = false
         public let id = UUID()
         public private(set) var name = NSLocalizedString("Smart Card", comment: "Smart Card")
@@ -106,12 +105,22 @@ extension SmartCard.Store {
 
     private func loadSecrets() {
         guard let tokenID = tokenID else { return }
-        // Hack to read name if there's only one smart card
-        let slotNames = TKSmartCardSlotManager().slotNames
-        if watcher.nonSecureEnclaveTokens.count == 1 && slotNames.count == 1 {
-            name = slotNames.first!
+
+        let fallbackName = NSLocalizedString("Smart Card", comment: "Smart Card")
+        if #available(macOS 12.0, *) {
+            if let driverName = watcher.tokenInfo(forTokenID: tokenID)?.driverName {
+                name = driverName
+            } else {
+                name = fallbackName
+            }
         } else {
-            name = NSLocalizedString("Smart Card", comment: "Smart Card")
+            // Hack to read name if there's only one smart card
+            let slotNames = TKSmartCardSlotManager().slotNames
+            if watcher.nonSecureEnclaveTokens.count == 1 && slotNames.count == 1 {
+                name = slotNames.first!
+            } else {
+                name = fallbackName
+            }
         }
 
         let attributes = [
