@@ -10,14 +10,14 @@ struct StubWitness {
 
 extension StubWitness: SigningWitness {
 
-    func speakNowOrForeverHoldYourPeace(forAccessTo secret: AnySecret, by provenance: SigningRequestProvenance) throws {
+func speakNowOrForeverHoldYourPeace(forAccessTo secret: AnySecret, from store: AnySecretStore, by provenance: SigningRequestProvenance) throws {
         let objection = speakNow(secret, provenance)
         if objection {
             throw TheresMyChance()
         }
     }
 
-    func witness(accessTo secret: AnySecret, by provenance: SigningRequestProvenance) throws {
+func witness(accessTo secret: AnySecret, from store: AnySecretStore, by provenance: SigningRequestProvenance, requiredAuthentication: Bool) throws {
         witness(secret, provenance)
     }
 
