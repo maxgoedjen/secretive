@@ -17,6 +17,8 @@ extension SecureEnclave {
         public let name = NSLocalizedString("Secure Enclave", comment: "Secure Enclave")
         @Published public private(set) var secrets: [Secret] = []
 
+        private var persistedAuthenticationContexts: [Secret: PersistentAuthenticationContext] = [:]
+
         public init() {
             DistributedNotificationCenter.default().addObserver(forName: .secretStoreUpdated, object: nil, queue: .main) { _ in
                 self.reloadSecrets(notify: false)
@@ -93,10 +95,16 @@ extension SecureEnclave {
             reloadSecrets()
         }
 
-        public func sign(data: Data, with secret: SecretType, for provenance: SigningRequestProvenance) throws -> Data {
-            let context = LAContext()
+        public func sign(data: Data, with secret: SecretType, for provenance: SigningRequestProvenance) throws -> SignedData {
+            let context: LAContext
+            if let existing = persistedAuthenticationContexts[secret], existing.valid {
+                context = existing.context
+            } else {
+                let newContext = LAContext()
+                newContext.localizedCancelTitle = "Deny"
+                context = newContext
+            }
             context.localizedReason = "sign a request from \"\(provenance.origin.displayName)\" using secret \"\(secret.name)\""
-            context.localizedCancelTitle = "Deny"
             let attributes = [
                 kSecClass: kSecClassKey,
                 kSecAttrKeyClass: kSecAttrKeyClassPrivate,
@@ -117,10 +125,37 @@ extension SecureEnclave {
             }
             let key = untypedSafe as! SecKey
             var signError: SecurityError?
+
+            let signingStartTime = Date()
             guard let signature = SecKeyCreateSignature(key, .ecdsaSignatureMessageX962SHA256, data as CFData, &signError) else {
                 throw SigningError(error: signError)
             }
-            return signature as Data
+            let signatureDuration = Date().timeIntervalSince(signingStartTime)
+            // Hack to determine if the user had to authenticate to sign.
+            // Since there's now way to inspect SecAccessControl to determine (afaict).
+            let requiredAuthentication = signatureDuration > Constants.unauthenticatedThreshold
+
+            return SignedData(data: signature as Data, requiredAuthentication: requiredAuthentication)
+        }
+
+        public func persistAuthentication(secret: Secret, forDuration duration: TimeInterval) throws {
+            let newContext = LAContext()
+            newContext.localizedCancelTitle = "Deny"
+
+            let formatter = DateComponentsFormatter()
+            formatter.unitsStyle = .spellOut
+            formatter.allowedUnits = [.hour, .minute, .day]
+
+            if let durationString = formatter.string(from: duration) {
+                newContext.localizedReason = "unlock secret \"\(secret.name)\" for \(durationString)"
+            } else {
+                newContext.localizedReason = "unlock secret \"\(secret.name)\""
+            }
+            newContext.evaluatePolicy(LAPolicy.deviceOwnerAuthentication, localizedReason: newContext.localizedReason) { [weak self] success, _ in
+                guard success else { return }
+                let context = PersistentAuthenticationContext(secret: secret, context: newContext, duration: duration)
+                self?.persistedAuthenticationContexts[secret] = context
+            }
         }
 
     }
@@ -177,6 +212,7 @@ extension SecureEnclave.Store {
             throw SecureEnclave.KeychainError(statusCode: status)
         }
     }
+
 }
 
 extension SecureEnclave {
@@ -202,6 +238,30 @@ extension SecureEnclave {
     enum Constants {
         static let keyTag = "com.maxgoedjen.secretive.secureenclave.key".data(using: .utf8)! as CFData
         static let keyType = kSecAttrKeyTypeECSECPrimeRandom
+        static let unauthenticatedThreshold: TimeInterval = 0.05
+    }
+
+}
+
+extension SecureEnclave {
+
+    private struct PersistentAuthenticationContext {
+
+        let secret: Secret
+        let context: LAContext
+        // Monotonic time instead of Date() to prevent people setting the clock back.
+        let expiration: UInt64
+
+        init(secret: Secret, context: LAContext, duration: TimeInterval) {
+            self.secret = secret
+            self.context = context
+            let durationInNanoSeconds = Measurement(value: duration, unit: UnitDuration.seconds).converted(to: .nanoseconds).value
+            self.expiration = clock_gettime_nsec_np(CLOCK_MONOTONIC) + UInt64(durationInNanoSeconds)
+        }
+
+        var valid: Bool {
+            clock_gettime_nsec_np(CLOCK_MONOTONIC) < expiration
+        }
     }
 
 }

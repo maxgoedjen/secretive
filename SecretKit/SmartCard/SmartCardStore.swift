@@ -43,7 +43,7 @@ extension SmartCard {
             fatalError("Keys must be deleted on the smart card.")
         }
 
-        public func sign(data: Data, with secret: SecretType, for provenance: SigningRequestProvenance) throws -> Data {
+        public func sign(data: Data, with secret: SecretType, for provenance: SigningRequestProvenance) throws -> SignedData {
             guard let tokenID = tokenID else { fatalError() }
             let context = LAContext()
             context.localizedReason = "sign a request from \"\(provenance.origin.displayName)\" using secret \"\(secret.name)\""
@@ -78,7 +78,10 @@ extension SmartCard {
             guard let signature = SecKeyCreateSignature(key, signatureAlgorithm, data as CFData, &signError) else {
                 throw SigningError(error: signError)
             }
-            return signature as Data
+            return SignedData(data: signature as Data, requiredAuthentication: false)
+        }
+
+        public func persistAuthentication(secret: SmartCard.Secret, forDuration: TimeInterval) throws {
         }
 
     }

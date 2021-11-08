@@ -9,7 +9,9 @@ public protocol SecretStore: ObservableObject, Identifiable {
     var name: String { get }
     var secrets: [SecretType] { get }
 
-    func sign(data: Data, with secret: SecretType, for provenance: SigningRequestProvenance) throws -> Data
+    func sign(data: Data, with secret: SecretType, for provenance: SigningRequestProvenance) throws -> SignedData
+
+    func persistAuthentication(secret: SecretType, forDuration duration: TimeInterval) throws
 
 }
 
