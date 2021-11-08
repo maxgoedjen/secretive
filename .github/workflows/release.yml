@@ -58,7 +58,7 @@ jobs:
       env: 
         APPLE_API_KEY_ID: ${{ secrets.APPLE_API_KEY_ID }}
         APPLE_API_ISSUER: ${{ secrets.APPLE_API_ISSUER }}
-      run: xcrun altool --notarize-app --primary-bundle-id "com.maxgoedjen.secretive.host" --apiKey $APPLE_API_KEY_ID --apiIssuer $APPLE_API_ISSUER --file Secretive.zip
+      run: xcrun notarytool submit --key ~/.private_keys/AuthKey_$APPLE_API_KEY_ID.p8 --key-id $APPLE_API_KEY_ID --issuer $APPLE_API_ISSUER Secretive.zip
     - name: Document SHAs
       run: |
             shasum -a 512 Secretive.zip
