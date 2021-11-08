@@ -10,7 +10,6 @@ extension SecureEnclave {
         public let algorithm = Algorithm.ellipticCurve
         public let keySize = 256
         public let publicKey: Data
-        internal let accessControl: SecAccessControl
 
     }
 

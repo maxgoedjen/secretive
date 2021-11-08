@@ -190,11 +190,10 @@ extension SecureEnclave.Store {
         let wrapped: [SecureEnclave.Secret] = typed.map {
             let name = $0[kSecAttrLabel] as? String ?? "Unnamed"
             let id = $0[kSecAttrApplicationLabel] as! Data
-            let accessControl = $0[kSecAttrAccessControl] as! SecAccessControl
             let publicKeyRef = $0[kSecValueRef] as! SecKey
             let publicKeyAttributes = SecKeyCopyAttributes(publicKeyRef) as! [CFString: Any]
             let publicKey = publicKeyAttributes[kSecValueData] as! Data
-            return SecureEnclave.Secret(id: id, name: name, publicKey: publicKey, accessControl: accessControl)
+            return SecureEnclave.Secret(id: id, name: name, publicKey: publicKey)
         }
         secrets.append(contentsOf: wrapped)
     }
