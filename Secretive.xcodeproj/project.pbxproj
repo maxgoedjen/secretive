@@ -14,7 +14,6 @@
 		5018F54F24064786002EB505 /* Notifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5018F54E24064786002EB505 /* Notifier.swift */; };
 		501B7AE1251C56F700776EC7 /* SigningRequestProvenance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 507CE4F32420A8C10029F750 /* SigningRequestProvenance.swift */; };
 		5035FF6E2737A2F4006FE1F6 /* SignedData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5035FF6D2737A2F4006FE1F6 /* SignedData.swift */; };
-		5035FF742738AEA1006FE1F6 /* AuthenticationContextPersistenceStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5035FF732738AEA1006FE1F6 /* AuthenticationContextPersistenceStore.swift */; };
 		50524B442420969E008DBD97 /* OpenSSHWriterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50524B432420969D008DBD97 /* OpenSSHWriterTests.swift */; };
 		50571E0324393C2600F76F6C /* JustUpdatedChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50571E0224393C2600F76F6C /* JustUpdatedChecker.swift */; };
 		50571E0524393D1500F76F6C /* LaunchAgentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50571E0424393D1500F76F6C /* LaunchAgentController.swift */; };
@@ -231,7 +230,6 @@
 		50153E21250DECA300525160 /* SecretListItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecretListItemView.swift; sourceTree = "<group>"; };
 		5018F54E24064786002EB505 /* Notifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifier.swift; sourceTree = "<group>"; };
 		5035FF6D2737A2F4006FE1F6 /* SignedData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignedData.swift; sourceTree = "<group>"; };
-		5035FF732738AEA1006FE1F6 /* AuthenticationContextPersistenceStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationContextPersistenceStore.swift; sourceTree = "<group>"; };
 		50524B432420969D008DBD97 /* OpenSSHWriterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenSSHWriterTests.swift; sourceTree = "<group>"; };
 		50571E0224393C2600F76F6C /* JustUpdatedChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JustUpdatedChecker.swift; sourceTree = "<group>"; };
 		50571E0424393D1500F76F6C /* LaunchAgentController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchAgentController.swift; sourceTree = "<group>"; };
@@ -399,7 +397,6 @@
 				50617DCA23FCECA10099B055 /* Secret.swift */,
 				50617DC623FCE4EA0099B055 /* SecretStore.swift */,
 				5035FF6D2737A2F4006FE1F6 /* SignedData.swift */,
-				5035FF732738AEA1006FE1F6 /* AuthenticationContextPersistenceStore.swift */,
 			);
 			path = Types;
 			sourceTree = "<group>";
@@ -1060,7 +1057,6 @@
 				506838A32415EA5D00F55094 /* AnySecretStore.swift in Sources */,
 				50617DCE23FCECFA0099B055 /* SecureEnclaveSecret.swift in Sources */,
 				50617DD023FCED2C0099B055 /* SecureEnclave.swift in Sources */,
-				5035FF742738AEA1006FE1F6 /* AuthenticationContextPersistenceStore.swift in Sources */,
 				5068389E241471CD00F55094 /* SecretStoreList.swift in Sources */,
 				506838A12415EA5600F55094 /* AnySecret.swift in Sources */,
 				5099A02923FE35240062B6F2 /* SmartCardStore.swift in Sources */,
