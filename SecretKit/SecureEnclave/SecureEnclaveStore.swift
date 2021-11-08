@@ -103,7 +103,8 @@ extension SecureEnclave {
                 let newContext = LAContext()
                 newContext.localizedCancelTitle = "Deny"
                 context = newContext
-                persistedAuthenticationContexts[secret] = nil
+                // TODO: REMOVE
+//                persistedAuthenticationContexts[secret] = PersistentAuthenticationContext(secret: secret, context: newContext, duration: 60)
             }
             context.localizedReason = "sign a request from \"\(provenance.origin.displayName)\" using secret \"\(secret.name)\""
             let attributes = [
@@ -152,7 +153,7 @@ extension SecureEnclave {
             } else {
                 newContext.localizedReason = "unlock secret \"\(secret.name)\""
             }
-            newContext.evaluatePolicy(LAPolicy.deviceOwnerAuthenticationWithBiometricsOrWatch, localizedReason: newContext.localizedReason) { [weak self] success, _ in
+            newContext.evaluatePolicy(LAPolicy.deviceOwnerAuthentication, localizedReason: newContext.localizedReason) { [weak self] success, _ in
                 guard success else { return }
                 let context = PersistentAuthenticationContext(secret: secret, context: newContext, duration: duration)
                 self?.persistedAuthenticationContexts[secret] = context
@@ -189,10 +190,11 @@ extension SecureEnclave.Store {
         let wrapped: [SecureEnclave.Secret] = typed.map {
             let name = $0[kSecAttrLabel] as? String ?? "Unnamed"
             let id = $0[kSecAttrApplicationLabel] as! Data
+            let accessControl = $0[kSecAttrAccessControl] as! SecAccessControl
             let publicKeyRef = $0[kSecValueRef] as! SecKey
             let publicKeyAttributes = SecKeyCopyAttributes(publicKeyRef) as! [CFString: Any]
             let publicKey = publicKeyAttributes[kSecValueData] as! Data
-            return SecureEnclave.Secret(id: id, name: name, publicKey: publicKey)
+            return SecureEnclave.Secret(id: id, name: name, publicKey: publicKey, accessControl: accessControl)
         }
         secrets.append(contentsOf: wrapped)
     }
