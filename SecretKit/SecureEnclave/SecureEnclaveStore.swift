@@ -258,7 +258,7 @@ extension SecureEnclave {
         init(secret: Secret, context: LAContext, duration: TimeInterval) {
             self.secret = secret
             self.context = context
-            let durationInNanoSeconds = Measurement(value: duration, unit: UnitDuration.seconds).converted(to: UnitDuration.nanoseconds).value
+            let durationInNanoSeconds = Measurement(value: duration, unit: UnitDuration.seconds).converted(to: .nanoseconds).value
             self.expiration = clock_gettime_nsec_np(CLOCK_MONOTONIC) + UInt64(durationInNanoSeconds)
         }
 
