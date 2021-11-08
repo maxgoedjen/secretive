@@ -1,9 +1,7 @@
 name: Release
 
-on: 
-  push:
-    tags:
-      - '*'
+on: [push, pull_request]
+
 jobs:
   test:
     runs-on: macos-11.0
