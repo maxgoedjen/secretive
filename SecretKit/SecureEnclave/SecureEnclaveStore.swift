@@ -142,8 +142,18 @@ extension SecureEnclave {
         public func persistAuthentication(secret: Secret, forDuration duration: TimeInterval) throws {
             let newContext = LAContext()
             newContext.localizedCancelTitle = "Deny"
-            newContext.localizedReason = "unlock secret \"\(secret.name)\""
+
+            let formatter = DateComponentsFormatter()
+            formatter.unitsStyle = .spellOut
+            formatter.allowedUnits = [.hour, .minute, .day]
+
+            if let durationString = formatter.string(from: duration) {
+                newContext.localizedReason = "unlock secret \"\(secret.name)\" for \(durationString)"
+            } else {
+                newContext.localizedReason = "unlock secret \"\(secret.name)\""
+            }
             newContext.evaluatePolicy(LAPolicy.deviceOwnerAuthenticationWithBiometricsOrWatch, localizedReason: newContext.localizedReason) { [weak self] success, _ in
+                guard success else { return }
                 let context = PersistentAuthenticationContext(secret: secret, context: newContext, duration: duration)
                 self?.persistedAuthenticationContexts[secret] = context
             }

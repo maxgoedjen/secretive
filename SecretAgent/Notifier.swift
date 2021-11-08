@@ -15,12 +15,29 @@ class Notifier {
         let updateCategory = UNNotificationCategory(identifier: Constants.updateCategoryIdentitifier, actions: [updateAction, ignoreAction], intentIdentifiers: [], options: [])
         let criticalUpdateCategory = UNNotificationCategory(identifier: Constants.criticalUpdateCategoryIdentitifier, actions: [updateAction], intentIdentifiers: [], options: [])
 
-        let persistForOneMinuteAction = UNNotificationAction(identifier: Constants.persistForOneMinuteActionIdentitifier, title: "1 Minute", options: [])
-        let persistForFiveMinutesAction = UNNotificationAction(identifier: Constants.persistForFiveMinutesActionIdentitifier, title: "5 Minutes", options: [])
-        let persistForOneHourAction = UNNotificationAction(identifier: Constants.persistForOneHourActionIdentitifier, title: "1 Hour", options: [])
-        let persistForOneDayAction = UNNotificationAction(identifier: Constants.persistForOneDayActionIdentitifier, title: "1 Day", options: [])
+        let rawDurations = [Measurement(value: 1, unit: UnitDuration.minutes),
+                            Measurement(value: 5, unit: UnitDuration.minutes),
+                            Measurement(value: 1, unit: UnitDuration.hours),
+                            Measurement(value: 24, unit: UnitDuration.hours)
+        ]
 
-        let persistAuthenticationCategory = UNNotificationCategory(identifier: Constants.persistAuthenticationCategoryIdentitifier, actions: [persistForOneMinuteAction, persistForFiveMinutesAction, persistForOneHourAction, persistForOneDayAction], intentIdentifiers: [], options: [])
+        let doNotPersistAction = UNNotificationAction(identifier: Constants.doNotPersistActionIdentitifier, title: "Do Not Unlock", options: [])
+        var allPersistenceActions = [doNotPersistAction]
+
+        let formatter = DateComponentsFormatter()
+        formatter.unitsStyle = .spellOut
+        formatter.allowedUnits = [.hour, .minute, .day]
+
+        for duration in rawDurations {
+            let seconds = duration.converted(to: .seconds).value
+            guard let string = formatter.string(from: seconds)?.capitalized else { continue }
+            let identifier = Constants.persistAuthenticationCategoryIdentitifier.appending("\(seconds)")
+            let action = UNNotificationAction(identifier: identifier, title: string, options: [])
+            notificationDelegate.persistOptions[identifier] = seconds
+            allPersistenceActions.append(action)
+        }
+
+        let persistAuthenticationCategory = UNNotificationCategory(identifier: Constants.persistAuthenticationCategoryIdentitifier, actions: allPersistenceActions, intentIdentifiers: [], options: [])
         if persistAuthenticationCategory.responds(to: Selector(("actionsMenuTitle"))) {
             persistAuthenticationCategory.setValue("Leave Unlocked", forKey: "_actionsMenuTitle")
         }
@@ -101,10 +118,7 @@ extension Notifier {
         // Authorization persistence notificatoins
         static let persistAuthenticationCategoryIdentitifier  = "com.maxgoedjen.Secretive.SecretAgent.persistauthentication"
         static let doNotPersistActionIdentitifier  = "com.maxgoedjen.Secretive.SecretAgent.persistauthentication.donotpersist"
-        static let persistForOneMinuteActionIdentitifier  = "com.maxgoedjen.Secretive.SecretAgent.persistauthentication.persist1m"
-        static let persistForFiveMinutesActionIdentitifier  = "com.maxgoedjen.Secretive.SecretAgent.persistauthentication.persist5m"
-        static let persistForOneHourActionIdentitifier  = "com.maxgoedjen.Secretive.SecretAgent.persistauthentication.persist1h"
-        static let persistForOneDayActionIdentitifier  = "com.maxgoedjen.Secretive.SecretAgent.persistauthentication.persist1d"
+        static let persistForActionIdentitifierPrefix  = "com.maxgoedjen.Secretive.SecretAgent.persistauthentication.persist."
     }
 
 }
@@ -114,6 +128,7 @@ class NotificationDelegate: NSObject, UNUserNotificationCenterDelegate {
     fileprivate var release: Release?
     fileprivate var ignore: ((Release) -> Void)?
     fileprivate var persistAuthentication: ((TimeInterval?) -> Void)?
+    fileprivate var persistOptions: [String: TimeInterval] = [:]
 
     func userNotificationCenter(_ center: UNUserNotificationCenter, openSettingsFor notification: UNNotification?) {
 
@@ -146,21 +161,7 @@ class NotificationDelegate: NSObject, UNUserNotificationCenterDelegate {
     }
 
     func handlePersistAuthenticationResponse(response: UNNotificationResponse) {
-        switch response.actionIdentifier {
-        case Notifier.Constants.doNotPersistActionIdentitifier, UNNotificationDefaultActionIdentifier:
-            break
-        case Notifier.Constants.persistForOneMinuteActionIdentitifier:
-            // TODO: CLEANUP CONSTANTS
-            persistAuthentication?(60)
-        case Notifier.Constants.persistForFiveMinutesActionIdentitifier:
-            persistAuthentication?(60 * 5)
-        case Notifier.Constants.persistForOneHourActionIdentitifier:
-            persistAuthentication?(60 * 60)
-        case Notifier.Constants.persistForOneDayActionIdentitifier:
-            persistAuthentication?(60 * 60 * 24)
-        default:
-            fatalError()
-        }
+        persistAuthentication?(persistOptions[response.actionIdentifier])
     }
 
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
