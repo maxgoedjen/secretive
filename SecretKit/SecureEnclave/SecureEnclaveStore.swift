@@ -239,7 +239,6 @@ extension SecureEnclave {
         static let keyTag = "com.maxgoedjen.secretive.secureenclave.key".data(using: .utf8)! as CFData
         static let keyType = kSecAttrKeyTypeECSECPrimeRandom
         static let unauthenticatedThreshold: TimeInterval = 0.05
-        static let authenticationPersistenceOptInWindow: TimeInterval = 30
     }
 
 }
