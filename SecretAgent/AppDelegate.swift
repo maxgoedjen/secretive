@@ -23,6 +23,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let path = (NSHomeDirectory() as NSString).appendingPathComponent("socket.ssh") as String
         return SocketController(path: path)
     }()
+    private lazy var fakeFile: PublicKeyStandinFileStoreController = {
+        PublicKeyStandinFileStoreController(secrets: storeList.stores.flatMap({ $0.secrets }))
+    }()
     private var updateSink: AnyCancellable?
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
@@ -34,6 +37,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         updateSink = updater.$update.sink { update in
             guard let update = update else { return }
             self.notifier.notify(update: update, ignore: self.updater.ignore(release:))
+        }
+        DispatchQueue.main.async {
+            print(self.fakeFile)
         }
     }
 
