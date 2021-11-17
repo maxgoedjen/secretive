@@ -23,6 +23,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let path = (NSHomeDirectory() as NSString).appendingPathComponent("socket.ssh") as String
         return SocketController(path: path)
     }()
+    // TODO: CLEANUP
     private lazy var fakeFile: PublicKeyStandinFileStoreController = {
         PublicKeyStandinFileStoreController(secrets: storeList.stores.flatMap({ $0.secrets }))
     }()
@@ -38,6 +39,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             guard let update = update else { return }
             self.notifier.notify(update: update, ignore: self.updater.ignore(release:))
         }
+        // TODO: CLEANUP
         DispatchQueue.main.async {
             print(self.fakeFile)
         }
