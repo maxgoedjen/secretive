@@ -62,6 +62,7 @@ public class SocketController {
         guard let new = notification.object as? FileHandle else { return }
         Logger().debug("Socket controller received new file handle")
         handler?(new, new)
+        new.waitForDataInBackgroundAndNotify()
     }
 
 }
