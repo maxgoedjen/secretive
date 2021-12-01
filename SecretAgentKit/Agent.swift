@@ -21,43 +21,48 @@ public class Agent {
 
 extension Agent {
 
-    public func handle(reader: FileHandleReader, writer: FileHandleWriter) {
+    public func handle(reader: FileHandleReader, writer: FileHandleWriter) -> Bool {
         Logger().debug("Agent handling new data")
         let data = reader.availableData
-        guard !data.isEmpty else { return }
+        guard !data.isEmpty else { return true }
         let requestTypeInt = data[4]
         guard let requestType = SSHAgent.RequestType(rawValue: requestTypeInt) else {
             writer.write(OpenSSHKeyWriter().lengthAndData(of: SSHAgent.ResponseType.agentFailure.data))
             Logger().debug("Agent returned \(SSHAgent.ResponseType.agentFailure.debugDescription)")
-            return
+            return true
         }
         Logger().debug("Agent handling request of type \(requestType.debugDescription)")
         let subData = Data(data[5...])
-        let response = handle(requestType: requestType, data: subData, reader: reader)
+        let (response, shouldClose) = handle(requestType: requestType, data: subData, reader: reader)
         writer.write(response)
+        return shouldClose
     }
 
-    func handle(requestType: SSHAgent.RequestType, data: Data, reader: FileHandleReader) -> Data {
+    func handle(requestType: SSHAgent.RequestType, data: Data, reader: FileHandleReader) -> (Data, Bool) {
         var response = Data()
+        let shouldClose: Bool
         do {
             switch requestType {
             case .requestIdentities:
                 response.append(SSHAgent.ResponseType.agentIdentitiesAnswer.data)
                 response.append(identities())
                 Logger().debug("Agent returned \(SSHAgent.ResponseType.agentIdentitiesAnswer.debugDescription)")
+                shouldClose = false
             case .signRequest:
                 let provenance = requestTracer.provenance(from: reader)
                 response.append(SSHAgent.ResponseType.agentSignResponse.data)
                 response.append(try sign(data: data, provenance: provenance))
                 Logger().debug("Agent returned \(SSHAgent.ResponseType.agentSignResponse.debugDescription)")
+                shouldClose = true
             }
         } catch {
             response.removeAll()
             response.append(SSHAgent.ResponseType.agentFailure.data)
             Logger().debug("Agent returned \(SSHAgent.ResponseType.agentFailure.debugDescription)")
+            shouldClose = true
         }
         let full = OpenSSHKeyWriter().lengthAndData(of: response)
-        return full
+        return (full, shouldClose)
     }
 
 }
