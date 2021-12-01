@@ -21,20 +21,21 @@ public class Agent {
 
 extension Agent {
 
-    public func handle(reader: FileHandleReader, writer: FileHandleWriter) {
+    public func handle(reader: FileHandleReader, writer: FileHandleWriter) -> Bool {
         Logger().debug("Agent handling new data")
         let data = reader.availableData
-        guard !data.isEmpty else { return }
+        guard !data.isEmpty else { return false}
         let requestTypeInt = data[4]
         guard let requestType = SSHAgent.RequestType(rawValue: requestTypeInt) else {
             writer.write(OpenSSHKeyWriter().lengthAndData(of: SSHAgent.ResponseType.agentFailure.data))
             Logger().debug("Agent returned \(SSHAgent.ResponseType.agentFailure.debugDescription)")
-            return
+            return true
         }
         Logger().debug("Agent handling request of type \(requestType.debugDescription)")
         let subData = Data(data[5...])
         let response = handle(requestType: requestType, data: subData, reader: reader)
         writer.write(response)
+        return true
     }
 
     func handle(requestType: SSHAgent.RequestType, data: Data, reader: FileHandleReader) -> Data {

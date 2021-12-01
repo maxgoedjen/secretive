@@ -5,7 +5,7 @@ public class SocketController {
 
     private var fileHandle: FileHandle?
     private var port: SocketPort?
-    public var handler: ((FileHandleReader, FileHandleWriter) -> Void)?
+    public var handler: ((FileHandleReader, FileHandleWriter) -> Bool)?
 
     public init(path: String) {
         Logger().debug("Socket controller setting up at \(path)")
@@ -52,7 +52,7 @@ public class SocketController {
     @objc func handleConnectionAccept(notification: Notification) {
         Logger().debug("Socket controller accepted connection")
         guard let new = notification.userInfo?[NSFileHandleNotificationFileHandleItem] as? FileHandle else { return }
-        handler?(new, new)
+        _ = handler?(new, new)
         new.waitForDataInBackgroundAndNotify()
         fileHandle?.acceptConnectionInBackgroundAndNotify(forModes: [RunLoop.current.currentMode!])
     }
@@ -61,8 +61,12 @@ public class SocketController {
         Logger().debug("Socket controller has new data available")
         guard let new = notification.object as? FileHandle else { return }
         Logger().debug("Socket controller received new file handle")
-        handler?(new, new)
-        new.waitForDataInBackgroundAndNotify()
+        if((handler?(new, new)) == true) {
+            Logger().debug("Socket controller handled data, wait for more data")
+            new.waitForDataInBackgroundAndNotify()
+        } else {
+            Logger().debug("Socket controller called with empty data, socked closed")
+        }
     }
 
 }
