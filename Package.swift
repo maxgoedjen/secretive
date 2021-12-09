@@ -25,6 +25,7 @@ let package = Package(
         .executableTarget(
             name: "Secretive",
             dependencies: ["SecretKit", "Brief"],
+            exclude: ["Resources/Info.plist"],
             resources: [
                 .process("Resources/Assets.xcassets"),
                 .process("Resources/Credits.rtf"),
@@ -43,7 +44,7 @@ let package = Package(
             dependencies: ["Secretive"]),
         .executableTarget(
             name: "SecretAgent",
-            dependencies: ["SecretAgentKit", "Brief"],
+            dependencies: ["SecretAgentKit", "Brief"], exclude: ["Resources/Info.plist"],
             resources: [
                 .process("Resources/Assets.xcassets"),
                 .process("Resources/InternetAccessPolicy.plist"),
