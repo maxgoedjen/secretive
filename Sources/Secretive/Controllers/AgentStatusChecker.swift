@@ -21,8 +21,7 @@ class AgentStatusChecker: ObservableObject, AgentStatusCheckerProtocol {
 
     // All processes, including ones from older versions, etc
     var secretAgentProcesses: [NSRunningApplication] {
-        []
-//        NSRunningApplication.runningApplications(withBundleIdentifier: Bundle.main.agentBundleID)
+        NSRunningApplication.runningApplications(withBundleIdentifier: Bundle.main.agentBundleID)
     }
 
     // The process corresponding to this instance of Secretive
