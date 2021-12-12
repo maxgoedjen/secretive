@@ -71,7 +71,7 @@ extension Secretive {
         Task {
             await LaunchAgentController().install()
             // Wait a second for launchd to kick in (next runloop isn't enough).
-            await Task.sleep(UInt64(Measurement(value: 1, unit: UnitDuration.seconds).converted(to: .nanoseconds).value))
+            try? await Task.sleep(nanoseconds: UInt64(Measurement(value: 1, unit: UnitDuration.seconds).converted(to: .nanoseconds).value))
             agentStatusChecker.check()
             if !agentStatusChecker.running {
                 forceLaunchAgent()

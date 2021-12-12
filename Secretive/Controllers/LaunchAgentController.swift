@@ -12,7 +12,7 @@ struct LaunchAgentController {
         // This is definitely a bit of a "seems to work better" thing but:
         // Seems to more reliably hit if these are on separate runloops, otherwise it seems like it sometimes doesn't kill old
         // and start new?
-        await Task.sleep(UInt64(Measurement(value: 0.1, unit: UnitDuration.seconds).converted(to: .nanoseconds).value))
+        try? await Task.sleep(nanoseconds: UInt64(Measurement(value: 0.1, unit: UnitDuration.seconds).converted(to: .nanoseconds).value))
         _  = setEnabled(true)
     }
 
