@@ -142,6 +142,7 @@ extension SecureEnclave {
 
         public func persistAuthentication(secret: Secret, forDuration duration: TimeInterval) throws {
             let newContext = LAContext()
+            newContext.touchIDAuthenticationAllowableReuseDuration = duration
             newContext.localizedCancelTitle = "Deny"
 
             let formatter = DateComponentsFormatter()
