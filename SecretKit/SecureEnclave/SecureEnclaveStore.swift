@@ -56,13 +56,15 @@ extension SecureEnclave {
                 ]
             ] as CFDictionary
 
-            var privateKey: SecKey? = nil
-            var publicKey: SecKey? = nil
-            let status = SecKeyGeneratePair(attributes, &publicKey, &privateKey)
-            guard privateKey != nil, let pk = publicKey else {
-                throw KeychainError(statusCode: status)
+            var createKeyError: SecurityError?
+            let keypair = SecKeyCreateRandomKey(attributes, &createKeyError)
+            if let error = createKeyError {
+                throw error.takeRetainedValue() as Error
             }
-            try savePublicKey(pk, name: name)
+            guard let keypair = keypair, let publicKey = SecKeyCopyPublicKey(keypair) else {
+                throw KeychainError(statusCode: nil)
+            }
+            try savePublicKey(publicKey, name: name)
             reloadSecrets()
         }
 
@@ -219,7 +221,7 @@ extension SecureEnclave.Store {
 extension SecureEnclave {
 
     public struct KeychainError: Error {
-        public let statusCode: OSStatus
+        public let statusCode: OSStatus?
     }
 
     public struct SigningError: Error {
