@@ -1,4 +1,5 @@
 import SwiftUI
+import UniformTypeIdentifiers
 
 struct CopyableView: View {
 
@@ -46,7 +47,7 @@ struct CopyableView: View {
             }
         }
         .onDrag {
-            NSItemProvider(item: NSData(data: text.data(using: .utf8)!), typeIdentifier: kUTTypeUTF8PlainText as String)
+            NSItemProvider(item: NSData(data: text.data(using: .utf8)!), typeIdentifier: UTType.utf8PlainText.identifier)
         }
         .onTapGesture {
             copy()
