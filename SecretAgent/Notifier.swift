@@ -79,7 +79,7 @@ class Notifier {
         notificationCenter.add(request, withCompletionHandler: nil)
     }
 
-    func notify(update: Release, ignore: ((Release) -> Void)?) {
+    func notify(update: Release, ignore: (@MainActor (Release) -> Void)?) {
         notificationDelegate.release = update
         notificationDelegate.ignore = ignore
         let notificationCenter = UNUserNotificationCenter.current()
@@ -136,7 +136,7 @@ extension Notifier {
 class NotificationDelegate: NSObject, UNUserNotificationCenterDelegate {
 
     fileprivate var release: Release?
-    fileprivate var ignore: ((Release) -> Void)?
+    fileprivate var ignore: (@MainActor (Release) -> Void)?
     fileprivate var persistAuthentication: ((AnySecret, AnySecretStore, TimeInterval?) -> Void)?
     fileprivate var persistOptions: [String: TimeInterval] = [:]
     fileprivate var pendingPersistableStores: [String: AnySecretStore] = [:]
@@ -146,7 +146,7 @@ class NotificationDelegate: NSObject, UNUserNotificationCenterDelegate {
 
     }
 
-    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+    @MainActor func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         let category = response.notification.request.content.categoryIdentifier
         switch category {
         case Notifier.Constants.updateCategoryIdentitifier:
@@ -160,7 +160,7 @@ class NotificationDelegate: NSObject, UNUserNotificationCenterDelegate {
         completionHandler()
     }
 
-    func handleUpdateResponse(response: UNNotificationResponse) {
+    @MainActor func handleUpdateResponse(response: UNNotificationResponse) {
         guard let update = release else { return }
         switch response.actionIdentifier {
         case Notifier.Constants.updateActionIdentitifier, UNNotificationDefaultActionIdentifier:

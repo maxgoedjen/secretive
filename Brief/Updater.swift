@@ -7,7 +7,7 @@ public protocol UpdaterProtocol: ObservableObject {
 
 }
 
-@MainActor public class Updater: ObservableObject, UpdaterProtocol {
+public class Updater: ObservableObject, UpdaterProtocol {
 
     @Published public var update: Release?
 
@@ -30,10 +30,10 @@ public protocol UpdaterProtocol: ObservableObject {
     public func checkForUpdates() async {
         guard let (data, _) = try? await URLSession.shared.data(from: Constants.updateURL) else { return }
         guard let releases = try? JSONDecoder().decode([Release].self, from: data) else { return }
-        evaluate(releases: releases)
+        await evaluate(releases: releases)
     }
 
-    public func ignore(release: Release) {
+    @MainActor public func ignore(release: Release) {
         guard !release.critical else { return }
         defaults.set(true, forKey: release.name)
         update = release
@@ -47,7 +47,7 @@ public protocol UpdaterProtocol: ObservableObject {
 
 extension Updater {
 
-    func evaluate(releases: [Release]) {
+    @MainActor func evaluate(releases: [Release]) {
         guard let release = releases
                 .sorted()
                 .reversed()

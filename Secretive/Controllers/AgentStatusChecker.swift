@@ -16,7 +16,11 @@ class AgentStatusChecker: ObservableObject, AgentStatusCheckerProtocol {
     }
 
     func check() {
-        running = instanceSecretAgentProcess != nil
+        Task {
+            await MainActor.run {
+                running = instanceSecretAgentProcess != nil
+            }
+        }
     }
 
     // All processes, including ones from older versions, etc

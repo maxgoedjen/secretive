@@ -33,7 +33,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         notifier.prompt()
         updateSink = updater.$update.sink { update in
             guard let update = update else { return }
-            self.notifier.notify(update: update, ignore: self.updater.ignore(release:))
+            Task {
+                await MainActor.run {
+                    self.notifier.notify(update: update, ignore: self.updater.ignore(release:))
+                }
+            }
         }
     }
 
