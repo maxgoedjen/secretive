@@ -1,4 +1,5 @@
 import SecretAgentKit
+import Foundation
 
 class StubFileHandleWriter: FileHandleWriter {
 

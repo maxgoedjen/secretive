@@ -2,6 +2,7 @@ import Foundation
 import AppKit
 import Security
 import SecretKit
+import SecretAgentKitHeaders
 
 struct SigningRequestTracer {
 }

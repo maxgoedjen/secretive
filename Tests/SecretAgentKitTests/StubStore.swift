@@ -1,4 +1,5 @@
 import SecretKit
+import Foundation
 import CryptoKit
 
 struct Stub {}

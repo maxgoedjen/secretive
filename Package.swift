@@ -14,7 +14,10 @@ let package = Package(
             targets: ["SecretKit"]),
         .library(
             name: "SecretAgentKit",
-            targets: ["SecretKit"]),
+            targets: ["SecretAgentKit"]),
+        .library(
+            name: "SecretAgentKitHeaders",
+            targets: ["SecretAgentKitHeaders"]),
         .library(
             name: "Brief",
             targets: ["Brief"]),
@@ -54,7 +57,7 @@ let package = Package(
             linkerSettings: [.unsafeFlags( ["-sectcreate",
                                             "__TEXT",
                                             "__info_plist",
-                                            "Sources/TesTest    SecretAgent/Resources/Info.plist"])
+                                            "Sources/SecretAgent/Resources/Info.plist"])
                             ]
         ),
         .target(
@@ -67,7 +70,10 @@ let package = Package(
         ),
         .target(
             name: "SecretAgentKit",
-            dependencies: []
+            dependencies: ["SecretAgentKitHeaders"]
+        ),
+        .systemLibrary(
+            name: "SecretAgentKitHeaders"
         ),
         .testTarget(
             name: "SecretAgentKitTests",
