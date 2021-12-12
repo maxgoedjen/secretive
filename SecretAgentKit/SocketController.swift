@@ -3,21 +3,22 @@ import OSLog
 
 public class SocketController {
 
+    private let logger = Logger()
     private var fileHandle: FileHandle?
     private var port: SocketPort?
     public var handler: ((FileHandleReader, FileHandleWriter) -> Void)?
 
     public init(path: String) {
-        Logger().debug("Socket controller setting up at \(path)")
+        logger.debug("Socket controller setting up at \(path)")
         if let _ = try? FileManager.default.removeItem(atPath: path) {
-            Logger().debug("Socket controller removed existing socket")
+            logger.debug("Socket controller removed existing socket")
         }
         let exists = FileManager.default.fileExists(atPath: path)
         assert(!exists)
-        Logger().debug("Socket controller path is clear")
+        logger.debug("Socket controller path is clear")
         port = socketPort(at: path)
         configureSocket(at: path)
-        Logger().debug("Socket listening at \(path)")
+        logger.debug("Socket listening at \(path)")
     }
 
     func configureSocket(at path: String) {
@@ -50,7 +51,7 @@ public class SocketController {
     }
 
     @objc func handleConnectionAccept(notification: Notification) {
-        Logger().debug("Socket controller accepted connection")
+        logger.debug("Socket controller accepted connection")
         guard let new = notification.userInfo?[NSFileHandleNotificationFileHandleItem] as? FileHandle else { return }
         handler?(new, new)
         new.waitForDataInBackgroundAndNotify()
@@ -58,9 +59,9 @@ public class SocketController {
     }
 
     @objc func handleConnectionDataAvailable(notification: Notification) {
-        Logger().debug("Socket controller has new data available")
+        logger.debug("Socket controller has new data available")
         guard let new = notification.object as? FileHandle else { return }
-        Logger().debug("Socket controller received new file handle")
+        logger.debug("Socket controller received new file handle")
         handler?(new, new)
     }
 

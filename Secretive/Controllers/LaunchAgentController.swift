@@ -5,9 +5,11 @@ import OSLog
 import SecretKit
 
 struct LaunchAgentController {
+
+    private let logger = Logger()
     
     func install() async {
-        Logger().debug("Installing agent")
+        logger.debug("Installing agent")
         _ = setEnabled(false)
         // This is definitely a bit of a "seems to work better" thing but:
         // Seems to more reliably hit if these are on separate runloops, otherwise it seems like it sometimes doesn't kill old
@@ -17,15 +19,15 @@ struct LaunchAgentController {
     }
 
     func forceLaunch() async throws {
-        Logger().debug("Agent is not running, attempting to force launch")
+        logger.debug("Agent is not running, attempting to force launch")
         let url = Bundle.main.bundleURL.appendingPathComponent("Contents/Library/LoginItems/SecretAgent.app")
         let config = NSWorkspace.OpenConfiguration()
         config.activates = false
         do {
             try await NSWorkspace.shared.openApplication(at: url, configuration: config)
-            Logger().debug("Agent force launched")
+            logger.debug("Agent force launched")
         } catch {
-            Logger().error("Error force launching \(error.localizedDescription)")
+            logger.error("Error force launching \(error.localizedDescription)")
             throw error
         }
     }

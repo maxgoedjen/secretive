@@ -6,15 +6,16 @@ import AppKit
 
 public class Agent {
 
+    private let logger = Logger()
     private let storeList: SecretStoreList
     private let witness: SigningWitness?
     private let writer = OpenSSHKeyWriter()
     private let requestTracer = SigningRequestTracer()
 
     public init(storeList: SecretStoreList, witness: SigningWitness? = nil) {
-        Logger().debug("Agent is running")
         self.storeList = storeList
         self.witness = witness
+        logger.debug("Agent is running")
     }
     
 }
@@ -22,16 +23,16 @@ public class Agent {
 extension Agent {
 
     public func handle(reader: FileHandleReader, writer: FileHandleWriter) {
-        Logger().debug("Agent handling new data")
+        logger.debug("Agent handling new data")
         let data = reader.availableData
         guard !data.isEmpty else { return }
         let requestTypeInt = data[4]
         guard let requestType = SSHAgent.RequestType(rawValue: requestTypeInt) else {
             writer.write(OpenSSHKeyWriter().lengthAndData(of: SSHAgent.ResponseType.agentFailure.data))
-            Logger().debug("Agent returned \(SSHAgent.ResponseType.agentFailure.debugDescription)")
+            logger.debug("Agent returned \(SSHAgent.ResponseType.agentFailure.debugDescription)")
             return
         }
-        Logger().debug("Agent handling request of type \(requestType.debugDescription)")
+        logger.debug("Agent handling request of type \(requestType.debugDescription)")
         let subData = Data(data[5...])
         let response = handle(requestType: requestType, data: subData, reader: reader)
         writer.write(response)
@@ -44,17 +45,17 @@ extension Agent {
             case .requestIdentities:
                 response.append(SSHAgent.ResponseType.agentIdentitiesAnswer.data)
                 response.append(identities())
-                Logger().debug("Agent returned \(SSHAgent.ResponseType.agentIdentitiesAnswer.debugDescription)")
+                logger.debug("Agent returned \(SSHAgent.ResponseType.agentIdentitiesAnswer.debugDescription)")
             case .signRequest:
                 let provenance = requestTracer.provenance(from: reader)
                 response.append(SSHAgent.ResponseType.agentSignResponse.data)
                 response.append(try sign(data: data, provenance: provenance))
-                Logger().debug("Agent returned \(SSHAgent.ResponseType.agentSignResponse.debugDescription)")
+                logger.debug("Agent returned \(SSHAgent.ResponseType.agentSignResponse.debugDescription)")
             }
         } catch {
             response.removeAll()
             response.append(SSHAgent.ResponseType.agentFailure.data)
-            Logger().debug("Agent returned \(SSHAgent.ResponseType.agentFailure.debugDescription)")
+            logger.debug("Agent returned \(SSHAgent.ResponseType.agentFailure.debugDescription)")
         }
         let full = OpenSSHKeyWriter().lengthAndData(of: response)
         return full
@@ -76,7 +77,7 @@ extension Agent {
             let curveData = writer.curveType(for: secret.algorithm, length: secret.keySize).data(using: .utf8)!
             keyData.append(writer.lengthAndData(of: curveData))
         }
-        Logger().debug("Agent enumerated \(secrets.count) identities")
+        logger.debug("Agent enumerated \(secrets.count) identities")
         return countData + keyData
     }
 
@@ -84,7 +85,7 @@ extension Agent {
         let reader = OpenSSHReader(data: data)
         let hash = reader.readNextChunk()
         guard let (store, secret) = secret(matching: hash) else {
-            Logger().debug("Agent did not have a key matching \(hash as NSData)")
+            logger.debug("Agent did not have a key matching \(hash as NSData)")
             throw AgentError.noMatchingKey
         }
 
@@ -138,7 +139,7 @@ extension Agent {
             try witness.witness(accessTo: secret, from: store, by: provenance, requiredAuthentication: signed.requiredAuthentication)
         }
 
-        Logger().debug("Agent signed request")
+        logger.debug("Agent signed request")
 
         return signedData
     }
