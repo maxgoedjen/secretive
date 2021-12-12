@@ -54,7 +54,6 @@ struct StepView: View {
             Rectangle()
                 .foregroundColor(.green)
                 .frame(width: max(0, ((width - (Constants.padding * 2)) / Double(numberOfSteps - 1)) * Double(currentStep) - (Constants.circleWidth / 2)), height: 5)
-                .animation(.spring())
             HStack {
                 ForEach(0..<numberOfSteps) { index in
                     ZStack {
