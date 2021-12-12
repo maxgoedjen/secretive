@@ -45,7 +45,26 @@ public class Updater: ObservableObject, UpdaterProtocol {
 
 }
 
+@available(macOS, deprecated: 12)
+extension URLSession {
+
+    // Backport for macOS 11
+    func data(from url: URL, delegate: URLSessionTaskDelegate? = nil) async throws -> (Data, URLResponse) {
+        try await withCheckedThrowingContinuation { continuation in
+            URLSession.shared.dataTask(with: url) { data, response, error in
+                guard let data = data, let response = response else {
+                    continuation.resume(throwing: error ?? NSError(domain: NSURLErrorDomain, code: NSURLErrorUnknown, userInfo: nil))
+                    return
+                }
+                continuation.resume(returning: (data, response))
+            }
+        }
+    }
+
+}
+
 extension Updater {
+
 
     @MainActor func evaluate(releases: [Release]) {
         guard let release = releases
