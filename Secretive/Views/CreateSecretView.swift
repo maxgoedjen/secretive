@@ -12,7 +12,7 @@ struct CreateSecretView<StoreType: SecretStoreModifiable>: View {
     var body: some View {
         VStack {
             HStack {
-                Image(nsImage: NSApp.applicationIconImage)
+                Image(nsImage: NSApplication.shared.applicationIconImage)
                     .resizable()
                     .frame(width: 64, height: 64)
                     .padding()
