@@ -146,7 +146,7 @@ struct SecretAgentSetupView: View {
 
     var body: some View {
         SetupStepView(title: "Setup Secret Agent",
-                      image: Image(nsImage: NSApp.applicationIconImage),
+                      image: Image(nsImage: NSApplication.shared.applicationIconImage),
                       bodyText: "Secretive needs to set up a helper app to work properly. It will sign requests from SSH clients in the background, so you don't need to keep the main Secretive app open.",
                       buttonTitle: "Install",
                       buttonAction: install) {
