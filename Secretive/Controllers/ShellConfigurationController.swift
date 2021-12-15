@@ -29,7 +29,7 @@ struct ShellConfigurationController {
     }
     
     
-    func addToShell(shellInstructions: ShellConfigInstruction) -> Bool {
+    @MainActor func addToShell(shellInstructions: ShellConfigInstruction) -> Bool {
         let openPanel = NSOpenPanel()
         // This is sync, so no need to strongly retain
         let delegate = Delegate(name: shellInstructions.shellConfigFilename)
