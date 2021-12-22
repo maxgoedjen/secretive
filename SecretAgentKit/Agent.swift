@@ -24,7 +24,7 @@ extension Agent {
     public func handle(reader: FileHandleReader, writer: FileHandleWriter) {
         Logger().debug("Agent handling new data")
         let data = Data(reader.availableData)
-        guard data.count > 5 else { return }
+        guard data.count > 4 else { return }
         let requestTypeInt = data[4]
         guard let requestType = SSHAgent.RequestType(rawValue: requestTypeInt) else {
             writer.write(OpenSSHKeyWriter().lengthAndData(of: SSHAgent.ResponseType.agentFailure.data))
