@@ -105,14 +105,14 @@ jobs:
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
         asset_path: ./Archive.zip
-        asset_name: Xcode Archive.zip
+        asset_name: Xcode_Archive.zip
         asset_content_type: application/zip
     - name: Upload Archive to Artifacts
       uses: actions/upload-artifact@v1
       with:
-        name: Xcode Archive.zip
+        name: Xcode_Archive.zip
         path: Archive.zip
-    - name: Upload Archive to Artifacts
+    - name: Upload App to Artifacts
       uses: actions/upload-artifact@v1
       with:
         name: Secretive.zip
