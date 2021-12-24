@@ -20,7 +20,7 @@ jobs:
         APPLE_API_KEY_ID: ${{ secrets.APPLE_API_KEY_ID }}
       run: ./.github/scripts/signing.sh
     - name: Set Environment
-      run: sudo xcrun xcode-select -s /Applications/Xcode_13.2.app
+      run: sudo xcrun xcode-select -s /Applications/Xcode_13.2.1.app
     - name: Test
       run: xcrun xcodebuild test -project Secretive.xcodeproj -scheme Secretive
   build:
@@ -38,7 +38,7 @@ jobs:
         APPLE_API_KEY_ID: ${{ secrets.APPLE_API_KEY_ID }}
       run: ./.github/scripts/signing.sh
     - name: Set Environment
-      run: sudo xcrun xcode-select -s /Applications/Xcode_13.2.app
+      run: sudo xcrun xcode-select -s /Applications/Xcode_13.2.1.app
     - name: Update Build Number
       env:
         TAG_NAME: ${{ github.ref }}
@@ -88,7 +88,7 @@ jobs:
         draft: true
         prerelease: false
     - name: Upload App to Release
-      id: upload-release-asset 
+      id: upload-release-asset-app
       uses: actions/upload-release-asset@v1.0.1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -97,13 +97,23 @@ jobs:
         asset_path: ./Secretive.zip
         asset_name: Secretive.zip
         asset_content_type: application/zip
-    - name: Upload Archive to Artifacts
-      uses: actions/upload-artifact@v1
+    - name: Upload Archive to Release
+      id: upload-release-asset-archive
+      uses: actions/upload-release-asset@v1.0.1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        name: Archive.zip
-        path: Archive.zip
-    - name: Upload Archive to Artifacts
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./Archive.zip
+        asset_name: Xcode_Archive.zip
+        asset_content_type: application/zip
+    - name: Upload App to Artifacts
       uses: actions/upload-artifact@v1
       with:
         name: Secretive.zip
         path: Secretive.zip
+    - name: Upload Archive to Artifacts
+      uses: actions/upload-artifact@v1
+      with:
+        name: Xcode_Archive.zip
+        path: Archive.zip
