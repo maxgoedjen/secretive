@@ -3,18 +3,18 @@ import SecretKit
 import Brief
 
 struct ContentView<UpdaterType: UpdaterProtocol, AgentStatusCheckerType: AgentStatusCheckerProtocol>: View {
-    
+
     @Binding var showingCreation: Bool
     @Binding var runningSetup: Bool
     @Binding var hasRunSetup: Bool
-    
+
     @EnvironmentObject private var storeList: SecretStoreList
     @EnvironmentObject private var updater: UpdaterType
     @EnvironmentObject private var agentStatusChecker: AgentStatusCheckerType
-    
+
     @State private var selectedUpdate: Release?
     @State private var showingAppPathNotice = false
-    
+
     var body: some View {
         VStack {
             if storeList.anyAvailable {
@@ -31,11 +31,11 @@ struct ContentView<UpdaterType: UpdaterProtocol, AgentStatusCheckerType: AgentSt
             newItem
         }
     }
-    
+
 }
 
 extension ContentView {
-    
+
     var updateNotice: ToolbarItem<Void, AnyView> {
         guard let update = updater.update else {
             return ToolbarItem { AnyView(EmptyView()) }
@@ -71,7 +71,7 @@ extension ContentView {
             )
         }
     }
-    
+
     var newItem: ToolbarItem<Void, AnyView> {
         guard storeList.modifiableStore?.isAvailable ?? false else {
             return ToolbarItem { AnyView(EmptyView()) }
@@ -88,11 +88,11 @@ extension ContentView {
                             CreateSecretView(store: modifiable, showing: $showingCreation)
                         }
                     }
-                
+
             )
         }
     }
-    
+
     var setupNotice: ToolbarItem<Void, AnyView> {
         return ToolbarItem {
             AnyView(
@@ -123,7 +123,7 @@ extension ContentView {
             )
         }
     }
-    
+
     var appPathNotice: ToolbarItem<Void, AnyView> {
         let controller = ApplicationDirectoryController()
         guard !controller.isInApplicationsDirectory else {
@@ -156,13 +156,13 @@ extension ContentView {
             )
         }
     }
-    
+
 }
 
 #if DEBUG
 
 struct ContentView_Previews: PreviewProvider {
-    
+
     private static let storeList: SecretStoreList = {
         let list = SecretStoreList()
         list.add(store: SecureEnclave.Store())
@@ -171,11 +171,11 @@ struct ContentView_Previews: PreviewProvider {
     }()
     private static let agentStatusChecker = AgentStatusChecker()
     private static let justUpdatedChecker = JustUpdatedChecker()
-    
+
     @State var hasRunSetup = false
     @State private var showingSetup = false
     @State private var showingCreation = false
-    
+
     static var previews: some View {
         Group {
             // Empty on modifiable and nonmodifiable
@@ -183,7 +183,7 @@ struct ContentView_Previews: PreviewProvider {
                 .environmentObject(Preview.storeList(stores: [Preview.Store(numberOfRandomSecrets: 0)], modifiableStores: [Preview.StoreModifiable(numberOfRandomSecrets: 0)]))
                 .environmentObject(PreviewUpdater())
                 .environmentObject(agentStatusChecker)
-            
+
             // 5 items on modifiable and nonmodifiable
             ContentView<PreviewUpdater, AgentStatusChecker>(showingCreation: .constant(false), runningSetup: .constant(false), hasRunSetup: .constant(true))
                 .environmentObject(Preview.storeList(stores: [Preview.Store()], modifiableStores: [Preview.StoreModifiable()]))
@@ -191,7 +191,7 @@ struct ContentView_Previews: PreviewProvider {
                 .environmentObject(agentStatusChecker)
         }
         .environmentObject(agentStatusChecker)
-        
+
     }
 }
 
