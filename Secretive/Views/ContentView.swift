@@ -46,8 +46,13 @@ extension ContentView {
             text = "Critical Security Update Required"
             color = .red
         } else {
-            text = "Update Available"
-            color = .orange
+            if updater.testBuild {
+                text = "Test Build"
+                color = .blue
+            } else {
+                text = "Update Available"
+                color = .orange
+            }
         }
         return ToolbarItem {
             AnyView(
@@ -58,11 +63,11 @@ extension ContentView {
                         .font(.headline)
                         .foregroundColor(.white)
                 })
-                .background(color)
-                .cornerRadius(5)
-                .popover(item: $selectedUpdate, attachmentAnchor: .point(.bottom), arrowEdge: .bottom) { update in
-                    UpdateDetailView(update: update)
-                }
+                    .background(color)
+                    .cornerRadius(5)
+                    .popover(item: $selectedUpdate, attachmentAnchor: .point(.bottom), arrowEdge: .bottom) { update in
+                        UpdateDetailView(update: update)
+                    }
             )
         }
     }
@@ -78,11 +83,11 @@ extension ContentView {
                 }, label: {
                     Image(systemName: "plus")
                 })
-                .popover(isPresented: $showingCreation, attachmentAnchor: .point(.bottom), arrowEdge: .bottom) {
-                    if let modifiable = storeList.modifiableStore {
-                        CreateSecretView(store: modifiable, showing: $showingCreation)
+                    .popover(isPresented: $showingCreation, attachmentAnchor: .point(.bottom), arrowEdge: .bottom) {
+                        if let modifiable = storeList.modifiableStore {
+                            CreateSecretView(store: modifiable, showing: $showingCreation)
+                        }
                     }
-                }
 
             )
         }
@@ -92,7 +97,7 @@ extension ContentView {
         return ToolbarItem {
             AnyView(
                 Group {
-                    if runningSetup || !hasRunSetup || !agentStatusChecker.running  {
+                    if (runningSetup || !hasRunSetup || !agentStatusChecker.running) && !agentStatusChecker.developmentBuild  {
                         Button(action: {
                             runningSetup = true
                         }, label: {
@@ -106,15 +111,15 @@ extension ContentView {
                             .font(.headline)
                             .foregroundColor(.white)
                         })
-                        .background(Color.orange)
-                        .cornerRadius(5)
+                            .background(Color.orange)
+                            .cornerRadius(5)
                     } else {
                         EmptyView()
                     }
                 }
-                .sheet(isPresented: $runningSetup) {
-                    SetupView(visible: $runningSetup, setupComplete: $hasRunSetup)
-                }
+                    .sheet(isPresented: $runningSetup) {
+                        SetupView(visible: $runningSetup, setupComplete: $hasRunSetup)
+                    }
             )
         }
     }
@@ -135,19 +140,19 @@ extension ContentView {
                     .font(.headline)
                     .foregroundColor(.white)
                 })
-                .background(Color.orange)
-                .cornerRadius(5)
-                .popover(isPresented: $showingAppPathNotice, attachmentAnchor: .point(.bottom), arrowEdge: .bottom) {
-                    VStack {
-                        Image(systemName: "exclamationmark.triangle")
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: 64)
-                        Text("Secretive needs to be in your Applications folder to work properly. Please move it and relaunch.")
-                            .frame(maxWidth: 300)
+                    .background(Color.orange)
+                    .cornerRadius(5)
+                    .popover(isPresented: $showingAppPathNotice, attachmentAnchor: .point(.bottom), arrowEdge: .bottom) {
+                        VStack {
+                            Image(systemName: "exclamationmark.triangle")
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .frame(width: 64)
+                            Text("Secretive needs to be in your Applications folder to work properly. Please move it and relaunch.")
+                                .frame(maxWidth: 300)
+                        }
+                        .padding()
                     }
-                    .padding()
-                }
             )
         }
     }

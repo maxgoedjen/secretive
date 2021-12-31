@@ -5,6 +5,7 @@ import SecretKit
 
 protocol AgentStatusCheckerProtocol: ObservableObject {
     var running: Bool { get }
+    var developmentBuild: Bool { get }
 }
 
 class AgentStatusChecker: ObservableObject, AgentStatusCheckerProtocol {
@@ -34,6 +35,12 @@ class AgentStatusChecker: ObservableObject, AgentStatusCheckerProtocol {
             }
         }
         return nil
+    }
+
+
+    // Whether Secretive is being run in an Xcode environment.
+    var developmentBuild: Bool {
+        Bundle.main.bundleURL.absoluteString.contains("/Library/Developer/Xcode")
     }
 
 }
