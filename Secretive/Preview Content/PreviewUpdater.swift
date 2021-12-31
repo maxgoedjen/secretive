@@ -5,6 +5,7 @@ import Brief
 class PreviewUpdater: UpdaterProtocol {
 
     let update: Release?
+    let testBuild = false
 
     init(update: Update = .none) {
         switch update {

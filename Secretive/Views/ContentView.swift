@@ -3,18 +3,18 @@ import SecretKit
 import Brief
 
 struct ContentView<UpdaterType: UpdaterProtocol, AgentStatusCheckerType: AgentStatusCheckerProtocol>: View {
-
+    
     @Binding var showingCreation: Bool
     @Binding var runningSetup: Bool
     @Binding var hasRunSetup: Bool
-
+    
     @EnvironmentObject private var storeList: SecretStoreList
     @EnvironmentObject private var updater: UpdaterType
     @EnvironmentObject private var agentStatusChecker: AgentStatusCheckerType
-
+    
     @State private var selectedUpdate: Release?
     @State private var showingAppPathNotice = false
-
+    
     var body: some View {
         VStack {
             if storeList.anyAvailable {
@@ -31,11 +31,11 @@ struct ContentView<UpdaterType: UpdaterProtocol, AgentStatusCheckerType: AgentSt
             newItem
         }
     }
-
+    
 }
 
 extension ContentView {
-
+    
     var updateNotice: ToolbarItem<Void, AnyView> {
         guard let update = updater.update else {
             return ToolbarItem { AnyView(EmptyView()) }
@@ -46,8 +46,13 @@ extension ContentView {
             text = "Critical Security Update Required"
             color = .red
         } else {
-            text = "Update Available"
-            color = .orange
+            if updater.testBuild {
+                text = "Test Build"
+                color = .blue
+            } else {
+                text = "Update Available"
+                color = .orange
+            }
         }
         return ToolbarItem {
             AnyView(
@@ -58,15 +63,15 @@ extension ContentView {
                         .font(.headline)
                         .foregroundColor(.white)
                 })
-                .background(color)
-                .cornerRadius(5)
-                .popover(item: $selectedUpdate, attachmentAnchor: .point(.bottom), arrowEdge: .bottom) { update in
-                    UpdateDetailView(update: update)
-                }
+                    .background(color)
+                    .cornerRadius(5)
+                    .popover(item: $selectedUpdate, attachmentAnchor: .point(.bottom), arrowEdge: .bottom) { update in
+                        UpdateDetailView(update: update)
+                    }
             )
         }
     }
-
+    
     var newItem: ToolbarItem<Void, AnyView> {
         guard storeList.modifiableStore?.isAvailable ?? false else {
             return ToolbarItem { AnyView(EmptyView()) }
@@ -78,21 +83,21 @@ extension ContentView {
                 }, label: {
                     Image(systemName: "plus")
                 })
-                .popover(isPresented: $showingCreation, attachmentAnchor: .point(.bottom), arrowEdge: .bottom) {
-                    if let modifiable = storeList.modifiableStore {
-                        CreateSecretView(store: modifiable, showing: $showingCreation)
+                    .popover(isPresented: $showingCreation, attachmentAnchor: .point(.bottom), arrowEdge: .bottom) {
+                        if let modifiable = storeList.modifiableStore {
+                            CreateSecretView(store: modifiable, showing: $showingCreation)
+                        }
                     }
-                }
-
+                
             )
         }
     }
-
+    
     var setupNotice: ToolbarItem<Void, AnyView> {
         return ToolbarItem {
             AnyView(
                 Group {
-                    if runningSetup || !hasRunSetup || !agentStatusChecker.running  {
+                    if (runningSetup || !hasRunSetup || !agentStatusChecker.running) && !agentStatusChecker.developmentBuild  {
                         Button(action: {
                             runningSetup = true
                         }, label: {
@@ -106,19 +111,19 @@ extension ContentView {
                             .font(.headline)
                             .foregroundColor(.white)
                         })
-                        .background(Color.orange)
-                        .cornerRadius(5)
+                            .background(Color.orange)
+                            .cornerRadius(5)
                     } else {
                         EmptyView()
                     }
                 }
-                .sheet(isPresented: $runningSetup) {
-                    SetupView(visible: $runningSetup, setupComplete: $hasRunSetup)
-                }
+                    .sheet(isPresented: $runningSetup) {
+                        SetupView(visible: $runningSetup, setupComplete: $hasRunSetup)
+                    }
             )
         }
     }
-
+    
     var appPathNotice: ToolbarItem<Void, AnyView> {
         let controller = ApplicationDirectoryController()
         guard !controller.isInApplicationsDirectory else {
@@ -135,29 +140,29 @@ extension ContentView {
                     .font(.headline)
                     .foregroundColor(.white)
                 })
-                .background(Color.orange)
-                .cornerRadius(5)
-                .popover(isPresented: $showingAppPathNotice, attachmentAnchor: .point(.bottom), arrowEdge: .bottom) {
-                    VStack {
-                        Image(systemName: "exclamationmark.triangle")
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: 64)
-                        Text("Secretive needs to be in your Applications folder to work properly. Please move it and relaunch.")
-                            .frame(maxWidth: 300)
+                    .background(Color.orange)
+                    .cornerRadius(5)
+                    .popover(isPresented: $showingAppPathNotice, attachmentAnchor: .point(.bottom), arrowEdge: .bottom) {
+                        VStack {
+                            Image(systemName: "exclamationmark.triangle")
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .frame(width: 64)
+                            Text("Secretive needs to be in your Applications folder to work properly. Please move it and relaunch.")
+                                .frame(maxWidth: 300)
+                        }
+                        .padding()
                     }
-                    .padding()
-                }
             )
         }
     }
-
+    
 }
 
 #if DEBUG
 
 struct ContentView_Previews: PreviewProvider {
-
+    
     private static let storeList: SecretStoreList = {
         let list = SecretStoreList()
         list.add(store: SecureEnclave.Store())
@@ -166,11 +171,11 @@ struct ContentView_Previews: PreviewProvider {
     }()
     private static let agentStatusChecker = AgentStatusChecker()
     private static let justUpdatedChecker = JustUpdatedChecker()
-
+    
     @State var hasRunSetup = false
     @State private var showingSetup = false
     @State private var showingCreation = false
-
+    
     static var previews: some View {
         Group {
             // Empty on modifiable and nonmodifiable
@@ -178,7 +183,7 @@ struct ContentView_Previews: PreviewProvider {
                 .environmentObject(Preview.storeList(stores: [Preview.Store(numberOfRandomSecrets: 0)], modifiableStores: [Preview.StoreModifiable(numberOfRandomSecrets: 0)]))
                 .environmentObject(PreviewUpdater())
                 .environmentObject(agentStatusChecker)
-
+            
             // 5 items on modifiable and nonmodifiable
             ContentView<PreviewUpdater, AgentStatusChecker>(showingCreation: .constant(false), runningSetup: .constant(false), hasRunSetup: .constant(true))
                 .environmentObject(Preview.storeList(stores: [Preview.Store()], modifiableStores: [Preview.StoreModifiable()]))
@@ -186,7 +191,7 @@ struct ContentView_Previews: PreviewProvider {
                 .environmentObject(agentStatusChecker)
         }
         .environmentObject(agentStatusChecker)
-
+        
     }
 }
 

@@ -4,12 +4,14 @@ import Combine
 public protocol UpdaterProtocol: ObservableObject {
 
     var update: Release? { get }
-
+    var testBuild: Bool { get }
 }
 
 public class Updater: ObservableObject, UpdaterProtocol {
 
     @Published public var update: Release?
+    
+    public let testBuild: Bool
 
     private let osVersion: SemVer
     private let currentVersion: SemVer
@@ -17,6 +19,7 @@ public class Updater: ObservableObject, UpdaterProtocol {
     public init(checkOnLaunch: Bool, osVersion: SemVer = SemVer(ProcessInfo.processInfo.operatingSystemVersion), currentVersion: SemVer = SemVer(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "0.0.0")) {
         self.osVersion = osVersion
         self.currentVersion = currentVersion
+        testBuild = currentVersion == SemVer("0.0.0")
         if checkOnLaunch {
             // Don't do a launch check if the user hasn't seen the setup prompt explaining updater yet.
             checkForUpdates()

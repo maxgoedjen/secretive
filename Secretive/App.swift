@@ -36,7 +36,7 @@ struct Secretive: App {
                     if agentStatusChecker.running && justUpdatedChecker.justUpdated {
                         // Relaunch the agent, since it'll be running from earlier update still
                         reinstallAgent()
-                    } else if !agentStatusChecker.running {
+                    } else if !agentStatusChecker.running && !agentStatusChecker.developmentBuild {
                         forceLaunchAgent()
                     }
                 }
