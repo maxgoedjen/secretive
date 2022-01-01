@@ -1,3 +1,4 @@
+import Foundation
 import SecretAgentKit
 
 class StubFileHandleWriter: FileHandleWriter {

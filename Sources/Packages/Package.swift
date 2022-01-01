@@ -37,7 +37,7 @@ let package = Package(
         ),
         .testTarget(
             name: "SecretKitTests",
-            dependencies: ["SecretKit"]
+            dependencies: ["SecretKit", "SecureEnclaveSecretKit", "SmartCardSecretKit"]
         ),
         .target(
             name: "SecureEnclaveSecretKit",

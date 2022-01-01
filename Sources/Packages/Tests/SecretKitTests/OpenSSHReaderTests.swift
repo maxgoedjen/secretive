@@ -1,6 +1,8 @@
 import Foundation
 import XCTest
 @testable import SecretKit
+@testable import SecureEnclaveSecretKit
+@testable import SmartCardSecretKit
 
 class OpenSSHReaderTests: XCTestCase {
 
