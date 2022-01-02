@@ -1,6 +1,7 @@
 import Foundation
 import Combine
 
+/// Type eraser for SecretStore.
 public class AnySecretStore: SecretStore {
 
     let base: Any
