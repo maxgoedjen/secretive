@@ -22,7 +22,10 @@ jobs:
     - name: Set Environment
       run: sudo xcrun xcode-select -s /Applications/Xcode_13.2.1.app
     - name: Test
-      run: xcrun xcodebuild test -project Secretive.xcodeproj -scheme Secretive
+      run: |
+            pushd Sources/Packages
+            swift test
+            popd
   build:
     runs-on: macos-11.0
     timeout-minutes: 10
@@ -49,7 +52,7 @@ jobs:
             sed -i '' -e "s/GITHUB_BUILD_NUMBER/1.$RUN_ID/g" Sources/Config/Config.xcconfig
             sed -i '' -e "s/GITHUB_BUILD_URL/https:\/\/github.com\/maxgoedjen\/secretive\/actions\/runs\/$RUN_ID/g" Sources/Secretive/Credits.rtf
     - name: Build
-      run: xcrun xcodebuild -project Secretive.xcodeproj -scheme Secretive -configuration Release -archivePath Archive.xcarchive archive
+      run: xcrun xcodebuild -project Sources/Secretive.xcodeproj -scheme Secretive -configuration Release -archivePath Archive.xcarchive archive
     - name: Create ZIPs
       run: |
             ditto -c -k --sequesterRsrc --keepParent Archive.xcarchive/Products/Applications/Secretive.app ./Secretive.zip
