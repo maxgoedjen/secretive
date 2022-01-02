@@ -46,7 +46,10 @@ public protocol SecretStoreModifiable: SecretStore {
     ///   - secret: The ``Secret`` to delete.
     func delete(secret: SecretType) throws
 
-    
+    /// Updates the name of a Secret in the store.
+    /// - Parameters:
+    ///   - secret: The ``Secret`` to update.
+    ///   - name: The new name for the Secret.
     func update(secret: SecretType, name: String) throws
 
 }

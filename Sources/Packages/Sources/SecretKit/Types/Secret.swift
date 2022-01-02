@@ -3,7 +3,7 @@ import Foundation
 /// The base protocol for describing a Secret
 public protocol Secret: Identifiable, Hashable {
 
-    /// A user-facing string identifying the Secret
+    /// A user-facing string identifying the Secret.
     var name: String { get }
     /// The algorithm this secret uses.
     var algorithm: Algorithm { get }

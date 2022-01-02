@@ -47,7 +47,7 @@ public struct OpenSSHKeyWriter {
 extension OpenSSHKeyWriter {
 
     /// Creates an OpenSSH protocol style data object, which has a length header, followed by the data payload.
-    /// - Parameter data: the data payload.
+    /// - Parameter data: The data payload.
     /// - Returns: OpenSSH data.
     public func lengthAndData(of data: Data) -> Data {
         let rawLength = UInt32(data.count)
@@ -57,8 +57,8 @@ extension OpenSSHKeyWriter {
 
     /// The fully qualified OpenSSH identifier for the algorithm.
     /// - Parameters:
-    ///   - algorithm: the algorithm to identify.
-    ///   - length: the key length of the algorithm.
+    ///   - algorithm: The algorithm to identify.
+    ///   - length: The key length of the algorithm.
     /// - Returns: The OpenSSH identifier for the algorithm.
     public func curveType(for algorithm: Algorithm, length: Int) -> String {
         switch algorithm {
@@ -69,8 +69,8 @@ extension OpenSSHKeyWriter {
 
     /// The OpenSSH identifier for an algorithm.
     /// - Parameters:
-    ///   - algorithm: the algorithm to identify.
-    ///   - length: the key length of the algorithm.
+    ///   - algorithm: The algorithm to identify.
+    ///   - length: The key length of the algorithm.
     /// - Returns: The OpenSSH identifier for the algorithm.
     private func curveIdentifier(for algorithm: Algorithm, length: Int) -> String {
         switch algorithm {

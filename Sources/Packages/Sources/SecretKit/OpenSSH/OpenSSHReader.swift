@@ -6,7 +6,7 @@ public class OpenSSHReader {
     var remaining: Data
 
     /// Initialize the reader with an OpenSSH data payload.
-    /// - Parameter data: the data to read.
+    /// - Parameter data: The data to read.
     public init(data: Data) {
         remaining = Data(data)
     }
