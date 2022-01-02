@@ -17,6 +17,8 @@
 		5003EF612780081600DF2006 /* SmartCardSecretKit in Frameworks */ = {isa = PBXBuildFile; productRef = 5003EF602780081600DF2006 /* SmartCardSecretKit */; };
 		5003EF632780081B00DF2006 /* SecureEnclaveSecretKit in Frameworks */ = {isa = PBXBuildFile; productRef = 5003EF622780081B00DF2006 /* SecureEnclaveSecretKit */; };
 		5003EF652780081B00DF2006 /* SmartCardSecretKit in Frameworks */ = {isa = PBXBuildFile; productRef = 5003EF642780081B00DF2006 /* SmartCardSecretKit */; };
+		501421622781262300BBAA70 /* Brief in Frameworks */ = {isa = PBXBuildFile; productRef = 501421612781262300BBAA70 /* Brief */; };
+		501421652781268000BBAA70 /* SecretAgent.app in CopyFiles */ = {isa = PBXBuildFile; fileRef = 50A3B78A24026B7500D209EA /* SecretAgent.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		50153E20250AFCB200525160 /* UpdateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50153E1F250AFCB200525160 /* UpdateView.swift */; };
 		50153E22250DECA300525160 /* SecretListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50153E21250DECA300525160 /* SecretListItemView.swift */; };
 		5018F54F24064786002EB505 /* Notifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5018F54E24064786002EB505 /* Notifier.swift */; };
@@ -33,7 +35,6 @@
 		5066A6F7251829B1004B5A36 /* ShellConfigurationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5066A6F6251829B1004B5A36 /* ShellConfigurationController.swift */; };
 		506772C72424784600034DED /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 506772C62424784600034DED /* Credits.rtf */; };
 		506772C92425BB8500034DED /* NoStoresView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506772C82425BB8500034DED /* NoStoresView.swift */; };
-		506AB87E2412334700335D91 /* SecretAgent.app in CopyFiles */ = {isa = PBXBuildFile; fileRef = 50A3B78A24026B7500D209EA /* SecretAgent.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		5079BA0F250F29BF00EA86F4 /* StoreListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5079BA0E250F29BF00EA86F4 /* StoreListView.swift */; };
 		508A58AA241E06B40069DC07 /* PreviewUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508A58A9241E06B40069DC07 /* PreviewUpdater.swift */; };
 		508A58B3241ED2180069DC07 /* AgentStatusChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508A58B2241ED2180069DC07 /* AgentStatusChecker.swift */; };
@@ -51,6 +52,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		50142166278126B500BBAA70 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 50617D7723FCE48D0099B055 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 50A3B78924026B7500D209EA;
+			remoteInfo = SecretAgent;
+		};
 		50617D9523FCE48E0099B055 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 50617D7723FCE48D0099B055 /* Project object */;
@@ -87,7 +95,7 @@
 			dstPath = Contents/Library/LoginItems;
 			dstSubfolderSpec = 1;
 			files = (
-				506AB87E2412334700335D91 /* SecretAgent.app in CopyFiles */,
+				501421652781268000BBAA70 /* SecretAgent.app in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -145,6 +153,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5003EF3B278005E800DF2006 /* SecretKit in Frameworks */,
+				501421622781262300BBAA70 /* Brief in Frameworks */,
 				5003EF5F2780081600DF2006 /* SecureEnclaveSecretKit in Frameworks */,
 				5003EF612780081600DF2006 /* SmartCardSecretKit in Frameworks */,
 			);
@@ -317,12 +326,14 @@
 			buildRules = (
 			);
 			dependencies = (
+				50142167278126B500BBAA70 /* PBXTargetDependency */,
 			);
 			name = Secretive;
 			packageProductDependencies = (
 				5003EF3A278005E800DF2006 /* SecretKit */,
 				5003EF5E2780081600DF2006 /* SecureEnclaveSecretKit */,
 				5003EF602780081600DF2006 /* SmartCardSecretKit */,
+				501421612781262300BBAA70 /* Brief */,
 			);
 			productName = Secretive;
 			productReference = 50617D7F23FCE48E0099B055 /* Secretive.app */;
@@ -494,6 +505,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		50142167278126B500BBAA70 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 50A3B78924026B7500D209EA /* SecretAgent */;
+			targetProxy = 50142166278126B500BBAA70 /* PBXContainerItemProxy */;
+		};
 		50617D9623FCE48E0099B055 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 50617D7E23FCE48D0099B055 /* Secretive */;
@@ -988,6 +1004,10 @@
 		5003EF642780081B00DF2006 /* SmartCardSecretKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = SmartCardSecretKit;
+		};
+		501421612781262300BBAA70 /* Brief */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Brief;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

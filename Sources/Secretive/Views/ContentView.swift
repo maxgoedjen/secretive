@@ -1,5 +1,7 @@
 import SwiftUI
 import SecretKit
+import SecureEnclaveSecretKit
+import SmartCardSecretKit
 import Brief
 
 struct ContentView<UpdaterType: UpdaterProtocol, AgentStatusCheckerType: AgentStatusCheckerProtocol>: View {

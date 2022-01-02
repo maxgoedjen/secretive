@@ -1,6 +1,8 @@
 import Cocoa
 import SwiftUI
 import SecretKit
+import SecureEnclaveSecretKit
+import SmartCardSecretKit
 import Brief
 
 @main

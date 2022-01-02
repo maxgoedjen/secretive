@@ -45,7 +45,7 @@ let package = Package(
         ),
         .target(
             name: "SmartCardSecretKit",
-            dependencies: []
+            dependencies: ["SecretKit"]
         ),
         .target(
             name: "SecretAgentKit",
