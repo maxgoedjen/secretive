@@ -45,9 +45,9 @@ jobs:
         RUN_ID: ${{ github.run_id }}
       run: |
             export CLEAN_TAG=$(echo $TAG_NAME | sed -e 's/refs\/tags\/v//')
-            sed -i '' -e "s/GITHUB_CI_VERSION/$CLEAN_TAG/g" Config/Config.xcconfig
-            sed -i '' -e "s/GITHUB_BUILD_NUMBER/1.$RUN_ID/g" Config/Config.xcconfig
-            sed -i '' -e "s/GITHUB_BUILD_URL/https:\/\/github.com\/maxgoedjen\/secretive\/actions\/runs\/$RUN_ID/g" Secretive/Credits.rtf
+            sed -i '' -e "s/GITHUB_CI_VERSION/$CLEAN_TAG/g" Sources/Config/Config.xcconfig
+            sed -i '' -e "s/GITHUB_BUILD_NUMBER/1.$RUN_ID/g" Sources/Config/Config.xcconfig
+            sed -i '' -e "s/GITHUB_BUILD_URL/https:\/\/github.com\/maxgoedjen\/secretive\/actions\/runs\/$RUN_ID/g" Sources/Secretive/Credits.rtf
     - name: Build
       run: xcrun xcodebuild -project Secretive.xcodeproj -scheme Secretive -configuration Release -archivePath Archive.xcarchive archive
     - name: Create ZIPs
