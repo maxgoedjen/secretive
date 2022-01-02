@@ -4,11 +4,15 @@ import Security
 import SecretKit
 import SecretAgentKitHeaders
 
+/// An object responsible for generating ``SecretKit.SigningRequestProvenance`` objects.
 struct SigningRequestTracer {
 }
 
 extension SigningRequestTracer {
 
+    /// Generates a ``SecretKit.SigningRequestProvenance`` from a ``FileHandleReader``.
+    /// - Parameter fileHandleReader: The reader involved in processing the request.
+    /// - Returns: A ``SecretKit.SigningRequestProvenance`` describing the origin of the request.
     func provenance(from fileHandleReader: FileHandleReader) -> SigningRequestProvenance {
         let firstInfo = process(from: fileHandleReader.pidOfConnectedProcess)
 
@@ -19,6 +23,9 @@ extension SigningRequestTracer {
         return provenance
     }
 
+    /// Generates a `kinfo_proc` representation of the provided process ID.
+    /// - Parameter pid: The process ID to look up.
+    /// - Returns: a `kinfo_proc` struct describing the process ID.
     func pidAndNameInfo(from pid: Int32) -> kinfo_proc {
         var len = MemoryLayout<kinfo_proc>.size
         let infoPointer = UnsafeMutableRawPointer.allocate(byteCount: len, alignment: 1)
@@ -27,6 +34,9 @@ extension SigningRequestTracer {
         return infoPointer.load(as: kinfo_proc.self)
     }
 
+    /// Generates a ``SecretKit.SigningRequestProvenance.Process`` from a provided process ID.
+    /// - Parameter pid: The process ID to look up.
+    /// - Returns: A ``SecretKit.SigningRequestProvenance.Process`` describing the process.
     func process(from pid: Int32) -> SigningRequestProvenance.Process {
         var pidAndNameInfo = self.pidAndNameInfo(from: pid)
         let ppid = pidAndNameInfo.kp_eproc.e_ppid != 0 ? pidAndNameInfo.kp_eproc.e_ppid : nil
@@ -41,6 +51,9 @@ extension SigningRequestTracer {
         return SigningRequestProvenance.Process(pid: pid, processName: procName, appName: appName(for: pid), iconURL: iconURL(for: pid), path: path, validSignature: valid, parentPID: ppid)
     }
 
+    /// Looks up the URL for the icon of a process ID, if it has one.
+    /// - Parameter pid: The process ID to look up.
+    /// - Returns: A URL to the icon, if the process has one.
     func iconURL(for pid: Int32) -> URL? {
         do {
             if let app = NSRunningApplication(processIdentifier: pid), let icon = app.icon?.tiffRepresentation {
@@ -54,6 +67,9 @@ extension SigningRequestTracer {
         return nil
     }
 
+    /// Looks up the application name of a process ID, if it has one.
+    /// - Parameter pid: The process ID to look up.
+    /// - Returns: The process's display name, if the process has one.
     func appName(for pid: Int32) -> String? {
         NSRunningApplication(processIdentifier: pid)?.localizedName
     }
