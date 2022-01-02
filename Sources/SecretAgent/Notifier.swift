@@ -103,20 +103,9 @@ class Notifier {
 
 extension Notifier: SigningWitness {
 
-    /// <#Description#>
-    /// - Parameters:
-    ///   - secret: <#secret description#>
-    ///   - store: <#store description#>
-    ///   - provenance: <#provenance description#>
     func speakNowOrForeverHoldYourPeace(forAccessTo secret: AnySecret, from store: AnySecretStore, by provenance: SigningRequestProvenance) throws {
     }
 
-    /// <#Description#>
-    /// - Parameters:
-    ///   - secret: <#secret description#>
-    ///   - store: <#store description#>
-    ///   - provenance: <#provenance description#>
-    ///   - requiredAuthentication: <#requiredAuthentication description#>
     func witness(accessTo secret: AnySecret, from store: AnySecretStore, by provenance: SigningRequestProvenance, requiredAuthentication: Bool) throws {
         notify(accessTo: secret, from: store, by: provenance, requiredAuthentication: requiredAuthentication)
     }
