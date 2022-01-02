@@ -11,6 +11,6 @@ jobs:
       run: sudo xcrun xcode-select -s /Applications/Xcode_13.2.1.app
     - name: Test
       run: |
-      pushd Sources/Packages
-      swift test
-      popd
+            pushd Sources/Packages
+            swift test
+            popd
