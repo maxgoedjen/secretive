@@ -2,10 +2,6 @@
 
 SecretKit is a collection of protocols describing secrets and stores.
 
-## Overview
-
-Overview
-
 ## Topics
 
 ### Base Protocols
