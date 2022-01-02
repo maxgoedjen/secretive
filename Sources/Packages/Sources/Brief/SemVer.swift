@@ -18,8 +18,8 @@ public struct SemVer {
         versionNumbers = split
     }
 
-    /// Initializes a SemVer from an ``OperatingSystemVersion`` representation.
-    /// - Parameter version: An  ``OperatingSystemVersion`` representation of the SemVer.
+    /// Initializes a SemVer from an `OperatingSystemVersion` representation.
+    /// - Parameter version: An  `OperatingSystemVersion` representation of the SemVer.
     public init(_ version: OperatingSystemVersion) {
         versionNumbers = [version.majorVersion, version.minorVersion, version.patchVersion]
     }
