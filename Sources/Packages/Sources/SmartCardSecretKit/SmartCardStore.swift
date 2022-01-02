@@ -8,6 +8,7 @@ import SecretKit
 // ie, each token has its own Store.
 extension SmartCard {
 
+    /// An implementation of Store backed by a Smart Card.
     public class Store: SecretStore {
 
         @Published public var isAvailable: Bool = false
@@ -17,6 +18,7 @@ extension SmartCard {
         private let watcher = TKTokenWatcher()
         private var tokenID: String?
 
+        /// Initializes a Store.
         public init() {
             tokenID = watcher.nonSecureEnclaveTokens.first
             watcher.setInsertionHandler { string in
@@ -56,7 +58,7 @@ extension SmartCard {
                 kSecAttrTokenID: tokenID,
                 kSecUseAuthenticationContext: context,
                 kSecReturnRef: true
-                ] as CFDictionary
+            ] as CFDictionary
             var untyped: CFTypeRef?
             let status = SecItemCopyMatching(attributes, &untyped)
             if status != errSecSuccess {
@@ -91,11 +93,14 @@ extension SmartCard {
 
 extension SmartCard.Store {
 
+    /// Resets the token ID and reloads secrets.
+    /// - Parameter tokenID: The ID of the token that was removed.
     private func smartcardRemoved(for tokenID: String? = nil) {
         self.tokenID = nil
         reloadSecrets()
     }
 
+    /// Reloads all secrets from the store.
     private func reloadSecrets() {
         DispatchQueue.main.async {
             self.isAvailable = self.tokenID != nil
@@ -104,6 +109,7 @@ extension SmartCard.Store {
         }
     }
 
+    /// Loads all secrets from the store.
     private func loadSecrets() {
         guard let tokenID = tokenID else { return }
 
@@ -131,7 +137,7 @@ extension SmartCard.Store {
             kSecReturnRef: true,
             kSecMatchLimit: kSecMatchLimitAll,
             kSecReturnAttributes: true
-            ] as CFDictionary
+        ] as CFDictionary
         var untyped: CFTypeRef?
         SecItemCopyMatching(attributes, &untyped)
         guard let typed = untyped as? [[CFString: Any]] else { return }
@@ -153,6 +159,7 @@ extension SmartCard.Store {
 
 extension TKTokenWatcher {
 
+    /// All available tokens, excluding the Secure Enclave.
     fileprivate var nonSecureEnclaveTokens: [String] {
         tokenIDs.filter { !$0.contains("setoken") }
     }
@@ -161,11 +168,15 @@ extension TKTokenWatcher {
 
 extension SmartCard {
 
+    /// A wrapper around an error code reported by a Keychain API.
     public struct KeychainError: Error {
+        /// The status code involved.
         public let statusCode: OSStatus
     }
 
+    /// A signing-related error.
     public struct SigningError: Error {
+        /// The underlying error reported by the API, if one was returned.
         public let error: SecurityError?
     }
 
