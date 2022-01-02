@@ -97,7 +97,6 @@ extension SecureEnclave {
             }
             reloadSecrets()
         }
-
         public func sign(data: Data, with secret: SecretType, for provenance: SigningRequestProvenance) throws -> SignedData {
             let context: LAContext
             if let existing = persistedAuthenticationContexts[secret], existing.valid {
@@ -141,6 +140,10 @@ extension SecureEnclave {
             return SignedData(data: signature as Data, requiredAuthentication: requiredAuthentication)
         }
 
+        /// <#Description#>
+        /// - Parameters:
+        ///   - secret: <#secret description#>
+        ///   - duration: <#duration description#>
         public func persistAuthentication(secret: Secret, forDuration duration: TimeInterval) throws {
             let newContext = LAContext()
             newContext.touchIDAuthenticationAllowableReuseDuration = duration
