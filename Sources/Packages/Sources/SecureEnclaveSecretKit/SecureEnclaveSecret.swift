@@ -4,6 +4,7 @@ import SecretKit
 
 extension SecureEnclave {
 
+    /// An implementation of Secret backed by the Secure Enclave.
     public struct Secret: SecretKit.Secret {
 
         public let id: Data

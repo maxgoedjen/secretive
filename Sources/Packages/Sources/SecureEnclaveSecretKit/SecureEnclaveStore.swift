@@ -6,6 +6,7 @@ import SecretKit
 
 extension SecureEnclave {
 
+    /// An implementation of Store backed by the Secure Enclave.
     public class Store: SecretStoreModifiable {
 
         public var isAvailable: Bool {
@@ -20,6 +21,7 @@ extension SecureEnclave {
 
         private var persistedAuthenticationContexts: [Secret: PersistentAuthenticationContext] = [:]
 
+        /// Initializes a Store.
         public init() {
             DistributedNotificationCenter.default().addObserver(forName: .secretStoreUpdated, object: nil, queue: .main) { _ in
                 self.reloadSecrets(notify: false)
@@ -97,6 +99,7 @@ extension SecureEnclave {
             }
             reloadSecrets()
         }
+        
         public func sign(data: Data, with secret: SecretType, for provenance: SigningRequestProvenance) throws -> SignedData {
             let context: LAContext
             if let existing = persistedAuthenticationContexts[secret], existing.valid {
@@ -140,10 +143,6 @@ extension SecureEnclave {
             return SignedData(data: signature as Data, requiredAuthentication: requiredAuthentication)
         }
 
-        /// <#Description#>
-        /// - Parameters:
-        ///   - secret: <#secret description#>
-        ///   - duration: <#duration description#>
         public func persistAuthentication(secret: Secret, forDuration duration: TimeInterval) throws {
             let newContext = LAContext()
             newContext.touchIDAuthenticationAllowableReuseDuration = duration
@@ -171,6 +170,8 @@ extension SecureEnclave {
 
 extension SecureEnclave.Store {
 
+    /// Reloads all secrets from the store.
+    /// - Parameter notify: A boolean indicating whether a distributed notification should be posted, notifying other processes (ie, the SecretAgent) to reload their stores as well.
     private func reloadSecrets(notify: Bool = true) {
         secrets.removeAll()
         loadSecrets()
@@ -179,6 +180,7 @@ extension SecureEnclave.Store {
         }
     }
 
+    /// Loads all secrets from the store.
     private func loadSecrets() {
         let attributes = [
             kSecClass: kSecClassKey,
@@ -203,6 +205,10 @@ extension SecureEnclave.Store {
         secrets.append(contentsOf: wrapped)
     }
 
+    /// Saves a public key.
+    /// - Parameters:
+    ///   - publicKey: The public key to save.
+    ///   - name: A user-facing name for the key.
     private func savePublicKey(_ publicKey: SecKey, name: String) throws {
         let attributes = [
             kSecClass: kSecClassKey,
@@ -224,11 +230,15 @@ extension SecureEnclave.Store {
 
 extension SecureEnclave {
 
+    /// A wrapper around an error code reported by a Keychain API.
     public struct KeychainError: Error {
+        /// The status code involved, if one was reported.
         public let statusCode: OSStatus?
     }
 
+    /// A signing-related error.
     public struct SigningError: Error {
+        /// The underlying error reported by the API, if one was returned.
         public let error: SecurityError?
     }
 
@@ -252,13 +262,22 @@ extension SecureEnclave {
 
 extension SecureEnclave {
 
+    /// A context describing a persisted authentication.
     private struct PersistentAuthenticationContext {
 
+        /// The Secret to persist authentication for.
         let secret: Secret
+        /// The LAContext used to authorize the persistent context.
         let context: LAContext
-        // Monotonic time instead of Date() to prevent people setting the clock back.
+        /// An expiration date for the context.
+        /// - Note -  Monotonic time instead of Date() to prevent people setting the clock back.
         let expiration: UInt64
 
+        /// Initializes a context.
+        /// - Parameters:
+        ///   - secret: The Secret to persist authentication for.
+        ///   - context: The LAContext used to authorize the persistent context.
+        ///   - duration: The duration of the authorization context, in seconds.
         init(secret: Secret, context: LAContext, duration: TimeInterval) {
             self.secret = secret
             self.context = context
@@ -266,6 +285,7 @@ extension SecureEnclave {
             self.expiration = clock_gettime_nsec_np(CLOCK_MONOTONIC) + UInt64(durationInNanoSeconds)
         }
 
+        /// A boolean describing whether or not the context is still valid.
         var valid: Bool {
             clock_gettime_nsec_np(CLOCK_MONOTONIC) < expiration
         }
