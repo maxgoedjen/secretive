@@ -1,15 +1,21 @@
 import Foundation
 
+/// Protocol abstraction of the reading aspects of FileHandle.
 public protocol FileHandleReader {
 
+    /// Gets data that is available for reading.
     var availableData: Data { get }
+    /// A file descriptor of the handle.
     var fileDescriptor: Int32 { get }
+    /// The  process ID of the process coonnected to the other end of the FileHandle.
     var pidOfConnectedProcess: Int32 { get }
 
 }
 
+/// Protocol abstraction of the writing aspects of FileHandle.
 public protocol FileHandleWriter {
 
+    /// Writes data to the handle.
     func write(_ data: Data)
 
 }

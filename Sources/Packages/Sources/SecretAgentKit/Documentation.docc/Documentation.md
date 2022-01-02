@@ -1,13 +1,23 @@
 # ``SecretAgentKit``
 
-<!--@START_MENU_TOKEN@-->Summary<!--@END_MENU_TOKEN@-->
-
-## Overview
-
-<!--@START_MENU_TOKEN@-->Text<!--@END_MENU_TOKEN@-->
+SecretAgentKit is a collection of types that allow SecretAgent to conform to the SSH agent protocol.
 
 ## Topics
 
-### <!--@START_MENU_TOKEN@-->Group<!--@END_MENU_TOKEN@-->
+### Agent
 
-- <!--@START_MENU_TOKEN@-->``Symbol``<!--@END_MENU_TOKEN@-->
+- ``Agent``
+
+### Protocol
+
+- ``SSHAgent``
+
+### Request Notification
+
+- ``SigningWitness``
+
+### Socket Operations
+
+- ``SocketController``
+- ``FileHandleReader``
+- ``FileHandleWriter``
