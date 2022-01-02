@@ -4,6 +4,7 @@ import OSLog
 import SecretKit
 import AppKit
 
+/// The `Agent` is an implementation of an SSH agent. It manages coordination and access between a socket, traces requests, notifies witnesses and passes requests to stores.
 public class Agent {
 
     private let storeList: SecretStoreList
@@ -11,6 +12,10 @@ public class Agent {
     private let writer = OpenSSHKeyWriter()
     private let requestTracer = SigningRequestTracer()
 
+    /// Initializes an agent with a store list and a witness.
+    /// - Parameters:
+    ///   - storeList: The `SecretStoreList` to make available.
+    ///   - witness: A witness to notify of requests.
     public init(storeList: SecretStoreList, witness: SigningWitness? = nil) {
         Logger().debug("Agent is running")
         self.storeList = storeList
@@ -21,6 +26,10 @@ public class Agent {
 
 extension Agent {
 
+    /// Handles an incoming request.
+    /// - Parameters:
+    ///   - reader: A ``FileHandleReader`` to read the content of the request.
+    ///   - writer: A ``FileHandleWriter`` to write the response to.
     public func handle(reader: FileHandleReader, writer: FileHandleWriter) {
         Logger().debug("Agent handling new data")
         let data = Data(reader.availableData)
@@ -64,6 +73,8 @@ extension Agent {
 
 extension Agent {
 
+    /// Lists the identities available for signing operations
+    /// - Returns: An OpenSSH formatted Data payload listing the identities available for signing operations.
     func identities() -> Data {
         let secrets = storeList.stores.flatMap(\.secrets)
         var count = UInt32(secrets.count).bigEndian
@@ -80,6 +91,11 @@ extension Agent {
         return countData + keyData
     }
 
+    /// Notifies witnesses of a pending signature request, and performs the signing operation if none object.
+    /// - Parameters:
+    ///   - data: The data to sign.
+    ///   - provenance: A ``SecretKit.SigningRequestProvenance`` object describing the origin of the request.
+    /// - Returns: An OpenSSH formatted Data payload containing the signed data response.
     func sign(data: Data, provenance: SigningRequestProvenance) throws -> Data {
         let reader = OpenSSHReader(data: data)
         let hash = reader.readNextChunk()
@@ -147,6 +163,9 @@ extension Agent {
 
 extension Agent {
 
+    /// Finds a ``Secret`` matching a specified hash whos signature was requested.
+    /// - Parameter hash: The hash to match against.
+    /// - Returns: A ``Secret`` and the ``SecretStore`` containing it, if a match is found.
     func secret(matching hash: Data) -> (AnySecretStore, AnySecret)? {
         storeList.stores.compactMap { store -> (AnySecretStore, AnySecret)? in
             let allMatching = store.secrets.filter { secret in
@@ -164,6 +183,7 @@ extension Agent {
 
 extension Agent {
 
+    /// An error involving agent operations..
     enum AgentError: Error {
         case unhandledType
         case noMatchingKey
