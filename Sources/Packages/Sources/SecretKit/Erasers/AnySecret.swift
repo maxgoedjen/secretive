@@ -1,5 +1,6 @@
 import Foundation
 
+/// Type eraser for Secret.
 public struct AnySecret: Secret {
 
     let base: Any
