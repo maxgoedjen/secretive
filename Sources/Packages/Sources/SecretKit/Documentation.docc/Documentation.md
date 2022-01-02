@@ -1,4 +1,4 @@
-# ````SecretKit````
+# ``SecretKit``
 
 SecretKit is a collection of protocols describing secrets and stores.
 
