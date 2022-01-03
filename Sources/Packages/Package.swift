@@ -25,6 +25,9 @@ let package = Package(
             name: "SecretAgentKitHeaders",
             targets: ["SecretAgentKitHeaders"]),
         .library(
+            name: "SecretAgentKitProtocol",
+            targets: ["SecretAgentKitProtocol"]),
+        .library(
             name: "Brief",
             targets: ["Brief"]),
     ],
@@ -32,8 +35,7 @@ let package = Package(
     ],
     targets: [
         .target(
-            name: "SecretKit",
-            dependencies: []
+            name: "SecretKit"
         ),
         .testTarget(
             name: "SecretKitTests",
@@ -49,18 +51,20 @@ let package = Package(
         ),
         .target(
             name: "SecretAgentKit",
-            dependencies: ["SecretKit", "SecretAgentKitHeaders"]
+            dependencies: ["SecretKit", "SecretAgentKitHeaders", "SecretAgentKitProtocol"]
         ),
         .systemLibrary(
             name: "SecretAgentKitHeaders"
+        ),
+        .target(
+            name: "SecretAgentKitProtocol"
         ),
         .testTarget(
             name: "SecretAgentKitTests",
             dependencies: ["SecretAgentKit"])
         ,
         .target(
-            name: "Brief",
-            dependencies: []
+            name: "Brief"
         ),
         .testTarget(
             name: "BriefTests",

@@ -9,6 +9,7 @@ protocol JustUpdatedCheckerProtocol: ObservableObject {
 class JustUpdatedChecker: ObservableObject, JustUpdatedCheckerProtocol {
 
     @Published var justUpdated: Bool = false
+    var alreadyRelaunchedForDebug = false
 
     init() {
         check()
@@ -18,7 +19,12 @@ class JustUpdatedChecker: ObservableObject, JustUpdatedCheckerProtocol {
         let lastBuild = UserDefaults.standard.object(forKey: Constants.previousVersionUserDefaultsKey) as? String ?? "None"
         let currentBuild = Bundle.main.infoDictionary!["CFBundleShortVersionString"] as! String
         UserDefaults.standard.set(currentBuild, forKey: Constants.previousVersionUserDefaultsKey)
-        justUpdated = lastBuild != currentBuild
+        if currentBuild != Constants.debugVersionKey {
+            justUpdated = lastBuild != currentBuild
+        } else {
+            justUpdated = !alreadyRelaunchedForDebug
+            alreadyRelaunchedForDebug = true
+        }
     }
 
 
@@ -29,6 +35,7 @@ extension JustUpdatedChecker {
 
     enum Constants {
         static let previousVersionUserDefaultsKey = "com.maxgoedjen.Secretive.lastBuild"
+        static let debugVersionKey = "GITHUB_CI_VERSION"
     }
 
 }

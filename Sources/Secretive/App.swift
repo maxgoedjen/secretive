@@ -15,6 +15,8 @@ struct Secretive: App {
         return list
     }()
     private let agentStatusChecker = AgentStatusChecker()
+    private let agentLaunchController = AgentLaunchController()
+    private let agentCommunicationController = AgentCommunicationController()
     private let justUpdatedChecker = JustUpdatedChecker()
 
     @AppStorage("defaultsHasRunSetup") var hasRunSetup = false
@@ -27,6 +29,7 @@ struct Secretive: App {
                 .environmentObject(storeList)
                 .environmentObject(Updater(checkOnLaunch: hasRunSetup))
                 .environmentObject(agentStatusChecker)
+                .environmentObject(agentCommunicationController)
                 .onAppear {
                     if !hasRunSetup {
                         showingSetup = true
@@ -35,11 +38,17 @@ struct Secretive: App {
                 .onReceive(NotificationCenter.default.publisher(for: NSApplication.didBecomeActiveNotification)) { _ in
                     guard hasRunSetup else { return }
                     agentStatusChecker.check()
-                    if agentStatusChecker.running && justUpdatedChecker.justUpdated {
-                        // Relaunch the agent, since it'll be running from earlier update still
-                        reinstallAgent()
-                    } else if !agentStatusChecker.running && !agentStatusChecker.developmentBuild {
-                        forceLaunchAgent()
+                    if justUpdatedChecker.justUpdated || !agentStatusChecker.running {
+                        // Two conditions in which we reinstall/attempt a force launch:
+                        // 1: The app was just updated, and an old version of the agent is alive. Reinstall will deactivate this and activate a new one.
+                        // 2: The agent is not running for some reason. We'll attempt to reinstall it, or relaunch directly if that fails.
+                        reinstallAgent {
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                                agentCommunicationController.configure()
+                            }
+                        }
+                    } else {
+                        agentCommunicationController.configure()
                     }
                 }
         }
@@ -60,6 +69,13 @@ struct Secretive: App {
                     showingSetup = true
                 }
             }
+            CommandGroup(after: .help) {
+                Button("TEST") {
+                    Task {
+                        try await agentCommunicationController.agent.updatedStore(withID: storeList.modifiableStore?.id as? UUID ?? UUID())
+                    }
+                }
+            }
             SidebarCommands()
         }
     }
@@ -68,24 +84,21 @@ struct Secretive: App {
 
 extension Secretive {
 
-    private func reinstallAgent() {
+    private func reinstallAgent(completion: @escaping () -> Void) {
         justUpdatedChecker.check()
-        LaunchAgentController().install {
+        agentLaunchController.install {
             // Wait a second for launchd to kick in (next runloop isn't enough).
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 agentStatusChecker.check()
                 if !agentStatusChecker.running {
-                    forceLaunchAgent()
+                    agentLaunchController.forceLaunch { _ in
+                        agentStatusChecker.check()
+                        completion()
+                    }
+                } else {
+                    completion()
                 }
             }
-        }
-    }
-
-    private func forceLaunchAgent() {
-        // We've run setup, we didn't just update, launchd is just not doing it's thing.
-        // Force a launch directly.
-        LaunchAgentController().forceLaunch { _ in
-            agentStatusChecker.check()
         }
     }
 

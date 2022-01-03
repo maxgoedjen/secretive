@@ -23,9 +23,6 @@ extension SecureEnclave {
 
         /// Initializes a Store.
         public init() {
-            DistributedNotificationCenter.default().addObserver(forName: .secretStoreUpdated, object: nil, queue: .main) { _ in
-                self.reloadSecrets(notify: false)
-            }
             loadSecrets()
         }
 
@@ -68,7 +65,7 @@ extension SecureEnclave {
                 throw KeychainError(statusCode: nil)
             }
             try savePublicKey(publicKey, name: name)
-            reloadSecrets()
+            reload()
         }
 
         public func delete(secret: Secret) throws {
@@ -80,7 +77,7 @@ extension SecureEnclave {
             if status != errSecSuccess {
                 throw KeychainError(statusCode: status)
             }
-            reloadSecrets()
+            reload()
         }
 
         public func update(secret: Secret, name: String) throws {
@@ -97,9 +94,14 @@ extension SecureEnclave {
             if status != errSecSuccess {
                 throw KeychainError(statusCode: status)
             }
-            reloadSecrets()
+            reload()
         }
-        
+
+        public func reload() {
+            secrets.removeAll()
+            loadSecrets()
+        }
+
         public func sign(data: Data, with secret: SecretType, for provenance: SigningRequestProvenance) throws -> SignedData {
             let context: LAContext
             if let existing = persistedAuthenticationContexts[secret], existing.valid {
@@ -169,16 +171,6 @@ extension SecureEnclave {
 }
 
 extension SecureEnclave.Store {
-
-    /// Reloads all secrets from the store.
-    /// - Parameter notify: A boolean indicating whether a distributed notification should be posted, notifying other processes (ie, the SecretAgent) to reload their stores as well.
-    private func reloadSecrets(notify: Bool = true) {
-        secrets.removeAll()
-        loadSecrets()
-        if notify {
-            DistributedNotificationCenter.default().post(name: .secretStoreUpdated, object: nil)
-        }
-    }
 
     /// Loads all secrets from the store.
     private func loadSecrets() {

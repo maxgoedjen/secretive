@@ -52,6 +52,9 @@ public protocol SecretStoreModifiable: SecretStore {
     ///   - name: The new name for the Secret.
     func update(secret: SecretType, name: String) throws
 
+    /// Reloads the secrets from the backing store.
+    func reload() throws
+
 }
 
 extension NSNotification.Name {

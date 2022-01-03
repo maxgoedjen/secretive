@@ -87,7 +87,7 @@ extension ContentView {
                 })
                     .popover(isPresented: $showingCreation, attachmentAnchor: .point(.bottom), arrowEdge: .bottom) {
                         if let modifiable = storeList.modifiableStore {
-                            CreateSecretView(store: modifiable, showing: $showingCreation)
+                            CreateSecretView<AnySecretStoreModifiable, AgentCommunicationController>(store: modifiable, showing: $showingCreation)
                         }
                     }
 

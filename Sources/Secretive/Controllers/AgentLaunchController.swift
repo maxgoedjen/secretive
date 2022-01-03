@@ -4,7 +4,7 @@ import AppKit
 import OSLog
 import SecretKit
 
-struct LaunchAgentController {
+struct AgentLaunchController {
     
     func install(completion: (() -> Void)? = nil) {
         Logger().debug("Installing agent")
@@ -20,7 +20,7 @@ struct LaunchAgentController {
     }
 
     func forceLaunch(completion: ((Bool) -> Void)?) {
-        Logger().debug("Agent is not running, attempting to force launch")
+        Logger().debug("Agent is still not running, attempting to force launch")
         let url = Bundle.main.bundleURL.appendingPathComponent("Contents/Library/LoginItems/SecretAgent.app")
         let config = NSWorkspace.OpenConfiguration()
         config.activates = false

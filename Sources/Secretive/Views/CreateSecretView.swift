@@ -1,9 +1,10 @@
 import SwiftUI
 import SecretKit
 
-struct CreateSecretView<StoreType: SecretStoreModifiable>: View {
+struct CreateSecretView<StoreType: SecretStoreModifiable, AgentCommunicationControllerType: AgentCommunicationControllerProtocol>: View {
 
     @ObservedObject var store: StoreType
+    @EnvironmentObject private var agentCommunicationController: AgentCommunicationControllerType
     @Binding var showing: Bool
 
     @State private var name = ""
@@ -52,6 +53,9 @@ struct CreateSecretView<StoreType: SecretStoreModifiable>: View {
 
     func save() {
         try! store.create(name: name, requiresAuthentication: requiresAuthentication)
+        Task {
+            try! await agentCommunicationController.agent.updatedStore(withID: store.id)
+        }
         showing = false
     }
 }

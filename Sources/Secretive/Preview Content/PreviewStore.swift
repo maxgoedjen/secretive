@@ -45,6 +45,7 @@ extension Preview {
     }
 
     class StoreModifiable: Store, SecretStoreModifiable {
+
         override var name: String { "Modifiable Preview Store" }
 
         func create(name: String, requiresAuthentication: Bool) throws {
@@ -55,6 +56,10 @@ extension Preview {
 
         func update(secret: Preview.Secret, name: String) throws {
         }
+
+        func reload() throws {
+        }
+        
     }
 }
 

@@ -156,7 +156,7 @@ struct SecretAgentSetupView: View {
     }
 
     func install() {
-        LaunchAgentController().install()
+        AgentLaunchController().install()
         buttonAction()
     }
 
