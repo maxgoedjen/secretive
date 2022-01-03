@@ -6,6 +6,8 @@ public class SocketController {
 
     /// The active FileHandle.
     private var fileHandle: FileHandle?
+    /// The active SocketPort.
+    private var port: SocketPort?
     /// A handler that will be notified when a new read/write handle is available.
     public var handler: ((FileHandleReader, FileHandleWriter) -> Void)?
 
@@ -19,6 +21,7 @@ public class SocketController {
         let exists = FileManager.default.fileExists(atPath: path)
         assert(!exists)
         Logger().debug("Socket controller path is clear")
+        port = socketPort(at: path)
         configureSocket(at: path)
         Logger().debug("Socket listening at \(path)")
     }
@@ -26,7 +29,7 @@ public class SocketController {
     /// Configures the socket and a corresponding FileHandle.
     /// - Parameter path: The path to use as a socket.
     func configureSocket(at path: String) {
-        let port = socketPort(at: path)
+        guard let port = port else { return }
         fileHandle = FileHandle(fileDescriptor: port.socket, closeOnDealloc: true)
         NotificationCenter.default.addObserver(self, selector: #selector(handleConnectionAccept(notification:)), name: .NSFileHandleConnectionAccepted, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handleConnectionDataAvailable(notification:)), name: .NSFileHandleDataAvailable, object: nil)
