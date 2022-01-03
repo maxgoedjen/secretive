@@ -1,6 +1,5 @@
 import Foundation
 import OSLog
-import SecretKit
 
 /// Controller responsible for writing public keys to disk, so that they're easily accessible by scripts.
 public class PublicKeyFileStoreController {
@@ -38,7 +37,7 @@ public class PublicKeyFileStoreController {
     /// - Parameter secret: The Secret to return the path for.
     /// - Returns: The path to the Secret's public key.
     /// - Warning: This method returning a path does not imply that a key has been written to disk already. This method only describes where it will be written to.
-    func path(for secret: AnySecret) -> String {
+    public func path<SecretType: Secret>(for secret: SecretType) -> String {
         directory.appending("/").appending("\(secret.name.replacingOccurrences(of: " ", with: "-")).pub")
     }
 

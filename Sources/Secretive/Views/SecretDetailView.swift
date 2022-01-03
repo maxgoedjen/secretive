@@ -6,6 +6,7 @@ struct SecretDetailView<SecretType: Secret>: View {
     @State var secret: SecretType
 
     private let keyWriter = OpenSSHKeyWriter()
+    private let publicKeyFileStoreController = PublicKeyFileStoreController()
     
     var body: some View {
         ScrollView {
@@ -20,7 +21,7 @@ struct SecretDetailView<SecretType: Secret>: View {
                     CopyableView(title: "Public Key Contents", image: Image(systemName: "key"), text: keyString)
                     Spacer()
                         .frame(height: 20)
-                    CopyableView(title: "Public Key Path", image: Image(systemName: "lock.doc"), text: "/Users/max/whatever")
+                    CopyableView(title: "Public Key Path", image: Image(systemName: "lock.doc"), text: publicKeyFileStoreController.path(for: secret))
                     Spacer()
                 }
             }
@@ -43,7 +44,7 @@ struct SecretDetailView<SecretType: Secret>: View {
     var keyString: String {
         keyWriter.openSSHString(secret: secret, comment: "\(dashedKeyName)@\(dashedHostName)")
     }
-        
+
 }
 
 #if DEBUG
