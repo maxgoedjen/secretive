@@ -18,7 +18,7 @@ struct SecretDetailView<SecretType: Secret>: View {
                     CopyableView(title: "MD5 Fingerprint", image: Image(systemName: "touchid"), text: keyWriter.openSSHMD5Fingerprint(secret: secret))
                     Spacer()
                         .frame(height: 20)
-                    CopyableView(title: "Public Key Contents", image: Image(systemName: "key"), text: keyString)
+                    CopyableView(title: "Public Key", image: Image(systemName: "key"), text: keyString)
                     Spacer()
                         .frame(height: 20)
                     CopyableView(title: "Public Key Path", image: Image(systemName: "lock.doc"), text: publicKeyFileStoreController.path(for: secret))
