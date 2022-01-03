@@ -6,15 +6,19 @@ import SecretKit
 
 struct AgentLaunchController {
     
-    func install(completion: (() -> Void)? = nil) {
+    func install(uninstallFirst: Bool = true, completion: (() -> Void)? = nil) {
         Logger().debug("Installing agent")
-        _ = setEnabled(false)
+        if uninstallFirst {
+            _ = setEnabled(false)
+        }
         // This is definitely a bit of a "seems to work better" thing but:
         // Seems to more reliably hit if these are on separate runloops, otherwise it seems like it sometimes doesn't kill old
         // and start new?
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
             _  = setEnabled(true)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             completion?()
+            }
         }
 
     }
@@ -33,6 +37,12 @@ struct AgentLaunchController {
             } else {
                 Logger().debug("Agent force launched")
             }
+        }
+    }
+
+    func killNonInstanceAgents(agents: [NSRunningApplication]) {
+        for agent in agents {
+            agent.terminate()
         }
     }
 

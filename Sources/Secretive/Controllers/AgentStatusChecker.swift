@@ -30,13 +30,18 @@ class AgentStatusChecker: ObservableObject, AgentStatusCheckerProtocol {
         let agents = secretAgentProcesses
         for agent in agents {
             guard let url = agent.bundleURL else { continue }
-            if url.absoluteString.hasPrefix(Bundle.main.bundleURL.absoluteString) {
+            if url.absoluteString.contains(Bundle.main.bundleURL.absoluteString) {
                 return agent
             }
         }
         return nil
     }
 
+    // All processes, _NOT_ including one the instance agent.
+    var noninstanceSecretAgentProcesses: [NSRunningApplication] {
+        NSRunningApplication.runningApplications(withBundleIdentifier: Bundle.main.agentBundleID)
+            .filter({ !($0.bundleURL?.absoluteString.contains(Bundle.main.bundleURL.absoluteString) ?? false) })
+    }
 
     // Whether Secretive is being run in an Xcode environment.
     var developmentBuild: Bool {

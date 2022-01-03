@@ -54,7 +54,7 @@ struct CreateSecretView<StoreType: SecretStoreModifiable, AgentCommunicationCont
     func save() {
         try! store.create(name: name, requiresAuthentication: requiresAuthentication)
         Task {
-            try! await agentCommunicationController.agent.updatedStore(withID: store.id)
+            try! await agentCommunicationController.agent!.updatedStore(withID: store.id)
         }
         showing = false
     }

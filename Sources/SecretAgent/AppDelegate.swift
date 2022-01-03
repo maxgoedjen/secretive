@@ -45,6 +45,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, AgentProtocol {
             guard let update = update else { return }
             self.notifier.notify(update: update, ignore: self.updater.ignore(release:))
         }
+        // TODO: REMOVE
+        notifier.notify(update: Release(name: "Test", prerelease: false, html_url: URL(string: "https://example.com")!, body: ""), ignore: nil)
         connect()
     }
 
@@ -55,6 +57,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, AgentProtocol {
     }
 
     func updatedStore(withID id: UUID) async throws {
+        // TODO: REMOVE
+        notifier.notify(update: Release(name: "UPDATESTORE", prerelease: false, html_url: URL(string: "https://example.com")!, body: ""), ignore: nil)
         logger.debug("Reloading keys for store with id: \(id)")
         guard let store = storeList.modifiableStore, store.id == id else { throw AgentProtocolStoreNotFoundError() }
         try store.reload()
@@ -63,19 +67,20 @@ class AppDelegate: NSObject, NSApplicationDelegate, AgentProtocol {
 
 }
 
-    class ServiceDelegate: NSObject, NSXPCListenerDelegate {
+// TODO: MOVE
+class ServiceDelegate: NSObject, NSXPCListenerDelegate {
 
-        let exported: AgentProtocol
+    let exported: AgentProtocol
 
-        init(exportedObject: AgentProtocol) {
-            self.exported = exportedObject
-        }
-
-        func listener(_ listener: NSXPCListener, shouldAcceptNewConnection newConnection: NSXPCConnection) -> Bool {
-            newConnection.exportedInterface = NSXPCInterface(with: AgentProtocol.self)
-            newConnection.exportedObject = exported
-            newConnection.resume()
-            return true
-        }
-
+    init(exportedObject: AgentProtocol) {
+        self.exported = exportedObject
     }
+
+    func listener(_ listener: NSXPCListener, shouldAcceptNewConnection newConnection: NSXPCConnection) -> Bool {
+        newConnection.exportedInterface = NSXPCInterface(with: AgentProtocol.self)
+        newConnection.exportedObject = exported
+        newConnection.resume()
+        return true
+    }
+
+}

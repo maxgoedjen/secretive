@@ -42,7 +42,10 @@ struct Secretive: App {
                         // Two conditions in which we reinstall/attempt a force launch:
                         // 1: The app was just updated, and an old version of the agent is alive. Reinstall will deactivate this and activate a new one.
                         // 2: The agent is not running for some reason. We'll attempt to reinstall it, or relaunch directly if that fails.
-                        reinstallAgent {
+                        reinstallAgent(uninstallFirst: agentStatusChecker.running) {
+                            if agentStatusChecker.noninstanceSecretAgentProcesses.isEmpty {
+                                agentLaunchController.killNonInstanceAgents(agents: agentStatusChecker.noninstanceSecretAgentProcesses)
+                            }
                             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                                 agentCommunicationController.configure()
                             }
@@ -72,7 +75,7 @@ struct Secretive: App {
             CommandGroup(after: .help) {
                 Button("TEST") {
                     Task {
-                        try await agentCommunicationController.agent.updatedStore(withID: storeList.modifiableStore?.id as? UUID ?? UUID())
+                        try await agentCommunicationController.agent?.updatedStore(withID: storeList.modifiableStore?.id ?? UUID())
                     }
                 }
             }
@@ -84,9 +87,9 @@ struct Secretive: App {
 
 extension Secretive {
 
-    private func reinstallAgent(completion: @escaping () -> Void) {
+    private func reinstallAgent(uninstallFirst: Bool, completion: @escaping () -> Void) {
         justUpdatedChecker.check()
-        agentLaunchController.install {
+        agentLaunchController.install(uninstallFirst: uninstallFirst) {
             // Wait a second for launchd to kick in (next runloop isn't enough).
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 agentStatusChecker.check()
