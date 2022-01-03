@@ -20,9 +20,12 @@ jobs:
         APPLE_API_KEY_ID: ${{ secrets.APPLE_API_KEY_ID }}
       run: ./.github/scripts/signing.sh
     - name: Set Environment
-      run: sudo xcrun xcode-select -s /Applications/Xcode_13.1.app
+      run: sudo xcrun xcode-select -s /Applications/Xcode_13.2.1.app
     - name: Test
-      run: xcrun xcodebuild test -project Secretive.xcodeproj -scheme Secretive
+      run: |
+            pushd Sources/Packages
+            swift test
+            popd
   build:
     runs-on: macos-11.0
     timeout-minutes: 10
@@ -38,18 +41,18 @@ jobs:
         APPLE_API_KEY_ID: ${{ secrets.APPLE_API_KEY_ID }}
       run: ./.github/scripts/signing.sh
     - name: Set Environment
-      run: sudo xcrun xcode-select -s /Applications/Xcode_13.1.app
+      run: sudo xcrun xcode-select -s /Applications/Xcode_13.2.1.app
     - name: Update Build Number
       env:
         TAG_NAME: ${{ github.ref }}
         RUN_ID: ${{ github.run_id }}
       run: |
             export CLEAN_TAG=$(echo $TAG_NAME | sed -e 's/refs\/tags\/v//')
-            sed -i '' -e "s/GITHUB_CI_VERSION/$CLEAN_TAG/g" Config/Config.xcconfig
-            sed -i '' -e "s/GITHUB_BUILD_NUMBER/1.$RUN_ID/g" Config/Config.xcconfig
-            sed -i '' -e "s/GITHUB_BUILD_URL/https:\/\/github.com\/maxgoedjen\/secretive\/actions\/runs\/$RUN_ID/g" Secretive/Credits.rtf
+            sed -i '' -e "s/GITHUB_CI_VERSION/$CLEAN_TAG/g" Sources/Config/Config.xcconfig
+            sed -i '' -e "s/GITHUB_BUILD_NUMBER/1.$RUN_ID/g" Sources/Config/Config.xcconfig
+            sed -i '' -e "s/GITHUB_BUILD_URL/https:\/\/github.com\/maxgoedjen\/secretive\/actions\/runs\/$RUN_ID/g" Sources/Secretive/Credits.rtf
     - name: Build
-      run: xcrun xcodebuild -project Secretive.xcodeproj -scheme Secretive -configuration Release -archivePath Archive.xcarchive archive
+      run: xcrun xcodebuild -project Sources/Secretive.xcodeproj -scheme Secretive -configuration Release -archivePath Archive.xcarchive archive
     - name: Create ZIPs
       run: |
             ditto -c -k --sequesterRsrc --keepParent Archive.xcarchive/Products/Applications/Secretive.app ./Secretive.zip
@@ -88,7 +91,7 @@ jobs:
         draft: true
         prerelease: false
     - name: Upload App to Release
-      id: upload-release-asset 
+      id: upload-release-asset-app
       uses: actions/upload-release-asset@v1.0.1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -97,13 +100,13 @@ jobs:
         asset_path: ./Secretive.zip
         asset_name: Secretive.zip
         asset_content_type: application/zip
-    - name: Upload Archive to Artifacts
-      uses: actions/upload-artifact@v1
-      with:
-        name: Archive.zip
-        path: Archive.zip
-    - name: Upload Archive to Artifacts
+    - name: Upload App to Artifacts
       uses: actions/upload-artifact@v1
       with:
         name: Secretive.zip
         path: Secretive.zip
+    - name: Upload Archive to Artifacts
+      uses: actions/upload-artifact@v1
+      with:
+        name: Xcode_Archive.zip
+        path: Archive.zip
