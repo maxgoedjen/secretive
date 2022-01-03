@@ -33,6 +33,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         DispatchQueue.main.async {
             self.socketController.handler = self.agent.handle(reader:writer:)
         }
+        try? publicKeyFileStoreController.generatePublicKeys(for: storeList.stores.flatMap({ $0.secrets }))
         notifier.prompt()
         updateSink = updater.$update.sink { update in
             guard let update = update else { return }
@@ -43,7 +44,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func reloadKeys() {
         // TODO: This
 //        storeList.reloadAll()
-        try? publicKeyFileStoreController.clear()
         try? publicKeyFileStoreController.generatePublicKeys(for: storeList.stores.flatMap({ $0.secrets }))
     }
 
