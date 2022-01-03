@@ -11,10 +11,6 @@ public class PublicKeyFileStoreController {
     public init() {
     }
 
-    /// Removes and recreates the directory used to store keys.
-    public func clear() throws {
-    }
-
     /// Writes out the keys specified to disk.
     /// - Parameter secrets: The Secrets to generate keys for.
     /// - Parameter clear: Whether or not the directory should be erased before writing keys.
