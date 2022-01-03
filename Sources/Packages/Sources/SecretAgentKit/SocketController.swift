@@ -11,7 +11,7 @@ public class SocketController {
     /// A handler that will be notified when a new read/write handle is available.
     /// False if no data could be read
     public var handler: ((FileHandleReader, FileHandleWriter) -> Bool)?
-d)?
+
 
     /// Initializes a socket controller with a specified path.
     /// - Parameter path: The path to use as a socket.
