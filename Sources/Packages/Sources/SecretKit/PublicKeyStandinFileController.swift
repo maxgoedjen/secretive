@@ -7,7 +7,7 @@ public class PublicKeyFileStoreController {
     private let logger = Logger()
     private let directory = NSHomeDirectory().appending("/PublicKeys")
 
-    /// Initializes a PublicKeyFileStoreController
+    /// Initializes a PublicKeyFileStoreController.
     public init() {
     }
 
