@@ -18,16 +18,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }()
     private let updater = Updater(checkOnLaunch: false)
     private let notifier = Notifier()
+    private let publicKeyFileStoreController = PublicKeyFileStoreController()
     private lazy var agent: Agent = {
         Agent(storeList: storeList, witness: notifier)
     }()
     private lazy var socketController: SocketController = {
         let path = (NSHomeDirectory() as NSString).appendingPathComponent("socket.ssh") as String
         return SocketController(path: path)
-    }()
-    // TODO: CLEANUP
-    private lazy var fakeFile: PublicKeyStandinFileStoreController = {
-        PublicKeyStandinFileStoreController(secrets: storeList.stores.flatMap({ $0.secrets }))
     }()
     private var updateSink: AnyCancellable?
 
@@ -41,12 +38,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             guard let update = update else { return }
             self.notifier.notify(update: update, ignore: self.updater.ignore(release:))
         }
-        // TODO: CLEANUP
-        DispatchQueue.main.async {
-            print(self.fakeFile)
-        }
     }
 
+    func reloadKeys() {
+        // TODO: This
+//        storeList.reloadAll()
+        try? publicKeyFileStoreController.clear()
+        try? publicKeyFileStoreController.generatePublicKeys(for: storeList.stores.flatMap({ $0.secrets }))
+    }
 
 }
 

@@ -1,47 +1,45 @@
 import Foundation
+import OSLog
 import SecretKit
 
-public class PublicKeyStandinFileStoreController {
+/// Controller responsible for writing public keys to disk, so that they're easily accessible by scripts.
+public class PublicKeyFileStoreController {
 
-    var files: [PublicKeyStandinFileController] = []
+    private let logger = Logger()
+    private let directory = NSHomeDirectory().appending("/PublicKeys")
 
-    public init(secrets: [AnySecret]) {
-        let directory = NSHomeDirectory().appending("/PublicKeys")
-        try? FileManager.default.removeItem(at: URL(fileURLWithPath: directory))
-        try? FileManager.default.createDirectory(at: URL(fileURLWithPath: directory), withIntermediateDirectories: false, attributes: nil)
-        // TODO: TEST
-        files = secrets.filter({ $0.name == "Git Signature"})
-        /*files = secrets*/.map { PublicKeyStandinFileController(secret: $0, path: directory.appending("/").appending("test") )}
-        print("Done")
+    /// Initializes a PublicKeyFileStoreController
+    public init() {
     }
 
-    enum Constants {
-        static var standinExtension = "secretive-public-key"
+    /// Removes and recreates the directory used to store keys.
+    public func clear() throws {
     }
 
-}
-
-public class PublicKeyStandinFileController {
-
-    private var fileHandle: FileHandle?
-    private let secret: AnySecret
-    private let keyWriter = OpenSSHKeyWriter()
-
-    public init(secret: AnySecret, path: String) {
-        self.secret = secret
-        resetHandle(path: path)
-    }
-
-    func resetHandle(path: String) {
-        try? FileManager.default.removeItem(atPath: path)
-        let fifo = mkfifo(UnsafePointer(Array(path.utf8CString)), S_IRWXU)
-        assert(fifo == 0)
-        fileHandle = nil
-        fileHandle = FileHandle(forWritingAtPath: path)
-        fileHandle?.writeabilityHandler = { [self] handle in
-            try! handle.write(contentsOf: keyWriter.openSSHString(secret: secret).data(using: .utf8)!)
-            try! fileHandle?.close()
-//            self.resetHandle(path: path)
+    /// Writes out the keys specified to disk.
+    /// - Parameter secrets: The Secrets to generate keys for.
+    /// - Parameter clear: Whether or not the directory should be erased before writing keys.
+    public func generatePublicKeys(for secrets: [AnySecret], clear: Bool = false) throws {
+        logger.log("Writing public keys to disk")
+        if clear {
+            try? FileManager.default.removeItem(at: URL(fileURLWithPath: directory))
         }
+        try? FileManager.default.createDirectory(at: URL(fileURLWithPath: directory), withIntermediateDirectories: false, attributes: nil)
+        let keyWriter = OpenSSHKeyWriter()
+        for secret in secrets {
+            let path = path(for: secret)
+            guard let data = keyWriter.openSSHString(secret: secret).data(using: .utf8) else { continue }
+            FileManager.default.createFile(atPath: path, contents: data, attributes: nil)
+        }
+        logger.log("Finished writing public keys")
     }
+
+    /// The path for a Secret's public key.
+    /// - Parameter secret: The Secret to return the path for.
+    /// - Returns: The path to the Secret's public key.
+    /// - Warning: This method returning a path does not imply that a key has been written to disk already. This method only describes where it will be written to.
+    func path(for secret: AnySecret) -> String {
+        directory.appending("/").appending("\(secret.name.replacingOccurrences(of: " ", with: "-")).pub")
+    }
+
 }
