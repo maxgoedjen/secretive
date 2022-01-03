@@ -4,8 +4,6 @@ import CryptoTokenKit
 import LocalAuthentication
 import SecretKit
 
-// TODO: Might need to split this up into "sub-stores?"
-// ie, each token has its own Store.
 extension SmartCard {
 
     /// An implementation of Store backed by a Smart Card.

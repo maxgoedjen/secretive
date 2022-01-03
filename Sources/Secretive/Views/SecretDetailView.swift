@@ -6,6 +6,7 @@ struct SecretDetailView<SecretType: Secret>: View {
     @State var secret: SecretType
 
     private let keyWriter = OpenSSHKeyWriter()
+    private let publicKeyFileStoreController = PublicKeyFileStoreController(homeDirectory: NSHomeDirectory().replacingOccurrences(of: Bundle.main.hostBundleID, with: Bundle.main.agentBundleID))
     
     var body: some View {
         ScrollView {
@@ -18,6 +19,9 @@ struct SecretDetailView<SecretType: Secret>: View {
                     Spacer()
                         .frame(height: 20)
                     CopyableView(title: "Public Key", image: Image(systemName: "key"), text: keyString)
+                    Spacer()
+                        .frame(height: 20)
+                    CopyableView(title: "Public Key Path", image: Image(systemName: "lock.doc"), text: publicKeyFileStoreController.path(for: secret))
                     Spacer()
                 }
             }
@@ -40,12 +44,7 @@ struct SecretDetailView<SecretType: Secret>: View {
     var keyString: String {
         keyWriter.openSSHString(secret: secret, comment: "\(dashedKeyName)@\(dashedHostName)")
     }
-    
-    func copy() {
-        NSPasteboard.general.declareTypes([.string], owner: nil)
-        NSPasteboard.general.setString(keyString, forType: .string)
-    }
-    
+
 }
 
 #if DEBUG

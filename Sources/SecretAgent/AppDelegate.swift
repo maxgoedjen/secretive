@@ -18,6 +18,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }()
     private let updater = Updater(checkOnLaunch: false)
     private let notifier = Notifier()
+    private let publicKeyFileStoreController = PublicKeyFileStoreController(homeDirectory: NSHomeDirectory())
     private lazy var agent: Agent = {
         Agent(storeList: storeList, witness: notifier)
     }()
@@ -32,13 +33,16 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         DispatchQueue.main.async {
             self.socketController.handler = self.agent.handle(reader:writer:)
         }
+        DistributedNotificationCenter.default().addObserver(forName: .secretStoreUpdated, object: nil, queue: .main) { [self] _ in
+            try? publicKeyFileStoreController.generatePublicKeys(for: storeList.stores.flatMap({ $0.secrets }), clear: true)
+        }
+        try? publicKeyFileStoreController.generatePublicKeys(for: storeList.stores.flatMap({ $0.secrets }), clear: true)
         notifier.prompt()
         updateSink = updater.$update.sink { update in
             guard let update = update else { return }
             self.notifier.notify(update: update, ignore: self.updater.ignore(release:))
         }
     }
-
 
 }
 
