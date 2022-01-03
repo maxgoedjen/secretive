@@ -18,7 +18,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }()
     private let updater = Updater(checkOnLaunch: false)
     private let notifier = Notifier()
-    private let publicKeyFileStoreController = PublicKeyFileStoreController()
+    private let publicKeyFileStoreController = PublicKeyFileStoreController(homeDirectory: NSHomeDirectory())
     private lazy var agent: Agent = {
         Agent(storeList: storeList, witness: notifier)
     }()

@@ -6,7 +6,7 @@ struct SecretDetailView<SecretType: Secret>: View {
     @State var secret: SecretType
 
     private let keyWriter = OpenSSHKeyWriter()
-    private let publicKeyFileStoreController = PublicKeyFileStoreController()
+    private let publicKeyFileStoreController = PublicKeyFileStoreController(homeDirectory: NSHomeDirectory().replacingOccurrences(of: Bundle.main.hostBundleID, with: Bundle.main.agentBundleID))
     
     var body: some View {
         ScrollView {

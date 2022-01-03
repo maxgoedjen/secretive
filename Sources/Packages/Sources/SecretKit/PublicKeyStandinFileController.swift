@@ -5,10 +5,11 @@ import OSLog
 public class PublicKeyFileStoreController {
 
     private let logger = Logger()
-    private let directory = NSHomeDirectory().appending("/PublicKeys")
+    private let directory: String
 
     /// Initializes a PublicKeyFileStoreController.
-    public init() {
+    public init(homeDirectory: String) {
+        directory = homeDirectory.appending("/PublicKeys")
     }
 
     /// Writes out the keys specified to disk.
