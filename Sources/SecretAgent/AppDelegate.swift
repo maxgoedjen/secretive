@@ -16,7 +16,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         list.add(store: SmartCard.Store())
         return list
     }()
-    private let updater = Updater(checkOnLaunch: false)
+    private let updater = Updater()
     private let notifier = Notifier()
     private let publicKeyFileStoreController = PublicKeyFileStoreController(homeDirectory: NSHomeDirectory())
     private lazy var agent: Agent = {
@@ -38,10 +38,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
         try? publicKeyFileStoreController.generatePublicKeys(for: storeList.stores.flatMap({ $0.secrets }), clear: true)
         notifier.prompt()
-        updateSink = updater.$update.sink { update in
-            guard let update = update else { return }
-            self.notifier.notify(update: update, ignore: self.updater.ignore(release:))
-        }
+//        updateSink = updater.$update.sink { update in
+//            guard let update = update else { return }
+//            self.notifier.notify(update: update, ignore: self.updater.ignore(release:))
+//        }
     }
 
 }

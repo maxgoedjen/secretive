@@ -16,6 +16,7 @@ struct Secretive: App {
     }()
     private let agentStatusChecker = AgentStatusChecker()
     private let justUpdatedChecker = JustUpdatedChecker()
+    private let updater = Updater()
 
     @AppStorage("defaultsHasRunSetup") var hasRunSetup = false
     @State private var showingSetup = false
@@ -25,11 +26,15 @@ struct Secretive: App {
         WindowGroup {
             ContentView<Updater, AgentStatusChecker>(showingCreation: $showingCreation, runningSetup: $showingSetup, hasRunSetup: $hasRunSetup)
                 .environmentObject(storeList)
-                .environmentObject(Updater(checkOnLaunch: hasRunSetup))
+                .environmentObject(updater)
                 .environmentObject(agentStatusChecker)
                 .onAppear {
                     if !hasRunSetup {
                         showingSetup = true
+                    } else {
+                        Task { [updater] in
+                            await updater.checkForUpdates()
+                        }
                     }
                 }
                 .onReceive(NotificationCenter.default.publisher(for: NSApplication.didBecomeActiveNotification)) { _ in

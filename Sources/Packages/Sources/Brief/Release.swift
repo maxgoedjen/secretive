@@ -1,7 +1,7 @@
 import Foundation
 
 /// A release is a representation of a downloadable update.
-public struct Release: Codable {
+public struct Release: Codable, Sendable {
 
     /// The user-facing name of the release. Typically "Secretive 1.2.3"
     public let name: String
@@ -29,6 +29,9 @@ public struct Release: Codable {
     }
 
 }
+
+// TODO: REMOVE WHEN(?) URL GAINS NATIVE CONFORMANCE
+extension URL: @unchecked Sendable {}
 
 extension Release: Identifiable {
 

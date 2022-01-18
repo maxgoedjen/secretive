@@ -2,43 +2,55 @@ import Foundation
 import Combine
 
 /// A concrete implementation of ``UpdaterProtocol`` which considers the current release and OS version.
-public class Updater: ObservableObject, UpdaterProtocol {
+public actor Updater: ObservableObject, UpdaterProtocol {
 
-    @Published public var update: Release?
+    @MainActor @Published public var update: Release?
     public let testBuild: Bool
 
     /// The current OS version.
     private let osVersion: SemVer
     /// The current version of the app that is running.
     private let currentVersion: SemVer
+    /// The timer responsible for checking for updates regularly.
+    private var timer: Timer? = nil
 
     /// Initializes an Updater.
     /// - Parameters:
-    ///   - checkOnLaunch: A boolean describing whether the Updater should check for available updates on launch.
-    ///   - checkFrequency: The interval at which the Updater should check for updates. Subject to a tolerance of 1 hour.
     ///   - osVersion: The current OS version.
     ///   - currentVersion: The current version of the app that is running.
-    public init(checkOnLaunch: Bool, checkFrequency: TimeInterval = Measurement(value: 24, unit: UnitDuration.hours).converted(to: .seconds).value, osVersion: SemVer = SemVer(ProcessInfo.processInfo.operatingSystemVersion), currentVersion: SemVer = SemVer(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "0.0.0")) {
+    public init(osVersion: SemVer = SemVer(ProcessInfo.processInfo.operatingSystemVersion), currentVersion: SemVer = SemVer(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "0.0.0")) {
         self.osVersion = osVersion
         self.currentVersion = currentVersion
         testBuild = currentVersion == SemVer("0.0.0")
-        if checkOnLaunch {
-            // Don't do a launch check if the user hasn't seen the setup prompt explaining updater yet.
-            checkForUpdates()
+    }
+
+    /// Begins checking for updates with the specified frequency.
+    /// - Parameter checkFrequency: The interval at which the Updater should check for updates. Subject to a tolerance of 1 hour.
+    public func beginChecking(checkFrequency: TimeInterval = Measurement(value: 24, unit: UnitDuration.hours).converted(to: .seconds).value) {
+        timer?.invalidate()
+        timer = Timer.scheduledTimer(withTimeInterval: checkFrequency, repeats: true) { _ in
+            Task {
+                await self.checkForUpdates()
+            }
         }
-        let timer = Timer.scheduledTimer(withTimeInterval: checkFrequency, repeats: true) { _ in
-            self.checkForUpdates()
-        }
-        timer.tolerance = 60*60
+        timer?.tolerance = 60*60
+    }
+
+    /// Ends checking for updates.
+    public func stopChecking() {
+        timer?.invalidate()
+        timer = nil
     }
 
     /// Manually trigger an update check.
-    public func checkForUpdates() {
-        URLSession.shared.dataTask(with: Constants.updateURL) { data, _, _ in
-            guard let data = data else { return }
-            guard let releases = try? JSONDecoder().decode([Release].self, from: data) else { return }
+    public func checkForUpdates() async {
+        if #available(macOS 12.0, *) {
+            guard let (data, _) = try? await URLSession.shared.data(from: Constants.updateURL),
+                  let releases = try? JSONDecoder().decode([Release].self, from: data) else { return }
             self.evaluate(releases: releases)
-        }.resume()
+        } else {
+            // Fallback on earlier versions
+        }
     }
 
     /// Ignores a specified release. `update` will be nil if the user has ignored the latest available release.
@@ -46,8 +58,8 @@ public class Updater: ObservableObject, UpdaterProtocol {
     public func ignore(release: Release) {
         guard !release.critical else { return }
         defaults.set(true, forKey: release.name)
-        DispatchQueue.main.async {
-            self.update = nil
+        Task {
+            await setUpdate(update: update)
         }
     }
 
@@ -67,10 +79,14 @@ extension Updater {
         guard !release.prerelease else { return }
         let latestVersion = SemVer(release.name)
         if latestVersion > currentVersion {
-            DispatchQueue.main.async {
-                self.update = release
+            Task {
+                await setUpdate(update: update)
             }
         }
+    }
+
+    @MainActor private func setUpdate(update: Release?) {
+        self.update = update
     }
 
     /// Checks whether the user has ignored a release.

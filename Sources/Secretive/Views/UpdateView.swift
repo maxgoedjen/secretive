@@ -18,7 +18,9 @@ struct UpdateDetailView<UpdaterType: Updater>: View {
             HStack {
                 if !update.critical {
                     Button("Ignore") {
-                        updater.ignore(release: update)
+                        Task { [updater, update] in
+                            await updater.ignore(release: update)
+                        }
                     }
                     Spacer()
                 }
