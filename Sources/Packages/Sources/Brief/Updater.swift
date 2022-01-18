@@ -44,23 +44,17 @@ public actor Updater: ObservableObject, UpdaterProtocol {
 
     /// Manually trigger an update check.
     public func checkForUpdates() async {
-        if #available(macOS 12.0, *) {
-            guard let (data, _) = try? await URLSession.shared.data(from: Constants.updateURL),
-                  let releases = try? JSONDecoder().decode([Release].self, from: data) else { return }
-            self.evaluate(releases: releases)
-        } else {
-            // Fallback on earlier versions
-        }
+        guard let (data, _) = try? await URLSession.shared.data(from: Constants.updateURL),
+              let releases = try? JSONDecoder().decode([Release].self, from: data) else { return }
+        await evaluate(releases: releases)
     }
 
     /// Ignores a specified release. `update` will be nil if the user has ignored the latest available release.
     /// - Parameter release: The release to ignore.
-    public func ignore(release: Release) {
+    public func ignore(release: Release) async {
         guard !release.critical else { return }
         defaults.set(true, forKey: release.name)
-        Task {
-            await setUpdate(update: update)
-        }
+        await setUpdate(update: update)
     }
 
 }
@@ -69,7 +63,7 @@ extension Updater {
 
     /// Evaluates the available downloadable releases, and selects the newest non-prerelease release that the user is able to run.
     /// - Parameter releases: An array of ``Release`` objects.
-    func evaluate(releases: [Release]) {
+    func evaluate(releases: [Release]) async {
         guard let release = releases
                 .sorted()
                 .reversed()
@@ -79,9 +73,7 @@ extension Updater {
         guard !release.prerelease else { return }
         let latestVersion = SemVer(release.name)
         if latestVersion > currentVersion {
-            Task {
-                await setUpdate(update: update)
-            }
+            await setUpdate(update: update)
         }
     }
 
@@ -111,3 +103,21 @@ extension Updater {
     }
 
 }
+
+@available(macOS, deprecated: 12)
+ extension URLSession {
+
+     // Backport for macOS 11
+     func data(from url: URL) async throws -> (Data, URLResponse) {
+         try await withCheckedThrowingContinuation { continuation in
+             URLSession.shared.dataTask(with: url) { data, response, error in
+                 guard let data = data, let response = response else {
+                     continuation.resume(throwing: error ?? NSError(domain: NSURLErrorDomain, code: NSURLErrorUnknown, userInfo: nil))
+                     return
+                 }
+                 continuation.resume(returning: (data, response))
+             }
+         }
+     }
+
+ }
