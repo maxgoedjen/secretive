@@ -30,20 +30,23 @@ extension Agent {
     /// - Parameters:
     ///   - reader: A ``FileHandleReader`` to read the content of the request.
     ///   - writer: A ``FileHandleWriter`` to write the response to.
-    public func handle(reader: FileHandleReader, writer: FileHandleWriter) {
+    /// - Return value: 
+    ///   - Boolean if data could be read
+    public func handle(reader: FileHandleReader, writer: FileHandleWriter) -> Bool {
         Logger().debug("Agent handling new data")
         let data = Data(reader.availableData)
-        guard data.count > 4 else { return }
+        guard data.count > 4 else { return false}
         let requestTypeInt = data[4]
         guard let requestType = SSHAgent.RequestType(rawValue: requestTypeInt) else {
             writer.write(OpenSSHKeyWriter().lengthAndData(of: SSHAgent.ResponseType.agentFailure.data))
             Logger().debug("Agent returned \(SSHAgent.ResponseType.agentFailure.debugDescription)")
-            return
+            return true
         }
         Logger().debug("Agent handling request of type \(requestType.debugDescription)")
         let subData = Data(data[5...])
         let response = handle(requestType: requestType, data: subData, reader: reader)
         writer.write(response)
+        return true
     }
 
     func handle(requestType: SSHAgent.RequestType, data: Data, reader: FileHandleReader) -> Data {

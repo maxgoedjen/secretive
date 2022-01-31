@@ -9,7 +9,9 @@ public class SocketController {
     /// The active SocketPort.
     private var port: SocketPort?
     /// A handler that will be notified when a new read/write handle is available.
-    public var handler: ((FileHandleReader, FileHandleWriter) -> Void)?
+    /// False if no data could be read
+    public var handler: ((FileHandleReader, FileHandleWriter) -> Bool)?
+
 
     /// Initializes a socket controller with a specified path.
     /// - Parameter path: The path to use as a socket.
@@ -65,7 +67,7 @@ public class SocketController {
     @objc func handleConnectionAccept(notification: Notification) {
         Logger().debug("Socket controller accepted connection")
         guard let new = notification.userInfo?[NSFileHandleNotificationFileHandleItem] as? FileHandle else { return }
-        handler?(new, new)
+        _ = handler?(new, new)
         new.waitForDataInBackgroundAndNotify()
         fileHandle?.acceptConnectionInBackgroundAndNotify(forModes: [RunLoop.current.currentMode!])
     }
@@ -76,7 +78,12 @@ public class SocketController {
         Logger().debug("Socket controller has new data available")
         guard let new = notification.object as? FileHandle else { return }
         Logger().debug("Socket controller received new file handle")
-        handler?(new, new)
+        if((handler?(new, new)) == true) {
+            Logger().debug("Socket controller handled data, wait for more data")
+            new.waitForDataInBackgroundAndNotify()
+        } else {
+            Logger().debug("Socket controller called with empty data, socked closed")
+        }
     }
 
 }
