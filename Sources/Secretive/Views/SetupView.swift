@@ -22,7 +22,7 @@ struct SetupView: View {
                         }
                         .frame(width: proxy.size.width)
                     }
-                    .offset(x: -proxy.size.width * CGFloat(stepIndex), y: 0)
+                    .offset(x: -proxy.size.width * Double(stepIndex), y: 0)
                 }
             }
         }
@@ -44,7 +44,7 @@ struct StepView: View {
     let currentStep: Int
 
     // Ideally we'd have a geometry reader inside this view doing this for us, but that crashes on 11.0b7
-    let width: CGFloat
+    let width: Double
 
     var body: some View {
         ZStack(alignment: .leading) {
@@ -53,7 +53,7 @@ struct StepView: View {
                 .frame(height: 5)
             Rectangle()
                 .foregroundColor(.green)
-                .frame(width: max(0, ((width - (Constants.padding * 2)) / CGFloat(numberOfSteps - 1)) * CGFloat(currentStep) - (Constants.circleWidth / 2)), height: 5)
+                .frame(width: max(0, ((width - (Constants.padding * 2)) / Double(numberOfSteps - 1)) * Double(currentStep) - (Constants.circleWidth / 2)), height: 5)
             HStack {
                 ForEach(0..<numberOfSteps) { index in
                     ZStack {
@@ -92,8 +92,8 @@ extension StepView {
 
     enum Constants {
 
-        static let padding: CGFloat = 15
-        static let circleWidth: CGFloat = 30
+        static let padding: Double = 15
+        static let circleWidth: Double = 30
 
     }
 

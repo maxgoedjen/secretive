@@ -32,6 +32,9 @@ struct ContentView<UpdaterType: UpdaterProtocol, AgentStatusCheckerType: AgentSt
             appPathNotice
             newItem
         }
+        .sheet(isPresented: $runningSetup) {
+            SetupView(visible: $runningSetup, setupComplete: $hasRunSetup)
+        }
     }
 
 }
@@ -65,11 +68,11 @@ extension ContentView {
                         .font(.headline)
                         .foregroundColor(.white)
                 })
-                    .background(color)
-                    .cornerRadius(5)
-                    .popover(item: $selectedUpdate, attachmentAnchor: .point(.bottom), arrowEdge: .bottom) { update in
-                        UpdateDetailView(update: update)
-                    }
+                .background(color)
+                .cornerRadius(5)
+                .popover(item: $selectedUpdate, attachmentAnchor: .point(.bottom), arrowEdge: .bottom) { update in
+                    UpdateDetailView(update: update)
+                }
             )
         }
     }
@@ -85,11 +88,11 @@ extension ContentView {
                 }, label: {
                     Image(systemName: "plus")
                 })
-                    .popover(isPresented: $showingCreation, attachmentAnchor: .point(.bottom), arrowEdge: .bottom) {
-                        if let modifiable = storeList.modifiableStore {
-                            CreateSecretView(store: modifiable, showing: $showingCreation)
-                        }
+                .popover(isPresented: $showingCreation, attachmentAnchor: .point(.bottom), arrowEdge: .bottom) {
+                    if let modifiable = storeList.modifiableStore {
+                        CreateSecretView(store: modifiable, showing: $showingCreation)
                     }
+                }
 
             )
         }
@@ -113,15 +116,12 @@ extension ContentView {
                             .font(.headline)
                             .foregroundColor(.white)
                         })
-                            .background(Color.orange)
-                            .cornerRadius(5)
+                        .background(Color.orange)
+                        .cornerRadius(5)
                     } else {
                         EmptyView()
                     }
                 }
-                    .sheet(isPresented: $runningSetup) {
-                        SetupView(visible: $runningSetup, setupComplete: $hasRunSetup)
-                    }
             )
         }
     }
@@ -142,19 +142,19 @@ extension ContentView {
                     .font(.headline)
                     .foregroundColor(.white)
                 })
-                    .background(Color.orange)
-                    .cornerRadius(5)
-                    .popover(isPresented: $showingAppPathNotice, attachmentAnchor: .point(.bottom), arrowEdge: .bottom) {
-                        VStack {
-                            Image(systemName: "exclamationmark.triangle")
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                                .frame(width: 64)
-                            Text("Secretive needs to be in your Applications folder to work properly. Please move it and relaunch.")
-                                .frame(maxWidth: 300)
-                        }
-                        .padding()
+                .background(Color.orange)
+                .cornerRadius(5)
+                .popover(isPresented: $showingAppPathNotice, attachmentAnchor: .point(.bottom), arrowEdge: .bottom) {
+                    VStack {
+                        Image(systemName: "exclamationmark.triangle")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 64)
+                        Text("Secretive needs to be in your Applications folder to work properly. Please move it and relaunch.")
+                            .frame(maxWidth: 300)
                     }
+                    .padding()
+                }
             )
         }
     }
