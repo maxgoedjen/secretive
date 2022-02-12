@@ -18,6 +18,9 @@
 		5003EF612780081600DF2006 /* SmartCardSecretKit in Frameworks */ = {isa = PBXBuildFile; productRef = 5003EF602780081600DF2006 /* SmartCardSecretKit */; };
 		5003EF632780081B00DF2006 /* SecureEnclaveSecretKit in Frameworks */ = {isa = PBXBuildFile; productRef = 5003EF622780081B00DF2006 /* SecureEnclaveSecretKit */; };
 		5003EF652780081B00DF2006 /* SmartCardSecretKit in Frameworks */ = {isa = PBXBuildFile; productRef = 5003EF642780081B00DF2006 /* SmartCardSecretKit */; };
+		500ED3D427B7934A00A6DC28 /* UpdaterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5088065927B4A5E40090BD57 /* UpdaterProtocol.swift */; };
+		500ED3D527B796C800A6DC28 /* Z72PRUAWF6.com.maxgoedjen.SecretiveUpdater.app in Resources */ = {isa = PBXBuildFile; fileRef = 5081F6D027B790DD0094B82D /* Z72PRUAWF6.com.maxgoedjen.SecretiveUpdater.app */; };
+		500ED3DA27B797EE00A6DC28 /* Z72PRUAWF6.com.maxgoedjen.SecretiveUpdater.app in CopyFiles */ = {isa = PBXBuildFile; fileRef = 5081F6D027B790DD0094B82D /* Z72PRUAWF6.com.maxgoedjen.SecretiveUpdater.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		501421622781262300BBAA70 /* Brief in Frameworks */ = {isa = PBXBuildFile; productRef = 501421612781262300BBAA70 /* Brief */; };
 		501421652781268000BBAA70 /* SecretAgent.app in CopyFiles */ = {isa = PBXBuildFile; fileRef = 50A3B78A24026B7500D209EA /* SecretAgent.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		50153E20250AFCB200525160 /* UpdateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50153E1F250AFCB200525160 /* UpdateView.swift */; };
@@ -37,10 +40,12 @@
 		506772C72424784600034DED /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 506772C62424784600034DED /* Credits.rtf */; };
 		506772C92425BB8500034DED /* NoStoresView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506772C82425BB8500034DED /* NoStoresView.swift */; };
 		5079BA0F250F29BF00EA86F4 /* StoreListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5079BA0E250F29BF00EA86F4 /* StoreListView.swift */; };
-		5088065327B4A5BE0090BD57 /* SecretiveUpdater.xpc in Embed XPC Services */ = {isa = PBXBuildFile; fileRef = 5088064827B4A5BE0090BD57 /* SecretiveUpdater.xpc */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		5088065A27B4A5E40090BD57 /* UpdaterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5088065927B4A5E40090BD57 /* UpdaterProtocol.swift */; };
-		5088065C27B4A6240090BD57 /* Updater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5088065B27B4A6240090BD57 /* Updater.swift */; };
-		5088065E27B4A6460090BD57 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5088065D27B4A6460090BD57 /* main.swift */; };
+		5081F6D327B790DD0094B82D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5081F6D227B790DD0094B82D /* AppDelegate.swift */; };
+		5081F6D727B790DE0094B82D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5081F6D627B790DE0094B82D /* Assets.xcassets */; };
+		5081F6E027B791110094B82D /* UpdaterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5088065927B4A5E40090BD57 /* UpdaterProtocol.swift */; };
+		5081F6E127B791110094B82D /* Updater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5088065B27B4A6240090BD57 /* Updater.swift */; };
+		5081F6E327B791620094B82D /* Brief in Frameworks */ = {isa = PBXBuildFile; productRef = 5081F6E227B791620094B82D /* Brief */; };
+		5081F70027B792150094B82D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5081F6FF27B792150094B82D /* Main.storyboard */; };
 		5088068F27B4A6FF0090BD57 /* UpdaterCommunicationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5088068E27B4A6FF0090BD57 /* UpdaterCommunicationController.swift */; };
 		508A58AA241E06B40069DC07 /* PreviewUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508A58A9241E06B40069DC07 /* PreviewUpdater.swift */; };
 		508A58B3241ED2180069DC07 /* AgentStatusChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508A58B2241ED2180069DC07 /* AgentStatusChecker.swift */; };
@@ -49,7 +54,6 @@
 		508BF2AA25B4F1CB009EFB7E /* InternetAccessPolicy.plist in Resources */ = {isa = PBXBuildFile; fileRef = 508BF29425B4F140009EFB7E /* InternetAccessPolicy.plist */; };
 		5091D2BC25183B830049FD9B /* ApplicationDirectoryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5091D2BB25183B830049FD9B /* ApplicationDirectoryController.swift */; };
 		5099A02423FD2AAA0062B6F2 /* CreateSecretView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5099A02323FD2AAA0062B6F2 /* CreateSecretView.swift */; };
-		50A00F5B27B4E99C0020C9CA /* Brief in Frameworks */ = {isa = PBXBuildFile; productRef = 50A00F5A27B4E99C0020C9CA /* Brief */; };
 		50A3B79124026B7600D209EA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 50A3B79024026B7600D209EA /* Assets.xcassets */; };
 		50A3B79424026B7600D209EA /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 50A3B79324026B7600D209EA /* Preview Assets.xcassets */; };
 		50A3B79724026B7600D209EA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 50A3B79524026B7600D209EA /* Main.storyboard */; };
@@ -59,6 +63,20 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		500ED3D627B796C800A6DC28 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 50617D7723FCE48D0099B055 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5081F6CF27B790DD0094B82D;
+			remoteInfo = SecretiveUpdater;
+		};
+		500ED3D827B7978700A6DC28 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 50617D7723FCE48D0099B055 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5081F6CF27B790DD0094B82D;
+			remoteInfo = SecretiveUpdater;
+		};
 		50142166278126B500BBAA70 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 50617D7723FCE48D0099B055 /* Project object */;
@@ -73,13 +91,6 @@
 			remoteGlobalIDString = 50617D7E23FCE48D0099B055;
 			remoteInfo = Secretive;
 		};
-		5088065127B4A5BE0090BD57 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 50617D7723FCE48D0099B055 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 5088064727B4A5BE0090BD57;
-			remoteInfo = SecretiveUpdater;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -91,17 +102,6 @@
 			files = (
 			);
 			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		5088065427B4A5BE0090BD57 /* Embed XPC Services */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "$(CONTENTS_FOLDER_PATH)/XPCServices";
-			dstSubfolderSpec = 16;
-			files = (
-				5088065327B4A5BE0090BD57 /* SecretiveUpdater.xpc in Embed XPC Services */,
-			);
-			name = "Embed XPC Services";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		50A5C18E240E4B4B00E2996C /* Embed Frameworks */ = {
@@ -120,6 +120,7 @@
 			dstPath = Contents/Library/LoginItems;
 			dstSubfolderSpec = 1;
 			files = (
+				500ED3DA27B797EE00A6DC28 /* Z72PRUAWF6.com.maxgoedjen.SecretiveUpdater.app in CopyFiles */,
 				501421652781268000BBAA70 /* SecretAgent.app in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -153,7 +154,11 @@
 		506772C62424784600034DED /* Credits.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = Credits.rtf; sourceTree = "<group>"; };
 		506772C82425BB8500034DED /* NoStoresView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoStoresView.swift; sourceTree = "<group>"; };
 		5079BA0E250F29BF00EA86F4 /* StoreListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreListView.swift; sourceTree = "<group>"; };
-		5088064827B4A5BE0090BD57 /* SecretiveUpdater.xpc */ = {isa = PBXFileReference; explicitFileType = "wrapper.xpc-service"; includeInIndex = 0; path = SecretiveUpdater.xpc; sourceTree = BUILT_PRODUCTS_DIR; };
+		5081F6D027B790DD0094B82D /* Z72PRUAWF6.com.maxgoedjen.SecretiveUpdater.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Z72PRUAWF6.com.maxgoedjen.SecretiveUpdater.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		5081F6D227B790DD0094B82D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		5081F6D627B790DE0094B82D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		5081F6DB27B790DE0094B82D /* SecretiveUpdater.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SecretiveUpdater.entitlements; sourceTree = "<group>"; };
+		5081F6FF27B792150094B82D /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		5088065027B4A5BE0090BD57 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5088065927B4A5E40090BD57 /* UpdaterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdaterProtocol.swift; sourceTree = "<group>"; };
 		5088065B27B4A6240090BD57 /* Updater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Updater.swift; sourceTree = "<group>"; };
@@ -198,11 +203,11 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		5088064527B4A5BE0090BD57 /* Frameworks */ = {
+		5081F6CD27B790DD0094B82D /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				50A00F5B27B4E99C0020C9CA /* Brief in Frameworks */,
+				5081F6E327B791620094B82D /* Brief in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -238,6 +243,7 @@
 				50A3B78B24026B7500D209EA /* SecretAgent */,
 				508A58AF241E144C0069DC07 /* Config */,
 				5088064927B4A5BE0090BD57 /* SecretiveUpdater */,
+				5081F6D127B790DD0094B82D /* SecretiveUpdater */,
 				50617D8023FCE48E0099B055 /* Products */,
 				5099A08B240243730062B6F2 /* Frameworks */,
 			);
@@ -249,7 +255,7 @@
 				50617D7F23FCE48E0099B055 /* Secretive.app */,
 				50617D9423FCE48E0099B055 /* SecretiveTests.xctest */,
 				50A3B78A24026B7500D209EA /* SecretAgent.app */,
-				5088064827B4A5BE0090BD57 /* SecretiveUpdater.xpc */,
+				5081F6D027B790DD0094B82D /* Z72PRUAWF6.com.maxgoedjen.SecretiveUpdater.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -291,12 +297,23 @@
 			path = SecretiveTests;
 			sourceTree = "<group>";
 		};
+		5081F6D127B790DD0094B82D /* SecretiveUpdater */ = {
+			isa = PBXGroup;
+			children = (
+				5081F6D227B790DD0094B82D /* AppDelegate.swift */,
+				5088065927B4A5E40090BD57 /* UpdaterProtocol.swift */,
+				5088065B27B4A6240090BD57 /* Updater.swift */,
+				5081F6FF27B792150094B82D /* Main.storyboard */,
+				5081F6D627B790DE0094B82D /* Assets.xcassets */,
+				5081F6DB27B790DE0094B82D /* SecretiveUpdater.entitlements */,
+			);
+			path = SecretiveUpdater;
+			sourceTree = "<group>";
+		};
 		5088064927B4A5BE0090BD57 /* SecretiveUpdater */ = {
 			isa = PBXGroup;
 			children = (
 				5088065027B4A5BE0090BD57 /* Info.plist */,
-				5088065927B4A5E40090BD57 /* UpdaterProtocol.swift */,
-				5088065B27B4A6240090BD57 /* Updater.swift */,
 				5088065D27B4A6460090BD57 /* main.swift */,
 			);
 			path = SecretiveUpdater;
@@ -337,8 +354,8 @@
 				508A58B2241ED2180069DC07 /* AgentStatusChecker.swift */,
 				5091D2BB25183B830049FD9B /* ApplicationDirectoryController.swift */,
 				50571E0224393C2600F76F6C /* JustUpdatedChecker.swift */,
-				50571E0424393D1500F76F6C /* LaunchAgentController.swift */,
 				5066A6F6251829B1004B5A36 /* ShellConfigurationController.swift */,
+				50571E0424393D1500F76F6C /* LaunchAgentController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -385,13 +402,13 @@
 				50617D7D23FCE48D0099B055 /* Resources */,
 				50617DBF23FCE4AB0099B055 /* Embed Frameworks */,
 				50C385AF240E438B00AF2719 /* CopyFiles */,
-				5088065427B4A5BE0090BD57 /* Embed XPC Services */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				50142167278126B500BBAA70 /* PBXTargetDependency */,
-				5088065227B4A5BE0090BD57 /* PBXTargetDependency */,
+				500ED3D727B796C800A6DC28 /* PBXTargetDependency */,
+				500ED3D927B7978700A6DC28 /* PBXTargetDependency */,
 			);
 			name = Secretive;
 			packageProductDependencies = (
@@ -422,13 +439,13 @@
 			productReference = 50617D9423FCE48E0099B055 /* SecretiveTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		5088064727B4A5BE0090BD57 /* SecretiveUpdater */ = {
+		5081F6CF27B790DD0094B82D /* SecretiveUpdater */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 5088065827B4A5BE0090BD57 /* Build configuration list for PBXNativeTarget "SecretiveUpdater" */;
+			buildConfigurationList = 5081F6DC27B790DE0094B82D /* Build configuration list for PBXNativeTarget "SecretiveUpdater" */;
 			buildPhases = (
-				5088064427B4A5BE0090BD57 /* Sources */,
-				5088064527B4A5BE0090BD57 /* Frameworks */,
-				5088064627B4A5BE0090BD57 /* Resources */,
+				5081F6CC27B790DD0094B82D /* Sources */,
+				5081F6CD27B790DD0094B82D /* Frameworks */,
+				5081F6CE27B790DD0094B82D /* Resources */,
 			);
 			buildRules = (
 			);
@@ -436,11 +453,11 @@
 			);
 			name = SecretiveUpdater;
 			packageProductDependencies = (
-				50A00F5A27B4E99C0020C9CA /* Brief */,
+				5081F6E227B791620094B82D /* Brief */,
 			);
 			productName = SecretiveUpdater;
-			productReference = 5088064827B4A5BE0090BD57 /* SecretiveUpdater.xpc */;
-			productType = "com.apple.product-type.xpc-service";
+			productReference = 5081F6D027B790DD0094B82D /* Z72PRUAWF6.com.maxgoedjen.SecretiveUpdater.app */;
+			productType = "com.apple.product-type.application";
 		};
 		50A3B78924026B7500D209EA /* SecretAgent */ = {
 			isa = PBXNativeTarget;
@@ -473,7 +490,7 @@
 		50617D7723FCE48D0099B055 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1220;
+				LastSwiftUpdateCheck = 1330;
 				LastUpgradeCheck = 1320;
 				ORGANIZATIONNAME = "Max Goedjen";
 				TargetAttributes = {
@@ -484,9 +501,8 @@
 						CreatedOnToolsVersion = 11.3;
 						TestTargetID = 50617D7E23FCE48D0099B055;
 					};
-					5088064727B4A5BE0090BD57 = {
+					5081F6CF27B790DD0094B82D = {
 						CreatedOnToolsVersion = 13.3;
-						LastSwiftMigration = 1330;
 					};
 					50A3B78924026B7500D209EA = {
 						CreatedOnToolsVersion = 11.4;
@@ -509,7 +525,7 @@
 				50617D7E23FCE48D0099B055 /* Secretive */,
 				50617D9323FCE48E0099B055 /* SecretiveTests */,
 				50A3B78924026B7500D209EA /* SecretAgent */,
-				5088064727B4A5BE0090BD57 /* SecretiveUpdater */,
+				5081F6CF27B790DD0094B82D /* SecretiveUpdater */,
 			);
 		};
 /* End PBXProject section */
@@ -522,6 +538,7 @@
 				50617D8A23FCE48E0099B055 /* Preview Assets.xcassets in Resources */,
 				50617D8723FCE48E0099B055 /* Assets.xcassets in Resources */,
 				506772C72424784600034DED /* Credits.rtf in Resources */,
+				500ED3D527B796C800A6DC28 /* Z72PRUAWF6.com.maxgoedjen.SecretiveUpdater.app in Resources */,
 				508BF28E25B4F005009EFB7E /* InternetAccessPolicy.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -533,10 +550,12 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		5088064627B4A5BE0090BD57 /* Resources */ = {
+		5081F6CE27B790DD0094B82D /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5081F6D727B790DE0094B82D /* Assets.xcassets in Resources */,
+				5081F70027B792150094B82D /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -565,6 +584,7 @@
 				50571E0324393C2600F76F6C /* JustUpdatedChecker.swift in Sources */,
 				5079BA0F250F29BF00EA86F4 /* StoreListView.swift in Sources */,
 				50617DD223FCEFA90099B055 /* PreviewStore.swift in Sources */,
+				500ED3D427B7934A00A6DC28 /* UpdaterProtocol.swift in Sources */,
 				5066A6F7251829B1004B5A36 /* ShellConfigurationController.swift in Sources */,
 				50033AC327813F1700253856 /* BundleIDs.swift in Sources */,
 				508A58B3241ED2180069DC07 /* AgentStatusChecker.swift in Sources */,
@@ -592,13 +612,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		5088064427B4A5BE0090BD57 /* Sources */ = {
+		5081F6CC27B790DD0094B82D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5088065A27B4A5E40090BD57 /* UpdaterProtocol.swift in Sources */,
-				5088065C27B4A6240090BD57 /* Updater.swift in Sources */,
-				5088065E27B4A6460090BD57 /* main.swift in Sources */,
+				5081F6D327B790DD0094B82D /* AppDelegate.swift in Sources */,
+				5081F6E027B791110094B82D /* UpdaterProtocol.swift in Sources */,
+				5081F6E127B791110094B82D /* Updater.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -614,6 +634,16 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		500ED3D727B796C800A6DC28 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5081F6CF27B790DD0094B82D /* SecretiveUpdater */;
+			targetProxy = 500ED3D627B796C800A6DC28 /* PBXContainerItemProxy */;
+		};
+		500ED3D927B7978700A6DC28 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5081F6CF27B790DD0094B82D /* SecretiveUpdater */;
+			targetProxy = 500ED3D827B7978700A6DC28 /* PBXContainerItemProxy */;
+		};
 		50142167278126B500BBAA70 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 50A3B78924026B7500D209EA /* SecretAgent */;
@@ -623,11 +653,6 @@
 			isa = PBXTargetDependency;
 			target = 50617D7E23FCE48D0099B055 /* Secretive */;
 			targetProxy = 50617D9523FCE48E0099B055 /* PBXContainerItemProxy */;
-		};
-		5088065227B4A5BE0090BD57 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 5088064727B4A5BE0090BD57 /* SecretiveUpdater */;
-			targetProxy = 5088065127B4A5BE0090BD57 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -862,12 +887,13 @@
 			};
 			name = Release;
 		};
-		5088065527B4A5BE0090BD57 /* Debug */ = {
+		5081F6DD27B790DE0094B82D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
-				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_ENTITLEMENTS = SecretiveUpdater/SecretiveUpdater.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
@@ -875,76 +901,77 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SecretiveUpdater/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = SecretiveUpdater;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2022 Max Goedjen. All rights reserved.";
+				INFOPLIST_KEY_NSMainStoryboardFile = Main;
+				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
-					"@loader_path/../Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 12.3;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.maxgoedjen.SecretiveUpdater;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = Z72PRUAWF6.com.maxgoedjen.SecretiveUpdater;
+				PRODUCT_NAME = Z72PRUAWF6.com.maxgoedjen.SecretiveUpdater;
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
-		5088065627B4A5BE0090BD57 /* Test */ = {
+		5081F6DE27B790DE0094B82D /* Test */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
-				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = SecretiveUpdater/SecretiveUpdater.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = Z72PRUAWF6;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SecretiveUpdater/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = SecretiveUpdater;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2022 Max Goedjen. All rights reserved.";
+				INFOPLIST_KEY_NSMainStoryboardFile = Main;
+				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
-					"@loader_path/../Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 12.3;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.maxgoedjen.SecretiveUpdater;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = Z72PRUAWF6.com.maxgoedjen.SecretiveUpdater;
+				PRODUCT_NAME = Z72PRUAWF6.com.maxgoedjen.SecretiveUpdater;
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Test;
 		};
-		5088065727B4A5BE0090BD57 /* Release */ = {
+		5081F6DF27B790DE0094B82D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
-				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "Developer ID Application";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_ENTITLEMENTS = SecretiveUpdater/SecretiveUpdater.entitlements;
+				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = Z72PRUAWF6;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SecretiveUpdater/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = SecretiveUpdater;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2022 Max Goedjen. All rights reserved.";
+				INFOPLIST_KEY_NSMainStoryboardFile = Main;
+				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
-					"@loader_path/../Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 12.3;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.maxgoedjen.SecretiveUpdater;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				SKIP_INSTALL = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = Z72PRUAWF6.com.maxgoedjen.SecretiveUpdater;
+				PRODUCT_NAME = Z72PRUAWF6.com.maxgoedjen.SecretiveUpdater;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 			};
@@ -1020,6 +1047,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Secretive/Secretive.entitlements;
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
@@ -1162,12 +1190,12 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		5088065827B4A5BE0090BD57 /* Build configuration list for PBXNativeTarget "SecretiveUpdater" */ = {
+		5081F6DC27B790DE0094B82D /* Build configuration list for PBXNativeTarget "SecretiveUpdater" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				5088065527B4A5BE0090BD57 /* Debug */,
-				5088065627B4A5BE0090BD57 /* Test */,
-				5088065727B4A5BE0090BD57 /* Release */,
+				5081F6DD27B790DE0094B82D /* Debug */,
+				5081F6DE27B790DE0094B82D /* Test */,
+				5081F6DF27B790DE0094B82D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1221,7 +1249,7 @@
 			isa = XCSwiftPackageProductDependency;
 			productName = Brief;
 		};
-		50A00F5A27B4E99C0020C9CA /* Brief */ = {
+		5081F6E227B791620094B82D /* Brief */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = Brief;
 		};

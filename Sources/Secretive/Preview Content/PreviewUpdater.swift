@@ -2,7 +2,7 @@ import Foundation
 import Combine
 import Brief
 
-class PreviewUpdater: UpdaterProtocol {
+class PreviewUpdater: UpdateCheckerProtocol {
 
     let update: Release?
     let testBuild = false

@@ -9,7 +9,7 @@ import Security.AuthorizationTags
 class Updater: UpdaterProtocol {
 
     func installUpdate(url: URL) async throws -> String {
-        try await authorize()
+//        try await authorize()
 //        let (downloadedURL, _) = try await URLSession.shared.download(from: url)
 //        let unzipped = try await decompress(url: downloadedURL)
 //        let config = NSWorkspace.OpenConfiguration()

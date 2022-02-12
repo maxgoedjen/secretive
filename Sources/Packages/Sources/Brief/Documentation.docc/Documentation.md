@@ -11,5 +11,5 @@ Brief is a collection of protocols and concrete implmentation describing updates
 
 ### Updater
 
-- ``UpdaterProtocol``
-- ``Updater``
+- ``UpdateCheckerProtocol``
+- ``UpdateChecker``

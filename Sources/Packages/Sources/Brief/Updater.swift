@@ -1,8 +1,8 @@
 import Foundation
 import Combine
 
-/// A concrete implementation of ``UpdaterProtocol`` which considers the current release and OS version.
-public class Updater: ObservableObject, UpdaterProtocol {
+/// A concrete implementation of ``UpdateCheckerProtocol`` which considers the current release and OS version.
+public class UpdateChecker: ObservableObject, UpdateCheckerProtocol {
 
     @Published public var update: Release?
     public let testBuild: Bool
@@ -53,7 +53,7 @@ public class Updater: ObservableObject, UpdaterProtocol {
 
 }
 
-extension Updater {
+extension UpdateChecker {
 
     /// Evaluates the available downloadable releases, and selects the newest non-prerelease release that the user is able to run.
     /// - Parameter releases: An array of ``Release`` objects.
@@ -88,7 +88,7 @@ extension Updater {
 
 }
 
-extension Updater {
+extension UpdateChecker {
 
     enum Constants {
         static let updateURL = URL(string: "https://api.github.com/repos/maxgoedjen/secretive/releases")!

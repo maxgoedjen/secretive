@@ -51,7 +51,7 @@ class ReleaseParsingTests: XCTestCase {
     func testGreatestSelectedIfOldPatchIsPublishedLater() {
         // If 2.x.x series has been published, and a patch for 1.x.x is issued
         // 2.x.x should still be selected if user can run it.
-        let updater = Updater(checkOnLaunch: false, osVersion: SemVer("2.2.3"), currentVersion: SemVer("1.0.0"))
+        let updater = UpdateChecker(checkOnLaunch: false, osVersion: SemVer("2.2.3"), currentVersion: SemVer("1.0.0"))
         let two = Release(name: "2.0.0", prerelease: false, html_url: URL(string: "https://example.com")!, body: "2.0 available! Minimum macOS Version: 2.2.3")
         let releases = [
             Release(name: "1.0.0", prerelease: false, html_url: URL(string: "https://example.com")!, body: "Initial release Minimum macOS Version: 1.2.3"),
@@ -72,7 +72,7 @@ class ReleaseParsingTests: XCTestCase {
     func testLatestVersionIsRunnable() {
         // If the 2.x.x series has been published but the user can't run it
         // the last version the user can run should be selected.
-        let updater = Updater(checkOnLaunch: false, osVersion: SemVer("1.2.3"), currentVersion: SemVer("1.0.0"))
+        let updater = UpdateChecker(checkOnLaunch: false, osVersion: SemVer("1.2.3"), currentVersion: SemVer("1.0.0"))
         let oneOhTwo = Release(name: "1.0.2", prerelease: false, html_url: URL(string: "https://example.com")!, body: "Emergency patch! Minimum macOS Version: 1.2.3")
         let releases = [
             Release(name: "1.0.0", prerelease: false, html_url: URL(string: "https://example.com")!, body: "Initial release Minimum macOS Version: 1.2.3"),

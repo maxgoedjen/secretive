@@ -1,7 +1,7 @@
 import SwiftUI
 import Brief
 
-struct UpdateDetailView<UpdaterType: Updater>: View {
+struct UpdateDetailView<UpdaterType: UpdateChecker>: View {
 
     @EnvironmentObject var updater: UpdaterType
 

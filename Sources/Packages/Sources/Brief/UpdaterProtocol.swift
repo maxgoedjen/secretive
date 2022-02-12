@@ -1,7 +1,7 @@
 import Foundation
 
 /// A protocol for retreiving the latest available version of an app.
-public protocol UpdaterProtocol: ObservableObject {
+public protocol UpdateCheckerProtocol: ObservableObject {
 
     /// The latest update
     var update: Release? { get }

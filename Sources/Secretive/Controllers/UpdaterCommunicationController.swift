@@ -3,7 +3,8 @@ import Combine
 import AppKit
 import OSLog
 import SecretKit
-import SecretiveUpdater
+//import SecretiveUpdater
+import ServiceManagement
 
 class UpdaterCommunicationController: ObservableObject {
 
@@ -16,7 +17,10 @@ class UpdaterCommunicationController: ObservableObject {
 
     func configure() {
         guard !running else { return }
-        connection = NSXPCConnection(serviceName: "com.maxgoedjen.SecretiveUpdater")
+        // TODO: Set disabled on launch. Only enable when I have an update to install.
+        let x = SMLoginItemSetEnabled("Z72PRUAWF6.com.maxgoedjen.SecretiveUpdater" as CFString, false)
+        let y = SMLoginItemSetEnabled("Z72PRUAWF6.com.maxgoedjen.SecretiveUpdater" as CFString, true)
+        connection = NSXPCConnection(machServiceName: "Z72PRUAWF6.com.maxgoedjen.SecretiveUpdater")
         connection?.remoteObjectInterface = NSXPCInterface(with: UpdaterProtocol.self)
         connection?.invalidationHandler = {
             Logger().warning("XPC connection invalidated")
@@ -25,6 +29,9 @@ class UpdaterCommunicationController: ObservableObject {
         updater = connection?.remoteObjectProxyWithErrorHandler({ error in
             Logger().error("\(String(describing: error))")
         }) as? UpdaterProtocol
+        Task {
+            print(try await updater?.installUpdate(url: URL(string: "https://google.com")!))
+        }
         running = true
     }
 

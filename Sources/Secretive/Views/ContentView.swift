@@ -4,7 +4,7 @@ import SecureEnclaveSecretKit
 import SmartCardSecretKit
 import Brief
 
-struct ContentView<UpdaterType: UpdaterProtocol, AgentStatusCheckerType: AgentStatusCheckerProtocol>: View {
+struct ContentView<UpdaterType: UpdateCheckerProtocol, AgentStatusCheckerType: AgentStatusCheckerProtocol>: View {
 
     @Binding var showingCreation: Bool
     @Binding var runningSetup: Bool

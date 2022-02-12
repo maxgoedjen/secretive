@@ -24,9 +24,9 @@ struct Secretive: App {
 
     @SceneBuilder var body: some Scene {
         WindowGroup {
-            ContentView<Updater, AgentStatusChecker>(showingCreation: $showingCreation, runningSetup: $showingSetup, hasRunSetup: $hasRunSetup)
+            ContentView<UpdateChecker, AgentStatusChecker>(showingCreation: $showingCreation, runningSetup: $showingSetup, hasRunSetup: $hasRunSetup)
                 .environmentObject(storeList)
-                .environmentObject(Updater(checkOnLaunch: hasRunSetup))
+                .environmentObject(UpdateChecker(checkOnLaunch: hasRunSetup))
                 .environmentObject(agentStatusChecker)
                 .onAppear {
                     updaterController.configure()

@@ -16,7 +16,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         list.add(store: SmartCard.Store())
         return list
     }()
-    private let updater = Updater(checkOnLaunch: false)
+    private let updater = UpdateChecker(checkOnLaunch: false)
     private let notifier = Notifier()
     private let publicKeyFileStoreController = PublicKeyFileStoreController(homeDirectory: NSHomeDirectory())
     private lazy var agent: Agent = {
