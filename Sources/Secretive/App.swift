@@ -16,6 +16,7 @@ struct Secretive: App {
     }()
     private let agentStatusChecker = AgentStatusChecker()
     private let justUpdatedChecker = JustUpdatedChecker()
+    private let updaterController = UpdaterCommunicationController()
 
     @AppStorage("defaultsHasRunSetup") var hasRunSetup = false
     @State private var showingSetup = false
@@ -28,11 +29,19 @@ struct Secretive: App {
                 .environmentObject(Updater(checkOnLaunch: hasRunSetup))
                 .environmentObject(agentStatusChecker)
                 .onAppear {
+                    updaterController.configure()
                     if !hasRunSetup {
                         showingSetup = true
                     }
                 }
                 .onReceive(NotificationCenter.default.publisher(for: NSApplication.didBecomeActiveNotification)) { _ in
+                    Task {
+                        do {
+                            let path = try await updaterController.updater?.installUpdate(url: URL(string: "https://github.com/maxgoedjen/secretive/releases/download/v2.1.1/Secretive.zip")!)
+                        } catch {
+                            print(error)
+                        }
+                    }
                     guard hasRunSetup else { return }
                     agentStatusChecker.check()
                     if agentStatusChecker.running && justUpdatedChecker.justUpdated {

@@ -37,6 +37,11 @@
 		506772C72424784600034DED /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 506772C62424784600034DED /* Credits.rtf */; };
 		506772C92425BB8500034DED /* NoStoresView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506772C82425BB8500034DED /* NoStoresView.swift */; };
 		5079BA0F250F29BF00EA86F4 /* StoreListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5079BA0E250F29BF00EA86F4 /* StoreListView.swift */; };
+		5088065327B4A5BE0090BD57 /* SecretiveUpdater.xpc in Embed XPC Services */ = {isa = PBXBuildFile; fileRef = 5088064827B4A5BE0090BD57 /* SecretiveUpdater.xpc */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		5088065A27B4A5E40090BD57 /* UpdaterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5088065927B4A5E40090BD57 /* UpdaterProtocol.swift */; };
+		5088065C27B4A6240090BD57 /* Updater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5088065B27B4A6240090BD57 /* Updater.swift */; };
+		5088065E27B4A6460090BD57 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5088065D27B4A6460090BD57 /* main.swift */; };
+		5088068F27B4A6FF0090BD57 /* UpdaterCommunicationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5088068E27B4A6FF0090BD57 /* UpdaterCommunicationController.swift */; };
 		508A58AA241E06B40069DC07 /* PreviewUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508A58A9241E06B40069DC07 /* PreviewUpdater.swift */; };
 		508A58B3241ED2180069DC07 /* AgentStatusChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508A58B2241ED2180069DC07 /* AgentStatusChecker.swift */; };
 		508A58B5241ED48F0069DC07 /* PreviewAgentStatusChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508A58B4241ED48F0069DC07 /* PreviewAgentStatusChecker.swift */; };
@@ -44,6 +49,7 @@
 		508BF2AA25B4F1CB009EFB7E /* InternetAccessPolicy.plist in Resources */ = {isa = PBXBuildFile; fileRef = 508BF29425B4F140009EFB7E /* InternetAccessPolicy.plist */; };
 		5091D2BC25183B830049FD9B /* ApplicationDirectoryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5091D2BB25183B830049FD9B /* ApplicationDirectoryController.swift */; };
 		5099A02423FD2AAA0062B6F2 /* CreateSecretView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5099A02323FD2AAA0062B6F2 /* CreateSecretView.swift */; };
+		50A00F5B27B4E99C0020C9CA /* Brief in Frameworks */ = {isa = PBXBuildFile; productRef = 50A00F5A27B4E99C0020C9CA /* Brief */; };
 		50A3B79124026B7600D209EA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 50A3B79024026B7600D209EA /* Assets.xcassets */; };
 		50A3B79424026B7600D209EA /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 50A3B79324026B7600D209EA /* Preview Assets.xcassets */; };
 		50A3B79724026B7600D209EA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 50A3B79524026B7600D209EA /* Main.storyboard */; };
@@ -67,6 +73,13 @@
 			remoteGlobalIDString = 50617D7E23FCE48D0099B055;
 			remoteInfo = Secretive;
 		};
+		5088065127B4A5BE0090BD57 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 50617D7723FCE48D0099B055 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5088064727B4A5BE0090BD57;
+			remoteInfo = SecretiveUpdater;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -78,6 +91,17 @@
 			files = (
 			);
 			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5088065427B4A5BE0090BD57 /* Embed XPC Services */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/XPCServices";
+			dstSubfolderSpec = 16;
+			files = (
+				5088065327B4A5BE0090BD57 /* SecretiveUpdater.xpc in Embed XPC Services */,
+			);
+			name = "Embed XPC Services";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		50A5C18E240E4B4B00E2996C /* Embed Frameworks */ = {
@@ -129,6 +153,12 @@
 		506772C62424784600034DED /* Credits.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = Credits.rtf; sourceTree = "<group>"; };
 		506772C82425BB8500034DED /* NoStoresView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoStoresView.swift; sourceTree = "<group>"; };
 		5079BA0E250F29BF00EA86F4 /* StoreListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreListView.swift; sourceTree = "<group>"; };
+		5088064827B4A5BE0090BD57 /* SecretiveUpdater.xpc */ = {isa = PBXFileReference; explicitFileType = "wrapper.xpc-service"; includeInIndex = 0; path = SecretiveUpdater.xpc; sourceTree = BUILT_PRODUCTS_DIR; };
+		5088065027B4A5BE0090BD57 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5088065927B4A5E40090BD57 /* UpdaterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdaterProtocol.swift; sourceTree = "<group>"; };
+		5088065B27B4A6240090BD57 /* Updater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Updater.swift; sourceTree = "<group>"; };
+		5088065D27B4A6460090BD57 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		5088068E27B4A6FF0090BD57 /* UpdaterCommunicationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdaterCommunicationController.swift; sourceTree = "<group>"; };
 		508A58A9241E06B40069DC07 /* PreviewUpdater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewUpdater.swift; sourceTree = "<group>"; };
 		508A58AB241E121B0069DC07 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		508A58B2241ED2180069DC07 /* AgentStatusChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgentStatusChecker.swift; sourceTree = "<group>"; };
@@ -168,6 +198,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		5088064527B4A5BE0090BD57 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				50A00F5B27B4E99C0020C9CA /* Brief in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		50A3B78724026B7500D209EA /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -199,6 +237,7 @@
 				50617D9723FCE48E0099B055 /* SecretiveTests */,
 				50A3B78B24026B7500D209EA /* SecretAgent */,
 				508A58AF241E144C0069DC07 /* Config */,
+				5088064927B4A5BE0090BD57 /* SecretiveUpdater */,
 				50617D8023FCE48E0099B055 /* Products */,
 				5099A08B240243730062B6F2 /* Frameworks */,
 			);
@@ -210,6 +249,7 @@
 				50617D7F23FCE48E0099B055 /* Secretive.app */,
 				50617D9423FCE48E0099B055 /* SecretiveTests.xctest */,
 				50A3B78A24026B7500D209EA /* SecretAgent.app */,
+				5088064827B4A5BE0090BD57 /* SecretiveUpdater.xpc */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -251,6 +291,17 @@
 			path = SecretiveTests;
 			sourceTree = "<group>";
 		};
+		5088064927B4A5BE0090BD57 /* SecretiveUpdater */ = {
+			isa = PBXGroup;
+			children = (
+				5088065027B4A5BE0090BD57 /* Info.plist */,
+				5088065927B4A5E40090BD57 /* UpdaterProtocol.swift */,
+				5088065B27B4A6240090BD57 /* Updater.swift */,
+				5088065D27B4A6460090BD57 /* main.swift */,
+			);
+			path = SecretiveUpdater;
+			sourceTree = "<group>";
+		};
 		508A58AF241E144C0069DC07 /* Config */ = {
 			isa = PBXGroup;
 			children = (
@@ -282,6 +333,7 @@
 		508A58B1241ED1EA0069DC07 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				5088068E27B4A6FF0090BD57 /* UpdaterCommunicationController.swift */,
 				508A58B2241ED2180069DC07 /* AgentStatusChecker.swift */,
 				5091D2BB25183B830049FD9B /* ApplicationDirectoryController.swift */,
 				50571E0224393C2600F76F6C /* JustUpdatedChecker.swift */,
@@ -333,11 +385,13 @@
 				50617D7D23FCE48D0099B055 /* Resources */,
 				50617DBF23FCE4AB0099B055 /* Embed Frameworks */,
 				50C385AF240E438B00AF2719 /* CopyFiles */,
+				5088065427B4A5BE0090BD57 /* Embed XPC Services */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				50142167278126B500BBAA70 /* PBXTargetDependency */,
+				5088065227B4A5BE0090BD57 /* PBXTargetDependency */,
 			);
 			name = Secretive;
 			packageProductDependencies = (
@@ -367,6 +421,26 @@
 			productName = SecretiveTests;
 			productReference = 50617D9423FCE48E0099B055 /* SecretiveTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		5088064727B4A5BE0090BD57 /* SecretiveUpdater */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5088065827B4A5BE0090BD57 /* Build configuration list for PBXNativeTarget "SecretiveUpdater" */;
+			buildPhases = (
+				5088064427B4A5BE0090BD57 /* Sources */,
+				5088064527B4A5BE0090BD57 /* Frameworks */,
+				5088064627B4A5BE0090BD57 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SecretiveUpdater;
+			packageProductDependencies = (
+				50A00F5A27B4E99C0020C9CA /* Brief */,
+			);
+			productName = SecretiveUpdater;
+			productReference = 5088064827B4A5BE0090BD57 /* SecretiveUpdater.xpc */;
+			productType = "com.apple.product-type.xpc-service";
 		};
 		50A3B78924026B7500D209EA /* SecretAgent */ = {
 			isa = PBXNativeTarget;
@@ -410,6 +484,10 @@
 						CreatedOnToolsVersion = 11.3;
 						TestTargetID = 50617D7E23FCE48D0099B055;
 					};
+					5088064727B4A5BE0090BD57 = {
+						CreatedOnToolsVersion = 13.3;
+						LastSwiftMigration = 1330;
+					};
 					50A3B78924026B7500D209EA = {
 						CreatedOnToolsVersion = 11.4;
 					};
@@ -431,6 +509,7 @@
 				50617D7E23FCE48D0099B055 /* Secretive */,
 				50617D9323FCE48E0099B055 /* SecretiveTests */,
 				50A3B78924026B7500D209EA /* SecretAgent */,
+				5088064727B4A5BE0090BD57 /* SecretiveUpdater */,
 			);
 		};
 /* End PBXProject section */
@@ -448,6 +527,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		50617D9223FCE48E0099B055 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5088064627B4A5BE0090BD57 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -487,6 +573,7 @@
 				50153E20250AFCB200525160 /* UpdateView.swift in Sources */,
 				50571E0524393D1500F76F6C /* LaunchAgentController.swift in Sources */,
 				5066A6C82516FE6E004B5A36 /* CopyableView.swift in Sources */,
+				5088068F27B4A6FF0090BD57 /* UpdaterCommunicationController.swift in Sources */,
 				50B8550D24138C4F009958AC /* DeleteSecretView.swift in Sources */,
 				50BB046B2418AAAE00D6E079 /* EmptyStoreView.swift in Sources */,
 				50617D8323FCE48E0099B055 /* App.swift in Sources */,
@@ -502,6 +589,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				50617D9923FCE48E0099B055 /* SecretiveTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5088064427B4A5BE0090BD57 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5088065A27B4A5E40090BD57 /* UpdaterProtocol.swift in Sources */,
+				5088065C27B4A6240090BD57 /* Updater.swift in Sources */,
+				5088065E27B4A6460090BD57 /* main.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -526,6 +623,11 @@
 			isa = PBXTargetDependency;
 			target = 50617D7E23FCE48D0099B055 /* Secretive */;
 			targetProxy = 50617D9523FCE48E0099B055 /* PBXContainerItemProxy */;
+		};
+		5088065227B4A5BE0090BD57 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5088064727B4A5BE0090BD57 /* SecretiveUpdater */;
+			targetProxy = 5088065127B4A5BE0090BD57 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -760,6 +862,94 @@
 			};
 			name = Release;
 		};
+		5088065527B4A5BE0090BD57 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = Z72PRUAWF6;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SecretiveUpdater/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = SecretiveUpdater;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2022 Max Goedjen. All rights reserved.";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.maxgoedjen.SecretiveUpdater;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		5088065627B4A5BE0090BD57 /* Test */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SecretiveUpdater/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = SecretiveUpdater;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2022 Max Goedjen. All rights reserved.";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.maxgoedjen.SecretiveUpdater;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Test;
+		};
+		5088065727B4A5BE0090BD57 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "Developer ID Application";
+				CODE_SIGN_STYLE = Manual;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SecretiveUpdater/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = SecretiveUpdater;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2022 Max Goedjen. All rights reserved.";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.maxgoedjen.SecretiveUpdater;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
 		508A5914241EF1A00069DC07 /* Test */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 508A58AB241E121B0069DC07 /* Config.xcconfig */;
@@ -972,6 +1162,16 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		5088065827B4A5BE0090BD57 /* Build configuration list for PBXNativeTarget "SecretiveUpdater" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5088065527B4A5BE0090BD57 /* Debug */,
+				5088065627B4A5BE0090BD57 /* Test */,
+				5088065727B4A5BE0090BD57 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		50A3B79A24026B7600D209EA /* Build configuration list for PBXNativeTarget "SecretAgent" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -1018,6 +1218,10 @@
 			productName = SmartCardSecretKit;
 		};
 		501421612781262300BBAA70 /* Brief */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Brief;
+		};
+		50A00F5A27B4E99C0020C9CA /* Brief */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = Brief;
 		};
