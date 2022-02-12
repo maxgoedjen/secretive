@@ -18,7 +18,8 @@ class Notifier {
         let rawDurations = [
             Measurement(value: 1, unit: UnitDuration.minutes),
             Measurement(value: 5, unit: UnitDuration.minutes),
-            Measurement(value: 1, unit: UnitDuration.hours)
+            Measurement(value: 1, unit: UnitDuration.hours),
+            Measurement(value: 24, unit: UnitDuration.hours)
         ]
 
         let doNotPersistAction = UNNotificationAction(identifier: Constants.doNotPersistActionIdentitifier, title: "Do Not Unlock", options: [])
