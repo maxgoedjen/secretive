@@ -176,7 +176,7 @@ extension SecureEnclave.Store {
         secrets.removeAll()
         loadSecrets()
         if notify {
-            DistributedNotificationCenter.default().post(name: .secretStoreUpdated, object: nil)
+            DistributedNotificationCenter.default().postNotificationName(.secretStoreUpdated, object: nil, deliverImmediately: true)
         }
     }
 
