@@ -16,13 +16,13 @@ The most common setup for SSH keys is just keeping them on disk, guarded by prop
 
 If your Mac has a Secure Enclave, it also has support for strong access controls like Touch ID, or authentication with Apple Watch. You can configure your key so that they require Touch ID (or Watch) authentication before they're accessed.
 
-<img src="/.github/readme/touchid.png" alt="Screenshot of Secretive authenticating with Touch ID">
+<img src="/.github/readme/touchid.png" alt="Screenshot of Secretive authenticating with Touch ID" width="400">
 
 ### Notifications
 
 Secretive also notifies you whenever your keys are accessed, so you're never caught off guard.
 
-<img src="/.github/readme/notification.png" alt="Screenshot of Secretive notifying the user">
+<img src="/.github/readme/notification.png" alt="Screenshot of Secretive notifying the user" width="600">
 
 ### Support for Smart Cards Too!
 
