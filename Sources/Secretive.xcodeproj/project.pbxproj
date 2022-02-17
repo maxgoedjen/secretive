@@ -19,7 +19,6 @@
 		5003EF632780081B00DF2006 /* SecureEnclaveSecretKit in Frameworks */ = {isa = PBXBuildFile; productRef = 5003EF622780081B00DF2006 /* SecureEnclaveSecretKit */; };
 		5003EF652780081B00DF2006 /* SmartCardSecretKit in Frameworks */ = {isa = PBXBuildFile; productRef = 5003EF642780081B00DF2006 /* SmartCardSecretKit */; };
 		500ED3D427B7934A00A6DC28 /* UpdaterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5088065927B4A5E40090BD57 /* UpdaterProtocol.swift */; };
-		500ED3D527B796C800A6DC28 /* Z72PRUAWF6.com.maxgoedjen.SecretiveUpdater.app in Resources */ = {isa = PBXBuildFile; fileRef = 5081F6D027B790DD0094B82D /* Z72PRUAWF6.com.maxgoedjen.SecretiveUpdater.app */; };
 		500ED3DA27B797EE00A6DC28 /* Z72PRUAWF6.com.maxgoedjen.SecretiveUpdater.app in CopyFiles */ = {isa = PBXBuildFile; fileRef = 5081F6D027B790DD0094B82D /* Z72PRUAWF6.com.maxgoedjen.SecretiveUpdater.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		501421622781262300BBAA70 /* Brief in Frameworks */ = {isa = PBXBuildFile; productRef = 501421612781262300BBAA70 /* Brief */; };
 		501421652781268000BBAA70 /* SecretAgent.app in CopyFiles */ = {isa = PBXBuildFile; fileRef = 50A3B78A24026B7500D209EA /* SecretAgent.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -40,7 +39,7 @@
 		506772C72424784600034DED /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 506772C62424784600034DED /* Credits.rtf */; };
 		506772C92425BB8500034DED /* NoStoresView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506772C82425BB8500034DED /* NoStoresView.swift */; };
 		5079BA0F250F29BF00EA86F4 /* StoreListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5079BA0E250F29BF00EA86F4 /* StoreListView.swift */; };
-		5081F6D327B790DD0094B82D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5081F6D227B790DD0094B82D /* AppDelegate.swift */; };
+		5081F6D327B790DD0094B82D /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5081F6D227B790DD0094B82D /* main.swift */; };
 		5081F6D727B790DE0094B82D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5081F6D627B790DE0094B82D /* Assets.xcassets */; };
 		5081F6E027B791110094B82D /* UpdaterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5088065927B4A5E40090BD57 /* UpdaterProtocol.swift */; };
 		5081F6E127B791110094B82D /* Updater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5088065B27B4A6240090BD57 /* Updater.swift */; };
@@ -155,15 +154,13 @@
 		506772C82425BB8500034DED /* NoStoresView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoStoresView.swift; sourceTree = "<group>"; };
 		5079BA0E250F29BF00EA86F4 /* StoreListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreListView.swift; sourceTree = "<group>"; };
 		5081F6D027B790DD0094B82D /* Z72PRUAWF6.com.maxgoedjen.SecretiveUpdater.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Z72PRUAWF6.com.maxgoedjen.SecretiveUpdater.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		5081F6D227B790DD0094B82D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		5081F6D227B790DD0094B82D /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		5081F6D627B790DE0094B82D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5081F6DB27B790DE0094B82D /* SecretiveUpdater.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SecretiveUpdater.entitlements; sourceTree = "<group>"; };
 		5081F6FF27B792150094B82D /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
-		5088065027B4A5BE0090BD57 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5088065927B4A5E40090BD57 /* UpdaterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdaterProtocol.swift; sourceTree = "<group>"; };
 		5088065B27B4A6240090BD57 /* Updater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Updater.swift; sourceTree = "<group>"; };
-		5088065D27B4A6460090BD57 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
-		5088068E27B4A6FF0090BD57 /* UpdaterCommunicationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdaterCommunicationController.swift; sourceTree = "<group>"; };
+		5088068E27B4A6FF0090BD57 /* UpdaterCommunicationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 5; lastKnownFileType = sourcecode.swift; path = UpdaterCommunicationController.swift; sourceTree = "<group>"; };
 		508A58A9241E06B40069DC07 /* PreviewUpdater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewUpdater.swift; sourceTree = "<group>"; };
 		508A58AB241E121B0069DC07 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		508A58B2241ED2180069DC07 /* AgentStatusChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgentStatusChecker.swift; sourceTree = "<group>"; };
@@ -242,7 +239,6 @@
 				50617D9723FCE48E0099B055 /* SecretiveTests */,
 				50A3B78B24026B7500D209EA /* SecretAgent */,
 				508A58AF241E144C0069DC07 /* Config */,
-				5088064927B4A5BE0090BD57 /* SecretiveUpdater */,
 				5081F6D127B790DD0094B82D /* SecretiveUpdater */,
 				50617D8023FCE48E0099B055 /* Products */,
 				5099A08B240243730062B6F2 /* Frameworks */,
@@ -300,21 +296,12 @@
 		5081F6D127B790DD0094B82D /* SecretiveUpdater */ = {
 			isa = PBXGroup;
 			children = (
-				5081F6D227B790DD0094B82D /* AppDelegate.swift */,
+				5081F6D227B790DD0094B82D /* main.swift */,
 				5088065927B4A5E40090BD57 /* UpdaterProtocol.swift */,
 				5088065B27B4A6240090BD57 /* Updater.swift */,
 				5081F6FF27B792150094B82D /* Main.storyboard */,
 				5081F6D627B790DE0094B82D /* Assets.xcassets */,
 				5081F6DB27B790DE0094B82D /* SecretiveUpdater.entitlements */,
-			);
-			path = SecretiveUpdater;
-			sourceTree = "<group>";
-		};
-		5088064927B4A5BE0090BD57 /* SecretiveUpdater */ = {
-			isa = PBXGroup;
-			children = (
-				5088065027B4A5BE0090BD57 /* Info.plist */,
-				5088065D27B4A6460090BD57 /* main.swift */,
 			);
 			path = SecretiveUpdater;
 			sourceTree = "<group>";
@@ -538,7 +525,6 @@
 				50617D8A23FCE48E0099B055 /* Preview Assets.xcassets in Resources */,
 				50617D8723FCE48E0099B055 /* Assets.xcassets in Resources */,
 				506772C72424784600034DED /* Credits.rtf in Resources */,
-				500ED3D527B796C800A6DC28 /* Z72PRUAWF6.com.maxgoedjen.SecretiveUpdater.app in Resources */,
 				508BF28E25B4F005009EFB7E /* InternetAccessPolicy.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -616,7 +602,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5081F6D327B790DD0094B82D /* AppDelegate.swift in Sources */,
+				5081F6D327B790DD0094B82D /* main.swift in Sources */,
 				5081F6E027B791110094B82D /* UpdaterProtocol.swift in Sources */,
 				5081F6E127B791110094B82D /* Updater.swift in Sources */,
 			);

@@ -3,7 +3,6 @@ import Brief
 
 @objc public protocol UpdaterProtocol {
 
-    func installUpdate(url: URL) async throws -> String
-    func authorize() async throws
+    func installUpdate(url: URL, to: URL) async throws -> String
 
 }

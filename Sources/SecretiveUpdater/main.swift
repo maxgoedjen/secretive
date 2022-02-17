@@ -19,6 +19,8 @@ class ServiceDelegate: NSObject, NSXPCListenerDelegate {
 
 let updater = Updater()
 let delegate = ServiceDelegate(exportedObject: Updater())
-let listener = NSXPCListener.service()
+let listener = NSXPCListener(machServiceName: Bundle.main.bundleIdentifier!)
 listener.delegate = delegate
 listener.resume()
+try "Hello world".data(using: .utf8)?.write(to: URL(fileURLWithPath: "/Users/max/Downloads/\(UUID().uuidString).txt"))
+RunLoop.current.run()

@@ -15,12 +15,11 @@ class UpdaterCommunicationController: ObservableObject {
     init() {
     }
 
-    func configure() {
+    func installUpdate(url: URL) {
         guard !running else { return }
-        // TODO: Set disabled on launch. Only enable when I have an update to install.
-        let x = SMLoginItemSetEnabled("Z72PRUAWF6.com.maxgoedjen.SecretiveUpdater" as CFString, false)
-        let y = SMLoginItemSetEnabled("Z72PRUAWF6.com.maxgoedjen.SecretiveUpdater" as CFString, true)
-        connection = NSXPCConnection(machServiceName: "Z72PRUAWF6.com.maxgoedjen.SecretiveUpdater")
+       _ = SMLoginItemSetEnabled(Bundle.main.updaterBundleID as CFString, false)
+        SMLoginItemSetEnabled(Bundle.main.updaterBundleID as CFString, true)
+        connection = NSXPCConnection(machServiceName: Bundle.main.updaterBundleID)
         connection?.remoteObjectInterface = NSXPCInterface(with: UpdaterProtocol.self)
         connection?.invalidationHandler = {
             Logger().warning("XPC connection invalidated")
@@ -29,10 +28,12 @@ class UpdaterCommunicationController: ObservableObject {
         updater = connection?.remoteObjectProxyWithErrorHandler({ error in
             Logger().error("\(String(describing: error))")
         }) as? UpdaterProtocol
-        Task {
-            print(try await updater?.installUpdate(url: URL(string: "https://google.com")!))
-        }
         running = true
+        let existingURL = Bundle.main.bundleURL
+        Task {
+            let result = try await updater?.installUpdate(url: url, to: existingURL)
+            print(result)
+        }
     }
 
 }

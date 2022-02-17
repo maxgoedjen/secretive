@@ -8,13 +8,18 @@ import Security.AuthorizationTags
 
 class Updater: UpdaterProtocol {
 
-    func installUpdate(url: URL) async throws -> String {
-//        try await authorize()
+    func installUpdate(url: URL, to destinationURL: URL) async throws -> String {
 //        let (downloadedURL, _) = try await URLSession.shared.download(from: url)
 //        let unzipped = try await decompress(url: downloadedURL)
+//        try await move(url: unzipped, to: destinationURL)
 //        let config = NSWorkspace.OpenConfiguration()
 //        config.activates = true
+        // TODO: clean
+        _ = try await authorize()
+//        if let host = NSRunningApplication.runningApplications(withBundleIdentifier: "com.maxgoedjen.Secretive.Host").first(where: { $0.bundleURL?.path.hasPrefix("/Applications") ?? false }) {
+//            host.terminate()
 //
+//        }
         return "OK"
     }
 
@@ -37,43 +42,51 @@ class Updater: UpdaterProtocol {
         return appURL
     }
 
-    func move(url: URL) async throws {
-        try await authorize()
-        try await move(url: url)
-        try await revokeAuthorization()
+    func move(url: URL, to destinationURL: URL) async throws {
+        let auth = try await authorize()
+        try await move(url: url, to: destinationURL)
+        try await revokeAuthorization(auth)
     }
 
-    func authorize() async throws {
+    func authorize() async throws -> AuthorizationRef {
         let flags = AuthorizationFlags()
         var authorization: AuthorizationRef? = nil
-        let status = AuthorizationCreate(nil, nil, flags, &authorization)
-        print(status)
-        print("Hello")
+        AuthorizationCreate(nil, nil, flags, &authorization)
         let authFlags: AuthorizationFlags = [.interactionAllowed, .extendRights, .preAuthorize]
+        var result: OSStatus?
         kAuthorizationRightExecute.withCString { cString in
             var item = AuthorizationItem(name: cString, valueLength: 0, value: nil, flags: 0)
             withUnsafeMutablePointer(to: &item) { pointer in
                 var rights = AuthorizationRights(count: 1, items: pointer)
-                let out = AuthorizationCopyRights(authorization!, &rights, nil, authFlags, nil)
-                print(out)
+                result = AuthorizationCopyRights(authorization!, &rights, nil, authFlags, nil)
             }
         }
+        guard result == errAuthorizationSuccess, let authorization = authorization else {
+            throw RightsNotAcquiredError()
+        }
+        return authorization
+
     }
 
-    func revokeAuthorization() async throws {
-
+    func revokeAuthorization(_ authorization: AuthorizationRef) async throws {
+        AuthorizationFree(authorization, .destroyRights)
     }
 
-    func priveledgedMove(url: URL) async throws {
-
+    func priveledgedMove(url: URL, to destination: URL) async throws {
+        try FileManager.default.replaceItemAt(destination, withItemAt: url)
     }
 
 }
 
 extension Updater {
+
     struct DecompressionError: Error, LocalizedError {
         let reason: String
     }
+
+    struct RightsNotAcquiredError: Error, LocalizedError {
+    }
+
 }
 
 extension URLSession {
