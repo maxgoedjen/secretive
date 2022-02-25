@@ -17,7 +17,7 @@ func speakNowOrForeverHoldYourPeace(forAccessTo secret: AnySecret, from store: A
         }
     }
 
-func witness(accessTo secret: AnySecret, from store: AnySecretStore, by provenance: SigningRequestProvenance, requiredAuthentication: Bool) throws {
+func witness(accessTo secret: AnySecret, from store: AnySecretStore, by provenance: SigningRequestProvenance) throws {
         witness(secret, provenance)
     }
 
