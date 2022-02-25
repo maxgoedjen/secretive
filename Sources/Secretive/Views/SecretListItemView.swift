@@ -20,7 +20,15 @@ struct SecretListItemView: View {
         )
 
         return NavigationLink(destination: SecretDetailView(secret: secret), tag: secret.id, selection: $activeSecret) {
-            Text(secret.name)
+            if secret.requiresAuthentication {
+                HStack {
+                    Text(secret.name)
+                    Spacer()
+                    Image(systemName: "lock")
+                }
+            } else {
+                Text(secret.name)
+            }
         }.contextMenu {
             if store is AnySecretStoreModifiable {
                 Button(action: { isRenaming = true }) {
