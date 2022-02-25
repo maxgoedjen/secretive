@@ -11,6 +11,7 @@ extension SmartCard {
         public let name: String
         public let algorithm: Algorithm
         public let keySize: Int
+        public let requiresAuthentication: Bool = false
         public let publicKey: Data
 
     }

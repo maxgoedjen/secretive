@@ -100,7 +100,7 @@ extension SecureEnclave {
             reloadSecrets()
         }
         
-        public func sign(data: Data, with secret: SecretType, for provenance: SigningRequestProvenance) throws -> SignedData {
+        public func sign(data: Data, with secret: SecretType, for provenance: SigningRequestProvenance) throws -> Data {
             let context: LAContext
             if let existing = persistedAuthenticationContexts[secret], existing.valid {
                 context = existing.context
@@ -131,16 +131,15 @@ extension SecureEnclave {
             let key = untypedSafe as! SecKey
             var signError: SecurityError?
 
-            let signingStartTime = Date()
             guard let signature = SecKeyCreateSignature(key, .ecdsaSignatureMessageX962SHA256, data as CFData, &signError) else {
                 throw SigningError(error: signError)
             }
-            let signatureDuration = Date().timeIntervalSince(signingStartTime)
-            // Hack to determine if the user had to authenticate to sign.
-            // Since there's now way to inspect SecAccessControl to determine (afaict).
-            let requiredAuthentication = signatureDuration > Constants.unauthenticatedThreshold
+            return signature as Data
+        }
 
-            return SignedData(data: signature as Data, requiredAuthentication: requiredAuthentication)
+        public func existingPersistedAuthenticationContext(secret: Secret) -> PersistedAuthenticationContext? {
+            guard let persisted = persistedAuthenticationContexts[secret], persisted.valid else { return nil }
+            return persisted
         }
 
         public func persistAuthentication(secret: Secret, forDuration duration: TimeInterval) throws {
@@ -183,7 +182,7 @@ extension SecureEnclave.Store {
 
     /// Loads all secrets from the store.
     private func loadSecrets() {
-        let attributes = [
+        let publicAttributes = [
             kSecClass: kSecClassKey,
             kSecAttrKeyType: SecureEnclave.Constants.keyType,
             kSecAttrApplicationTag: SecureEnclave.Constants.keyTag,
@@ -192,16 +191,46 @@ extension SecureEnclave.Store {
             kSecMatchLimit: kSecMatchLimitAll,
             kSecReturnAttributes: true
             ] as CFDictionary
-        var untyped: CFTypeRef?
-        SecItemCopyMatching(attributes, &untyped)
-        guard let typed = untyped as? [[CFString: Any]] else { return }
-        let wrapped: [SecureEnclave.Secret] = typed.map {
+        var publicUntyped: CFTypeRef?
+        SecItemCopyMatching(publicAttributes, &publicUntyped)
+        guard let publicTyped = publicUntyped as? [[CFString: Any]] else { return }
+        let privateAttributes = [
+            kSecClass: kSecClassKey,
+            kSecAttrKeyType: SecureEnclave.Constants.keyType,
+            kSecAttrApplicationTag: SecureEnclave.Constants.keyTag,
+            kSecAttrKeyClass: kSecAttrKeyClassPrivate,
+            kSecReturnRef: true,
+            kSecMatchLimit: kSecMatchLimitAll,
+            kSecReturnAttributes: true
+            ] as CFDictionary
+        var privateUntyped: CFTypeRef?
+        SecItemCopyMatching(privateAttributes, &privateUntyped)
+        guard let privateTyped = privateUntyped as? [[CFString: Any]] else { return }
+        let privateMapped = privateTyped.reduce(into: [:] as [Data: [CFString: Any]]) { partialResult, next in
+            let id = next[kSecAttrApplicationLabel] as! Data
+            partialResult[id] = next
+        }
+        let authNotRequiredAccessControl: SecAccessControl =
+            SecAccessControlCreateWithFlags(kCFAllocatorDefault,
+                                            kSecAttrAccessibleWhenUnlockedThisDeviceOnly,
+                                            [.privateKeyUsage],
+                                            nil)!
+
+        let wrapped: [SecureEnclave.Secret] = publicTyped.map {
             let name = $0[kSecAttrLabel] as? String ?? "Unnamed"
             let id = $0[kSecAttrApplicationLabel] as! Data
             let publicKeyRef = $0[kSecValueRef] as! SecKey
             let publicKeyAttributes = SecKeyCopyAttributes(publicKeyRef) as! [CFString: Any]
             let publicKey = publicKeyAttributes[kSecValueData] as! Data
-            return SecureEnclave.Secret(id: id, name: name, publicKey: publicKey)
+            let privateKey = privateMapped[id]
+            let requiresAuth: Bool
+            if let authRequirements = privateKey?[kSecAttrAccessControl] {
+                // Unfortunately we can't inspect the access control object directly, but it does behave predicatable with equality.
+                requiresAuth = authRequirements as! SecAccessControl != authNotRequiredAccessControl
+            } else {
+                requiresAuth = false
+            }
+            return SecureEnclave.Secret(id: id, name: name, requiresAuthentication: requiresAuth, publicKey: publicKey)
         }
         secrets.append(contentsOf: wrapped)
     }
@@ -264,7 +293,7 @@ extension SecureEnclave {
 extension SecureEnclave {
 
     /// A context describing a persisted authentication.
-    private struct PersistentAuthenticationContext {
+    private struct PersistentAuthenticationContext: PersistedAuthenticationContext {
 
         /// The Secret to persist authentication for.
         let secret: Secret
@@ -272,7 +301,7 @@ extension SecureEnclave {
         let context: LAContext
         /// An expiration date for the context.
         /// - Note -  Monotonic time instead of Date() to prevent people setting the clock back.
-        let expiration: UInt64
+        let monotonicExpiration: UInt64
 
         /// Initializes a context.
         /// - Parameters:
@@ -283,12 +312,18 @@ extension SecureEnclave {
             self.secret = secret
             self.context = context
             let durationInNanoSeconds = Measurement(value: duration, unit: UnitDuration.seconds).converted(to: .nanoseconds).value
-            self.expiration = clock_gettime_nsec_np(CLOCK_MONOTONIC) + UInt64(durationInNanoSeconds)
+            self.monotonicExpiration = clock_gettime_nsec_np(CLOCK_MONOTONIC) + UInt64(durationInNanoSeconds)
         }
 
         /// A boolean describing whether or not the context is still valid.
         var valid: Bool {
-            clock_gettime_nsec_np(CLOCK_MONOTONIC) < expiration
+            clock_gettime_nsec_np(CLOCK_MONOTONIC) < monotonicExpiration
+        }
+
+        var expiration: Date {
+            let remainingNanoseconds = monotonicExpiration - clock_gettime_nsec_np(CLOCK_MONOTONIC)
+            let remainingInSeconds = Measurement(value: Double(remainingNanoseconds), unit: UnitDuration.nanoseconds).converted(to: .seconds).value
+            return Date(timeIntervalSinceNow: remainingInSeconds)
         }
     }
 

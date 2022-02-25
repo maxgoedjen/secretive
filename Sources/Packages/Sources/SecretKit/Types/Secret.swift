@@ -9,6 +9,8 @@ public protocol Secret: Identifiable, Hashable {
     var algorithm: Algorithm { get }
     /// The key size for the secret.
     var keySize: Int { get }
+    /// Whether the secret requires authentication before use.
+    var requiresAuthentication: Bool { get }
     /// The public key data for the secret.
     var publicKey: Data { get }
 

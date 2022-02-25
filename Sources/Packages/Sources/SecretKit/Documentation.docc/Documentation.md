@@ -27,5 +27,8 @@ SecretKit is a collection of protocols describing secrets and stores.
 
 ### Signing Process
 
-- ``SignedData``
 - ``SigningRequestProvenance``
+
+### Authentication Persistence
+
+- ``PersistedAuthenticationContext``

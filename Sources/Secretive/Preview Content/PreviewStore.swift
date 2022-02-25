@@ -11,6 +11,7 @@ extension Preview {
         let name: String
         let algorithm = Algorithm.ellipticCurve
         let keySize = 256
+        let requiresAuthentication: Bool = false
         let publicKey = UUID().uuidString.data(using: .utf8)!
 
     }
@@ -35,8 +36,12 @@ extension Preview {
             self.secrets.append(contentsOf: new)
         }
 
-        func sign(data: Data, with secret: Preview.Secret, for provenance: SigningRequestProvenance) throws -> SignedData {
-            return SignedData(data: data, requiredAuthentication: false)
+        func sign(data: Data, with secret: Preview.Secret, for provenance: SigningRequestProvenance) throws -> Data {
+            return data
+        }
+
+        func existingPersistedAuthenticationContext(secret: Preview.Secret) -> PersistedAuthenticationContext? {
+            nil
         }
 
         func persistAuthentication(secret: Preview.Secret, forDuration duration: TimeInterval) throws {

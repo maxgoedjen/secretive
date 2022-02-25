@@ -17,7 +17,6 @@ public protocol SigningWitness {
     ///   - secret: The `Secret` that will was used to sign the request.
     ///   - store: The `Store` that signed the request..
     ///   - provenance: A `SigningRequestProvenance` object describing the origin of the request.
-    ///   - requiredAuthentication: A boolean describing whether or not authentication was required for the request.
-    func witness(accessTo secret: AnySecret, from store: AnySecretStore, by provenance: SigningRequestProvenance, requiredAuthentication: Bool) throws
+    func witness(accessTo secret: AnySecret, from store: AnySecretStore, by provenance: SigningRequestProvenance) throws
 
 }

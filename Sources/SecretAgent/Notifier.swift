@@ -57,7 +57,7 @@ class Notifier {
         notificationCenter.requestAuthorization(options: .alert) { _, _ in }
     }
 
-    func notify(accessTo secret: AnySecret, from store: AnySecretStore, by provenance: SigningRequestProvenance, requiredAuthentication: Bool) {
+    func notify(accessTo secret: AnySecret, from store: AnySecretStore, by provenance: SigningRequestProvenance) {
         notificationDelegate.pendingPersistableSecrets[secret.id.description] = secret
         notificationDelegate.pendingPersistableStores[store.id.description] = store
         let notificationCenter = UNUserNotificationCenter.current()
@@ -69,7 +69,7 @@ class Notifier {
         if #available(macOS 12.0, *) {
             notificationContent.interruptionLevel = .timeSensitive
         }
-        if requiredAuthentication {
+        if secret.requiresAuthentication && store.existingPersistedAuthenticationContext(secret: secret) == nil {
             notificationContent.categoryIdentifier = Constants.persistAuthenticationCategoryIdentitifier
         }
         if let iconURL = provenance.origin.iconURL, let attachment = try? UNNotificationAttachment(identifier: "icon", url: iconURL, options: nil) {
@@ -106,8 +106,8 @@ extension Notifier: SigningWitness {
     func speakNowOrForeverHoldYourPeace(forAccessTo secret: AnySecret, from store: AnySecretStore, by provenance: SigningRequestProvenance) throws {
     }
 
-    func witness(accessTo secret: AnySecret, from store: AnySecretStore, by provenance: SigningRequestProvenance, requiredAuthentication: Bool) throws {
-        notify(accessTo: secret, from: store, by: provenance, requiredAuthentication: requiredAuthentication)
+    func witness(accessTo secret: AnySecret, from store: AnySecretStore, by provenance: SigningRequestProvenance) throws {
+        notify(accessTo: secret, from: store, by: provenance)
     }
 
 }

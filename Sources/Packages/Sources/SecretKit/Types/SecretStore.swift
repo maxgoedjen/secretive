@@ -20,8 +20,14 @@ public protocol SecretStore: ObservableObject, Identifiable {
     ///   - data: The data to sign.
     ///   - secret: The ``Secret`` to sign with.
     ///   - provenance: A ``SigningRequestProvenance`` describing where the request came from.
-    /// - Returns: A ``SignedData`` object, containing the signature and metadata about the signature process.
-    func sign(data: Data, with secret: SecretType, for provenance: SigningRequestProvenance) throws -> SignedData
+    /// - Returns: The signed data.
+    func sign(data: Data, with secret: SecretType, for provenance: SigningRequestProvenance) throws -> Data
+
+    /// Checks to see if there is currently a valid persisted authentication for a given secret.
+    /// - Parameters:
+    ///   - secret: The ``Secret`` to check if there is a persisted authentication for.
+    /// - Returns: A persisted authentication context, if a valid one exists.
+    func existingPersistedAuthenticationContext(secret: SecretType) -> PersistedAuthenticationContext?
 
     /// Persists user authorization for access to a secret.
     /// - Parameters:
