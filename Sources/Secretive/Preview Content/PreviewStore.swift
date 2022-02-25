@@ -36,8 +36,8 @@ extension Preview {
             self.secrets.append(contentsOf: new)
         }
 
-        func sign(data: Data, with secret: Preview.Secret, for provenance: SigningRequestProvenance) throws -> SignedData {
-            return SignedData(data: data, requiredAuthentication: false)
+        func sign(data: Data, with secret: Preview.Secret, for provenance: SigningRequestProvenance) throws -> Data {
+            return data
         }
 
         func persistAuthentication(secret: Preview.Secret, forDuration duration: TimeInterval) throws {

@@ -100,7 +100,7 @@ extension SecureEnclave {
             reloadSecrets()
         }
         
-        public func sign(data: Data, with secret: SecretType, for provenance: SigningRequestProvenance) throws -> SignedData {
+        public func sign(data: Data, with secret: SecretType, for provenance: SigningRequestProvenance) throws -> Data {
             let context: LAContext
             if let existing = persistedAuthenticationContexts[secret], existing.valid {
                 context = existing.context
@@ -131,16 +131,15 @@ extension SecureEnclave {
             let key = untypedSafe as! SecKey
             var signError: SecurityError?
 
-            let signingStartTime = Date()
             guard let signature = SecKeyCreateSignature(key, .ecdsaSignatureMessageX962SHA256, data as CFData, &signError) else {
                 throw SigningError(error: signError)
             }
-            let signatureDuration = Date().timeIntervalSince(signingStartTime)
-            // Hack to determine if the user had to authenticate to sign.
-            // Since there's now way to inspect SecAccessControl to determine (afaict).
-            let requiredAuthentication = signatureDuration > Constants.unauthenticatedThreshold
+            return signature as Data
+        }
 
-            return SignedData(data: signature as Data, requiredAuthentication: requiredAuthentication)
+        public func existingPersistedAuthenticationContext(secret: Secret) -> PersistedAuthenticationContext? {
+            guard let persisted = persistedAuthenticationContexts[secret], persisted.valid else { return nil }
+            return persisted
         }
 
         public func persistAuthentication(secret: Secret, forDuration duration: TimeInterval) throws {
@@ -294,7 +293,7 @@ extension SecureEnclave {
 extension SecureEnclave {
 
     /// A context describing a persisted authentication.
-    private struct PersistentAuthenticationContext {
+    private struct PersistentAuthenticationContext: PersistedAuthenticationContext {
 
         /// The Secret to persist authentication for.
         let secret: Secret
@@ -302,7 +301,7 @@ extension SecureEnclave {
         let context: LAContext
         /// An expiration date for the context.
         /// - Note -  Monotonic time instead of Date() to prevent people setting the clock back.
-        let expiration: UInt64
+        let monotonicExpiration: UInt64
 
         /// Initializes a context.
         /// - Parameters:
@@ -313,12 +312,18 @@ extension SecureEnclave {
             self.secret = secret
             self.context = context
             let durationInNanoSeconds = Measurement(value: duration, unit: UnitDuration.seconds).converted(to: .nanoseconds).value
-            self.expiration = clock_gettime_nsec_np(CLOCK_MONOTONIC) + UInt64(durationInNanoSeconds)
+            self.monotonicExpiration = clock_gettime_nsec_np(CLOCK_MONOTONIC) + UInt64(durationInNanoSeconds)
         }
 
         /// A boolean describing whether or not the context is still valid.
         var valid: Bool {
-            clock_gettime_nsec_np(CLOCK_MONOTONIC) < expiration
+            clock_gettime_nsec_np(CLOCK_MONOTONIC) < monotonicExpiration
+        }
+
+        var expiration: Date {
+            let remainingNanoseconds = monotonicExpiration - clock_gettime_nsec_np(CLOCK_MONOTONIC)
+            let remainingInSeconds = Measurement(value: Double(remainingNanoseconds), unit: UnitDuration.nanoseconds).converted(to: .seconds).value
+            return Date(timeIntervalSinceNow: remainingInSeconds)
         }
     }
 
