@@ -49,7 +49,7 @@ extension Stub {
             print("Public Key OpenSSH: \(OpenSSHKeyWriter().openSSHString(secret: secret))")
         }
 
-        public func sign(data: Data, with secret: Secret, for provenance: SigningRequestProvenance) throws -> SignedData {
+        public func sign(data: Data, with secret: Secret, for provenance: SigningRequestProvenance) throws -> Data {
             guard !shouldThrow else {
                 throw NSError(domain: "test", code: 0, userInfo: nil)
             }
@@ -68,7 +68,7 @@ extension Stub {
             default:
                 fatalError()
             }
-            return SignedData(data: SecKeyCreateSignature(privateKey, signatureAlgorithm, data as CFData, nil)! as Data, requiredAuthentication: false)
+            return SecKeyCreateSignature(privateKey, signatureAlgorithm, data as CFData, nil)! as Data
         }
 
         public func persistAuthentication(secret: Stub.Secret, forDuration duration: TimeInterval) throws {
