@@ -183,7 +183,7 @@ extension SecureEnclave.Store {
 
     /// Loads all secrets from the store.
     private func loadSecrets() {
-        let attributes = [
+        let publicAttributes = [
             kSecClass: kSecClassKey,
             kSecAttrKeyType: SecureEnclave.Constants.keyType,
             kSecAttrApplicationTag: SecureEnclave.Constants.keyTag,
@@ -192,16 +192,46 @@ extension SecureEnclave.Store {
             kSecMatchLimit: kSecMatchLimitAll,
             kSecReturnAttributes: true
             ] as CFDictionary
-        var untyped: CFTypeRef?
-        SecItemCopyMatching(attributes, &untyped)
-        guard let typed = untyped as? [[CFString: Any]] else { return }
-        let wrapped: [SecureEnclave.Secret] = typed.map {
+        var publicUntyped: CFTypeRef?
+        SecItemCopyMatching(publicAttributes, &publicUntyped)
+        guard let publicTyped = publicUntyped as? [[CFString: Any]] else { return }
+        let privateAttributes = [
+            kSecClass: kSecClassKey,
+            kSecAttrKeyType: SecureEnclave.Constants.keyType,
+            kSecAttrApplicationTag: SecureEnclave.Constants.keyTag,
+            kSecAttrKeyClass: kSecAttrKeyClassPrivate,
+            kSecReturnRef: true,
+            kSecMatchLimit: kSecMatchLimitAll,
+            kSecReturnAttributes: true
+            ] as CFDictionary
+        var privateUntyped: CFTypeRef?
+        SecItemCopyMatching(privateAttributes, &privateUntyped)
+        guard let privateTyped = privateUntyped as? [[CFString: Any]] else { return }
+        let privateMapped = privateTyped.reduce(into: [:] as [Data: [CFString: Any]]) { partialResult, next in
+            let id = next[kSecAttrApplicationLabel] as! Data
+            partialResult[id] = next
+        }
+        let authNotRequiredAccessControl: SecAccessControl =
+            SecAccessControlCreateWithFlags(kCFAllocatorDefault,
+                                            kSecAttrAccessibleWhenUnlockedThisDeviceOnly,
+                                            [.privateKeyUsage],
+                                            nil)!
+
+        let wrapped: [SecureEnclave.Secret] = publicTyped.map {
             let name = $0[kSecAttrLabel] as? String ?? "Unnamed"
             let id = $0[kSecAttrApplicationLabel] as! Data
             let publicKeyRef = $0[kSecValueRef] as! SecKey
             let publicKeyAttributes = SecKeyCopyAttributes(publicKeyRef) as! [CFString: Any]
             let publicKey = publicKeyAttributes[kSecValueData] as! Data
-            return SecureEnclave.Secret(id: id, name: name, requiresAuthentication: false, publicKey: publicKey)
+            let privateKey = privateMapped[id]
+            let requiresAuth: Bool
+            if let authRequirements = privateKey?[kSecAttrAccessControl] {
+                // Unfortunately we can't inspect the access control object directly, but it does behave predicatable with equality.
+                requiresAuth = authRequirements as! SecAccessControl != authNotRequiredAccessControl
+            } else {
+                requiresAuth = false
+            }
+            return SecureEnclave.Secret(id: id, name: name, requiresAuthentication: requiresAuth, publicKey: publicKey)
         }
         secrets.append(contentsOf: wrapped)
     }
