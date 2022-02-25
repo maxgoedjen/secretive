@@ -40,6 +40,10 @@ extension Preview {
             return data
         }
 
+        func existingPersistedAuthenticationContext(secret: Preview.Secret) -> PersistedAuthenticationContext? {
+            nil
+        }
+
         func persistAuthentication(secret: Preview.Secret, forDuration duration: TimeInterval) throws {
         }
 
