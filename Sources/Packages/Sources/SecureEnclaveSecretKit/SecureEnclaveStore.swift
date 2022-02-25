@@ -201,7 +201,7 @@ extension SecureEnclave.Store {
             let publicKeyRef = $0[kSecValueRef] as! SecKey
             let publicKeyAttributes = SecKeyCopyAttributes(publicKeyRef) as! [CFString: Any]
             let publicKey = publicKeyAttributes[kSecValueData] as! Data
-            return SecureEnclave.Secret(id: id, name: name, publicKey: publicKey)
+            return SecureEnclave.Secret(id: id, name: name, requiresAuthentication: false, publicKey: publicKey)
         }
         secrets.append(contentsOf: wrapped)
     }

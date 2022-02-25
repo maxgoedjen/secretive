@@ -9,6 +9,7 @@ public struct AnySecret: Secret {
     private let _name: () -> String
     private let _algorithm: () -> Algorithm
     private let _keySize: () -> Int
+    private let _requiresAuthentication: () -> Bool
     private let _publicKey: () -> Data
 
     public init<T>(_ secret: T) where T: Secret {
@@ -19,6 +20,7 @@ public struct AnySecret: Secret {
             _name = secret._name
             _algorithm = secret._algorithm
             _keySize = secret._keySize
+            _requiresAuthentication = secret._requiresAuthentication
             _publicKey = secret._publicKey
         } else {
             base = secret as Any
@@ -27,6 +29,7 @@ public struct AnySecret: Secret {
             _name = { secret.name }
             _algorithm = { secret.algorithm }
             _keySize = { secret.keySize }
+            _requiresAuthentication = { secret.requiresAuthentication }
             _publicKey = { secret.publicKey }
         }
     }
@@ -45,6 +48,10 @@ public struct AnySecret: Secret {
 
     public var keySize: Int {
         _keySize()
+    }
+
+    public var requiresAuthentication: Bool {
+        _requiresAuthentication()
     }
 
     public var publicKey: Data {
