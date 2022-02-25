@@ -71,6 +71,10 @@ extension Stub {
             return SecKeyCreateSignature(privateKey, signatureAlgorithm, data as CFData, nil)! as Data
         }
 
+        public func existingPersistedAuthenticationContext(secret: Stub.Secret) -> PersistedAuthenticationContext? {
+            nil
+        }
+
         public func persistAuthentication(secret: Stub.Secret, forDuration duration: TimeInterval) throws {
         }
 
@@ -88,6 +92,7 @@ extension Stub {
 
         let keySize: Int
         let publicKey: Data
+        let requiresAuthentication = false
         let privateKey: Data
 
         init(keySize: Int, publicKey: Data, privateKey: Data) {
