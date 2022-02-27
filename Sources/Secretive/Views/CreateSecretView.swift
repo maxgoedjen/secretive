@@ -2,14 +2,14 @@ import SwiftUI
 import SecretKit
 
 struct CreateSecretView<StoreType: SecretStoreModifiable>: View {
-
+    
     @ObservedObject var store: StoreType
     @Binding var showing: Bool
-
+    
     @State private var name = ""
     @State private var requiresAuthentication = true
     @State private var test: ThumbnailPickerView.Item = ThumbnailPickerView.Item(name: "Test", thumbnail: Text("Hello"))
-
+    
     var body: some View {
         VStack {
             HStack {
@@ -28,16 +28,16 @@ struct CreateSecretView<StoreType: SecretStoreModifiable>: View {
                         ThumbnailPickerView.Item(name: "Requires Authentication Before Use", thumbnail: Text("")),
                         ThumbnailPickerView.Item(name: "Notify on Use", thumbnail: Text(""))
                     ], selection: $test)
-//                    HStack {
-//                        VStack(spacing: 20) {
-//                            Picker("", selection: $requiresAuthentication) {
-//                                Text("Requires Authentication (Biometrics or Password) before each use").tag(true)
-//                                Text("Authentication not required when Mac is unlocked").tag(false)
-//                            }
-//                            .pickerStyle(SegmentedPickerStyle())
-//                        }
-//                        Spacer()
-//                    }
+                    //                    HStack {
+                    //                        VStack(spacing: 20) {
+                    //                            Picker("", selection: $requiresAuthentication) {
+                    //                                Text("Requires Authentication (Biometrics or Password) before each use").tag(true)
+                    //                                Text("Authentication not required when Mac is unlocked").tag(false)
+                    //                            }
+                    //                            .pickerStyle(SegmentedPickerStyle())
+                    //                        }
+                    //                        Spacer()
+                    //                    }
                 }
             }
             HStack {
@@ -52,7 +52,7 @@ struct CreateSecretView<StoreType: SecretStoreModifiable>: View {
             }
         }.padding()
     }
-
+    
     func save() {
         try! store.create(name: name, requiresAuthentication: requiresAuthentication)
         showing = false
@@ -60,10 +60,10 @@ struct CreateSecretView<StoreType: SecretStoreModifiable>: View {
 }
 
 struct ThumbnailPickerView: View {
-
+    
     let items: [Item]
     let selection: Binding<Item>
-
+    
     var body: some View {
         HStack {
             ForEach(items) { item in
@@ -71,27 +71,27 @@ struct ThumbnailPickerView: View {
             }
         }
     }
-
+    
 }
 
 extension ThumbnailPickerView {
-
+    
     struct Item: Identifiable {
         let id = UUID()
         let name: String
         let thumbnail: AnyView
-
+        
         init<ViewType: View>(name: String, thumbnail: ViewType) {
             self.name = name
             self.thumbnail = AnyView(thumbnail)
         }
     }
-
+    
 }
 
 @available(macOS 12.0, *)
 struct AuthenticationView: View {
-
+    
     var body: some View {
         ZStack {
             if let mainScreen = NSScreen.main, let imageURL = NSWorkspace.shared.desktopImageURL(for: mainScreen) {
@@ -101,11 +101,9 @@ struct AuthenticationView: View {
                         Rectangle()
                             .foregroundColor(Color(.systemPurple))
                     case .success(let image):
-//                        ScrollView {
-                            image
-                                .resizable()
-//                                .scaleEffect(1)
-//                        }
+                        image
+                            .resizable()
+                            .scaleEffect(3)
                     @unknown default:
                         Rectangle()
                             .foregroundColor(Color(.systemPurple))
@@ -145,13 +143,13 @@ struct AuthenticationView: View {
             }.padding().padding()
         }
     }
-
+    
 }
 
 #if DEBUG
 
 struct CreateSecretView_Previews: PreviewProvider {
-
+    
     static var previews: some View {
         Group {
             CreateSecretView(store: Preview.StoreModifiable(), showing: .constant(true))
