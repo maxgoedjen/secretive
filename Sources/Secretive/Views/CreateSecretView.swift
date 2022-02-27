@@ -55,3 +55,16 @@ struct CreateSecretView<StoreType: SecretStoreModifiable>: View {
         showing = false
     }
 }
+
+#if DEBUG
+
+struct CreateSecretView_Previews: PreviewProvider {
+
+    static var previews: some View {
+        Group {
+            CreateSecretView(store: Preview.StoreModifiable(), showing: .constant(true))
+        }
+    }
+}
+
+#endif
