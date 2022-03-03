@@ -26,8 +26,8 @@ struct CreateSecretView<StoreType: SecretStoreModifiable>: View {
                     }
                     if #available(macOS 12.0, *) {
                         ThumbnailPickerView(items: [
-                            ThumbnailPickerView.Item(name: "Requires Authentication Before Use", description: "You will be required to authenticate using Touch ID, Apple Watch, or password before each use.", thumbnail: AuthenticationView()),
-                            ThumbnailPickerView.Item(name: "Notify on Use",
+                            ThumbnailPickerView.Item(name: "Require Authentication", description: "You will be required to authenticate using Touch ID, Apple Watch, or password before each use.", thumbnail: AuthenticationView()),
+                            ThumbnailPickerView.Item(name: "Notify",
                                                      description: "No authentication is required while your Mac is unlocked.",
                                                      thumbnail: NotificationView())
                         ], selection: $test)
@@ -74,10 +74,11 @@ struct ThumbnailPickerView: View {
             ForEach(items) { item in
                 VStack {
                     item.thumbnail
+                        .frame(width: 250, height: 200)
                         .clipShape(RoundedRectangle(cornerRadius: 10))
                         .overlay(RoundedRectangle(cornerRadius: 10)
                             .stroke(lineWidth: item.id == selection.id ? 5 : 0))
-                            .foregroundColor(.accentColor)
+                        .foregroundColor(.accentColor)
                     Text(item.name)
                         .bold()
                     Text(item.description)
@@ -144,42 +145,41 @@ struct AuthenticationView: View {
     var body: some View {
         ZStack {
             SystemBackgroundView(anchor: .center)
-            VStack {
-                Spacer()
-                Image(systemName: "touchid")
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: 100)
-                    .foregroundColor(Color(.systemRed))
-                Spacer()
-                Text("Touch ID Prompt")
-                    .font(.largeTitle)
-                    .foregroundColor(.primary)
-                    .redacted(reason: .placeholder)
-                Spacer()
+            GeometryReader { geometry in
                 VStack {
-                    Text("Touch ID Detail prompt.Detail two.")
-                        .font(.title3)
+                    Image(systemName: "touchid")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .foregroundColor(Color(.systemRed))
+                    Text("Touch ID Prompt")
+                        .font(.headline)
                         .foregroundColor(.primary)
-                    Text("Touch ID Detail prompt.Detail two.")
-                        .font(.title3)
-                        .foregroundColor(.primary)
+                        .redacted(reason: .placeholder)
+                    VStack {
+                        Text("Touch ID Detail prompt.Detail two.")
+                            .font(.caption2)
+                            .foregroundColor(.primary)
+                        Text("Touch ID Detail prompt.Detail two.")
+                            .font(.caption2)
+                            .foregroundColor(.primary)
+                    }
+                    .redacted(reason: .placeholder)
+                    RoundedRectangle(cornerRadius: 5)
+                        .frame(width: geometry.size.width, height: 20, alignment: .center)
+                        .foregroundColor(.accentColor)
+                    RoundedRectangle(cornerRadius: 5)
+                        .frame(width: geometry.size.width, height: 20, alignment: .center)
+                        .foregroundColor(Color(.unemphasizedSelectedContentBackgroundColor))
                 }
-                .redacted(reason: .placeholder)
-                Spacer()
-                RoundedRectangle(cornerRadius: 10)
-                    .frame(width: 275, height: 40, alignment: .center)
-                    .foregroundColor(.accentColor)
-                RoundedRectangle(cornerRadius: 10)
-                    .frame(width: 275, height: 40, alignment: .center)
-                    .foregroundColor(Color(.unemphasizedSelectedContentBackgroundColor))
             }
             .padding()
+            .frame(width: 150)
             .background(
                 RoundedRectangle(cornerRadius: 15)
                     .foregroundStyle(.ultraThickMaterial)
             )
             .padding()
+
         }
     }
 
