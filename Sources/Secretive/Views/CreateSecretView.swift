@@ -7,7 +7,7 @@ struct CreateSecretView<StoreType: SecretStoreModifiable>: View {
     @Binding var showing: Bool
 
     @State private var name = ""
-    @State private var requiresAuthentication = true
+    @State private var requiresAuthentication = false
 
     var body: some View {
         VStack {
@@ -87,7 +87,8 @@ struct ThumbnailPickerView<ValueType: Hashable>: View {
                     Text(item.name)
                         .bold()
                     Text(item.description)
-                }.onTapGesture {
+                }
+                .onTapGesture {
                     selection = item.value
                 }
             }
@@ -132,6 +133,7 @@ struct SystemBackgroundView: View {
                         .resizable()
                         .scaleEffect(3, anchor: anchor)
                         .clipped()
+                        .allowsHitTesting(false)
                 @unknown default:
                     Rectangle()
                         .foregroundColor(Color(.systemPurple))
