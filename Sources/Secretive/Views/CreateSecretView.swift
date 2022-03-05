@@ -64,10 +64,10 @@ struct CreateSecretView<StoreType: SecretStoreModifiable>: View {
     }
 }
 
-struct ThumbnailPickerView: View {
+struct ThumbnailPickerView<SelectionValue>: View where SelectionValue: Hashable {
 
-    let items: [Item]
-    @Binding var selection: Item
+    private let items: [Item]
+    @Binding private var selection: SelectionValue
 
     var body: some View {
         HStack {
@@ -75,19 +75,17 @@ struct ThumbnailPickerView: View {
                 VStack {
                     item.thumbnail
                         .frame(width: 250, height: 200)
-                        .clipShape(RoundedRectangle(cornerRadius: 10))
+                        .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
                         .overlay(RoundedRectangle(cornerRadius: 10)
-                            .stroke(lineWidth: item.id == selection.id ? 5 : 0))
+                            .stroke(lineWidth: item == selection ? 5 : 0))
                         .foregroundColor(.accentColor)
                     Text(item.name)
                         .bold()
                     Text(item.description)
                 }.onTapGesture {
-                    selection = item
+                    selection = item.thumbnail.
                 }
             }
-        }.onAppear {
-            selection = items.first!
         }
     }
 
@@ -204,20 +202,15 @@ struct NotificationView: View {
                                 .resizable()
                                 .frame(width: 64, height: 64)
                                 .foregroundColor(.primary)
-                                .padding()
                             VStack(alignment: .leading) {
                                 Text("Secretive")
-                                    .font(.largeTitle)
+                                    .font(.title)
                                     .foregroundColor(.primary)
-                                Text("Secretive wants to sign some request")
-                                    .font(.title3)
-                                    .foregroundColor(.primary)
-                                Text("Secretive wants to sign some request")
-                                    .font(.title3)
+                                Text("Secretive wants to sign")
+                                    .font(.body)
                                     .foregroundColor(.primary)
                             }
-                            .padding()
-                        }
+                        }.padding()
                         .redacted(reason: .placeholder)
                         .background(
                             RoundedRectangle(cornerRadius: 15)
