@@ -8,7 +8,6 @@ struct CreateSecretView<StoreType: SecretStoreModifiable>: View {
 
     @State private var name = ""
     @State private var requiresAuthentication = true
-    @State private var test: ThumbnailPickerView.Item = ThumbnailPickerView.Item(name: "Test", description: "Hello", thumbnail: Text("Hello"))
 
     var body: some View {
         VStack {
@@ -26,22 +25,22 @@ struct CreateSecretView<StoreType: SecretStoreModifiable>: View {
                     }
                     if #available(macOS 12.0, *) {
                         ThumbnailPickerView(items: [
-                            ThumbnailPickerView.Item(name: "Require Authentication", description: "You will be required to authenticate using Touch ID, Apple Watch, or password before each use.", thumbnail: AuthenticationView()),
-                            ThumbnailPickerView.Item(name: "Notify",
+                            ThumbnailPickerView.Item(value: true, name: "Require Authentication", description: "You will be required to authenticate using Touch ID, Apple Watch, or password before each use.", thumbnail: AuthenticationView()),
+                            ThumbnailPickerView.Item(value: false, name: "Notify",
                                                      description: "No authentication is required while your Mac is unlocked.",
                                                      thumbnail: NotificationView())
-                        ], selection: $test)
+                        ], selection: $requiresAuthentication)
                     } else {
-                        //                    HStack {
-                        //                        VStack(spacing: 20) {
-                        //                            Picker("", selection: $requiresAuthentication) {
-                        //                                Text("Requires Authentication (Biometrics or Password) before each use").tag(true)
-                        //                                Text("Authentication not required when Mac is unlocked").tag(false)
-                        //                            }
-                        //                            .pickerStyle(SegmentedPickerStyle())
-                        //                        }
-                        //                        Spacer()
-                        //                    }
+                        HStack {
+                            VStack(spacing: 20) {
+                                Picker("", selection: $requiresAuthentication) {
+                                    Text("Requires Authentication (Biometrics or Password) before each use").tag(true)
+                                    Text("Authentication not required when Mac is unlocked").tag(false)
+                                }
+                                .pickerStyle(RadioGroupPickerStyle())
+                            }
+                            Spacer()
+                        }
                     }
                 }
             }
@@ -64,10 +63,16 @@ struct CreateSecretView<StoreType: SecretStoreModifiable>: View {
     }
 }
 
-struct ThumbnailPickerView<SelectionValue>: View where SelectionValue: Hashable {
+struct ThumbnailPickerView<ValueType: Hashable>: View {
 
-    private let items: [Item]
-    @Binding private var selection: SelectionValue
+    private let items: [Item<ValueType>]
+    @Binding var selection: ValueType
+
+    init(items: [ThumbnailPickerView<ValueType>.Item<ValueType>], selection: Binding<ValueType>) {
+        self.items = items
+        _selection = selection
+    }
+
 
     var body: some View {
         HStack {
@@ -77,13 +82,13 @@ struct ThumbnailPickerView<SelectionValue>: View where SelectionValue: Hashable 
                         .frame(width: 250, height: 200)
                         .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
                         .overlay(RoundedRectangle(cornerRadius: 10)
-                            .stroke(lineWidth: item == selection ? 5 : 0))
+                            .stroke(lineWidth: item.value == selection ? 5 : 0))
                         .foregroundColor(.accentColor)
                     Text(item.name)
                         .bold()
                     Text(item.description)
                 }.onTapGesture {
-                    selection = item.thumbnail.
+                    selection = item.value
                 }
             }
         }
@@ -93,13 +98,15 @@ struct ThumbnailPickerView<SelectionValue>: View where SelectionValue: Hashable 
 
 extension ThumbnailPickerView {
 
-    struct Item: Identifiable {
+    struct Item<ValueType: Hashable>: Identifiable {
         let id = UUID()
+        let value: ValueType
         let name: String
         let description: String
         let thumbnail: AnyView
 
-        init<ViewType: View>(name: String, description: String, thumbnail: ViewType) {
+        init<ViewType: View>(value: ValueType, name: String, description: String, thumbnail: ViewType) {
+            self.value = value
             self.name = name
             self.description = description
             self.thumbnail = AnyView(thumbnail)
