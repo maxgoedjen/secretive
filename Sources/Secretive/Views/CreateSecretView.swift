@@ -2,13 +2,13 @@ import SwiftUI
 import SecretKit
 
 struct CreateSecretView<StoreType: SecretStoreModifiable>: View {
-
+    
     @ObservedObject var store: StoreType
     @Binding var showing: Bool
-
+    
     @State private var name = ""
     @State private var requiresAuthentication = true
-
+    
     var body: some View {
         VStack {
             HStack {
@@ -56,7 +56,7 @@ struct CreateSecretView<StoreType: SecretStoreModifiable>: View {
             }
         }.padding()
     }
-
+    
     func save() {
         try! store.create(name: name, requiresAuthentication: requiresAuthentication)
         showing = false
@@ -64,16 +64,16 @@ struct CreateSecretView<StoreType: SecretStoreModifiable>: View {
 }
 
 struct ThumbnailPickerView<ValueType: Hashable>: View {
-
+    
     private let items: [Item<ValueType>]
     @Binding var selection: ValueType
-
+    
     init(items: [ThumbnailPickerView<ValueType>.Item<ValueType>], selection: Binding<ValueType>) {
         self.items = items
         _selection = selection
     }
-
-
+    
+    
     var body: some View {
         HStack(alignment: .top) {
             ForEach(items) { item in
@@ -96,18 +96,18 @@ struct ThumbnailPickerView<ValueType: Hashable>: View {
             }
         }
     }
-
+    
 }
 
 extension ThumbnailPickerView {
-
+    
     struct Item<ValueType: Hashable>: Identifiable {
         let id = UUID()
         let value: ValueType
         let name: String
         let description: String
         let thumbnail: AnyView
-
+        
         init<ViewType: View>(value: ValueType, name: String, description: String, thumbnail: ViewType) {
             self.value = value
             self.name = name
@@ -115,32 +115,36 @@ extension ThumbnailPickerView {
             self.thumbnail = AnyView(thumbnail)
         }
     }
+    
+}
 
+@MainActor class SystemBackground: ObservableObject {
+    
+    static let shared = SystemBackground()
+    @Published var image: NSImage?
+    
+    private init() {
+        if let mainScreen = NSScreen.main, let imageURL = NSWorkspace.shared.desktopImageURL(for: mainScreen) {
+            image = NSImage(contentsOf: imageURL)
+        } else {
+            image = nil
+        }
+    }
+    
 }
 
 @available(macOS 12.0, *)
 struct SystemBackgroundView: View {
-
+    
     let anchor: UnitPoint
-
+    
     var body: some View {
-        if let mainScreen = NSScreen.main, let imageURL = NSWorkspace.shared.desktopImageURL(for: mainScreen) {
-            AsyncImage(url: imageURL) { phase in
-                switch phase {
-                case .empty, .failure:
-                    Rectangle()
-                        .foregroundColor(Color(.systemPurple))
-                case .success(let image):
-                    image
-                        .resizable()
-                        .scaleEffect(3, anchor: anchor)
-                        .clipped()
-                        .allowsHitTesting(false)
-                @unknown default:
-                    Rectangle()
-                        .foregroundColor(Color(.systemPurple))
-                }
-            }
+        if let x = SystemBackground.shared.image {
+            Image(nsImage: x)
+                .resizable()
+                .scaleEffect(3, anchor: anchor)
+                .clipped()
+                .allowsHitTesting(false)
         } else {
             Rectangle()
                 .foregroundColor(Color(.systemPurple))
@@ -150,7 +154,7 @@ struct SystemBackgroundView: View {
 
 @available(macOS 12.0, *)
 struct AuthenticationView: View {
-
+    
     var body: some View {
         ZStack {
             SystemBackgroundView(anchor: .center)
@@ -188,15 +192,15 @@ struct AuthenticationView: View {
                     .foregroundStyle(.ultraThickMaterial)
             )
             .padding()
-
+            
         }
     }
-
+    
 }
 
 @available(macOS 12.0, *)
 struct NotificationView: View {
-
+    
     var body: some View {
         ZStack {
             SystemBackgroundView(anchor: .topTrailing)
@@ -222,11 +226,11 @@ struct NotificationView: View {
                                     .foregroundColor(.primary)
                             }
                         }.padding()
-                        .redacted(reason: .placeholder)
-                        .background(
-                            RoundedRectangle(cornerRadius: 15)
-                                .foregroundStyle(.ultraThickMaterial)
-                        )
+                            .redacted(reason: .placeholder)
+                            .background(
+                                RoundedRectangle(cornerRadius: 15)
+                                    .foregroundStyle(.ultraThickMaterial)
+                            )
                     }
                     Spacer()
                 }
@@ -234,13 +238,13 @@ struct NotificationView: View {
             }
         }
     }
-
+    
 }
 
 #if DEBUG
 
 struct CreateSecretView_Previews: PreviewProvider {
-
+    
     static var previews: some View {
         Group {
             CreateSecretView(store: Preview.StoreModifiable(), showing: .constant(true))
