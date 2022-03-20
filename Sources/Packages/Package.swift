@@ -19,6 +19,9 @@ let package = Package(
             name: "SmartCardSecretKit",
             targets: ["SmartCardSecretKit"]),
         .library(
+            name: "ProxyAgentSecretKit",
+            targets: ["ProxyAgentSecretKit"]),
+        .library(
             name: "SecretAgentKit",
             targets: ["SecretAgentKit"]),
         .library(
@@ -46,6 +49,10 @@ let package = Package(
         .target(
             name: "SmartCardSecretKit",
             dependencies: ["SecretKit"]
+        ),
+        .target(
+            name: "ProxyAgentSecretKit",
+            dependencies: ["SecretKit", "SecretAgentKit"]
         ),
         .target(
             name: "SecretAgentKit",
