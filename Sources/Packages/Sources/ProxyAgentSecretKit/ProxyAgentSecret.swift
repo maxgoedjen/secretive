@@ -2,7 +2,7 @@ import Foundation
 import Combine
 import SecretKit
 
-extension SmartCard {
+extension ProxyAgent {
 
     /// An implementation of Secret backed by a Smart Card.
     public struct Secret: SecretKit.Secret {

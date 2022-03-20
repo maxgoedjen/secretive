@@ -9,13 +9,16 @@ extension ProxyAgent {
     /// An implementation of Store backed by a Proxy Agent.
     public class Store: SecretStore {
 
-        @Published public var isAvailable: Bool = false
+        @Published public var isAvailable: Bool = true
         public let id = UUID()
         public private(set) var name = NSLocalizedString("Proxy SSH Agent", comment: "Proxy SSH Agent")
         @Published public private(set) var secrets: [Secret] = []
+        private let agentPath: String
 
         /// Initializes a Store.
-        public init() {
+        public init(path: String) {
+            agentPath = path
+            secrets.append(Secret(id: "hello".data(using: .utf8)!, name: "Test", algorithm: .ellipticCurve, keySize: 256, publicKey: Data(base64Encoded: "AAAAC3NzaC1lZDI1NTE5AAAAIINQz8WohBS46ICEUtkJ/vdxJPM63T5Dy4bQC35JVgGR")!))
         }
 
         // MARK: Public API
@@ -29,6 +32,7 @@ extension ProxyAgent {
         }
 
         public func sign(data: Data, with secret: SecretType, for provenance: SigningRequestProvenance) throws -> Data {
+            fatalError()
         }
 
         public func existingPersistedAuthenticationContext(secret: ProxyAgent.Secret) -> PersistedAuthenticationContext? {
@@ -50,8 +54,6 @@ extension ProxyAgent {
 
     /// A signing-related error.
     public struct SigningError: Error {
-        /// The underlying error reported by the API, if one was returned.
-        public let error: SecurityError?
     }
 
 }
