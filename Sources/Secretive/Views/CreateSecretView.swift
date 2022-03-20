@@ -7,7 +7,7 @@ struct CreateSecretView<StoreType: SecretStoreModifiable>: View {
     @Binding var showing: Bool
 
     @State private var name = ""
-    @State private var requiresAuthentication = false
+    @State private var requiresAuthentication = true
 
     var body: some View {
         VStack {
@@ -75,9 +75,9 @@ struct ThumbnailPickerView<ValueType: Hashable>: View {
 
 
     var body: some View {
-        HStack {
+        HStack(alignment: .top) {
             ForEach(items) { item in
-                VStack {
+                VStack(alignment: .leading, spacing: 5) {
                     item.thumbnail
                         .frame(width: 250, height: 200)
                         .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
@@ -86,10 +86,12 @@ struct ThumbnailPickerView<ValueType: Hashable>: View {
                         .foregroundColor(.accentColor)
                     Text(item.name)
                         .bold()
-                    Text(item.description)
+                    Text(item.description).frame(width: 250)
                 }
                 .onTapGesture {
-                    selection = item.value
+                    withAnimation(.spring()) {
+                        selection = item.value
+                    }
                 }
             }
         }
