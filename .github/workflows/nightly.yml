@@ -40,8 +40,12 @@ jobs:
       run: xcrun notarytool submit --key ~/.private_keys/AuthKey_$APPLE_API_KEY_ID.p8 --key-id $APPLE_API_KEY_ID --issuer $APPLE_API_ISSUER Secretive.zip
     - name: Document SHAs
       run: |
+            echo "sha-512:"
             shasum -a 512 Secretive.zip
             shasum -a 512 Archive.zip
+            echo "sha-256:"
+            shasum -a 256 Secretive.zip
+            shasum -a 256 Archive.zip
     - name: Upload App to Artifacts
       uses: actions/upload-artifact@v1
       with:
