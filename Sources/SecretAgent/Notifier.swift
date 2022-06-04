@@ -154,7 +154,7 @@ class NotificationDelegate: NSObject, UNUserNotificationCenterDelegate {
         case Notifier.Constants.persistAuthenticationCategoryIdentitifier:
             handlePersistAuthenticationResponse(response: response)
         default:
-            fatalError()
+            break
         }
 
         completionHandler()
