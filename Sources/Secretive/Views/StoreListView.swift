@@ -31,8 +31,8 @@ struct StoreListView: View {
                                         store: store,
                                         secret: secret,
                                         activeSecret: $activeSecret,
-                                        deletedSecret: self.secretDeleted,
-                                        renamedSecret: self.secretRenamed
+                                        deletedSecret: mainActorWrapped(self.secretDeleted),
+                                        renamedSecret: mainActorWrapped(self.secretRenamed)
                                     )
                                 }
                             }

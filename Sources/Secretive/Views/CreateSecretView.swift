@@ -43,7 +43,7 @@ struct CreateSecretView<StoreType: SecretStoreModifiable>: View {
                     showing = false
                 }
                 .keyboardShortcut(.cancelAction)
-                Button("Create", action: save)
+                Button("Create", action: mainActorWrapped(save))
                     .disabled(name.isEmpty)
                     .keyboardShortcut(.defaultAction)
             }

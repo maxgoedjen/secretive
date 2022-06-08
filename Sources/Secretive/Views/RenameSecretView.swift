@@ -28,7 +28,7 @@ struct RenameSecretView<StoreType: SecretStoreModifiable>: View {
             }
             HStack {
                 Spacer()
-                Button("Rename", action: rename)
+                Button("Rename", action: mainActorWrapped(rename))
                     .disabled(newName.count == 0)
                     .keyboardShortcut(.return)
                 Button("Cancel") {
