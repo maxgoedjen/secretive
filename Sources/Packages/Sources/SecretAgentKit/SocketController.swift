@@ -45,20 +45,14 @@ public class SocketController {
         var addr = sockaddr_un()
         addr.sun_family = sa_family_t(AF_UNIX)
 
-        var len: Int = 0
+        let len = MemoryLayout.size(ofValue: addr.sun_path) - 1
         withUnsafeMutablePointer(to: &addr.sun_path.0) { pointer in
-            path.withCString { cstring in
-                len = strlen(cstring)
-                strncpy(pointer, cstring, len)
-            }
+            // The buffer is pre-zeroed, so manual termination is unnecessary.
+            precondition(memccpy(pointer, path, 0, len) != nil)
         }
-        addr.sun_len = UInt8(len+2)
+        addr.sun_len = UInt8(len)
 
-        var data: Data!
-        withUnsafePointer(to: &addr) { pointer in
-            data = Data(bytes: pointer, count: MemoryLayout<sockaddr_un>.size)
-        }
-
+        let data = withUnsafeBytes(of: &addr, Data.init(_:))
         return SocketPort(protocolFamily: AF_UNIX, socketType: SOCK_STREAM, protocol: 0, address: data)!
     }
 
