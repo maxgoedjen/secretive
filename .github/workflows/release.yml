@@ -27,7 +27,7 @@ jobs:
             swift test
             popd
   build:
-    runs-on: macos-11.0
+    runs-on: macOS-latest
     timeout-minutes: 10
     steps:
     - uses: actions/checkout@v3
