@@ -11,6 +11,8 @@ public class Agent {
     private let witness: SigningWitness?
     private let writer = OpenSSHKeyWriter()
     private let requestTracer = SigningRequestTracer()
+    private let certsPath = (NSHomeDirectory() as NSString).appendingPathComponent("PublicKeys") as String
+    private var certsMap: [Data: Data] = [:]
 
     /// Initializes an agent with a store list and a witness.
     /// - Parameters:
@@ -83,12 +85,44 @@ extension Agent {
         var count = UInt32(secrets.count).bigEndian
         let countData = Data(bytes: &count, count: UInt32.bitWidth/8)
         var keyData = Data()
-        let writer = OpenSSHKeyWriter()
+
         for secret in secrets {
-            let keyBlob = writer.data(secret: secret)
+            let minimalHex = writer.openSSHMD5Fingerprint(secret: secret).replacingOccurrences(of: ":", with: "")
+            let certificatePath = certsPath.appending("/").appending("\(minimalHex)-cert.pub")
+            Logger().debug("Checking for \(certificatePath)")
+            var keyBlob = writer.data(secret: secret)
+            var curveData = writer.curveType(for: secret.algorithm, length: secret.keySize).data(using: .utf8)!
+
+            
+            if FileManager.default.fileExists(atPath: certificatePath) {
+                Logger().debug("Found certificate for \(secret.name)")
+                do {
+                    let certContent = try String(contentsOfFile:certificatePath, encoding: .utf8)
+                    let certElements = certContent.trimmingCharacters(in: .whitespacesAndNewlines).components(separatedBy: " ")
+                    
+                    if certElements.count >= 2 {
+                        if let certDecoded = Data(base64Encoded: certElements[1] as String) {
+                            certsMap[certDecoded] = keyBlob // Probably a better way to store the certificate/key association than this...
+                            keyBlob = certDecoded
+                            
+                            if certElements.count >= 3 {
+                                if let certName = certElements[2].data(using: .utf8) {
+                                    curveData = certName
+                                } else {
+                                    Logger().info("Certificate for \(secret.name) does not have a name tag, using curveData instead")
+                                }
+                            }
+                        } else {
+                            Logger().warning("Certificate found for \(secret.name) but failed to decode base64 key, using public key instead")
+                        }
+                    }
+                } catch {
+                    Logger().warning("Certificate found for \(secret.name) but failed to load, using public key instead")
+                }
+            }
             keyData.append(writer.lengthAndData(of: keyBlob))
-            let curveData = writer.curveType(for: secret.algorithm, length: secret.keySize).data(using: .utf8)!
             keyData.append(writer.lengthAndData(of: curveData))
+            
         }
         Logger().debug("Agent enumerated \(secrets.count) identities")
         return countData + keyData
@@ -101,7 +135,13 @@ extension Agent {
     /// - Returns: An OpenSSH formatted Data payload containing the signed data response.
     func sign(data: Data, provenance: SigningRequestProvenance) throws -> Data {
         let reader = OpenSSHReader(data: data)
-        let hash = reader.readNextChunk()
+        var hash = reader.readNextChunk()
+        
+        // We would have stored the certificate in the hashmap, so if it matches a certificate, use the associated key instead
+        if let publicKeyHash = certsMap[hash] {
+            hash = publicKeyHash
+        }
+        
         guard let (store, secret) = secret(matching: hash) else {
             Logger().debug("Agent did not have a key matching \(hash as NSData)")
             throw AgentError.noMatchingKey
