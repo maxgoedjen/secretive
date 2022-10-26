@@ -40,8 +40,8 @@ jobs:
         APPLE_API_KEY_DATA: ${{ secrets.APPLE_API_KEY_DATA }}
         APPLE_API_KEY_ID: ${{ secrets.APPLE_API_KEY_ID }}
       run: ./.github/scripts/signing.sh
-    - name: Set Environment
-      run: sudo xcrun xcode-select -s /Applications/Xcode_14.1.app
+    # - name: Set Environment
+    #   run: sudo xcrun xcode-select -s /Applications/Xcode_14.1.app
     - name: Update Build Number
       env:
         TAG_NAME: ${{ github.ref }}
