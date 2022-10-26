@@ -2,4 +2,4 @@
 
 # Create directories for ASC key
 mkdir .private_keys
-echo -n "$APPLE_API_KEY_DATA" > .private_keys/AuthKey.p8
+echo -n "$APPLE_API_KEY_DATA" > $(pwd)/.private_keys/AuthKey.p8
