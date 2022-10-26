@@ -105,13 +105,17 @@ extension Agent {
         var keyData = Data()
 
         for secret in secrets {
-            var keyBlob = writer.data(secret: secret)
-            var curveData = writer.curveType(for: secret.algorithm, length: secret.keySize).data(using: .utf8)!
-
+            let keyBlob: Data
+            let curveData: Data
+            
             if let (certBlob, certName) = try? checkForCert(secret: secret) {
                 keyBlob = certBlob
                 curveData = certName
+            } else {
+                keyBlob = writer.data(secret: secret)
+                curveData = writer.curveType(for: secret.algorithm, length: secret.keySize).data(using: .utf8)!
             }
+            
             keyData.append(writer.lengthAndData(of: keyBlob))
             keyData.append(writer.lengthAndData(of: curveData))
             
