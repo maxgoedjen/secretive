@@ -52,9 +52,15 @@ jobs:
             sed -i '' -e "s/GITHUB_BUILD_NUMBER/1.$RUN_ID/g" Sources/Config/Config.xcconfig
             sed -i '' -e "s/GITHUB_BUILD_URL/https:\/\/github.com\/maxgoedjen\/secretive\/actions\/runs\/$RUN_ID/g" Sources/Secretive/Credits.rtf
     - name: Build
-      run: xcrun xcodebuild -project Sources/Secretive.xcodeproj -scheme Secretive -configuration Release -archivePath Archive.xcarchive archive  -allowProvisioningUpdates -authenticationKeyIssuerID $APPLE_API_ISSUER -authenticationKeyID $APPLE_API_KEY_ID -authenticationKeyPath /Users/runner/work/secretive/secretive/.private_keys/AuthKey.p8
+      env: 
+        APPLE_API_KEY_DATA: ${{ secrets.APPLE_API_KEY_DATA }}
+        APPLE_API_KEY_ID: ${{ secrets.APPLE_API_KEY_ID }}
+      run: xcrun xcodebuild -project Sources/Secretive.xcodeproj -scheme Secretive -configuration Release -archivePath Archive.xcarchive archive -allowProvisioningUpdates -authenticationKeyIssuerID $APPLE_API_ISSUER -authenticationKeyID $APPLE_API_KEY_ID -authenticationKeyPath ~/.private_keys/AuthKey.p8
     - name: Export Products
-      run: xcrun xcodebuild -exportArchive -archivePath Archive.xcarchive -exportOptionsPlist Sources/Secretive/ExportOptions.plist -allowProvisioningUpdates -authenticationKeyIssuerID $APPLE_API_ISSUER -authenticationKeyID $APPLE_API_KEY_ID -authenticationKeyPath $(pwd)/.private_keys/AuthKey.p8
+      env: 
+        APPLE_API_KEY_DATA: ${{ secrets.APPLE_API_KEY_DATA }}
+        APPLE_API_KEY_ID: ${{ secrets.APPLE_API_KEY_ID }}
+      run: xcrun xcodebuild -exportArchive -archivePath Archive.xcarchive -exportOptionsPlist Sources/Secretive/ExportOptions.plist -allowProvisioningUpdates -authenticationKeyIssuerID $APPLE_API_ISSUER -authenticationKeyID $APPLE_API_KEY_ID -authenticationKeyPath ~/.private_keys/AuthKey.p8
     - name: Create ZIPs
       run: |
             ditto -c -k --sequesterRsrc --keepParent Archive.xcarchive/Products/Applications/Secretive.app ./Secretive.zip
