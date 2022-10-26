@@ -4,6 +4,22 @@ import OSLog
 import SecretKit
 import AppKit
 
+enum OpenSSHCertificateError: Error {
+    case unsupportedType
+    case parsingFailed
+}
+
+extension OpenSSHCertificateError: CustomStringConvertible {
+    public var description: String {
+        switch self {
+        case .unsupportedType:
+            return "The key type was unsupported"
+        case .parsingFailed:
+            return "Failed to properly parse the SSH certificate"
+        }
+    }
+}
+
 /// The `Agent` is an implementation of an SSH agent. It manages coordination and access between a socket, traces requests, notifies witnesses and passes requests to stores.
 public class Agent {
 
@@ -12,7 +28,6 @@ public class Agent {
     private let writer = OpenSSHKeyWriter()
     private let requestTracer = SigningRequestTracer()
     private let certsPath = (NSHomeDirectory() as NSString).appendingPathComponent("PublicKeys") as String
-    private var certsMap: [Data: Data] = [:]
 
     /// Initializes an agent with a store list and a witness.
     /// - Parameters:
@@ -89,11 +104,9 @@ extension Agent {
         for secret in secrets {
             let minimalHex = writer.openSSHMD5Fingerprint(secret: secret).replacingOccurrences(of: ":", with: "")
             let certificatePath = certsPath.appending("/").appending("\(minimalHex)-cert.pub")
-            Logger().debug("Checking for \(certificatePath)")
             var keyBlob = writer.data(secret: secret)
             var curveData = writer.curveType(for: secret.algorithm, length: secret.keySize).data(using: .utf8)!
 
-            
             if FileManager.default.fileExists(atPath: certificatePath) {
                 Logger().debug("Found certificate for \(secret.name)")
                 do {
@@ -102,7 +115,6 @@ extension Agent {
                     
                     if certElements.count >= 2 {
                         if let certDecoded = Data(base64Encoded: certElements[1] as String) {
-                            certsMap[certDecoded] = keyBlob // Probably a better way to store the certificate/key association than this...
                             keyBlob = certDecoded
                             
                             if certElements.count >= 3 {
@@ -137,9 +149,9 @@ extension Agent {
         let reader = OpenSSHReader(data: data)
         var hash = reader.readNextChunk()
         
-        // We would have stored the certificate in the hashmap, so if it matches a certificate, use the associated key instead
-        if let publicKeyHash = certsMap[hash] {
-            hash = publicKeyHash
+        // Check if hash is actually an openssh certificate and reconstruct the public key if it is
+        if let certPublicKey = try? getPublicKeyFromCert(certBlob: hash) {
+            hash = certPublicKey
         }
         
         guard let (store, secret) = secret(matching: hash) else {
@@ -200,6 +212,32 @@ extension Agent {
         Logger().debug("Agent signed request")
 
         return signedData
+    }
+    
+    
+    func getPublicKeyFromCert(certBlob: Data) throws -> Data {
+        let reader = OpenSSHReader(data: certBlob)
+        let certType = String(decoding: reader.readNextChunk(), as: UTF8.self)
+                
+        switch certType {
+        case "ecdsa-sha2-nistp256-cert-v01@openssh.com",
+            "ecdsa-sha2-nistp384-cert-v01@openssh.com",
+            "ecdsa-sha2-nistp521-cert-v01@openssh.com":
+            
+            _ = reader.readNextChunk() // nonce
+            let curveIdentifier = reader.readNextChunk()
+            let publicKey = reader.readNextChunk()
+            
+            if let curveType = certType.replacingOccurrences(of: "-cert-v01@openssh.com", with: "").data(using: .utf8) {
+                return writer.lengthAndData(of: curveType) +
+                       writer.lengthAndData(of: curveIdentifier) +
+                       writer.lengthAndData(of: publicKey)
+            } else {
+                throw OpenSSHCertificateError.parsingFailed
+            }
+        default:
+            throw OpenSSHCertificateError.unsupportedType
+        }
     }
 
 }
