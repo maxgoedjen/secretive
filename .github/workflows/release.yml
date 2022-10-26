@@ -5,27 +5,27 @@ on:
     tags:
       - '*'
 jobs:
-  test:
-    runs-on: macOS-latest
-    timeout-minutes: 10
-    steps:
-    - uses: actions/checkout@v3
-    - name: Setup Signing
-      env: 
-        SIGNING_DATA: ${{ secrets.SIGNING_DATA }}
-        SIGNING_PASSWORD: ${{ secrets.SIGNING_PASSWORD }}
-        HOST_PROFILE_DATA: ${{ secrets.HOST_PROFILE_DATA }}
-        AGENT_PROFILE_DATA: ${{ secrets.AGENT_PROFILE_DATA }}
-        APPLE_API_KEY_DATA: ${{ secrets.APPLE_API_KEY_DATA }}
-        APPLE_API_KEY_ID: ${{ secrets.APPLE_API_KEY_ID }}
-      run: ./.github/scripts/signing.sh
+  # test:
+  #   runs-on: macOS-latest
+  #   timeout-minutes: 10
+  #   steps:
+  #   - uses: actions/checkout@v3
+  #   - name: Setup Signing
+  #     env: 
+  #       SIGNING_DATA: ${{ secrets.SIGNING_DATA }}
+  #       SIGNING_PASSWORD: ${{ secrets.SIGNING_PASSWORD }}
+  #       HOST_PROFILE_DATA: ${{ secrets.HOST_PROFILE_DATA }}
+  #       AGENT_PROFILE_DATA: ${{ secrets.AGENT_PROFILE_DATA }}
+  #       APPLE_API_KEY_DATA: ${{ secrets.APPLE_API_KEY_DATA }}
+  #       APPLE_API_KEY_ID: ${{ secrets.APPLE_API_KEY_ID }}
+  #     run: ./.github/scripts/signing.sh
     # - name: Set Environment
     #   run: sudo xcrun xcode-select -s /Applications/Xcode_14.1.app
-    - name: Test
-      run: |
-            pushd Sources/Packages
-            swift test
-            popd
+    # - name: Test
+    #   run: |
+    #         pushd Sources/Packages
+    #         swift test
+    #         popd
   build:
     runs-on: macOS-latest
     timeout-minutes: 10
