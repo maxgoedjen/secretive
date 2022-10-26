@@ -51,12 +51,8 @@ jobs:
             sed -i '' -e "s/GITHUB_CI_VERSION/$CLEAN_TAG/g" Sources/Config/Config.xcconfig
             sed -i '' -e "s/GITHUB_BUILD_NUMBER/1.$RUN_ID/g" Sources/Config/Config.xcconfig
             sed -i '' -e "s/GITHUB_BUILD_URL/https:\/\/github.com\/maxgoedjen\/secretive\/actions\/runs\/$RUN_ID/g" Sources/Secretive/Credits.rtf
-    - name: Buildtest
-      run:  pwd
-    - name: lsTest
-      run: ls $(pwd)/.private_keys
     - name: Build
-      run: xcrun xcodebuild -project Sources/Secretive.xcodeproj -scheme Secretive -configuration Release -archivePath Archive.xcarchive archive  -allowProvisioningUpdates -authenticationKeyIssuerID $APPLE_API_ISSUER -authenticationKeyID $APPLE_API_KEY_ID -authenticationKeyPath $(pwd)/.private_keys/AuthKey.p8
+      run: xcrun xcodebuild -project Sources/Secretive.xcodeproj -scheme Secretive -configuration Release -archivePath Archive.xcarchive archive  -allowProvisioningUpdates -authenticationKeyIssuerID $APPLE_API_ISSUER -authenticationKeyID $APPLE_API_KEY_ID -authenticationKeyPath /Users/runner/work/secretive/secretive/.private_keys/AuthKey.p8
     - name: Export Products
       run: xcrun xcodebuild -exportArchive -archivePath Archive.xcarchive -exportOptionsPlist Sources/Secretive/ExportOptions.plist -allowProvisioningUpdates -authenticationKeyIssuerID $APPLE_API_ISSUER -authenticationKeyID $APPLE_API_KEY_ID -authenticationKeyPath $(pwd)/.private_keys/AuthKey.p8
     - name: Create ZIPs
