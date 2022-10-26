@@ -7,6 +7,7 @@ import AppKit
 enum OpenSSHCertificateError: Error {
     case unsupportedType
     case parsingFailed
+    case doesNotExist
 }
 
 extension OpenSSHCertificateError: CustomStringConvertible {
@@ -16,6 +17,8 @@ extension OpenSSHCertificateError: CustomStringConvertible {
             return "The key type was unsupported"
         case .parsingFailed:
             return "Failed to properly parse the SSH certificate"
+        case .doesNotExist:
+            return "Certificate does not exist"
         }
     }
 }
@@ -102,35 +105,12 @@ extension Agent {
         var keyData = Data()
 
         for secret in secrets {
-            let minimalHex = writer.openSSHMD5Fingerprint(secret: secret).replacingOccurrences(of: ":", with: "")
-            let certificatePath = certsPath.appending("/").appending("\(minimalHex)-cert.pub")
             var keyBlob = writer.data(secret: secret)
             var curveData = writer.curveType(for: secret.algorithm, length: secret.keySize).data(using: .utf8)!
 
-            if FileManager.default.fileExists(atPath: certificatePath) {
-                Logger().debug("Found certificate for \(secret.name)")
-                do {
-                    let certContent = try String(contentsOfFile:certificatePath, encoding: .utf8)
-                    let certElements = certContent.trimmingCharacters(in: .whitespacesAndNewlines).components(separatedBy: " ")
-                    
-                    if certElements.count >= 2 {
-                        if let certDecoded = Data(base64Encoded: certElements[1] as String) {
-                            keyBlob = certDecoded
-                            
-                            if certElements.count >= 3 {
-                                if let certName = certElements[2].data(using: .utf8) {
-                                    curveData = certName
-                                } else {
-                                    Logger().info("Certificate for \(secret.name) does not have a name tag, using curveData instead")
-                                }
-                            }
-                        } else {
-                            Logger().warning("Certificate found for \(secret.name) but failed to decode base64 key, using public key instead")
-                        }
-                    }
-                } catch {
-                    Logger().warning("Certificate found for \(secret.name) but failed to load, using public key instead")
-                }
+            if let (certBlob, certName) = try? checkForCert(secret: secret) {
+                keyBlob = certBlob
+                curveData = certName
             }
             keyData.append(writer.lengthAndData(of: keyBlob))
             keyData.append(writer.lengthAndData(of: curveData))
@@ -214,7 +194,9 @@ extension Agent {
         return signedData
     }
     
-    
+    /// Reconstructs a public key from a ``Data`` object that contains an OpenSSH certificate. Currently only ecdsa certificates are supported
+    /// - Parameter certBlock: The openssh certificate to extract the public key from
+    /// - Returns: A ``Data`` object containing the public key in OpenSSH wire format
     func getPublicKeyFromCert(certBlob: Data) throws -> Data {
         let reader = OpenSSHReader(data: certBlob)
         let certType = String(decoding: reader.readNextChunk(), as: UTF8.self)
@@ -238,6 +220,46 @@ extension Agent {
         default:
             throw OpenSSHCertificateError.unsupportedType
         }
+    }
+    
+    
+    /// Attempts to find an OpenSSH Certificate  that corresponds to a ``Secret``
+    /// - Parameter secret: The secret to search for a certificate with
+    /// - Returns: Two ``Data`` objects containing the certificate and certificate name respectively
+    func checkForCert(secret: AnySecret) throws -> (Data, Data) {
+        let minimalHex = writer.openSSHMD5Fingerprint(secret: secret).replacingOccurrences(of: ":", with: "")
+        let certificatePath = certsPath.appending("/").appending("\(minimalHex)-cert.pub")
+        
+        if FileManager.default.fileExists(atPath: certificatePath) {
+            Logger().debug("Found certificate for \(secret.name)")
+            do {
+                let certContent = try String(contentsOfFile:certificatePath, encoding: .utf8)
+                let certElements = certContent.trimmingCharacters(in: .whitespacesAndNewlines).components(separatedBy: " ")
+                
+                if certElements.count >= 2 {
+                    if let certDecoded = Data(base64Encoded: certElements[1] as String) {
+                        if certElements.count >= 3 {
+                            if let certName = certElements[2].data(using: .utf8) {
+                                return (certDecoded, certName)
+                            } else if let certName = secret.name.data(using: .utf8) {
+                                Logger().info("Certificate for \(secret.name) does not have a name tag, using secret name instead")
+                                return (certDecoded, certName)
+                            } else {
+                                throw OpenSSHCertificateError.parsingFailed
+                            }
+                        }
+                    } else {
+                        Logger().warning("Certificate found for \(secret.name) but failed to decode base64 key")
+                        throw OpenSSHCertificateError.parsingFailed
+                    }
+                }
+            } catch {
+                Logger().warning("Certificate found for \(secret.name) but failed to load")
+                throw OpenSSHCertificateError.parsingFailed
+            }
+        }
+        
+        throw OpenSSHCertificateError.doesNotExist
     }
 
 }
