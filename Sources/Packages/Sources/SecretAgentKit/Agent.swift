@@ -4,25 +4,6 @@ import OSLog
 import SecretKit
 import AppKit
 
-enum OpenSSHCertificateError: Error {
-    case unsupportedType
-    case parsingFailed
-    case doesNotExist
-}
-
-extension OpenSSHCertificateError: CustomStringConvertible {
-    public var description: String {
-        switch self {
-        case .unsupportedType:
-            return "The key type was unsupported"
-        case .parsingFailed:
-            return "Failed to properly parse the SSH certificate"
-        case .doesNotExist:
-            return "Certificate does not exist"
-        }
-    }
-}
-
 /// The `Agent` is an implementation of an SSH agent. It manages coordination and access between a socket, traces requests, notifies witnesses and passes requests to stores.
 public class Agent {
 
@@ -30,14 +11,15 @@ public class Agent {
     private let witness: SigningWitness?
     private let writer = OpenSSHKeyWriter()
     private let requestTracer = SigningRequestTracer()
-    private let certsPath = (NSHomeDirectory() as NSString).appendingPathComponent("PublicKeys") as String
+    private let publicKeyFileStoreController = PublicKeyFileStoreController(homeDirectory: NSHomeDirectory())
+    private let logger = Logger()
 
     /// Initializes an agent with a store list and a witness.
     /// - Parameters:
     ///   - storeList: The `SecretStoreList` to make available.
     ///   - witness: A witness to notify of requests.
     public init(storeList: SecretStoreList, witness: SigningWitness? = nil) {
-        Logger().debug("Agent is running")
+        logger.debug("Agent is running")
         self.storeList = storeList
         self.witness = witness
     }
@@ -53,16 +35,16 @@ extension Agent {
     /// - Return value: 
     ///   - Boolean if data could be read
     @discardableResult public func handle(reader: FileHandleReader, writer: FileHandleWriter) -> Bool {
-        Logger().debug("Agent handling new data")
+        logger.debug("Agent handling new data")
         let data = Data(reader.availableData)
         guard data.count > 4 else { return false}
         let requestTypeInt = data[4]
         guard let requestType = SSHAgent.RequestType(rawValue: requestTypeInt) else {
             writer.write(OpenSSHKeyWriter().lengthAndData(of: SSHAgent.ResponseType.agentFailure.data))
-            Logger().debug("Agent returned \(SSHAgent.ResponseType.agentFailure.debugDescription)")
+            logger.debug("Agent returned \(SSHAgent.ResponseType.agentFailure.debugDescription)")
             return true
         }
-        Logger().debug("Agent handling request of type \(requestType.debugDescription)")
+        logger.debug("Agent handling request of type \(requestType.debugDescription)")
         let subData = Data(data[5...])
         let response = handle(requestType: requestType, data: subData, reader: reader)
         writer.write(response)
@@ -76,17 +58,17 @@ extension Agent {
             case .requestIdentities:
                 response.append(SSHAgent.ResponseType.agentIdentitiesAnswer.data)
                 response.append(identities())
-                Logger().debug("Agent returned \(SSHAgent.ResponseType.agentIdentitiesAnswer.debugDescription)")
+                logger.debug("Agent returned \(SSHAgent.ResponseType.agentIdentitiesAnswer.debugDescription)")
             case .signRequest:
                 let provenance = requestTracer.provenance(from: reader)
                 response.append(SSHAgent.ResponseType.agentSignResponse.data)
                 response.append(try sign(data: data, provenance: provenance))
-                Logger().debug("Agent returned \(SSHAgent.ResponseType.agentSignResponse.debugDescription)")
+                logger.debug("Agent returned \(SSHAgent.ResponseType.agentSignResponse.debugDescription)")
             }
         } catch {
             response.removeAll()
             response.append(SSHAgent.ResponseType.agentFailure.data)
-            Logger().debug("Agent returned \(SSHAgent.ResponseType.agentFailure.debugDescription)")
+            logger.debug("Agent returned \(SSHAgent.ResponseType.agentFailure.debugDescription)")
         }
         let full = OpenSSHKeyWriter().lengthAndData(of: response)
         return full
@@ -108,9 +90,9 @@ extension Agent {
             let keyBlob: Data
             let curveData: Data
             
-            if let (certBlob, certName) = try? checkForCert(secret: secret) {
-                keyBlob = certBlob
-                curveData = certName
+            if let (certificateData, name) = try? sshCertificateKeyBlobAndName(for: secret) {
+                keyBlob = certificateData
+                curveData = name
             } else {
                 keyBlob = writer.data(secret: secret)
                 curveData = writer.curveType(for: secret.algorithm, length: secret.keySize).data(using: .utf8)!
@@ -120,7 +102,7 @@ extension Agent {
             keyData.append(writer.lengthAndData(of: curveData))
             
         }
-        Logger().debug("Agent enumerated \(secrets.count) identities")
+        logger.debug("Agent enumerated \(secrets.count) identities")
         return countData + keyData
     }
 
@@ -131,15 +113,17 @@ extension Agent {
     /// - Returns: An OpenSSH formatted Data payload containing the signed data response.
     func sign(data: Data, provenance: SigningRequestProvenance) throws -> Data {
         let reader = OpenSSHReader(data: data)
-        var hash = reader.readNextChunk()
-        
+        let payloadHash = reader.readNextChunk()
+        let hash: Data
         // Check if hash is actually an openssh certificate and reconstruct the public key if it is
-        if let certPublicKey = try? getPublicKeyFromCert(certBlob: hash) {
-            hash = certPublicKey
+        if let certificatePublicKey = publicKeyHashFromSSHCertificateHash(payloadHash) {
+            hash = certificatePublicKey
+        } else {
+            hash = payloadHash
         }
         
         guard let (store, secret) = secret(matching: hash) else {
-            Logger().debug("Agent did not have a key matching \(hash as NSData)")
+            logger.debug("Agent did not have a key matching \(hash as NSData)")
             throw AgentError.noMatchingKey
         }
 
@@ -193,77 +177,66 @@ extension Agent {
             try witness.witness(accessTo: secret, from: store, by: provenance)
         }
 
-        Logger().debug("Agent signed request")
+        logger.debug("Agent signed request")
 
         return signedData
     }
     
-    /// Reconstructs a public key from a ``Data`` object that contains an OpenSSH certificate. Currently only ecdsa certificates are supported
+    /// Reconstructs a public key from a ``Data``, if that ``Data`` contains an OpenSSH certificate hash. Currently only ecdsa certificates are supported
     /// - Parameter certBlock: The openssh certificate to extract the public key from
-    /// - Returns: A ``Data`` object containing the public key in OpenSSH wire format
-    func getPublicKeyFromCert(certBlob: Data) throws -> Data {
-        let reader = OpenSSHReader(data: certBlob)
+    /// - Returns: A ``Data`` object containing the public key in OpenSSH wire format if the ``Data`` is an OpenSSH certificate hash, otherwise nil.
+    func publicKeyHashFromSSHCertificateHash(_ hash: Data) -> Data? {
+        let reader = OpenSSHReader(data: hash)
         let certType = String(decoding: reader.readNextChunk(), as: UTF8.self)
-                
+
         switch certType {
         case "ecdsa-sha2-nistp256-cert-v01@openssh.com",
             "ecdsa-sha2-nistp384-cert-v01@openssh.com",
             "ecdsa-sha2-nistp521-cert-v01@openssh.com":
-            
             _ = reader.readNextChunk() // nonce
             let curveIdentifier = reader.readNextChunk()
             let publicKey = reader.readNextChunk()
             
-            if let curveType = certType.replacingOccurrences(of: "-cert-v01@openssh.com", with: "").data(using: .utf8) {
-                return writer.lengthAndData(of: curveType) +
-                       writer.lengthAndData(of: curveIdentifier) +
-                       writer.lengthAndData(of: publicKey)
-            } else {
-                throw OpenSSHCertificateError.parsingFailed
-            }
+            let curveType = certType.replacingOccurrences(of: "-cert-v01@openssh.com", with: "").data(using: .utf8)!
+            return writer.lengthAndData(of: curveType) +
+                   writer.lengthAndData(of: curveIdentifier) +
+                   writer.lengthAndData(of: publicKey)
         default:
-            throw OpenSSHCertificateError.unsupportedType
+            return nil
         }
     }
     
     
     /// Attempts to find an OpenSSH Certificate  that corresponds to a ``Secret``
     /// - Parameter secret: The secret to search for a certificate with
-    /// - Returns: Two ``Data`` objects containing the certificate and certificate name respectively
-    func checkForCert(secret: AnySecret) throws -> (Data, Data) {
-        let minimalHex = writer.openSSHMD5Fingerprint(secret: secret).replacingOccurrences(of: ":", with: "")
-        let certificatePath = certsPath.appending("/").appending("\(minimalHex)-cert.pub")
-        
-        if FileManager.default.fileExists(atPath: certificatePath) {
-            Logger().debug("Found certificate for \(secret.name)")
-            do {
-                let certContent = try String(contentsOfFile:certificatePath, encoding: .utf8)
-                let certElements = certContent.trimmingCharacters(in: .whitespacesAndNewlines).components(separatedBy: " ")
-                
-                if certElements.count >= 2 {
-                    if let certDecoded = Data(base64Encoded: certElements[1] as String) {
-                        if certElements.count >= 3 {
-                            if let certName = certElements[2].data(using: .utf8) {
-                                return (certDecoded, certName)
-                            } else if let certName = secret.name.data(using: .utf8) {
-                                Logger().info("Certificate for \(secret.name) does not have a name tag, using secret name instead")
-                                return (certDecoded, certName)
-                            } else {
-                                throw OpenSSHCertificateError.parsingFailed
-                            }
-                        }
-                    } else {
-                        Logger().warning("Certificate found for \(secret.name) but failed to decode base64 key")
-                        throw OpenSSHCertificateError.parsingFailed
-                    }
-                }
-            } catch {
-                Logger().warning("Certificate found for \(secret.name) but failed to load")
-                throw OpenSSHCertificateError.parsingFailed
-            }
+    /// - Returns: A (``Data``, ``Data``) tuple containing the certificate and certificate name, respectively.
+    func sshCertificateKeyBlobAndName(for secret: AnySecret) throws -> (Data, Data) {
+        let certificatePath = publicKeyFileStoreController.sshCertificatePath(for: secret)
+        guard  FileManager.default.fileExists(atPath: certificatePath) else {
+            throw OpenSSHCertificateError.doesNotExist
         }
-        
-        throw OpenSSHCertificateError.doesNotExist
+
+        logger.debug("Found certificate for \(secret.name)")
+        let certContent = try String(contentsOfFile:certificatePath, encoding: .utf8)
+        let certElements = certContent.trimmingCharacters(in: .whitespacesAndNewlines).components(separatedBy: " ")
+
+        guard certElements.count >= 3 else {
+            logger.warning("Certificate found for \(secret.name) but failed to load")
+            throw OpenSSHCertificateError.parsingFailed
+        }
+        guard let certDecoded = Data(base64Encoded: certElements[1] as String)  else {
+            logger.warning("Certificate found for \(secret.name) but failed to decode base64 key")
+            throw OpenSSHCertificateError.parsingFailed
+        }
+
+        if let certName = certElements[2].data(using: .utf8) {
+            return (certDecoded, certName)
+        } else if let certName = secret.name.data(using: .utf8) {
+            logger.info("Certificate for \(secret.name) does not have a name tag, using secret name instead")
+            return (certDecoded, certName)
+        } else {
+            throw OpenSSHCertificateError.parsingFailed
+        }
     }
 
 }
@@ -295,6 +268,23 @@ extension Agent {
         case unhandledType
         case noMatchingKey
         case unsupportedKeyType
+    }
+
+    enum OpenSSHCertificateError: LocalizedError {
+        case unsupportedType
+        case parsingFailed
+        case doesNotExist
+
+        public var errorDescription: String? {
+            switch self {
+            case .unsupportedType:
+                return "The key type was unsupported"
+            case .parsingFailed:
+                return "Failed to properly parse the SSH certificate"
+            case .doesNotExist:
+                return "Certificate does not exist"
+            }
+        }
     }
 
 }
