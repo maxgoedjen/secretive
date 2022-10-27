@@ -220,7 +220,7 @@ extension Agent {
         let certContent = try String(contentsOfFile:certificatePath, encoding: .utf8)
         let certElements = certContent.trimmingCharacters(in: .whitespacesAndNewlines).components(separatedBy: " ")
 
-        guard certElements.count >= 3 else {
+        guard certElements.count >= 2 else {
             logger.warning("Certificate found for \(secret.name) but failed to load")
             throw OpenSSHCertificateError.parsingFailed
         }
@@ -229,7 +229,7 @@ extension Agent {
             throw OpenSSHCertificateError.parsingFailed
         }
 
-        if let certName = certElements[2].data(using: .utf8) {
+        if certElements.count >= 3, let certName = certElements[2].data(using: .utf8) {
             return (certDecoded, certName)
         } else if let certName = secret.name.data(using: .utf8) {
             logger.info("Certificate for \(secret.name) does not have a name tag, using secret name instead")
