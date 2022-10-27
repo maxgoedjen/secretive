@@ -40,7 +40,10 @@ extension SigningRequestTracer {
     func process(from pid: Int32) -> SigningRequestProvenance.Process {
         var pidAndNameInfo = self.pidAndNameInfo(from: pid)
         let ppid = pidAndNameInfo.kp_eproc.e_ppid != 0 ? pidAndNameInfo.kp_eproc.e_ppid : nil
-        let procName = String(cString: &pidAndNameInfo.kp_proc.p_comm.0)
+        let procName = withUnsafeMutablePointer(to: &pidAndNameInfo.kp_proc.p_comm.0) { pointer in
+            String(cString: pointer)
+        }
+
         let pathPointer = UnsafeMutablePointer<UInt8>.allocate(capacity: Int(MAXPATHLEN))
         _ = proc_pidpath(pid, pathPointer, UInt32(MAXPATHLEN))
         let path = String(cString: pathPointer)
