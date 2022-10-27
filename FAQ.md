@@ -12,6 +12,10 @@ Secretive relies on the `SSH_AUTH_SOCK` environment variable being respected. Th
 
 Please run `ssh -Tv git@github.com` in your terminal and paste the output in a [new GitHub issue](https://github.com/maxgoedjen/secretive/issues/new) with a description of your issue.
 
+### Secretive was working for me, but now it has stopped
+
+Try running the "Setup Secretive" process by clicking on "Help", then "Setup Secretive." If that doesn't work, follow the process above.
+
 ### Secretive prompts me to type my password instead of using my Apple Watch
 
 1) Make sure you have enabled "Use your Apple Watch to unlock apps and your Mac" in System Preferences --> Security & Privacy:
