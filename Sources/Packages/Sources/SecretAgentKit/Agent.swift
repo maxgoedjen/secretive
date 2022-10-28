@@ -65,6 +65,9 @@ extension Agent {
                 response.append(SSHAgent.ResponseType.agentSignResponse.data)
                 response.append(try sign(data: data, provenance: provenance))
                 logger.debug("Agent returned \(SSHAgent.ResponseType.agentSignResponse.debugDescription)")
+            case .addIdentity:
+                try addIdentity(data: data)
+                response.append(SSHAgent.ResponseType.agentSuccess.data)
             }
         } catch {
             response.removeAll()
@@ -183,6 +186,18 @@ extension Agent {
         return signedData
     }
 
+    /// Stub for the ssh-add operation, which reloads from the store and reloads any OpenSSH certificate public keys.
+    /// - Returns: An OpenSSH formatted Data payload listing the identities available for signing operations.
+    func addIdentity(data: Data) throws {
+        // FIXME: This
+//        guard isCertificate else throw { AgentError.notOpenSSHCertificate }
+        // FIXME: READ REAL SECRET HASH
+//        let secret = secret(matching: hash)
+        let secret = AnySecret(storeList.stores.first!.secrets.first!)
+        try certificateHandler.copyCertificate(data: data, for: secret)
+        print(data)
+    }
+
 }
 
 extension Agent {
@@ -212,6 +227,7 @@ extension Agent {
         case unhandledType
         case noMatchingKey
         case unsupportedKeyType
+        case notOpenSSHCertificate
     }
 
 }

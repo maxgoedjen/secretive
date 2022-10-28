@@ -13,12 +13,19 @@ public class OpenSSHCertificateHandler {
     public init() {
     }
 
-    /// Reloads any
+    /// Reloads any certificates in the PublicKeys folder.
     /// - Parameter secrets: the secrets to look up corresponding certificates for.
     public func reloadCertificates(for secrets: [AnySecret]) {
         keyBlobsAndNames = secrets.reduce(into: [:]) { partialResult, next in
             partialResult[next] = try? loadKeyblobAndName(for: next)
         }
+    }
+
+    /// Copies a certificate to the PublicKeys folder, if it's not already tehre.
+    /// - Parameter url: the URL of the certificate to copy.
+    public func copyCertificate(data: Data, for secret: AnySecret) throws {
+        try data.write(to: URL(fileURLWithPath: publicKeyFileStoreController.sshCertificatePath(for: secret))
+)
     }
 
     /// Whether or not the certificate handler has a certifiicate associated with a given secret.
