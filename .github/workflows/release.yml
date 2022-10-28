@@ -56,7 +56,7 @@ jobs:
       env: 
         APPLE_API_KEY_ID: ${{ secrets.APPLE_API_KEY_ID }}
         APPLE_API_ISSUER: ${{ secrets.APPLE_API_ISSUER }}
-      run: xcrun xcodebuild -project Sources/Secretive.xcodeproj -scheme Secretive -configuration Release -archivePath Archive.xcarchive archive -allowProvisioningUpdates -authenticationKeyIssuerID $APPLE_API_ISSUER -authenticationKeyID $APPLE_API_KEY_ID -authenticationKeyPath ~/.private_keys/AuthKey.p8
+      run: xcrun xcodebuild -project Sources/Secretive.xcodeproj -scheme Secretive -configuration Release -archivePath Archive.xcarchive -destination "name=Any Mac" archive -allowProvisioningUpdates -authenticationKeyIssuerID $APPLE_API_ISSUER -authenticationKeyID $APPLE_API_KEY_ID -authenticationKeyPath ~/.private_keys/AuthKey.p8
     - name: Export Products
       env: 
         APPLE_API_KEY_ID: ${{ secrets.APPLE_API_KEY_ID }}
