@@ -21,7 +21,7 @@ struct SecretDetailView<SecretType: Secret>: View {
                     CopyableView(title: "Public Key", image: Image(systemName: "key"), text: keyString)
                     Spacer()
                         .frame(height: 20)
-                    CopyableView(title: "Public Key Path", image: Image(systemName: "lock.doc"), text: publicKeyFileStoreController.path(for: secret))
+                    CopyableView(title: "Public Key Path", image: Image(systemName: "lock.doc"), text: publicKeyFileStoreController.publicKeyPath(for: secret))
                     Spacer()
                 }
             }
