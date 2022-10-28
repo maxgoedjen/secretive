@@ -61,7 +61,7 @@ jobs:
       env: 
         APPLE_API_KEY_ID: ${{ secrets.APPLE_API_KEY_ID }}
         APPLE_API_ISSUER: ${{ secrets.APPLE_API_ISSUER }}
-      run: xcrun xcodebuild -exportArchive -archivePath Archive.xcarchive -exportOptionsPlist Sources/Secretive/ExportOptions.plist -allowProvisioningUpdates -authenticationKeyIssuerID $APPLE_API_ISSUER -authenticationKeyID $APPLE_API_KEY_ID -authenticationKeyPath ~/.private_keys/AuthKey.p8
+      run: xcrun xcodebuild -exportArchive -archivePath Archive.xcarchive -exportOptionsPlist Sources/Config/ExportOptions.plist -allowProvisioningUpdates -authenticationKeyIssuerID $APPLE_API_ISSUER -authenticationKeyID $APPLE_API_KEY_ID -authenticationKeyPath ~/.private_keys/AuthKey.p8
     - name: Create ZIPs
       run: |
             ditto -c -k --sequesterRsrc --keepParent Archive.xcarchive/Products/Applications/Secretive.app ./Secretive.zip
