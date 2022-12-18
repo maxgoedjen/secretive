@@ -5,7 +5,7 @@ on:
     - cron: "0 8 * * *"
 jobs:
   build:
-    runs-on: macos-11.0
+    runs-on: macOS-latest
     timeout-minutes: 10
     steps:
     - uses: actions/checkout@v2
@@ -19,7 +19,7 @@ jobs:
         APPLE_API_KEY_ID: ${{ secrets.APPLE_API_KEY_ID }}
       run: ./.github/scripts/signing.sh
     - name: Set Environment
-      run: sudo xcrun xcode-select -s /Applications/Xcode_13.2.1.app
+      run: sudo xcrun xcode-select -s /Applications/Xcode_14.1.app
     - name: Update Build Number
       env:
         RUN_ID: ${{ github.run_id }}
@@ -40,8 +40,12 @@ jobs:
       run: xcrun notarytool submit --key ~/.private_keys/AuthKey_$APPLE_API_KEY_ID.p8 --key-id $APPLE_API_KEY_ID --issuer $APPLE_API_ISSUER Secretive.zip
     - name: Document SHAs
       run: |
+            echo "sha-512:"
             shasum -a 512 Secretive.zip
             shasum -a 512 Archive.zip
+            echo "sha-256:"
+            shasum -a 256 Secretive.zip
+            shasum -a 256 Archive.zip
     - name: Upload App to Artifacts
       uses: actions/upload-artifact@v1
       with:

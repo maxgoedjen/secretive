@@ -24,7 +24,7 @@ extension SecureEnclave {
         /// Initializes a Store.
         public init() {
             DistributedNotificationCenter.default().addObserver(forName: .secretStoreUpdated, object: nil, queue: .main) { _ in
-                self.reloadSecrets(notifyAgent: false)
+                self.reloadSecretsInternal(notifyAgent: false)
             }
             loadSecrets()
         }
@@ -68,7 +68,7 @@ extension SecureEnclave {
                 throw KeychainError(statusCode: nil)
             }
             try savePublicKey(publicKey, name: name)
-            reloadSecrets()
+            reloadSecretsInternal()
         }
 
         public func delete(secret: Secret) throws {
@@ -80,7 +80,7 @@ extension SecureEnclave {
             if status != errSecSuccess {
                 throw KeychainError(statusCode: status)
             }
-            reloadSecrets()
+            reloadSecretsInternal()
         }
 
         public func update(secret: Secret, name: String) throws {
@@ -97,7 +97,7 @@ extension SecureEnclave {
             if status != errSecSuccess {
                 throw KeychainError(statusCode: status)
             }
-            reloadSecrets()
+            reloadSecretsInternal()
         }
         
         public func sign(data: Data, with secret: SecretType, for provenance: SigningRequestProvenance) throws -> Data {
@@ -163,6 +163,10 @@ extension SecureEnclave {
             }
         }
 
+        public func reloadSecrets() {
+            reloadSecretsInternal(notifyAgent: false)
+        }
+
     }
 
 }
@@ -171,12 +175,15 @@ extension SecureEnclave.Store {
 
     /// Reloads all secrets from the store.
     /// - Parameter notifyAgent: A boolean indicating whether a distributed notification should be posted, notifying other processes (ie, the SecretAgent) to reload their stores as well.
-    private func reloadSecrets(notifyAgent: Bool = true) {
+    private func reloadSecretsInternal(notifyAgent: Bool = true) {
+        let before = secrets
         secrets.removeAll()
         loadSecrets()
-        NotificationCenter.default.post(name: .secretStoreReloaded, object: self)
-        if notifyAgent {
-            DistributedNotificationCenter.default().postNotificationName(.secretStoreUpdated, object: nil, deliverImmediately: true)
+        if secrets != before {
+            NotificationCenter.default.post(name: .secretStoreReloaded, object: self)
+            if notifyAgent {
+                DistributedNotificationCenter.default().postNotificationName(.secretStoreUpdated, object: nil, deliverImmediately: true)
+            }
         }
     }
 

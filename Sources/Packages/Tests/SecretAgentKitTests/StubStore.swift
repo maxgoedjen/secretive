@@ -78,6 +78,9 @@ extension Stub {
         public func persistAuthentication(secret: Stub.Secret, forDuration duration: TimeInterval) throws {
         }
 
+        public func reloadSecrets() {
+        }
+
     }
 
 }
