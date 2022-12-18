@@ -80,9 +80,9 @@ struct CopyableView: View {
     var backgroundColor: Color {
         switch interactionState {
         case .normal:
-            return colorScheme == .dark ? Color(white: 0.2) : Color(white: 0.85)
+            return colorScheme == .dark ? Color(white: 0.2) : Color(white: 0.885)
         case .hovering:
-            return colorScheme == .dark ? Color(white: 0.275) : Color(white: 0.75)
+            return colorScheme == .dark ? Color(white: 0.275) : Color(white: 0.8)
         case .clicking:
             return .accentColor
         }
