@@ -36,6 +36,9 @@ public protocol SecretStore: ObservableObject, Identifiable {
     ///  - Note: This is used for temporarily unlocking access to a secret which would otherwise require authentication every single use. This is useful for situations where the user anticipates several rapid accesses to a authorization-guarded secret.
     func persistAuthentication(secret: SecretType, forDuration duration: TimeInterval) throws
 
+    /// Requests that the store reload secrets from any backing store, if neccessary.
+    func reloadSecrets()
+
 }
 
 /// A SecretStore that the Secretive admin app can modify.
