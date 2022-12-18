@@ -82,7 +82,7 @@ struct CopyableView: View {
         case .normal:
             return colorScheme == .dark ? Color(white: 0.2) : Color(white: 0.885)
         case .hovering:
-            return colorScheme == .dark ? Color(white: 0.275) : Color(white: 0.8)
+            return colorScheme == .dark ? Color(white: 0.275) : Color(white: 0.82)
         case .clicking:
             return .accentColor
         }
