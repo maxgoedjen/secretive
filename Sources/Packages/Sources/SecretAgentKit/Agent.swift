@@ -31,13 +31,14 @@ public class Agent {
     private let writer = OpenSSHKeyWriter()
     private let requestTracer = SigningRequestTracer()
     private let certsPath = (NSHomeDirectory() as NSString).appendingPathComponent("PublicKeys") as String
+    private let logger = Logger(subsystem: "com.maxgoedjen.secretive.secretagent.agent", category: "")
 
     /// Initializes an agent with a store list and a witness.
     /// - Parameters:
     ///   - storeList: The `SecretStoreList` to make available.
     ///   - witness: A witness to notify of requests.
     public init(storeList: SecretStoreList, witness: SigningWitness? = nil) {
-        Logger().debug("Agent is running")
+        logger.debug("Agent is running")
         self.storeList = storeList
         self.witness = witness
     }
@@ -53,16 +54,16 @@ extension Agent {
     /// - Return value: 
     ///   - Boolean if data could be read
     @discardableResult public func handle(reader: FileHandleReader, writer: FileHandleWriter) -> Bool {
-        Logger().debug("Agent handling new data")
+        logger.debug("Agent handling new data")
         let data = Data(reader.availableData)
         guard data.count > 4 else { return false}
         let requestTypeInt = data[4]
         guard let requestType = SSHAgent.RequestType(rawValue: requestTypeInt) else {
             writer.write(OpenSSHKeyWriter().lengthAndData(of: SSHAgent.ResponseType.agentFailure.data))
-            Logger().debug("Agent returned \(SSHAgent.ResponseType.agentFailure.debugDescription)")
+            logger.debug("Agent returned \(SSHAgent.ResponseType.agentFailure.debugDescription)")
             return true
         }
-        Logger().debug("Agent handling request of type \(requestType.debugDescription)")
+        logger.debug("Agent handling request of type \(requestType.debugDescription)")
         let subData = Data(data[5...])
         let response = handle(requestType: requestType, data: subData, reader: reader)
         writer.write(response)
@@ -70,23 +71,25 @@ extension Agent {
     }
 
     func handle(requestType: SSHAgent.RequestType, data: Data, reader: FileHandleReader) -> Data {
+        // Depending on the launch context (such as after macOS update), the agent may need to reload secrets before acting
+        reloadSecretsIfNeccessary()
         var response = Data()
         do {
             switch requestType {
             case .requestIdentities:
                 response.append(SSHAgent.ResponseType.agentIdentitiesAnswer.data)
                 response.append(identities())
-                Logger().debug("Agent returned \(SSHAgent.ResponseType.agentIdentitiesAnswer.debugDescription)")
+                logger.debug("Agent returned \(SSHAgent.ResponseType.agentIdentitiesAnswer.debugDescription)")
             case .signRequest:
                 let provenance = requestTracer.provenance(from: reader)
                 response.append(SSHAgent.ResponseType.agentSignResponse.data)
                 response.append(try sign(data: data, provenance: provenance))
-                Logger().debug("Agent returned \(SSHAgent.ResponseType.agentSignResponse.debugDescription)")
+                logger.debug("Agent returned \(SSHAgent.ResponseType.agentSignResponse.debugDescription)")
             }
         } catch {
             response.removeAll()
             response.append(SSHAgent.ResponseType.agentFailure.data)
-            Logger().debug("Agent returned \(SSHAgent.ResponseType.agentFailure.debugDescription)")
+            logger.debug("Agent returned \(SSHAgent.ResponseType.agentFailure.debugDescription)")
         }
         let full = OpenSSHKeyWriter().lengthAndData(of: response)
         return full
@@ -120,7 +123,7 @@ extension Agent {
             keyData.append(writer.lengthAndData(of: curveData))
             
         }
-        Logger().debug("Agent enumerated \(secrets.count) identities")
+        logger.log("Agent enumerated \(secrets.count) identities")
         return countData + keyData
     }
 
@@ -139,7 +142,7 @@ extension Agent {
         }
         
         guard let (store, secret) = secret(matching: hash) else {
-            Logger().debug("Agent did not have a key matching \(hash as NSData)")
+            logger.debug("Agent did not have a key matching \(hash as NSData)")
             throw AgentError.noMatchingKey
         }
 
@@ -193,7 +196,7 @@ extension Agent {
             try witness.witness(accessTo: secret, from: store, by: provenance)
         }
 
-        Logger().debug("Agent signed request")
+        logger.debug("Agent signed request")
 
         return signedData
     }
@@ -235,7 +238,7 @@ extension Agent {
         let certificatePath = certsPath.appending("/").appending("\(minimalHex)-cert.pub")
         
         if FileManager.default.fileExists(atPath: certificatePath) {
-            Logger().debug("Found certificate for \(secret.name)")
+            logger.debug("Found certificate for \(secret.name)")
             do {
                 let certContent = try String(contentsOfFile:certificatePath, encoding: .utf8)
                 let certElements = certContent.trimmingCharacters(in: .whitespacesAndNewlines).components(separatedBy: " ")
@@ -246,19 +249,19 @@ extension Agent {
                             if let certName = certElements[2].data(using: .utf8) {
                                 return (certDecoded, certName)
                             } else if let certName = secret.name.data(using: .utf8) {
-                                Logger().info("Certificate for \(secret.name) does not have a name tag, using secret name instead")
+                                logger.info("Certificate for \(secret.name) does not have a name tag, using secret name instead")
                                 return (certDecoded, certName)
                             } else {
                                 throw OpenSSHCertificateError.parsingFailed
                             }
                         }
                     } else {
-                        Logger().warning("Certificate found for \(secret.name) but failed to decode base64 key")
+                        logger.warning("Certificate found for \(secret.name) but failed to decode base64 key")
                         throw OpenSSHCertificateError.parsingFailed
                     }
                 }
             } catch {
-                Logger().warning("Certificate found for \(secret.name) but failed to load")
+                logger.warning("Certificate found for \(secret.name) but failed to load")
                 throw OpenSSHCertificateError.parsingFailed
             }
         }
@@ -269,6 +272,16 @@ extension Agent {
 }
 
 extension Agent {
+
+    /// Gives any store with no loaded secrets a chance to reload.
+    func reloadSecretsIfNeccessary() {
+        for store in storeList.stores {
+            if store.secrets.isEmpty {
+                logger.debug("Store \(store.name, privacy: .public) has no loaded secrets. Reloading.")
+                store.reloadSecrets()
+            }
+        }
+    }
 
     /// Finds a ``Secret`` matching a specified hash whos signature was requested.
     /// - Parameter hash: The hash to match against.
