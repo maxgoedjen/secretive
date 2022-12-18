@@ -47,6 +47,9 @@ extension Preview {
         func persistAuthentication(secret: Preview.Secret, forDuration duration: TimeInterval) throws {
         }
 
+        func reloadSecrets() {
+        }
+
     }
 
     class StoreModifiable: Store, SecretStoreModifiable {
