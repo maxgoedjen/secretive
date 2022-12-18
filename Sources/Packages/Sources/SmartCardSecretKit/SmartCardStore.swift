@@ -93,8 +93,12 @@ extension SmartCard {
         public func reloadSecrets() {
             DispatchQueue.main.async {
                 self.isAvailable = self.tokenID != nil
+                let before = self.secrets
                 self.secrets.removeAll()
                 self.loadSecrets()
+                if self.secrets != before {
+                    NotificationCenter.default.post(name: .secretStoreReloaded, object: self)
+                }
             }
         }
 

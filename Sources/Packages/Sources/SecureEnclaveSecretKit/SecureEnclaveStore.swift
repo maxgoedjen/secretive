@@ -164,7 +164,7 @@ extension SecureEnclave {
         }
 
         public func reloadSecrets() {
-            reloadSecretsInternal()
+            reloadSecretsInternal(notifyAgent: false)
         }
 
     }
@@ -176,11 +176,14 @@ extension SecureEnclave.Store {
     /// Reloads all secrets from the store.
     /// - Parameter notifyAgent: A boolean indicating whether a distributed notification should be posted, notifying other processes (ie, the SecretAgent) to reload their stores as well.
     private func reloadSecretsInternal(notifyAgent: Bool = true) {
+        let before = secrets
         secrets.removeAll()
         loadSecrets()
-        NotificationCenter.default.post(name: .secretStoreReloaded, object: self)
-        if notifyAgent {
-            DistributedNotificationCenter.default().postNotificationName(.secretStoreUpdated, object: nil, deliverImmediately: true)
+        if secrets != before {
+            NotificationCenter.default.post(name: .secretStoreReloaded, object: self)
+            if notifyAgent {
+                DistributedNotificationCenter.default().postNotificationName(.secretStoreUpdated, object: nil, deliverImmediately: true)
+            }
         }
     }
 
