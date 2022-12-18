@@ -8,6 +8,7 @@ struct CopyableView: View {
     var text: String
 
     @State private var interactionState: InteractionState = .normal
+    @Environment(\.colorScheme) private var colorScheme
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -77,38 +78,32 @@ struct CopyableView: View {
     }
 
     var backgroundColor: Color {
-        let color: NSColor
         switch interactionState {
         case .normal:
-            color = .windowBackgroundColor
+            return colorScheme == .dark ? Color(white: 0.2) : Color(white: 0.885)
         case .hovering:
-            color = .unemphasizedSelectedContentBackgroundColor
+            return colorScheme == .dark ? Color(white: 0.275) : Color(white: 0.82)
         case .clicking:
-            color = .selectedContentBackgroundColor
+            return .accentColor
         }
-        return Color(color)
     }
 
     var primaryTextColor: Color {
-        let color: NSColor
         switch interactionState {
         case .normal, .hovering:
-            color = .textColor
+            return Color(.textColor)
         case .clicking:
-            color = .white
+            return .white
         }
-        return Color(color)
     }
 
     var secondaryTextColor: Color {
-        let color: NSColor
         switch interactionState {
         case .normal, .hovering:
-            color = .secondaryLabelColor
+            return Color(.secondaryLabelColor)
         case .clicking:
-            color = .white
+            return .white
         }
-        return Color(color)
     }
 
     func copy() {
@@ -128,7 +123,9 @@ struct CopyableView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             CopyableView(title: "Title", image: Image(systemName: "figure.wave"), text: "Hello world.")
+                .padding()
             CopyableView(title: "Title", image: Image(systemName: "figure.wave"), text: "Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. ")
+                .padding()
         }
     }
 }
