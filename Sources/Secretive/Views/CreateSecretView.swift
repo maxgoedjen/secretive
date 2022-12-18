@@ -74,27 +74,29 @@ struct ThumbnailPickerView<ValueType: Hashable>: View {
         _selection = selection
     }
 
-
     var body: some View {
         HStack(alignment: .top) {
             ForEach(items) { item in
                 VStack(alignment: .leading, spacing: 5) {
                     item.thumbnail
-                        .frame(width: 250, height: 200)
-                        .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
+                        .frame(height: 200)
                         .overlay(RoundedRectangle(cornerRadius: 10)
-                            .stroke(lineWidth: item.value == selection ? 5 : 0))
+                            .stroke(lineWidth: item.value == selection ? 15 : 0))
+                        .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
                         .foregroundColor(.accentColor)
                     Text(item.name)
                         .bold()
-                    Text(item.description).frame(width: 250)
+                    Text(item.description)
+                        .fixedSize(horizontal: false, vertical: true)
                 }
+                .frame(width: 250)
                 .onTapGesture {
                     withAnimation(.spring()) {
                         selection = item.value
                     }
                 }
             }
+            .padding(5)
         }
     }
 
