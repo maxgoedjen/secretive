@@ -27,7 +27,7 @@ struct CreateSecretView<StoreType: SecretStoreModifiable>: View {
                         ThumbnailPickerView(items: [
                             ThumbnailPickerView.Item(value: true, name: "Require Authentication", description: "You will be required to authenticate using Touch ID, Apple Watch, or password before each use.", thumbnail: AuthenticationView()),
                             ThumbnailPickerView.Item(value: false, name: "Notify",
-                                                     description: "No authentication is required while your Mac is unlocked.",
+                                                     description: "No authentication is required while your Mac is unlocked, but you will be notified when a secret is used.",
                                                      thumbnail: NotificationView())
                         ], selection: $requiresAuthentication)
                     } else {
@@ -38,8 +38,8 @@ struct CreateSecretView<StoreType: SecretStoreModifiable>: View {
                                     Text("Authentication not required when Mac is unlocked").tag(false)
                                 }
                                 .pickerStyle(RadioGroupPickerStyle())
+                                Spacer(minLength: 10)
                             }
-                            Spacer()
                         }
                     }
                 }
@@ -77,17 +77,19 @@ struct ThumbnailPickerView<ValueType: Hashable>: View {
     var body: some View {
         HStack(alignment: .top) {
             ForEach(items) { item in
-                VStack(alignment: .leading, spacing: 5) {
+                VStack(alignment: .leading, spacing: 15) {
                     item.thumbnail
                         .frame(height: 200)
                         .overlay(RoundedRectangle(cornerRadius: 10)
                             .stroke(lineWidth: item.value == selection ? 15 : 0))
                         .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
                         .foregroundColor(.accentColor)
-                    Text(item.name)
-                        .bold()
-                    Text(item.description)
-                        .fixedSize(horizontal: false, vertical: true)
+                    VStack(alignment: .leading, spacing: 5) {
+                        Text(item.name)
+                            .bold()
+                        Text(item.description)
+                            .fixedSize(horizontal: false, vertical: true)
+                    }
                 }
                 .frame(width: 250)
                 .onTapGesture {
