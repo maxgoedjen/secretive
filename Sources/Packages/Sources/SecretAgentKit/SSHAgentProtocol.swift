@@ -10,7 +10,6 @@ extension SSHAgent {
 
         case requestIdentities = 11
         case signRequest = 13
-        case addIdentity = 17
 
         public var debugDescription: String {
             switch self {
@@ -18,8 +17,6 @@ extension SSHAgent {
                 return "RequestIdentities"
             case .signRequest:
                 return "SignRequest"
-            case .addIdentity:
-                return "AddIdentity"
             }
         }
     }

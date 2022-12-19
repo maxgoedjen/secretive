@@ -22,7 +22,7 @@ public class Agent {
         logger.debug("Agent is running")
         self.storeList = storeList
         self.witness = witness
-        certificateHandler.reloadCertificates(for: storeList.stores.flatMap(\.secrets))
+        certificateHandler.reloadCertificates(for: storeList.allSecrets)
     }
     
 }
@@ -67,9 +67,6 @@ extension Agent {
                 response.append(SSHAgent.ResponseType.agentSignResponse.data)
                 response.append(try sign(data: data, provenance: provenance))
                 logger.debug("Agent returned \(SSHAgent.ResponseType.agentSignResponse.debugDescription)")
-            case .addIdentity:
-                try addIdentity(data: data)
-                response.append(SSHAgent.ResponseType.agentSuccess.data)
             }
         } catch {
             response.removeAll()
@@ -87,7 +84,8 @@ extension Agent {
     /// Lists the identities available for signing operations
     /// - Returns: An OpenSSH formatted Data payload listing the identities available for signing operations.
     func identities() -> Data {
-        let secrets = storeList.stores.flatMap(\.secrets)
+        let secrets = storeList.allSecrets
+        certificateHandler.reloadCertificates(for: secrets)
         var count = UInt32(secrets.count).bigEndian
         let countData = Data(bytes: &count, count: UInt32.bitWidth/8)
         var keyData = Data()
@@ -186,18 +184,6 @@ extension Agent {
         logger.debug("Agent signed request")
 
         return signedData
-    }
-
-    /// Stub for the ssh-add operation, which reloads from the store and reloads any OpenSSH certificate public keys.
-    /// - Returns: An OpenSSH formatted Data payload listing the identities available for signing operations.
-    func addIdentity(data: Data) throws {
-        // FIXME: This
-//        guard isCertificate else throw { AgentError.notOpenSSHCertificate }
-        // FIXME: READ REAL SECRET HASH
-//        let secret = secret(matching: hash)
-        let secret = AnySecret(storeList.stores.first!.secrets.first!)
-        try certificateHandler.copyCertificate(data: data, for: secret)
-        print(data)
     }
 
 }

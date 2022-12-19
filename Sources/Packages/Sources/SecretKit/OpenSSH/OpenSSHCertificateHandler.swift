@@ -16,23 +16,20 @@ public class OpenSSHCertificateHandler {
     /// Reloads any certificates in the PublicKeys folder.
     /// - Parameter secrets: the secrets to look up corresponding certificates for.
     public func reloadCertificates(for secrets: [AnySecret]) {
+        guard publicKeyFileStoreController.hasAnyCertificates else {
+            logger.log("No certificates, short circuiting")
+            return
+        }
         keyBlobsAndNames = secrets.reduce(into: [:]) { partialResult, next in
             partialResult[next] = try? loadKeyblobAndName(for: next)
         }
     }
 
-    /// Copies a certificate to the PublicKeys folder, if it's not already tehre.
-    /// - Parameter url: the URL of the certificate to copy.
-    public func copyCertificate(data: Data, for secret: AnySecret) throws {
-        try data.write(to: URL(fileURLWithPath: publicKeyFileStoreController.sshCertificatePath(for: secret))
-)
-    }
-
     /// Whether or not the certificate handler has a certifiicate associated with a given secret.
     /// - Parameter secret: The secret to check for a certificate.
     /// - Returns: A boolean describing whether or not the certificate handler has a certifiicate associated with a given secret
-    public func hasCertificate(for secret: AnySecret) -> Bool {
-        keyBlobsAndNames[secret] != nil
+    public func hasCertificate<SecretType: Secret>(for secret: SecretType) -> Bool {
+        keyBlobsAndNames[AnySecret(secret)] != nil
     }
 
 
@@ -63,14 +60,14 @@ public class OpenSSHCertificateHandler {
     /// Attempts to find an OpenSSH Certificate  that corresponds to a ``Secret``
     /// - Parameter secret: The secret to search for a certificate with
     /// - Returns: A (``Data``, ``Data``) tuple containing the certificate and certificate name, respectively.
-    public func keyBlobAndName(for secret: AnySecret) throws -> (Data, Data)? {
-        keyBlobsAndNames[secret]
+    public func keyBlobAndName<SecretType: Secret>(for secret: SecretType) throws -> (Data, Data)? {
+        keyBlobsAndNames[AnySecret(secret)]
     }
     
     /// Attempts to find an OpenSSH Certificate  that corresponds to a ``Secret``
     /// - Parameter secret: The secret to search for a certificate with
     /// - Returns: A (``Data``, ``Data``) tuple containing the certificate and certificate name, respectively.
-    private func loadKeyblobAndName(for secret: AnySecret) throws -> (Data, Data)? {
+    private func loadKeyblobAndName<SecretType: Secret>(for secret: SecretType) throws -> (Data, Data)? {
         let certificatePath = publicKeyFileStoreController.sshCertificatePath(for: secret)
         guard FileManager.default.fileExists(atPath: certificatePath) else {
             return nil
