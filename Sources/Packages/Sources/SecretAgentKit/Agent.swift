@@ -12,7 +12,7 @@ public class Agent {
     private let writer = OpenSSHKeyWriter()
     private let requestTracer = SigningRequestTracer()
     private let certificateHandler = OpenSSHCertificateHandler()
-    private let logger = Logger()
+    private let logger = Logger(subsystem: "com.maxgoedjen.secretive.secretagent.agent", category: "")
 
     /// Initializes an agent with a store list and a witness.
     /// - Parameters:
@@ -53,6 +53,8 @@ extension Agent {
     }
 
     func handle(requestType: SSHAgent.RequestType, data: Data, reader: FileHandleReader) -> Data {
+        // Depending on the launch context (such as after macOS update), the agent may need to reload secrets before acting
+        reloadSecretsIfNeccessary()
         var response = Data()
         do {
             switch requestType {
@@ -106,7 +108,7 @@ extension Agent {
             keyData.append(writer.lengthAndData(of: curveData))
             
         }
-        logger.debug("Agent enumerated \(secrets.count) identities")
+        logger.log("Agent enumerated \(secrets.count) identities")
         return countData + keyData
     }
 
@@ -201,6 +203,16 @@ extension Agent {
 }
 
 extension Agent {
+
+    /// Gives any store with no loaded secrets a chance to reload.
+    func reloadSecretsIfNeccessary() {
+        for store in storeList.stores {
+            if store.secrets.isEmpty {
+                logger.debug("Store \(store.name, privacy: .public) has no loaded secrets. Reloading.")
+                store.reloadSecrets()
+            }
+        }
+    }
 
     /// Finds a ``Secret`` matching a specified hash whos signature was requested.
     /// - Parameter hash: The hash to match against.

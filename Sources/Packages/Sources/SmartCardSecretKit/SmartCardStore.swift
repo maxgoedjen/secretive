@@ -89,6 +89,19 @@ extension SmartCard {
         public func persistAuthentication(secret: SmartCard.Secret, forDuration: TimeInterval) throws {
         }
 
+        /// Reloads all secrets from the store.
+        public func reloadSecrets() {
+            DispatchQueue.main.async {
+                self.isAvailable = self.tokenID != nil
+                let before = self.secrets
+                self.secrets.removeAll()
+                self.loadSecrets()
+                if self.secrets != before {
+                    NotificationCenter.default.post(name: .secretStoreReloaded, object: self)
+                }
+            }
+        }
+
     }
 
 }
@@ -100,15 +113,6 @@ extension SmartCard.Store {
     private func smartcardRemoved(for tokenID: String? = nil) {
         self.tokenID = nil
         reloadSecrets()
-    }
-
-    /// Reloads all secrets from the store.
-    private func reloadSecrets() {
-        DispatchQueue.main.async {
-            self.isAvailable = self.tokenID != nil
-            self.secrets.removeAll()
-            self.loadSecrets()
-        }
     }
 
     /// Loads all secrets from the store.

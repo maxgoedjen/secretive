@@ -12,6 +12,7 @@ public class AnySecretStore: SecretStore {
     private let _sign: (Data, AnySecret, SigningRequestProvenance) throws -> Data
     private let _existingPersistedAuthenticationContext: (AnySecret) -> PersistedAuthenticationContext?
     private let _persistAuthentication: (AnySecret, TimeInterval) throws -> Void
+    private let _reloadSecrets: () -> Void
 
     private var sink: AnyCancellable?
 
@@ -24,6 +25,7 @@ public class AnySecretStore: SecretStore {
         _sign = { try secretStore.sign(data: $0, with: $1.base as! SecretStoreType.SecretType, for: $2) }
         _existingPersistedAuthenticationContext = { secretStore.existingPersistedAuthenticationContext(secret: $0.base as! SecretStoreType.SecretType) }
         _persistAuthentication = { try secretStore.persistAuthentication(secret: $0.base as! SecretStoreType.SecretType, forDuration: $1) }
+        _reloadSecrets = { secretStore.reloadSecrets() }
         sink = secretStore.objectWillChange.sink { _ in
             self.objectWillChange.send()
         }
@@ -55,6 +57,10 @@ public class AnySecretStore: SecretStore {
 
     public func persistAuthentication(secret: AnySecret, forDuration duration: TimeInterval) throws {
         try _persistAuthentication(secret, duration)
+    }
+
+    public func reloadSecrets() {
+        _reloadSecrets()
     }
 
 }
