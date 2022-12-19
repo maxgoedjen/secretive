@@ -144,8 +144,8 @@ struct SystemBackgroundView: View {
     let anchor: UnitPoint
 
     var body: some View {
-        if let x = SystemBackground.shared.image {
-            Image(nsImage: x)
+        if let image = SystemBackground.shared.image {
+            Image(nsImage: image)
                 .resizable()
                 .scaleEffect(3, anchor: anchor)
                 .clipped()
