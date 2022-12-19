@@ -88,7 +88,7 @@ extension ContentView {
                 }, label: {
                     Image(systemName: "plus")
                 })
-                .popover(isPresented: $showingCreation, attachmentAnchor: .point(.bottom), arrowEdge: .bottom) {
+                .sheet(isPresented: $showingCreation) {
                     if let modifiable = storeList.modifiableStore {
                         CreateSecretView(store: modifiable, showing: $showingCreation)
                     }
