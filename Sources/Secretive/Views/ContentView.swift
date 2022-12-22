@@ -149,6 +149,9 @@ extension ContentView {
                     .padding(5)
                 Text("SecretAgent is a process that runs in the background to sign requests, so you don't need to keep Secretive open all the time.\n\n**You can close Secretive, and everything will still keep working.**")
                     .frame(width: 300)
+                Button("Restart Agent") {
+                    self.agentStatusChecker.restart()
+                }
             }
             .padding()
         }
