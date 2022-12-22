@@ -31,6 +31,10 @@ public class SecretStoreList: ObservableObject {
         stores.reduce(false, { $0 || $1.isAvailable })
     }
 
+    public var allSecrets: [AnySecret] {
+        stores.flatMap(\.secrets)
+    }
+
 }
 
 extension SecretStoreList {
