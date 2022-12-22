@@ -9,6 +9,8 @@ struct ContentView<UpdaterType: UpdaterProtocol, AgentStatusCheckerType: AgentSt
     @Binding var showingCreation: Bool
     @Binding var runningSetup: Bool
     @Binding var hasRunSetup: Bool
+    @State var showingAgentInfo = false
+    @Environment(\.colorScheme) var colorScheme
 
     @EnvironmentObject private var storeList: SecretStoreList
     @EnvironmentObject private var updater: UpdaterType
@@ -27,10 +29,10 @@ struct ContentView<UpdaterType: UpdaterProtocol, AgentStatusCheckerType: AgentSt
         }
         .frame(minWidth: 640, minHeight: 320)
         .toolbar {
-            updateNotice
-            setupNotice
-            appPathNotice
-            newItem
+            toolbarItem(updateNoticeView, id: "update")
+            toolbarItem(runningOrRunSetupView, id: "setup")
+            toolbarItem(appPathNoticeView, id: "appPath")
+            toolbarItem(newItemView, id: "new")
         }
         .sheet(isPresented: $runningSetup) {
             SetupView(visible: $runningSetup, setupComplete: $hasRunSetup)
@@ -41,121 +43,144 @@ struct ContentView<UpdaterType: UpdaterProtocol, AgentStatusCheckerType: AgentSt
 
 extension ContentView {
 
-    var updateNotice: ToolbarItem<Void, AnyView> {
-        guard let update = updater.update else {
-            return ToolbarItem { AnyView(EmptyView()) }
+
+    func toolbarItem(_ view: some View, id: String) -> ToolbarItem<String, some View> {
+        ToolbarItem(id: id) { view }
+    }
+
+    var needsSetup: Bool {
+        (runningSetup || !hasRunSetup || !agentStatusChecker.running) && !agentStatusChecker.developmentBuild
+    }
+
+    /// Item either showing a "everything's good, here's more info" or "something's wrong, re-run setup" message
+    /// These two are mutually exclusive
+    @ViewBuilder
+    var runningOrRunSetupView: some View {
+        if needsSetup {
+            setupNoticeView
+        } else {
+            runningNoticeView
         }
-        let color: Color
-        let text: String
+    }
+
+    var updateNoticeContent: (String, Color)? {
+        guard let update = updater.update else { return nil }
         if update.critical {
-            text = "Critical Security Update Required"
-            color = .red
+            return ("Critical Security Update Required", .red)
         } else {
             if updater.testBuild {
-                text = "Test Build"
-                color = .blue
+                return ("Test Build", .blue)
             } else {
-                text = "Update Available"
-                color = .orange
+                return ("Update Available", .orange)
             }
         }
-        return ToolbarItem {
-            AnyView(
-                Button(action: {
-                    selectedUpdate = update
-                }, label: {
-                    Text(text)
-                        .font(.headline)
-                        .foregroundColor(.white)
-                })
-                .background(color)
-                .cornerRadius(5)
-                .popover(item: $selectedUpdate, attachmentAnchor: .point(.bottom), arrowEdge: .bottom) { update in
-                    UpdateDetailView(update: update)
-                }
-            )
-        }
     }
 
-    var newItem: ToolbarItem<Void, AnyView> {
-        guard storeList.modifiableStore?.isAvailable ?? false else {
-            return ToolbarItem { AnyView(EmptyView()) }
-        }
-        return ToolbarItem {
-            AnyView(
-                Button(action: {
-                    showingCreation = true
-                }, label: {
-                    Image(systemName: "plus")
-                })
-                .sheet(isPresented: $showingCreation) {
-                    if let modifiable = storeList.modifiableStore {
-                        CreateSecretView(store: modifiable, showing: $showingCreation)
-                    }
-                }
-
-            )
-        }
-    }
-
-    var setupNotice: ToolbarItem<Void, AnyView> {
-        return ToolbarItem {
-            AnyView(
-                Group {
-                    if (runningSetup || !hasRunSetup || !agentStatusChecker.running) && !agentStatusChecker.developmentBuild  {
-                        Button(action: {
-                            runningSetup = true
-                        }, label: {
-                            Group {
-                                if hasRunSetup && !agentStatusChecker.running {
-                                    Text("Secret Agent Is Not Running")
-                                } else {
-                                    Text("Setup Secretive")
-                                }
-                            }
-                            .font(.headline)
-                            .foregroundColor(.white)
-                        })
-                        .background(Color.orange)
-                        .cornerRadius(5)
-                    } else {
-                        EmptyView()
-                    }
-                }
-            )
-        }
-    }
-
-    var appPathNotice: ToolbarItem<Void, AnyView> {
-        let controller = ApplicationDirectoryController()
-        guard !controller.isInApplicationsDirectory else {
-            return ToolbarItem { AnyView(EmptyView()) }
-        }
-        return ToolbarItem {
-            AnyView(
-                Button(action: {
-                    showingAppPathNotice = true
-                }, label: {
-                    Group {
-                        Text("Secretive Is Not in Applications Folder")
-                    }
+    @ViewBuilder
+    var updateNoticeView: some View {
+        if let update = updater.update, let (text, color) = updateNoticeContent {
+            Button(action: {
+                selectedUpdate = update
+            }, label: {
+                Text(text)
                     .font(.headline)
                     .foregroundColor(.white)
-                })
-                .background(Color.orange)
-                .cornerRadius(5)
-                .popover(isPresented: $showingAppPathNotice, attachmentAnchor: .point(.bottom), arrowEdge: .bottom) {
-                    VStack {
-                        Image(systemName: "exclamationmark.triangle")
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: 64)
-                        Text("Secretive needs to be in your Applications folder to work properly. Please move it and relaunch.")
-                            .frame(maxWidth: 300)
-                    }
-                    .padding()
+            })
+            .background(color)
+            .cornerRadius(5)
+            .popover(item: $selectedUpdate, attachmentAnchor: .point(.bottom), arrowEdge: .bottom) { update in
+                UpdateDetailView(update: update)
+            }
+        }
+    }
+
+    @ViewBuilder
+    var newItemView: some View {
+        if storeList.modifiableStore?.isAvailable ?? false {
+            Button(action: {
+                showingCreation = true
+            }, label: {
+                Image(systemName: "plus")
+            })
+            .sheet(isPresented: $showingCreation) {
+                if let modifiable = storeList.modifiableStore {
+                    CreateSecretView(store: modifiable, showing: $showingCreation)
                 }
-            )
+            }
+        }
+    }
+
+    @ViewBuilder
+    var setupNoticeView: some View {
+        Button(action: {
+            runningSetup = true
+        }, label: {
+            Group {
+                if hasRunSetup && !agentStatusChecker.running {
+                    Text("Secret Agent Is Not Running")
+                } else {
+                    Text("Setup Secretive")
+                }
+            }
+            .font(.headline)
+            .foregroundColor(.white)
+        })
+        .background(Color.orange)
+        .cornerRadius(5)
+    }
+
+    @ViewBuilder
+    var runningNoticeView: some View {
+        Button(action: {
+            showingAgentInfo = true
+        }, label: {
+            HStack {
+                Text("Agent is Running")
+                    .font(.headline)
+                Circle()
+                    .frame(width: 10, height: 10)
+                    .foregroundColor(Color.green)
+            }
+        })
+        .background((colorScheme == .dark ? Color.white : Color.black).opacity(0.05))
+        .cornerRadius(5)
+        .popover(isPresented: $showingAgentInfo, attachmentAnchor: .point(.bottom), arrowEdge: .bottom) {
+            VStack {
+                Text("SecretAgent is Running")
+                    .font(.title)
+                    .padding(5)
+                Text("SecretAgent is a process that runs in the background to sign requests, so you don't need to keep Secretive open all the time.\n\n**You can close Secretive, and everything will still keep working.**")
+                    .frame(width: 300)
+            }
+            .padding()
+        }
+    }
+
+    @ViewBuilder
+    var appPathNoticeView: some View {
+        if !ApplicationDirectoryController().isInApplicationsDirectory {
+            Button(action: {
+                showingAppPathNotice = true
+            }, label: {
+                Group {
+                    Text("Secretive Is Not in Applications Folder")
+                }
+                .font(.headline)
+                .foregroundColor(.white)
+            })
+            .background(Color.orange)
+            .cornerRadius(5)
+            .popover(isPresented: $showingAppPathNotice, attachmentAnchor: .point(.bottom), arrowEdge: .bottom) {
+                VStack {
+                    Image(systemName: "exclamationmark.triangle")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 64)
+                    Text("Secretive needs to be in your Applications folder to work properly. Please move it and relaunch.")
+                        .frame(maxWidth: 300)
+                }
+                .padding()
+            }
         }
     }
 
@@ -198,3 +223,28 @@ struct ContentView_Previews: PreviewProvider {
 }
 
 #endif
+
+struct ToolbarButton: ButtonStyle {
+
+    private let lightColor: Color
+    private let darkColor: Color
+    @Environment(\.colorScheme) var colorScheme
+
+    init(color: Color) {
+        self.lightColor = color
+        self.darkColor = color
+    }
+
+    init(lightColor: Color, darkColor: Color) {
+        self.lightColor = lightColor
+        self.darkColor = darkColor
+    }
+
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+//            .buttonStyle(.bordered)
+            .padding()
+            .background(colorScheme == .light ? lightColor : darkColor)
+            .foregroundColor(.white)
+    }
+}
