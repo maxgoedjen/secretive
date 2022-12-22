@@ -31,6 +31,7 @@
 		50617D8A23FCE48E0099B055 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 50617D8923FCE48E0099B055 /* Preview Assets.xcassets */; };
 		50617D9923FCE48E0099B055 /* SecretiveTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50617D9823FCE48E0099B055 /* SecretiveTests.swift */; };
 		50617DD223FCEFA90099B055 /* PreviewStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50617DD123FCEFA90099B055 /* PreviewStore.swift */; };
+		5065E313295517C500E16645 /* ToolbarButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5065E312295517C500E16645 /* ToolbarButtonStyle.swift */; };
 		5066A6C22516F303004B5A36 /* SetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5066A6C12516F303004B5A36 /* SetupView.swift */; };
 		5066A6C82516FE6E004B5A36 /* CopyableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5066A6C72516FE6E004B5A36 /* CopyableView.swift */; };
 		5066A6F7251829B1004B5A36 /* ShellConfigurationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5066A6F6251829B1004B5A36 /* ShellConfigurationController.swift */; };
@@ -123,6 +124,7 @@
 		50617D9823FCE48E0099B055 /* SecretiveTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecretiveTests.swift; sourceTree = "<group>"; };
 		50617D9A23FCE48E0099B055 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		50617DD123FCEFA90099B055 /* PreviewStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewStore.swift; sourceTree = "<group>"; };
+		5065E312295517C500E16645 /* ToolbarButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolbarButtonStyle.swift; sourceTree = "<group>"; };
 		5066A6C12516F303004B5A36 /* SetupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupView.swift; sourceTree = "<group>"; };
 		5066A6C72516FE6E004B5A36 /* CopyableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CopyableView.swift; sourceTree = "<group>"; };
 		5066A6F6251829B1004B5A36 /* ShellConfigurationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShellConfigurationController.swift; sourceTree = "<group>"; };
@@ -264,6 +266,7 @@
 			isa = PBXGroup;
 			children = (
 				50617D8423FCE48E0099B055 /* ContentView.swift */,
+				5065E312295517C500E16645 /* ToolbarButtonStyle.swift */,
 				5079BA0E250F29BF00EA86F4 /* StoreListView.swift */,
 				50153E21250DECA300525160 /* SecretListItemView.swift */,
 				50C385A42407A76D00AF2719 /* SecretDetailView.swift */,
@@ -475,6 +478,7 @@
 				2C4A9D2F2636FFD3008CC8E2 /* RenameSecretView.swift in Sources */,
 				5091D2BC25183B830049FD9B /* ApplicationDirectoryController.swift in Sources */,
 				5066A6C22516F303004B5A36 /* SetupView.swift in Sources */,
+				5065E313295517C500E16645 /* ToolbarButtonStyle.swift in Sources */,
 				50617D8523FCE48E0099B055 /* ContentView.swift in Sources */,
 				50571E0324393C2600F76F6C /* JustUpdatedChecker.swift in Sources */,
 				5079BA0F250F29BF00EA86F4 /* StoreListView.swift in Sources */,

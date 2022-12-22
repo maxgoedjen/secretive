@@ -86,8 +86,7 @@ extension ContentView {
                     .font(.headline)
                     .foregroundColor(.white)
             })
-            .background(color)
-            .cornerRadius(5)
+            .buttonStyle(ToolbarButtonStyle(color: color))
             .popover(item: $selectedUpdate, attachmentAnchor: .point(.bottom), arrowEdge: .bottom) { update in
                 UpdateDetailView(update: update)
             }
@@ -125,8 +124,7 @@ extension ContentView {
             .font(.headline)
             .foregroundColor(.white)
         })
-        .background(Color.orange)
-        .cornerRadius(5)
+        .buttonStyle(ToolbarButtonStyle(color: .orange))
     }
 
     @ViewBuilder
@@ -137,13 +135,13 @@ extension ContentView {
             HStack {
                 Text("Agent is Running")
                     .font(.headline)
+                    .foregroundColor(colorScheme == .light ? Color(white: 0.3) : .white)
                 Circle()
                     .frame(width: 10, height: 10)
                     .foregroundColor(Color.green)
             }
         })
-        .background((colorScheme == .dark ? Color.white : Color.black).opacity(0.05))
-        .cornerRadius(5)
+        .buttonStyle(ToolbarButtonStyle(lightColor: .black.opacity(0.05), darkColor: .white.opacity(0.05)))
         .popover(isPresented: $showingAgentInfo, attachmentAnchor: .point(.bottom), arrowEdge: .bottom) {
             VStack {
                 Text("SecretAgent is Running")
@@ -168,8 +166,7 @@ extension ContentView {
                 .font(.headline)
                 .foregroundColor(.white)
             })
-            .background(Color.orange)
-            .cornerRadius(5)
+            .buttonStyle(ToolbarButtonStyle(color: .orange))
             .popover(isPresented: $showingAppPathNotice, attachmentAnchor: .point(.bottom), arrowEdge: .bottom) {
                 VStack {
                     Image(systemName: "exclamationmark.triangle")
@@ -224,27 +221,3 @@ struct ContentView_Previews: PreviewProvider {
 
 #endif
 
-struct ToolbarButton: ButtonStyle {
-
-    private let lightColor: Color
-    private let darkColor: Color
-    @Environment(\.colorScheme) var colorScheme
-
-    init(color: Color) {
-        self.lightColor = color
-        self.darkColor = color
-    }
-
-    init(lightColor: Color, darkColor: Color) {
-        self.lightColor = lightColor
-        self.darkColor = darkColor
-    }
-
-    func makeBody(configuration: Configuration) -> some View {
-        configuration.label
-//            .buttonStyle(.bordered)
-            .padding()
-            .background(colorScheme == .light ? lightColor : darkColor)
-            .foregroundColor(.white)
-    }
-}
