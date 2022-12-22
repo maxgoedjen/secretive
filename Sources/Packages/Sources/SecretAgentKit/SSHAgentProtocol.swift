@@ -1,11 +1,11 @@
 import Foundation
 
-/// A namespace for the SSH Agent Protocol, as described in https://tools.ietf.org/id/draft-miller-ssh-agent-01.html
+/// A namespace for the SSH Agent Protocol, as described in https://datatracker.ietf.org/doc/html/draft-miller-ssh-agent#section-5.1
 public enum SSHAgent {}
 
 extension SSHAgent {
 
-    /// The type of the SSH Agent Request, as described in https://tools.ietf.org/id/draft-miller-ssh-agent-01.html#rfc.section.5.1
+    /// The type of the SSH Agent Request, as described in https://datatracker.ietf.org/doc/html/draft-miller-ssh-agent#section-5.1
     public enum RequestType: UInt8, CustomDebugStringConvertible {
 
         case requestIdentities = 11
@@ -21,10 +21,11 @@ extension SSHAgent {
         }
     }
 
-    /// The type of the SSH Agent Response, as described in https://tools.ietf.org/id/draft-miller-ssh-agent-01.html#rfc.section.5.1
+    /// The type of the SSH Agent Response, as described in https://datatracker.ietf.org/doc/html/draft-miller-ssh-agent#section-5.1
     public enum ResponseType: UInt8, CustomDebugStringConvertible {
         
         case agentFailure = 5
+        case agentSuccess = 6
         case agentIdentitiesAnswer = 12
         case agentSignResponse = 14
 
@@ -32,6 +33,8 @@ extension SSHAgent {
             switch self {
             case .agentFailure:
                 return "AgentFailure"
+            case .agentSuccess:
+                return "AgentSuccess"
             case .agentIdentitiesAnswer:
                 return "AgentIdentitiesAnswer"
             case .agentSignResponse:

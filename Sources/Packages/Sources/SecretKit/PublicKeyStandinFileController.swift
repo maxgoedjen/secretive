@@ -45,6 +45,18 @@ public class PublicKeyFileStoreController {
         return directory.appending("/").appending("\(minimalHex).pub")
     }
 
+    /// Short-circuit check to ship enumerating a bunch of paths if there's nothing in the cert directory.
+    public var hasAnyCertificates: Bool {
+        do {
+            return try FileManager.default
+                .contentsOfDirectory(atPath: directory)
+                .filter { $0.hasSuffix("-cert.pub") }
+                .isEmpty == false
+        } catch {
+            return false
+        }
+    }
+
     /// The path for a Secret's SSH Certificate public key.
     /// - Parameter secret: The Secret to return the path for.
     /// - Returns: The path to the SSH Certificate public key.

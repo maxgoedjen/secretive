@@ -34,9 +34,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             self.socketController.handler = self.agent.handle(reader:writer:)
         }
         NotificationCenter.default.addObserver(forName: .secretStoreReloaded, object: nil, queue: .main) { [self] _ in
-            try? publicKeyFileStoreController.generatePublicKeys(for: storeList.stores.flatMap({ $0.secrets }), clear: true)
+            try? publicKeyFileStoreController.generatePublicKeys(for: storeList.allSecrets, clear: true)
         }
-        try? publicKeyFileStoreController.generatePublicKeys(for: storeList.stores.flatMap({ $0.secrets }), clear: true)
+        try? publicKeyFileStoreController.generatePublicKeys(for: storeList.allSecrets, clear: true)
         notifier.prompt()
         updateSink = updater.$update.sink { update in
             guard let update = update else { return }
