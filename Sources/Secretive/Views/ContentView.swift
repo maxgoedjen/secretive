@@ -10,6 +10,7 @@ struct ContentView<UpdaterType: UpdaterProtocol, AgentStatusCheckerType: AgentSt
     @Binding var runningSetup: Bool
     @Binding var hasRunSetup: Bool
     @State var showingAgentInfo = false
+    @State var activeSecret: AnySecret.ID?
     @Environment(\.colorScheme) var colorScheme
 
     @EnvironmentObject private var storeList: SecretStoreList
@@ -22,7 +23,7 @@ struct ContentView<UpdaterType: UpdaterProtocol, AgentStatusCheckerType: AgentSt
     var body: some View {
         VStack {
             if storeList.anyAvailable {
-                StoreListView(showingCreation: $showingCreation)
+                StoreListView(activeSecret: $activeSecret)
             } else {
                 NoStoresView()
             }
@@ -104,6 +105,10 @@ extension ContentView {
             .sheet(isPresented: $showingCreation) {
                 if let modifiable = storeList.modifiableStore {
                     CreateSecretView(store: modifiable, showing: $showingCreation)
+                        .onDisappear {
+                            guard let newest = modifiable.secrets.last?.id else { return }
+                            activeSecret = newest
+                        }
                 }
             }
         }

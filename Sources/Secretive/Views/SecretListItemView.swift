@@ -29,7 +29,8 @@ struct SecretListItemView: View {
             } else {
                 Text(secret.name)
             }
-        }.contextMenu {
+        }
+        .contextMenu {
             if store is AnySecretStoreModifiable {
                 Button(action: { isRenaming = true }) {
                     Text("Rename")

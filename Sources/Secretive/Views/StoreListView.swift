@@ -1,12 +1,11 @@
 import SwiftUI
+import Combine
 import SecretKit
 
 struct StoreListView: View {
 
-    @Binding var showingCreation: Bool
+    @Binding var activeSecret: AnySecret.ID?
     
-    @State private var activeSecret: AnySecret.ID?
-
     @EnvironmentObject private var storeList: SecretStoreList
 
     private func secretDeleted(secret: AnySecret) {
@@ -14,7 +13,7 @@ struct StoreListView: View {
     }
 
     private func secretRenamed(secret: AnySecret) {
-        activeSecret = nextDefaultSecret
+        activeSecret = secret.id
     }
 
     var body: some View {
