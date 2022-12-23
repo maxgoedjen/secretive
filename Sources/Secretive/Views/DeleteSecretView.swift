@@ -35,7 +35,6 @@ struct DeleteSecretView<StoreType: SecretStoreModifiable>: View {
                 Spacer()
                 Button("Delete", action: delete)
                     .disabled(confirm != secret.name)
-                    .keyboardShortcut(.delete)
                 Button("Don't Delete") {
                     dismissalBlock(false)
                 }
