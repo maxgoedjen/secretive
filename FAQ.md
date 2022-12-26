@@ -1,5 +1,33 @@
 # FAQ
 
+## Setup Instructions: Authenticating and Signing Code with git and GitHub
+
+Signing all commits is a good habit, and fairly simple to set up.
+
+### Instructions
+
+After installing Secretive (`brew install secretive`):
+
+1. Generate a new SSH key in the UI
+2. Add it to your GitHub account as an Auth **and** a Signing key, i.e. add it twice.
+
+Next, configure your local environment:
+
+3. Configure SSH_AUTH_SOCK: `echo 'export SSH_AUTH_SOCK=/Users/YOUR-ACCOUNT/Library/Containers/com.maxgoedjen.Secretive.SecretAgent/Data/socket.ssh' >> ~/.bashrc` (or whatever shell you use; don't forget to run the export in your current session as well)
+4. Copy out the "Public Key Path" in the UI for step 6
+5. `git config --global gpg.format ssh`
+6. `git config --global user.signingkey /Users/YOU/Library/Containers/com.maxgoedjen.Secretive.SecretAgent/Data/PublicKeys/YOUR.pub`
+7. `git config commit.gpgsign true` (sign future commits for this repo) or `git config --global commit.gpgsign true` (all repos)
+8. `git config tag.gpgsign true` (sign future tags, `--global` for all repos)
+
+### Troubleshooting
+
+- `kill -HUP <secretive, secretive agent pids>` if you see an "Agent is not running" message in Secretive.
+- Copy your pubkey into ~/.ssh/id_ecdsa.pub if the file from step 6 isn't present (`ls` to check)
+- Try `git commit -S -m 'message'` if you're not seeing steps 7/8 auto-triggering signing for you.
+
+## FAQs
+
 ### How do I import my current SSH keys, or export my Secretive Keys?
 
 The secure enclave doesn't allow import or export of private keys. For any new computer, you should just create a new set of keys. If you're using a smart card, you _might_ be able to export your private key from the vendor's software.
