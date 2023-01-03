@@ -12,7 +12,7 @@ Should just work, no configuration needed
 
 Add this to your `~/.ssh/config` (the path should match the socket path from the setup flow).
 
-```
+```text
 Host *
 	IdentityAgent /Users/$YOUR_USERNAME/Library/Containers/com.maxgoedjen.Secretive.SecretAgent/Data/socket.ssh
 ```
@@ -21,7 +21,7 @@ Host *
 
 Add this to your `~/.ssh/config` (the path should match the socket path from the setup flow).
 
-```
+```text
 Host *
 	IdentityAgent /Users/$YOUR_USERNAME/Library/Containers/com.maxgoedjen.Secretive.SecretAgent/Data/socket.ssh
 ```
@@ -30,7 +30,7 @@ Host *
 
 Add this to your `~/.ssh/config` (the path should match the socket path from the setup flow).
 
-```
+```text
 Host *
 	IdentityAgent /Users/$YOUR_USERNAME/Library/Containers/com.maxgoedjen.Secretive.SecretAgent/Data/socket.ssh
 ```
@@ -39,7 +39,7 @@ Host *
 
 Add this to `~/Library/LaunchAgents/com.maxgoedjen.Secretive.SecretAgent.plist`
 
-```
+```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
@@ -64,7 +64,7 @@ Log out and log in again before launching Cyberduck.
 
 Add this to `~/Library/LaunchAgents/com.maxgoedjen.Secretive.SecretAgent.plist`
 
-```
+```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
@@ -89,7 +89,7 @@ Log out and log in again before launching Mountain Duck.
 
 Add this to `~/Library/LaunchAgents/com.maxgoedjen.Secretive.SecretAgent.plist`
 
-```
+```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
@@ -110,7 +110,7 @@ Add this to `~/Library/LaunchAgents/com.maxgoedjen.Secretive.SecretAgent.plist`
 
 Log out and log in again before launching Gitkraken. Then enable "Use local SSH agent in GitKraken Preferences (Located under Preferences -> SSH)
 
-# The app I use isn't listed here!
+## The app I use isn't listed here!
 
 If you know how to get it set up, please open a PR for this page and add it! Contributions are very welcome.
 If you're not able to get it working, please file a [GitHub issue](https://github.com/maxgoedjen/secretive/issues/new) for it. No guarantees we'll be able to get it working, but chances are someone else in the community might be able to.
