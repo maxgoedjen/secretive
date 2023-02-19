@@ -49,7 +49,7 @@ extension SecureEnclave {
                 throw error.takeRetainedValue() as Error
             }
 
-            let attributes = [
+            let attributes = KeychainDictionary([
                 kSecAttrLabel: name,
                 kSecAttrKeyType: Constants.keyType,
                 kSecAttrTokenID: kSecAttrTokenIDSecureEnclave,
@@ -58,7 +58,7 @@ extension SecureEnclave {
                     kSecAttrIsPermanent: true,
                     kSecAttrAccessControl: access
                 ]
-            ] as CFDictionary
+            ])
 
             var createKeyError: SecurityError?
             let keypair = SecKeyCreateRandomKey(attributes, &createKeyError)
@@ -73,10 +73,10 @@ extension SecureEnclave {
         }
 
         public func delete(secret: Secret) throws {
-            let deleteAttributes = [
+            let deleteAttributes = KeychainDictionary([
                 kSecClass: kSecClassKey,
                 kSecAttrApplicationLabel: secret.id as CFData
-            ] as CFDictionary
+            ])
             let status = SecItemDelete(deleteAttributes)
             if status != errSecSuccess {
                 throw KeychainError(statusCode: status)
@@ -85,14 +85,14 @@ extension SecureEnclave {
         }
 
         public func update(secret: Secret, name: String) throws {
-            let updateQuery = [
+            let updateQuery = KeychainDictionary([
                 kSecClass: kSecClassKey,
                 kSecAttrApplicationLabel: secret.id as CFData
-            ] as CFDictionary
+            ])
 
-            let updatedAttributes = [
+            let updatedAttributes = KeychainDictionary([
                 kSecAttrLabel: name,
-            ] as CFDictionary
+            ])
 
             let status = SecItemUpdate(updateQuery, updatedAttributes)
             if status != errSecSuccess {
@@ -111,7 +111,7 @@ extension SecureEnclave {
                 context = newContext
             }
             context.localizedReason = "sign a request from \"\(provenance.origin.displayName)\" using secret \"\(secret.name)\""
-            let attributes = [
+            let attributes = KeychainDictionary([
                 kSecClass: kSecClassKey,
                 kSecAttrKeyClass: kSecAttrKeyClassPrivate,
                 kSecAttrApplicationLabel: secret.id as CFData,
@@ -120,7 +120,7 @@ extension SecureEnclave {
                 kSecAttrApplicationTag: Constants.keyTag,
                 kSecUseAuthenticationContext: context,
                 kSecReturnRef: true
-                ] as CFDictionary
+                ])
             var untyped: CFTypeRef?
             let status = SecItemCopyMatching(attributes, &untyped)
             if status != errSecSuccess {
@@ -190,7 +190,7 @@ extension SecureEnclave.Store {
 
     /// Loads all secrets from the store.
     private func loadSecrets() {
-        let publicAttributes = [
+        let publicAttributes = KeychainDictionary([
             kSecClass: kSecClassKey,
             kSecAttrKeyType: SecureEnclave.Constants.keyType,
             kSecAttrApplicationTag: SecureEnclave.Constants.keyTag,
@@ -198,11 +198,11 @@ extension SecureEnclave.Store {
             kSecReturnRef: true,
             kSecMatchLimit: kSecMatchLimitAll,
             kSecReturnAttributes: true
-            ] as CFDictionary
+            ])
         var publicUntyped: CFTypeRef?
         SecItemCopyMatching(publicAttributes, &publicUntyped)
         guard let publicTyped = publicUntyped as? [[CFString: Any]] else { return }
-        let privateAttributes = [
+        let privateAttributes = KeychainDictionary([
             kSecClass: kSecClassKey,
             kSecAttrKeyType: SecureEnclave.Constants.keyType,
             kSecAttrApplicationTag: SecureEnclave.Constants.keyTag,
@@ -210,7 +210,7 @@ extension SecureEnclave.Store {
             kSecReturnRef: true,
             kSecMatchLimit: kSecMatchLimitAll,
             kSecReturnAttributes: true
-            ] as CFDictionary
+            ])
         var privateUntyped: CFTypeRef?
         SecItemCopyMatching(privateAttributes, &privateUntyped)
         guard let privateTyped = privateUntyped as? [[CFString: Any]] else { return }
@@ -248,7 +248,7 @@ extension SecureEnclave.Store {
     ///   - publicKey: The public key to save.
     ///   - name: A user-facing name for the key.
     private func savePublicKey(_ publicKey: SecKey, name: String) throws {
-        let attributes = [
+        let attributes = KeychainDictionary([
             kSecClass: kSecClassKey,
             kSecAttrKeyType: SecureEnclave.Constants.keyType,
             kSecAttrKeyClass: kSecAttrKeyClassPublic,
@@ -257,7 +257,7 @@ extension SecureEnclave.Store {
             kSecAttrIsPermanent: true,
             kSecReturnData: true,
             kSecAttrLabel: name
-            ] as CFDictionary
+            ])
         let status = SecItemAdd(attributes, nil)
         if status != errSecSuccess {
             throw SecureEnclave.KeychainError(statusCode: status)
