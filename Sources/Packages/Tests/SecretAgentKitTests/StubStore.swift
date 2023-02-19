@@ -27,7 +27,7 @@ extension Stub {
                                                 flags,
                                                 nil) as Any
 
-            let attributes = [
+            let attributes = KeychainDictionary([
                 kSecAttrLabel: name,
                 kSecAttrKeyType: kSecAttrKeyTypeECSECPrimeRandom,
                 kSecAttrKeySizeInBits: size,
@@ -35,11 +35,10 @@ extension Stub {
                     kSecAttrIsPermanent: true,
                     kSecAttrAccessControl: access
                 ]
-                ] as CFDictionary
+                ])
 
-            var privateKey: SecKey! = nil
-            var publicKey: SecKey! = nil
-            SecKeyGeneratePair(attributes, &publicKey, &privateKey)
+            let privateKey = SecKeyCreateRandomKey(attributes, nil)!
+            let publicKey = SecKeyCopyPublicKey(privateKey)!
             let publicAttributes = SecKeyCopyAttributes(publicKey) as! [CFString: Any]
             let privateAttributes = SecKeyCopyAttributes(privateKey) as! [CFString: Any]
             let publicData = (publicAttributes[kSecValueData] as! Data)
@@ -53,11 +52,11 @@ extension Stub {
             guard !shouldThrow else {
                 throw NSError(domain: "test", code: 0, userInfo: nil)
             }
-            let privateKey = SecKeyCreateWithData(secret.privateKey as CFData, [
+            let privateKey = SecKeyCreateWithData(secret.privateKey as CFData, KeychainDictionary([
                 kSecAttrKeyType: kSecAttrKeyTypeECSECPrimeRandom,
                 kSecAttrKeySizeInBits: secret.keySize,
                 kSecAttrKeyClass: kSecAttrKeyClassPrivate
-                ] as CFDictionary
+                ])
                 , nil)!
             let signatureAlgorithm: SecKeyAlgorithm
             switch secret.keySize {

@@ -1,4 +1,5 @@
 import Foundation
+import Combine
 import Security
 import CryptoTokenKit
 import LocalAuthentication
@@ -49,14 +50,14 @@ extension SmartCard {
             let context = LAContext()
             context.localizedReason = "sign a request from \"\(provenance.origin.displayName)\" using secret \"\(secret.name)\""
             context.localizedCancelTitle = "Deny"
-            let attributes = [
+            let attributes = KeychainDictionary([
                 kSecClass: kSecClassKey,
                 kSecAttrKeyClass: kSecAttrKeyClassPrivate,
                 kSecAttrApplicationLabel: secret.id as CFData,
                 kSecAttrTokenID: tokenID,
                 kSecUseAuthenticationContext: context,
                 kSecReturnRef: true
-            ] as CFDictionary
+            ])
             var untyped: CFTypeRef?
             let status = SecItemCopyMatching(attributes, &untyped)
             if status != errSecSuccess {
@@ -136,14 +137,14 @@ extension SmartCard.Store {
             }
         }
 
-        let attributes = [
+        let attributes = KeychainDictionary([
             kSecClass: kSecClassKey,
             kSecAttrTokenID: tokenID,
             kSecAttrKeyType: kSecAttrKeyTypeEC, // Restrict to EC
             kSecReturnRef: true,
             kSecMatchLimit: kSecMatchLimitAll,
             kSecReturnAttributes: true
-        ] as CFDictionary
+        ])
         var untyped: CFTypeRef?
         SecItemCopyMatching(attributes, &untyped)
         guard let typed = untyped as? [[CFString: Any]] else { return }
