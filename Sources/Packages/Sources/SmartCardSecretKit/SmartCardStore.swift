@@ -74,11 +74,121 @@ extension SmartCard {
                 signatureAlgorithm = .ecdsaSignatureMessageX962SHA256
             case (.ellipticCurve, 384):
                 signatureAlgorithm = .ecdsaSignatureMessageX962SHA384
+            case (.rsa, 1024):
+                signatureAlgorithm = .rsaSignatureMessagePKCS1v15SHA512
+            case (.rsa, 2048):
+                signatureAlgorithm = .rsaSignatureMessagePKCS1v15SHA512
             default:
                 fatalError()
             }
             guard let signature = SecKeyCreateSignature(key, signatureAlgorithm, data as CFData, &signError) else {
                 throw SigningError(error: signError)
+            }
+            return signature as Data
+        }
+        
+        public func verify(data: Data, signature: Data, with secret: SecretType) throws -> Bool {
+        
+            let attributes = KeychainDictionary([
+                kSecAttrKeyType: secret.algorithm.secAttrKeyType,
+                kSecAttrKeySizeInBits: secret.keySize,
+                kSecAttrKeyClass: kSecAttrKeyClassPublic
+            ])
+            var encryptError: SecurityError?
+            var untyped: CFTypeRef? = SecKeyCreateWithData(secret.publicKey as CFData, attributes, &encryptError)
+            guard let untypedSafe = untyped else {
+                throw KeychainError(statusCode: errSecSuccess)
+            }
+            let key = untypedSafe as! SecKey
+            let signatureAlgorithm: SecKeyAlgorithm
+            switch (secret.algorithm, secret.keySize) {
+            case (.ellipticCurve, 256):
+                signatureAlgorithm = .ecdsaSignatureMessageX962SHA256
+            case (.ellipticCurve, 384):
+                signatureAlgorithm = .ecdsaSignatureMessageX962SHA384
+            case (.rsa, 1024):
+                signatureAlgorithm = .rsaSignatureMessagePKCS1v15SHA512
+            case (.rsa, 2048):
+                signatureAlgorithm = .rsaSignatureMessagePKCS1v15SHA512
+            default:
+                fatalError()
+            }
+            let signature = SecKeyVerifySignature(key, signatureAlgorithm, data as CFData, signature as CFData, &encryptError)
+            if !signature {
+                throw SigningError(error: encryptError)
+            }
+            return signature
+        }
+        
+        public func encrypt(data: Data, with secret: SecretType) throws -> Data {
+            let attributes = KeychainDictionary([
+                kSecAttrKeyType: secret.algorithm.secAttrKeyType,
+                kSecAttrKeySizeInBits: secret.keySize,
+                kSecAttrKeyClass: kSecAttrKeyClassPublic
+            ])
+            var encryptError: SecurityError?
+            let untyped: CFTypeRef? = SecKeyCreateWithData(secret.publicKey as CFData, attributes, &encryptError)
+            guard let untypedSafe = untyped else {
+                throw KeychainError(statusCode: errSecSuccess)
+            }
+            let key = untypedSafe as! SecKey
+            let signatureAlgorithm: SecKeyAlgorithm
+            switch (secret.algorithm, secret.keySize) {
+            case (.ellipticCurve, 256):
+                signatureAlgorithm = .eciesEncryptionCofactorVariableIVX963SHA256AESGCM
+            case (.ellipticCurve, 384):
+                signatureAlgorithm = .eciesEncryptionCofactorVariableIVX963SHA256AESGCM
+            case (.rsa, 1024):
+                signatureAlgorithm = .rsaEncryptionOAEPSHA512AESGCM
+            case (.rsa, 2048):
+                signatureAlgorithm = .rsaEncryptionOAEPSHA512AESGCM
+            default:
+                fatalError()
+            }
+            guard let signature = SecKeyCreateEncryptedData(key, signatureAlgorithm, data as CFData, &encryptError) else {
+                throw SigningError(error: encryptError)
+            }
+            return signature as Data
+        }
+        
+        public func decrypt(data: Data, with secret: SecretType) throws -> Data {
+            guard let tokenID = tokenID else { fatalError() }
+            let context = LAContext()
+            context.localizedReason = "decrypt a file using secret \"\(secret.name)\""
+            context.localizedCancelTitle = "Deny"
+            let attributes = KeychainDictionary([
+                kSecClass: kSecClassKey,
+                kSecAttrKeyClass: kSecAttrKeyClassPrivate,
+                kSecAttrApplicationLabel: secret.id as CFData,
+                kSecAttrTokenID: tokenID,
+                kSecUseAuthenticationContext: context,
+                kSecReturnRef: true
+            ])
+            var untyped: CFTypeRef?
+            let status = SecItemCopyMatching(attributes, &untyped)
+            if status != errSecSuccess {
+                throw KeychainError(statusCode: status)
+            }
+            guard let untypedSafe = untyped else {
+                throw KeychainError(statusCode: errSecSuccess)
+            }
+            let key = untypedSafe as! SecKey
+            var encryptError: SecurityError?
+            let signatureAlgorithm: SecKeyAlgorithm
+            switch (secret.algorithm, secret.keySize) {
+            case (.ellipticCurve, 256):
+                signatureAlgorithm = .eciesEncryptionStandardX963SHA256AESGCM
+            case (.ellipticCurve, 384):
+                signatureAlgorithm = .eciesEncryptionStandardX963SHA384AESGCM
+            case (.rsa, 1024):
+                signatureAlgorithm = .rsaEncryptionOAEPSHA512AESGCM
+            case (.rsa, 2048):
+                signatureAlgorithm = .rsaEncryptionOAEPSHA512AESGCM
+            default:
+                fatalError()
+            }
+            guard let signature = SecKeyCreateDecryptedData(key, signatureAlgorithm, data as CFData, &encryptError) else {
+                throw SigningError(error: encryptError)
             }
             return signature as Data
         }
@@ -140,7 +250,6 @@ extension SmartCard.Store {
         let attributes = KeychainDictionary([
             kSecClass: kSecClassKey,
             kSecAttrTokenID: tokenID,
-            kSecAttrKeyType: kSecAttrKeyTypeEC, // Restrict to EC
             kSecReturnRef: true,
             kSecMatchLimit: kSecMatchLimitAll,
             kSecReturnAttributes: true
