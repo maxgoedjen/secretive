@@ -25,11 +25,11 @@ public protocol SecretStore: ObservableObject, Identifiable {
 
     /// Verifies that a signature is valid over a specified payload.
     /// - Parameters:
-    ///   - data: The data to verify the signature of.
     ///   - signature: The signature over the data.
+    ///   - data: The data to verify the signature of.
     ///   - secret: The secret whose signature to verify.
     /// - Returns: Whether the signature was verified.
-    func verify(data: Data, signature: Data, with secret: SecretType) throws -> Bool
+    func verify(signature: Data, for data: Data, with secret: SecretType) throws -> Bool
 
     /// Checks to see if there is currently a valid persisted authentication for a given secret.
     /// - Parameters:

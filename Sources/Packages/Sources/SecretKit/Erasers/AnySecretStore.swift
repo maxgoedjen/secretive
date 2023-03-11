@@ -24,7 +24,7 @@ public class AnySecretStore: SecretStore {
         _id = { secretStore.id }
         _secrets = { secretStore.secrets.map { AnySecret($0) } }
         _sign = { try secretStore.sign(data: $0, with: $1.base as! SecretStoreType.SecretType, for: $2) }
-        _verify = { try secretStore.verify(data: $0, signature: $1, with: $2.base as! SecretStoreType.SecretType) }
+        _verify = { try secretStore.verify(signature: $0, for: $1, with: $2.base as! SecretStoreType.SecretType) }
         _existingPersistedAuthenticationContext = { secretStore.existingPersistedAuthenticationContext(secret: $0.base as! SecretStoreType.SecretType) }
         _persistAuthentication = { try secretStore.persistAuthentication(secret: $0.base as! SecretStoreType.SecretType, forDuration: $1) }
         _reloadSecrets = { secretStore.reloadSecrets() }
@@ -53,8 +53,8 @@ public class AnySecretStore: SecretStore {
         try _sign(data, secret, provenance)
     }
 
-    public func verify(data: Data, signature: Data, with secret: AnySecret) throws -> Bool {
-        try _verify(data, signature, secret)
+    public func verify(signature: Data, for data: Data, with secret: AnySecret) throws -> Bool {
+        try _verify(signature, data, secret)
     }
 
     public func existingPersistedAuthenticationContext(secret: AnySecret) -> PersistedAuthenticationContext? {

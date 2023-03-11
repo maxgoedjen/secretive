@@ -86,7 +86,7 @@ extension SmartCard {
             }
             return signature as Data
         }
-        public func verify(data: Data, signature: Data, with secret: Secret) throws -> Bool {
+        public func verify(signature: Data, for data: Data, with secret: Secret) throws -> Bool {
             let attributes = KeychainDictionary([
                 kSecAttrKeyType: secret.algorithm.secAttrKeyType,
                 kSecAttrKeySizeInBits: secret.keySize,

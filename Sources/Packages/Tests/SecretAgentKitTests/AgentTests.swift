@@ -61,8 +61,13 @@ class AgentTests: XCTestCase {
         var rs = r
         rs.append(s)
         let signature = try! P256.Signing.ECDSASignature(rawRepresentation: rs)
-        let valid = try! P256.Signing.PublicKey(x963Representation: Constants.Secrets.ecdsa256Secret.publicKey).isValidSignature(signature, for: dataToSign)
-        XCTAssertTrue(valid)
+        let refereneceValid = try! P256.Signing.PublicKey(x963Representation: Constants.Secrets.ecdsa256Secret.publicKey).isValidSignature(signature, for: dataToSign)
+        let store = list.stores.first!
+        let valid = try? store.verify(signature: rs, for: dataToSign, with: AnySecret(Constants.Secrets.ecdsa256Secret))
+        let invalid = try? store.verify(signature: rs, for: dataToSign, with: AnySecret(Constants.Secrets.ecdsa256Secret))
+        XCTAssertTrue(refereneceValid)
+        XCTAssert(valid == true)
+        XCTAssert(invalid == false)
     }
 
     // MARK: Witness protocol

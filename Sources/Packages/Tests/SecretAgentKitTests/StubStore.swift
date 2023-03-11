@@ -70,7 +70,7 @@ extension Stub {
             return SecKeyCreateSignature(privateKey, signatureAlgorithm, data as CFData, nil)! as Data
         }
 
-        public func verify(data: Data, signature: Data, with secret: Stub.Secret) throws -> Bool {
+        public func verify(signature: Data, for data: Data, with secret: Stub.Secret) throws -> Bool {
             let attributes = KeychainDictionary([
                 kSecAttrKeyType: secret.algorithm.secAttrKeyType,
                 kSecAttrKeySizeInBits: secret.keySize,
