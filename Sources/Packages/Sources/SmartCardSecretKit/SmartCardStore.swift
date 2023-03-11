@@ -111,11 +111,11 @@ extension SmartCard {
             default:
                 fatalError()
             }
-            let signature = SecKeyVerifySignature(key, signatureAlgorithm, data as CFData, signature as CFData, &verifyError)
-            if !signature {
+            let verified = SecKeyVerifySignature(key, signatureAlgorithm, data as CFData, signature as CFData, &verifyError)
+            if !verified, let verifyError {
                 throw SigningError(error: verifyError)
             }
-            return signature
+            return verified
         }
 
         public func existingPersistedAuthenticationContext(secret: SmartCard.Secret) -> PersistedAuthenticationContext? {

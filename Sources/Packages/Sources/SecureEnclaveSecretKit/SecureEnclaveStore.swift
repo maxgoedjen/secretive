@@ -162,11 +162,11 @@ extension SecureEnclave {
                 throw KeychainError(statusCode: errSecSuccess)
             }
             let key = untypedSafe as! SecKey
-            let signature = SecKeyVerifySignature(key, .ecdsaSignatureMessageX962SHA256, data as CFData, signature as CFData, &verifyError)
-            if !signature {
+            let verified = SecKeyVerifySignature(key, .ecdsaSignatureMessageX962SHA256, data as CFData, signature as CFData, &verifyError)
+            if !verified, let verifyError {
                 throw SigningError(error: verifyError)
             }
-            return signature
+            return verified
         }
 
         public func existingPersistedAuthenticationContext(secret: Secret) -> PersistedAuthenticationContext? {
