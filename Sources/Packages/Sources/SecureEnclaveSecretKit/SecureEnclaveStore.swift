@@ -101,7 +101,7 @@ extension SecureEnclave {
             reloadSecretsInternal()
         }
         
-        public func sign(data: Data, with secret: SecretType, for provenance: SigningRequestProvenance) throws -> Data {
+        public func sign(data: Data, with secret: Secret, for provenance: SigningRequestProvenance) throws -> Data {
             let context: LAContext
             if let existing = persistedAuthenticationContexts[secret], existing.valid {
                 context = existing.context
@@ -136,6 +136,37 @@ extension SecureEnclave {
                 throw SigningError(error: signError)
             }
             return signature as Data
+        }
+
+        public func verify(data: Data, signature: Data, with secret: Secret) throws -> Bool {
+            let context = LAContext()
+            context.localizedReason = "verify a signature using secret \"\(secret.name)\""
+            context.localizedCancelTitle = "Deny"
+            let attributes = KeychainDictionary([
+                kSecClass: kSecClassKey,
+                kSecAttrKeyClass: kSecAttrKeyClassPrivate,
+                kSecAttrApplicationLabel: secret.id as CFData,
+                kSecAttrKeyType: Constants.keyType,
+                kSecAttrTokenID: kSecAttrTokenIDSecureEnclave,
+                kSecAttrApplicationTag: Constants.keyTag,
+                kSecUseAuthenticationContext: context,
+                kSecReturnRef: true
+                ])
+            var verifyError: SecurityError?
+            var untyped: CFTypeRef?
+            let status = SecItemCopyMatching(attributes, &untyped)
+            if status != errSecSuccess {
+                throw KeychainError(statusCode: status)
+            }
+            guard let untypedSafe = untyped else {
+                throw KeychainError(statusCode: errSecSuccess)
+            }
+            let key = untypedSafe as! SecKey
+            let signature = SecKeyVerifySignature(key, .ecdsaSignatureMessageX962SHA256, data as CFData, signature as CFData, &verifyError)
+            if !signature {
+                throw SigningError(error: verifyError)
+            }
+            return signature
         }
 
         public func existingPersistedAuthenticationContext(secret: Secret) -> PersistedAuthenticationContext? {
