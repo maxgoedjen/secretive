@@ -61,8 +61,17 @@ class AgentTests: XCTestCase {
         var rs = r
         rs.append(s)
         let signature = try! P256.Signing.ECDSASignature(rawRepresentation: rs)
-        let valid = try! P256.Signing.PublicKey(x963Representation: Constants.Secrets.ecdsa256Secret.publicKey).isValidSignature(signature, for: dataToSign)
-        XCTAssertTrue(valid)
+        let referenceValid = try! P256.Signing.PublicKey(x963Representation: Constants.Secrets.ecdsa256Secret.publicKey).isValidSignature(signature, for: dataToSign)
+        let store = list.stores.first!
+        let derVerifies = try! store.verify(signature: signature.derRepresentation, for: dataToSign, with: AnySecret(Constants.Secrets.ecdsa256Secret))
+        let invalidRandomSignature = try? store.verify(signature: "invalid".data(using: .utf8)!, for: dataToSign, with: AnySecret(Constants.Secrets.ecdsa256Secret))
+        let invalidRandomData = try? store.verify(signature: signature.derRepresentation, for: "invalid".data(using: .utf8)!, with: AnySecret(Constants.Secrets.ecdsa256Secret))
+        let invalidWrongKey = try? store.verify(signature: signature.derRepresentation, for: dataToSign, with: AnySecret(Constants.Secrets.ecdsa384Secret))
+        XCTAssertTrue(referenceValid)
+        XCTAssertTrue(derVerifies)
+        XCTAssert(invalidRandomSignature == false)
+        XCTAssert(invalidRandomData == false)
+        XCTAssert(invalidWrongKey == false)
     }
 
     // MARK: Witness protocol

@@ -20,6 +20,7 @@ public protocol Secret: Identifiable, Hashable {
 public enum Algorithm: Hashable {
 
     case ellipticCurve
+    case rsa
 
     /// Initializes the Algorithm with a secAttr representation of an algorithm.
     /// - Parameter secAttr: the secAttr, represented as an NSNumber.
@@ -28,8 +29,19 @@ public enum Algorithm: Hashable {
         switch secAttrString {
         case kSecAttrKeyTypeEC:
             self = .ellipticCurve
+        case kSecAttrKeyTypeRSA:
+            self = .rsa
         default:
             fatalError()
+        }
+    }
+    
+    public var secAttrKeyType: CFString {
+        switch self {
+        case .ellipticCurve:
+            return kSecAttrKeyTypeEC
+        case .rsa:
+            return kSecAttrKeyTypeRSA
         }
     }
 }

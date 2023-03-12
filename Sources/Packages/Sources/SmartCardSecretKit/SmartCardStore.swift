@@ -45,7 +45,7 @@ extension SmartCard {
             fatalError("Keys must be deleted on the smart card.")
         }
 
-        public func sign(data: Data, with secret: SecretType, for provenance: SigningRequestProvenance) throws -> Data {
+        public func sign(data: Data, with secret: Secret, for provenance: SigningRequestProvenance) throws -> Data {
             guard let tokenID = tokenID else { fatalError() }
             let context = LAContext()
             context.localizedReason = "sign a request from \"\(provenance.origin.displayName)\" using secret \"\(secret.name)\""
@@ -68,26 +68,40 @@ extension SmartCard {
             }
             let key = untypedSafe as! SecKey
             var signError: SecurityError?
-            let signatureAlgorithm: SecKeyAlgorithm
-            switch (secret.algorithm, secret.keySize) {
-            case (.ellipticCurve, 256):
-                signatureAlgorithm = .ecdsaSignatureMessageX962SHA256
-            case (.ellipticCurve, 384):
-                signatureAlgorithm = .ecdsaSignatureMessageX962SHA384
-            default:
-                fatalError()
-            }
-            guard let signature = SecKeyCreateSignature(key, signatureAlgorithm, data as CFData, &signError) else {
+            guard let signature = SecKeyCreateSignature(key, signatureAlgorithm(for: secret, allowRSA: true), data as CFData, &signError) else {
                 throw SigningError(error: signError)
             }
             return signature as Data
         }
+        
+        public func verify(signature: Data, for data: Data, with secret: Secret) throws -> Bool {
+            let attributes = KeychainDictionary([
+                kSecAttrKeyType: secret.algorithm.secAttrKeyType,
+                kSecAttrKeySizeInBits: secret.keySize,
+                kSecAttrKeyClass: kSecAttrKeyClassPublic
+            ])
+            var verifyError: SecurityError?
+            let untyped: CFTypeRef? = SecKeyCreateWithData(secret.publicKey as CFData, attributes, &verifyError)
+            guard let untypedSafe = untyped else {
+                throw KeychainError(statusCode: errSecSuccess)
+            }
+            let key = untypedSafe as! SecKey
+            let verified = SecKeyVerifySignature(key, signatureAlgorithm(for: secret, allowRSA: true), data as CFData, signature as CFData, &verifyError)
+            if !verified, let verifyError {
+                if verifyError.takeUnretainedValue() ~= .verifyError {
+                    return false
+                } else {
+                    throw SigningError(error: verifyError)
+                }
+            }
+            return verified
+        }
 
-        public func existingPersistedAuthenticationContext(secret: SmartCard.Secret) -> PersistedAuthenticationContext? {
+        public func existingPersistedAuthenticationContext(secret: Secret) -> PersistedAuthenticationContext? {
             nil
         }
 
-        public func persistAuthentication(secret: SmartCard.Secret, forDuration: TimeInterval) throws {
+        public func persistAuthentication(secret: Secret, forDuration: TimeInterval) throws {
         }
 
         /// Reloads all secrets from the store.
@@ -140,7 +154,6 @@ extension SmartCard.Store {
         let attributes = KeychainDictionary([
             kSecClass: kSecClassKey,
             kSecAttrTokenID: tokenID,
-            kSecAttrKeyType: kSecAttrKeyTypeEC, // Restrict to EC
             kSecReturnRef: true,
             kSecMatchLimit: kSecMatchLimitAll,
             kSecReturnAttributes: true
@@ -148,7 +161,7 @@ extension SmartCard.Store {
         var untyped: CFTypeRef?
         SecItemCopyMatching(attributes, &untyped)
         guard let typed = untyped as? [[CFString: Any]] else { return }
-        let wrapped: [SmartCard.Secret] = typed.map {
+        let wrapped = typed.map {
             let name = $0[kSecAttrLabel] as? String ?? "Unnamed"
             let tokenID = $0[kSecAttrApplicationLabel] as! Data
             let algorithm = Algorithm(secAttr: $0[kSecAttrKeyType] as! NSNumber)
@@ -164,33 +177,93 @@ extension SmartCard.Store {
 
 }
 
+
+// MARK: Smart Card specific encryption/decryption/verification
+extension SmartCard.Store {
+
+    /// Encrypts a payload with a specified key.
+    /// - Parameters:
+    ///   - data: The payload to encrypt.
+    ///   - secret: The secret to encrypt with.
+    /// - Returns: The encrypted data.
+    /// - Warning: Encryption functions are deliberately only exposed on a library level, and are not exposed in Secretive itself to prevent users from data loss. Any pull requests which expose this functionality in the app will not be merged.
+    public func encrypt(data: Data, with secret: SecretType) throws -> Data {
+        let context = LAContext()
+        context.localizedReason = "encrypt data using secret \"\(secret.name)\""
+        context.localizedCancelTitle = "Deny"
+        let attributes = KeychainDictionary([
+            kSecAttrKeyType: secret.algorithm.secAttrKeyType,
+            kSecAttrKeySizeInBits: secret.keySize,
+            kSecAttrKeyClass: kSecAttrKeyClassPublic,
+            kSecUseAuthenticationContext: context
+        ])
+        var encryptError: SecurityError?
+        let untyped: CFTypeRef? = SecKeyCreateWithData(secret.publicKey as CFData, attributes, &encryptError)
+        guard let untypedSafe = untyped else {
+            throw KeychainError(statusCode: errSecSuccess)
+        }
+        let key = untypedSafe as! SecKey
+        guard let signature = SecKeyCreateEncryptedData(key, encryptionAlgorithm(for: secret), data as CFData, &encryptError) else {
+            throw SigningError(error: encryptError)
+        }
+        return signature as Data
+    }
+
+    /// Decrypts a payload with a specified key.
+    /// - Parameters:
+    ///   - data: The payload to decrypt.
+    ///   - secret: The secret to decrypt with.
+    /// - Returns: The decrypted data.
+    /// - Warning: Encryption functions are deliberately only exposed on a library level, and are not exposed in Secretive itself to prevent users from data loss. Any pull requests which expose this functionality in the app will not be merged.
+    public func decrypt(data: Data, with secret: SecretType) throws -> Data {
+        guard let tokenID = tokenID else { fatalError() }
+        let context = LAContext()
+        context.localizedReason = "decrypt data using secret \"\(secret.name)\""
+        context.localizedCancelTitle = "Deny"
+        let attributes = KeychainDictionary([
+            kSecClass: kSecClassKey,
+            kSecAttrKeyClass: kSecAttrKeyClassPrivate,
+            kSecAttrApplicationLabel: secret.id as CFData,
+            kSecAttrTokenID: tokenID,
+            kSecUseAuthenticationContext: context,
+            kSecReturnRef: true
+        ])
+        var untyped: CFTypeRef?
+        let status = SecItemCopyMatching(attributes, &untyped)
+        if status != errSecSuccess {
+            throw KeychainError(statusCode: status)
+        }
+        guard let untypedSafe = untyped else {
+            throw KeychainError(statusCode: errSecSuccess)
+        }
+        let key = untypedSafe as! SecKey
+        var encryptError: SecurityError?
+        guard let signature = SecKeyCreateDecryptedData(key, encryptionAlgorithm(for: secret), data as CFData, &encryptError) else {
+            throw SigningError(error: encryptError)
+        }
+        return signature as Data
+    }
+
+    private func encryptionAlgorithm(for secret: SecretType) -> SecKeyAlgorithm {
+        switch (secret.algorithm, secret.keySize) {
+        case (.ellipticCurve, 256):
+            return .eciesEncryptionCofactorVariableIVX963SHA256AESGCM
+        case (.ellipticCurve, 384):
+            return .eciesEncryptionCofactorVariableIVX963SHA256AESGCM
+        case (.rsa, 1024), (.rsa, 2048):
+            return .rsaEncryptionOAEPSHA512AESGCM
+        default:
+            fatalError()
+        }
+    }
+
+}
+
 extension TKTokenWatcher {
 
     /// All available tokens, excluding the Secure Enclave.
     fileprivate var nonSecureEnclaveTokens: [String] {
         tokenIDs.filter { !$0.contains("setoken") }
     }
-
-}
-
-extension SmartCard {
-
-    /// A wrapper around an error code reported by a Keychain API.
-    public struct KeychainError: Error {
-        /// The status code involved.
-        public let statusCode: OSStatus
-    }
-
-    /// A signing-related error.
-    public struct SigningError: Error {
-        /// The underlying error reported by the API, if one was returned.
-        public let error: SecurityError?
-    }
-
-}
-
-extension SmartCard {
-
-    public typealias SecurityError = Unmanaged<CFError>
 
 }

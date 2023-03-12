@@ -34,7 +34,7 @@ struct EmptyStoreImmutableView: View {
         VStack {
             Text("No Secrets").bold()
             Text("Use your Smart Card's management tool to create a secret.")
-            Text("Secretive only supports Elliptic Curve keys.")
+            Text("Secretive supports EC256, EC384, RSA1024, and RSA2048 keys.")
         }.frame(maxWidth: .infinity, maxHeight: .infinity)
     }
     
