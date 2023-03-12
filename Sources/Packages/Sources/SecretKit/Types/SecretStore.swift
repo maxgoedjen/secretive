@@ -79,15 +79,3 @@ extension NSNotification.Name {
     public static let secretStoreReloaded = NSNotification.Name("com.maxgoedjen.Secretive.secretStore.reloaded")
 
 }
-
-public typealias SecurityError = Unmanaged<CFError>
-
-extension CFError {
-
-    public static let verifyError = CFErrorCreate(nil, NSOSStatusErrorDomain as CFErrorDomain, CFIndex(errSecVerifyFailed), nil)!
-
-    static public func ~=(lhs: CFError, rhs: CFError) -> Bool {
-        CFErrorGetDomain(lhs) == CFErrorGetDomain(rhs) && CFErrorGetCode(lhs) == CFErrorGetCode(rhs)
-    }
-
-}

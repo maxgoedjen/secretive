@@ -295,28 +295,11 @@ extension SecureEnclave.Store {
             ])
         let status = SecItemAdd(attributes, nil)
         if status != errSecSuccess {
-            throw SecureEnclave.KeychainError(statusCode: status)
+            throw KeychainError(statusCode: status)
         }
     }
 
 }
-
-extension SecureEnclave {
-
-    /// A wrapper around an error code reported by a Keychain API.
-    public struct KeychainError: Error {
-        /// The status code involved, if one was reported.
-        public let statusCode: OSStatus?
-    }
-
-    /// A signing-related error.
-    public struct SigningError: Error {
-        /// The underlying error reported by the API, if one was returned.
-        public let error: SecurityError?
-    }
-
-}
-
 
 extension SecureEnclave {
 
