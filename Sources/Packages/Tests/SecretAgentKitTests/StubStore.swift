@@ -96,9 +96,12 @@ extension Stub {
                 fatalError()
             }
             let verified = SecKeyVerifySignature(key, signatureAlgorithm, data as CFData, signature as CFData, &verifyError)
-            if verifyError != nil {
-                print(verifyError!.takeUnretainedValue())
-                throw NSError(domain: "test", code: 0, userInfo: nil)
+            if let verifyError {
+                if verifyError.takeUnretainedValue() ~= .verifyError {
+                    return false
+                } else {
+                    throw NSError(domain: "test", code: 0, userInfo: nil)
+                }
             }
             return verified
         }

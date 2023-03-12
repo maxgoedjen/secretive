@@ -113,7 +113,11 @@ extension SmartCard {
             }
             let verified = SecKeyVerifySignature(key, signatureAlgorithm, data as CFData, signature as CFData, &verifyError)
             if !verified, let verifyError {
-                throw SigningError(error: verifyError)
+                if verifyError.takeUnretainedValue() ~= .verifyError {
+                    return false
+                } else {
+                    throw SigningError(error: verifyError)
+                }
             }
             return verified
         }
@@ -218,7 +222,7 @@ extension SmartCard.Store {
             kSecAttrKeyClass: kSecAttrKeyClassPublic,
             kSecUseAuthenticationContext: context
         ])
-        var encryptError: SmartCard.SecurityError?
+        var encryptError: SecurityError?
         let untyped: CFTypeRef? = SecKeyCreateWithData(secret.publicKey as CFData, attributes, &encryptError)
         guard let untypedSafe = untyped else {
             throw SmartCard.KeychainError(statusCode: errSecSuccess)
@@ -271,7 +275,7 @@ extension SmartCard.Store {
             throw SmartCard.KeychainError(statusCode: errSecSuccess)
         }
         let key = untypedSafe as! SecKey
-        var encryptError: SmartCard.SecurityError?
+        var encryptError: SecurityError?
         let signatureAlgorithm: SecKeyAlgorithm
         switch (secret.algorithm, secret.keySize) {
         case (.ellipticCurve, 256):
@@ -313,11 +317,5 @@ extension SmartCard {
         /// The underlying error reported by the API, if one was returned.
         public let error: SecurityError?
     }
-
-}
-
-extension SmartCard {
-
-    public typealias SecurityError = Unmanaged<CFError>
 
 }

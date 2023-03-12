@@ -164,7 +164,11 @@ extension SecureEnclave {
             let key = untypedSafe as! SecKey
             let verified = SecKeyVerifySignature(key, .ecdsaSignatureMessageX962SHA256, data as CFData, signature as CFData, &verifyError)
             if !verified, let verifyError {
-                throw SigningError(error: verifyError)
+                if verifyError.takeUnretainedValue() ~= .verifyError {
+                    return false
+                } else {
+                    throw SigningError(error: verifyError)
+                }
             }
             return verified
         }
@@ -313,11 +317,6 @@ extension SecureEnclave {
 
 }
 
-extension SecureEnclave {
-
-    public typealias SecurityError = Unmanaged<CFError>
-
-}
 
 extension SecureEnclave {
 
