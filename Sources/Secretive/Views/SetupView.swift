@@ -217,7 +217,7 @@ struct UpdaterExplainerView: View {
         SetupStepView(title: "Updates",
                       image: Image(systemName: "dot.radiowaves.left.and.right"),
                       bodyText: "Secretive will periodically check with GitHub to see if there's a new release. If you see any network requests to GitHub, that's why.",
-                      buttonTitle: "Okay",
+                      buttonTitle: "OK",
                       buttonAction: buttonAction) {
             Link("Read more about this here.", destination: SetupView.Constants.updaterFAQURL)
         }
