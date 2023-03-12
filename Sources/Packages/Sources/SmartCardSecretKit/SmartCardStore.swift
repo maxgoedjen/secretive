@@ -68,24 +68,12 @@ extension SmartCard {
             }
             let key = untypedSafe as! SecKey
             var signError: SecurityError?
-            let signatureAlgorithm: SecKeyAlgorithm
-            switch (secret.algorithm, secret.keySize) {
-            case (.ellipticCurve, 256):
-                signatureAlgorithm = .ecdsaSignatureMessageX962SHA256
-            case (.ellipticCurve, 384):
-                signatureAlgorithm = .ecdsaSignatureMessageX962SHA384
-            case (.rsa, 1024):
-                signatureAlgorithm = .rsaSignatureMessagePKCS1v15SHA512
-            case (.rsa, 2048):
-                signatureAlgorithm = .rsaSignatureMessagePKCS1v15SHA512
-            default:
-                fatalError()
-            }
-            guard let signature = SecKeyCreateSignature(key, signatureAlgorithm, data as CFData, &signError) else {
+            guard let signature = SecKeyCreateSignature(key, signatureAlgorithm(for: secret, allowRSA: true), data as CFData, &signError) else {
                 throw SigningError(error: signError)
             }
             return signature as Data
         }
+        
         public func verify(signature: Data, for data: Data, with secret: Secret) throws -> Bool {
             let attributes = KeychainDictionary([
                 kSecAttrKeyType: secret.algorithm.secAttrKeyType,
@@ -98,20 +86,7 @@ extension SmartCard {
                 throw KeychainError(statusCode: errSecSuccess)
             }
             let key = untypedSafe as! SecKey
-            let signatureAlgorithm: SecKeyAlgorithm
-            switch (secret.algorithm, secret.keySize) {
-            case (.ellipticCurve, 256):
-                signatureAlgorithm = .ecdsaSignatureMessageX962SHA256
-            case (.ellipticCurve, 384):
-                signatureAlgorithm = .ecdsaSignatureMessageX962SHA384
-            case (.rsa, 1024):
-                signatureAlgorithm = .rsaSignatureMessagePKCS1v15SHA512
-            case (.rsa, 2048):
-                signatureAlgorithm = .rsaSignatureMessagePKCS1v15SHA512
-            default:
-                fatalError()
-            }
-            let verified = SecKeyVerifySignature(key, signatureAlgorithm, data as CFData, signature as CFData, &verifyError)
+            let verified = SecKeyVerifySignature(key, signatureAlgorithm(for: secret, allowRSA: true), data as CFData, signature as CFData, &verifyError)
             if !verified, let verifyError {
                 if verifyError.takeUnretainedValue() ~= .verifyError {
                     return false
@@ -122,11 +97,11 @@ extension SmartCard {
             return verified
         }
 
-        public func existingPersistedAuthenticationContext(secret: SmartCard.Secret) -> PersistedAuthenticationContext? {
+        public func existingPersistedAuthenticationContext(secret: Secret) -> PersistedAuthenticationContext? {
             nil
         }
 
-        public func persistAuthentication(secret: SmartCard.Secret, forDuration: TimeInterval) throws {
+        public func persistAuthentication(secret: Secret, forDuration: TimeInterval) throws {
         }
 
         /// Reloads all secrets from the store.
@@ -186,7 +161,7 @@ extension SmartCard.Store {
         var untyped: CFTypeRef?
         SecItemCopyMatching(attributes, &untyped)
         guard let typed = untyped as? [[CFString: Any]] else { return }
-        let wrapped: [SmartCard.Secret] = typed.map {
+        let wrapped = typed.map {
             let name = $0[kSecAttrLabel] as? String ?? "Unnamed"
             let tokenID = $0[kSecAttrApplicationLabel] as! Data
             let algorithm = Algorithm(secAttr: $0[kSecAttrKeyType] as! NSNumber)
@@ -225,24 +200,11 @@ extension SmartCard.Store {
         var encryptError: SecurityError?
         let untyped: CFTypeRef? = SecKeyCreateWithData(secret.publicKey as CFData, attributes, &encryptError)
         guard let untypedSafe = untyped else {
-            throw SmartCard.KeychainError(statusCode: errSecSuccess)
+            throw KeychainError(statusCode: errSecSuccess)
         }
         let key = untypedSafe as! SecKey
-        let signatureAlgorithm: SecKeyAlgorithm
-        switch (secret.algorithm, secret.keySize) {
-        case (.ellipticCurve, 256):
-            signatureAlgorithm = .eciesEncryptionCofactorVariableIVX963SHA256AESGCM
-        case (.ellipticCurve, 384):
-            signatureAlgorithm = .eciesEncryptionCofactorVariableIVX963SHA256AESGCM
-        case (.rsa, 1024):
-            signatureAlgorithm = .rsaEncryptionOAEPSHA512AESGCM
-        case (.rsa, 2048):
-            signatureAlgorithm = .rsaEncryptionOAEPSHA512AESGCM
-        default:
-            fatalError()
-        }
-        guard let signature = SecKeyCreateEncryptedData(key, signatureAlgorithm, data as CFData, &encryptError) else {
-            throw SmartCard.SigningError(error: encryptError)
+        guard let signature = SecKeyCreateEncryptedData(key, encryptionAlgorithm(for: secret), data as CFData, &encryptError) else {
+            throw SigningError(error: encryptError)
         }
         return signature as Data
     }
@@ -269,28 +231,30 @@ extension SmartCard.Store {
         var untyped: CFTypeRef?
         let status = SecItemCopyMatching(attributes, &untyped)
         if status != errSecSuccess {
-            throw SmartCard.KeychainError(statusCode: status)
+            throw KeychainError(statusCode: status)
         }
         guard let untypedSafe = untyped else {
-            throw SmartCard.KeychainError(statusCode: errSecSuccess)
+            throw KeychainError(statusCode: errSecSuccess)
         }
         let key = untypedSafe as! SecKey
         var encryptError: SecurityError?
-        let signatureAlgorithm: SecKeyAlgorithm
+        guard let signature = SecKeyCreateDecryptedData(key, encryptionAlgorithm(for: secret), data as CFData, &encryptError) else {
+            throw SigningError(error: encryptError)
+        }
+        return signature as Data
+    }
+
+    private func encryptionAlgorithm(for secret: SecretType) -> SecKeyAlgorithm {
         switch (secret.algorithm, secret.keySize) {
         case (.ellipticCurve, 256):
-            signatureAlgorithm = .eciesEncryptionStandardX963SHA256AESGCM
+            return .eciesEncryptionCofactorVariableIVX963SHA256AESGCM
         case (.ellipticCurve, 384):
-            signatureAlgorithm = .eciesEncryptionStandardX963SHA384AESGCM
+            return .eciesEncryptionCofactorVariableIVX963SHA256AESGCM
         case (.rsa, 1024), (.rsa, 2048):
-            signatureAlgorithm = .rsaEncryptionOAEPSHA512AESGCM
+            return .rsaEncryptionOAEPSHA512AESGCM
         default:
             fatalError()
         }
-        guard let signature = SecKeyCreateDecryptedData(key, signatureAlgorithm, data as CFData, &encryptError) else {
-            throw SmartCard.SigningError(error: encryptError)
-        }
-        return signature as Data
     }
 
 }
@@ -300,22 +264,6 @@ extension TKTokenWatcher {
     /// All available tokens, excluding the Secure Enclave.
     fileprivate var nonSecureEnclaveTokens: [String] {
         tokenIDs.filter { !$0.contains("setoken") }
-    }
-
-}
-
-extension SmartCard {
-
-    /// A wrapper around an error code reported by a Keychain API.
-    public struct KeychainError: Error {
-        /// The status code involved.
-        public let statusCode: OSStatus
-    }
-
-    /// A signing-related error.
-    public struct SigningError: Error {
-        /// The underlying error reported by the API, if one was returned.
-        public let error: SecurityError?
     }
 
 }

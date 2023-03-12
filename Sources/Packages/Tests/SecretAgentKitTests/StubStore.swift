@@ -58,16 +58,7 @@ extension Stub {
                 kSecAttrKeyClass: kSecAttrKeyClassPrivate
                 ])
                 , nil)!
-            let signatureAlgorithm: SecKeyAlgorithm
-            switch secret.keySize {
-            case 256:
-                signatureAlgorithm = .ecdsaSignatureMessageX962SHA256
-            case 384:
-                signatureAlgorithm = .ecdsaSignatureMessageX962SHA384
-            default:
-                fatalError()
-            }
-            return SecKeyCreateSignature(privateKey, signatureAlgorithm, data as CFData, nil)! as Data
+            return SecKeyCreateSignature(privateKey, signatureAlgorithm(for: secret), data as CFData, nil)! as Data
         }
 
         public func verify(signature: Data, for data: Data, with secret: Stub.Secret) throws -> Bool {
@@ -82,20 +73,7 @@ extension Stub {
                 throw NSError(domain: "test", code: 0, userInfo: nil)
             }
             let key = untypedSafe as! SecKey
-            let signatureAlgorithm: SecKeyAlgorithm
-            switch (secret.algorithm, secret.keySize) {
-            case (.ellipticCurve, 256):
-                signatureAlgorithm = .ecdsaSignatureMessageX962SHA256
-            case (.ellipticCurve, 384):
-                signatureAlgorithm = .ecdsaSignatureMessageX962SHA384
-            case (.rsa, 1024):
-                signatureAlgorithm = .rsaSignatureMessagePKCS1v15SHA512
-            case (.rsa, 2048):
-                signatureAlgorithm = .rsaSignatureMessagePKCS1v15SHA512
-            default:
-                fatalError()
-            }
-            let verified = SecKeyVerifySignature(key, signatureAlgorithm, data as CFData, signature as CFData, &verifyError)
+            let verified = SecKeyVerifySignature(key, signatureAlgorithm(for: secret), data as CFData, signature as CFData, &verifyError)
             if let verifyError {
                 if verifyError.takeUnretainedValue() ~= .verifyError {
                     return false

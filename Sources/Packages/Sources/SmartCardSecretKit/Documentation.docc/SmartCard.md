@@ -6,9 +6,3 @@
 
 - ``Secret``
 - ``Store``
-
-### Errors
-
-- ``KeychainError``
-- ``SigningError``
-- ``SecurityError``
