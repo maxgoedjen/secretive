@@ -8,11 +8,11 @@ struct EmptyStoreView: View {
 
     var body: some View {
         if store is AnySecretStoreModifiable {
-            NavigationLink(destination: EmptyStoreModifiableView(), tag: Constants.emptyStoreModifiableTag, selection: $activeSecret) {
+            NavigationLink(destination: EmptyStoreModifiableView(), tag: Constants.emptyStoreModifiableTag + store.name, selection: $activeSecret) {
                 Text("No Secrets")
             }
         } else {
-            NavigationLink(destination: EmptyStoreImmutableView(), tag: Constants.emptyStoreTag, selection: $activeSecret) {
+            NavigationLink(destination: EmptyStoreImmutableView(), tag: Constants.emptyStoreTag + store.name, selection: $activeSecret) {
                 Text("No Secrets")
             }
         }
@@ -22,8 +22,8 @@ struct EmptyStoreView: View {
 extension EmptyStoreView {
     
     enum Constants {
-        static let emptyStoreModifiableTag: AnyHashable = "emptyStoreModifiableTag"
-        static let emptyStoreTag: AnyHashable = "emptyStoreModifiableTag"
+        static let emptyStoreModifiableTag = "emptyStoreModifiableTag"
+        static let emptyStoreTag = "emptyStoreModifiableTag"
     }
 
 }
