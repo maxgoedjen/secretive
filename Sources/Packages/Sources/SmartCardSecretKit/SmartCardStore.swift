@@ -161,7 +161,7 @@ extension SmartCard.Store {
         var untyped: CFTypeRef?
         SecItemCopyMatching(attributes, &untyped)
         guard let typed = untyped as? [[CFString: Any]] else { return }
-        let wrapped: [SmartCard.Secret] = typed.map {
+        let wrapped = typed.map {
             let name = $0[kSecAttrLabel] as? String ?? "Unnamed"
             let tokenID = $0[kSecAttrApplicationLabel] as! Data
             let algorithm = Algorithm(secAttr: $0[kSecAttrKeyType] as! NSNumber)
@@ -173,20 +173,6 @@ extension SmartCard.Store {
             return SmartCard.Secret(id: tokenID, name: name, algorithm: algorithm, keySize: keySize, publicKey: publicKey)
         }
         secrets.append(contentsOf: wrapped)
-    }
-
-    private func signatureAlgorithm(for secret: SmartCard.Secret) -> SecKeyAlgorithm {
-        switch (secret.algorithm, secret.keySize) {
-        case (.ellipticCurve, 256):
-            return .ecdsaSignatureMessageX962SHA256
-        case (.ellipticCurve, 384):
-            return .ecdsaSignatureMessageX962SHA384
-        case (.rsa, 1024), (.rsa, 2048):
-            return .rsaSignatureMessagePKCS1v15SHA512
-        default:
-            fatalError()
-        }
-
     }
 
 }
@@ -214,11 +200,11 @@ extension SmartCard.Store {
         var encryptError: SecurityError?
         let untyped: CFTypeRef? = SecKeyCreateWithData(secret.publicKey as CFData, attributes, &encryptError)
         guard let untypedSafe = untyped else {
-            throw SmartCard.KeychainError(statusCode: errSecSuccess)
+            throw KeychainError(statusCode: errSecSuccess)
         }
         let key = untypedSafe as! SecKey
         guard let signature = SecKeyCreateEncryptedData(key, encryptionAlgorithm(for: secret), data as CFData, &encryptError) else {
-            throw SmartCard.SigningError(error: encryptError)
+            throw SigningError(error: encryptError)
         }
         return signature as Data
     }
@@ -245,20 +231,20 @@ extension SmartCard.Store {
         var untyped: CFTypeRef?
         let status = SecItemCopyMatching(attributes, &untyped)
         if status != errSecSuccess {
-            throw SmartCard.KeychainError(statusCode: status)
+            throw KeychainError(statusCode: status)
         }
         guard let untypedSafe = untyped else {
-            throw SmartCard.KeychainError(statusCode: errSecSuccess)
+            throw KeychainError(statusCode: errSecSuccess)
         }
         let key = untypedSafe as! SecKey
         var encryptError: SecurityError?
         guard let signature = SecKeyCreateDecryptedData(key, encryptionAlgorithm(for: secret), data as CFData, &encryptError) else {
-            throw SmartCard.SigningError(error: encryptError)
+            throw SigningError(error: encryptError)
         }
         return signature as Data
     }
 
-    private func encryptionAlgorithm(for secret: SmartCard.Secret) -> SecKeyAlgorithm {
+    private func encryptionAlgorithm(for secret: SecretType) -> SecKeyAlgorithm {
         switch (secret.algorithm, secret.keySize) {
         case (.ellipticCurve, 256):
             return .eciesEncryptionCofactorVariableIVX963SHA256AESGCM
