@@ -28,7 +28,7 @@ class JustUpdatedChecker: ObservableObject, JustUpdatedCheckerProtocol {
 extension JustUpdatedChecker {
 
     enum Constants {
-        static let previousVersionUserDefaultsKey = "com.maxgoedjen.Secretive.lastBuild"
+        static let previousVersionUserDefaultsKey = BundlePrefix + ".lastBuild"
     }
 
 }

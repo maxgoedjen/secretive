@@ -196,6 +196,9 @@ extension SmartCard.Store {
             let publicKeyAttributes = SecKeyCopyAttributes(publicKeySecRef) as! [CFString: Any]
             let publicKey = publicKeyAttributes[kSecValueData] as! Data
             return SmartCard.Secret(id: tokenID, name: name, algorithm: algorithm, keySize: keySize, publicKey: publicKey)
+        }.filter { key in
+            // We should exclude keys you can't use for signing to not confuse users.
+            return includeEncryptionKeys || key.name.hasPrefix("Key For Digital Signature")
         }
         secrets.append(contentsOf: wrapped)
     }

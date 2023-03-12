@@ -25,7 +25,7 @@ struct Secretive: App {
         WindowGroup {
             ContentView<Updater, AgentStatusChecker>(showingCreation: $showingCreation, runningSetup: $showingSetup, hasRunSetup: $hasRunSetup)
                 .environmentObject(storeList)
-                .environmentObject(Updater(checkOnLaunch: hasRunSetup))
+                .environmentObject(Updater(checkOnLaunch: hasRunSetup, bundlePrefix: BundlePrefix))
                 .environmentObject(agentStatusChecker)
                 .onAppear {
                     if !hasRunSetup {

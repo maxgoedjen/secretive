@@ -12,13 +12,14 @@ public class Agent {
     private let writer = OpenSSHKeyWriter()
     private let requestTracer = SigningRequestTracer()
     private let certificateHandler = OpenSSHCertificateHandler()
-    private let logger = Logger(subsystem: "com.maxgoedjen.secretive.secretagent.agent", category: "")
+    private let logger: Logger
 
     /// Initializes an agent with a store list and a witness.
     /// - Parameters:
     ///   - storeList: The `SecretStoreList` to make available.
     ///   - witness: A witness to notify of requests.
-    public init(storeList: SecretStoreList, witness: SigningWitness? = nil) {
+    public init(storeList: SecretStoreList, bundlePrefix: String, witness: SigningWitness? = nil) {
+        logger = Logger(subsystem: "\(bundlePrefix).secretagent.agent", category: "")
         logger.debug("Agent is running")
         self.storeList = storeList
         self.witness = witness

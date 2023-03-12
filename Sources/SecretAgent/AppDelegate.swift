@@ -16,11 +16,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         list.add(store: SmartCard.Store())
         return list
     }()
-    private let updater = Updater(checkOnLaunch: false)
+    private let updater = Updater(checkOnLaunch: false, bundlePrefix: BundlePrefix)
     private let notifier = Notifier()
     private let publicKeyFileStoreController = PublicKeyFileStoreController(homeDirectory: NSHomeDirectory())
     private lazy var agent: Agent = {
-        Agent(storeList: storeList, witness: notifier)
+        Agent(storeList: storeList, bundlePrefix: BundlePrefix, witness: notifier)
     }()
     private lazy var socketController: SocketController = {
         let path = (NSHomeDirectory() as NSString).appendingPathComponent("socket.ssh") as String

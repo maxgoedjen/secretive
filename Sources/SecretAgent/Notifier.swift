@@ -117,18 +117,18 @@ extension Notifier {
     enum Constants {
 
         // Update notifications
-        static let updateCategoryIdentitifier  = "com.maxgoedjen.Secretive.SecretAgent.update"
-        static let criticalUpdateCategoryIdentitifier  = "com.maxgoedjen.Secretive.SecretAgent.update.critical"
-        static let updateActionIdentitifier  = "com.maxgoedjen.Secretive.SecretAgent.update.updateaction"
-        static let ignoreActionIdentitifier  = "com.maxgoedjen.Secretive.SecretAgent.update.ignoreaction"
+        static let updateCategoryIdentitifier  = BundlePrefix + ".SecretAgent.update"
+        static let criticalUpdateCategoryIdentitifier  = BundlePrefix + ".SecretAgent.update.critical"
+        static let updateActionIdentitifier  = BundlePrefix + ".SecretAgent.update.updateaction"
+        static let ignoreActionIdentitifier  = BundlePrefix + ".SecretAgent.update.ignoreaction"
 
         // Authorization persistence notificatoins
-        static let persistAuthenticationCategoryIdentitifier  = "com.maxgoedjen.Secretive.SecretAgent.persistauthentication"
-        static let doNotPersistActionIdentitifier  = "com.maxgoedjen.Secretive.SecretAgent.persistauthentication.donotpersist"
-        static let persistForActionIdentitifierPrefix  = "com.maxgoedjen.Secretive.SecretAgent.persistauthentication.persist."
+        static let persistAuthenticationCategoryIdentitifier  = BundlePrefix + ".SecretAgent.persistauthentication"
+        static let doNotPersistActionIdentitifier  = BundlePrefix + ".SecretAgent.persistauthentication.donotpersist"
+        static let persistForActionIdentitifierPrefix  = BundlePrefix + ".SecretAgent.persistauthentication.persist."
 
-        static let persistSecretIDKey  = "com.maxgoedjen.Secretive.SecretAgent.persistauthentication.secretidkey"
-        static let persistStoreIDKey  = "com.maxgoedjen.Secretive.SecretAgent.persistauthentication.storeidkey"
+        static let persistSecretIDKey  = BundlePrefix + ".SecretAgent.persistauthentication.secretidkey"
+        static let persistStoreIDKey  = BundlePrefix + ".SecretAgent.persistauthentication.storeidkey"
     }
 
 }

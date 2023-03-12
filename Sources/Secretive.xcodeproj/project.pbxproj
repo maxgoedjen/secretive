@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		2C4A9D2F2636FFD3008CC8E2 /* RenameSecretView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4A9D2E2636FFD3008CC8E2 /* RenameSecretView.swift */; };
+		4683BED329BD567B00A4832D /* ConfigBridging.m in Sources */ = {isa = PBXBuildFile; fileRef = 4683BED229BD567B00A4832D /* ConfigBridging.m */; };
+		4683BED429BD567B00A4832D /* ConfigBridging.m in Sources */ = {isa = PBXBuildFile; fileRef = 4683BED229BD567B00A4832D /* ConfigBridging.m */; };
 		50020BB024064869003D4025 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50020BAF24064869003D4025 /* AppDelegate.swift */; };
 		50033AC327813F1700253856 /* BundleIDs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50033AC227813F1700253856 /* BundleIDs.swift */; };
 		5003EF3B278005E800DF2006 /* SecretKit in Frameworks */ = {isa = PBXBuildFile; productRef = 5003EF3A278005E800DF2006 /* SecretKit */; };
@@ -105,6 +107,9 @@
 
 /* Begin PBXFileReference section */
 		2C4A9D2E2636FFD3008CC8E2 /* RenameSecretView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenameSecretView.swift; sourceTree = "<group>"; };
+		4683BED029BD567B00A4832D /* Secretive-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Secretive-Bridging-Header.h"; sourceTree = "<group>"; };
+		4683BED129BD567B00A4832D /* SecretAgent-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SecretAgent-Bridging-Header.h"; sourceTree = "<group>"; };
+		4683BED229BD567B00A4832D /* ConfigBridging.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ConfigBridging.m; sourceTree = "<group>"; };
 		50020BAF24064869003D4025 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		50033AC227813F1700253856 /* BundleIDs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BundleIDs.swift; sourceTree = "<group>"; };
 		5003EF39278005C800DF2006 /* Packages */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Packages; sourceTree = "<group>"; };
@@ -189,6 +194,7 @@
 			isa = PBXGroup;
 			children = (
 				50033AC227813F1700253856 /* BundleIDs.swift */,
+				4683BED029BD567B00A4832D /* Secretive-Bridging-Header.h */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -257,6 +263,7 @@
 			isa = PBXGroup;
 			children = (
 				508A590F241EEF6D0069DC07 /* Secretive.xctestplan */,
+				4683BED229BD567B00A4832D /* ConfigBridging.m */,
 				508A58AB241E121B0069DC07 /* Config.xcconfig */,
 			);
 			path = Config;
@@ -306,6 +313,7 @@
 			children = (
 				50020BAF24064869003D4025 /* AppDelegate.swift */,
 				5018F54E24064786002EB505 /* Notifier.swift */,
+				4683BED129BD567B00A4832D /* SecretAgent-Bridging-Header.h */,
 				50A3B79024026B7600D209EA /* Assets.xcassets */,
 				50A3B79524026B7600D209EA /* Main.storyboard */,
 				50A3B79824026B7600D209EA /* Info.plist */,
@@ -408,6 +416,7 @@
 				TargetAttributes = {
 					50617D7E23FCE48D0099B055 = {
 						CreatedOnToolsVersion = 11.3;
+						LastSwiftMigration = 1420;
 					};
 					50617D9323FCE48E0099B055 = {
 						CreatedOnToolsVersion = 11.3;
@@ -415,6 +424,7 @@
 					};
 					50A3B78924026B7500D209EA = {
 						CreatedOnToolsVersion = 11.4;
+						LastSwiftMigration = 1420;
 					};
 				};
 			};
@@ -427,6 +437,8 @@
 				Base,
 			);
 			mainGroup = 50617D7623FCE48D0099B055;
+			packageReferences = (
+			);
 			productRefGroup = 50617D8023FCE48E0099B055 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -478,6 +490,7 @@
 				2C4A9D2F2636FFD3008CC8E2 /* RenameSecretView.swift in Sources */,
 				5091D2BC25183B830049FD9B /* ApplicationDirectoryController.swift in Sources */,
 				5066A6C22516F303004B5A36 /* SetupView.swift in Sources */,
+				4683BED329BD567B00A4832D /* ConfigBridging.m in Sources */,
 				5065E313295517C500E16645 /* ToolbarButtonStyle.swift in Sources */,
 				50617D8523FCE48E0099B055 /* ContentView.swift in Sources */,
 				50571E0324393C2600F76F6C /* JustUpdatedChecker.swift in Sources */,
@@ -513,6 +526,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4683BED429BD567B00A4832D /* ConfigBridging.m in Sources */,
 				50020BB024064869003D4025 /* AppDelegate.swift in Sources */,
 				5018F54F24064786002EB505 /* Notifier.swift in Sources */,
 			);
@@ -588,6 +602,7 @@
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
+					"BUNDLE_PREFIX=$(BUNDLE_PREFIX)",
 					"DEBUG=1",
 					"$(inherited)",
 				);
@@ -650,6 +665,7 @@
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = "BUNDLE_PREFIX=$(BUNDLE_PREFIX)";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -673,13 +689,14 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Secretive/Secretive.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Secretive/Preview Content\"";
-				DEVELOPMENT_TEAM = Z72PRUAWF6;
+				DEVELOPMENT_TEAM = Y6S72U574H;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Secretive/Info.plist;
@@ -688,9 +705,11 @@
 					"@executable_path/../Frameworks",
 				);
 				MARKETING_VERSION = 1;
-				PRODUCT_BUNDLE_IDENTIFIER = com.maxgoedjen.Secretive.Host;
+				PRODUCT_BUNDLE_IDENTIFIER = "$(BUNDLE_PREFIX).Host";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "Secretive/Helpers/Secretive-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
@@ -700,6 +719,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Secretive/Secretive.entitlements;
 				CODE_SIGN_IDENTITY = "Developer ID Application";
 				CODE_SIGN_STYLE = Manual;
@@ -715,9 +735,10 @@
 					"@executable_path/../Frameworks",
 				);
 				MARKETING_VERSION = 1;
-				PRODUCT_BUNDLE_IDENTIFIER = com.maxgoedjen.Secretive.Host;
+				PRODUCT_BUNDLE_IDENTIFIER = "$(BUNDLE_PREFIX).Host";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "Secretive - Host";
+				SWIFT_OBJC_BRIDGING_HEADER = "Secretive/Helpers/Secretive-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
@@ -729,14 +750,14 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = Z72PRUAWF6;
+				DEVELOPMENT_TEAM = Y6S72U574H;
 				INFOPLIST_FILE = SecretiveTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 					"@loader_path/../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.maxgoedjen.SecretiveTests;
+				PRODUCT_BUNDLE_IDENTIFIER = "$(BUNDLE_PREFIX)Tests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Secretive.app/Contents/MacOS/Secretive";
@@ -750,14 +771,14 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = Z72PRUAWF6;
+				DEVELOPMENT_TEAM = Y6S72U574H;
 				INFOPLIST_FILE = SecretiveTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 					"@loader_path/../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.maxgoedjen.SecretiveTests;
+				PRODUCT_BUNDLE_IDENTIFIER = "$(BUNDLE_PREFIX)Tests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Secretive.app/Contents/MacOS/Secretive";
@@ -807,6 +828,7 @@
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
+					"BUNDLE_PREFIX=$(BUNDLE_PREFIX)",
 					"DEBUG=1",
 					"$(inherited)",
 				);
@@ -834,6 +856,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
@@ -846,8 +869,10 @@
 					"@executable_path/../Frameworks",
 				);
 				MARKETING_VERSION = 1;
-				PRODUCT_BUNDLE_IDENTIFIER = com.maxgoedjen.Secretive.Host;
+				PRODUCT_BUNDLE_IDENTIFIER = "$(BUNDLE_PREFIX).Host";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Secretive/Helpers/Secretive-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Test;
@@ -866,7 +891,7 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.maxgoedjen.SecretiveTests;
+				PRODUCT_BUNDLE_IDENTIFIER = "$(BUNDLE_PREFIX)Tests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
@@ -878,6 +903,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"SecretAgent/Preview Content\"";
@@ -889,8 +915,10 @@
 					"@executable_path/../Frameworks",
 				);
 				MARKETING_VERSION = 1;
-				PRODUCT_BUNDLE_IDENTIFIER = com.maxgoedjen.Secretive.SecretAgent;
+				PRODUCT_BUNDLE_IDENTIFIER = "$(BUNDLE_PREFIX).SecretAgent";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "SecretAgent/SecretAgent-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Test;
@@ -899,11 +927,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = SecretAgent/SecretAgent.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"SecretAgent/Preview Content\"";
-				DEVELOPMENT_TEAM = Z72PRUAWF6;
+				DEVELOPMENT_TEAM = Y6S72U574H;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = SecretAgent/Info.plist;
@@ -912,8 +941,10 @@
 					"@executable_path/../Frameworks",
 				);
 				MARKETING_VERSION = 1;
-				PRODUCT_BUNDLE_IDENTIFIER = com.maxgoedjen.Secretive.SecretAgent;
+				PRODUCT_BUNDLE_IDENTIFIER = "$(BUNDLE_PREFIX).SecretAgent";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "SecretAgent/SecretAgent-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
@@ -922,6 +953,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = SecretAgent/SecretAgent.entitlements;
 				CODE_SIGN_IDENTITY = "Developer ID Application";
 				CODE_SIGN_STYLE = Manual;
@@ -936,9 +968,10 @@
 					"@executable_path/../Frameworks",
 				);
 				MARKETING_VERSION = 1;
-				PRODUCT_BUNDLE_IDENTIFIER = com.maxgoedjen.Secretive.SecretAgent;
+				PRODUCT_BUNDLE_IDENTIFIER = "$(BUNDLE_PREFIX).SecretAgent";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "Secretive - Secret Agent";
+				SWIFT_OBJC_BRIDGING_HEADER = "SecretAgent/SecretAgent-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Release;

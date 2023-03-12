@@ -11,6 +11,8 @@ public class Updater: ObservableObject, UpdaterProtocol {
     private let osVersion: SemVer
     /// The current version of the app that is running.
     private let currentVersion: SemVer
+    /// The current bundle prefix.
+    private let bundlePreifx: String
 
     /// Initializes an Updater.
     /// - Parameters:
@@ -18,9 +20,10 @@ public class Updater: ObservableObject, UpdaterProtocol {
     ///   - checkFrequency: The interval at which the Updater should check for updates. Subject to a tolerance of 1 hour.
     ///   - osVersion: The current OS version.
     ///   - currentVersion: The current version of the app that is running.
-    public init(checkOnLaunch: Bool, checkFrequency: TimeInterval = Measurement(value: 24, unit: UnitDuration.hours).converted(to: .seconds).value, osVersion: SemVer = SemVer(ProcessInfo.processInfo.operatingSystemVersion), currentVersion: SemVer = SemVer(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "0.0.0")) {
+    public init(checkOnLaunch: Bool, bundlePrefix: String, checkFrequency: TimeInterval = Measurement(value: 24, unit: UnitDuration.hours).converted(to: .seconds).value, osVersion: SemVer = SemVer(ProcessInfo.processInfo.operatingSystemVersion), currentVersion: SemVer = SemVer(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "0.0.0")) {
         self.osVersion = osVersion
         self.currentVersion = currentVersion
+        self.bundlePreifx = bundlePrefix
         testBuild = currentVersion == SemVer("0.0.0")
         if checkOnLaunch {
             // Don't do a launch check if the user hasn't seen the setup prompt explaining updater yet.
@@ -83,7 +86,7 @@ extension Updater {
 
     /// The user defaults used to store user ignore state.
     var defaults: UserDefaults {
-        UserDefaults(suiteName: "com.maxgoedjen.Secretive.updater.ignorelist")!
+        UserDefaults(suiteName: "\(bundlePreifx).updater.ignorelist")!
     }
 
 }
