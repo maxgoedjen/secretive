@@ -40,6 +40,10 @@ extension Preview {
             return data
         }
 
+        func verify(data: Data, signature: Data, with secret: Preview.Secret) throws -> Bool {
+            true
+        }
+
         func existingPersistedAuthenticationContext(secret: Preview.Secret) -> PersistedAuthenticationContext? {
             nil
         }

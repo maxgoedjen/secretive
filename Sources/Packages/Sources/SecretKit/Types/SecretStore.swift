@@ -23,6 +23,14 @@ public protocol SecretStore: ObservableObject, Identifiable {
     /// - Returns: The signed data.
     func sign(data: Data, with secret: SecretType, for provenance: SigningRequestProvenance) throws -> Data
 
+    /// Verifies that a signature is valid over a specified payload.
+    /// - Parameters:
+    ///   - signature: The signature over the data.
+    ///   - data: The data to verify the signature of.
+    ///   - secret: The secret whose signature to verify.
+    /// - Returns: Whether the signature was verified.
+    func verify(signature: Data, for data: Data, with secret: SecretType) throws -> Bool
+
     /// Checks to see if there is currently a valid persisted authentication for a given secret.
     /// - Parameters:
     ///   - secret: The ``Secret`` to check if there is a persisted authentication for.
@@ -69,5 +77,17 @@ extension NSNotification.Name {
     public static let secretStoreUpdated = NSNotification.Name("com.maxgoedjen.Secretive.secretStore.updated")
     // Internal notification that keys were reloaded from the backing store.
     public static let secretStoreReloaded = NSNotification.Name("com.maxgoedjen.Secretive.secretStore.reloaded")
+
+}
+
+public typealias SecurityError = Unmanaged<CFError>
+
+extension CFError {
+
+    public static let verifyError = CFErrorCreate(nil, NSOSStatusErrorDomain as CFErrorDomain, CFIndex(errSecVerifyFailed), nil)!
+
+    static public func ~=(lhs: CFError, rhs: CFError) -> Bool {
+        CFErrorGetDomain(lhs) == CFErrorGetDomain(rhs) && CFErrorGetCode(lhs) == CFErrorGetCode(rhs)
+    }
 
 }
