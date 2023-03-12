@@ -40,7 +40,7 @@ extension Preview {
             return data
         }
 
-        func verify(data: Data, signature: Data, with secret: Preview.Secret) throws -> Bool {
+        func verify(signature data: Data, for signature: Data, with secret: Preview.Secret) throws -> Bool {
             true
         }
 
