@@ -11,7 +11,7 @@ struct Secretive: App {
     private let storeList: SecretStoreList = {
         let list = SecretStoreList()
         list.add(store: SecureEnclave.Store())
-        list.add(store: SmartCard.Store())
+        list.add(store: SmartCard.Store(includeEncryptionKeys: false))
         return list
     }()
     private let agentStatusChecker = AgentStatusChecker()

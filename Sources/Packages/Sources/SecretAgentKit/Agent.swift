@@ -150,10 +150,23 @@ extension Agent {
             rawRepresentation = try CryptoKit.P256.Signing.ECDSASignature(derRepresentation: derSignature).rawRepresentation
         case (.ellipticCurve, 384):
             rawRepresentation = try CryptoKit.P384.Signing.ECDSASignature(derRepresentation: derSignature).rawRepresentation
+        case (.rsa, 1024), (.rsa, 2048):
+            var signedData = Data()
+            var sub = Data()
+            sub.append(writer.lengthAndData(of: curveData))
+            sub.append(writer.lengthAndData(of: signed))
+            signedData.append(writer.lengthAndData(of: sub))
+
+            if let witness = witness {
+                try witness.witness(accessTo: secret, from: store, by: provenance)
+            }
+
+            logger.debug("Agent signed request")
+
+            return signedData
         default:
             throw AgentError.unsupportedKeyType
         }
-
 
         let rawLength = rawRepresentation.count/2
         // Check if we need to pad with 0x00 to prevent certain
@@ -207,7 +220,7 @@ extension Agent {
     func secret(matching hash: Data) -> (AnySecretStore, AnySecret)? {
         storeList.stores.compactMap { store -> (AnySecretStore, AnySecret)? in
             let allMatching = store.secrets.filter { secret in
-                hash == writer.data(secret: secret)
+                hash == writer.matchingHashData(secret: secret)
             }
             if let matching = allMatching.first {
                 return (store, matching)

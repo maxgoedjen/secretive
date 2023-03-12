@@ -13,7 +13,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     private let storeList: SecretStoreList = {
         let list = SecretStoreList()
         list.add(store: SecureEnclave.Store())
-        list.add(store: SmartCard.Store())
+        list.add(store: SmartCard.Store(includeEncryptionKeys: false))
         return list
     }()
     private let updater = Updater(checkOnLaunch: false, bundlePrefix: BundlePrefix)

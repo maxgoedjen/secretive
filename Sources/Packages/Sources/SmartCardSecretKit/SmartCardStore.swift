@@ -16,9 +16,11 @@ extension SmartCard {
         @Published public private(set) var secrets: [Secret] = []
         private let watcher = TKTokenWatcher()
         private var tokenID: String?
+        private let includeEncryptionKeys: Bool
 
         /// Initializes a Store.
-        public init() {
+        public init(includeEncryptionKeys: Bool) {
+            self.includeEncryptionKeys = includeEncryptionKeys
             tokenID = watcher.nonSecureEnclaveTokens.first
             watcher.setInsertionHandler { string in
                 guard self.tokenID == nil else { return }
@@ -237,9 +239,7 @@ extension SmartCard.Store {
             signatureAlgorithm = .eciesEncryptionCofactorVariableIVX963SHA256AESGCM
         case (.ellipticCurve, 384):
             signatureAlgorithm = .eciesEncryptionCofactorVariableIVX963SHA256AESGCM
-        case (.rsa, 1024):
-            signatureAlgorithm = .rsaEncryptionOAEPSHA512AESGCM
-        case (.rsa, 2048):
+        case (.rsa, 1024), (.rsa, 2048):
             signatureAlgorithm = .rsaEncryptionOAEPSHA512AESGCM
         default:
             fatalError()

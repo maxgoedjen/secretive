@@ -11,9 +11,19 @@ public struct OpenSSHKeyWriter {
     /// Generates an OpenSSH data payload identifying the secret.
     /// - Returns: OpenSSH data payload identifying the secret.
     public func data<SecretType: Secret>(secret: SecretType) -> Data {
-        lengthAndData(of: curveType(for: secret.algorithm, length: secret.keySize).data(using: .utf8)!) +
+        return lengthAndData(of: curveType(for: secret.algorithm, length: secret.keySize).data(using: .utf8)!) +
+        lengthAndData(of: curveIdentifier(for: secret.algorithm, length: secret.keySize).data(using: .utf8)!) +
+        lengthAndData(of: secret.publicKey)
+    }
+    
+    public func matchingHashData<SecretType: Secret>(secret: SecretType) -> Data {
+        if secret.algorithm == .ellipticCurve {
+            return data(secret: secret)
+        } else {
+            return lengthAndData(of: "ssh-rsa".data(using: .utf8)!) +
             lengthAndData(of: curveIdentifier(for: secret.algorithm, length: secret.keySize).data(using: .utf8)!) +
             lengthAndData(of: secret.publicKey)
+        }
     }
 
     /// Generates an OpenSSH string representation of the secret.

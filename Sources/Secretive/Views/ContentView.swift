@@ -195,7 +195,7 @@ struct ContentView_Previews: PreviewProvider {
     private static let storeList: SecretStoreList = {
         let list = SecretStoreList()
         list.add(store: SecureEnclave.Store())
-        list.add(store: SmartCard.Store())
+        list.add(store: SmartCard.Store(includeEncryptionKeys: false))
         return list
     }()
     private static let agentStatusChecker = AgentStatusChecker()
