@@ -281,19 +281,3 @@ extension TKTokenWatcher {
     }
 
 }
-
-extension SmartCard {
-
-    /// A wrapper around an error code reported by a Keychain API.
-    public struct KeychainError: Error {
-        /// The status code involved.
-        public let statusCode: OSStatus
-    }
-
-    /// A signing-related error.
-    public struct SigningError: Error {
-        /// The underlying error reported by the API, if one was returned.
-        public let error: SecurityError?
-    }
-
-}
