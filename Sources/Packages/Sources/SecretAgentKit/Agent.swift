@@ -90,8 +90,8 @@ extension Agent {
         var keyData = Data()
 
         for secret in secrets {
-            let keyBlob: Data = writer.data(secret: secret)
-            let curveData: Data = writer.curveType(for: secret.algorithm, length: secret.keySize).data(using: .utf8)!
+            let keyBlob = writer.data(secret: secret)
+            let curveData = writer.curveType(for: secret.algorithm, length: secret.keySize).data(using: .utf8)!
             keyData.append(writer.lengthAndData(of: keyBlob))
             keyData.append(writer.lengthAndData(of: curveData))
             
