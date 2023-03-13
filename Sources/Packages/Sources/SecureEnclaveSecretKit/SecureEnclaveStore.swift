@@ -101,7 +101,7 @@ extension SecureEnclave {
             reloadSecretsInternal()
         }
         
-        public func sign(data: Data, with secret: SecretType, for provenance: SigningRequestProvenance) throws -> Data {
+        public func sign(data: Data, with secret: Secret, for provenance: SigningRequestProvenance) throws -> Data {
             let context: LAContext
             if let existing = persistedAuthenticationContexts[secret], existing.valid {
                 context = existing.context
@@ -136,6 +136,41 @@ extension SecureEnclave {
                 throw SigningError(error: signError)
             }
             return signature as Data
+        }
+
+        public func verify(signature: Data, for data: Data, with secret: Secret) throws -> Bool {
+            let context = LAContext()
+            context.localizedReason = "verify a signature using secret \"\(secret.name)\""
+            context.localizedCancelTitle = "Deny"
+            let attributes = KeychainDictionary([
+                kSecClass: kSecClassKey,
+                kSecAttrKeyClass: kSecAttrKeyClassPrivate,
+                kSecAttrApplicationLabel: secret.id as CFData,
+                kSecAttrKeyType: Constants.keyType,
+                kSecAttrTokenID: kSecAttrTokenIDSecureEnclave,
+                kSecAttrApplicationTag: Constants.keyTag,
+                kSecUseAuthenticationContext: context,
+                kSecReturnRef: true
+                ])
+            var verifyError: SecurityError?
+            var untyped: CFTypeRef?
+            let status = SecItemCopyMatching(attributes, &untyped)
+            if status != errSecSuccess {
+                throw KeychainError(statusCode: status)
+            }
+            guard let untypedSafe = untyped else {
+                throw KeychainError(statusCode: errSecSuccess)
+            }
+            let key = untypedSafe as! SecKey
+            let verified = SecKeyVerifySignature(key, .ecdsaSignatureMessageX962SHA256, data as CFData, signature as CFData, &verifyError)
+            if !verified, let verifyError {
+                if verifyError.takeUnretainedValue() ~= .verifyError {
+                    return false
+                } else {
+                    throw SigningError(error: verifyError)
+                }
+            }
+            return verified
         }
 
         public func existingPersistedAuthenticationContext(secret: Secret) -> PersistedAuthenticationContext? {
@@ -260,31 +295,9 @@ extension SecureEnclave.Store {
             ])
         let status = SecItemAdd(attributes, nil)
         if status != errSecSuccess {
-            throw SecureEnclave.KeychainError(statusCode: status)
+            throw KeychainError(statusCode: status)
         }
     }
-
-}
-
-extension SecureEnclave {
-
-    /// A wrapper around an error code reported by a Keychain API.
-    public struct KeychainError: Error {
-        /// The status code involved, if one was reported.
-        public let statusCode: OSStatus?
-    }
-
-    /// A signing-related error.
-    public struct SigningError: Error {
-        /// The underlying error reported by the API, if one was returned.
-        public let error: SecurityError?
-    }
-
-}
-
-extension SecureEnclave {
-
-    public typealias SecurityError = Unmanaged<CFError>
 
 }
 

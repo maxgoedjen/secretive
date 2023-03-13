@@ -64,6 +64,10 @@ extension OpenSSHKeyWriter {
         switch algorithm {
         case .ellipticCurve:
             return "ecdsa-sha2-nistp" + String(describing: length)
+        case .rsa:
+            // All RSA keys use the same 512 bit hash function, per
+            // https://security.stackexchange.com/questions/255074/why-are-rsa-sha2-512-and-rsa-sha2-256-supported-but-not-reported-by-ssh-q-key
+            return "rsa-sha2-512"
         }
     }
 
@@ -76,6 +80,9 @@ extension OpenSSHKeyWriter {
         switch algorithm {
         case .ellipticCurve:
             return "nistp" + String(describing: length)
+        case .rsa:
+            // All RSA keys use the same 512 bit hash function
+            return "rsa-sha2-512"
         }
     }
 

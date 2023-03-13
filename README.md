@@ -17,7 +17,7 @@ The most common setup for SSH keys is just keeping them on disk, guarded by prop
 
 ### Access Control
 
-If your Mac has a Secure Enclave, it also has support for strong access controls like Touch ID, or authentication with Apple Watch. You can configure your key so that they require Touch ID (or Watch) authentication before they're accessed.
+If your Mac has a Secure Enclave, it also has support for strong access controls like Touch ID, or authentication with Apple Watch. You can configure your keys so that they require Touch ID (or Watch) authentication before they're accessed.
 
 <img src="/.github/readme/touchid.png" alt="Screenshot of Secretive authenticating with Touch ID" width="400">
 
