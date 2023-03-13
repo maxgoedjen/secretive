@@ -86,27 +86,24 @@ extension Agent {
     func identities() -> Data {
         let secrets = storeList.allSecrets
         certificateHandler.reloadCertificates(for: secrets)
-        var count = UInt32(secrets.count).bigEndian
-        let countData = Data(bytes: &count, count: UInt32.bitWidth/8)
+        var count = secrets.count
         var keyData = Data()
 
         for secret in secrets {
-            let keyBlob: Data
-            let curveData: Data
-            
-            if let (certificateData, name) = try? certificateHandler.keyBlobAndName(for: secret) {
-                keyBlob = certificateData
-                curveData = name
-            } else {
-                keyBlob = writer.data(secret: secret)
-                curveData = writer.curveType(for: secret.algorithm, length: secret.keySize).data(using: .utf8)!
-            }
-            
+            let keyBlob = writer.data(secret: secret)
+            let curveData = writer.curveType(for: secret.algorithm, length: secret.keySize).data(using: .utf8)!
             keyData.append(writer.lengthAndData(of: keyBlob))
             keyData.append(writer.lengthAndData(of: curveData))
             
+            if let (certificateData, name) = try? certificateHandler.keyBlobAndName(for: secret) {
+                keyData.append(writer.lengthAndData(of: certificateData))
+                keyData.append(writer.lengthAndData(of: name))
+                count += 1
+            }
         }
-        logger.log("Agent enumerated \(secrets.count) identities")
+        logger.log("Agent enumerated \(count) identities")
+        var countBigEndian = UInt32(count).bigEndian
+        let countData = Data(bytes: &countBigEndian, count: UInt32.bitWidth/8)
         return countData + keyData
     }
 
