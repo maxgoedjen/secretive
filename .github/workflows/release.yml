@@ -21,14 +21,15 @@ jobs:
         APPLE_API_KEY_ID: ${{ secrets.APPLE_API_KEY_ID }}
       run: ./.github/scripts/signing.sh
     - name: Set Environment
-      run: sudo xcrun xcode-select -s /Applications/Xcode_14.1.app
+      run: sudo xcrun xcode-select -s /Applications/Xcode_14.3.app
     - name: Test
       run: |
             pushd Sources/Packages
             swift test
             popd
   build:
-    runs-on: macOS-latest
+#     runs-on: macOS-latest
+    runs-on: macos-13
     timeout-minutes: 10
     steps:
     - uses: actions/checkout@v2
@@ -42,7 +43,7 @@ jobs:
         APPLE_API_KEY_ID: ${{ secrets.APPLE_API_KEY_ID }}
       run: ./.github/scripts/signing.sh
     - name: Set Environment
-      run: sudo xcrun xcode-select -s /Applications/Xcode_14.1.app
+      run: sudo xcrun xcode-select -s /Applications/Xcode_14.3.app
     - name: Update Build Number
       env:
         TAG_NAME: ${{ github.ref }}
