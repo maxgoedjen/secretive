@@ -5,7 +5,8 @@ on:
     - cron: "0 8 * * *"
 jobs:
   build:
-    runs-on: macOS-latest
+#     runs-on: macOS-latest
+    runs-on: macos-13
     timeout-minutes: 10
     steps:
     - uses: actions/checkout@v2
