@@ -20,8 +20,10 @@ public class PublicKeyFileStoreController {
         logger.log("Writing public keys to disk")
         if clear {
             let validPaths = Set(secrets.map { publicKeyPath(for: $0) }).union(Set(secrets.map { sshCertificatePath(for: $0) }))
-            let untracked = Set(try FileManager.default.contentsOfDirectory(atPath: directory)
-                .map { "\(directory)/\($0)" })
+            let contentsOfDirectory = (try? FileManager.default.contentsOfDirectory(atPath: directory)) ?? []
+            let fullPathContents = contentsOfDirectory.map { "\(directory)/\($0)" }
+
+            let untracked = Set(fullPathContents)
                 .subtracting(validPaths)
             for path in untracked {
                 try? FileManager.default.removeItem(at: URL(fileURLWithPath: path))
