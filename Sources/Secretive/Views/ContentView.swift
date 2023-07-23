@@ -88,7 +88,7 @@ extension ContentView {
                     .foregroundColor(.white)
             })
             .buttonStyle(ToolbarButtonStyle(color: color))
-            .popover(item: $selectedUpdate, attachmentAnchor: .point(.bottom), arrowEdge: .bottom) { update in
+            .popover(item: $selectedUpdate, attachmentAnchor: attachmentAnchor, arrowEdge: .bottom) { update in
                 UpdateDetailView(update: update)
             }
         }
@@ -147,7 +147,7 @@ extension ContentView {
             }
         })
         .buttonStyle(ToolbarButtonStyle(lightColor: .black.opacity(0.05), darkColor: .white.opacity(0.05)))
-        .popover(isPresented: $showingAgentInfo, attachmentAnchor: .point(.bottom), arrowEdge: .bottom) {
+        .popover(isPresented: $showingAgentInfo, attachmentAnchor: attachmentAnchor, arrowEdge: .bottom) {
             VStack {
                 Text("SecretAgent is Running")
                     .font(.title)
@@ -172,7 +172,7 @@ extension ContentView {
                 .foregroundColor(.white)
             })
             .buttonStyle(ToolbarButtonStyle(color: .orange))
-            .popover(isPresented: $showingAppPathNotice, attachmentAnchor: .point(.bottom), arrowEdge: .bottom) {
+            .popover(isPresented: $showingAppPathNotice, attachmentAnchor: attachmentAnchor, arrowEdge: .bottom) {
                 VStack {
                     Image(systemName: "exclamationmark.triangle")
                         .resizable()
@@ -184,6 +184,11 @@ extension ContentView {
                 .padding()
             }
         }
+    }
+
+    var attachmentAnchor: PopoverAttachmentAnchor {
+        // Ideally .point(.bottom), but broken on Sonoma (FB12726503)
+        .rect(.bounds)
     }
 
 }
