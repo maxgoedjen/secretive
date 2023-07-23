@@ -88,7 +88,7 @@ extension ContentView {
                     .foregroundColor(.white)
             })
             .buttonStyle(ToolbarButtonStyle(color: color))
-            .popover(item: $selectedUpdate, arrowEdge: .bottom) { update in
+            .popover(item: $selectedUpdate, attachmentAnchor: attachmentAnchor, arrowEdge: .bottom) { update in
                 UpdateDetailView(update: update)
             }
         }
@@ -187,11 +187,8 @@ extension ContentView {
     }
 
     var attachmentAnchor: PopoverAttachmentAnchor {
-        if #available(macOS 14, *) {
-            return .rect(.bounds)
-        } else {
-            return .point(.bottom)
-        }
+        // Ideally .point(.bottom), but broken on Sonoma (FB12726503)
+        .rect(.bounds)
     }
 
 }
