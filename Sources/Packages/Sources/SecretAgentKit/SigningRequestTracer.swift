@@ -60,7 +60,10 @@ extension SigningRequestTracer {
     func iconURL(for pid: Int32) -> URL? {
         do {
             if let app = NSRunningApplication(processIdentifier: pid), let icon = app.icon?.tiffRepresentation {
-                let temporaryURL = URL(fileURLWithPath: (NSTemporaryDirectory() as NSString).appendingPathComponent("\(UUID().uuidString).png"))
+                let temporaryURL = URL(fileURLWithPath: (NSTemporaryDirectory() as NSString).appendingPathComponent("\(app.bundleIdentifier ?? UUID().uuidString).png"))
+                if FileManager.default.fileExists(atPath: temporaryURL.path) {
+                    return temporaryURL
+                }
                 let bitmap = NSBitmapImageRep(data: icon)
                 try bitmap?.representation(using: .png, properties: [:])?.write(to: temporaryURL)
                 return temporaryURL
