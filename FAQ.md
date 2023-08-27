@@ -32,6 +32,10 @@ Try running the "Setup Secretive" process by clicking on "Help", then "Setup Sec
 
 Beginning with Secretive 2.2, every secret has an automatically generated public key file representation on disk, and the path to it is listed under "Public Key Path" in Secretive. You can specify that you want to use that key in your `~/.ssh/config`.  [This ServerFault answer](https://serverfault.com/a/295771) has more details on setting that up.
 
+### How can I generate an RSA key?
+
+The Mac's Secure Enclave only supports 256-bit EC keys, so inherently Secretive cannot support generating RSA keys.
+
 ### Can I use Secretive for SSH Agent Forwarding?
 
 Yes, you can! Once you've set up Secretive, just add `ForwardAgent yes` to the hosts you want to forward to in your SSH config file. Afterwards, any use of one of your SSH keys on the remote host must be authenticated through Secretive.
