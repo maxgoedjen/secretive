@@ -249,7 +249,7 @@ extension SmartCard.Store {
         case (.ellipticCurve, 256):
             return .eciesEncryptionCofactorVariableIVX963SHA256AESGCM
         case (.ellipticCurve, 384):
-            return .eciesEncryptionCofactorVariableIVX963SHA256AESGCM
+            return .eciesEncryptionCofactorVariableIVX963SHA384AESGCM
         case (.rsa, 1024), (.rsa, 2048):
             return .rsaEncryptionOAEPSHA512AESGCM
         default:
