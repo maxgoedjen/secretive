@@ -16,14 +16,23 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         list.add(store: SmartCard.Store())
         return list
     }()
+    private static var homeDirectory: String {
+//        if UserDefaults.standard.bool(forKey: "usehomedirectory") {
+            let folder = "/Users/max/.secretive"
+            try? FileManager.default.createDirectory(atPath: folder, withIntermediateDirectories: false)
+            return folder
+//        } else {
+//            return FileManager.default.homeDirectoryForCurrentUser.path
+//        }
+    }
     private let updater = Updater(checkOnLaunch: false)
     private let notifier = Notifier()
-    private let publicKeyFileStoreController = PublicKeyFileStoreController(homeDirectory: NSHomeDirectory())
+    private let publicKeyFileStoreController = PublicKeyFileStoreController(homeDirectory: homeDirectory)
     private lazy var agent: Agent = {
         Agent(storeList: storeList, witness: notifier)
     }()
     private lazy var socketController: SocketController = {
-        let path = (NSHomeDirectory() as NSString).appendingPathComponent("socket.ssh") as String
+        let path = (AppDelegate.homeDirectory as NSString).appendingPathComponent("socket.ssh") as String
         return SocketController(path: path)
     }()
     private var updateSink: AnyCancellable?
