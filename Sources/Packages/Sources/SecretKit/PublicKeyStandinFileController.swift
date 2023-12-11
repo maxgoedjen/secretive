@@ -4,7 +4,7 @@ import OSLog
 /// Controller responsible for writing public keys to disk, so that they're easily accessible by scripts.
 public class PublicKeyFileStoreController {
 
-    private let logger = Logger()
+    private let logger = Logger(subsystem: "com.maxgoedjen.secretive.secretagent", category: "PublicKeyFileStoreController")
     private let directory: String
     private let keyWriter = OpenSSHKeyWriter()
 

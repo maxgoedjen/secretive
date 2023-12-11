@@ -27,9 +27,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         return SocketController(path: path)
     }()
     private var updateSink: AnyCancellable?
+    private let logger = Logger(subsystem: "com.maxgoedjen.secretive.secretagent", category: "AppDelegate")
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        Logger().debug("SecretAgent finished launching")
+        logger.debug("SecretAgent finished launching")
         DispatchQueue.main.async {
             self.socketController.handler = self.agent.handle(reader:writer:)
         }
