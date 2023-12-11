@@ -5,7 +5,7 @@ import SecretKit
 import AppKit
 
 /// The `Agent` is an implementation of an SSH agent. It manages coordination and access between a socket, traces requests, notifies witnesses and passes requests to stores.
-public class Agent {
+public final class Agent {
 
     private let storeList: SecretStoreList
     private let witness: SigningWitness?

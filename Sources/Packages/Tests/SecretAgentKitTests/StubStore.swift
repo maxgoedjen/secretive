@@ -6,7 +6,7 @@ struct Stub {}
 
 extension Stub {
 
-    public class Store: SecretStore {
+    public final class Store: SecretStore {
 
         public let isAvailable = true
         public let id = UUID()

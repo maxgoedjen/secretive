@@ -2,7 +2,7 @@ import Foundation
 import OSLog
 
 /// A controller that manages socket configuration and request dispatching.
-public class SocketController {
+public final class SocketController {
 
     /// The active FileHandle.
     private var fileHandle: FileHandle?
@@ -10,7 +10,7 @@ public class SocketController {
     private var port: SocketPort?
     /// A handler that will be notified when a new read/write handle is available.
     /// False if no data could be read
-    public var handler: ((FileHandleReader, FileHandleWriter) async -> Bool)?
+    public var handler: (@Sendable (FileHandleReader, FileHandleWriter) async -> Bool)?
     /// Logger.
     private let logger = Logger(subsystem: "com.maxgoedjen.secretive.secretagent", category: "SocketController")
 
@@ -69,7 +69,7 @@ public class SocketController {
     @objc func handleConnectionAccept(notification: Notification) {
         logger.debug("Socket controller accepted connection")
         guard let new = notification.userInfo?[NSFileHandleNotificationFileHandleItem] as? FileHandle else { return }
-        Task {
+        Task { [handler, fileHandle] in
             _ = await handler?(new, new)
             await new.waitForDataInBackgroundAndNotifyOnMainActor()
             await fileHandle?.acceptConnectionInBackgroundAndNotifyOnMainActor()
@@ -82,12 +82,12 @@ public class SocketController {
         logger.debug("Socket controller has new data available")
         guard let new = notification.object as? FileHandle else { return }
         logger.debug("Socket controller received new file handle")
-        Task {
+        Task { [handler, logger = UncheckedSendable(logger)] in
             if((await handler?(new, new)) == true) {
-                logger.debug("Socket controller handled data, wait for more data")
+                logger.value.debug("Socket controller handled data, wait for more data")
                 await new.waitForDataInBackgroundAndNotifyOnMainActor()
             } else {
-                logger.debug("Socket controller called with empty data, socked closed")
+                logger.value.debug("Socket controller called with empty data, socked closed")
             }
         }
     }

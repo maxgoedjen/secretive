@@ -1,4 +1,4 @@
-// swift-tools-version:5.5
+// swift-tools-version:5.9
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
@@ -33,23 +33,28 @@ let package = Package(
     targets: [
         .target(
             name: "SecretKit",
-            dependencies: []
+            dependencies: [],
+            swiftSettings: [.enableExperimentalFeature("StrictConcurrency"), .unsafeFlags(["-warnings-as-errors"])]
         ),
         .testTarget(
             name: "SecretKitTests",
-            dependencies: ["SecretKit", "SecureEnclaveSecretKit", "SmartCardSecretKit"]
+            dependencies: ["SecretKit", "SecureEnclaveSecretKit", "SmartCardSecretKit"],
+            swiftSettings: [.enableExperimentalFeature("StrictConcurrency"), .unsafeFlags(["-warnings-as-errors"])]
         ),
         .target(
             name: "SecureEnclaveSecretKit",
-            dependencies: ["SecretKit"]
+            dependencies: ["SecretKit"],
+            swiftSettings: [.enableExperimentalFeature("StrictConcurrency"), .unsafeFlags(["-warnings-as-errors"])]
         ),
         .target(
             name: "SmartCardSecretKit",
-            dependencies: ["SecretKit"]
+            dependencies: ["SecretKit"],
+            swiftSettings: [.enableExperimentalFeature("StrictConcurrency"), .unsafeFlags(["-warnings-as-errors"])]
         ),
         .target(
             name: "SecretAgentKit",
-            dependencies: ["SecretKit", "SecretAgentKitHeaders"]
+            dependencies: ["SecretKit", "SecretAgentKitHeaders"],
+            swiftSettings: [.enableExperimentalFeature("StrictConcurrency"), .unsafeFlags(["-warnings-as-errors"])]
         ),
         .systemLibrary(
             name: "SecretAgentKitHeaders"

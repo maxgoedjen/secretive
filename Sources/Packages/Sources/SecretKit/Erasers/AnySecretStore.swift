@@ -71,7 +71,7 @@ public class AnySecretStore: SecretStore {
 
 }
 
-public class AnySecretStoreModifiable: AnySecretStore, SecretStoreModifiable {
+public final class AnySecretStoreModifiable: AnySecretStore, SecretStoreModifiable {
 
     private let _create: (String, Bool) throws -> Void
     private let _delete: (AnySecret) throws -> Void

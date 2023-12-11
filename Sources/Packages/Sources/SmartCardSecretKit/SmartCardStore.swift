@@ -8,7 +8,7 @@ import SecretKit
 extension SmartCard {
 
     /// An implementation of Store backed by a Smart Card.
-    public class Store: SecretStore {
+    public final class Store: SecretStore {
 
         @Published public var isAvailable: Bool = false
         public let id = UUID()
@@ -20,12 +20,14 @@ extension SmartCard {
         /// Initializes a Store.
         public init() {
             tokenID = watcher.nonSecureEnclaveTokens.first
-            watcher.setInsertionHandler { string in
+            watcher.setInsertionHandler { [reload = reloadSecretsInternal] string in
                 guard self.tokenID == nil else { return }
                 guard !string.contains("setoken") else { return }
 
                 self.tokenID = string
-                self.reloadSecrets()
+                DispatchQueue.main.async {
+                    reload()
+                }
                 self.watcher.addRemovalHandler(self.smartcardRemoved, forTokenID: string)
             }
             if let tokenID = tokenID {
@@ -106,15 +108,7 @@ extension SmartCard {
 
         /// Reloads all secrets from the store.
         public func reloadSecrets() {
-            DispatchQueue.main.async {
-                self.isAvailable = self.tokenID != nil
-                let before = self.secrets
-                self.secrets.removeAll()
-                self.loadSecrets()
-                if self.secrets != before {
-                    NotificationCenter.default.post(name: .secretStoreReloaded, object: self)
-                }
-            }
+            reloadSecretsInternal()
         }
 
     }
@@ -122,6 +116,16 @@ extension SmartCard {
 }
 
 extension SmartCard.Store {
+
+    @Sendable private func reloadSecretsInternal() {
+        self.isAvailable = self.tokenID != nil
+        let before = self.secrets
+        self.secrets.removeAll()
+        self.loadSecrets()
+        if self.secrets != before {
+            NotificationCenter.default.post(name: .secretStoreReloaded, object: self)
+        }
+    }
 
     /// Resets the token ID and reloads secrets.
     /// - Parameter tokenID: The ID of the token that was removed.

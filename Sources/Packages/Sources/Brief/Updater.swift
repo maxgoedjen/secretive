@@ -2,7 +2,7 @@ import Foundation
 import Combine
 
 /// A concrete implementation of ``UpdaterProtocol`` which considers the current release and OS version.
-public class Updater: ObservableObject, UpdaterProtocol {
+public final class Updater: ObservableObject, UpdaterProtocol {
 
     @Published public var update: Release?
     public let testBuild: Bool

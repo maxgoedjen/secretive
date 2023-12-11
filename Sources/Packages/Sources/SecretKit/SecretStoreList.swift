@@ -2,7 +2,7 @@ import Foundation
 import Combine
 
 /// A "Store Store," which holds a list of type-erased stores.
-public class SecretStoreList: ObservableObject {
+public final class SecretStoreList: ObservableObject {
 
     /// The Stores managed by the SecretStoreList.
     @Published public var stores: [AnySecretStore] = []
