@@ -1,7 +1,7 @@
 import Foundation
 
 /// Protocol abstraction of the reading aspects of FileHandle.
-public protocol FileHandleReader {
+public protocol FileHandleReader: Sendable {
 
     /// Gets data that is available for reading.
     var availableData: Data { get }
@@ -13,7 +13,7 @@ public protocol FileHandleReader {
 }
 
 /// Protocol abstraction of the writing aspects of FileHandle.
-public protocol FileHandleWriter {
+public protocol FileHandleWriter: Sendable {
 
     /// Writes data to the handle.
     func write(_ data: Data)
