@@ -8,7 +8,7 @@ import SecretKit
 extension SmartCard {
 
     /// An implementation of Store backed by a Smart Card.
-    public class Store: SecretStore {
+    public final class Store: SecretStore {
 
         @Published public var isAvailable: Bool = false
         public let id = UUID()
@@ -106,15 +106,15 @@ extension SmartCard {
 
         /// Reloads all secrets from the store.
         public func reloadSecrets() {
-            DispatchQueue.main.async {
-                self.isAvailable = self.tokenID != nil
-                let before = self.secrets
-                self.secrets.removeAll()
-                self.loadSecrets()
-                if self.secrets != before {
-                    NotificationCenter.default.post(name: .secretStoreReloaded, object: self)
-                }
-            }
+//            DispatchQueue.main.async {
+//                self.isAvailable = self.tokenID != nil
+//                let before = self.secrets
+//                self.secrets.removeAll()
+//                self.loadSecrets()
+//                if self.secrets != before {
+//                    NotificationCenter.default.post(name: .secretStoreReloaded, object: self)
+//                }
+//            }
         }
 
     }

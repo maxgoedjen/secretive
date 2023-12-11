@@ -8,7 +8,7 @@ import SecretKit
 extension SecureEnclave {
 
     /// An implementation of Store backed by the Secure Enclave.
-    public class Store: SecretStoreModifiable {
+    public final class Store: SecretStoreModifiable {
 
         public var isAvailable: Bool {
             // For some reason, as of build time, CryptoKit.SecureEnclave.isAvailable always returns false
@@ -24,8 +24,8 @@ extension SecureEnclave {
 
         /// Initializes a Store.
         public init() {
-            DistributedNotificationCenter.default().addObserver(forName: .secretStoreUpdated, object: nil, queue: .main) { _ in
-                self.reloadSecretsInternal(notifyAgent: false)
+            DistributedNotificationCenter.default().addObserver(forName: .secretStoreUpdated, object: nil, queue: .main) { [reload = reloadSecretsInternal(notifyAgent:)] _ in
+                reload(false)
             }
             loadSecrets()
         }
@@ -211,7 +211,7 @@ extension SecureEnclave.Store {
 
     /// Reloads all secrets from the store.
     /// - Parameter notifyAgent: A boolean indicating whether a distributed notification should be posted, notifying other processes (ie, the SecretAgent) to reload their stores as well.
-    private func reloadSecretsInternal(notifyAgent: Bool = true) {
+    @Sendable private func reloadSecretsInternal(notifyAgent: Bool = true) {
         let before = secrets
         secrets.removeAll()
         loadSecrets()
