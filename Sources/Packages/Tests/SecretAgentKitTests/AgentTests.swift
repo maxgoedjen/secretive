@@ -10,39 +10,39 @@ class AgentTests: XCTestCase {
 
     // MARK: Identity Listing
 
-    func testEmptyStores() {
+    func testEmptyStores() async {
         let stubReader = StubFileHandleReader(availableData: Constants.Requests.requestIdentities)
         let agent = Agent(storeList: SecretStoreList())
-        agent.handle(reader: stubReader, writer: stubWriter)
+        await agent.handle(reader: stubReader, writer: stubWriter)
         XCTAssertEqual(stubWriter.data, Constants.Responses.requestIdentitiesEmpty)
     }
 
-    func testIdentitiesList() {
+    func testIdentitiesList() async {
         let stubReader = StubFileHandleReader(availableData: Constants.Requests.requestIdentities)
         let list = storeList(with: [Constants.Secrets.ecdsa256Secret, Constants.Secrets.ecdsa384Secret])
         let agent = Agent(storeList: list)
-        agent.handle(reader: stubReader, writer: stubWriter)
+        await agent.handle(reader: stubReader, writer: stubWriter)
         XCTAssertEqual(stubWriter.data, Constants.Responses.requestIdentitiesMultiple)
     }
 
     // MARK: Signatures
 
-    func testNoMatchingIdentities() {
+    func testNoMatchingIdentities() async {
         let stubReader = StubFileHandleReader(availableData: Constants.Requests.requestSignatureWithNoneMatching)
         let list = storeList(with: [Constants.Secrets.ecdsa256Secret, Constants.Secrets.ecdsa384Secret])
         let agent = Agent(storeList: list)
-        agent.handle(reader: stubReader, writer: stubWriter)
+        await agent.handle(reader: stubReader, writer: stubWriter)
 //        XCTAssertEqual(stubWriter.data, Constants.Responses.requestFailure)
     }
 
-    func testSignature() {
+    func testSignature() async {
         let stubReader = StubFileHandleReader(availableData: Constants.Requests.requestSignature)
         let requestReader = OpenSSHReader(data: Constants.Requests.requestSignature[5...])
         _ = requestReader.readNextChunk()
         let dataToSign = requestReader.readNextChunk()
         let list = storeList(with: [Constants.Secrets.ecdsa256Secret, Constants.Secrets.ecdsa384Secret])
         let agent = Agent(storeList: list)
-        agent.handle(reader: stubReader, writer: stubWriter)
+        await agent.handle(reader: stubReader, writer: stubWriter)
         let outer = OpenSSHReader(data: stubWriter.data[5...])
         let payload = outer.readNextChunk()
         let inner = OpenSSHReader(data: payload)
@@ -76,18 +76,18 @@ class AgentTests: XCTestCase {
 
     // MARK: Witness protocol
 
-    func testWitnessObjectionStopsRequest() {
+    func testWitnessObjectionStopsRequest() async {
         let stubReader = StubFileHandleReader(availableData: Constants.Requests.requestSignature)
         let list = storeList(with: [Constants.Secrets.ecdsa256Secret])
         let witness = StubWitness(speakNow: { _,_  in
             return true
         }, witness: { _, _ in })
         let agent = Agent(storeList: list, witness: witness)
-        agent.handle(reader: stubReader, writer: stubWriter)
+        await agent.handle(reader: stubReader, writer: stubWriter)
         XCTAssertEqual(stubWriter.data, Constants.Responses.requestFailure)
     }
 
-    func testWitnessSignature() {
+    func testWitnessSignature() async {
         let stubReader = StubFileHandleReader(availableData: Constants.Requests.requestSignature)
         let list = storeList(with: [Constants.Secrets.ecdsa256Secret])
         var witnessed = false
@@ -97,11 +97,11 @@ class AgentTests: XCTestCase {
             witnessed = true
         })
         let agent = Agent(storeList: list, witness: witness)
-        agent.handle(reader: stubReader, writer: stubWriter)
+        await agent.handle(reader: stubReader, writer: stubWriter)
         XCTAssertTrue(witnessed)
     }
 
-    func testRequestTracing() {
+    func testRequestTracing() async {
         let stubReader = StubFileHandleReader(availableData: Constants.Requests.requestSignature)
         let list = storeList(with: [Constants.Secrets.ecdsa256Secret])
         var speakNowTrace: SigningRequestProvenance! = nil
@@ -113,7 +113,7 @@ class AgentTests: XCTestCase {
             witnessTrace = trace
         })
         let agent = Agent(storeList: list, witness: witness)
-        agent.handle(reader: stubReader, writer: stubWriter)
+        await agent.handle(reader: stubReader, writer: stubWriter)
         XCTAssertEqual(witnessTrace, speakNowTrace)
         XCTAssertEqual(witnessTrace.origin.displayName, "Finder")
         XCTAssertEqual(witnessTrace.origin.validSignature, true)
@@ -122,22 +122,22 @@ class AgentTests: XCTestCase {
 
     // MARK: Exception Handling
 
-    func testSignatureException() {
+    func testSignatureException() async {
         let stubReader = StubFileHandleReader(availableData: Constants.Requests.requestSignature)
         let list = storeList(with: [Constants.Secrets.ecdsa256Secret, Constants.Secrets.ecdsa384Secret])
         let store = list.stores.first?.base as! Stub.Store
         store.shouldThrow = true
         let agent = Agent(storeList: list)
-        agent.handle(reader: stubReader, writer: stubWriter)
+        await agent.handle(reader: stubReader, writer: stubWriter)
         XCTAssertEqual(stubWriter.data, Constants.Responses.requestFailure)
     }
 
     // MARK: Unsupported
 
-    func testUnhandledAdd() {
+    func testUnhandledAdd() async {
         let stubReader = StubFileHandleReader(availableData: Constants.Requests.addIdentity)
         let agent = Agent(storeList: SecretStoreList())
-        agent.handle(reader: stubReader, writer: stubWriter)
+        await agent.handle(reader: stubReader, writer: stubWriter)
         XCTAssertEqual(stubWriter.data, Constants.Responses.requestFailure)
     }
 
