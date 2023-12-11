@@ -12,7 +12,7 @@ public class Agent {
     private let writer = OpenSSHKeyWriter()
     private let requestTracer = SigningRequestTracer()
     private let certificateHandler = OpenSSHCertificateHandler()
-    private let logger = Logger(subsystem: "com.maxgoedjen.secretive.secretagent.agent", category: "")
+    private let logger = Logger(subsystem: "com.maxgoedjen.secretive.secretagent", category: "Agent")
 
     /// Initializes an agent with a store list and a witness.
     /// - Parameters:
@@ -35,7 +35,7 @@ extension Agent {
     ///   - writer: A ``FileHandleWriter`` to write the response to.
     /// - Return value: 
     ///   - Boolean if data could be read
-    @discardableResult public func handle(reader: FileHandleReader, writer: FileHandleWriter) -> Bool {
+    @discardableResult @Sendable public func handle(reader: FileHandleReader, writer: FileHandleWriter) async -> Bool {
         logger.debug("Agent handling new data")
         let data = Data(reader.availableData)
         guard data.count > 4 else { return false}
@@ -47,12 +47,12 @@ extension Agent {
         }
         logger.debug("Agent handling request of type \(requestType.debugDescription)")
         let subData = Data(data[5...])
-        let response = handle(requestType: requestType, data: subData, reader: reader)
+        let response = await handle(requestType: requestType, data: subData, reader: reader)
         writer.write(response)
         return true
     }
 
-    func handle(requestType: SSHAgent.RequestType, data: Data, reader: FileHandleReader) -> Data {
+    func handle(requestType: SSHAgent.RequestType, data: Data, reader: FileHandleReader) async -> Data {
         // Depending on the launch context (such as after macOS update), the agent may need to reload secrets before acting
         reloadSecretsIfNeccessary()
         var response = Data()
