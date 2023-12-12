@@ -10,7 +10,7 @@ jobs:
     runs-on: macos-13
     timeout-minutes: 10
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v4
     - name: Setup Signing
       env: 
         SIGNING_DATA: ${{ secrets.SIGNING_DATA }}
@@ -32,7 +32,7 @@ jobs:
     runs-on: macos-13
     timeout-minutes: 10
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
     - name: Setup Signing
       env: 
         SIGNING_DATA: ${{ secrets.SIGNING_DATA }}
