@@ -73,12 +73,12 @@
     "Create a new one by clicking here." : {
 
     },
-    "create_secret_cancel_buton" : {
+    "create_secret_cancel_button" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "create_secret_cancel"
+            "value" : "Cancel"
           }
         }
       }
@@ -250,6 +250,17 @@
     "Key" : {
       "extractionState" : "manual"
     },
+    "Key 1" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Touch ID Detail prompt.Detail two."
+          }
+        }
+      }
+    },
     "New Secret" : {
 
     },
@@ -365,16 +376,10 @@
         }
       }
     },
-    "Secretive" : {
-
-    },
     "Secretive %@" : {
 
     },
     "Secretive supports EC256, EC384, RSA1024, and RSA2048 keys." : {
-
-    },
-    "Secretive wants to sign" : {
 
     },
     "Setup Secretive" : {
@@ -530,12 +535,6 @@
       }
     },
     "Title" : {
-
-    },
-    "Touch ID Detail prompt.Detail two." : {
-
-    },
-    "Touch ID Prompt" : {
 
     },
     "Update" : {

@@ -46,7 +46,7 @@ struct CreateSecretView<StoreType: SecretStoreModifiable>: View {
             }
             HStack {
                 Spacer()
-                Button("create_secret_cancel_buton") {
+                Button("create_secret_cancel_button") {
                     showing = false
                 }
                 .keyboardShortcut(.cancelAction)
@@ -109,11 +109,11 @@ extension ThumbnailPickerView {
     struct Item<ValueType: Hashable>: Identifiable {
         let id = UUID()
         let value: ValueType
-        let name: String
-        let description: String
+        let name: LocalizedStringKey
+        let description: LocalizedStringKey
         let thumbnail: AnyView
 
-        init<ViewType: View>(value: ValueType, name: String, description: String, thumbnail: ViewType) {
+        init<ViewType: View>(value: ValueType, name: LocalizedStringKey, description: LocalizedStringKey, thumbnail: ViewType) {
             self.value = value
             self.name = name
             self.description = description
@@ -169,15 +169,15 @@ struct AuthenticationView: View {
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .foregroundColor(Color(.systemRed))
-                    Text("Touch ID Prompt")
+                    Text(verbatim: "Touch ID Prompt")
                         .font(.headline)
                         .foregroundColor(.primary)
                         .redacted(reason: .placeholder)
                     VStack {
-                        Text("Touch ID Detail prompt.Detail two.")
+                        Text(verbatim: "Touch ID Detail prompt.Detail two.")
                             .font(.caption2)
                             .foregroundColor(.primary)
-                        Text("Touch ID Detail prompt.Detail two.")
+                        Text(verbatim: "Touch ID Detail prompt.Detail two.")
                             .font(.caption2)
                             .foregroundColor(.primary)
                     }
@@ -223,10 +223,10 @@ struct NotificationView: View {
                                 .frame(width: 64, height: 64)
                                 .foregroundColor(.primary)
                             VStack(alignment: .leading) {
-                                Text("Secretive")
+                                Text(verbatim: "Secretive")
                                     .font(.title)
                                     .foregroundColor(.primary)
-                                Text("Secretive wants to sign")
+                                Text(verbatim: "Secretive wants to sign")
                                     .font(.body)
                                     .foregroundColor(.primary)
                             }
