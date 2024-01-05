@@ -185,9 +185,6 @@
         }
       }
     },
-    "Delete" : {
-
-    },
     "delete_confirmation_cancel_button" : {
       "localizations" : {
         "en" : {
@@ -304,20 +301,6 @@
     "Ignore" : {
 
     },
-    "Key" : {
-      "extractionState" : "manual"
-    },
-    "Key 1" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Touch ID Detail prompt.Detail two."
-          }
-        }
-      }
-    },
     "New Secret" : {
 
     },
@@ -352,9 +335,6 @@
       }
     },
     "Release Notes" : {
-
-    },
-    "Rename" : {
 
     },
     "rename_cancel_button" : {
@@ -426,6 +406,26 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "SHA256 Fingerprint"
+          }
+        }
+      }
+    },
+    "secret_list_delete_button" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete"
+          }
+        }
+      }
+    },
+    "secret_list_rename_button" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rename"
           }
         }
       }
