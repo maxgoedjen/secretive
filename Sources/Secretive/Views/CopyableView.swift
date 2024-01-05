@@ -3,7 +3,7 @@ import UniformTypeIdentifiers
 
 struct CopyableView: View {
 
-    var title: String
+    var title: LocalizedStringKey
     var image: Image
     var text: String
 
