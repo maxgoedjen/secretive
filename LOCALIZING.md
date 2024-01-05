@@ -6,11 +6,11 @@ If you speak another language, and would like to help translate Secretive to sup
 
 ### Download Xcode
 
-Download the latest version of Xcode (at minimum, Xcode 15) from [Apple](http://developer.apple.com/download/applications/)
+Download the latest version of Xcode (at minimum, Xcode 15) from [Apple](http://developer.apple.com/download/applications/).
 
 ### Clone Secretive
 
-Clone Secretive using [these instructions from GitHub](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository)
+Clone Secretive using [these instructions from GitHub](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository).
 
 ### Open Secretive
 
@@ -30,7 +30,7 @@ Start translating! You'll see a list of english phrases, and a space to add a tr
 
 ### Localize SecretAgent
 
-Navigate to [Secretive/Localizable](Sources/SecretiveAgent/Localizable.xcstrings). 
+Navigate to [Secretive/Localizable](Sources/SecretAgent/Localizable.xcstrings). 
 
 <img src="/.github/readme/localize_sidebar_agent.png" alt="Screenshot of Xcode navigating to the Localizable file" width="300">
 
