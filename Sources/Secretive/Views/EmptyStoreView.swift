@@ -9,11 +9,11 @@ struct EmptyStoreView: View {
     var body: some View {
         if store is AnySecretStoreModifiable {
             NavigationLink(destination: EmptyStoreModifiableView(), tag: Constants.emptyStoreModifiableTag, selection: $activeSecret) {
-                Text("No Secrets")
+                Text("empty_store_modifiable_title")
             }
         } else {
             NavigationLink(destination: EmptyStoreImmutableView(), tag: Constants.emptyStoreTag, selection: $activeSecret) {
-                Text("No Secrets")
+                Text("empty_store_nonmodifiable_title")
             }
         }
     }
@@ -23,7 +23,7 @@ extension EmptyStoreView {
     
     enum Constants {
         static let emptyStoreModifiableTag: AnyHashable = "emptyStoreModifiableTag"
-        static let emptyStoreTag: AnyHashable = "emptyStoreModifiableTag"
+        static let emptyStoreTag: AnyHashable = "emptyStoreTag"
     }
 
 }
@@ -32,9 +32,9 @@ struct EmptyStoreImmutableView: View {
     
     var body: some View {
         VStack {
-            Text("No Secrets").bold()
-            Text("Use your Smart Card's management tool to create a secret.")
-            Text("Secretive supports EC256, EC384, RSA1024, and RSA2048 keys.")
+            Text("empty_store_nonmodifiable_title").bold()
+            Text("empty_store_nonmodifiable_description")
+            Text("empty_store_nonmodifiable_supported_key_types")
         }.frame(maxWidth: .infinity, maxHeight: .infinity)
     }
     
@@ -63,8 +63,8 @@ struct EmptyStoreModifiableView: View {
                         path.addLine(to: CGPoint(x: g.size.width - 3, y: 0))
                     }.fill()
                 }.frame(height: (windowGeometry.size.height/2) - 20).padding()
-                Text("No Secrets").bold()
-                Text("Create a new one by clicking here.")
+                Text("empty_store_modifiable_click_here_title").bold()
+                Text("empty_store_modifiable_click_here_description")
                 Spacer()
             }.frame(maxWidth: .infinity, maxHeight: .infinity)
         }

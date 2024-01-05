@@ -70,9 +70,6 @@
         }
       }
     },
-    "Create a new one by clicking here." : {
-
-    },
     "create_secret_cancel_button" : {
       "localizations" : {
         "en" : {
@@ -241,6 +238,66 @@
         }
       }
     },
+    "empty_store_modifiable_click_here_description" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Create a new one by clicking here."
+          }
+        }
+      }
+    },
+    "empty_store_modifiable_click_here_title" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No Secrets"
+          }
+        }
+      }
+    },
+    "empty_store_modifiable_title" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No Secrets"
+          }
+        }
+      }
+    },
+    "empty_store_nonmodifiable_description" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Use your Smart Card's management tool to create a secret."
+          }
+        }
+      }
+    },
+    "empty_store_nonmodifiable_supported_key_types" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Secretive supports EC256, EC384, RSA1024, and RSA2048 keys."
+          }
+        }
+      }
+    },
+    "empty_store_nonmodifiable_title" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No Secrets"
+          }
+        }
+      }
+    },
     "Help" : {
 
     },
@@ -262,9 +319,6 @@
       }
     },
     "New Secret" : {
-
-    },
-    "No Secrets" : {
 
     },
     "no_secure_storage_description" : {
@@ -377,9 +431,6 @@
       }
     },
     "Secretive %@" : {
-
-    },
-    "Secretive supports EC256, EC384, RSA1024, and RSA2048 keys." : {
 
     },
     "Setup Secretive" : {
@@ -538,9 +589,6 @@
 
     },
     "Update" : {
-
-    },
-    "Use your Smart Card's management tool to create a secret." : {
 
     }
   },
