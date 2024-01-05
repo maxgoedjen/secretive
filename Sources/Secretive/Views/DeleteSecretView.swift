@@ -18,24 +18,24 @@ struct DeleteSecretView<StoreType: SecretStoreModifiable>: View {
                     .padding()
                 VStack {
                     HStack {
-                        Text("Delete \(secret.name)?").bold()
+                        Text("delete_confirmation_title_\(secret.name)").bold()
                         Spacer()
                     }
                     HStack {
-                        Text("If you delete \(secret.name), you will not be able to recover it. Type \"\(secret.name)\" to confirm.")
+                        Text("delete_confirmation_description_\(secret.name)_\(secret.name)")
                         Spacer()
                     }
                     HStack {
-                        Text("Confirm Name:")
+                        Text("delete_confirmation_confirm_name_label")
                         TextField(secret.name, text: $confirm)
                     }
                 }
             }
             HStack {
                 Spacer()
-                Button("Delete", action: delete)
+                Button("delete_confirmation_delete_button", action: delete)
                     .disabled(confirm != secret.name)
-                Button("Don't Delete") {
+                Button("delete_confirmation_cancel_button") {
                     dismissalBlock(false)
                 }
                 .keyboardShortcut(.cancelAction)

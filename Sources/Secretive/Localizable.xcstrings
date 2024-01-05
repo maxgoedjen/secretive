@@ -73,9 +73,6 @@
     "Cancel" : {
 
     },
-    "Confirm Name:" : {
-
-    },
     "Create a new one by clicking here." : {
 
     },
@@ -197,16 +194,37 @@
     "Delete" : {
 
     },
-    "Delete %@?" : {
-
+    "delete_confirmation_cancel_button" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Don't Delete"
+          }
+        }
+      }
     },
-    "Don't Delete" : {
-
+    "delete_confirmation_confirm_name_label" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Confirm Name:"
+          }
+        }
+      }
     },
-    "Help" : {
-
+    "delete_confirmation_delete_button" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete"
+          }
+        }
+      }
     },
-    "If you delete %@, you will not be able to recover it. Type \"%@\" to confirm." : {
+    "delete_confirmation_description_%@_%@" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -215,6 +233,19 @@
           }
         }
       }
+    },
+    "delete_confirmation_title_%@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete %1$@?"
+          }
+        }
+      }
+    },
+    "Help" : {
+
     },
     "Ignore" : {
 
