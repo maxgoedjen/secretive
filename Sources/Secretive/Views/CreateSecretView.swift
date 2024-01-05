@@ -23,25 +23,12 @@ struct CreateSecretView<StoreType: SecretStoreModifiable>: View {
                         TextField("create_secret_name_placeholder", text: $name)
                             .focusable()
                     }
-                    if #available(macOS 12.0, *) {
-                        ThumbnailPickerView(items: [
-                            ThumbnailPickerView.Item(value: true, name: "create_secret_require_authentication_title", description: "create_secret_require_authentication_description", thumbnail: AuthenticationView()),
-                            ThumbnailPickerView.Item(value: false, name: "create_secret_notify_title",
-                                                     description: "create_secret_notify_description",
-                                                     thumbnail: NotificationView())
-                        ], selection: $requiresAuthentication)
-                    } else {
-                        HStack {
-                            VStack(spacing: 20) {
-                                Picker("", selection: $requiresAuthentication) {
-                                    Text("create_secret_legacy_require_authentication_description").tag(true)
-                                    Text("create_secret_legacy_notify_description").tag(false)
-                                }
-                                .pickerStyle(RadioGroupPickerStyle())
-                                Spacer(minLength: 10)
-                            }
-                        }
-                    }
+                    ThumbnailPickerView(items: [
+                        ThumbnailPickerView.Item(value: true, name: "create_secret_require_authentication_title", description: "create_secret_require_authentication_description", thumbnail: AuthenticationView()),
+                        ThumbnailPickerView.Item(value: false, name: "create_secret_notify_title",
+                                                 description: "create_secret_notify_description",
+                                                 thumbnail: NotificationView())
+                    ], selection: $requiresAuthentication)
                 }
             }
             HStack {
@@ -138,7 +125,6 @@ extension ThumbnailPickerView {
 
 }
 
-@available(macOS 12.0, *)
 struct SystemBackgroundView: View {
 
     let anchor: UnitPoint
@@ -157,7 +143,6 @@ struct SystemBackgroundView: View {
     }
 }
 
-@available(macOS 12.0, *)
 struct AuthenticationView: View {
 
     var body: some View {
@@ -203,7 +188,6 @@ struct AuthenticationView: View {
 
 }
 
-@available(macOS 12.0, *)
 struct NotificationView: View {
 
     var body: some View {
@@ -253,14 +237,10 @@ struct CreateSecretView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             CreateSecretView(store: Preview.StoreModifiable(), showing: .constant(true))
-            if #available(macOS 12.0, *) {
                 AuthenticationView().environment(\.colorScheme, .dark)
                 AuthenticationView().environment(\.colorScheme, .light)
                 NotificationView().environment(\.colorScheme, .dark)
                 NotificationView().environment(\.colorScheme, .light)
-            } else {
-                // Fallback on earlier versions
-            }
         }
     }
 }

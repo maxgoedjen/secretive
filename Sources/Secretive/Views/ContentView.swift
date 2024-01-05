@@ -64,15 +64,15 @@ extension ContentView {
         }
     }
 
-    var updateNoticeContent: (String, Color)? {
+    var updateNoticeContent: (LocalizedStringKey, Color)? {
         guard let update = updater.update else { return nil }
         if update.critical {
-            return ("Critical Security Update Required", .red)
+            return ("update_critical_notice_title", .red)
         } else {
             if updater.testBuild {
-                return ("Test Build", .blue)
+                return ("update_test_notice_title", .blue)
             } else {
-                return ("Update Available", .orange)
+                return ("update_normal_notice_title", .orange)
             }
         }
     }

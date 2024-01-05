@@ -19,6 +19,7 @@
 		5003EF632780081B00DF2006 /* SecureEnclaveSecretKit in Frameworks */ = {isa = PBXBuildFile; productRef = 5003EF622780081B00DF2006 /* SecureEnclaveSecretKit */; };
 		5003EF652780081B00DF2006 /* SmartCardSecretKit in Frameworks */ = {isa = PBXBuildFile; productRef = 5003EF642780081B00DF2006 /* SmartCardSecretKit */; };
 		500B93C32B478D8400E157DE /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 500B93C22B478D8400E157DE /* Localizable.xcstrings */; };
+		500B93C72B479E2E00E157DE /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 500B93C62B479E2E00E157DE /* Localizable.xcstrings */; };
 		501421622781262300BBAA70 /* Brief in Frameworks */ = {isa = PBXBuildFile; productRef = 501421612781262300BBAA70 /* Brief */; };
 		501421652781268000BBAA70 /* SecretAgent.app in CopyFiles */ = {isa = PBXBuildFile; fileRef = 50A3B78A24026B7500D209EA /* SecretAgent.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		50153E20250AFCB200525160 /* UpdateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50153E1F250AFCB200525160 /* UpdateView.swift */; };
@@ -110,6 +111,7 @@
 		50033AC227813F1700253856 /* BundleIDs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BundleIDs.swift; sourceTree = "<group>"; };
 		5003EF39278005C800DF2006 /* Packages */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Packages; sourceTree = "<group>"; };
 		500B93C22B478D8400E157DE /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
+		500B93C62B479E2E00E157DE /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		50153E1F250AFCB200525160 /* UpdateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateView.swift; sourceTree = "<group>"; };
 		50153E21250DECA300525160 /* SecretListItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecretListItemView.swift; sourceTree = "<group>"; };
 		5018F54E24064786002EB505 /* Notifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifier.swift; sourceTree = "<group>"; };
@@ -314,6 +316,7 @@
 				50A3B79824026B7600D209EA /* Info.plist */,
 				508BF29425B4F140009EFB7E /* InternetAccessPolicy.plist */,
 				50A3B79924026B7600D209EA /* SecretAgent.entitlements */,
+				500B93C62B479E2E00E157DE /* Localizable.xcstrings */,
 				50A3B79224026B7600D209EA /* Preview Content */,
 			);
 			path = SecretAgent;
@@ -466,6 +469,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				50A3B79724026B7600D209EA /* Main.storyboard in Resources */,
+				500B93C72B479E2E00E157DE /* Localizable.xcstrings in Resources */,
 				50A3B79424026B7600D209EA /* Preview Assets.xcassets in Resources */,
 				50A3B79124026B7600D209EA /* Assets.xcassets in Resources */,
 				508BF2AA25B4F1CB009EFB7E /* InternetAccessPolicy.plist in Resources */,
@@ -693,6 +697,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
 				MARKETING_VERSION = 1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.maxgoedjen.Secretive.Host;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -721,6 +726,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
 				MARKETING_VERSION = 1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.maxgoedjen.Secretive.Host;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -854,6 +860,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
 				MARKETING_VERSION = 1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.maxgoedjen.Secretive.Host;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -898,6 +905,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
 				MARKETING_VERSION = 1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.maxgoedjen.Secretive.SecretAgent;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -922,6 +930,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
 				MARKETING_VERSION = 1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.maxgoedjen.Secretive.SecretAgent;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -947,6 +956,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
 				MARKETING_VERSION = 1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.maxgoedjen.Secretive.SecretAgent;
 				PRODUCT_NAME = "$(TARGET_NAME)";

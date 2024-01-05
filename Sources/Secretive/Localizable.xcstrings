@@ -1,9 +1,6 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
-    "" : {
-
-    },
     "\n" : {
 
     },
@@ -126,26 +123,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Create"
-          }
-        }
-      }
-    },
-    "create_secret_legacy_notify_description" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Authentication not required when Mac is unlocked"
-          }
-        }
-      }
-    },
-    "create_secret_legacy_require_authentication_description" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Requires Authentication (Biometrics or Password) before each use"
           }
         }
       }
@@ -614,6 +591,16 @@
         }
       }
     },
+    "update_critical_notice_title" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Critical Security Update Required"
+          }
+        }
+      }
+    },
     "update_ignore_button" : {
       "localizations" : {
         "en" : {
@@ -624,12 +611,32 @@
         }
       }
     },
+    "update_normal_notice_title" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Update Available"
+          }
+        }
+      }
+    },
     "update_release_notes_title" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Release Notes"
+          }
+        }
+      }
+    },
+    "update_test_notice_title" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Test Build"
           }
         }
       }

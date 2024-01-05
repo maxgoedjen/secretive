@@ -139,20 +139,10 @@ extension SmartCard.Store {
         guard let tokenID = tokenID else { return }
 
         let fallbackName = NSLocalizedString("Smart Card", comment: "Smart Card")
-        if #available(macOS 12.0, *) {
-            if let driverName = watcher.tokenInfo(forTokenID: tokenID)?.driverName {
-                name = driverName
-            } else {
-                name = fallbackName
-            }
+        if let driverName = watcher.tokenInfo(forTokenID: tokenID)?.driverName {
+            name = driverName
         } else {
-            // Hack to read name if there's only one smart card
-            let slotNames = TKSmartCardSlotManager().slotNames
-            if watcher.nonSecureEnclaveTokens.count == 1 && slotNames.count == 1 {
-                name = slotNames.first!
-            } else {
-                name = fallbackName
-            }
+            name = fallbackName
         }
 
         let attributes = KeychainDictionary([
