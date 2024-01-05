@@ -70,9 +70,6 @@
         }
       }
     },
-    "Cancel" : {
-
-    },
     "Create a new one by clicking here." : {
 
     },
@@ -295,6 +292,36 @@
     "Rename" : {
 
     },
+    "rename_cancel_button" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cancel"
+          }
+        }
+      }
+    },
+    "rename_rename_button" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rename"
+          }
+        }
+      }
+    },
+    "rename_title_%@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Type your new name for %1$@ below."
+          }
+        }
+      }
+    },
     "Secret Agent Is Not Running" : {
 
     },
@@ -509,9 +536,6 @@
 
     },
     "Touch ID Prompt" : {
-
-    },
-    "Type your new name for \"%@\" below." : {
 
     },
     "Update" : {
