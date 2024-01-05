@@ -121,9 +121,9 @@ extension ContentView {
         }, label: {
             Group {
                 if hasRunSetup && !agentStatusChecker.running {
-                    Text("Secret Agent Is Not Running")
+                    Text("agent_not_running_notice_title")
                 } else {
-                    Text("Setup Secretive")
+                    Text("agent_setup_notice_title")
                 }
             }
             .font(.headline)

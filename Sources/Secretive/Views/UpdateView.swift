@@ -9,20 +9,20 @@ struct UpdateDetailView<UpdaterType: Updater>: View {
 
     var body: some View {
         VStack {
-            Text("Secretive \(update.name)").font(.title)
-            GroupBox(label: Text("Release Notes")) {
+            Text("update_version_name_\(update.name)").font(.title)
+            GroupBox(label: Text("update_release_notes_title")) {
                 ScrollView {
                     attributedBody
                 }
             }
             HStack {
                 if !update.critical {
-                    Button("Ignore") {
+                    Button("update_ignore_button") {
                         updater.ignore(release: update)
                     }
                     Spacer()
                 }
-                Button("Update") {
+                Button("update_update_button") {
                     NSWorkspace.shared.open(update.html_url)
                 }
                 .keyboardShortcut(.defaultAction)
@@ -34,7 +34,7 @@ struct UpdateDetailView<UpdaterType: Updater>: View {
     }
 
     var attributedBody: Text {
-        var text = Text("")
+        var text = Text(verbatim: "")
         for line in update.body.split(whereSeparator: \.isNewline) {
             let attributed: Text
             let split = line.split(separator: " ")

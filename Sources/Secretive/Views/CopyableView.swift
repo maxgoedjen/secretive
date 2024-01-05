@@ -122,9 +122,9 @@ struct CopyableView: View {
 struct CopyableView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            CopyableView(title: "Title", image: Image(systemName: "figure.wave"), text: "Hello world.")
+            CopyableView(title: "secret_detail_sha256_fingerprint_label", image: Image(systemName: "figure.wave"), text: "Hello world.")
                 .padding()
-            CopyableView(title: "Title", image: Image(systemName: "figure.wave"), text: "Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. ")
+            CopyableView(title: "secret_detail_sha256_fingerprint_label", image: Image(systemName: "figure.wave"), text: "Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. ")
                 .padding()
         }
     }

@@ -61,7 +61,7 @@ struct StepView: View {
                             Circle()
                                 .foregroundColor(.green)
                                 .frame(width: Constants.circleWidth, height: Constants.circleWidth)
-                            Text("✓")
+                            Text("setup_step_complete_symbol")
                                 .foregroundColor(.white)
                                 .bold()
                         } else {

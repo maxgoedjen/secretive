@@ -10,12 +10,12 @@
     "\n\n" : {
 
     },
-    "✓" : {
+    "agent_not_running_notice_title" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "✓"
+            "value" : "Secret Agent Is Not Running"
           }
         }
       }
@@ -46,6 +46,46 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Agent is Running"
+          }
+        }
+      }
+    },
+    "agent_setup_notice_title" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Setup Secretive"
+          }
+        }
+      }
+    },
+    "app_menu_help_button" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Help"
+          }
+        }
+      }
+    },
+    "app_menu_new_secret_button" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "New Secret"
+          }
+        }
+      }
+    },
+    "app_menu_setup_button" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Setup Secretive"
           }
         }
       }
@@ -295,15 +335,6 @@
         }
       }
     },
-    "Help" : {
-
-    },
-    "Ignore" : {
-
-    },
-    "New Secret" : {
-
-    },
     "no_secure_storage_description" : {
       "localizations" : {
         "en" : {
@@ -334,9 +365,6 @@
         }
       }
     },
-    "Release Notes" : {
-
-    },
     "rename_cancel_button" : {
       "localizations" : {
         "en" : {
@@ -366,9 +394,6 @@
           }
         }
       }
-    },
-    "Secret Agent Is Not Running" : {
-
     },
     "secret_detail_md5_fingerprint_label" : {
       "localizations" : {
@@ -429,12 +454,6 @@
           }
         }
       }
-    },
-    "Secretive %@" : {
-
-    },
-    "Setup Secretive" : {
-
     },
     "setup_agent_activity_monitor_description" : {
       "localizations" : {
@@ -534,6 +553,16 @@
         }
       }
     },
+    "setup_step_complete_symbol" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "✓"
+          }
+        }
+      }
+    },
     "setup_third_party_faq_link" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -585,11 +614,45 @@
         }
       }
     },
-    "Title" : {
-
+    "update_ignore_button" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ignore"
+          }
+        }
+      }
     },
-    "Update" : {
-
+    "update_release_notes_title" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Release Notes"
+          }
+        }
+      }
+    },
+    "update_update_button" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Update"
+          }
+        }
+      }
+    },
+    "update_version_name_%@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Secretive %1$@"
+          }
+        }
+      }
     }
   },
   "version" : "1.0"
