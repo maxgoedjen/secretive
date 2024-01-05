@@ -253,9 +253,6 @@
     "Key" : {
       "extractionState" : "manual"
     },
-    "MD5 Fingerprint" : {
-
-    },
     "New Secret" : {
 
     },
@@ -292,12 +289,6 @@
         }
       }
     },
-    "Public Key" : {
-
-    },
-    "Public Key Path" : {
-
-    },
     "Release Notes" : {
 
     },
@@ -306,6 +297,46 @@
     },
     "Secret Agent Is Not Running" : {
 
+    },
+    "secret_detail_md5_fingerprint_label" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "MD5 Fingerprint"
+          }
+        }
+      }
+    },
+    "secret_detail_public_key_label" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Public Key"
+          }
+        }
+      }
+    },
+    "secret_detail_public_key_path_label" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Public Key Path"
+          }
+        }
+      }
+    },
+    "secret_detail_sha256_fingerprint_label" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "SHA256 Fingerprint"
+          }
+        }
+      }
     },
     "Secretive" : {
 
@@ -470,9 +501,6 @@
           }
         }
       }
-    },
-    "SHA256 Fingerprint" : {
-
     },
     "Title" : {
 
