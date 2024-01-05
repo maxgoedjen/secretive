@@ -38,7 +38,7 @@ struct UpdateDetailView<UpdaterType: Updater>: View {
         for line in update.body.split(whereSeparator: \.isNewline) {
             let attributed: Text
             let split = line.split(separator: " ")
-            let unprefixed = split.dropFirst().joined()
+            let unprefixed = split.dropFirst().joined(separator: " ")
             if let prefix = split.first {
                 switch prefix {
                 case "#":
