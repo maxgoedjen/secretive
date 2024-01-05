@@ -1,6 +1,9 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "" : {
+
+    },
     "\n" : {
 
     },
@@ -17,7 +20,10 @@
         }
       }
     },
-    "agent_running_notice_detail_body" : {
+    "Add it For Me" : {
+
+    },
+    "agent_running_notice_detail_description" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -47,7 +53,7 @@
         }
       }
     },
-    "app_not_in_applications_notice_detail_body" : {
+    "app_not_in_applications_notice_detail_description" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -67,7 +73,7 @@
         }
       }
     },
-    "Authentication not required when Mac is unlocked" : {
+    "Cancel" : {
 
     },
     "Confirm Name:" : {
@@ -76,13 +82,131 @@
     "Create a new one by clicking here." : {
 
     },
-    "Create a New Secret" : {
-
+    "create_secret_cancel_buton" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "create_secret_cancel"
+          }
+        }
+      }
+    },
+    "create_secret_create_button" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Create"
+          }
+        }
+      }
+    },
+    "create_secret_legacy_notify_description" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Authentication not required when Mac is unlocked"
+          }
+        }
+      }
+    },
+    "create_secret_legacy_require_authentication_description" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Requires Authentication (Biometrics or Password) before each use"
+          }
+        }
+      }
+    },
+    "create_secret_name_label" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Name:"
+          }
+        }
+      }
+    },
+    "create_secret_name_placeholder" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Shhhhh"
+          }
+        }
+      }
+    },
+    "create_secret_notify_description" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No authentication is required while your Mac is unlocked, but you will be notified when a secret is used."
+          }
+        }
+      }
+    },
+    "create_secret_notify_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Notify"
+          }
+        }
+      }
+    },
+    "create_secret_require_authentication_description" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You will be required to authenticate using Touch ID, Apple Watch, or password before each use."
+          }
+        }
+      }
+    },
+    "create_secret_require_authentication_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Require Authentication"
+          }
+        }
+      }
+    },
+    "create_secret_title" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Create a New Secret"
+          }
+        }
+      }
     },
     "Delete" : {
 
     },
     "Delete %@?" : {
+
+    },
+    "Don't Delete" : {
+
+    },
+    "Help" : {
 
     },
     "If you delete %@, you will not be able to recover it. Type \"%@\" to confirm." : {
@@ -95,7 +219,19 @@
         }
       }
     },
-    "Name:" : {
+    "If you're looking to add one to your Mac, the YubiKey 5 Series are great." : {
+
+    },
+    "If you're trying to set up a third party app, check out the FAQ." : {
+
+    },
+    "Ignore" : {
+
+    },
+    "Key" : {
+      "extractionState" : "manual"
+    },
+    "New Secret" : {
 
     },
     "No Secrets" : {
@@ -104,13 +240,13 @@
     "No Secure Storage Available" : {
 
     },
+    "Read more about this here." : {
+
+    },
     "Release Notes" : {
 
     },
     "Rename" : {
-
-    },
-    "Requires Authentication (Biometrics or Password) before each use" : {
 
     },
     "Secret Agent Is Not Running" : {
@@ -141,6 +277,9 @@
 
     },
     "Type your new name for \"%@\" below." : {
+
+    },
+    "Update" : {
 
     },
     "Use your Smart Card's management tool to create a secret." : {

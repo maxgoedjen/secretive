@@ -14,28 +14,28 @@ struct CreateSecretView<StoreType: SecretStoreModifiable>: View {
             HStack {
                 VStack {
                     HStack {
-                        Text("Create a New Secret")
+                        Text("create_secret_title")
                             .font(.largeTitle)
                         Spacer()
                     }
                     HStack {
-                        Text("Name:")
-                        TextField("Shhhhh", text: $name)
+                        Text("create_secret_name_label")
+                        TextField("create_secret_name_placeholder", text: $name)
                             .focusable()
                     }
                     if #available(macOS 12.0, *) {
                         ThumbnailPickerView(items: [
-                            ThumbnailPickerView.Item(value: true, name: "Require Authentication", description: "You will be required to authenticate using Touch ID, Apple Watch, or password before each use.", thumbnail: AuthenticationView()),
-                            ThumbnailPickerView.Item(value: false, name: "Notify",
-                                                     description: "No authentication is required while your Mac is unlocked, but you will be notified when a secret is used.",
+                            ThumbnailPickerView.Item(value: true, name: "create_secret_require_authentication_title", description: "create_secret_require_authentication_description", thumbnail: AuthenticationView()),
+                            ThumbnailPickerView.Item(value: false, name: "create_secret_notify_title",
+                                                     description: "create_secret_notify_description",
                                                      thumbnail: NotificationView())
                         ], selection: $requiresAuthentication)
                     } else {
                         HStack {
                             VStack(spacing: 20) {
                                 Picker("", selection: $requiresAuthentication) {
-                                    Text("Requires Authentication (Biometrics or Password) before each use").tag(true)
-                                    Text("Authentication not required when Mac is unlocked").tag(false)
+                                    Text("create_secret_legacy_require_authentication_description").tag(true)
+                                    Text("create_secret_legacy_notify_description").tag(false)
                                 }
                                 .pickerStyle(RadioGroupPickerStyle())
                                 Spacer(minLength: 10)
@@ -46,11 +46,11 @@ struct CreateSecretView<StoreType: SecretStoreModifiable>: View {
             }
             HStack {
                 Spacer()
-                Button("Cancel") {
+                Button("create_secret_cancel_buton") {
                     showing = false
                 }
                 .keyboardShortcut(.cancelAction)
-                Button("Create", action: save)
+                Button("create_secret_create_button", action: save)
                     .disabled(name.isEmpty)
                     .keyboardShortcut(.defaultAction)
             }

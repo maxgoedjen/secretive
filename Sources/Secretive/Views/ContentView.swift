@@ -152,7 +152,7 @@ extension ContentView {
                 Text("agent_running_notice_detail_title")
                     .font(.title)
                     .padding(5)
-                Text("agent_running_notice_detail_body")
+                Text("agent_running_notice_detail_description")
                     .frame(width: 300)
             }
             .padding()
@@ -178,7 +178,7 @@ extension ContentView {
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(width: 64)
-                    Text("app_not_in_applications_notice_detail_body")
+                    Text("app_not_in_applications_notice_detail_description")
                         .frame(maxWidth: 300)
                 }
                 .padding()
