@@ -14,6 +14,10 @@ Secretive is designed to be easily auditable by people who are considering using
 
 All contributors must abide by the [Code of Conduct](CODE_OF_CONDUCT.md)
 
+## Localization
+
+If you'd like to contribute a translation, please see [Localizing](LOCALIZING.md) to get started.
+
 ## Credits
 
 If you make a material contribution to the app, please add yourself to the end of the [credits](https://github.com/maxgoedjen/secretive/blob/main/Secretive/Credits.rtf).
