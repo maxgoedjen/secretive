@@ -138,7 +138,6 @@
       }
     },
     "create_secret_name_placeholder" : {
-      "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -149,7 +148,6 @@
       }
     },
     "create_secret_notify_description" : {
-      "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -160,7 +158,6 @@
       }
     },
     "create_secret_notify_title" : {
-      "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -171,7 +168,6 @@
       }
     },
     "create_secret_require_authentication_description" : {
-      "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -182,7 +178,6 @@
       }
     },
     "create_secret_require_authentication_title" : {
-      "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -443,7 +438,6 @@
       }
     },
     "setup_agent_description" : {
-      "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -454,7 +448,6 @@
       }
     },
     "setup_agent_install_button" : {
-      "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -465,7 +458,6 @@
       }
     },
     "setup_agent_title" : {
-      "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -476,7 +468,6 @@
       }
     },
     "setup_ssh_add_for_me_button" : {
-      "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -487,7 +478,6 @@
       }
     },
     "setup_ssh_add_to_config_button_%@" : {
-      "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -498,7 +488,6 @@
       }
     },
     "setup_ssh_added_manually_button" : {
-      "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -509,7 +498,6 @@
       }
     },
     "setup_ssh_description" : {
-      "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -520,7 +508,6 @@
       }
     },
     "setup_ssh_title" : {
-      "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -541,7 +528,6 @@
       }
     },
     "setup_third_party_faq_link" : {
-      "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
