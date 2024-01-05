@@ -107,6 +107,26 @@
         }
       }
     },
+    "copyable_click_to_copy_button" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Click to Copy"
+          }
+        }
+      }
+    },
+    "copyable_copied" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Copied"
+          }
+        }
+      }
+    },
     "create_secret_cancel_button" : {
       "localizations" : {
         "en" : {

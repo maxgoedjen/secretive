@@ -66,12 +66,12 @@ struct CopyableView: View {
         )
     }
 
-    var hoverText: String {
+    var hoverText: LocalizedStringKey {
         switch interactionState {
         case .hovering:
-            return "Click to Copy"
+            return "copyable_click_to_copy_button"
         case .clicking:
-            return "Copied"
+            return "copyable_copied"
         case .normal:
             fatalError()
         }
