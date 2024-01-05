@@ -64,15 +64,15 @@ extension ContentView {
         }
     }
 
-    var updateNoticeContent: (String, Color)? {
+    var updateNoticeContent: (LocalizedStringKey, Color)? {
         guard let update = updater.update else { return nil }
         if update.critical {
-            return ("Critical Security Update Required", .red)
+            return ("update_critical_notice_title", .red)
         } else {
             if updater.testBuild {
-                return ("Test Build", .blue)
+                return ("update_test_notice_title", .blue)
             } else {
-                return ("Update Available", .orange)
+                return ("update_normal_notice_title", .orange)
             }
         }
     }
@@ -121,9 +121,9 @@ extension ContentView {
         }, label: {
             Group {
                 if hasRunSetup && !agentStatusChecker.running {
-                    Text("Secret Agent Is Not Running")
+                    Text("agent_not_running_notice_title")
                 } else {
-                    Text("Setup Secretive")
+                    Text("agent_setup_notice_title")
                 }
             }
             .font(.headline)
@@ -138,7 +138,7 @@ extension ContentView {
             showingAgentInfo = true
         }, label: {
             HStack {
-                Text("Agent is Running")
+                Text("agent_running_notice_title")
                     .font(.headline)
                     .foregroundColor(colorScheme == .light ? Color(white: 0.3) : .white)
                 Circle()
@@ -149,10 +149,10 @@ extension ContentView {
         .buttonStyle(ToolbarButtonStyle(lightColor: .black.opacity(0.05), darkColor: .white.opacity(0.05)))
         .popover(isPresented: $showingAgentInfo, attachmentAnchor: attachmentAnchor, arrowEdge: .bottom) {
             VStack {
-                Text("SecretAgent is Running")
+                Text("agent_running_notice_detail_title")
                     .font(.title)
                     .padding(5)
-                Text("SecretAgent is a process that runs in the background to sign requests, so you don't need to keep Secretive open all the time.\n\n**You can close Secretive, and everything will still keep working.**")
+                Text("agent_running_notice_detail_description")
                     .frame(width: 300)
             }
             .padding()
@@ -166,7 +166,7 @@ extension ContentView {
                 showingAppPathNotice = true
             }, label: {
                 Group {
-                    Text("Secretive Is Not in Applications Folder")
+                    Text("app_not_in_applications_notice_title")
                 }
                 .font(.headline)
                 .foregroundColor(.white)
@@ -178,7 +178,7 @@ extension ContentView {
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(width: 64)
-                    Text("Secretive needs to be in your Applications folder to work properly. Please move it and relaunch.")
+                    Text("app_not_in_applications_notice_detail_description")
                         .frame(maxWidth: 300)
                 }
                 .padding()

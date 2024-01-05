@@ -61,7 +61,7 @@ struct StepView: View {
                             Circle()
                                 .foregroundColor(.green)
                                 .frame(width: Constants.circleWidth, height: Constants.circleWidth)
-                            Text("✓")
+                            Text("setup_step_complete_symbol")
                                 .foregroundColor(.white)
                                 .bold()
                         } else {
@@ -101,14 +101,14 @@ extension StepView {
 
 struct SetupStepView<Content> : View where Content : View {
 
-    let title: String
+    let title: LocalizedStringKey
     let image: Image
-    let bodyText: String
-    let buttonTitle: String
+    let bodyText: LocalizedStringKey
+    let buttonTitle: LocalizedStringKey
     let buttonAction: () -> Void
     let content: Content
 
-    init(title: String, image: Image, bodyText: String, buttonTitle: String, buttonAction: @escaping () -> Void = {}, @ViewBuilder content: () -> Content) {
+    init(title: LocalizedStringKey, image: Image, bodyText: LocalizedStringKey, buttonTitle: LocalizedStringKey, buttonAction: @escaping () -> Void = {}, @ViewBuilder content: () -> Content) {
         self.title = title
         self.image = image
         self.bodyText = bodyText
@@ -145,12 +145,12 @@ struct SecretAgentSetupView: View {
     let buttonAction: () -> Void
 
     var body: some View {
-        SetupStepView(title: "Setup Secret Agent",
+        SetupStepView(title: "setup_agent_title",
                       image: Image(nsImage: NSApplication.shared.applicationIconImage),
-                      bodyText: "Secretive needs to set up a helper app to work properly. It will sign requests from SSH clients in the background, so you don't need to keep the main Secretive app open.",
-                      buttonTitle: "Install",
+                      bodyText: "setup_agent_description",
+                      buttonTitle: "setup_agent_install_button",
                       buttonAction: install) {
-            (Text("This helper app is called ") + Text("Secret Agent").bold().underline() + Text(" and you may see it in Activity Manager from time to time."))
+            Text("setup_agent_activity_monitor_description")
                 .multilineTextAlignment(.center)
         }
     }
@@ -170,12 +170,12 @@ struct SSHAgentSetupView: View {
     @State private var selectedShellInstruction: ShellConfigInstruction = controller.shellInstructions.first!
 
     var body: some View {
-        SetupStepView(title: "Configure your SSH Agent",
+        SetupStepView(title: "setup_ssh_title",
                       image: Image(systemName: "terminal"),
-                      bodyText: "Add this line to your shell config telling SSH to talk to Secret Agent when it wants to authenticate. Secretive can either do this for you automatically, or you can copy and paste this into your config file.",
-                      buttonTitle: "I Added it Manually",
+                      bodyText: "setup_ssh_description",
+                      buttonTitle: "setup_ssh_added_manually_button",
                       buttonAction: buttonAction) {
-        Link("If you're trying to set up a third party app, check out the FAQ.", destination: URL(string: "https://github.com/maxgoedjen/secretive/blob/main/APP_CONFIG.md")!)
+        Link("setup_third_party_faq_link", destination: URL(string: "https://github.com/maxgoedjen/secretive/blob/main/APP_CONFIG.md")!)
             Picker(selection: $selectedShellInstruction, label: EmptyView()) {
                 ForEach(SSHAgentSetupView.controller.shellInstructions) { instruction in
                     Text(instruction.shell)
@@ -183,8 +183,8 @@ struct SSHAgentSetupView: View {
                         .padding()
                 }
             }.pickerStyle(SegmentedPickerStyle())
-            CopyableView(title: "Add to \(selectedShellInstruction.shellConfigPath)", image: Image(systemName: "greaterthan.square"), text: selectedShellInstruction.text)
-            Button("Add it For Me") {
+            CopyableView(title: "setup_ssh_add_to_config_button_\(selectedShellInstruction.shellConfigPath)", image: Image(systemName: "greaterthan.square"), text: selectedShellInstruction.text)
+            Button("setup_ssh_add_for_me_button") {
                 let controller = ShellConfigurationController()
                 if controller.addToShell(shellInstructions: selectedShellInstruction) {
                     buttonAction()
@@ -214,12 +214,12 @@ struct UpdaterExplainerView: View {
     let buttonAction: () -> Void
 
     var body: some View {
-        SetupStepView(title: "Updates",
+        SetupStepView(title: "setup_updates_title",
                       image: Image(systemName: "dot.radiowaves.left.and.right"),
-                      bodyText: "Secretive will periodically check with GitHub to see if there's a new release. If you see any network requests to GitHub, that's why.",
-                      buttonTitle: "Okay",
+                      bodyText: "setup_updates_description",
+                      buttonTitle: "setup_updates_ok",
                       buttonAction: buttonAction) {
-            Link("Read more about this here.", destination: SetupView.Constants.updaterFAQURL)
+            Link("setup_updates_readmore", destination: SetupView.Constants.updaterFAQURL)
         }
     }
 

@@ -14,43 +14,30 @@ struct CreateSecretView<StoreType: SecretStoreModifiable>: View {
             HStack {
                 VStack {
                     HStack {
-                        Text("Create a New Secret")
+                        Text("create_secret_title")
                             .font(.largeTitle)
                         Spacer()
                     }
                     HStack {
-                        Text("Name:")
-                        TextField("Shhhhh", text: $name)
+                        Text("create_secret_name_label")
+                        TextField("create_secret_name_placeholder", text: $name)
                             .focusable()
                     }
-                    if #available(macOS 12.0, *) {
-                        ThumbnailPickerView(items: [
-                            ThumbnailPickerView.Item(value: true, name: "Require Authentication", description: "You will be required to authenticate using Touch ID, Apple Watch, or password before each use.", thumbnail: AuthenticationView()),
-                            ThumbnailPickerView.Item(value: false, name: "Notify",
-                                                     description: "No authentication is required while your Mac is unlocked, but you will be notified when a secret is used.",
-                                                     thumbnail: NotificationView())
-                        ], selection: $requiresAuthentication)
-                    } else {
-                        HStack {
-                            VStack(spacing: 20) {
-                                Picker("", selection: $requiresAuthentication) {
-                                    Text("Requires Authentication (Biometrics or Password) before each use").tag(true)
-                                    Text("Authentication not required when Mac is unlocked").tag(false)
-                                }
-                                .pickerStyle(RadioGroupPickerStyle())
-                                Spacer(minLength: 10)
-                            }
-                        }
-                    }
+                    ThumbnailPickerView(items: [
+                        ThumbnailPickerView.Item(value: true, name: "create_secret_require_authentication_title", description: "create_secret_require_authentication_description", thumbnail: AuthenticationView()),
+                        ThumbnailPickerView.Item(value: false, name: "create_secret_notify_title",
+                                                 description: "create_secret_notify_description",
+                                                 thumbnail: NotificationView())
+                    ], selection: $requiresAuthentication)
                 }
             }
             HStack {
                 Spacer()
-                Button("Cancel") {
+                Button("create_secret_cancel_button") {
                     showing = false
                 }
                 .keyboardShortcut(.cancelAction)
-                Button("Create", action: save)
+                Button("create_secret_create_button", action: save)
                     .disabled(name.isEmpty)
                     .keyboardShortcut(.defaultAction)
             }
@@ -109,11 +96,11 @@ extension ThumbnailPickerView {
     struct Item<ValueType: Hashable>: Identifiable {
         let id = UUID()
         let value: ValueType
-        let name: String
-        let description: String
+        let name: LocalizedStringKey
+        let description: LocalizedStringKey
         let thumbnail: AnyView
 
-        init<ViewType: View>(value: ValueType, name: String, description: String, thumbnail: ViewType) {
+        init<ViewType: View>(value: ValueType, name: LocalizedStringKey, description: LocalizedStringKey, thumbnail: ViewType) {
             self.value = value
             self.name = name
             self.description = description
@@ -138,7 +125,6 @@ extension ThumbnailPickerView {
 
 }
 
-@available(macOS 12.0, *)
 struct SystemBackgroundView: View {
 
     let anchor: UnitPoint
@@ -157,7 +143,6 @@ struct SystemBackgroundView: View {
     }
 }
 
-@available(macOS 12.0, *)
 struct AuthenticationView: View {
 
     var body: some View {
@@ -169,15 +154,15 @@ struct AuthenticationView: View {
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .foregroundColor(Color(.systemRed))
-                    Text("Touch ID Prompt")
+                    Text(verbatim: "Touch ID Prompt")
                         .font(.headline)
                         .foregroundColor(.primary)
                         .redacted(reason: .placeholder)
                     VStack {
-                        Text("Touch ID Detail prompt.Detail two.")
+                        Text(verbatim: "Touch ID Detail prompt.Detail two.")
                             .font(.caption2)
                             .foregroundColor(.primary)
-                        Text("Touch ID Detail prompt.Detail two.")
+                        Text(verbatim: "Touch ID Detail prompt.Detail two.")
                             .font(.caption2)
                             .foregroundColor(.primary)
                     }
@@ -203,7 +188,6 @@ struct AuthenticationView: View {
 
 }
 
-@available(macOS 12.0, *)
 struct NotificationView: View {
 
     var body: some View {
@@ -223,10 +207,10 @@ struct NotificationView: View {
                                 .frame(width: 64, height: 64)
                                 .foregroundColor(.primary)
                             VStack(alignment: .leading) {
-                                Text("Secretive")
+                                Text(verbatim: "Secretive")
                                     .font(.title)
                                     .foregroundColor(.primary)
-                                Text("Secretive wants to sign")
+                                Text(verbatim: "Secretive wants to sign")
                                     .font(.body)
                                     .foregroundColor(.primary)
                             }
@@ -253,14 +237,10 @@ struct CreateSecretView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             CreateSecretView(store: Preview.StoreModifiable(), showing: .constant(true))
-            if #available(macOS 12.0, *) {
                 AuthenticationView().environment(\.colorScheme, .dark)
                 AuthenticationView().environment(\.colorScheme, .light)
                 NotificationView().environment(\.colorScheme, .dark)
                 NotificationView().environment(\.colorScheme, .light)
-            } else {
-                // Fallback on earlier versions
-            }
         }
     }
 }

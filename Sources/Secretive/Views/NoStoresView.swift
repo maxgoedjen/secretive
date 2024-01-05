@@ -4,9 +4,10 @@ struct NoStoresView: View {
 
     var body: some View {
         VStack {
-            Text("No Secure Storage Available").bold()
-            Text("Your Mac doesn't have a Secure Enclave, and there's not a compatible Smart Card inserted.")
-            Link("If you're looking to add one to your Mac, the YubiKey 5 Series are great.", destination: URL(string: "https://www.yubico.com/products/compare-yubikey-5-series/")!)
+            Text("no_secure_storage_title")
+                .bold()
+            Text("no_secure_storage_description")
+            Link("no_secure_storage_yubico_link", destination: URL(string: "https://www.yubico.com/products/compare-yubikey-5-series/")!)
         }.padding()
     }
     

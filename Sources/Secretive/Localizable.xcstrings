@@ -1,0 +1,652 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "\n" : {
+
+    },
+    "\n\n" : {
+
+    },
+    "agent_not_running_notice_title" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Secret Agent Is Not Running"
+          }
+        }
+      }
+    },
+    "agent_running_notice_detail_description" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "SecretAgent is a process that runs in the background to sign requests, so you don't need to keep Secretive open all the time.\\n\\n**You can close Secretive, and everything will still keep working.**"
+          }
+        }
+      }
+    },
+    "agent_running_notice_detail_title" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "SecretAgent is Running"
+          }
+        }
+      }
+    },
+    "agent_running_notice_title" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Agent is Running"
+          }
+        }
+      }
+    },
+    "agent_setup_notice_title" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Setup Secretive"
+          }
+        }
+      }
+    },
+    "app_menu_help_button" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Help"
+          }
+        }
+      }
+    },
+    "app_menu_new_secret_button" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "New Secret"
+          }
+        }
+      }
+    },
+    "app_menu_setup_button" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Setup Secretive"
+          }
+        }
+      }
+    },
+    "app_not_in_applications_notice_detail_description" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Secretive needs to be in your Applications folder to work properly. Please move it and relaunch."
+          }
+        }
+      }
+    },
+    "app_not_in_applications_notice_title" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Secretive Is Not in Applications Folder"
+          }
+        }
+      }
+    },
+    "create_secret_cancel_button" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cancel"
+          }
+        }
+      }
+    },
+    "create_secret_create_button" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Create"
+          }
+        }
+      }
+    },
+    "create_secret_name_label" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Name:"
+          }
+        }
+      }
+    },
+    "create_secret_name_placeholder" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Shhhhh"
+          }
+        }
+      }
+    },
+    "create_secret_notify_description" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No authentication is required while your Mac is unlocked, but you will be notified when a secret is used."
+          }
+        }
+      }
+    },
+    "create_secret_notify_title" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Notify"
+          }
+        }
+      }
+    },
+    "create_secret_require_authentication_description" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You will be required to authenticate using Touch ID, Apple Watch, or password before each use."
+          }
+        }
+      }
+    },
+    "create_secret_require_authentication_title" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Require Authentication"
+          }
+        }
+      }
+    },
+    "create_secret_title" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Create a New Secret"
+          }
+        }
+      }
+    },
+    "delete_confirmation_cancel_button" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Don't Delete"
+          }
+        }
+      }
+    },
+    "delete_confirmation_confirm_name_label" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Confirm Name:"
+          }
+        }
+      }
+    },
+    "delete_confirmation_delete_button" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete"
+          }
+        }
+      }
+    },
+    "delete_confirmation_description_%@_%@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "If you delete %1$@, you will not be able to recover it. Type \"%2$@\" to confirm."
+          }
+        }
+      }
+    },
+    "delete_confirmation_title_%@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete %1$@?"
+          }
+        }
+      }
+    },
+    "empty_store_modifiable_click_here_description" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Create a new one by clicking here."
+          }
+        }
+      }
+    },
+    "empty_store_modifiable_click_here_title" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No Secrets"
+          }
+        }
+      }
+    },
+    "empty_store_modifiable_title" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No Secrets"
+          }
+        }
+      }
+    },
+    "empty_store_nonmodifiable_description" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Use your Smart Card's management tool to create a secret."
+          }
+        }
+      }
+    },
+    "empty_store_nonmodifiable_supported_key_types" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Secretive supports EC256, EC384, RSA1024, and RSA2048 keys."
+          }
+        }
+      }
+    },
+    "empty_store_nonmodifiable_title" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No Secrets"
+          }
+        }
+      }
+    },
+    "no_secure_storage_description" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your Mac doesn't have a Secure Enclave, and there's not a compatible Smart Card inserted."
+          }
+        }
+      }
+    },
+    "no_secure_storage_title" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No Secure Storage Available"
+          }
+        }
+      }
+    },
+    "no_secure_storage_yubico_link" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "If you're looking to add one to your Mac, the YubiKey 5 Series are great."
+          }
+        }
+      }
+    },
+    "rename_cancel_button" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cancel"
+          }
+        }
+      }
+    },
+    "rename_rename_button" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rename"
+          }
+        }
+      }
+    },
+    "rename_title_%@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Type your new name for %1$@ below."
+          }
+        }
+      }
+    },
+    "secret_detail_md5_fingerprint_label" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "MD5 Fingerprint"
+          }
+        }
+      }
+    },
+    "secret_detail_public_key_label" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Public Key"
+          }
+        }
+      }
+    },
+    "secret_detail_public_key_path_label" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Public Key Path"
+          }
+        }
+      }
+    },
+    "secret_detail_sha256_fingerprint_label" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "SHA256 Fingerprint"
+          }
+        }
+      }
+    },
+    "secret_list_delete_button" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete"
+          }
+        }
+      }
+    },
+    "secret_list_rename_button" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rename"
+          }
+        }
+      }
+    },
+    "setup_agent_activity_monitor_description" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This helper app is called **Secret Agent** and you may see it in Activity Manager from time to time."
+          }
+        }
+      }
+    },
+    "setup_agent_description" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Secretive needs to set up a helper app to work properly. It will sign requests from SSH clients in the background, so you don't need to keep the main Secretive app open."
+          }
+        }
+      }
+    },
+    "setup_agent_install_button" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Install"
+          }
+        }
+      }
+    },
+    "setup_agent_title" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Setup Secret Agent"
+          }
+        }
+      }
+    },
+    "setup_ssh_add_for_me_button" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add it For Me"
+          }
+        }
+      }
+    },
+    "setup_ssh_add_to_config_button_%@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add to %1$@"
+          }
+        }
+      }
+    },
+    "setup_ssh_added_manually_button" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "I Added it Manually"
+          }
+        }
+      }
+    },
+    "setup_ssh_description" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add this line to your shell config telling SSH to talk to Secret Agent when it wants to authenticate. Secretive can either do this for you automatically, or you can copy and paste this into your config file."
+          }
+        }
+      }
+    },
+    "setup_ssh_title" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Configure your SSH Agent"
+          }
+        }
+      }
+    },
+    "setup_step_complete_symbol" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "✓"
+          }
+        }
+      }
+    },
+    "setup_third_party_faq_link" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "If you're trying to set up a third party app, check out the FAQ."
+          }
+        }
+      }
+    },
+    "setup_updates_description" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Secretive will periodically check with GitHub to see if there's a new release. If you see any network requests to GitHub, that's why."
+          }
+        }
+      }
+    },
+    "setup_updates_ok" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OK"
+          }
+        }
+      }
+    },
+    "setup_updates_readmore" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Read more about this here."
+          }
+        }
+      }
+    },
+    "setup_updates_title" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Updates"
+          }
+        }
+      }
+    },
+    "update_critical_notice_title" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Critical Security Update Required"
+          }
+        }
+      }
+    },
+    "update_ignore_button" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ignore"
+          }
+        }
+      }
+    },
+    "update_normal_notice_title" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Update Available"
+          }
+        }
+      }
+    },
+    "update_release_notes_title" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Release Notes"
+          }
+        }
+      }
+    },
+    "update_test_notice_title" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Test Build"
+          }
+        }
+      }
+    },
+    "update_update_button" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Update"
+          }
+        }
+      }
+    },
+    "update_version_name_%@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Secretive %1$@"
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}
