@@ -150,7 +150,7 @@ struct SecretAgentSetupView: View {
                       bodyText: "Secretive needs to set up a helper app to work properly. It will sign requests from SSH clients in the background, so you don't need to keep the main Secretive app open.",
                       buttonTitle: "Install",
                       buttonAction: install) {
-            (Text("This helper app is called ") + Text("Secret Agent").bold().underline() + Text(" and you may see it in Activity Manager from time to time."))
+            (Text("This helper app is called **Secret Agent** and you may see it in Activity Manager from time to time."))
                 .multilineTextAlignment(.center)
         }
     }

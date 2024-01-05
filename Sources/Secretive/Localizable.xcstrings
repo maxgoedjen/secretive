@@ -1,0 +1,154 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "\n" : {
+
+    },
+    "\n\n" : {
+
+    },
+    "✓" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "✓"
+          }
+        }
+      }
+    },
+    "agent_running_notice_detail_body" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "SecretAgent is a process that runs in the background to sign requests, so you don't need to keep Secretive open all the time.\\n\\n**You can close Secretive, and everything will still keep working.**"
+          }
+        }
+      }
+    },
+    "agent_running_notice_detail_title" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "SecretAgent is Running"
+          }
+        }
+      }
+    },
+    "agent_running_notice_title" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Agent is Running"
+          }
+        }
+      }
+    },
+    "app_not_in_applications_notice_detail_body" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Secretive needs to be in your Applications folder to work properly. Please move it and relaunch."
+          }
+        }
+      }
+    },
+    "app_not_in_applications_notice_title" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Secretive Is Not in Applications Folder"
+          }
+        }
+      }
+    },
+    "Authentication not required when Mac is unlocked" : {
+
+    },
+    "Confirm Name:" : {
+
+    },
+    "Create a new one by clicking here." : {
+
+    },
+    "Create a New Secret" : {
+
+    },
+    "Delete" : {
+
+    },
+    "Delete %@?" : {
+
+    },
+    "If you delete %@, you will not be able to recover it. Type \"%@\" to confirm." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "If you delete %1$@, you will not be able to recover it. Type \"%2$@\" to confirm."
+          }
+        }
+      }
+    },
+    "Name:" : {
+
+    },
+    "No Secrets" : {
+
+    },
+    "No Secure Storage Available" : {
+
+    },
+    "Release Notes" : {
+
+    },
+    "Rename" : {
+
+    },
+    "Requires Authentication (Biometrics or Password) before each use" : {
+
+    },
+    "Secret Agent Is Not Running" : {
+
+    },
+    "Secretive" : {
+
+    },
+    "Secretive %@" : {
+
+    },
+    "Secretive supports EC256, EC384, RSA1024, and RSA2048 keys." : {
+
+    },
+    "Secretive wants to sign" : {
+
+    },
+    "Setup Secretive" : {
+
+    },
+    "This helper app is called **Secret Agent** and you may see it in Activity Manager from time to time." : {
+
+    },
+    "Touch ID Detail prompt.Detail two." : {
+
+    },
+    "Touch ID Prompt" : {
+
+    },
+    "Type your new name for \"%@\" below." : {
+
+    },
+    "Use your Smart Card's management tool to create a secret." : {
+
+    },
+    "Your Mac doesn't have a Secure Enclave, and there's not a compatible Smart Card inserted." : {
+
+    }
+  },
+  "version" : "1.0"
+}
