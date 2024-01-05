@@ -216,9 +216,6 @@
         }
       }
     },
-    "If you're looking to add one to your Mac, the YubiKey 5 Series are great." : {
-
-    },
     "Ignore" : {
 
     },
@@ -234,8 +231,35 @@
     "No Secrets" : {
 
     },
-    "No Secure Storage Available" : {
-
+    "no_secure_storage_description" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your Mac doesn't have a Secure Enclave, and there's not a compatible Smart Card inserted."
+          }
+        }
+      }
+    },
+    "no_secure_storage_title" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No Secure Storage Available"
+          }
+        }
+      }
+    },
+    "no_secure_storage_yubico_link" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "If you're looking to add one to your Mac, the YubiKey 5 Series are great."
+          }
+        }
+      }
     },
     "Public Key" : {
 
@@ -435,9 +459,6 @@
 
     },
     "Use your Smart Card's management tool to create a secret." : {
-
-    },
-    "Your Mac doesn't have a Secure Enclave, and there's not a compatible Smart Card inserted." : {
 
     }
   },
