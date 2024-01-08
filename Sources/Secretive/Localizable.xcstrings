@@ -22,7 +22,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "SecretAgent is a process that runs in the background to sign requests, so you don't need to keep Secretive open all the time.\\n\\n**You can close Secretive, and everything will still keep working.**"
+            "value" : "SecretAgent is a process that runs in the background to sign requests, so you don't need to keep Secretive open all the time.\n\n**You can close Secretive, and everything will still keep working.**"
           }
         }
       }
