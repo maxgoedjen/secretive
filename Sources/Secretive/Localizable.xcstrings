@@ -14,6 +14,12 @@
             "state" : "translated",
             "value" : "Secret Agent Is Not Running"
           }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "L'agent n'est pas actif"
+          }
         }
       }
     },
@@ -23,6 +29,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "SecretAgent is a process that runs in the background to sign requests, so you don't need to keep Secretive open all the time.\n\n**You can close Secretive, and everything will still keep working.**"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "SecretAgent est un processus qui s'exécute en arrière-plan pour signer les demandes, de sorte que vous n'ayez pas besoin de garder Secretive ouvert en permanence.\n\n**Vous pouvez fermer Secretive, et tout continuera à fonctionner."
           }
         }
       }
@@ -34,6 +46,12 @@
             "state" : "translated",
             "value" : "SecretAgent is Running"
           }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "SecretAgent est actif"
+          }
         }
       }
     },
@@ -43,6 +61,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Agent is Running"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "L'agent est actif"
           }
         }
       }
@@ -54,6 +78,12 @@
             "state" : "translated",
             "value" : "Setup Secretive"
           }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Configurer Secretive"
+          }
         }
       }
     },
@@ -63,6 +93,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Help"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aide"
           }
         }
       }
@@ -74,6 +110,12 @@
             "state" : "translated",
             "value" : "New Secret"
           }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nouveau Secret"
+          }
         }
       }
     },
@@ -83,6 +125,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Setup Secretive"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Configurer Secretive"
           }
         }
       }
@@ -94,6 +142,12 @@
             "state" : "translated",
             "value" : "Secretive needs to be in your Applications folder to work properly. Please move it and relaunch."
           }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Secretive doit se trouver dans votre dossier Applications pour fonctionner correctement. Veuillez le déplacer et relancer."
+          }
         }
       }
     },
@@ -103,6 +157,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Secretive Is Not in Applications Folder"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Secretive n'est pas dans le dossier Applications"
           }
         }
       }
@@ -114,6 +174,12 @@
             "state" : "translated",
             "value" : "Click to Copy"
           }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cliquer pour copier"
+          }
         }
       }
     },
@@ -123,6 +189,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Copied"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Copié"
           }
         }
       }
@@ -134,6 +206,12 @@
             "state" : "translated",
             "value" : "Cancel"
           }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Annuler"
+          }
         }
       }
     },
@@ -143,6 +221,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Create"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Créer"
           }
         }
       }
@@ -154,6 +238,12 @@
             "state" : "translated",
             "value" : "Name:"
           }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nom :"
+          }
         }
       }
     },
@@ -163,6 +253,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Shhhhh"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chuuut"
           }
         }
       }
@@ -174,6 +270,12 @@
             "state" : "translated",
             "value" : "No authentication is required while your Mac is unlocked, but you will be notified when a secret is used."
           }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aucune authentification n'est requise lorsque votre Mac est déverrouillé, mais vous serez averti lorsqu'un secret sera utilisé."
+          }
         }
       }
     },
@@ -183,6 +285,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Notify"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Notifier"
           }
         }
       }
@@ -194,6 +302,12 @@
             "state" : "translated",
             "value" : "You will be required to authenticate using Touch ID, Apple Watch, or password before each use."
           }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vous devrez vous authentifier à l'aide de Touch ID, de l'Apple Watch ou d'un mot de passe avant chaque utilisation."
+          }
         }
       }
     },
@@ -203,6 +317,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Require Authentication"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Exiger l'authentification"
           }
         }
       }
@@ -214,6 +334,12 @@
             "state" : "translated",
             "value" : "Create a New Secret"
           }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Créer un nouveau secret"
+          }
         }
       }
     },
@@ -223,6 +349,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Don't Delete"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ne pas supprimer"
           }
         }
       }
@@ -234,6 +366,12 @@
             "state" : "translated",
             "value" : "Confirm Name:"
           }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Confirmer le nom :"
+          }
         }
       }
     },
@@ -243,6 +381,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Delete"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Supprimer"
           }
         }
       }
@@ -254,6 +398,12 @@
             "state" : "translated",
             "value" : "If you delete %1$@, you will not be able to recover it. Type \"%2$@\" to confirm."
           }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Si vous effacez %1$@, vous ne pourrez pas le récupérer. Tapez \"%2$@\" pour confirmer."
+          }
         }
       }
     },
@@ -263,6 +413,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Delete %1$@?"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Supprimer %1$@?"
           }
         }
       }
@@ -274,6 +430,12 @@
             "state" : "translated",
             "value" : "Create a new one by clicking here."
           }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Créez-en un nouveau en cliquant ici."
+          }
         }
       }
     },
@@ -283,6 +445,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "No Secrets"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aucun secret"
           }
         }
       }
@@ -294,6 +462,12 @@
             "state" : "translated",
             "value" : "No Secrets"
           }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aucun secret"
+          }
         }
       }
     },
@@ -303,6 +477,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Use your Smart Card's management tool to create a secret."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Utilisez l'outil de gestion de votre carte à puce pour créer un secret."
           }
         }
       }
@@ -314,6 +494,12 @@
             "state" : "translated",
             "value" : "Secretive supports EC256, EC384, RSA1024, and RSA2048 keys."
           }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Secretive prend en charge les clés EC256, EC384, RSA1024 et RSA2048."
+          }
         }
       }
     },
@@ -323,6 +509,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "No Secrets"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aucun secret"
           }
         }
       }
@@ -334,6 +526,12 @@
             "state" : "translated",
             "value" : "Your Mac doesn't have a Secure Enclave, and there's not a compatible Smart Card inserted."
           }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Votre Mac n'est pas équipé d'une Secure Enclave et aucune carte à puce compatible n'est insérée."
+          }
         }
       }
     },
@@ -343,6 +541,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "No Secure Storage Available"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pas de stockage sécurisé disponible"
           }
         }
       }
@@ -354,6 +558,12 @@
             "state" : "translated",
             "value" : "If you're looking to add one to your Mac, the YubiKey 5 Series are great."
           }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Si vous souhaitez en ajouter une à votre Mac, les YubiKey 5 Series sont parfaites."
+          }
         }
       }
     },
@@ -363,6 +573,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Cancel"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Annuler"
           }
         }
       }
@@ -374,6 +590,12 @@
             "state" : "translated",
             "value" : "Rename"
           }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Renommer"
+          }
         }
       }
     },
@@ -383,6 +605,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Type your new name for %1$@ below."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Saisissez votre nouveau nom pour %1$@ ci-dessous."
           }
         }
       }
@@ -394,6 +622,12 @@
             "state" : "translated",
             "value" : "MD5 Fingerprint"
           }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Empreinte MD5"
+          }
         }
       }
     },
@@ -403,6 +637,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Public Key"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Clé publique"
           }
         }
       }
@@ -414,6 +654,12 @@
             "state" : "translated",
             "value" : "Public Key Path"
           }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chemin vers la clé publique"
+          }
         }
       }
     },
@@ -423,6 +669,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "SHA256 Fingerprint"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Empreinte SHA256"
           }
         }
       }
@@ -434,6 +686,12 @@
             "state" : "translated",
             "value" : "Delete"
           }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Supprimer"
+          }
         }
       }
     },
@@ -443,6 +701,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Rename"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Renommer"
           }
         }
       }
@@ -454,6 +718,12 @@
             "state" : "translated",
             "value" : "This helper app is called **Secret Agent** and you may see it in Activity Manager from time to time."
           }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cette application auxiliaire s'appelle **Secret Agent** et vous pouvez la voir dans le Gestionnaire d'activités de temps en temps."
+          }
         }
       }
     },
@@ -463,6 +733,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Secretive needs to set up a helper app to work properly. It will sign requests from SSH clients in the background, so you don't need to keep the main Secretive app open."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Secretive a besoin de mettre en place une application auxiliaire pour fonctionner correctement. Elle signera les requêtes des clients SSH en arrière-plan, de sorte que vous n'ayez pas besoin de garder l'application principale Secretive ouverte."
           }
         }
       }
@@ -474,6 +750,12 @@
             "state" : "translated",
             "value" : "Install"
           }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Installer"
+          }
         }
       }
     },
@@ -483,6 +765,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Setup Secret Agent"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Configurer Secret Agent"
           }
         }
       }
@@ -494,6 +782,12 @@
             "state" : "translated",
             "value" : "Add it For Me"
           }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ajoutez-le pour moi"
+          }
         }
       }
     },
@@ -503,6 +797,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Add to %1$@"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ajouter à %1$@"
           }
         }
       }
@@ -514,6 +814,12 @@
             "state" : "translated",
             "value" : "I Added it Manually"
           }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Je l'ai ajouté manuellement"
+          }
         }
       }
     },
@@ -523,6 +829,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Add this line to your shell config telling SSH to talk to Secret Agent when it wants to authenticate. Secretive can either do this for you automatically, or you can copy and paste this into your config file."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ajoutez cette ligne à votre configuration shell pour indiquer à SSH de communiquer à Secret Agent quand il veut s'authentifier. Secretive peut le faire automatiquement pour vous, ou vous pouvez copier et coller cette ligne dans votre fichier de configuration."
           }
         }
       }
@@ -534,12 +846,24 @@
             "state" : "translated",
             "value" : "Configure your SSH Agent"
           }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Configurer votre Agent SSH"
+          }
         }
       }
     },
     "setup_step_complete_symbol" : {
       "localizations" : {
         "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "✓"
+          }
+        },
+        "fr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "✓"
@@ -554,6 +878,12 @@
             "state" : "translated",
             "value" : "If you're trying to set up a third party app, check out the FAQ."
           }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Si vous essayez de configurer une application tierce, consultez la FAQ."
+          }
         }
       }
     },
@@ -564,12 +894,24 @@
             "state" : "translated",
             "value" : "Secretive will periodically check with GitHub to see if there's a new release. If you see any network requests to GitHub, that's why."
           }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Secretive vérifie périodiquement sur GitHub s'il existe une nouvelle version. C'est pour cette raison que vous pouvez voir des requêtes réseau vers GitHub."
+          }
         }
       }
     },
     "setup_updates_ok" : {
       "localizations" : {
         "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OK"
+          }
+        },
+        "fr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "OK"
@@ -584,6 +926,12 @@
             "state" : "translated",
             "value" : "Read more about this here."
           }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pour en savoir plus, cliquez ici."
+          }
         }
       }
     },
@@ -593,6 +941,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Updates"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mises à jour"
           }
         }
       }
@@ -604,6 +958,12 @@
             "state" : "translated",
             "value" : "Critical Security Update Required"
           }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mise à jour de sécurité critique requise"
+          }
         }
       }
     },
@@ -613,6 +973,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Ignore"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ignorer"
           }
         }
       }
@@ -624,6 +990,12 @@
             "state" : "translated",
             "value" : "Update Available"
           }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mise à jour disponible"
+          }
         }
       }
     },
@@ -633,6 +1005,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Release Notes"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Notes de mise à jour"
           }
         }
       }
@@ -644,6 +1022,12 @@
             "state" : "translated",
             "value" : "Test Build"
           }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Test build"
+          }
         }
       }
     },
@@ -654,12 +1038,24 @@
             "state" : "translated",
             "value" : "Update"
           }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mettre à jour"
+          }
         }
       }
     },
     "update_version_name_%@" : {
       "localizations" : {
         "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Secretive %1$@"
+          }
+        },
+        "fr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Secretive %1$@"
