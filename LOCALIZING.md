@@ -16,7 +16,7 @@ Clone Secretive using [these instructions from GitHub](https://docs.github.com/e
 
 Open [Sources/Secretive.xcodeproj](Sources/Secretive.xcodeproj) in Xcode.
 
-### Localize the Main App
+### Translate
 
 Navigate to [Secretive/Localizable](Sources/Secretive/Localizable.xcstrings). 
 
@@ -27,14 +27,6 @@ If your language already has an in-progress localization, select it from the lis
 <img src="/.github/readme/localize_add.png" alt="Screenshot of Xcode adding a new language" width="600">
 
 Start translating! You'll see a list of english phrases, and a space to add a translation of your language.
-
-### Localize SecretAgent
-
-Navigate to [Secretive/Localizable](Sources/SecretAgent/Localizable.xcstrings). 
-
-<img src="/.github/readme/localize_sidebar_agent.png" alt="Screenshot of Xcode navigating to the Localizable file" width="300">
-
-Repeat the same steps from the process of localizing the main app.
 
 ### Create a Pull Request
 
