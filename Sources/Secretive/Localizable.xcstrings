@@ -167,6 +167,90 @@
         }
       }
     },
+    "auth_context_persist_for_duration_%@_%@" : {
+      "comment" : "When the user clicks the notification to leave a secret unlocked, they are shown a prompt to approve the action. This is the description, showing which secret will used. The first placeholder is the name of the secret. The second placeholder is a localized description of the time period it will remain unlocked for (eg: \"five minutes\")",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "unlock secret \"%1$@\" for %2$@"
+          }
+        }
+      }
+    },
+    "auth_context_persist_for_duration_unknown_%@" : {
+      "comment" : "When the user clicks the notification to leave a secret unlocked, they are shown a prompt to approve the action. This is the description, showing which secret will used. The placeholder is the name of the secret. This is a fallback used when a duration is unable to be specified.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "unlock secret \"%1$@\""
+          }
+        }
+      }
+    },
+    "auth_context_request_decrypt_description_%@" : {
+      "comment" : "When the user performs a decryption action using a secret, they are shown a prompt to approve the action. This is the description, showing which secret will be used. The placeholder is the name of the secret. NOTE: This is currently not exposed in UI.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "decrypt data using secret \"%1$@\""
+          }
+        }
+      }
+    },
+    "auth_context_request_deny_button" : {
+      "comment" : "When the user chooses to perform an action that requires Touch ID/password authentication, they are shown a prompt to approve the action. This is the deny button for that prompt.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Deny"
+          }
+        }
+      }
+    },
+    "auth_context_request_encrypt_description_%@" : {
+      "comment" : "When the user performs an encryption action using a secret, they are shown a prompt to approve the action. This is the description, showing which secret will be used. The placeholder is the name of the secret. NOTE: This is currently not exposed in UI.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "encrypt data using secret \"%1$@\""
+          }
+        }
+      }
+    },
+    "auth_context_request_signature_description_%@_%@" : {
+      "comment" : "When the user performs a signature action using a secret, they are shown a prompt to approve the action. This is the description, showing which secret will be used, and where the request is coming from. The first placeholder is the name of the app requesting the operation. The second placeholder is the name of the secret.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "sign a request from \"%1$@\" using secret \"%2$@\""
+          }
+        }
+      }
+    },
+    "auth_context_request_verify_description_%@" : {
+      "comment" : "When the user performs a signature verification action using a secret, they are shown a prompt to approve the action. This is the description, showing which secret will be used. The placeholder is the name of the secret. NOTE: This is currently not exposed in UI.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "verify a signature using secret \"%1$@\""
+          }
+        }
+      }
+    },
     "copyable_click_to_copy_button" : {
       "localizations" : {
         "en" : {
@@ -747,6 +831,17 @@
         }
       }
     },
+    "secure_enclave" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Secure Enclave"
+          }
+        }
+      }
+    },
     "setup_agent_activity_monitor_description" : {
       "localizations" : {
         "en" : {
@@ -1019,6 +1114,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Requête signée de %1$@"
+          }
+        }
+      }
+    },
+    "smart_card" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Smart Card"
+          }
+        }
+      }
+    },
+    "unnamed_secret" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unnamed"
           }
         }
       }

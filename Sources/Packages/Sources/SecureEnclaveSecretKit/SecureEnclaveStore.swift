@@ -107,10 +107,10 @@ extension SecureEnclave {
                 context = existing.context
             } else {
                 let newContext = LAContext()
-                newContext.localizedCancelTitle = "Deny"
+                newContext.localizedCancelTitle = String(localized: "auth_context_request_deny_button")
                 context = newContext
             }
-            context.localizedReason = "sign a request from \"\(provenance.origin.displayName)\" using secret \"\(secret.name)\""
+            context.localizedReason = String(localized: "auth_context_request_signature_description_\(provenance.origin.displayName)_\(secret.name)")
             let attributes = KeychainDictionary([
                 kSecClass: kSecClassKey,
                 kSecAttrKeyClass: kSecAttrKeyClassPrivate,
@@ -140,8 +140,8 @@ extension SecureEnclave {
 
         public func verify(signature: Data, for data: Data, with secret: Secret) throws -> Bool {
             let context = LAContext()
-            context.localizedReason = "verify a signature using secret \"\(secret.name)\""
-            context.localizedCancelTitle = "Deny"
+            context.localizedReason = String(localized: "auth_context_request_verify_description_\(secret.name)")
+            context.localizedCancelTitle = String(localized: "auth_context_request_deny_button")
             let attributes = KeychainDictionary([
                 kSecClass: kSecClassKey,
                 kSecAttrKeyClass: kSecAttrKeyClassPrivate,
@@ -181,16 +181,16 @@ extension SecureEnclave {
         public func persistAuthentication(secret: Secret, forDuration duration: TimeInterval) throws {
             let newContext = LAContext()
             newContext.touchIDAuthenticationAllowableReuseDuration = duration
-            newContext.localizedCancelTitle = "Deny"
+            newContext.localizedCancelTitle = String(localized: "auth_context_request_deny_button")
 
             let formatter = DateComponentsFormatter()
             formatter.unitsStyle = .spellOut
             formatter.allowedUnits = [.hour, .minute, .day]
 
             if let durationString = formatter.string(from: duration) {
-                newContext.localizedReason = "unlock secret \"\(secret.name)\" for \(durationString)"
+                newContext.localizedReason = String(localized: "auth_context_persist_for_duration_\(secret.name)_\(durationString)")
             } else {
-                newContext.localizedReason = "unlock secret \"\(secret.name)\""
+                newContext.localizedReason = String(localized: "auth_context_persist_for_duration_unknown_\(secret.name)")
             }
             newContext.evaluatePolicy(LAPolicy.deviceOwnerAuthentication, localizedReason: newContext.localizedReason) { [weak self] success, _ in
                 guard success else { return }
@@ -260,7 +260,7 @@ extension SecureEnclave.Store {
                                             nil)!
 
         let wrapped: [SecureEnclave.Secret] = publicTyped.map {
-            let name = $0[kSecAttrLabel] as? String ?? "Unnamed"
+            let name = $0[kSecAttrLabel] as? String ?? String(localized: "unnamed_secret")
             let id = $0[kSecAttrApplicationLabel] as! Data
             let publicKeyRef = $0[kSecValueRef] as! SecKey
             let publicKeyAttributes = SecKeyCopyAttributes(publicKeyRef) as! [CFString: Any]
