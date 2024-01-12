@@ -10,6 +10,12 @@
             "state" : "translated",
             "value" : "Leave Unlocked"
           }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Laisser déverrouillé"
+          }
         }
       }
     },
@@ -21,6 +27,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Do Not Unlock"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ne pas déverrouiller"
           }
         }
       }
@@ -34,6 +46,12 @@
             "state" : "translated",
             "value" : "Using secret %1$@"
           }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Utilisation du secret %1$@"
+          }
         }
       }
     },
@@ -45,6 +63,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Signed Request from %1$@"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Requête signée de %1$@"
           }
         }
       }
@@ -58,6 +82,12 @@
             "state" : "translated",
             "value" : "Ignore"
           }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ignorer"
+          }
         }
       }
     },
@@ -69,6 +99,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Update"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mettre à jour"
           }
         }
       }
@@ -82,6 +118,12 @@
             "state" : "translated",
             "value" : "Critical Security Update - %1$@"
           }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mise à jour critique de sécurité - %1$@"
+          }
         }
       }
     },
@@ -94,6 +136,12 @@
             "state" : "translated",
             "value" : "Click to Update"
           }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cliquer pour mettre à jour"
+          }
         }
       }
     },
@@ -105,6 +153,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Update Available - %1$@"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mise à jour disponible - %1$@"
           }
         }
       }
