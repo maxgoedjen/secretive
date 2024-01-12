@@ -12,7 +12,7 @@ extension SmartCard {
 
         @Published public var isAvailable: Bool = false
         public let id = UUID()
-        public private(set) var name = NSLocalizedString("Smart Card", comment: "Smart Card")
+        public private(set) var name = String(localized: "smart_card")
         @Published public private(set) var secrets: [Secret] = []
         private let watcher = TKTokenWatcher()
         private var tokenID: String?
@@ -138,7 +138,7 @@ extension SmartCard.Store {
     private func loadSecrets() {
         guard let tokenID = tokenID else { return }
 
-        let fallbackName = NSLocalizedString("Smart Card", comment: "Smart Card")
+        let fallbackName = String(localized: "smart_card")
         if let driverName = watcher.tokenInfo(forTokenID: tokenID)?.driverName {
             name = driverName
         } else {

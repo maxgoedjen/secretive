@@ -17,7 +17,7 @@ extension SecureEnclave {
             TKTokenWatcher().tokenIDs.contains("com.apple.setoken")
         }
         public let id = UUID()
-        public let name = NSLocalizedString("Secure Enclave", comment: "Secure Enclave")
+        public let name = String(localized: "secure_enclave")
         @Published public private(set) var secrets: [Secret] = []
 
         private var persistedAuthenticationContexts: [Secret: PersistentAuthenticationContext] = [:]
