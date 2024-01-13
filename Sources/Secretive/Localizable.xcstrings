@@ -17,7 +17,7 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "L'agent n'est pas actif"
           }
         },
@@ -61,7 +61,7 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "SecretAgent est actif"
           }
         },
@@ -237,6 +237,12 @@
             "value" : "unlock secret \"%1$@\" for %2$@"
           }
         },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "déverrouiller le secret \"%1$@\" pendant %2$@"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -253,6 +259,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "unlock secret \"%1$@\""
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "déverrouiller le secret \"%1$@\""
           }
         },
         "zh-Hans" : {
@@ -273,6 +285,12 @@
             "value" : "decrypt data using secret \"%1$@\""
           }
         },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "déchiffrer les données en utilisant le secret \"%1$@\"."
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -289,6 +307,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Deny"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Refuser"
           }
         },
         "zh-Hans" : {
@@ -309,6 +333,12 @@
             "value" : "encrypt data using secret \"%1$@\""
           }
         },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "chiffrer les données en utilisant le secret \"%1$@\""
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -327,6 +357,12 @@
             "value" : "sign a request from \"%1$@\" using secret \"%2$@\""
           }
         },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "signer une requête de \"%1$@\" en utilisant le secret \"%2$@\""
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -343,6 +379,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "verify a signature using secret \"%1$@\""
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "vérifier une signature en utilisant le secret \"%1$@\""
           }
         },
         "zh-Hans" : {
@@ -1158,6 +1200,12 @@
             "value" : "Secure Enclave"
           }
         },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enclave sécurisée"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1242,8 +1290,8 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Configurer Secret Agent"
+            "state" : "translated",
+            "value" : "Configurer l'agent"
           }
         },
         "zh-Hans" : {
@@ -1553,6 +1601,12 @@
             "value" : "Smart Card"
           }
         },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Carte à puce"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1568,6 +1622,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Unnamed"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sans nom"
           }
         },
         "zh-Hans" : {
