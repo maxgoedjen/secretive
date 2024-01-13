@@ -20,6 +20,12 @@
             "state" : "needs_review",
             "value" : "L'agent n'est pas actif"
           }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "SecretAgent尚未运行"
+          }
         }
       }
     },
@@ -35,6 +41,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "SecretAgent est un processus qui s'exécute en arrière-plan pour signer les demandes, de sorte que vous n'ayez pas besoin de garder Secretive ouvert en permanence.\n\n**Vous pouvez fermer Secretive, et tout continuera à fonctionner."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "SecretAgent是一个在后台进行请求处理的服务，所以您可以不用让Secretive 一直保持前台运行。   \n\n\n**您可以关闭 Secretive，所有服务都将正常运行。**\n\n\n"
           }
         }
       }
@@ -52,6 +64,12 @@
             "state" : "needs_review",
             "value" : "SecretAgent est actif"
           }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "SecretAgent运行中"
+          }
         }
       }
     },
@@ -67,6 +85,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "L'agent est actif"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Agent运行中"
           }
         }
       }
@@ -84,6 +108,12 @@
             "state" : "translated",
             "value" : "Configurer Secretive"
           }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "设置 Secretive"
+          }
         }
       }
     },
@@ -99,6 +129,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Aide"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "帮助"
           }
         }
       }
@@ -116,6 +152,12 @@
             "state" : "translated",
             "value" : "Nouveau Secret"
           }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "新密钥串"
+          }
         }
       }
     },
@@ -131,6 +173,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Configurer Secretive"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "设置 Secretive"
           }
         }
       }
@@ -148,6 +196,12 @@
             "state" : "translated",
             "value" : "Secretive doit se trouver dans votre dossier Applications pour fonctionner correctement. Veuillez le déplacer et relancer."
           }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Secretive 需要在应用程序文件夹中才能保持正常运行。请移动Secretive并重启"
+          }
         }
       }
     },
@@ -164,6 +218,12 @@
             "state" : "translated",
             "value" : "Secretive n'est pas dans le dossier Applications"
           }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Secretive 不在系统应用文件夹中"
+          }
         }
       }
     },
@@ -175,6 +235,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "unlock secret \"%1$@\" for %2$@"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "解锁密钥串 \"%1$@\" 给 %2$@"
           }
         }
       }
@@ -188,6 +254,12 @@
             "state" : "translated",
             "value" : "unlock secret \"%1$@\""
           }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "解锁密钥串 \"%1$@\""
+          }
         }
       }
     },
@@ -199,6 +271,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "decrypt data using secret \"%1$@\""
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "使用密钥串 \"%1$@\" 解密数据"
           }
         }
       }
@@ -212,6 +290,12 @@
             "state" : "translated",
             "value" : "Deny"
           }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "拒绝"
+          }
         }
       }
     },
@@ -223,6 +307,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "encrypt data using secret \"%1$@\""
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "使用密钥串 \"%1$@\" 加密数据"
           }
         }
       }
@@ -236,6 +326,12 @@
             "state" : "translated",
             "value" : "sign a request from \"%1$@\" using secret \"%2$@\""
           }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "使用密钥串 \"%2$@\" 认证 \"%1$@\" "
+          }
         }
       }
     },
@@ -247,6 +343,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "verify a signature using secret \"%1$@\""
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "使用密钥串 \"%1$@\" 认证"
           }
         }
       }
@@ -264,6 +366,12 @@
             "state" : "translated",
             "value" : "Cliquer pour copier"
           }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "点击拷贝"
+          }
         }
       }
     },
@@ -279,6 +387,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Copié"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已拷贝"
           }
         }
       }
@@ -296,6 +410,12 @@
             "state" : "translated",
             "value" : "Annuler"
           }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "返回"
+          }
         }
       }
     },
@@ -311,6 +431,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Créer"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "创建"
           }
         }
       }
@@ -328,6 +454,12 @@
             "state" : "translated",
             "value" : "Nom :"
           }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "名称"
+          }
         }
       }
     },
@@ -343,6 +475,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Chuuut"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "张三的主机"
           }
         }
       }
@@ -360,6 +498,12 @@
             "state" : "translated",
             "value" : "Aucune authentification n'est requise lorsque votre Mac est déverrouillé, mais vous serez averti lorsqu'un secret sera utilisé."
           }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "当您的Mac 解锁时不需要任何验证，但您会收到一条密钥串被使用的通知"
+          }
         }
       }
     },
@@ -375,6 +519,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Notifier"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "通知"
           }
         }
       }
@@ -392,6 +542,12 @@
             "state" : "translated",
             "value" : "Vous devrez vous authentifier à l'aide de Touch ID, de l'Apple Watch ou d'un mot de passe avant chaque utilisation."
           }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "您在每次使用时都会被要求使用Touch ID 、Apple Watch 或密码进行验证。"
+          }
         }
       }
     },
@@ -407,6 +563,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Exiger l'authentification"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "需要验证"
           }
         }
       }
@@ -424,6 +586,12 @@
             "state" : "translated",
             "value" : "Créer un nouveau secret"
           }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "创建一个新的密钥串"
+          }
         }
       }
     },
@@ -439,6 +607,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Ne pas supprimer"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "禁止删除"
           }
         }
       }
@@ -456,6 +630,12 @@
             "state" : "translated",
             "value" : "Confirmer le nom :"
           }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "确认名称"
+          }
         }
       }
     },
@@ -471,6 +651,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Supprimer"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "删除"
           }
         }
       }
@@ -488,6 +674,12 @@
             "state" : "translated",
             "value" : "Si vous effacez %1$@, vous ne pourrez pas le récupérer. Tapez \"%2$@\" pour confirmer."
           }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "如果您删除 %1$@ ，您将没有任何方式恢复它。输入 \"%2$@\" 以确认。"
+          }
         }
       }
     },
@@ -503,6 +695,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Supprimer %1$@?"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "删除 %1$@ 吗？"
           }
         }
       }
@@ -520,6 +718,12 @@
             "state" : "translated",
             "value" : "Créez-en un nouveau en cliquant ici."
           }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "点击这里创建一个新的密钥串。"
+          }
         }
       }
     },
@@ -535,6 +739,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Aucun secret"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "没有密钥串"
           }
         }
       }
@@ -552,6 +762,12 @@
             "state" : "translated",
             "value" : "Aucun secret"
           }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "没有密钥串"
+          }
         }
       }
     },
@@ -567,6 +783,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Utilisez l'outil de gestion de votre carte à puce pour créer un secret."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "使用您的智能卡管理工具创建一个新的密钥串"
           }
         }
       }
@@ -584,6 +806,12 @@
             "state" : "translated",
             "value" : "Secretive prend en charge les clés EC256, EC384, RSA1024 et RSA2048."
           }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Secretive 支持 EC256, EC384, RSA1024, 和RSA2048."
+          }
         }
       }
     },
@@ -599,6 +827,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Aucun secret"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "没有密钥串"
           }
         }
       }
@@ -616,6 +850,12 @@
             "state" : "translated",
             "value" : "Votre Mac n'est pas équipé d'une Secure Enclave et aucune carte à puce compatible n'est insérée."
           }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "您的Mac 没有安全隔区，同时也没有插入兼容的智能卡。"
+          }
         }
       }
     },
@@ -632,6 +872,12 @@
             "state" : "translated",
             "value" : "Pas de stockage sécurisé disponible"
           }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "没有可用的密钥存储区"
+          }
         }
       }
     },
@@ -647,6 +893,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Si vous souhaitez en ajouter une à votre Mac, les YubiKey 5 Series sont parfaites."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "如果您想为您的Mac添加一个物理密钥， YubiKey 5 系列是一个不错的选择。"
           }
         }
       }
@@ -666,6 +918,12 @@
             "state" : "translated",
             "value" : "Laisser déverrouillé"
           }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "自动验证"
+          }
         }
       }
     },
@@ -684,6 +942,12 @@
             "state" : "translated",
             "value" : "Ne pas déverrouiller"
           }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "不要自动验证"
+          }
         }
       }
     },
@@ -699,6 +963,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Annuler"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "返回"
           }
         }
       }
@@ -716,6 +986,12 @@
             "state" : "translated",
             "value" : "Renommer"
           }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "重命名"
+          }
         }
       }
     },
@@ -731,6 +1007,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Saisissez votre nouveau nom pour %1$@ ci-dessous."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "在此输入密钥串 %1$@ 的新名字。"
           }
         }
       }
@@ -748,6 +1030,12 @@
             "state" : "translated",
             "value" : "Empreinte MD5"
           }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "MD5 指纹"
+          }
         }
       }
     },
@@ -763,6 +1051,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Clé publique"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "公钥"
           }
         }
       }
@@ -780,6 +1074,12 @@
             "state" : "translated",
             "value" : "Chemin vers la clé publique"
           }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "公钥路径"
+          }
         }
       }
     },
@@ -795,6 +1095,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Empreinte SHA256"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "SHA256 指纹"
           }
         }
       }
@@ -812,6 +1118,12 @@
             "state" : "translated",
             "value" : "Supprimer"
           }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "删除"
+          }
         }
       }
     },
@@ -828,6 +1140,12 @@
             "state" : "translated",
             "value" : "Renommer"
           }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "重命名"
+          }
         }
       }
     },
@@ -838,6 +1156,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Secure Enclave"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "安全隔区"
           }
         }
       }
@@ -855,6 +1179,12 @@
             "state" : "translated",
             "value" : "Cette application auxiliaire s'appelle **Secret Agent** et vous pouvez la voir dans le Gestionnaire d'activités de temps en temps."
           }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "帮助文件叫做 *Secret Agent*， 之后您会经常在活动监视器中看见它。"
+          }
         }
       }
     },
@@ -870,6 +1200,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Secretive a besoin de mettre en place une application auxiliaire pour fonctionner correctement. Elle signera les requêtes des clients SSH en arrière-plan, de sorte que vous n'ayez pas besoin de garder l'application principale Secretive ouverte."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Secretive 需要帮助文件来正常工作。 它会在后台识别SSH 请求, 这样您就不需要在前台一直保持Secretive 开启了。"
           }
         }
       }
@@ -887,6 +1223,12 @@
             "state" : "translated",
             "value" : "Installer"
           }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "安装"
+          }
         }
       }
     },
@@ -902,6 +1244,12 @@
           "stringUnit" : {
             "state" : "needs_review",
             "value" : "Configurer Secret Agent"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "设置"
           }
         }
       }
@@ -919,6 +1267,12 @@
             "state" : "translated",
             "value" : "Ajoutez-le pour moi"
           }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "为我添加"
+          }
         }
       }
     },
@@ -934,6 +1288,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Ajouter à %1$@"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "添加到 %1$@"
           }
         }
       }
@@ -951,6 +1311,12 @@
             "state" : "translated",
             "value" : "Je l'ai ajouté manuellement"
           }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "我自行手动添加"
+          }
         }
       }
     },
@@ -966,6 +1332,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Ajoutez cette ligne à votre configuration shell pour indiquer à SSH de communiquer à Secret Agent quand il veut s'authentifier. Secretive peut le faire automatiquement pour vous, ou vous pouvez copier et coller cette ligne dans votre fichier de configuration."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "将以下文本添加到您的SSH 配置中以使用Secret Agent. Secretive 无法自动帮您完成该过程，或者您可以选择拷贝并粘贴该文本到您的配置文件中"
           }
         }
       }
@@ -983,6 +1355,12 @@
             "state" : "translated",
             "value" : "Configurer votre Agent SSH"
           }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "设置您的SSH 代理"
+          }
         }
       }
     },
@@ -995,6 +1373,12 @@
           }
         },
         "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "✓"
+          }
+        },
+        "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "✓"
@@ -1015,6 +1399,12 @@
             "state" : "translated",
             "value" : "Si vous essayez de configurer une application tierce, consultez la FAQ."
           }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "如果您想设置第三方APP，请阅读 FAQ。"
+          }
         }
       }
     },
@@ -1031,6 +1421,12 @@
             "state" : "translated",
             "value" : "Secretive vérifie périodiquement sur GitHub s'il existe une nouvelle version. C'est pour cette raison que vous pouvez voir des requêtes réseau vers GitHub."
           }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Secretive 需要使用GitHub 检查更新。这就是为什么您会看见来自GitHub 的网络流量。"
+          }
         }
       }
     },
@@ -1043,6 +1439,12 @@
           }
         },
         "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OK"
+          }
+        },
+        "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "OK"
@@ -1063,6 +1465,12 @@
             "state" : "translated",
             "value" : "Pour en savoir plus, cliquez ici."
           }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "在此处查看详情。"
+          }
         }
       }
     },
@@ -1078,6 +1486,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Mises à jour"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "更新"
           }
         }
       }
@@ -1097,6 +1511,12 @@
             "state" : "translated",
             "value" : "Utilisation du secret %1$@"
           }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "使用密钥串 %1$@"
+          }
         }
       }
     },
@@ -1115,6 +1535,12 @@
             "state" : "translated",
             "value" : "Requête signée de %1$@"
           }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已认证来自 %1$@ 的请求"
+          }
         }
       }
     },
@@ -1126,6 +1552,12 @@
             "state" : "translated",
             "value" : "Smart Card"
           }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "智能卡"
+          }
         }
       }
     },
@@ -1136,6 +1568,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Unnamed"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "未命名"
           }
         }
       }
@@ -1153,6 +1591,12 @@
             "state" : "translated",
             "value" : "Mise à jour de sécurité critique requise"
           }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "重要安全更新可用"
+          }
         }
       }
     },
@@ -1169,6 +1613,12 @@
             "state" : "translated",
             "value" : "Ignorer"
           }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "忽略"
+          }
         }
       }
     },
@@ -1184,6 +1634,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Mise à jour disponible"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "更新可用"
           }
         }
       }
@@ -1203,6 +1659,12 @@
             "state" : "translated",
             "value" : "Ignorer"
           }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "忽略"
+          }
         }
       }
     },
@@ -1220,6 +1682,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Mettre à jour"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "更新"
           }
         }
       }
@@ -1239,6 +1707,12 @@
             "state" : "translated",
             "value" : "Mise à jour critique de sécurité - %1$@"
           }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "重要安全更新 - %1$@"
+          }
         }
       }
     },
@@ -1256,6 +1730,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Cliquer pour mettre à jour"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "点击更新"
           }
         }
       }
@@ -1275,6 +1755,12 @@
             "state" : "translated",
             "value" : "Mise à jour disponible - %1$@"
           }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "更新可用 - %1$@"
+          }
         }
       }
     },
@@ -1290,6 +1776,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Notes de mise à jour"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "发布说明"
           }
         }
       }
@@ -1307,6 +1799,12 @@
             "state" : "translated",
             "value" : "Test build"
           }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "测试版本"
+          }
         }
       }
     },
@@ -1323,6 +1821,12 @@
             "state" : "translated",
             "value" : "Mettre à jour"
           }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "更新"
+          }
         }
       }
     },
@@ -1335,6 +1839,12 @@
           }
         },
         "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Secretive %1$@"
+          }
+        },
+        "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Secretive %1$@"
