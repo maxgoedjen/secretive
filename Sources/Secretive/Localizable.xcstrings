@@ -21,6 +21,12 @@
             "value" : "L'agent n'est pas actif"
           }
         },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Secret Agent non è in esecuzione"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -41,6 +47,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "SecretAgent est un processus qui s'exécute en arrière-plan pour signer les demandes, de sorte que vous n'ayez pas besoin de garder Secretive ouvert en permanence.\n\n**Vous pouvez fermer Secretive, et tout continuera à fonctionner."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "SecretAgent è un processo che viene eseguito in background per firmare le richieste, così che non devi tenere aperto Secretive tutto il tempo.\\n\\n**Puoi chiudere Secretive, e continuerà a funzionare.**"
           }
         },
         "zh-Hans" : {
@@ -65,6 +77,12 @@
             "value" : "SecretAgent est actif"
           }
         },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Secret Agent è in esecuzione"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -85,6 +103,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "L'agent est actif"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Agent è in esecuzione"
           }
         },
         "zh-Hans" : {
@@ -109,6 +133,12 @@
             "value" : "Configurer Secretive"
           }
         },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Imposta Secretive"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -129,6 +159,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Aide"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aiuto"
           }
         },
         "zh-Hans" : {
@@ -153,6 +189,12 @@
             "value" : "Nouveau Secret"
           }
         },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nuovo Segreto"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -173,6 +215,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Configurer Secretive"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Imposta Secretive"
           }
         },
         "zh-Hans" : {
@@ -197,6 +245,12 @@
             "value" : "Secretive doit se trouver dans votre dossier Applications pour fonctionner correctement. Veuillez le déplacer et relancer."
           }
         },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Secretive deve trovarsi nella cartella delle Applicazioni per funzionare correttamente. Per favore spostala e riavvia."
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -217,6 +271,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Secretive n'est pas dans le dossier Applications"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Secretive non è nella cartella delle Applicazioni"
           }
         },
         "zh-Hans" : {
@@ -409,6 +469,12 @@
             "value" : "Cliquer pour copier"
           }
         },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Clicca per copiare"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -429,6 +495,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Copié"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Copiato"
           }
         },
         "zh-Hans" : {
@@ -453,6 +525,12 @@
             "value" : "Annuler"
           }
         },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Annulla"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -473,6 +551,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Créer"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Crea"
           }
         },
         "zh-Hans" : {
@@ -497,6 +581,12 @@
             "value" : "Nom :"
           }
         },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nome:"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -517,6 +607,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Chuuut"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Shhhhh"
           }
         },
         "zh-Hans" : {
@@ -541,6 +637,12 @@
             "value" : "Aucune authentification n'est requise lorsque votre Mac est déverrouillé, mais vous serez averti lorsqu'un secret sera utilisé."
           }
         },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Non è richiesta alcuna autenticazione finché il tuo Mac è sbloccato, ma verrete notificati quando un Segreto viene usato."
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -561,6 +663,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Notifier"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Notifica"
           }
         },
         "zh-Hans" : {
@@ -585,6 +693,12 @@
             "value" : "Vous devrez vous authentifier à l'aide de Touch ID, de l'Apple Watch ou d'un mot de passe avant chaque utilisation."
           }
         },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "È richiesta l’autenticazione tramite Touch ID, Apple Watch, o password prima di ciascun uso."
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -605,6 +719,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Exiger l'authentification"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Autenticazione richiesta"
           }
         },
         "zh-Hans" : {
@@ -629,6 +749,12 @@
             "value" : "Créer un nouveau secret"
           }
         },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Crea un nuovo Segreto"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -649,6 +775,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Ne pas supprimer"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Non eliminare"
           }
         },
         "zh-Hans" : {
@@ -673,6 +805,12 @@
             "value" : "Confirmer le nom :"
           }
         },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Conferma nome:"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -693,6 +831,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Supprimer"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Elimina"
           }
         },
         "zh-Hans" : {
@@ -717,6 +861,12 @@
             "value" : "Si vous effacez %1$@, vous ne pourrez pas le récupérer. Tapez \"%2$@\" pour confirmer."
           }
         },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Se elimini %1$@, non sarai più in grado di recuperarlo. Digita “%1$@” per confermare."
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -737,6 +887,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Supprimer %1$@?"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Eliminare %1$@?"
           }
         },
         "zh-Hans" : {
@@ -761,6 +917,12 @@
             "value" : "Créez-en un nouveau en cliquant ici."
           }
         },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Creane uno nuovo cliccando qui."
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -781,6 +943,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Aucun secret"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nessun Segreto"
           }
         },
         "zh-Hans" : {
@@ -805,6 +973,12 @@
             "value" : "Aucun secret"
           }
         },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nessun Segreto"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -825,6 +999,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Utilisez l'outil de gestion de votre carte à puce pour créer un secret."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Usa lo strumento di gestione della tua Smart Card per creare un Segreto."
           }
         },
         "zh-Hans" : {
@@ -849,6 +1029,12 @@
             "value" : "Secretive prend en charge les clés EC256, EC384, RSA1024 et RSA2048."
           }
         },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Secretive supporta la cifratura EC256, EC384, RSA1024 e RSA2048."
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -869,6 +1055,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Aucun secret"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nessun Segreto"
           }
         },
         "zh-Hans" : {
@@ -893,6 +1085,12 @@
             "value" : "Votre Mac n'est pas équipé d'une Secure Enclave et aucune carte à puce compatible n'est insérée."
           }
         },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Il tuo Mac non ha Secure Enclave, e non è inserita una Smart Card compatibile."
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -915,6 +1113,12 @@
             "value" : "Pas de stockage sécurisé disponible"
           }
         },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Secure Storage non è disponibile"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -935,6 +1139,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Si vous souhaitez en ajouter une à votre Mac, les YubiKey 5 Series sont parfaites."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Se stai cercando di aggiungerne una al tuo Mac, le YubiKey 5 Series sono ottime."
           }
         },
         "zh-Hans" : {
@@ -961,6 +1171,12 @@
             "value" : "Laisser déverrouillé"
           }
         },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lascia sbloccato"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -985,6 +1201,12 @@
             "value" : "Ne pas déverrouiller"
           }
         },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Non sbloccare"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1005,6 +1227,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Annuler"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Annulla"
           }
         },
         "zh-Hans" : {
@@ -1029,6 +1257,12 @@
             "value" : "Renommer"
           }
         },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rinomina"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1049,6 +1283,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Saisissez votre nouveau nom pour %1$@ ci-dessous."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Digita qui sotto il nuovo nome per %1$@."
           }
         },
         "zh-Hans" : {
@@ -1073,6 +1313,12 @@
             "value" : "Empreinte MD5"
           }
         },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Impronta MD5"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1093,6 +1339,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Clé publique"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chiave pubblica"
           }
         },
         "zh-Hans" : {
@@ -1117,6 +1369,12 @@
             "value" : "Chemin vers la clé publique"
           }
         },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Percorso della chiave pubblica"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1137,6 +1395,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Empreinte SHA256"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Impronta SHA256"
           }
         },
         "zh-Hans" : {
@@ -1161,6 +1425,12 @@
             "value" : "Supprimer"
           }
         },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Elimina"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1181,6 +1451,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Renommer"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rinomina"
           }
         },
         "zh-Hans" : {
@@ -1228,6 +1504,12 @@
             "value" : "Cette application auxiliaire s'appelle **Secret Agent** et vous pouvez la voir dans le Gestionnaire d'activités de temps en temps."
           }
         },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Quest’app ausiliare è chiamata **Secret Agent** e potrebbe comparire in Monitoraggio Attività di tanto in tanto."
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1248,6 +1530,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Secretive a besoin de mettre en place une application auxiliaire pour fonctionner correctement. Elle signera les requêtes des clients SSH en arrière-plan, de sorte que vous n'ayez pas besoin de garder l'application principale Secretive ouverte."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Secretive ha bisogno di impostare un’app ausiliaria per funzionare. Firmerà le richieste dai client SSH in background, così che non dovrai tenere l’app principale Secretive aperta."
           }
         },
         "zh-Hans" : {
@@ -1272,6 +1560,12 @@
             "value" : "Installer"
           }
         },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Installa"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1292,6 +1586,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Configurer l'agent"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Imposta Secret Agent"
           }
         },
         "zh-Hans" : {
@@ -1316,6 +1616,12 @@
             "value" : "Ajoutez-le pour moi"
           }
         },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aggiungila per me"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1336,6 +1642,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Ajouter à %1$@"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aggiungi a %1$@"
           }
         },
         "zh-Hans" : {
@@ -1360,6 +1672,12 @@
             "value" : "Je l'ai ajouté manuellement"
           }
         },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "L’ho aggiunta manualmente"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1380,6 +1698,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Ajoutez cette ligne à votre configuration shell pour indiquer à SSH de communiquer à Secret Agent quand il veut s'authentifier. Secretive peut le faire automatiquement pour vous, ou vous pouvez copier et coller cette ligne dans votre fichier de configuration."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aggiungi questa riga alla configurazione del Terminale per dire a SSH di parlare con Secret Agent quando vuole autenticarsi. Secretive può farlo automaticamente per te, oppure puoi copiare e incollare questa riga nel file di configurazione."
           }
         },
         "zh-Hans" : {
@@ -1404,6 +1728,12 @@
             "value" : "Configurer votre Agent SSH"
           }
         },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Configura il tuo Agente SSH"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1421,6 +1751,12 @@
           }
         },
         "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "✓"
+          }
+        },
+        "it" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "✓"
@@ -1448,6 +1784,12 @@
             "value" : "Si vous essayez de configurer une application tierce, consultez la FAQ."
           }
         },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Se stai cercando di impostare un’app di terze parti, dai un'occhiata alla FAQ."
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1470,6 +1812,12 @@
             "value" : "Secretive vérifie périodiquement sur GitHub s'il existe une nouvelle version. C'est pour cette raison que vous pouvez voir des requêtes réseau vers GitHub."
           }
         },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Secretive controllerà periodicamente GitHub per vedere se ci sono nuove versioni rilasciate. Se vedi una richiesta network per GitHub, eccola spiegata."
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1487,6 +1835,12 @@
           }
         },
         "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OK"
+          }
+        },
+        "it" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "OK"
@@ -1514,6 +1868,12 @@
             "value" : "Pour en savoir plus, cliquez ici."
           }
         },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Leggi di più a riguardo qui."
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1534,6 +1894,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Mises à jour"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aggiornamenti"
           }
         },
         "zh-Hans" : {
@@ -1560,6 +1926,12 @@
             "value" : "Utilisation du secret %1$@"
           }
         },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Usato il Segreto %1$@"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1582,6 +1954,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Requête signée de %1$@"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Firmata la richiesta da %1$@"
           }
         },
         "zh-Hans" : {
@@ -1652,6 +2030,12 @@
             "value" : "Mise à jour de sécurité critique requise"
           }
         },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Richiesto aggiornamento di sicurezza critico"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1674,6 +2058,12 @@
             "value" : "Ignorer"
           }
         },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ignora"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1694,6 +2084,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Mise à jour disponible"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aggiornamento disponibile"
           }
         },
         "zh-Hans" : {
@@ -1720,6 +2116,12 @@
             "value" : "Ignorer"
           }
         },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ignora"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1742,6 +2144,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Mettre à jour"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aggiorna"
           }
         },
         "zh-Hans" : {
@@ -1768,6 +2176,12 @@
             "value" : "Mise à jour critique de sécurité - %1$@"
           }
         },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aggiornamento di sicurezza critico - %1$@"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1790,6 +2204,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Cliquer pour mettre à jour"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Clicca per aggiornare"
           }
         },
         "zh-Hans" : {
@@ -1816,6 +2236,12 @@
             "value" : "Mise à jour disponible - %1$@"
           }
         },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aggiornamento disponibile - %1$@"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1836,6 +2262,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Notes de mise à jour"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Note di rilascio"
           }
         },
         "zh-Hans" : {
@@ -1860,6 +2292,12 @@
             "value" : "Test build"
           }
         },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Build di test"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1882,6 +2320,12 @@
             "value" : "Mettre à jour"
           }
         },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aggiorna"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1899,6 +2343,12 @@
           }
         },
         "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Secretive %1$@"
+          }
+        },
+        "it" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Secretive %1$@"
