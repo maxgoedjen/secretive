@@ -10,6 +10,12 @@
             "state" : "translated",
             "value" : "Leave Unlocked"
           }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lascia sbloccato"
+          }
         }
       }
     },
@@ -21,6 +27,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Do Not Unlock"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Non sbloccare"
           }
         }
       }
@@ -34,6 +46,12 @@
             "state" : "translated",
             "value" : "Using secret %1$@"
           }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Usato il Segreto %1$@"
+          }
         }
       }
     },
@@ -45,6 +63,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Signed Request from %1$@"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Firmata la richiesta da %1$@"
           }
         }
       }
@@ -58,6 +82,12 @@
             "state" : "translated",
             "value" : "Ignore"
           }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ignora"
+          }
         }
       }
     },
@@ -69,6 +99,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Update"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aggiorna"
           }
         }
       }
@@ -82,6 +118,12 @@
             "state" : "translated",
             "value" : "Critical Security Update - %1$@"
           }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aggiornamento di sicurezza critico - %1$@"
+          }
         }
       }
     },
@@ -94,6 +136,12 @@
             "state" : "translated",
             "value" : "Click to Update"
           }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Clicca per aggiornare"
+          }
         }
       }
     },
@@ -105,6 +153,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Update Available - %1$@"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aggiornamento disponibile - %1$@"
           }
         }
       }
