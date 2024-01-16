@@ -9,10 +9,22 @@
     },
     "agent_not_running_notice_title" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Agent wird Nicht Ausgeführt"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Secret Agent Is Not Running"
+            "value" : "Agent Is Not Running"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "L'agent n'est pas actif"
           }
         },
         "it" : {
@@ -20,15 +32,39 @@
             "state" : "translated",
             "value" : "Secret Agent non è in esecuzione"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Agent não está rodando"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "SecretAgent尚未运行"
+          }
         }
       }
     },
     "agent_running_notice_detail_description" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "SecretAgent ist ein Prozess, der im Hintergrund läuft, um Anfragen zu signieren, so dass du Secretive nicht durchgehend geöffnet halten musst.\n\n**Du kannst Secretive schließen, und alles funktioniert weiter.**"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "SecretAgent is a process that runs in the background to sign requests, so you don't need to keep Secretive open all the time.\\n\\n**You can close Secretive, and everything will still keep working.**"
+            "value" : "SecretAgent is a process that runs in the background to sign requests, so you don't need to keep Secretive open all the time.\n\n**You can close Secretive, and everything will still keep working.**"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "SecretAgent est un processus qui s'exécute en arrière-plan pour signer les demandes, de sorte que vous n'ayez pas besoin de garder Secretive ouvert en permanence.\n\n**Vous pouvez fermer Secretive, et tout continuera à fonctionner."
           }
         },
         "it" : {
@@ -36,15 +72,39 @@
             "state" : "translated",
             "value" : "SecretAgent è un processo che viene eseguito in background per firmare le richieste, così che non devi tenere aperto Secretive tutto il tempo.\\n\\n**Puoi chiudere Secretive, e continuerà a funzionare.**"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "SecretAgent é um processo que roda em background para assinar requisições para que você não precise manter o Secretive aberto a todo momento.\n\n**Você pode fechar o Secretive e tudo continuará funcionando."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "SecretAgent是一个在后台进行请求处理的服务，所以您可以不用让Secretive 一直保持前台运行。   \n\n\n**您可以关闭 Secretive，所有服务都将正常运行。**\n\n\n"
+          }
         }
       }
     },
     "agent_running_notice_detail_title" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Secret Agent wird Ausgeführt"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "SecretAgent is Running"
+            "value" : "Secret Agent is Running"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "SecretAgent est actif"
           }
         },
         "it" : {
@@ -52,15 +112,39 @@
             "state" : "translated",
             "value" : "Secret Agent è in esecuzione"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Secret Agent está rodando"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "SecretAgent运行中"
+          }
         }
       }
     },
     "agent_running_notice_title" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Agent wird Ausgeführt"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Agent is Running"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "L'agent est actif"
           }
         },
         "it" : {
@@ -68,15 +152,39 @@
             "state" : "translated",
             "value" : "Agent è in esecuzione"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Agent está rodando"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Agent运行中"
+          }
         }
       }
     },
     "agent_setup_notice_title" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Secretive Einrichten"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Setup Secretive"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Configurer Secretive"
           }
         },
         "it" : {
@@ -84,15 +192,39 @@
             "state" : "translated",
             "value" : "Imposta Secretive"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Configurar Secretive"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "设置 Secretive"
+          }
         }
       }
     },
     "app_menu_help_button" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hilfe"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Help"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aide"
           }
         },
         "it" : {
@@ -100,15 +232,39 @@
             "state" : "translated",
             "value" : "Aiuto"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ajuda"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "帮助"
+          }
         }
       }
     },
     "app_menu_new_secret_button" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Neues Secret"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "New Secret"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nouveau Secret"
           }
         },
         "it" : {
@@ -116,15 +272,39 @@
             "state" : "translated",
             "value" : "Nuovo Segreto"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Novo Segredo"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "新密钥串"
+          }
         }
       }
     },
     "app_menu_setup_button" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Secretive Einrichten"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Setup Secretive"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Configurer Secretive"
           }
         },
         "it" : {
@@ -132,15 +312,39 @@
             "state" : "translated",
             "value" : "Imposta Secretive"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Configurar Secretive"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "设置 Secretive"
+          }
         }
       }
     },
     "app_not_in_applications_notice_detail_description" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Secretive muss sich in deinem Programme Ordner befinden, damit es richtig funktioniert. Bitte verschiebe die App und starten sie neu."
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Secretive needs to be in your Applications folder to work properly. Please move it and relaunch."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Secretive doit se trouver dans votre dossier Applications pour fonctionner correctement. Veuillez le déplacer et relancer."
           }
         },
         "it" : {
@@ -148,15 +352,39 @@
             "state" : "translated",
             "value" : "Secretive deve trovarsi nella cartella delle Applicazioni per funzionare correttamente. Per favore spostala e riavvia."
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Secretive necessita estar no seu diretório de Aplicações para funcionar corretamente. Por favor mova-o e abra novamente."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Secretive 需要在应用程序文件夹中才能保持正常运行。请移动Secretive并重启"
+          }
         }
       }
     },
     "app_not_in_applications_notice_title" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Secretive ist Nicht im Programme Ordner"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Secretive Is Not in Applications Folder"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Secretive n'est pas dans le dossier Applications"
           }
         },
         "it" : {
@@ -164,15 +392,291 @@
             "state" : "translated",
             "value" : "Secretive non è nella cartella delle Applicazioni"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Secretive não está no diretório de Aplicações"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Secretive 不在系统应用文件夹中"
+          }
+        }
+      }
+    },
+    "auth_context_persist_for_duration_%@_%@" : {
+      "comment" : "When the user clicks the notification to leave a secret unlocked, they are shown a prompt to approve the action. This is the description, showing which secret will used. The first placeholder is the name of the secret. The second placeholder is a localized description of the time period it will remain unlocked for (eg: \"five minutes\")",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Secret \"%1$@\" für %2$@ entsperren"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "unlock secret \"%1$@\" for %2$@"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "déverrouiller le secret \"%1$@\" pendant %2$@"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "destravar segredo \"%1$@\" for %2$@"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "解锁密钥串 \"%1$@\" 给 %2$@"
+          }
+        }
+      }
+    },
+    "auth_context_persist_for_duration_unknown_%@" : {
+      "comment" : "When the user clicks the notification to leave a secret unlocked, they are shown a prompt to approve the action. This is the description, showing which secret will used. The placeholder is the name of the secret. This is a fallback used when a duration is unable to be specified.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Secret \"%1$@\" entsperren"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "unlock secret \"%1$@\""
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "déverrouiller le secret \"%1$@\""
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "destravar secreto \"%1$@\""
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "解锁密钥串 \"%1$@\""
+          }
+        }
+      }
+    },
+    "auth_context_request_decrypt_description_%@" : {
+      "comment" : "When the user performs a decryption action using a secret, they are shown a prompt to approve the action. This is the description, showing which secret will be used. The placeholder is the name of the secret. NOTE: This is currently not exposed in UI.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Daten mit dem Secret \"%1$@\" entschlüsseln"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "decrypt data using secret \"%1$@\""
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "déchiffrer les données en utilisant le secret \"%1$@\"."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "decriptar o dado utilizando segredo \"%1$@\""
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "使用密钥串 \"%1$@\" 解密数据"
+          }
+        }
+      }
+    },
+    "auth_context_request_deny_button" : {
+      "comment" : "When the user chooses to perform an action that requires Touch ID/password authentication, they are shown a prompt to approve the action. This is the deny button for that prompt.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ablehnen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Deny"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Refuser"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Negar"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "拒绝"
+          }
+        }
+      }
+    },
+    "auth_context_request_encrypt_description_%@" : {
+      "comment" : "When the user performs an encryption action using a secret, they are shown a prompt to approve the action. This is the description, showing which secret will be used. The placeholder is the name of the secret. NOTE: This is currently not exposed in UI.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Daten mit dem Secret \"%1$@\" verschlüsseln"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "encrypt data using secret \"%1$@\""
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "chiffrer les données en utilisant le secret \"%1$@\""
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "encriptar dado utilizando o segredo \"%1$@\""
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "使用密钥串 \"%1$@\" 加密数据"
+          }
+        }
+      }
+    },
+    "auth_context_request_signature_description_%@_%@" : {
+      "comment" : "When the user performs a signature action using a secret, they are shown a prompt to approve the action. This is the description, showing which secret will be used, and where the request is coming from. The first placeholder is the name of the app requesting the operation. The second placeholder is the name of the secret.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "eine Anfrage von \"%1$@\" mit dem Secret \"%2$@\" signieren"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "sign a request from \"%1$@\" using secret \"%2$@\""
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "signer une requête de \"%1$@\" en utilisant le secret \"%2$@\""
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "assinar requisição a partir do \"%1$@\" utilizando o segredo \"%2$@\""
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "使用密钥串 \"%2$@\" 认证 \"%1$@\" "
+          }
+        }
+      }
+    },
+    "auth_context_request_verify_description_%@" : {
+      "comment" : "When the user performs a signature verification action using a secret, they are shown a prompt to approve the action. This is the description, showing which secret will be used. The placeholder is the name of the secret. NOTE: This is currently not exposed in UI.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "eine Signatur mit dem Secret \"%1$@\" verifizieren"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "verify a signature using secret \"%1$@\""
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "vérifier une signature en utilisant le secret \"%1$@\""
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "verificar a assinatura utilizando o segredo \"%1$@\""
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "使用密钥串 \"%1$@\" 认证"
+          }
         }
       }
     },
     "copyable_click_to_copy_button" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zum Kopieren Anklicken"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Click to Copy"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cliquer pour copier"
           }
         },
         "it" : {
@@ -180,15 +684,39 @@
             "state" : "translated",
             "value" : "Clicca per copiare"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Clique para Copiar"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "点击拷贝"
+          }
         }
       }
     },
     "copyable_copied" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kopiert"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Copied"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Copié"
           }
         },
         "it" : {
@@ -196,15 +724,39 @@
             "state" : "translated",
             "value" : "Copiato"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Copiado"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已拷贝"
+          }
         }
       }
     },
     "create_secret_cancel_button" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Abbrechen"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Cancel"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Annuler"
           }
         },
         "it" : {
@@ -212,15 +764,39 @@
             "state" : "translated",
             "value" : "Annulla"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cancelar"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "返回"
+          }
         }
       }
     },
     "create_secret_create_button" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Erstellen"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Create"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Créer"
           }
         },
         "it" : {
@@ -228,15 +804,39 @@
             "state" : "translated",
             "value" : "Crea"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Criar"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "创建"
+          }
         }
       }
     },
     "create_secret_name_label" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Name:"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Name:"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nom :"
           }
         },
         "it" : {
@@ -244,15 +844,39 @@
             "state" : "translated",
             "value" : "Nome:"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nome:"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "名称"
+          }
         }
       }
     },
     "create_secret_name_placeholder" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Psssst"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Shhhhh"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chuuut"
           }
         },
         "it" : {
@@ -260,15 +884,39 @@
             "state" : "translated",
             "value" : "Shhhhh"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Shhhhh"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "张三的主机"
+          }
         }
       }
     },
     "create_secret_notify_description" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Es ist keine Authentifizierung erforderlich solange dein Mac entsperrt ist, aber du wirst benachrichtigt, wenn ein Secret verwendet wird."
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "No authentication is required while your Mac is unlocked, but you will be notified when a secret is used."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aucune authentification n'est requise lorsque votre Mac est déverrouillé, mais vous serez averti lorsqu'un secret sera utilisé."
           }
         },
         "it" : {
@@ -276,15 +924,39 @@
             "state" : "translated",
             "value" : "Non è richiesta alcuna autenticazione finché il tuo Mac è sbloccato, ma verrete notificati quando un Segreto viene usato."
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Autenticação não é requerida enquanto seu Mac estiver destravado, mas você será notificado quando um segredo for utilizado."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "当您的Mac 解锁时不需要任何验证，但您会收到一条密钥串被使用的通知"
+          }
         }
       }
     },
     "create_secret_notify_title" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Benachrichtigen"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Notify"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Notifier"
           }
         },
         "it" : {
@@ -292,15 +964,39 @@
             "state" : "translated",
             "value" : "Notifica"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Notificar"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "通知"
+          }
         }
       }
     },
     "create_secret_require_authentication_description" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Du musst dich vor jeder Nutzung mit Touch ID, Apple Watch oder einem Passwort authentifizieren."
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "You will be required to authenticate using Touch ID, Apple Watch, or password before each use."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vous devrez vous authentifier à l'aide de Touch ID, de l'Apple Watch ou d'un mot de passe avant chaque utilisation."
           }
         },
         "it" : {
@@ -308,15 +1004,39 @@
             "state" : "translated",
             "value" : "È richiesta l’autenticazione tramite Touch ID, Apple Watch, o password prima di ciascun uso."
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Você será requerido a autenticar utilizando Touch ID, Apple Watch ou senha antes de cada uso."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "您在每次使用时都会被要求使用Touch ID 、Apple Watch 或密码进行验证。"
+          }
         }
       }
     },
     "create_secret_require_authentication_title" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Authentifizierung Erforderlich"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Require Authentication"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Exiger l'authentification"
           }
         },
         "it" : {
@@ -324,15 +1044,39 @@
             "state" : "translated",
             "value" : "Autenticazione richiesta"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Requer Autenticação"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "需要验证"
+          }
         }
       }
     },
     "create_secret_title" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ein Neues Secret Erstellen"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Create a New Secret"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Créer un nouveau secret"
           }
         },
         "it" : {
@@ -340,15 +1084,39 @@
             "state" : "translated",
             "value" : "Crea un nuovo Segreto"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Criar um Novo Segredo"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "创建一个新的密钥串"
+          }
         }
       }
     },
     "delete_confirmation_cancel_button" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nicht Löschen"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Don't Delete"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ne pas supprimer"
           }
         },
         "it" : {
@@ -356,15 +1124,39 @@
             "state" : "translated",
             "value" : "Non eliminare"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Não Apagar"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "禁止删除"
+          }
         }
       }
     },
     "delete_confirmation_confirm_name_label" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Name bestätigen:"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Confirm Name:"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Confirmer le nom :"
           }
         },
         "it" : {
@@ -372,15 +1164,39 @@
             "state" : "translated",
             "value" : "Conferma nome:"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Confirmar Nome:"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "确认名称"
+          }
         }
       }
     },
     "delete_confirmation_delete_button" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Löschen"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Delete"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Supprimer"
           }
         },
         "it" : {
@@ -388,15 +1204,39 @@
             "state" : "translated",
             "value" : "Elimina"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apagar"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "删除"
+          }
         }
       }
     },
     "delete_confirmation_description_%@_%@" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wenn du %1$@ löschst, kannst du es nicht wiederherstellen. Gib zur Bestätigung \"%2$@\" ein."
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "If you delete %1$@, you will not be able to recover it. Type \"%2$@\" to confirm."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Si vous effacez %1$@, vous ne pourrez pas le récupérer. Tapez \"%2$@\" pour confirmer."
           }
         },
         "it" : {
@@ -404,15 +1244,39 @@
             "state" : "translated",
             "value" : "Se elimini %1$@, non sarai più in grado di recuperarlo. Digita “%1$@” per confermare."
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Se você deletar %1$@, você não será permitido recuperá-lo. Digite \"%2$@\" para confirmar."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "如果您删除 %1$@ ，您将没有任何方式恢复它。输入 \"%2$@\" 以确认。"
+          }
         }
       }
     },
     "delete_confirmation_title_%@" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ Löschen?"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Delete %1$@?"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Supprimer %1$@?"
           }
         },
         "it" : {
@@ -420,15 +1284,39 @@
             "state" : "translated",
             "value" : "Eliminare %1$@?"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Deletar %1$@?"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "删除 %1$@ 吗？"
+          }
         }
       }
     },
     "empty_store_modifiable_click_here_description" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Klicke hier um ein neues zu erstellen."
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Create a new one by clicking here."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Créez-en un nouveau en cliquant ici."
           }
         },
         "it" : {
@@ -436,31 +1324,79 @@
             "state" : "translated",
             "value" : "Creane uno nuovo cliccando qui."
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Criar um novo clicando aqui."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "点击这里创建一个新的密钥串。"
+          }
         }
       }
     },
     "empty_store_modifiable_click_here_title" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Keine Secrets"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "No Secrets"
           }
         },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aucun secret"
+          }
+        },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Nessun Segreto"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sem Segredos"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "没有密钥串"
           }
         }
       }
     },
     "empty_store_modifiable_title" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Keine Secrets"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "No Secrets"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aucun secret"
           }
         },
         "it" : {
@@ -468,15 +1404,39 @@
             "state" : "translated",
             "value" : "Nessun Segreto"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sem Segredos"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "没有密钥串"
+          }
         }
       }
     },
     "empty_store_nonmodifiable_description" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Verwende das Verwaltungstool deiner Chipkarte um ein Secret zu erstellen."
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Use your Smart Card's management tool to create a secret."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Utilisez l'outil de gestion de votre carte à puce pour créer un secret."
           }
         },
         "it" : {
@@ -484,15 +1444,39 @@
             "state" : "translated",
             "value" : "Usa lo strumento di gestione della tua Smart Card per creare un Segreto."
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Utilize sua ferramenta de gestão de Smart Card para criar um segredo."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "使用您的智能卡管理工具创建一个新的密钥串"
+          }
         }
       }
     },
     "empty_store_nonmodifiable_supported_key_types" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Secretive unterstützt EC256, EC384, RSA1024 und RSA2048 Schlüssel."
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Secretive supports EC256, EC384, RSA1024, and RSA2048 keys."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Secretive prend en charge les clés EC256, EC384, RSA1024 et RSA2048."
           }
         },
         "it" : {
@@ -500,15 +1484,39 @@
             "state" : "translated",
             "value" : "Secretive supporta la cifratura EC256, EC384, RSA1024 e RSA2048."
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Secretive suporta chaves EC256, EC384, RSA1024 e RSA2048."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Secretive 支持 EC256, EC384, RSA1024, 和RSA2048."
+          }
         }
       }
     },
     "empty_store_nonmodifiable_title" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Keine Secrets"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "No Secrets"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aucun secret"
           }
         },
         "it" : {
@@ -516,15 +1524,39 @@
             "state" : "translated",
             "value" : "Nessun Segreto"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sem Segredos"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "没有密钥串"
+          }
         }
       }
     },
     "no_secure_storage_description" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dein Mac verfügt nicht über einen Secure Enclave, und es ist keine kompatible Chipkarte eingelegt."
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Your Mac doesn't have a Secure Enclave, and there's not a compatible Smart Card inserted."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Votre Mac n'est pas équipé d'une Secure Enclave et aucune carte à puce compatible n'est insérée."
           }
         },
         "it" : {
@@ -532,15 +1564,39 @@
             "state" : "translated",
             "value" : "Il tuo Mac non ha Secure Enclave, e non è inserita una Smart Card compatibile."
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Seu Mac não possui o Secure Enclave e não há um Smart Card compatível inserido."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "您的Mac 没有安全隔区，同时也没有插入兼容的智能卡。"
+          }
         }
       }
     },
     "no_secure_storage_title" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kein Sicherer Speicher Verfügbar"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "No Secure Storage Available"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pas de stockage sécurisé disponible"
           }
         },
         "it" : {
@@ -548,15 +1604,39 @@
             "state" : "translated",
             "value" : "Secure Storage non è disponibile"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sem Armazenamento Seguro Disponível"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "没有可用的密钥存储区"
+          }
         }
       }
     },
     "no_secure_storage_yubico_link" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wenn du deinen Mac mit sicherem Speicher ausstatten möchtest, eignet sich die YubiKey 5 Serie super."
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "If you're looking to add one to your Mac, the YubiKey 5 Series are great."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Si vous souhaitez en ajouter une à votre Mac, les YubiKey 5 Series sont parfaites."
           }
         },
         "it" : {
@@ -564,15 +1644,123 @@
             "state" : "translated",
             "value" : "Se stai cercando di aggiungerne una al tuo Mac, le YubiKey 5 Series sono ottime."
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Se você está buscando adicionar um para seu Mac, o YubiKey 5 Series é muito bom."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "如果您想为您的Mac添加一个物理密钥， YubiKey 5 系列是一个不错的选择。"
+          }
+        }
+      }
+    },
+    "persist_authentication_accept_button" : {
+      "comment" : "When the user authorizes an action using a secret that requires unlock, they're shown a notification offering to leave the secret unlocked for a set period of time. This is the title for the notification.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Entsperrt Lassen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Leave Unlocked"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Laisser déverrouillé"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lascia sbloccato"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Deixar Destrancado"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "自动验证"
+          }
+        }
+      }
+    },
+    "persist_authentication_decline_button" : {
+      "comment" : "When the user authorizes an action using a secret that requires unlock, they're shown a notification offering to leave the secret unlocked for a set period of time. This is the decline button for the notification.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nicht Entsperren"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Do Not Unlock"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ne pas déverrouiller"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Non sbloccare"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Não Destravar"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "不要自动验证"
+          }
         }
       }
     },
     "rename_cancel_button" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Abbrechen"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Cancel"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Annuler"
           }
         },
         "it" : {
@@ -580,15 +1768,39 @@
             "state" : "translated",
             "value" : "Annulla"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cancelar"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "返回"
+          }
         }
       }
     },
     "rename_rename_button" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Umbenennen"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Rename"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Renommer"
           }
         },
         "it" : {
@@ -596,15 +1808,39 @@
             "state" : "translated",
             "value" : "Rinomina"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Renomear"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "重命名"
+          }
         }
       }
     },
     "rename_title_%@" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gib einen neuen Namen für %1$@ ein."
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Type your new name for %1$@ below."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Saisissez votre nouveau nom pour %1$@ ci-dessous."
           }
         },
         "it" : {
@@ -612,15 +1848,39 @@
             "state" : "translated",
             "value" : "Digita qui sotto il nuovo nome per %1$@."
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Digite o novo nome para %1$@ abaixo."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "在此输入密钥串 %1$@ 的新名字。"
+          }
         }
       }
     },
     "secret_detail_md5_fingerprint_label" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "MD5 Fingerabdruck"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "MD5 Fingerprint"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Empreinte MD5"
           }
         },
         "it" : {
@@ -628,15 +1888,39 @@
             "state" : "translated",
             "value" : "Impronta MD5"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "MD5 Fingerprint"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "MD5 指纹"
+          }
         }
       }
     },
     "secret_detail_public_key_label" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Öffentlicher Schlüssel"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Public Key"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Clé publique"
           }
         },
         "it" : {
@@ -644,15 +1928,39 @@
             "state" : "translated",
             "value" : "Chiave pubblica"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chave Pública"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "公钥"
+          }
         }
       }
     },
     "secret_detail_public_key_path_label" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pfad des Öffentlichen Schlüssels"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Public Key Path"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chemin vers la clé publique"
           }
         },
         "it" : {
@@ -660,15 +1968,39 @@
             "state" : "translated",
             "value" : "Percorso della chiave pubblica"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Caminho da Chave Pública"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "公钥路径"
+          }
         }
       }
     },
     "secret_detail_sha256_fingerprint_label" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "SHA256 Fingerabdruck"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "SHA256 Fingerprint"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Empreinte SHA256"
           }
         },
         "it" : {
@@ -676,15 +2008,39 @@
             "state" : "translated",
             "value" : "Impronta SHA256"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "SHA256 Fingerprint"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "SHA256 指纹"
+          }
         }
       }
     },
     "secret_list_delete_button" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Löschen"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Delete"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Supprimer"
           }
         },
         "it" : {
@@ -692,15 +2048,39 @@
             "state" : "translated",
             "value" : "Elimina"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apagar"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "删除"
+          }
         }
       }
     },
     "secret_list_rename_button" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Umbenennen"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Rename"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Renommer"
           }
         },
         "it" : {
@@ -708,15 +2088,74 @@
             "state" : "translated",
             "value" : "Rinomina"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Renomear"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "重命名"
+          }
+        }
+      }
+    },
+    "secure_enclave" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Secure Enclave"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Secure Enclave"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enclave sécurisée"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Secure Enclave"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "安全隔区"
+          }
         }
       }
     },
     "setup_agent_activity_monitor_description" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Diese Hilfsanwendung heißt **Secret Agent**, und du kannst sie gelegentlich in der Aktivitätsanzeige sehen."
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "This helper app is called **Secret Agent** and you may see it in Activity Manager from time to time."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cette application auxiliaire s'appelle **Secret Agent** et vous pouvez la voir dans le Gestionnaire d'activités de temps en temps."
           }
         },
         "it" : {
@@ -724,15 +2163,39 @@
             "state" : "translated",
             "value" : "Quest’app ausiliare è chiamata **Secret Agent** e potrebbe comparire in Monitoraggio Attività di tanto in tanto."
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Este aplicativo de ajuda é chamado **Secret Agent** e você pode vê-lo no Monitor de Atividades de tempo em tempo."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "帮助文件叫做 *Secret Agent*， 之后您会经常在活动监视器中看见它。"
+          }
         }
       }
     },
     "setup_agent_description" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Secretive muss eine Hilfsanwendung einrichten, damit es richtig funktioniert. Sie signiert Anfragen von SSH-Clients im Hintergrund, sodass du die Secretive-Hauptanwendung nicht geöffnet halten musst."
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Secretive needs to set up a helper app to work properly. It will sign requests from SSH clients in the background, so you don't need to keep the main Secretive app open."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Secretive a besoin de mettre en place une application auxiliaire pour fonctionner correctement. Elle signera les requêtes des clients SSH en arrière-plan, de sorte que vous n'ayez pas besoin de garder l'application principale Secretive ouverte."
           }
         },
         "it" : {
@@ -740,15 +2203,39 @@
             "state" : "translated",
             "value" : "Secretive ha bisogno di impostare un’app ausiliaria per funzionare. Firmerà le richieste dai client SSH in background, così che non dovrai tenere l’app principale Secretive aperta."
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Secretive precisa configurar um aplicativo de ajuda para funcionar corretamente. Isso irá assinar requisições de clientes SSH no plano de fundo para que você não precise manter o aplicativo Secretive aberto."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Secretive 需要帮助文件来正常工作。 它会在后台识别SSH 请求, 这样您就不需要在前台一直保持Secretive 开启了。"
+          }
         }
       }
     },
     "setup_agent_install_button" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Installieren"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Install"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Installer"
           }
         },
         "it" : {
@@ -756,15 +2243,39 @@
             "state" : "translated",
             "value" : "Installa"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Instalar"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "安装"
+          }
         }
       }
     },
     "setup_agent_title" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Agent Einrichten"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Setup Secret Agent"
+            "value" : "Setup Agent"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Configurer l'agent"
           }
         },
         "it" : {
@@ -772,15 +2283,39 @@
             "state" : "translated",
             "value" : "Imposta Secret Agent"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Configurar Agent"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "设置"
+          }
         }
       }
     },
     "setup_ssh_add_for_me_button" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Für Mich Einfügen"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Add it For Me"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ajoutez-le pour moi"
           }
         },
         "it" : {
@@ -788,15 +2323,39 @@
             "state" : "translated",
             "value" : "Aggiungila per me"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Adicionar para mim"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "为我添加"
+          }
         }
       }
     },
     "setup_ssh_add_to_config_button_%@" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "In %1$@ einfügen"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Add to %1$@"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ajouter à %1$@"
           }
         },
         "it" : {
@@ -804,15 +2363,39 @@
             "state" : "translated",
             "value" : "Aggiungi a %1$@"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Adicionar para %1$@"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "添加到 %1$@"
+          }
         }
       }
     },
     "setup_ssh_added_manually_button" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ich habe es Manuell Eingefügt"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "I Added it Manually"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Je l'ai ajouté manuellement"
           }
         },
         "it" : {
@@ -820,15 +2403,39 @@
             "state" : "translated",
             "value" : "L’ho aggiunta manualmente"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Eu adicionei manualmente"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "我自行手动添加"
+          }
         }
       }
     },
     "setup_ssh_description" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Füge diese Zeile in deine Shell-Konfiguration ein, damit SSH zur Authentifizierung mit dem Secret Agent kommuniziert. Secretive kann dies automatisch tun, oder du kopierst diese Zeile in deine Konfigurationsdatei."
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Add this line to your shell config telling SSH to talk to Secret Agent when it wants to authenticate. Secretive can either do this for you automatically, or you can copy and paste this into your config file."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ajoutez cette ligne à votre configuration shell pour indiquer à SSH de communiquer à Secret Agent quand il veut s'authentifier. Secretive peut le faire automatiquement pour vous, ou vous pouvez copier et coller cette ligne dans votre fichier de configuration."
           }
         },
         "it" : {
@@ -836,15 +2443,39 @@
             "state" : "translated",
             "value" : "Aggiungi questa riga alla configurazione del Terminale per dire a SSH di parlare con Secret Agent quando vuole autenticarsi. Secretive può farlo automaticamente per te, oppure puoi copiare e incollare questa riga nel file di configurazione."
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Adicione esta linha nas configurações do seu shell para dizer ao SSH para falar com o Secret Agent quando ele necessitar de autenticação. Secretive pode fazer isto para você automaticamente ou você pode copiar e colar isso no seu arquivo de configuração."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "将以下文本添加到您的SSH 配置中以使用Secret Agent. Secretive 无法自动帮您完成该过程，或者您可以选择拷贝并粘贴该文本到您的配置文件中"
+          }
         }
       }
     },
     "setup_ssh_title" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Konfiguriere deinen SSH Agent"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Configure your SSH Agent"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Configurer votre Agent SSH"
           }
         },
         "it" : {
@@ -852,18 +2483,54 @@
             "state" : "translated",
             "value" : "Configura il tuo Agente SSH"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Configurar seu agente SSH"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "设置您的SSH 代理"
+          }
         }
       }
     },
     "setup_step_complete_symbol" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "✓"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "✓"
           }
         },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "✓"
+          }
+        },
         "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "✓"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "✓"
+          }
+        },
+        "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "✓"
@@ -873,10 +2540,22 @@
     },
     "setup_third_party_faq_link" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Schaue dir die FAQs an, um eine Drittanbieter-App einzurichten."
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "If you're trying to set up a third party app, check out the FAQ."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Si vous essayez de configurer une application tierce, consultez la FAQ."
           }
         },
         "it" : {
@@ -884,15 +2563,39 @@
             "state" : "translated",
             "value" : "Se stai cercando di impostare un’app di terze parti, dai un'occhiata alla FAQ."
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Se você estiver tentando configurar um aplicativo de terceiros, verifique o FAQ."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "如果您想设置第三方APP，请阅读 FAQ。"
+          }
         }
       }
     },
     "setup_updates_description" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Secretive prüft regelmäßig bei GitHub, ob es eine neue Version gibt. Wenn du Netzwerkanfragen an GitHub siehst, ist das der Grund."
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Secretive will periodically check with GitHub to see if there's a new release. If you see any network requests to GitHub, that's why."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Secretive vérifie périodiquement sur GitHub s'il existe une nouvelle version. C'est pour cette raison que vous pouvez voir des requêtes réseau vers GitHub."
           }
         },
         "it" : {
@@ -900,18 +2603,54 @@
             "state" : "translated",
             "value" : "Secretive controllerà periodicamente GitHub per vedere se ci sono nuove versioni rilasciate. Se vedi una richiesta network per GitHub, eccola spiegata."
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Secretive irá periodicamente verificar com o GitHub para verificar se existe uma nova versão. Se você ver alguma requisição de rede para o GitHub, este é o porque."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Secretive 需要使用GitHub 检查更新。这就是为什么您会看见来自GitHub 的网络流量。"
+          }
         }
       }
     },
     "setup_updates_ok" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OK"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "OK"
           }
         },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OK"
+          }
+        },
         "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OK"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OK"
+          }
+        },
+        "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "OK"
@@ -921,10 +2660,22 @@
     },
     "setup_updates_readmore" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lies hier mehr darüber."
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Read more about this here."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pour en savoir plus, cliquez ici."
           }
         },
         "it" : {
@@ -932,15 +2683,39 @@
             "state" : "translated",
             "value" : "Leggi di più a riguardo qui."
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Leia mais sobre isto aqui."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "在此处查看详情。"
+          }
         }
       }
     },
     "setup_updates_title" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Updates"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Updates"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mises à jour"
           }
         },
         "it" : {
@@ -948,15 +2723,193 @@
             "state" : "translated",
             "value" : "Aggiornamenti"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Atualizações"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "更新"
+          }
+        }
+      }
+    },
+    "signed_notification_description_%@" : {
+      "comment" : "When the user performs an action using a secret, they're shown a notification describing what happened. This is the description, showing which secret was used. The placeholder is the name of the secret.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Benutze Secret %1$@"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Using secret %1$@"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Utilisation du secret %1$@"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Usato il Segreto %1$@"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Utilizando o segredo %1$@"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "使用密钥串 %1$@"
+          }
+        }
+      }
+    },
+    "signed_notification_title_%@" : {
+      "comment" : "When the user performs an action using a secret, they're shown a notification describing what happened. This is the title, showing which app requested the action. The placeholder is the name of the app.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Signierte Anfrage von %1$@"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Signed Request from %1$@"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Requête signée de %1$@"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Firmata la richiesta da %1$@"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Requisição Assinada fr %1$@"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已认证来自 %1$@ 的请求"
+          }
+        }
+      }
+    },
+    "smart_card" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chipkarte"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Smart Card"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Carte à puce"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Smart Card"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "智能卡"
+          }
+        }
+      }
+    },
+    "unnamed_secret" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unbenannt"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unnamed"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sans nom"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sem Nome"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "未命名"
+          }
         }
       }
     },
     "update_critical_notice_title" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kritisches Sicherheitsupdate Erforderlich"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Critical Security Update Required"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mise à jour de sécurité critique requise"
           }
         },
         "it" : {
@@ -964,15 +2917,39 @@
             "state" : "translated",
             "value" : "Richiesto aggiornamento di sicurezza critico"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Atualização Crítica de Segurança Requerida"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "重要安全更新可用"
+          }
         }
       }
     },
     "update_ignore_button" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ignorieren"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Ignore"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ignorer"
           }
         },
         "it" : {
@@ -980,15 +2957,39 @@
             "state" : "translated",
             "value" : "Ignora"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ignorar"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "忽略"
+          }
         }
       }
     },
     "update_normal_notice_title" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Update Verfügbar"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Update Available"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mise à jour disponible"
           }
         },
         "it" : {
@@ -996,47 +2997,83 @@
             "state" : "translated",
             "value" : "Aggiornamento disponibile"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Atualização Disponível"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "更新可用"
+          }
         }
       }
     },
-    "update_release_notes_title" : {
+    "update_notification_ignore_button" : {
+      "comment" : "When an update is available, a notification is shown. This is the button to decline an update.",
+      "extractionState" : "manual",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ignorieren"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Release Notes"
+            "value" : "Ignore"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ignorer"
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Note di rilascio"
-          }
-        }
-      }
-    },
-    "update_test_notice_title" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Test Build"
+            "value" : "Ignora"
           }
         },
-        "it" : {
+        "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Build di test"
+            "value" : "Ignorar"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "忽略"
           }
         }
       }
     },
-    "update_update_button" : {
+    "update_notification_update_button" : {
+      "comment" : "When an update is available, a notification is shown. This is the button to download an update.",
+      "extractionState" : "manual",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aktualisieren"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Update"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mettre à jour"
           }
         },
         "it" : {
@@ -1044,18 +3081,294 @@
             "state" : "translated",
             "value" : "Aggiorna"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Atualizar"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "更新"
+          }
+        }
+      }
+    },
+    "update_notification_update_critical_title_%@" : {
+      "comment" : "When an update is available, a notification is shown. This is the title for a very high priority update with security fixes. The placeholder is for the application version, eg \"Critical Security Update - 2.0\"",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kritisches Sicherheitsupdate - %1$@"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Critical Security Update - %1$@"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mise à jour critique de sécurité - %1$@"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aggiornamento di sicurezza critico - %1$@"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Atualização de Segurança Crítica - %1$@"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "重要安全更新 - %1$@"
+          }
+        }
+      }
+    },
+    "update_notification_update_description" : {
+      "comment" : "When an update is available, a notification is shown. This is the description to download an update.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zum Aktualisieren Klicken"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Click to Update"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cliquer pour mettre à jour"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Clicca per aggiornare"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Clique para Atualizar"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "点击更新"
+          }
+        }
+      }
+    },
+    "update_notification_update_normal_title_%@" : {
+      "comment" : "When an update is available, a notification is shown. This is the title for a normal priority update. The placeholder is for the application version, eg \"Update Available - 2.0\"",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Update Verfügbar - %1$@"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Update Available - %1$@"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mise à jour disponible - %1$@"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aggiornamento disponibile - %1$@"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Atualização disponível - %1$@"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "更新可用 - %1$@"
+          }
+        }
+      }
+    },
+    "update_release_notes_title" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Versionshinweise"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Release Notes"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Notes de mise à jour"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Note di rilascio"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Notas de Mudanças"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "发布说明"
+          }
+        }
+      }
+    },
+    "update_test_notice_title" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Test Build"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Test Build"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Test build"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Build di test"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Versão de Teste"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "测试版本"
+          }
+        }
+      }
+    },
+    "update_update_button" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aktualisieren"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Update"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mettre à jour"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aggiorna"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Atualizar"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "更新"
+          }
         }
       }
     },
     "update_version_name_%@" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Secretive %1$@"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Secretive %1$@"
           }
         },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Secretive %1$@"
+          }
+        },
         "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Secretive %1$@"
+          }
+        },
+        "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Secretive %1$@"
