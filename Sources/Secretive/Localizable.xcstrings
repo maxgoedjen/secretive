@@ -950,7 +950,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Erstell eine neue, indem du hier klickst."
+            "value" : "Klicke hier um ein neues zu erstellen."
           }
         },
         "en" : {
@@ -1318,7 +1318,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Gib unten einen neuen Namen für %1$@ ein."
+            "value" : "Gib einen neuen Namen für %1$@ ein."
           }
         },
         "en" : {
