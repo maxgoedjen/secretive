@@ -9,7 +9,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Set Environment
-      run: sudo xcrun xcode-select -s /Applications/Xcode_15.1.app
+      run: sudo xcrun xcode-select -s /Applications/Xcode_15.2.app
     - name: Test
       run: |
             pushd Sources/Packages
