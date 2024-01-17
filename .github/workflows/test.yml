@@ -3,7 +3,7 @@ name: Test
 on: [push, pull_request]
 jobs:
   test:
-#     runs-on: macOS-latest
+#     runs-on: macOS-latest-xlarge
     runs-on: macos-13-xlarge
     timeout-minutes: 10
     steps:
