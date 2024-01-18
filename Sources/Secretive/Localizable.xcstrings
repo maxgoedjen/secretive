@@ -423,6 +423,12 @@
             "value" : "déverrouiller le secret \"%1$@\" pendant %2$@"
           }
         },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "sblocca il Segreto \"%1$@\" per %2$@"
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
@@ -457,6 +463,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "déverrouiller le secret \"%1$@\""
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "sblocca il Segreto \"%1$@\""
           }
         },
         "pt-BR" : {
@@ -495,6 +507,12 @@
             "value" : "déchiffrer les données en utilisant le secret \"%1$@\"."
           }
         },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "decifra i dati usando il Segreto \"%1$@\""
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
@@ -529,6 +547,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Refuser"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nega"
           }
         },
         "pt-BR" : {
@@ -567,6 +591,12 @@
             "value" : "chiffrer les données en utilisant le secret \"%1$@\""
           }
         },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "cifra i dati usando il Segreto \"%1$@\""
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
@@ -603,6 +633,12 @@
             "value" : "signer une requête de \"%1$@\" en utilisant le secret \"%2$@\""
           }
         },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "firma la richiesta di \"%1$@\" usando il Segreto \"%2$@\""
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
@@ -637,6 +673,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "vérifier une signature en utilisant le secret \"%1$@\""
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "verifica una firma usando il segreto \"%1$@\""
           }
         },
         "pt-BR" : {
@@ -2118,6 +2160,12 @@
             "value" : "Enclave sécurisée"
           }
         },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Secure Enclave"
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2837,6 +2885,12 @@
             "value" : "Carte à puce"
           }
         },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Smart Card"
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2870,6 +2924,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Sans nom"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Anonimo"
           }
         },
         "pt-BR" : {
