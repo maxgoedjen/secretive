@@ -1,12 +1,6 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
-    "\n" : {
-
-    },
-    "\n\n" : {
-
-    },
     "agent_not_running_notice_title" : {
       "localizations" : {
         "de" : {
@@ -3423,6 +3417,12 @@
           }
         },
         "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Secretive %1$@"
+          }
+        },
+        "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Secretive %1$@"

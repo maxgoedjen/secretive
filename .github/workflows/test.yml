@@ -3,13 +3,13 @@ name: Test
 on: [push, pull_request]
 jobs:
   test:
-#     runs-on: macOS-latest
-    runs-on: macos-13
+#     runs-on: macOS-latest-xlarge
+    runs-on: macos-13-xlarge
     timeout-minutes: 10
     steps:
     - uses: actions/checkout@v4
     - name: Set Environment
-      run: sudo xcrun xcode-select -s /Applications/Xcode_15.1.app
+      run: sudo xcrun xcode-select -s /Applications/Xcode_15.2.app
     - name: Test
       run: |
             pushd Sources/Packages

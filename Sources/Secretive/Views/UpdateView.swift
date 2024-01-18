@@ -42,16 +42,16 @@ struct UpdateDetailView<UpdaterType: Updater>: View {
             if let prefix = split.first {
                 switch prefix {
                 case "#":
-                    attributed = Text(unprefixed).font(.title) + Text("\n")
+                    attributed = Text(unprefixed).font(.title) + Text(verbatim: "\n")
                 case "##":
-                    attributed = Text(unprefixed).font(.title2) + Text("\n")
+                    attributed = Text(unprefixed).font(.title2) + Text(verbatim: "\n")
                 case "###":
-                    attributed = Text(unprefixed).font(.title3) + Text("\n")
+                    attributed = Text(unprefixed).font(.title3) + Text(verbatim: "\n")
                 default:
-                    attributed = Text(line) + Text("\n\n")
+                    attributed = Text(line) + Text(verbatim: "\n\n")
                 }
             } else {
-                attributed = Text(line) + Text("\n\n")
+                attributed = Text(line) + Text(verbatim: "\n\n")
             }
             text = text + attributed
         }

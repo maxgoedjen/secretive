@@ -26,7 +26,7 @@ struct SetupView: View {
                 }
             }
         }
-        .frame(idealWidth: 500, idealHeight: 500)
+        .frame(minWidth: 500, idealWidth: 500, minHeight: 500, idealHeight: 500)
     }
 
 
