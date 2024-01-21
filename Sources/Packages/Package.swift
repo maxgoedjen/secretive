@@ -44,7 +44,7 @@ let package = Package(
         .target(
             name: "SecureEnclaveSecretKit",
             dependencies: ["SecretKit"],
-            swiftSettings: [.enableExperimentalFeature("StrictConcurrency"), .unsafeFlags(["-warnings-as-errors"])]
+            swiftSettings: [.unsafeFlags(["-warnings-as-errors"])]
         ),
         .target(
             name: "SmartCardSecretKit",

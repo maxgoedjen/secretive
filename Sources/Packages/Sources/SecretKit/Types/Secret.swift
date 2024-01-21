@@ -17,7 +17,7 @@ public protocol Secret: Identifiable, Hashable {
 }
 
 /// The type of algorithm the Secret uses. Currently, only elliptic curve algorithms are supported.
-public enum Algorithm: Hashable {
+public enum Algorithm: Hashable, Sendable {
 
     case ellipticCurve
     case rsa
