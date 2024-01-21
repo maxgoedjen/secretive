@@ -198,16 +198,18 @@ extension SecureEnclave {
                 self?.persistedAuthenticationContexts[secret] = context
                 // Contexts will expire within LATouchIDAuthenticationMaximumAllowableReuseDuration unless we periodically refresh them
                 if duration > LATouchIDAuthenticationMaximumAllowableReuseDuration {
-                    Timer.scheduledTimer(withTimeInterval: LATouchIDAuthenticationMaximumAllowableReuseDuration - 10, repeats: true) { [weak self] timer in
-                        print("Refreshing context")
-                        guard let refreshContext = self?.persistedAuthenticationContexts[secret] else { return }
-                        guard refreshContext.valid else {
-                            timer.invalidate()
-                            return
-                        }
-                        refreshContext.context.evaluatePolicy(.deviceOwnerAuthentication, localizedReason: "Refresh") { success, _ in
-                            guard success else { return }
-                            print("Refreshed")
+                    DispatchQueue.main.async {
+                        Timer.scheduledTimer(withTimeInterval: LATouchIDAuthenticationMaximumAllowableReuseDuration - 10, repeats: true) { [weak self] timer in
+                            print("Refreshing context")
+                            guard let refreshContext = self?.persistedAuthenticationContexts[secret] else { return }
+                            guard refreshContext.valid else {
+                                timer.invalidate()
+                                return
+                            }
+                            refreshContext.context.evaluatePolicy(.deviceOwnerAuthentication, localizedReason: "Refresh") { success, _ in
+                                guard success else { return }
+                                print("Refreshed")
+                            }
                         }
                     }
                 }
