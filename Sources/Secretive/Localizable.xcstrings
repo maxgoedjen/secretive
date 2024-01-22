@@ -15,6 +15,12 @@
             "value" : "Agent Is Not Running"
           }
         },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Agentti ei ole käynnissä"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -53,6 +59,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "SecretAgent is a process that runs in the background to sign requests, so you don't need to keep Secretive open all the time.\n\n**You can close Secretive, and everything will still keep working.**"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "SecretAgent on taustaprosessi joka allekirjoittaa pyyntöjä, joten Secretiveä ei tarvitse pitää käynnissä koko aikaa.  **Voit sulkea Secretiven, ja kaikki toimii yhä.**"
           }
         },
         "fr" : {
@@ -95,6 +107,12 @@
             "value" : "Secret Agent is Running"
           }
         },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "SecretAgent on käynnissä"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -133,6 +151,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Agent is Running"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Agentti on käynnissä"
           }
         },
         "fr" : {
@@ -175,6 +199,12 @@
             "value" : "Setup Secretive"
           }
         },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Asenna Secretive"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -213,6 +243,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Help"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apua"
           }
         },
         "fr" : {
@@ -255,6 +291,12 @@
             "value" : "New Secret"
           }
         },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Uusi salaisuus"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -293,6 +335,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Setup Secretive"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Asenna Secretive"
           }
         },
         "fr" : {
@@ -335,6 +383,12 @@
             "value" : "Secretive needs to be in your Applications folder to work properly. Please move it and relaunch."
           }
         },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Secretiven tulee olla Ohjelmat-kansiossa toimiakseen oikein. Ole hyvä ja käynnistä se uudelleen siirrettyäsi sen."
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -373,6 +427,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Secretive Is Not in Applications Folder"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Secretive ei ole Ohjelmat-kansiossa"
           }
         },
         "fr" : {
@@ -417,6 +477,12 @@
             "value" : "unlock secret \"%1$@\" for %2$@"
           }
         },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "avaa salaisuuden \"%1$@\" lukitus ajaksi %2$@"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -457,6 +523,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "unlock secret \"%1$@\""
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "avaa salaisuuden \"%1$@\" lukitus"
           }
         },
         "fr" : {
@@ -501,6 +573,12 @@
             "value" : "decrypt data using secret \"%1$@\""
           }
         },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "pura salaus käyttäen salaisuutta \"%1$@\""
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -541,6 +619,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Deny"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kiellä"
           }
         },
         "fr" : {
@@ -585,6 +669,12 @@
             "value" : "encrypt data using secret \"%1$@\""
           }
         },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "salaa käyttäen salaisuutta \"%1$@\""
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -625,6 +715,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "sign a request from \"%1$@\" using secret \"%2$@\""
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "allekirjoita pyyntö lähteestä \"%1$@\" käyttäen salaisuutta \"%2$@\""
           }
         },
         "fr" : {
@@ -669,6 +765,12 @@
             "value" : "verify a signature using secret \"%1$@\""
           }
         },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "varmista allekirjoitus käyttäen salaisuutta \"%1$@\""
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -707,6 +809,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Click to Copy"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Klikkaa kopioidaksesi"
           }
         },
         "fr" : {
@@ -749,6 +857,12 @@
             "value" : "Copied"
           }
         },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kopioitu"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -787,6 +901,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Cancel"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Peru"
           }
         },
         "fr" : {
@@ -829,6 +949,12 @@
             "value" : "Create"
           }
         },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Luo"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -867,6 +993,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Name:"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nimi:"
           }
         },
         "fr" : {
@@ -909,6 +1041,12 @@
             "value" : "Shhhhh"
           }
         },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hysssss"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -947,6 +1085,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "No authentication is required while your Mac is unlocked, but you will be notified when a secret is used."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Todennusta ei vaadita Macisi ollessa lukitsematta, mutta saat ilmoituksen kun salaisuutta käytetään."
           }
         },
         "fr" : {
@@ -989,6 +1133,12 @@
             "value" : "Notify"
           }
         },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ilmoita"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1027,6 +1177,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "You will be required to authenticate using Touch ID, Apple Watch, or password before each use."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Touch ID-, Apple Watch- tai salasanatodennus vaaditaan joka käytöllä."
           }
         },
         "fr" : {
@@ -1069,6 +1225,12 @@
             "value" : "Require Authentication"
           }
         },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vaadi todennus"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1107,6 +1269,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Create a New Secret"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Luo uusi salaisuus"
           }
         },
         "fr" : {
@@ -1149,6 +1317,12 @@
             "value" : "Don't Delete"
           }
         },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Älä poista"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1187,6 +1361,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Confirm Name:"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vahvista nimi:"
           }
         },
         "fr" : {
@@ -1229,6 +1409,12 @@
             "value" : "Delete"
           }
         },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Poista"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1267,6 +1453,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "If you delete %1$@, you will not be able to recover it. Type \"%2$@\" to confirm."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Jos poistat kohteen %1$@, sitä ei pysty palauttamaan. Kirjoita \"%2$@\" vahvistaaksesi poiston."
           }
         },
         "fr" : {
@@ -1309,6 +1501,12 @@
             "value" : "Delete %1$@?"
           }
         },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Poista %1$@?"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1347,6 +1545,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Create a new one by clicking here."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Luo uusi klikkaamalla tästä."
           }
         },
         "fr" : {
@@ -1389,6 +1593,12 @@
             "value" : "No Secrets"
           }
         },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ei salaisuuksia"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1427,6 +1637,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "No Secrets"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ei salaisuuksia"
           }
         },
         "fr" : {
@@ -1469,6 +1685,12 @@
             "value" : "Use your Smart Card's management tool to create a secret."
           }
         },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Käytä älykorttisi hallintatyökalua luodaksesi salaisuuden."
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1507,6 +1729,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Secretive supports EC256, EC384, RSA1024, and RSA2048 keys."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Secretive tukee EC256-, EC384-, RSA1024- ja RSA2048-avaimia."
           }
         },
         "fr" : {
@@ -1549,6 +1777,12 @@
             "value" : "No Secrets"
           }
         },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ei salaisuuksia"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1587,6 +1821,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Your Mac doesn't have a Secure Enclave, and there's not a compatible Smart Card inserted."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Macissasi ei ole Secure Enclavea, eikä tuettu älykortti ole syötettynä."
           }
         },
         "fr" : {
@@ -1629,6 +1869,12 @@
             "value" : "No Secure Storage Available"
           }
         },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Turvasäilö ei saatavilla"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1667,6 +1913,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "If you're looking to add one to your Mac, the YubiKey 5 Series are great."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Jos haluat lisätä Maciisi sellaisen, YubiKey 5 -sarja on mainio."
           }
         },
         "fr" : {
@@ -1711,6 +1963,12 @@
             "value" : "Leave Unlocked"
           }
         },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Jätä lukitsematta"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1751,6 +2009,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Do Not Unlock"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Älä avaa lukitusta"
           }
         },
         "fr" : {
