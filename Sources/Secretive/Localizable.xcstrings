@@ -70,19 +70,19 @@
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "SecretAgent est un processus qui s'exécute en arrière-plan pour signer les demandes, de sorte que vous n'ayez pas besoin de garder Secretive ouvert en permanence.\n\n**Vous pouvez fermer Secretive, et tout continuera à fonctionner."
+            "value" : "SecretAgent est un processus qui s'exécute en arrière-plan pour signer les demandes, de sorte que vous n'ayez pas besoin de garder Secretive ouvert en permanence.\n\n**Vous pouvez fermer Secretive, et tout continuera à fonctionner.**"
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "SecretAgent è un processo che viene eseguito in background per firmare le richieste, così che non devi tenere aperto Secretive tutto il tempo.\\n\\n**Puoi chiudere Secretive, e continuerà a funzionare.**"
+            "value" : "SecretAgent è un processo che viene eseguito in background per firmare le richieste, così che non devi tenere aperto Secretive tutto il tempo.\n\n**Puoi chiudere Secretive, e continuerà a funzionare.**"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "SecretAgent é um processo que roda em background para assinar requisições para que você não precise manter o Secretive aberto a todo momento.\n\n**Você pode fechar o Secretive e tudo continuará funcionando."
+            "value" : "SecretAgent é um processo que roda em background para assinar requisições para que você não precise manter o Secretive aberto a todo momento.\n\n**Você pode fechar o Secretive e tudo continuará funcionando.**"
           }
         },
         "zh-Hans" : {
