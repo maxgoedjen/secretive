@@ -76,7 +76,7 @@
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "SecretAgent è un processo che viene eseguito in background per firmare le richieste, così che non devi tenere aperto Secretive tutto il tempo.\\n\\n**Puoi chiudere Secretive, e continuerà a funzionare.**"
+            "value" : "SecretAgent è un processo che viene eseguito in background per firmare le richieste, così che non devi tenere aperto Secretive tutto il tempo.\n\n**Puoi chiudere Secretive, e continuerà a funzionare.**"
           }
         },
         "pt-BR" : {
