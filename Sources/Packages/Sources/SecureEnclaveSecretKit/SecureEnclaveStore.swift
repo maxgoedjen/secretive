@@ -75,7 +75,7 @@ extension SecureEnclave {
         public func delete(secret: Secret) throws {
             let deleteAttributes = KeychainDictionary([
                 kSecClass: kSecClassKey,
-                kSecAttrApplicationLabel: secret.id as CFData
+                kSecAttrApplicationLabel: secret.id
             ])
             let status = SecItemDelete(deleteAttributes)
             if status != errSecSuccess {
@@ -87,7 +87,7 @@ extension SecureEnclave {
         public func update(secret: Secret, name: String) throws {
             let updateQuery = KeychainDictionary([
                 kSecClass: kSecClassKey,
-                kSecAttrApplicationLabel: secret.id as CFData
+                kSecAttrApplicationLabel: secret.id
             ])
 
             let updatedAttributes = KeychainDictionary([
@@ -114,7 +114,7 @@ extension SecureEnclave {
             let attributes = KeychainDictionary([
                 kSecClass: kSecClassKey,
                 kSecAttrKeyClass: kSecAttrKeyClassPrivate,
-                kSecAttrApplicationLabel: secret.id as CFData,
+                kSecAttrApplicationLabel: secret.id,
                 kSecAttrKeyType: Constants.keyType,
                 kSecAttrTokenID: kSecAttrTokenIDSecureEnclave,
                 kSecAttrApplicationTag: Constants.keyTag,
@@ -145,7 +145,7 @@ extension SecureEnclave {
             let attributes = KeychainDictionary([
                 kSecClass: kSecClassKey,
                 kSecAttrKeyClass: kSecAttrKeyClassPrivate,
-                kSecAttrApplicationLabel: secret.id as CFData,
+                kSecAttrApplicationLabel: secret.id,
                 kSecAttrKeyType: Constants.keyType,
                 kSecAttrTokenID: kSecAttrTokenIDSecureEnclave,
                 kSecAttrApplicationTag: Constants.keyTag,
@@ -304,8 +304,8 @@ extension SecureEnclave.Store {
 extension SecureEnclave {
 
     enum Constants {
-        static let keyTag = "com.maxgoedjen.secretive.secureenclave.key".data(using: .utf8)! as CFData
-        static let keyType = kSecAttrKeyTypeECSECPrimeRandom
+        static let keyTag = Data("com.maxgoedjen.secretive.secureenclave.key".utf8)
+        static let keyType = kSecAttrKeyTypeECSECPrimeRandom as String
         static let unauthenticatedThreshold: TimeInterval = 0.05
     }
 

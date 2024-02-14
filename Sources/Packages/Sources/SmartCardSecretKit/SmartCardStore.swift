@@ -55,7 +55,7 @@ extension SmartCard {
             let attributes = KeychainDictionary([
                 kSecClass: kSecClassKey,
                 kSecAttrKeyClass: kSecAttrKeyClassPrivate,
-                kSecAttrApplicationLabel: secret.id as CFData,
+                kSecAttrApplicationLabel: secret.id,
                 kSecAttrTokenID: tokenID,
                 kSecUseAuthenticationContext: context,
                 kSecReturnRef: true
@@ -217,7 +217,7 @@ extension SmartCard.Store {
         let attributes = KeychainDictionary([
             kSecClass: kSecClassKey,
             kSecAttrKeyClass: kSecAttrKeyClassPrivate,
-            kSecAttrApplicationLabel: secret.id as CFData,
+            kSecAttrApplicationLabel: secret.id,
             kSecAttrTokenID: tokenID,
             kSecUseAuthenticationContext: context,
             kSecReturnRef: true
