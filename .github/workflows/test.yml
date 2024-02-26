@@ -3,8 +3,8 @@ name: Test
 on: [push, pull_request]
 jobs:
   test:
-#     runs-on: macOS-latest-xlarge
-    runs-on: macos-13-xlarge
+#     runs-on: macOS-latest
+    runs-on: macos-13
     timeout-minutes: 10
     steps:
     - uses: actions/checkout@v4
