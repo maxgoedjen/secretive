@@ -62,6 +62,9 @@ struct Secretive: App {
             }
             SidebarCommands()
         }
+        Settings {
+            SettingsView()
+        }
     }
 
 }
