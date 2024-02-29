@@ -1809,6 +1809,9 @@
         }
       }
     },
+    "General" : {
+
+    },
     "no_secure_storage_description" : {
       "localizations" : {
         "de" : {
@@ -1946,6 +1949,9 @@
           }
         }
       }
+    },
+    "None" : {
+
     },
     "persist_authentication_accept_button" : {
       "comment" : "When the user authorizes an action using a secret that requires unlock, they're shown a notification offering to leave the secret unlocked for a set period of time. This is the title for the notification.",
@@ -2443,6 +2449,9 @@
           }
         }
       }
+    },
+    "Settings" : {
+
     },
     "setup_agent_activity_monitor_description" : {
       "localizations" : {
@@ -3168,6 +3177,12 @@
           }
         }
       }
+    },
+    "SSH Public Key Comment" : {
+
+    },
+    "SSH public keys can be extended with an arbitrary comment string without changing the meaning of the key." : {
+
     },
     "unnamed_secret" : {
       "extractionState" : "manual",
