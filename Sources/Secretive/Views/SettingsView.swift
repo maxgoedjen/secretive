@@ -9,7 +9,9 @@
 import SwiftUI
 
 enum CommentStyle: String, CaseIterable, Identifiable {
-    case keyAndHost, none
+    case keyAndHost = "keyAndHost"
+    case none = "none"
+    
     var id: Self { self }
 }
 
