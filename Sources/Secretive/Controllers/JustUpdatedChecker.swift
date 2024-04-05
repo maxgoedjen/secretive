@@ -15,11 +15,14 @@ class JustUpdatedChecker: ObservableObject, JustUpdatedCheckerProtocol {
     }
 
     func check() {
-        let lastBuild = SettingsStore.get(key: Constants.previousVersionUserDefaultsKey) ?? "None"
+        let lastBuild = UserDefaults.standard.object(forKey: Constants.previousVersionUserDefaultsKey) as? String ?? "None"
         let currentBuild = Bundle.main.infoDictionary!["CFBundleShortVersionString"] as! String
-        SettingsStore.set(key: Constants.previousVersionUserDefaultsKey, value: currentBuild)
+        UserDefaults.standard.set(currentBuild, forKey: Constants.previousVersionUserDefaultsKey)
         justUpdated = lastBuild != currentBuild
     }
+
+
+
 }
 
 extension JustUpdatedChecker {
