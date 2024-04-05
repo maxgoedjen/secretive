@@ -16,6 +16,7 @@ struct Secretive: App {
     }()
     private let agentStatusChecker = AgentStatusChecker()
     private let justUpdatedChecker = JustUpdatedChecker()
+    private let settingsStore = SettingsStore()
 
     @AppStorage("defaultsHasRunSetup") var hasRunSetup = false
     @State private var showingSetup = false
@@ -27,6 +28,7 @@ struct Secretive: App {
                 .environmentObject(storeList)
                 .environmentObject(Updater(checkOnLaunch: hasRunSetup))
                 .environmentObject(agentStatusChecker)
+                .environmentObject(settingsStore)
                 .onAppear {
                     if !hasRunSetup {
                         showingSetup = true
