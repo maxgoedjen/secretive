@@ -1,10 +1,3 @@
-//
-//  SettingsHelper.swift
-//  Secretive
-//
-//  Created by Paul Heidekrüger on 27.02.24.
-//  Copyright © 2024 Max Goedjen. All rights reserved.
-//
 
 import Foundation
 

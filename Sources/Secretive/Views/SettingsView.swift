@@ -1,10 +1,3 @@
-//
-//  SettingsView.swift
-//  Secretive
-//
-//  Created by Paul Heidekrüger on 05.02.24.
-//  Copyright © 2024 Max Goedjen. All rights reserved.
-//
 
 import SwiftUI
 
