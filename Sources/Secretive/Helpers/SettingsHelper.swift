@@ -2,7 +2,9 @@
 import Foundation
 
 class SettingsStore: ObservableObject {
-    let service = "com.maxgoedjen.Secretive"
+    enum Constants {
+        static let service = "com.maxgoedjen.Secretive"
+    }
 }
 
 extension SettingsStore {
@@ -18,7 +20,7 @@ extension SettingsStore {
                 }
                 
                 let updateQuery: [String: Any] = [kSecClass as String: kSecClassGenericPassword,
-                                                  kSecAttrServer as String: service]
+                                                  kSecAttrServer as String: Constants.service]
                 let attributes: [String: Any] = [kSecAttrAccount as String: key,
                                                  kSecValueData as String: valueData]
                 // FIXME: Make this non-blocking as described here: https://developer.apple.com/documentation/security/1393617-secitemupdate
@@ -30,7 +32,7 @@ extension SettingsStore {
             } else {
                 let addquery: [String: Any] = [kSecClass as String: kSecClassGenericPassword,
                                                kSecAttrAccount as String: key,
-                                               kSecAttrServer as String: service,
+                                               kSecAttrServer as String: Constants.service,
                                                kSecValueData as String: valueData]
                 // FIXME: Make this non-blocking as described here: https://developer.apple.com/documentation/security/1401659-secitemadd
                 let status = SecItemAdd(addquery as CFDictionary, nil)
@@ -44,7 +46,7 @@ extension SettingsStore {
         get {
             let getquery: [String: Any] = [kSecClass as String: kSecClassGenericPassword,
                                            kSecAttrAccount as String: key,
-                                           kSecAttrServer as String: service,
+                                           kSecAttrServer as String: Constants.service,
                                            kSecMatchLimit as String: kSecMatchLimitOne,
                                            kSecReturnData as String: true]
             var item: CFTypeRef?
