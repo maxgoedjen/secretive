@@ -24,6 +24,10 @@ struct ShellConfigurationController {
                                    shellConfigDirectory: "~/.config/fish",
                                    shellConfigFilename: "config.fish",
                                    text: "set -x SSH_AUTH_SOCK \(socketPath)"),
+            ShellConfigInstruction(shell: "git",
+                                   shellConfigDirectory: "~/",
+                                   shellConfigFilename: ".gitconfig",
+                                   text: "[gpg]\n\tformat = ssh\n[commit]\n\tgpgsign = true\n[tag]\n\tgpgsign = true"),
         ]
         
     }
