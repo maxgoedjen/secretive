@@ -57,6 +57,12 @@
             "value" : "Agent não está rodando"
           }
         },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Агент не запущен"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -119,6 +125,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "SecretAgent é um processo que roda em background para assinar requisições para que você não precise manter o Secretive aberto a todo momento.\n\n**Você pode fechar o Secretive e tudo continuará funcionando.**"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "SecretAgent это процесс, который работает в фоне чтобы подписывать запросы – так Вам не нужно держать Secretive открытым все время.\n\n**Вы можете закрыть Secretive, и все продолжит работать штатно.**"
           }
         },
         "zh-Hans" : {
@@ -185,6 +197,12 @@
             "value" : "Secret Agent está rodando"
           }
         },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "SecretAgent запущен"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -247,6 +265,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Agent está rodando"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Агент запущен"
           }
         },
         "zh-Hans" : {
@@ -313,6 +337,12 @@
             "value" : "Configurar Secretive"
           }
         },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Настроить Secretive"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -375,6 +405,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Ajuda"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Помощь"
           }
         },
         "zh-Hans" : {
@@ -441,6 +477,12 @@
             "value" : "Novo Segredo"
           }
         },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Новый секрет"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -503,6 +545,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Configurar Secretive"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Настроить Secretive"
           }
         },
         "zh-Hans" : {
@@ -569,6 +617,12 @@
             "value" : "Secretive necessita estar no seu diretório de Aplicações para funcionar corretamente. Por favor mova-o e abra novamente."
           }
         },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Secretive должен находиться в папке Applications чтобы работать правильно. Пожалуйста, переместите его и перезапустите приложение."
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -631,6 +685,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Secretive não está no diretório de Aplicações"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Secretive находится не в папке Applications"
           }
         },
         "zh-Hans" : {
@@ -699,6 +759,12 @@
             "value" : "destravar segredo \"%1$@\" for %2$@"
           }
         },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "разблокировать секрет \"%1$@\" на %2$@"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -763,6 +829,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "destravar secreto \"%1$@\""
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "разблокировать секрет \"%1$@\""
           }
         },
         "zh-Hans" : {
@@ -831,6 +903,12 @@
             "value" : "decriptar o dado utilizando segredo \"%1$@\""
           }
         },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "расшифровать данные используя секрет \"%1$@\""
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -895,6 +973,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Negar"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Отказать"
           }
         },
         "zh-Hans" : {
@@ -963,6 +1047,12 @@
             "value" : "encriptar dado utilizando o segredo \"%1$@\""
           }
         },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "зашифровать данные используя секрет \"%1$@\""
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1027,6 +1117,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "assinar requisição a partir do \"%1$@\" utilizando o segredo \"%2$@\""
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "подписать запрос от \"%1$@\" используя секрет \"%2$@\""
           }
         },
         "zh-Hans" : {
@@ -1095,6 +1191,12 @@
             "value" : "verificar a assinatura utilizando o segredo \"%1$@\""
           }
         },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "верифицировать подпись используя секрет \"%1$@\""
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1157,6 +1259,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Clique para Copiar"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Кликните чтобы скопировать"
           }
         },
         "zh-Hans" : {
@@ -1223,6 +1331,12 @@
             "value" : "Copiado"
           }
         },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Скопировано"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1285,6 +1399,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Cancelar"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Отменить"
           }
         },
         "zh-Hans" : {
@@ -1351,6 +1471,12 @@
             "value" : "Criar"
           }
         },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Создать"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1413,6 +1539,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Nome:"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Название:"
           }
         },
         "zh-Hans" : {
@@ -1479,6 +1611,12 @@
             "value" : "Shhhhh"
           }
         },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Тссссс"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1541,6 +1679,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Autenticação não é requerida enquanto seu Mac estiver destravado, mas você será notificado quando um segredo for utilizado."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Аутентификация не потребуется пока Ваш Mac разблокирован, но Вы получите уведомление, если секрет был использован."
           }
         },
         "zh-Hans" : {
@@ -1607,6 +1751,12 @@
             "value" : "Notificar"
           }
         },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Уведомить"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1669,6 +1819,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Você será requerido a autenticar utilizando Touch ID, Apple Watch ou senha antes de cada uso."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Вам потребуется аутентифицироваться при помощи Touch ID, Apple Watch или пароля перед каждым использованием."
           }
         },
         "zh-Hans" : {
@@ -1735,6 +1891,12 @@
             "value" : "Requer Autenticação"
           }
         },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Требовать аутентификацию"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1797,6 +1959,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Criar um Novo Segredo"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Создать новый секрет"
           }
         },
         "zh-Hans" : {
@@ -1863,6 +2031,12 @@
             "value" : "Não Apagar"
           }
         },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Не удалять"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1925,6 +2099,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Confirmar Nome:"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Подтвердить название:"
           }
         },
         "zh-Hans" : {
@@ -1991,6 +2171,12 @@
             "value" : "Apagar"
           }
         },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Удалить"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2053,6 +2239,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Se você deletar %1$@, você não será permitido recuperá-lo. Digite \"%2$@\" para confirmar."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Если Вы удалите %1$@, вы не сможете его восстановить. Введите \"%2$@\" для подтверждения."
           }
         },
         "zh-Hans" : {
@@ -2119,6 +2311,12 @@
             "value" : "Deletar %1$@?"
           }
         },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Удалить %1$@?"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2181,6 +2379,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Criar um novo clicando aqui."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Создайте новый, кликнув сюда."
           }
         },
         "zh-Hans" : {
@@ -2247,6 +2451,12 @@
             "value" : "Sem Segredos"
           }
         },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Нет секретов"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2309,6 +2519,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Sem Segredos"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Нет секретов"
           }
         },
         "zh-Hans" : {
@@ -2375,6 +2591,12 @@
             "value" : "Utilize sua ferramenta de gestão de Smart Card para criar um segredo."
           }
         },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Для создания секрета воспользуйтесь инструментом управления Вашей смарт-картой."
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2437,6 +2659,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Secretive suporta chaves EC256, EC384, RSA1024 e RSA2048."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Secretive поддерживает ключи EC256, EC384, RSA1024, и RSA2048."
           }
         },
         "zh-Hans" : {
@@ -2503,6 +2731,12 @@
             "value" : "Sem Segredos"
           }
         },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Нет секретов"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2565,6 +2799,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Seu Mac não possui o Secure Enclave e não há um Smart Card compatível inserido."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ваш Mac не поддерживает Secure Enclave, и не обнаружено совместимой смарт-карты."
           }
         },
         "zh-Hans" : {
@@ -2631,6 +2871,12 @@
             "value" : "Sem Armazenamento Seguro Disponível"
           }
         },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Защищенное хранилище недоступно"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2693,6 +2939,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Se você está buscando adicionar um para seu Mac, o YubiKey 5 Series é muito bom."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Если Вы собираетесь добавить его к Вашему Mac, YubiKey 5 серии - отличный выбор."
           }
         },
         "zh-Hans" : {
@@ -2761,6 +3013,12 @@
             "value" : "Deixar Destrancado"
           }
         },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Оставить разблокированным"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2827,6 +3085,12 @@
             "value" : "Não Destravar"
           }
         },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Не разблокировывать"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2883,6 +3147,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Cancelar"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Отменить"
           }
         },
         "zh-Hans" : {
@@ -2943,6 +3213,12 @@
             "value" : "Renomear"
           }
         },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Переименовать"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2999,6 +3275,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Digite o novo nome para %1$@ abaixo."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Введите новое название для \"%1$@\" ниже."
           }
         },
         "zh-Hans" : {
@@ -3059,6 +3341,12 @@
             "value" : "MD5 Fingerprint"
           }
         },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Отпечаток MD5"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3115,6 +3403,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Chave Pública"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Публичный ключ"
           }
         },
         "zh-Hans" : {
@@ -3175,6 +3469,12 @@
             "value" : "Caminho da Chave Pública"
           }
         },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Путь к публичному ключу"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3231,6 +3531,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "SHA256 Fingerprint"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Отпечаток SHA256"
           }
         },
         "zh-Hans" : {
@@ -3291,6 +3597,12 @@
             "value" : "Apagar"
           }
         },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Удалить"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3349,6 +3661,12 @@
             "value" : "Renomear"
           }
         },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Переименовать"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3403,6 +3721,12 @@
           }
         },
         "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Secure Enclave"
+          }
+        },
+        "ru" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Secure Enclave"
@@ -3466,6 +3790,12 @@
             "value" : "Este aplicativo de ajuda é chamado **Secret Agent** e você pode vê-lo no Monitor de Atividades de tempo em tempo."
           }
         },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Это вспомогательное приложение назвается **Secret Agent**, Вы можете наблюдать его в Activity Monitor время от времени."
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3522,6 +3852,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Secretive precisa configurar um aplicativo de ajuda para funcionar corretamente. Isso irá assinar requisições de clientes SSH no plano de fundo para que você não precise manter o aplicativo Secretive aberto."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Secretive требуется настроить вспомогательное приложение, чтобы работать правильно. Оно будет подписывать запросы от SSH клиентов в фоне, так Вам не придется держать основное приложение Secretive открытым."
           }
         },
         "zh-Hans" : {
@@ -3582,6 +3918,12 @@
             "value" : "Instalar"
           }
         },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Установить"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3638,6 +3980,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Configurar Agent"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Настроить агента"
           }
         },
         "zh-Hans" : {
@@ -3698,6 +4046,12 @@
             "value" : "Adicionar para mim"
           }
         },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Добавить для меня"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3754,6 +4108,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Adicionar para %1$@"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Добавить к %1$@"
           }
         },
         "zh-Hans" : {
@@ -3814,6 +4174,12 @@
             "value" : "Eu adicionei manualmente"
           }
         },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Добавлено мною вручную"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3870,6 +4236,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Adicione esta linha nas configurações do seu shell para dizer ao SSH para falar com o Secret Agent quando ele necessitar de autenticação. Secretive pode fazer isto para você automaticamente ou você pode copiar e colar isso no seu arquivo de configuração."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Добавьте эту строчку к вашему конфигу shell, так SSH будет использовать SecretAgent в процессе аутентификации. Secretive может сделать это за Вас, либо Вы можете это скопировать сами."
           }
         },
         "zh-Hans" : {
@@ -3930,6 +4302,12 @@
             "value" : "Configurar seu agente SSH"
           }
         },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Настройте Ваш SSH Agent"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3983,6 +4361,12 @@
           }
         },
         "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "✓"
+          }
+        },
+        "ru" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "✓"
@@ -4046,6 +4430,12 @@
             "value" : "Se você estiver tentando configurar um aplicativo de terceiros, verifique o FAQ."
           }
         },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Если Вы пытаетесь настроить сторонее приложение, ознакомьтесь с FAQ."
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4102,6 +4492,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Secretive irá periodicamente verificar com o GitHub para verificar se existe uma nova versão. Se você ver alguma requisição de rede para o GitHub, este é o porque."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Secretive будет проверять обновления на GitHub. Если Вы видите сетевые запросы к GitHub, вот их причина."
           }
         },
         "zh-Hans" : {
@@ -4162,6 +4558,12 @@
             "value" : "OK"
           }
         },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ОК"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4220,6 +4622,12 @@
             "value" : "Leia mais sobre isto aqui."
           }
         },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Больше подробностей здесь."
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4276,6 +4684,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Atualizações"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Обновления"
           }
         },
         "zh-Hans" : {
@@ -4338,6 +4752,12 @@
             "value" : "Utilizando o segredo %1$@"
           }
         },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Используя секрет %1$@"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4396,6 +4816,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Requisição Assinada fr %1$@"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Подписан запрос от %1$@"
           }
         },
         "zh-Hans" : {
@@ -4457,6 +4883,12 @@
             "value" : "Smart Card"
           }
         },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Смарт-карта"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4514,6 +4946,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Sem Nome"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Без названия"
           }
         },
         "zh-Hans" : {
@@ -4574,6 +5012,12 @@
             "value" : "Atualização Crítica de Segurança Requerida"
           }
         },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Требуется критическое обновление безопасности"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4632,6 +5076,12 @@
             "value" : "Ignorar"
           }
         },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Пропустить"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4688,6 +5138,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Atualização Disponível"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Доступно обновление"
           }
         },
         "zh-Hans" : {
@@ -4750,6 +5206,12 @@
             "value" : "Ignorar"
           }
         },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Пропустить"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4808,6 +5270,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Atualizar"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Обновить"
           }
         },
         "zh-Hans" : {
@@ -4870,6 +5338,12 @@
             "value" : "Atualização de Segurança Crítica - %1$@"
           }
         },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Критическое обновление безопасности - %1$@"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4928,6 +5402,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Clique para Atualizar"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Кликните чтобы обновить"
           }
         },
         "zh-Hans" : {
@@ -4990,6 +5470,12 @@
             "value" : "Atualização disponível - %1$@"
           }
         },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Доступно обновление - %1$@"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -5046,6 +5532,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Notas de Mudanças"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Список изменений"
           }
         },
         "zh-Hans" : {
@@ -5106,6 +5598,12 @@
             "value" : "Versão de Teste"
           }
         },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Тестовая сборка"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -5164,6 +5662,12 @@
             "value" : "Atualizar"
           }
         },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Обновить"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -5217,6 +5721,12 @@
           }
         },
         "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Secretive %1$@"
+          }
+        },
+        "ru" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Secretive %1$@"
