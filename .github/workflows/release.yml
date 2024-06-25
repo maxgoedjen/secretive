@@ -107,12 +107,12 @@ jobs:
         asset_name: Secretive.zip
         asset_content_type: application/zip
     - name: Upload App to Artifacts
-      uses: actions/upload-artifact@v1
+      uses: actions/upload-artifact@v4
       with:
         name: Secretive.zip
         path: Secretive.zip
     - name: Upload Archive to Artifacts
-      uses: actions/upload-artifact@v1
+      uses: actions/upload-artifact@v4
       with:
         name: Xcode_Archive.zip
         path: Archive.zip

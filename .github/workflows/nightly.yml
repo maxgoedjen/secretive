@@ -48,7 +48,7 @@ jobs:
             shasum -a 256 Secretive.zip
             shasum -a 256 Archive.zip
     - name: Upload App to Artifacts
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: Secretive.zip
         path: Secretive.zip
