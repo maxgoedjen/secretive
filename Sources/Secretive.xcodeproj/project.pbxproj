@@ -435,6 +435,7 @@
 				"pt-BR",
 				fi,
 				ko,
+				ca,
 			);
 			mainGroup = 50617D7623FCE48D0099B055;
 			productRefGroup = 50617D8023FCE48E0099B055 /* Products */;

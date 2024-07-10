@@ -3,6 +3,12 @@
   "strings" : {
     "agent_not_running_notice_title" : {
       "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Agent inactiu"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -61,6 +67,12 @@
     },
     "agent_running_notice_detail_description" : {
       "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "SecretAgent és un procés que s'executa en segon pla per signar peticions, per tal que no necessites tindre Secretive obert tot el temps.\n\n**Pots tancar Secretive, i tot continuarà funcionant.**"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -119,6 +131,12 @@
     },
     "agent_running_notice_detail_title" : {
       "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "L'agent secret està actiu"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -177,6 +195,12 @@
     },
     "agent_running_notice_title" : {
       "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Agent actiu"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -235,6 +259,12 @@
     },
     "agent_setup_notice_title" : {
       "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Inicialitza Secretive"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -293,6 +323,12 @@
     },
     "app_menu_help_button" : {
       "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ajuda"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -351,6 +387,12 @@
     },
     "app_menu_new_secret_button" : {
       "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nou secret"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -409,6 +451,12 @@
     },
     "app_menu_setup_button" : {
       "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Inicialitza Secretive"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -467,6 +515,12 @@
     },
     "app_not_in_applications_notice_detail_description" : {
       "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Secretive necessita estar a la carpeta Apps per funcionar correctament. Per favor mogueu-lo i reobriu."
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -525,6 +579,12 @@
     },
     "app_not_in_applications_notice_title" : {
       "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Secretive no es troba a la carpeta Apps"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -585,6 +645,12 @@
       "comment" : "When the user clicks the notification to leave a secret unlocked, they are shown a prompt to approve the action. This is the description, showing which secret will used. The first placeholder is the name of the secret. The second placeholder is a localized description of the time period it will remain unlocked for (eg: \"five minutes\")",
       "extractionState" : "manual",
       "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "desbloqueja el secret \"%1$@\" per a %2$@"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -645,6 +711,12 @@
       "comment" : "When the user clicks the notification to leave a secret unlocked, they are shown a prompt to approve the action. This is the description, showing which secret will used. The placeholder is the name of the secret. This is a fallback used when a duration is unable to be specified.",
       "extractionState" : "manual",
       "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "desbloqueja el secret \"%1$@\""
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -705,6 +777,12 @@
       "comment" : "When the user performs a decryption action using a secret, they are shown a prompt to approve the action. This is the description, showing which secret will be used. The placeholder is the name of the secret. NOTE: This is currently not exposed in UI.",
       "extractionState" : "manual",
       "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "desencripta dades usant el secret \"%1$@\" "
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -765,6 +843,12 @@
       "comment" : "When the user chooses to perform an action that requires Touch ID/password authentication, they are shown a prompt to approve the action. This is the deny button for that prompt.",
       "extractionState" : "manual",
       "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Denega"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -825,6 +909,12 @@
       "comment" : "When the user performs an encryption action using a secret, they are shown a prompt to approve the action. This is the description, showing which secret will be used. The placeholder is the name of the secret. NOTE: This is currently not exposed in UI.",
       "extractionState" : "manual",
       "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "encripta dades usant el secret \"%1$@\""
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -885,6 +975,12 @@
       "comment" : "When the user performs a signature action using a secret, they are shown a prompt to approve the action. This is the description, showing which secret will be used, and where the request is coming from. The first placeholder is the name of the app requesting the operation. The second placeholder is the name of the secret.",
       "extractionState" : "manual",
       "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "signa una petición de \"%1$@\" usant el secret \"%2$@\""
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -945,6 +1041,12 @@
       "comment" : "When the user performs a signature verification action using a secret, they are shown a prompt to approve the action. This is the description, showing which secret will be used. The placeholder is the name of the secret. NOTE: This is currently not exposed in UI.",
       "extractionState" : "manual",
       "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "verifica una signatura usant el secret \"%1$@\""
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1003,6 +1105,12 @@
     },
     "copyable_click_to_copy_button" : {
       "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Clica per copiar"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1061,6 +1169,12 @@
     },
     "copyable_copied" : {
       "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Copiat"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1119,6 +1233,12 @@
     },
     "create_secret_cancel_button" : {
       "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cancel·la"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1177,6 +1297,12 @@
     },
     "create_secret_create_button" : {
       "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Crea"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1235,6 +1361,12 @@
     },
     "create_secret_name_label" : {
       "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nom:"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1293,6 +1425,12 @@
     },
     "create_secret_name_placeholder" : {
       "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Shhhhh"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1351,6 +1489,12 @@
     },
     "create_secret_notify_description" : {
       "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No es requerirà cap autenticació mentre el Mac estiga desbloquejat, però seràs notificat quan s'utilitze ùn secret."
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1409,6 +1553,12 @@
     },
     "create_secret_notify_title" : {
       "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Notifica"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1467,6 +1617,12 @@
     },
     "create_secret_require_authentication_description" : {
       "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Necessitaràs autenticar amp Touch ID, Apple Watch o contrasenya abans de cada ús."
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1525,6 +1681,12 @@
     },
     "create_secret_require_authentication_title" : {
       "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Requereix autenticació"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1583,6 +1745,12 @@
     },
     "create_secret_title" : {
       "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Crea un nou secret"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1641,6 +1809,12 @@
     },
     "delete_confirmation_cancel_button" : {
       "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No esborres"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1699,6 +1873,12 @@
     },
     "delete_confirmation_confirm_name_label" : {
       "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Confirma el nom:"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1757,6 +1937,12 @@
     },
     "delete_confirmation_delete_button" : {
       "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Esborra"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1815,6 +2001,12 @@
     },
     "delete_confirmation_description_%@_%@" : {
       "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Si esborres %1$@, no podràs recuperar-la. Escriu \"%2$@\" per a confirmar."
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1873,6 +2065,12 @@
     },
     "delete_confirmation_title_%@" : {
       "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Esborrar %1$@?"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1931,6 +2129,12 @@
     },
     "empty_store_modifiable_click_here_description" : {
       "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Crea una nova clicant ací."
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1989,6 +2193,12 @@
     },
     "empty_store_modifiable_click_here_title" : {
       "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sense secrets"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2047,6 +2257,12 @@
     },
     "empty_store_modifiable_title" : {
       "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sense secrets"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2105,6 +2321,12 @@
     },
     "empty_store_nonmodifiable_description" : {
       "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Utilitza "
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2163,6 +2385,12 @@
     },
     "empty_store_nonmodifiable_supported_key_types" : {
       "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Secretive suporta claus EC256, EC384, RSA1024 i RSA2048."
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2221,6 +2449,12 @@
     },
     "empty_store_nonmodifiable_title" : {
       "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sense secrets"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2279,6 +2513,12 @@
     },
     "no_secure_storage_description" : {
       "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "El teu Mac no té un Secure Enclave, i no hi ha una targeta intel·ligent compatible conectada."
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2337,6 +2577,12 @@
     },
     "no_secure_storage_title" : {
       "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No hi ha cap emmagatzematge segur disponible"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2395,6 +2641,12 @@
     },
     "no_secure_storage_yubico_link" : {
       "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Si busques afegir una al teu Mac, les Yubikey 5 Series són genials."
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2455,6 +2707,12 @@
       "comment" : "When the user authorizes an action using a secret that requires unlock, they're shown a notification offering to leave the secret unlocked for a set period of time. This is the title for the notification.",
       "extractionState" : "manual",
       "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mantín desbloquejat"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2515,6 +2773,12 @@
       "comment" : "When the user authorizes an action using a secret that requires unlock, they're shown a notification offering to leave the secret unlocked for a set period of time. This is the decline button for the notification.",
       "extractionState" : "manual",
       "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No desbloqueges"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2573,6 +2837,12 @@
     },
     "rename_cancel_button" : {
       "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cancel·la"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2625,6 +2895,12 @@
     },
     "rename_rename_button" : {
       "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Canvia el nom"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2677,6 +2953,12 @@
     },
     "rename_title_%@" : {
       "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Escriu el nou nom per a %1$@ baix."
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2729,6 +3011,12 @@
     },
     "secret_detail_md5_fingerprint_label" : {
       "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Empremta MD5"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2781,6 +3069,12 @@
     },
     "secret_detail_public_key_label" : {
       "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Clau pública"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2833,6 +3127,12 @@
     },
     "secret_detail_public_key_path_label" : {
       "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Camí de la clau pública"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2885,6 +3185,12 @@
     },
     "secret_detail_sha256_fingerprint_label" : {
       "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Empremta SHA256"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2937,6 +3243,12 @@
     },
     "secret_list_delete_button" : {
       "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Esborra"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2989,6 +3301,12 @@
     },
     "secret_list_rename_button" : {
       "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Canvia el nom"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3042,6 +3360,12 @@
     "secure_enclave" : {
       "extractionState" : "manual",
       "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Secure Enclave"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3094,6 +3418,12 @@
     },
     "setup_agent_activity_monitor_description" : {
       "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aquesta aplicació s'anomena **Secret Agent** i potser la vegas en Monitor d'Activitat."
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3146,6 +3476,12 @@
     },
     "setup_agent_description" : {
       "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Secretive necessita iniciar una aplicació secundària per funcionar correctament. Signarà les peticions dels clients SSH en segon pla, per tal que no necessites mantenir la aplicació principal de Secretive oberta."
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3198,6 +3534,12 @@
     },
     "setup_agent_install_button" : {
       "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Instal·la"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3250,6 +3592,12 @@
     },
     "setup_agent_title" : {
       "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Inicialitza l'agent"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3302,6 +3650,12 @@
     },
     "setup_ssh_add_for_me_button" : {
       "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Afegeix-ho per mi"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3354,6 +3708,12 @@
     },
     "setup_ssh_add_to_config_button_%@" : {
       "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Afegeix a %1$@"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3406,6 +3766,12 @@
     },
     "setup_ssh_added_manually_button" : {
       "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "L'he afegida manualment"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3458,6 +3824,12 @@
     },
     "setup_ssh_description" : {
       "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Afegeix aquesta línia a la teua configuració del shell per que SSH es comunique amb Secretive quan vulga autenticar. Secretive pot fer aquest procediment automàticament, o pots copiar i pegar açò al teu fitxer de configuració."
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3510,6 +3882,12 @@
     },
     "setup_ssh_title" : {
       "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Configura el teu agent SSH"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3562,6 +3940,12 @@
     },
     "setup_step_complete_symbol" : {
       "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "✓"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3614,6 +3998,12 @@
     },
     "setup_third_party_faq_link" : {
       "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Si tractes de configurar una aplicació de tercers, comprova el FAQ."
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3666,6 +4056,12 @@
     },
     "setup_updates_description" : {
       "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Secretive comprovarà periòdicament amb GitHub per comprovar si existeix una nova versió. "
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3718,6 +4114,12 @@
     },
     "setup_updates_ok" : {
       "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "D'acord"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3770,6 +4172,12 @@
     },
     "setup_updates_readmore" : {
       "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Llegiu més ací."
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3822,6 +4230,12 @@
     },
     "setup_updates_title" : {
       "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Actualitzacions"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3876,6 +4290,12 @@
       "comment" : "When the user performs an action using a secret, they're shown a notification describing what happened. This is the description, showing which secret was used. The placeholder is the name of the secret.",
       "extractionState" : "manual",
       "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Usant secret %1$@"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3930,6 +4350,12 @@
       "comment" : "When the user performs an action using a secret, they're shown a notification describing what happened. This is the title, showing which app requested the action. The placeholder is the name of the app.",
       "extractionState" : "manual",
       "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Petició signada de %1$@"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3983,6 +4409,12 @@
     "smart_card" : {
       "extractionState" : "manual",
       "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Targeta intel·ligent"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4036,6 +4468,12 @@
     "unnamed_secret" : {
       "extractionState" : "manual",
       "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sense nom"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4088,6 +4526,12 @@
     },
     "update_critical_notice_title" : {
       "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Actualització de seguretat crítica requerida"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4140,6 +4584,12 @@
     },
     "update_ignore_button" : {
       "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ignora"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4192,6 +4642,12 @@
     },
     "update_normal_notice_title" : {
       "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Actualización disponible"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4246,6 +4702,12 @@
       "comment" : "When an update is available, a notification is shown. This is the button to decline an update.",
       "extractionState" : "manual",
       "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ignora"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4300,6 +4762,12 @@
       "comment" : "When an update is available, a notification is shown. This is the button to download an update.",
       "extractionState" : "manual",
       "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Actuailtza"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4354,6 +4822,12 @@
       "comment" : "When an update is available, a notification is shown. This is the title for a very high priority update with security fixes. The placeholder is for the application version, eg \"Critical Security Update - 2.0\"",
       "extractionState" : "manual",
       "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Actualització de seguretat crítica - %1$@"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4408,6 +4882,12 @@
       "comment" : "When an update is available, a notification is shown. This is the description to download an update.",
       "extractionState" : "manual",
       "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fes clic per actualitzar"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4462,6 +4942,12 @@
       "comment" : "When an update is available, a notification is shown. This is the title for a normal priority update. The placeholder is for the application version, eg \"Update Available - 2.0\"",
       "extractionState" : "manual",
       "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Actualizació disponible - %1$@"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4514,6 +5000,12 @@
     },
     "update_release_notes_title" : {
       "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Notes de la versió"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4566,6 +5058,12 @@
     },
     "update_test_notice_title" : {
       "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Test Build"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4618,6 +5116,12 @@
     },
     "update_update_button" : {
       "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Actualitza"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4670,6 +5174,12 @@
     },
     "update_version_name_%@" : {
       "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Secretive %1$@"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
