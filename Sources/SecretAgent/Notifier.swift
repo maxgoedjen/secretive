@@ -5,7 +5,7 @@ import SecretKit
 import SecretAgentKit
 import Brief
 
-class Notifier {
+final class Notifier: Sendable {
 
     private let notificationDelegate = NotificationDelegate()
 
@@ -129,7 +129,8 @@ extension Notifier {
 
 }
 
-class NotificationDelegate: NSObject, UNUserNotificationCenterDelegate {
+// FIXME: UNCHECKED SENDABLE
+@MainActor final class NotificationDelegate: NSObject, UNUserNotificationCenterDelegate, @unchecked Sendable {
 
     fileprivate var release: Release?
     fileprivate var ignore: ((Release) -> Void)?
@@ -138,7 +139,7 @@ class NotificationDelegate: NSObject, UNUserNotificationCenterDelegate {
     fileprivate var pendingPersistableStores: [String: AnySecretStore] = [:]
     fileprivate var pendingPersistableSecrets: [String: AnySecret] = [:]
 
-    func userNotificationCenter(_ center: UNUserNotificationCenter, openSettingsFor notification: UNNotification?) {
+    nonisolated func userNotificationCenter(_ center: UNUserNotificationCenter, openSettingsFor notification: UNNotification?) {
 
     }
 

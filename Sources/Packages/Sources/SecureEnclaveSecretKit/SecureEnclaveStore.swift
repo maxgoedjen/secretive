@@ -8,7 +8,7 @@ import SecretKit
 extension SecureEnclave {
 
     /// An implementation of Store backed by the Secure Enclave.
-    public final class Store: SecretStoreModifiable {
+    public final class Store: SecretStoreModifiable, Sendable {
 
         public var isAvailable: Bool {
             // For some reason, as of build time, CryptoKit.SecureEnclave.isAvailable always returns false
@@ -18,14 +18,18 @@ extension SecureEnclave {
         }
         public let id = UUID()
         public let name = String(localized: "secure_enclave")
-        @Published public private(set) var secrets: [Secret] = []
+        @MainActor public private(set) var secrets: [Secret] = [] {
+            willSet {
+                self.objectWillChange.send()
+            }
+        }
 
-        private var persistedAuthenticationContexts: [Secret: PersistentAuthenticationContext] = [:]
+        @MainActor private var persistedAuthenticationContexts: [Secret: PersistentAuthenticationContext] = [:]
 
         /// Initializes a Store.
         public init() {
-            DistributedNotificationCenter.default().addObserver(forName: .secretStoreUpdated, object: nil, queue: .main) { [reload = reloadSecretsInternal(notifyAgent:)] _ in
-                reload(false)
+            DistributedNotificationCenter.default().addObserver(forName: .secretStoreUpdated, object: nil, queue: .main) {  _ in
+                self.reloadSecretsInternal(notifyAgent: false)
             }
             loadSecrets()
         }
@@ -211,7 +215,7 @@ extension SecureEnclave.Store {
 
     /// Reloads all secrets from the store.
     /// - Parameter notifyAgent: A boolean indicating whether a distributed notification should be posted, notifying other processes (ie, the SecretAgent) to reload their stores as well.
-    @Sendable private func reloadSecretsInternal(notifyAgent: Bool = true) {
+    private func reloadSecretsInternal(notifyAgent: Bool = true) {
         let before = secrets
         secrets.removeAll()
         loadSecrets()
@@ -304,8 +308,8 @@ extension SecureEnclave.Store {
 extension SecureEnclave {
 
     enum Constants {
-        static let keyTag = "com.maxgoedjen.secretive.secureenclave.key".data(using: .utf8)! as CFData
-        static let keyType = kSecAttrKeyTypeECSECPrimeRandom
+        static let keyTag = "com.maxgoedjen.secretive.secureenclave.key".data(using: .utf8)!
+        static let keyType = kSecAttrKeyTypeECSECPrimeRandom as String
         static let unauthenticatedThreshold: TimeInterval = 0.05
     }
 

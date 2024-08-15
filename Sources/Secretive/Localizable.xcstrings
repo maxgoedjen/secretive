@@ -2,6 +2,7 @@
   "sourceLanguage" : "en",
   "strings" : {
     "agent_not_running_notice_title" : {
+      "extractionState" : "stale",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -48,6 +49,7 @@
       }
     },
     "agent_running_notice_detail_description" : {
+      "extractionState" : "stale",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -94,6 +96,7 @@
       }
     },
     "agent_running_notice_detail_title" : {
+      "extractionState" : "stale",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -140,6 +143,7 @@
       }
     },
     "agent_running_notice_title" : {
+      "extractionState" : "stale",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -186,6 +190,7 @@
       }
     },
     "agent_setup_notice_title" : {
+      "extractionState" : "stale",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -232,6 +237,7 @@
       }
     },
     "app_menu_help_button" : {
+      "extractionState" : "stale",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -278,6 +284,7 @@
       }
     },
     "app_menu_new_secret_button" : {
+      "extractionState" : "stale",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -324,6 +331,7 @@
       }
     },
     "app_menu_setup_button" : {
+      "extractionState" : "stale",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -370,6 +378,7 @@
       }
     },
     "app_not_in_applications_notice_detail_description" : {
+      "extractionState" : "stale",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -416,6 +425,7 @@
       }
     },
     "app_not_in_applications_notice_title" : {
+      "extractionState" : "stale",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -798,6 +808,7 @@
       }
     },
     "copyable_click_to_copy_button" : {
+      "extractionState" : "stale",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -844,6 +855,7 @@
       }
     },
     "copyable_copied" : {
+      "extractionState" : "stale",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -890,6 +902,7 @@
       }
     },
     "create_secret_cancel_button" : {
+      "extractionState" : "stale",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -936,6 +949,7 @@
       }
     },
     "create_secret_create_button" : {
+      "extractionState" : "stale",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -982,6 +996,7 @@
       }
     },
     "create_secret_name_label" : {
+      "extractionState" : "stale",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -1028,6 +1043,7 @@
       }
     },
     "create_secret_name_placeholder" : {
+      "extractionState" : "stale",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -1074,6 +1090,7 @@
       }
     },
     "create_secret_notify_description" : {
+      "extractionState" : "stale",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -1120,6 +1137,7 @@
       }
     },
     "create_secret_notify_title" : {
+      "extractionState" : "stale",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -1166,6 +1184,7 @@
       }
     },
     "create_secret_require_authentication_description" : {
+      "extractionState" : "stale",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -1212,6 +1231,7 @@
       }
     },
     "create_secret_require_authentication_title" : {
+      "extractionState" : "stale",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -1258,6 +1278,7 @@
       }
     },
     "create_secret_title" : {
+      "extractionState" : "stale",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -1304,6 +1325,7 @@
       }
     },
     "delete_confirmation_cancel_button" : {
+      "extractionState" : "stale",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -1350,6 +1372,7 @@
       }
     },
     "delete_confirmation_confirm_name_label" : {
+      "extractionState" : "stale",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -1396,6 +1419,7 @@
       }
     },
     "delete_confirmation_delete_button" : {
+      "extractionState" : "stale",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -1442,6 +1466,7 @@
       }
     },
     "delete_confirmation_description_%@_%@" : {
+      "extractionState" : "stale",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -1488,6 +1513,7 @@
       }
     },
     "delete_confirmation_title_%@" : {
+      "extractionState" : "stale",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -1534,6 +1560,7 @@
       }
     },
     "empty_store_modifiable_click_here_description" : {
+      "extractionState" : "stale",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -1580,6 +1607,7 @@
       }
     },
     "empty_store_modifiable_click_here_title" : {
+      "extractionState" : "stale",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -1626,6 +1654,7 @@
       }
     },
     "empty_store_modifiable_title" : {
+      "extractionState" : "stale",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -1672,6 +1701,7 @@
       }
     },
     "empty_store_nonmodifiable_description" : {
+      "extractionState" : "stale",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -1718,6 +1748,7 @@
       }
     },
     "empty_store_nonmodifiable_supported_key_types" : {
+      "extractionState" : "stale",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -1764,6 +1795,7 @@
       }
     },
     "empty_store_nonmodifiable_title" : {
+      "extractionState" : "stale",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -1810,6 +1842,7 @@
       }
     },
     "no_secure_storage_description" : {
+      "extractionState" : "stale",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -1856,6 +1889,7 @@
       }
     },
     "no_secure_storage_title" : {
+      "extractionState" : "stale",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -1902,6 +1936,7 @@
       }
     },
     "no_secure_storage_yubico_link" : {
+      "extractionState" : "stale",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -2044,6 +2079,7 @@
       }
     },
     "rename_cancel_button" : {
+      "extractionState" : "stale",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -2084,6 +2120,7 @@
       }
     },
     "rename_rename_button" : {
+      "extractionState" : "stale",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -2124,6 +2161,7 @@
       }
     },
     "rename_title_%@" : {
+      "extractionState" : "stale",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -2164,6 +2202,7 @@
       }
     },
     "secret_detail_md5_fingerprint_label" : {
+      "extractionState" : "stale",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -2204,6 +2243,7 @@
       }
     },
     "secret_detail_public_key_label" : {
+      "extractionState" : "stale",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -2244,6 +2284,7 @@
       }
     },
     "secret_detail_public_key_path_label" : {
+      "extractionState" : "stale",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -2284,6 +2325,7 @@
       }
     },
     "secret_detail_sha256_fingerprint_label" : {
+      "extractionState" : "stale",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -2324,6 +2366,7 @@
       }
     },
     "secret_list_delete_button" : {
+      "extractionState" : "stale",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -2364,6 +2407,7 @@
       }
     },
     "secret_list_rename_button" : {
+      "extractionState" : "stale",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -2445,6 +2489,7 @@
       }
     },
     "setup_agent_activity_monitor_description" : {
+      "extractionState" : "stale",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -2485,6 +2530,7 @@
       }
     },
     "setup_agent_description" : {
+      "extractionState" : "stale",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -2525,6 +2571,7 @@
       }
     },
     "setup_agent_install_button" : {
+      "extractionState" : "stale",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -2565,6 +2612,7 @@
       }
     },
     "setup_agent_title" : {
+      "extractionState" : "stale",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -2605,6 +2653,7 @@
       }
     },
     "setup_ssh_add_for_me_button" : {
+      "extractionState" : "stale",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -2645,6 +2694,7 @@
       }
     },
     "setup_ssh_add_to_config_button_%@" : {
+      "extractionState" : "stale",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -2685,6 +2735,7 @@
       }
     },
     "setup_ssh_added_manually_button" : {
+      "extractionState" : "stale",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -2725,6 +2776,7 @@
       }
     },
     "setup_ssh_description" : {
+      "extractionState" : "stale",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -2765,6 +2817,7 @@
       }
     },
     "setup_ssh_title" : {
+      "extractionState" : "stale",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -2805,6 +2858,7 @@
       }
     },
     "setup_step_complete_symbol" : {
+      "extractionState" : "stale",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -2845,6 +2899,7 @@
       }
     },
     "setup_third_party_faq_link" : {
+      "extractionState" : "stale",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -2885,6 +2940,7 @@
       }
     },
     "setup_updates_description" : {
+      "extractionState" : "stale",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -2925,6 +2981,7 @@
       }
     },
     "setup_updates_ok" : {
+      "extractionState" : "stale",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -2965,6 +3022,7 @@
       }
     },
     "setup_updates_readmore" : {
+      "extractionState" : "stale",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -3005,6 +3063,7 @@
       }
     },
     "setup_updates_title" : {
+      "extractionState" : "stale",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -3211,6 +3270,7 @@
       }
     },
     "update_critical_notice_title" : {
+      "extractionState" : "stale",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -3251,6 +3311,7 @@
       }
     },
     "update_ignore_button" : {
+      "extractionState" : "stale",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -3291,6 +3352,7 @@
       }
     },
     "update_normal_notice_title" : {
+      "extractionState" : "stale",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -3541,6 +3603,7 @@
       }
     },
     "update_release_notes_title" : {
+      "extractionState" : "stale",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -3581,6 +3644,7 @@
       }
     },
     "update_test_notice_title" : {
+      "extractionState" : "stale",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -3621,6 +3685,7 @@
       }
     },
     "update_update_button" : {
+      "extractionState" : "stale",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -3661,6 +3726,7 @@
       }
     },
     "update_version_name_%@" : {
+      "extractionState" : "stale",
       "localizations" : {
         "de" : {
           "stringUnit" : {

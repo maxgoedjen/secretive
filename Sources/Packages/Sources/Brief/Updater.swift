@@ -2,7 +2,7 @@ import Foundation
 import Combine
 
 /// A concrete implementation of ``UpdaterProtocol`` which considers the current release and OS version.
-public final class Updater: ObservableObject, UpdaterProtocol {
+@MainActor public final class Updater: ObservableObject, UpdaterProtocol, Sendable {
 
     @Published public var update: Release?
     public let testBuild: Bool
@@ -18,27 +18,27 @@ public final class Updater: ObservableObject, UpdaterProtocol {
     ///   - checkFrequency: The interval at which the Updater should check for updates. Subject to a tolerance of 1 hour.
     ///   - osVersion: The current OS version.
     ///   - currentVersion: The current version of the app that is running.
-    public init(checkOnLaunch: Bool, checkFrequency: TimeInterval = Measurement(value: 24, unit: UnitDuration.hours).converted(to: .seconds).value, osVersion: SemVer = SemVer(ProcessInfo.processInfo.operatingSystemVersion), currentVersion: SemVer = SemVer(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "0.0.0")) {
+    public init(checkOnLaunch: Bool, checkFrequency: Duration = .seconds(24*60*60), osVersion: SemVer = SemVer(ProcessInfo.processInfo.operatingSystemVersion), currentVersion: SemVer = SemVer(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "0.0.0")) {
         self.osVersion = osVersion
         self.currentVersion = currentVersion
         testBuild = currentVersion == SemVer("0.0.0")
-        if checkOnLaunch {
-            // Don't do a launch check if the user hasn't seen the setup prompt explaining updater yet.
-            checkForUpdates()
+        Task {
+            if checkOnLaunch {
+                // Don't do a launch check if the user hasn't seen the setup prompt explaining updater yet.
+                await checkForUpdates()
+            }
+            while true {
+                try await Task.sleep(for: checkFrequency, tolerance: .seconds(60*60))
+                await checkForUpdates()
+            }
         }
-        let timer = Timer.scheduledTimer(withTimeInterval: checkFrequency, repeats: true) { _ in
-            self.checkForUpdates()
-        }
-        timer.tolerance = 60*60
     }
 
     /// Manually trigger an update check.
-    public func checkForUpdates() {
-        URLSession.shared.dataTask(with: Constants.updateURL) { data, _, _ in
-            guard let data = data else { return }
-            guard let releases = try? JSONDecoder().decode([Release].self, from: data) else { return }
-            self.evaluate(releases: releases)
-        }.resume()
+    public func checkForUpdates() async {
+        guard let (data, _) = try? await URLSession.shared.data(from: Constants.updateURL) else { return }
+        guard let releases = try? JSONDecoder().decode([Release].self, from: data) else { return }
+        evaluate(releases: releases)
     }
 
     /// Ignores a specified release. `update` will be nil if the user has ignored the latest available release.

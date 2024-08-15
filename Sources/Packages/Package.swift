@@ -1,12 +1,14 @@
-// swift-tools-version:5.9
+// swift-tools-version: 6.0
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
 
+let secretiveDefaults: [PackageDescription.SwiftSetting]? = [.swiftLanguageMode(.v6), .unsafeFlags(["-warnings-as-errors"])]
+
 let package = Package(
     name: "SecretivePackages",
     platforms: [
-        .macOS(.v12)
+        .macOS(.v13)
     ],
     products: [
         .library(
@@ -34,27 +36,27 @@ let package = Package(
         .target(
             name: "SecretKit",
             dependencies: [],
-            swiftSettings: [.enableExperimentalFeature("StrictConcurrency"), .unsafeFlags(["-warnings-as-errors"])]
+            swiftSettings: secretiveDefaults
         ),
         .testTarget(
             name: "SecretKitTests",
             dependencies: ["SecretKit", "SecureEnclaveSecretKit", "SmartCardSecretKit"],
-            swiftSettings: [.enableExperimentalFeature("StrictConcurrency"), .unsafeFlags(["-warnings-as-errors"])]
+            swiftSettings: secretiveDefaults
         ),
         .target(
             name: "SecureEnclaveSecretKit",
             dependencies: ["SecretKit"],
-            swiftSettings: [.enableExperimentalFeature("StrictConcurrency"), .unsafeFlags(["-warnings-as-errors"])]
+            swiftSettings: secretiveDefaults
         ),
         .target(
             name: "SmartCardSecretKit",
             dependencies: ["SecretKit"],
-            swiftSettings: [.enableExperimentalFeature("StrictConcurrency"), .unsafeFlags(["-warnings-as-errors"])]
+            swiftSettings: secretiveDefaults
         ),
         .target(
             name: "SecretAgentKit",
             dependencies: ["SecretKit", "SecretAgentKitHeaders"],
-            swiftSettings: [.enableExperimentalFeature("StrictConcurrency"), .unsafeFlags(["-warnings-as-errors"])]
+            swiftSettings: secretiveDefaults
         ),
         .systemLibrary(
             name: "SecretAgentKitHeaders"
@@ -73,3 +75,4 @@ let package = Package(
         ),
     ]
 )
+

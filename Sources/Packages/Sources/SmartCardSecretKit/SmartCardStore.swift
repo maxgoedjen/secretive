@@ -20,13 +20,13 @@ extension SmartCard {
         /// Initializes a Store.
         public init() {
             tokenID = watcher.nonSecureEnclaveTokens.first
-            watcher.setInsertionHandler { [reload = reloadSecretsInternal] string in
+            watcher.setInsertionHandler { string in
                 guard self.tokenID == nil else { return }
                 guard !string.contains("setoken") else { return }
 
                 self.tokenID = string
                 DispatchQueue.main.async {
-                    reload()
+//                    reload()
                 }
                 self.watcher.addRemovalHandler(self.smartcardRemoved, forTokenID: string)
             }
@@ -117,7 +117,7 @@ extension SmartCard {
 
 extension SmartCard.Store {
 
-    @Sendable private func reloadSecretsInternal() {
+    private func reloadSecretsInternal() {
         self.isAvailable = self.tokenID != nil
         let before = self.secrets
         self.secrets.removeAll()

@@ -5,7 +5,7 @@ import SecretKit
 import AppKit
 
 /// The `Agent` is an implementation of an SSH agent. It manages coordination and access between a socket, traces requests, notifies witnesses and passes requests to stores.
-public final class Agent {
+public actor Agent {
 
     private let storeList: SecretStoreList
     private let witness: SigningWitness?
@@ -35,7 +35,7 @@ extension Agent {
     ///   - writer: A ``FileHandleWriter`` to write the response to.
     /// - Return value: 
     ///   - Boolean if data could be read
-    @discardableResult @Sendable public func handle(reader: FileHandleReader, writer: FileHandleWriter) async -> Bool {
+    @discardableResult public func handle(reader: FileHandleReader, writer: FileHandleWriter) async -> Bool {
         logger.debug("Agent handling new data")
         let data = Data(reader.availableData)
         guard data.count > 4 else { return false}
