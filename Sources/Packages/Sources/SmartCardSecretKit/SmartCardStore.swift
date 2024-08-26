@@ -117,7 +117,7 @@ extension SmartCard {
 
 extension SmartCard.Store {
 
-    @Sendable private func reloadSecretsInternal() {
+    private func reloadSecretsInternal() {
         self.isAvailable = self.tokenID != nil
         let before = self.secrets
         self.secrets.removeAll()

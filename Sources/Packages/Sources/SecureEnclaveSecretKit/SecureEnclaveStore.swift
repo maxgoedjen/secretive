@@ -211,7 +211,7 @@ extension SecureEnclave.Store {
 
     /// Reloads all secrets from the store.
     /// - Parameter notifyAgent: A boolean indicating whether a distributed notification should be posted, notifying other processes (ie, the SecretAgent) to reload their stores as well.
-    @Sendable private func reloadSecretsInternal(notifyAgent: Bool = true) {
+    private func reloadSecretsInternal(notifyAgent: Bool = true) {
         let before = secrets
         secrets.removeAll()
         loadSecrets()

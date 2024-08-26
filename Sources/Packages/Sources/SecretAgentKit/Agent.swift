@@ -35,7 +35,7 @@ extension Agent {
     ///   - writer: A ``FileHandleWriter`` to write the response to.
     /// - Return value: 
     ///   - Boolean if data could be read
-    @discardableResult @Sendable public func handle(reader: FileHandleReader, writer: FileHandleWriter) async -> Bool {
+    @discardableResult public func handle(reader: FileHandleReader, writer: FileHandleWriter) async -> Bool {
         logger.debug("Agent handling new data")
         let data = Data(reader.availableData)
         guard data.count > 4 else { return false}
