@@ -39,22 +39,22 @@ let package = Package(
         .testTarget(
             name: "SecretKitTests",
             dependencies: ["SecretKit", "SecureEnclaveSecretKit", "SmartCardSecretKit"],
-            swiftSettings: [.enableExperimentalFeature("StrictConcurrency"), .unsafeFlags(["-warnings-as-errors"])]
+            swiftSettings: [.unsafeFlags(["-warnings-as-errors"])]
         ),
         .target(
             name: "SecureEnclaveSecretKit",
             dependencies: ["SecretKit"],
-            swiftSettings: [.enableExperimentalFeature("StrictConcurrency"), .unsafeFlags(["-warnings-as-errors"])]
+            swiftSettings: [.unsafeFlags(["-warnings-as-errors"])]
         ),
         .target(
             name: "SmartCardSecretKit",
             dependencies: ["SecretKit"],
-            swiftSettings: [.enableExperimentalFeature("StrictConcurrency"), .unsafeFlags(["-warnings-as-errors"])]
+            swiftSettings: [.unsafeFlags(["-warnings-as-errors"])]
         ),
         .target(
             name: "SecretAgentKit",
             dependencies: ["SecretKit", "SecretAgentKitHeaders"],
-            swiftSettings: [.enableExperimentalFeature("StrictConcurrency"), .unsafeFlags(["-warnings-as-errors"])]
+            swiftSettings: [.unsafeFlags(["-warnings-as-errors"])]
         ),
         .systemLibrary(
             name: "SecretAgentKitHeaders"
