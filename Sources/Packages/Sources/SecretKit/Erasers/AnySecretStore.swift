@@ -2,13 +2,13 @@ import Foundation
 import Combine
 
 /// Type eraser for SecretStore.
-public class AnySecretStore: SecretStore {
+@MainActor public class AnySecretStore: SecretStore {
 
     let base: Any
     private let _isAvailable: () -> Bool
     private let _id: () -> UUID
     private let _name: () -> String
-    private let _secrets: () -> [AnySecret]
+    private let _secrets: @MainActor () -> [AnySecret]
     private let _sign: (Data, AnySecret, SigningRequestProvenance) throws -> Data
     private let _verify: (Data, Data, AnySecret) throws -> Bool
     private let _existingPersistedAuthenticationContext: (AnySecret) -> PersistedAuthenticationContext?
@@ -22,7 +22,7 @@ public class AnySecretStore: SecretStore {
         _isAvailable = { secretStore.isAvailable }
         _name = { secretStore.name }
         _id = { secretStore.id }
-        _secrets = { secretStore.secrets.map { AnySecret($0) } }
+        _secrets = { @MainActor in secretStore.secrets.map { AnySecret($0) } }
         _sign = { try secretStore.sign(data: $0, with: $1.base as! SecretStoreType.SecretType, for: $2) }
         _verify = { try secretStore.verify(signature: $0, for: $1, with: $2.base as! SecretStoreType.SecretType) }
         _existingPersistedAuthenticationContext = { secretStore.existingPersistedAuthenticationContext(secret: $0.base as! SecretStoreType.SecretType) }
@@ -37,8 +37,10 @@ public class AnySecretStore: SecretStore {
         return _isAvailable()
     }
 
-    public var id: UUID {
-        return _id()
+    nonisolated public var id: UUID {
+//        return _id()
+        // FIXME: THIS
+        UUID()
     }
 
     public var name: String {
@@ -71,7 +73,7 @@ public class AnySecretStore: SecretStore {
 
 }
 
-public final class AnySecretStoreModifiable: AnySecretStore, SecretStoreModifiable {
+@MainActor public final class AnySecretStoreModifiable: AnySecretStore, SecretStoreModifiable {
 
     private let _create: (String, Bool) throws -> Void
     private let _delete: (AnySecret) throws -> Void

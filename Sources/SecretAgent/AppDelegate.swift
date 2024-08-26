@@ -7,8 +7,10 @@ import SmartCardSecretKit
 import SecretAgentKit
 import Brief
 
-@NSApplicationMain
-class AppDelegate: NSObject, NSApplicationDelegate {
+import SwiftUI
+
+@main
+struct SecretiveApp: App {
 
     private let storeList: SecretStoreList = {
         let list = SecretStoreList()
@@ -29,19 +31,24 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     private var updateSink: AnyCancellable?
     private let logger = Logger(subsystem: "com.maxgoedjen.secretive.secretagent", category: "AppDelegate")
 
-    func applicationDidFinishLaunching(_ aNotification: Notification) {
-        logger.debug("SecretAgent finished launching")
-        DispatchQueue.main.async {
-            self.socketController.handler = self.agent.handle(reader:writer:)
-        }
-        NotificationCenter.default.addObserver(forName: .secretStoreReloaded, object: nil, queue: .main) { [self] _ in
-            try? publicKeyFileStoreController.generatePublicKeys(for: storeList.allSecrets, clear: true)
-        }
-        try? publicKeyFileStoreController.generatePublicKeys(for: storeList.allSecrets, clear: true)
-        notifier.prompt()
-        updateSink = updater.$update.sink { update in
-            guard let update = update else { return }
-            self.notifier.notify(update: update, ignore: self.updater.ignore(release:))
+    var body: some Scene {
+        WindowGroup {
+            Text("Hello")
+                .onAppear {
+//                    logger.debug("SecretAgent finished launching")
+//                    DispatchQueue.main.async {
+//                        self.socketController.handler = self.agent.handle(reader:writer:)
+//                    }
+//                    NotificationCenter.default.addObserver(forName: .secretStoreReloaded, object: nil, queue: .main) { [self] _ in
+//                        try? publicKeyFileStoreController.generatePublicKeys(for: storeList.allSecrets, clear: true)
+//                    }
+//                    try? publicKeyFileStoreController.generatePublicKeys(for: storeList.allSecrets, clear: true)
+//                    notifier.prompt()
+//                    updateSink = updater.$update.sink { update in
+//                        guard let update = update else { return }
+//                        self.notifier.notify(update: update, ignore: self.updater.ignore(release:))
+//                    }
+                }
         }
     }
 

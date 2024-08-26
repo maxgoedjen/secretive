@@ -143,42 +143,42 @@ extension Notifier {
 
     }
 
-    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
-        let category = response.notification.request.content.categoryIdentifier
-        switch category {
-        case Notifier.Constants.updateCategoryIdentitifier:
-            handleUpdateResponse(response: response)
-        case Notifier.Constants.persistAuthenticationCategoryIdentitifier:
-            handlePersistAuthenticationResponse(response: response)
-        default:
-            break
-        }
-
-        completionHandler()
-    }
-
-    func handleUpdateResponse(response: UNNotificationResponse) {
-        guard let update = release else { return }
-        switch response.actionIdentifier {
-        case Notifier.Constants.updateActionIdentitifier, UNNotificationDefaultActionIdentifier:
-            NSWorkspace.shared.open(update.html_url)
-        case Notifier.Constants.ignoreActionIdentitifier:
-            ignore?(update)
-        default:
-            fatalError()
-        }
-    }
-
-    func handlePersistAuthenticationResponse(response: UNNotificationResponse) {
-        guard let secretID = response.notification.request.content.userInfo[Notifier.Constants.persistSecretIDKey] as? String, let secret = pendingPersistableSecrets[secretID],
-              let storeID = response.notification.request.content.userInfo[Notifier.Constants.persistStoreIDKey] as? String, let store = pendingPersistableStores[storeID]
-        else { return }
-        pendingPersistableSecrets[secretID] = nil
-        persistAuthentication?(secret, store, persistOptions[response.actionIdentifier])
-    }
-
-    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        completionHandler([.list, .banner])
-    }
+//    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+//        let category = response.notification.request.content.categoryIdentifier
+//        switch category {
+//        case Notifier.Constants.updateCategoryIdentitifier:
+//            handleUpdateResponse(response: response)
+//        case Notifier.Constants.persistAuthenticationCategoryIdentitifier:
+//            handlePersistAuthenticationResponse(response: response)
+//        default:
+//            break
+//        }
+//
+//        completionHandler()
+//    }
+//
+//    func handleUpdateResponse(response: UNNotificationResponse) {
+//        guard let update = release else { return }
+//        switch response.actionIdentifier {
+//        case Notifier.Constants.updateActionIdentitifier, UNNotificationDefaultActionIdentifier:
+//            NSWorkspace.shared.open(update.html_url)
+//        case Notifier.Constants.ignoreActionIdentitifier:
+//            ignore?(update)
+//        default:
+//            fatalError()
+//        }
+//    }
+//
+//    func handlePersistAuthenticationResponse(response: UNNotificationResponse) {
+//        guard let secretID = response.notification.request.content.userInfo[Notifier.Constants.persistSecretIDKey] as? String, let secret = pendingPersistableSecrets[secretID],
+//              let storeID = response.notification.request.content.userInfo[Notifier.Constants.persistStoreIDKey] as? String, let store = pendingPersistableStores[storeID]
+//        else { return }
+//        pendingPersistableSecrets[secretID] = nil
+//        persistAuthentication?(secret, store, persistOptions[response.actionIdentifier])
+//    }
+//
+//    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+//        completionHandler([.list, .banner])
+//    }
 
 }

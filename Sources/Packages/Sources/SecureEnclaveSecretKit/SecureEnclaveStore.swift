@@ -8,7 +8,7 @@ import SecretKit
 extension SecureEnclave {
 
     /// An implementation of Store backed by the Secure Enclave.
-    public final class Store: SecretStoreModifiable, Sendable {
+    @MainActor public final class Store: SecretStoreModifiable, Sendable {
 
         public var isAvailable: Bool {
             // For some reason, as of build time, CryptoKit.SecureEnclave.isAvailable always returns false
@@ -28,8 +28,11 @@ extension SecureEnclave {
 
         /// Initializes a Store.
         public init() {
-            DistributedNotificationCenter.default().addObserver(forName: .secretStoreUpdated, object: nil, queue: .main) {  _ in
-                self.reloadSecretsInternal(notifyAgent: false)
+            DistributedNotificationCenter.default().addObserver(forName: .secretStoreUpdated, object: nil, queue: .main) { _ in
+                // We've explicitly specified main queue as an argument.
+                MainActor.assumeIsolated {
+                    self.reloadSecretsInternal(notifyAgent: false)
+                }
             }
             loadSecrets()
         }

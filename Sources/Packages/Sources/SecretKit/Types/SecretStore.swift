@@ -2,7 +2,7 @@ import Foundation
 import Combine
 
 /// Manages access to Secrets, and performs signature operations on data using those Secrets.
-public protocol SecretStore: ObservableObject, Identifiable {
+@MainActor public protocol SecretStore: ObservableObject, Identifiable, Sendable {
 
     associatedtype SecretType: Secret
 

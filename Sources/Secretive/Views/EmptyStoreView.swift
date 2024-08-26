@@ -22,8 +22,8 @@ struct EmptyStoreView: View {
 extension EmptyStoreView {
     
     enum Constants {
-        static let emptyStoreModifiableTag: AnyHashable = "emptyStoreModifiableTag"
-        static let emptyStoreTag: AnyHashable = "emptyStoreTag"
+        static let emptyStoreModifiableTag = "emptyStoreModifiableTag"
+        static let emptyStoreTag = "emptyStoreTag"
     }
 
 }
