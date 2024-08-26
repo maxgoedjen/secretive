@@ -34,7 +34,7 @@ let package = Package(
         .target(
             name: "SecretKit",
             dependencies: [],
-            swiftSettings: [.enableExperimentalFeature("StrictConcurrency"), .unsafeFlags(["-warnings-as-errors"])]
+            swiftSettings: [.unsafeFlags(["-warnings-as-errors"])]
         ),
         .testTarget(
             name: "SecretKitTests",
