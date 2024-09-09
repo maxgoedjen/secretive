@@ -32,7 +32,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         logger.debug("SecretAgent finished launching")
         DispatchQueue.main.async {
-            self.socketController.handler = self.agent.handle(reader:writer:)
+            self.socketController.handler = { [weak self] reader, writer in
+                guard let self = self else { return false }
+                return await self.agent.handle(reader: reader, writer: writer)
+            }
         }
         NotificationCenter.default.addObserver(forName: .secretStoreReloaded, object: nil, queue: .main) { [self] _ in
             try? publicKeyFileStoreController.generatePublicKeys(for: storeList.allSecrets, clear: true)

@@ -2,7 +2,7 @@ import Foundation
 import Combine
 
 /// Type eraser for SecretStore.
-public class AnySecretStore: SecretStore {
+public class AnySecretStore: SecretStore, ObservableObject {
 
     let base: Any
     private let _isAvailable: () -> Bool
@@ -28,9 +28,11 @@ public class AnySecretStore: SecretStore {
         _existingPersistedAuthenticationContext = { secretStore.existingPersistedAuthenticationContext(secret: $0.base as! SecretStoreType.SecretType) }
         _persistAuthentication = { try secretStore.persistAuthentication(secret: $0.base as! SecretStoreType.SecretType, forDuration: $1) }
         _reloadSecrets = { secretStore.reloadSecrets() }
-        sink = secretStore.objectWillChange.sink { _ in
-            self.objectWillChange.send()
-        }
+        sink = secretStore.objectWillChange
+            .receive(on: DispatchQueue.main) // Ensure updates are received on the main thread
+            .sink { [weak self] _ in
+                self?.objectWillChange.send()
+            }
     }
 
     public var isAvailable: Bool {
