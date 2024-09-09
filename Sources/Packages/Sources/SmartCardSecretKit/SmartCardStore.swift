@@ -52,14 +52,15 @@ extension SmartCard {
             let context = LAContext()
             context.localizedReason = String(localized: "auth_context_request_signature_description_\(provenance.origin.displayName)_\(secret.name)")
             context.localizedCancelTitle = String(localized: "auth_context_request_deny_button")
-            let attributes = KeychainDictionary([
+            let attributes : NSDictionary = [
                 kSecClass: kSecClassKey,
                 kSecAttrKeyClass: kSecAttrKeyClassPrivate,
-                kSecAttrApplicationLabel: secret.id as CFData,
+                kSecAttrApplicationLabel: secret.id,
                 kSecAttrTokenID: tokenID,
                 kSecUseAuthenticationContext: context,
                 kSecReturnRef: true
-            ])
+            ]
+            
             var untyped: CFTypeRef?
             let status = SecItemCopyMatching(attributes, &untyped)
             if status != errSecSuccess {
@@ -77,11 +78,12 @@ extension SmartCard {
         }
         
         public func verify(signature: Data, for data: Data, with secret: Secret) throws -> Bool {
-            let attributes = KeychainDictionary([
+            let attributes : NSDictionary = [
                 kSecAttrKeyType: secret.algorithm.secAttrKeyType,
                 kSecAttrKeySizeInBits: secret.keySize,
                 kSecAttrKeyClass: kSecAttrKeyClassPublic
-            ])
+            ]
+            
             var verifyError: SecurityError?
             let untyped: CFTypeRef? = SecKeyCreateWithData(secret.publicKey as CFData, attributes, &verifyError)
             guard let untypedSafe = untyped else {
@@ -145,13 +147,13 @@ extension SmartCard.Store {
             name = fallbackName
         }
 
-        let attributes = KeychainDictionary([
+        let attributes : NSDictionary = [
             kSecClass: kSecClassKey,
             kSecAttrTokenID: tokenID,
             kSecReturnRef: true,
             kSecMatchLimit: kSecMatchLimitAll,
             kSecReturnAttributes: true
-        ])
+        ]
         var untyped: CFTypeRef?
         SecItemCopyMatching(attributes, &untyped)
         guard let typed = untyped as? [[CFString: Any]] else { return }
@@ -185,12 +187,12 @@ extension SmartCard.Store {
         let context = LAContext()
         context.localizedReason = String(localized: "auth_context_request_encrypt_description_\(secret.name)")
         context.localizedCancelTitle = String(localized: "auth_context_request_deny_button")
-        let attributes = KeychainDictionary([
+        let attributes : NSDictionary = [
             kSecAttrKeyType: secret.algorithm.secAttrKeyType,
             kSecAttrKeySizeInBits: secret.keySize,
             kSecAttrKeyClass: kSecAttrKeyClassPublic,
             kSecUseAuthenticationContext: context
-        ])
+        ]
         var encryptError: SecurityError?
         let untyped: CFTypeRef? = SecKeyCreateWithData(secret.publicKey as CFData, attributes, &encryptError)
         guard let untypedSafe = untyped else {
@@ -214,14 +216,14 @@ extension SmartCard.Store {
         let context = LAContext()
         context.localizedReason = String(localized: "auth_context_request_decrypt_description_\(secret.name)")
         context.localizedCancelTitle = String(localized: "auth_context_request_deny_button")
-        let attributes = KeychainDictionary([
+        let attributes : NSDictionary = [
             kSecClass: kSecClassKey,
             kSecAttrKeyClass: kSecAttrKeyClassPrivate,
-            kSecAttrApplicationLabel: secret.id as CFData,
+            kSecAttrApplicationLabel: secret.id,
             kSecAttrTokenID: tokenID,
             kSecUseAuthenticationContext: context,
             kSecReturnRef: true
-        ])
+        ]
         var untyped: CFTypeRef?
         let status = SecItemCopyMatching(attributes, &untyped)
         if status != errSecSuccess {

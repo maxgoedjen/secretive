@@ -27,7 +27,7 @@ extension Stub {
                                                 flags,
                                                 nil) as Any
 
-            let attributes = KeychainDictionary([
+            let attributes : NSDictionary = [
                 kSecAttrLabel: name,
                 kSecAttrKeyType: kSecAttrKeyTypeECSECPrimeRandom,
                 kSecAttrKeySizeInBits: size,
@@ -35,7 +35,7 @@ extension Stub {
                     kSecAttrIsPermanent: true,
                     kSecAttrAccessControl: access
                 ]
-                ])
+                ]
 
             let privateKey = SecKeyCreateRandomKey(attributes, nil)!
             let publicKey = SecKeyCopyPublicKey(privateKey)!
@@ -52,21 +52,21 @@ extension Stub {
             guard !shouldThrow else {
                 throw NSError(domain: "test", code: 0, userInfo: nil)
             }
-            let privateKey = SecKeyCreateWithData(secret.privateKey as CFData, KeychainDictionary([
+            let privateKey = SecKeyCreateWithData(secret.privateKey as CFData, [
                 kSecAttrKeyType: kSecAttrKeyTypeECSECPrimeRandom,
                 kSecAttrKeySizeInBits: secret.keySize,
                 kSecAttrKeyClass: kSecAttrKeyClassPrivate
-                ])
+                ] as CFDictionary
                 , nil)!
             return SecKeyCreateSignature(privateKey, signatureAlgorithm(for: secret), data as CFData, nil)! as Data
         }
 
         public func verify(signature: Data, for data: Data, with secret: Stub.Secret) throws -> Bool {
-            let attributes = KeychainDictionary([
+            let attributes: NSDictionary = [
                 kSecAttrKeyType: secret.algorithm.secAttrKeyType,
                 kSecAttrKeySizeInBits: secret.keySize,
                 kSecAttrKeyClass: kSecAttrKeyClassPublic
-            ])
+            ]
             var verifyError: Unmanaged<CFError>?
             let untyped: CFTypeRef? = SecKeyCreateWithData(secret.publicKey as CFData, attributes, &verifyError)
             guard let untypedSafe = untyped else {
