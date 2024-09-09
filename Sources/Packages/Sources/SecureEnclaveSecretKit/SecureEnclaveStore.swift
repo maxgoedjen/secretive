@@ -54,21 +54,21 @@ extension SecureEnclave {
                 kSecAttrKeyType: Constants.keyType,
                 kSecAttrTokenID: kSecAttrTokenIDSecureEnclave,
                 kSecAttrApplicationTag: Constants.keyTag,
+                kSecAttrIsPermanent: true,
                 kSecPrivateKeyAttrs: [
-                    kSecAttrIsPermanent: true,
+                    kSecAttrKeyClass: kSecAttrKeyClassPrivate,
                     kSecAttrAccessControl: access
+                ],
+                kSecPublicKeyAttrs: [
+                    kSecAttrKeyClass: kSecAttrKeyClassPublic
                 ]
             ]
 
             var createKeyError: SecurityError?
-            let keypair = SecKeyCreateRandomKey(attributes, &createKeyError)
+            SecKeyCreateRandomKey(attributes, &createKeyError)
             if let error = createKeyError {
                 throw error.takeRetainedValue() as Error
             }
-            guard let keypair = keypair, let publicKey = SecKeyCopyPublicKey(keypair) else {
-                throw KeychainError(statusCode: nil)
-            }
-            try savePublicKey(publicKey, name: name)
             reloadSecretsInternal()
         }
 
@@ -278,26 +278,6 @@ extension SecureEnclave.Store {
         secrets.append(contentsOf: wrapped)
     }
 
-    /// Saves a public key.
-    /// - Parameters:
-    ///   - publicKey: The public key to save.
-    ///   - name: A user-facing name for the key.
-    private func savePublicKey(_ publicKey: SecKey, name: String) throws {
-        let attributes : NSDictionary = [
-            kSecClass: kSecClassKey,
-            kSecAttrKeyType: SecureEnclave.Constants.keyType,
-            kSecAttrKeyClass: kSecAttrKeyClassPublic,
-            kSecAttrApplicationTag: SecureEnclave.Constants.keyTag,
-            kSecValueRef: publicKey,
-            kSecAttrIsPermanent: true,
-            kSecReturnData: true,
-            kSecAttrLabel: name
-            ]
-        let status = SecItemAdd(attributes, nil)
-        if status != errSecSuccess {
-            throw KeychainError(statusCode: status)
-        }
-    }
 
 }
 
