@@ -2,12 +2,6 @@ import Foundation
 
 public typealias SecurityError = Unmanaged<CFError>
 
-/// Wraps a Swift dictionary in a CFDictionary.
-/// - Parameter dictionary: The Swift dictionary to wrap.
-/// - Returns: A CFDictionary containing the keys and values.
-public func KeychainDictionary(_ dictionary: [CFString: Any]) -> CFDictionary {
-    dictionary as CFDictionary
-}
 
 public extension CFError {
 
