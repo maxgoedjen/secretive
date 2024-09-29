@@ -4,6 +4,7 @@ import SecretKit
 struct SecretDetailView<SecretType: Secret>: View {
     
     @State var secret: SecretType
+    @EnvironmentObject private var settingsStore: SettingsStore
 
     private let keyWriter = OpenSSHKeyWriter()
     private let publicKeyFileStoreController = PublicKeyFileStoreController(homeDirectory: NSHomeDirectory().replacingOccurrences(of: Bundle.main.hostBundleID, with: Bundle.main.agentBundleID))
@@ -42,9 +43,14 @@ struct SecretDetailView<SecretType: Secret>: View {
     }
     
     var keyString: String {
-        keyWriter.openSSHString(secret: secret, comment: "\(dashedKeyName)@\(dashedHostName)")
+        var style: CommentStyle = CommentStyle(rawValue: settingsStore["com.maxgoedjen.Secretive.commentStyle"] ?? CommentStyle.keyAndHost.rawValue)!
+        switch style {
+        case .none:
+            return keyWriter.openSSHString(secret: secret, comment: "")
+        case .keyAndHost:
+            return keyWriter.openSSHString(secret: secret, comment: "\(dashedKeyName)@\(dashedHostName)")
+        }
     }
-
 }
 
 #if DEBUG

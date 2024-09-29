@@ -53,6 +53,8 @@
 		50BB046B2418AAAE00D6E079 /* EmptyStoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50BB046A2418AAAE00D6E079 /* EmptyStoreView.swift */; };
 		50C385A52407A76D00AF2719 /* SecretDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C385A42407A76D00AF2719 /* SecretDetailView.swift */; };
 		50E9CF422B51D596004AB36D /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 500B93C22B478D8400E157DE /* Localizable.xcstrings */; };
+		DA140C502B8DF70500948F81 /* SettingsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA140C4F2B8DF70500948F81 /* SettingsHelper.swift */; };
+		DA22A3402B712A57004D45DD /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA22A33F2B712A57004D45DD /* SettingsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -152,6 +154,9 @@
 		50B8550C24138C4F009958AC /* DeleteSecretView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeleteSecretView.swift; sourceTree = "<group>"; };
 		50BB046A2418AAAE00D6E079 /* EmptyStoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStoreView.swift; sourceTree = "<group>"; };
 		50C385A42407A76D00AF2719 /* SecretDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecretDetailView.swift; sourceTree = "<group>"; };
+		DA140C4F2B8DF70500948F81 /* SettingsHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsHelper.swift; sourceTree = "<group>"; };
+		DA22A33C2B6EB835004D45DD /* SecretiveRelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SecretiveRelease.entitlements; sourceTree = "<group>"; };
+		DA22A33F2B712A57004D45DD /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -192,6 +197,7 @@
 			isa = PBXGroup;
 			children = (
 				50033AC227813F1700253856 /* BundleIDs.swift */,
+				DA140C4F2B8DF70500948F81 /* SettingsHelper.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -282,6 +288,7 @@
 				50153E1F250AFCB200525160 /* UpdateView.swift */,
 				5066A6C12516F303004B5A36 /* SetupView.swift */,
 				5066A6C72516FE6E004B5A36 /* CopyableView.swift */,
+				DA22A33F2B712A57004D45DD /* SettingsView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -497,6 +504,7 @@
 				5079BA0F250F29BF00EA86F4 /* StoreListView.swift in Sources */,
 				50617DD223FCEFA90099B055 /* PreviewStore.swift in Sources */,
 				5066A6F7251829B1004B5A36 /* ShellConfigurationController.swift in Sources */,
+				DA22A3402B712A57004D45DD /* SettingsView.swift in Sources */,
 				50033AC327813F1700253856 /* BundleIDs.swift in Sources */,
 				508A58B3241ED2180069DC07 /* AgentStatusChecker.swift in Sources */,
 				50C385A52407A76D00AF2719 /* SecretDetailView.swift in Sources */,
@@ -508,6 +516,7 @@
 				50BB046B2418AAAE00D6E079 /* EmptyStoreView.swift in Sources */,
 				50617D8323FCE48E0099B055 /* App.swift in Sources */,
 				506772C92425BB8500034DED /* NoStoresView.swift in Sources */,
+				DA140C502B8DF70500948F81 /* SettingsHelper.swift in Sources */,
 				50153E22250DECA300525160 /* SecretListItemView.swift in Sources */,
 				508A58B5241ED48F0069DC07 /* PreviewAgentStatusChecker.swift in Sources */,
 				508A58AA241E06B40069DC07 /* PreviewUpdater.swift in Sources */,
