@@ -7,7 +7,7 @@ import SmartCardSecretKit
 import SecretAgentKit
 import Brief
 
-@NSApplicationMain
+@main
 class AppDelegate: NSObject, NSApplicationDelegate {
 
     private let storeList: SecretStoreList = {
@@ -31,18 +31,18 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         logger.debug("SecretAgent finished launching")
-        DispatchQueue.main.async {
-            self.socketController.handler = self.agent.handle(reader:writer:)
-        }
-        NotificationCenter.default.addObserver(forName: .secretStoreReloaded, object: nil, queue: .main) { [self] _ in
-            try? publicKeyFileStoreController.generatePublicKeys(for: storeList.allSecrets, clear: true)
-        }
+//        DispatchQueue.main.async {
+//            self.socketController.handler = self.agent.handle(reader:writer:)
+//        }
+//        NotificationCenter.default.addObserver(forName: .secretStoreReloaded, object: nil, queue: .main) { [self] _ in
+//            try? publicKeyFileStoreController.generatePublicKeys(for: storeList.allSecrets, clear: true)
+//        }
         try? publicKeyFileStoreController.generatePublicKeys(for: storeList.allSecrets, clear: true)
         notifier.prompt()
-        updateSink = updater.$update.sink { update in
-            guard let update = update else { return }
-            self.notifier.notify(update: update, ignore: self.updater.ignore(release:))
-        }
+//        updateSink = updater.$update.sink { update in
+//            guard let update = update else { return }
+//            self.notifier.notify(update: update, ignore: self.updater.ignore(release:))
+//        }
     }
 
 }

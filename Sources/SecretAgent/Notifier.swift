@@ -47,7 +47,7 @@ class Notifier {
 
         notificationDelegate.persistAuthentication = { secret, store, duration in
             guard let duration = duration else { return }
-            try? store.persistAuthentication(secret: secret, forDuration: duration)
+            try? await store.persistAuthentication(secret: secret, forDuration: duration)
         }
 
     }
@@ -57,7 +57,7 @@ class Notifier {
         notificationCenter.requestAuthorization(options: .alert) { _, _ in }
     }
 
-    func notify(accessTo secret: AnySecret, from store: AnySecretStore, by provenance: SigningRequestProvenance) {
+    func notify(accessTo secret: AnySecret, from store: AnySecretStore, by provenance: SigningRequestProvenance) async {
         notificationDelegate.pendingPersistableSecrets[secret.id.description] = secret
         notificationDelegate.pendingPersistableStores[store.id.description] = store
         let notificationCenter = UNUserNotificationCenter.current()
@@ -67,7 +67,7 @@ class Notifier {
         notificationContent.userInfo[Constants.persistSecretIDKey] = secret.id.description
         notificationContent.userInfo[Constants.persistStoreIDKey] = store.id.description
         notificationContent.interruptionLevel = .timeSensitive
-        if secret.requiresAuthentication && store.existingPersistedAuthenticationContext(secret: secret) == nil {
+        if await store.existingPersistedAuthenticationContext(secret: secret) == nil && secret.requiresAuthentication {
             notificationContent.categoryIdentifier = Constants.persistAuthenticationCategoryIdentitifier
         }
         if let iconURL = provenance.origin.iconURL, let attachment = try? UNNotificationAttachment(identifier: "icon", url: iconURL, options: nil) {
@@ -99,11 +99,11 @@ class Notifier {
 
 extension Notifier: SigningWitness {
 
-    func speakNowOrForeverHoldYourPeace(forAccessTo secret: AnySecret, from store: AnySecretStore, by provenance: SigningRequestProvenance) throws {
+    func speakNowOrForeverHoldYourPeace(forAccessTo secret: AnySecret, from store: AnySecretStore, by provenance: SigningRequestProvenance) async throws {
     }
 
-    func witness(accessTo secret: AnySecret, from store: AnySecretStore, by provenance: SigningRequestProvenance) throws {
-        notify(accessTo: secret, from: store, by: provenance)
+    func witness(accessTo secret: AnySecret, from store: AnySecretStore, by provenance: SigningRequestProvenance) async throws {
+        await notify(accessTo: secret, from: store, by: provenance)
     }
 
 }
@@ -133,7 +133,7 @@ class NotificationDelegate: NSObject, UNUserNotificationCenterDelegate {
 
     fileprivate var release: Release?
     fileprivate var ignore: ((Release) -> Void)?
-    fileprivate var persistAuthentication: ((AnySecret, AnySecretStore, TimeInterval?) -> Void)?
+    fileprivate var persistAuthentication: ((AnySecret, AnySecretStore, TimeInterval?) async -> Void)?
     fileprivate var persistOptions: [String: TimeInterval] = [:]
     fileprivate var pendingPersistableStores: [String: AnySecretStore] = [:]
     fileprivate var pendingPersistableSecrets: [String: AnySecret] = [:]
@@ -141,19 +141,17 @@ class NotificationDelegate: NSObject, UNUserNotificationCenterDelegate {
     func userNotificationCenter(_ center: UNUserNotificationCenter, openSettingsFor notification: UNNotification?) {
 
     }
-
-    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse) async {
         let category = response.notification.request.content.categoryIdentifier
         switch category {
         case Notifier.Constants.updateCategoryIdentitifier:
             handleUpdateResponse(response: response)
         case Notifier.Constants.persistAuthenticationCategoryIdentitifier:
-            handlePersistAuthenticationResponse(response: response)
+            await handlePersistAuthenticationResponse(response: response)
         default:
             break
         }
-
-        completionHandler()
     }
 
     func handleUpdateResponse(response: UNNotificationResponse) {
@@ -168,12 +166,12 @@ class NotificationDelegate: NSObject, UNUserNotificationCenterDelegate {
         }
     }
 
-    func handlePersistAuthenticationResponse(response: UNNotificationResponse) {
+    func handlePersistAuthenticationResponse(response: UNNotificationResponse) async {
         guard let secretID = response.notification.request.content.userInfo[Notifier.Constants.persistSecretIDKey] as? String, let secret = pendingPersistableSecrets[secretID],
               let storeID = response.notification.request.content.userInfo[Notifier.Constants.persistStoreIDKey] as? String, let store = pendingPersistableStores[storeID]
         else { return }
         pendingPersistableSecrets[secretID] = nil
-        persistAuthentication?(secret, store, persistOptions[response.actionIdentifier])
+        await persistAuthentication?(secret, store, persistOptions[response.actionIdentifier])
     }
 
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {

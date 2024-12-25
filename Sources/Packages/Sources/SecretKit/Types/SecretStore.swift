@@ -2,7 +2,7 @@ import Foundation
 import Combine
 
 /// Manages access to Secrets, and performs signature operations on data using those Secrets.
-public protocol SecretStore: ObservableObject, Identifiable {
+public protocol SecretStore: Identifiable {
 
     associatedtype SecretType: Secret
 
@@ -21,7 +21,7 @@ public protocol SecretStore: ObservableObject, Identifiable {
     ///   - secret: The ``Secret`` to sign with.
     ///   - provenance: A ``SigningRequestProvenance`` describing where the request came from.
     /// - Returns: The signed data.
-    func sign(data: Data, with secret: SecretType, for provenance: SigningRequestProvenance) throws -> Data
+    func sign(data: Data, with secret: SecretType, for provenance: SigningRequestProvenance) async throws -> Data
 
     /// Verifies that a signature is valid over a specified payload.
     /// - Parameters:
@@ -29,23 +29,23 @@ public protocol SecretStore: ObservableObject, Identifiable {
     ///   - data: The data to verify the signature of.
     ///   - secret: The secret whose signature to verify.
     /// - Returns: Whether the signature was verified.
-    func verify(signature: Data, for data: Data, with secret: SecretType) throws -> Bool
+    func verify(signature: Data, for data: Data, with secret: SecretType) async throws -> Bool
 
     /// Checks to see if there is currently a valid persisted authentication for a given secret.
     /// - Parameters:
     ///   - secret: The ``Secret`` to check if there is a persisted authentication for.
     /// - Returns: A persisted authentication context, if a valid one exists.
-    func existingPersistedAuthenticationContext(secret: SecretType) -> PersistedAuthenticationContext?
+    func existingPersistedAuthenticationContext(secret: SecretType) async -> PersistedAuthenticationContext?
 
     /// Persists user authorization for access to a secret.
     /// - Parameters:
     ///   - secret: The ``Secret`` to persist the authorization for.
     ///   - duration: The duration that the authorization should persist for.
     ///  - Note: This is used for temporarily unlocking access to a secret which would otherwise require authentication every single use. This is useful for situations where the user anticipates several rapid accesses to a authorization-guarded secret.
-    func persistAuthentication(secret: SecretType, forDuration duration: TimeInterval) throws
+    func persistAuthentication(secret: SecretType, forDuration duration: TimeInterval) async throws
 
     /// Requests that the store reload secrets from any backing store, if neccessary.
-    func reloadSecrets()
+    func reloadSecrets() async
 
 }
 
@@ -56,18 +56,18 @@ public protocol SecretStoreModifiable: SecretStore {
     /// - Parameters:
     ///   - name: The user-facing name for the ``Secret``.
     ///   - requiresAuthentication: A boolean indicating whether or not the user will be required to authenticate before performing signature operations with the secret.
-    func create(name: String, requiresAuthentication: Bool) throws
+    func create(name: String, requiresAuthentication: Bool) async throws
 
     /// Deletes a Secret in the store.
     /// - Parameters:
     ///   - secret: The ``Secret`` to delete.
-    func delete(secret: SecretType) throws
+    func delete(secret: SecretType) async throws
 
     /// Updates the name of a Secret in the store.
     /// - Parameters:
     ///   - secret: The ``Secret`` to update.
     ///   - name: The new name for the Secret.
-    func update(secret: SecretType, name: String) throws
+    func update(secret: SecretType, name: String) async throws
 
 }
 

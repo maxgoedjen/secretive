@@ -20,14 +20,15 @@ extension SmartCard {
         /// Initializes a Store.
         public init() {
             tokenID = watcher.nonSecureEnclaveTokens.first
-            watcher.setInsertionHandler { [reload = reloadSecretsInternal] string in
+            // FIXME: THIS
+            watcher.setInsertionHandler { string in
                 guard self.tokenID == nil else { return }
                 guard !string.contains("setoken") else { return }
 
                 self.tokenID = string
-                DispatchQueue.main.async {
-                    reload()
-                }
+//                DispatchQueue.main.async {
+//                    reload()
+//                }
                 self.watcher.addRemovalHandler(self.smartcardRemoved, forTokenID: string)
             }
             if let tokenID = tokenID {

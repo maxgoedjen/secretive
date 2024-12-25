@@ -54,7 +54,7 @@ extension Agent {
 
     func handle(requestType: SSHAgent.RequestType, data: Data, reader: FileHandleReader) async -> Data {
         // Depending on the launch context (such as after macOS update), the agent may need to reload secrets before acting
-        reloadSecretsIfNeccessary()
+        await reloadSecretsIfNeccessary()
         var response = Data()
         do {
             switch requestType {
@@ -65,7 +65,7 @@ extension Agent {
             case .signRequest:
                 let provenance = requestTracer.provenance(from: reader)
                 response.append(SSHAgent.ResponseType.agentSignResponse.data)
-                response.append(try sign(data: data, provenance: provenance))
+                response.append(try await sign(data: data, provenance: provenance))
                 logger.debug("Agent returned \(SSHAgent.ResponseType.agentSignResponse.debugDescription)")
             }
         } catch {
@@ -112,7 +112,7 @@ extension Agent {
     ///   - data: The data to sign.
     ///   - provenance: A ``SecretKit.SigningRequestProvenance`` object describing the origin of the request.
     /// - Returns: An OpenSSH formatted Data payload containing the signed data response.
-    func sign(data: Data, provenance: SigningRequestProvenance) throws -> Data {
+    func sign(data: Data, provenance: SigningRequestProvenance) async throws -> Data {
         let reader = OpenSSHReader(data: data)
         let payloadHash = reader.readNextChunk()
         let hash: Data
@@ -129,11 +129,11 @@ extension Agent {
         }
 
         if let witness = witness {
-            try witness.speakNowOrForeverHoldYourPeace(forAccessTo: secret, from: store, by: provenance)
+            try await witness.speakNowOrForeverHoldYourPeace(forAccessTo: secret, from: store, by: provenance)
         }
 
         let dataToSign = reader.readNextChunk()
-        let signed = try store.sign(data: dataToSign, with: secret, for: provenance)
+        let signed = try await store.sign(data: dataToSign, with: secret, for: provenance)
         let derSignature = signed
 
         let curveData = writer.curveType(for: secret.algorithm, length: secret.keySize).data(using: .utf8)!
@@ -175,7 +175,7 @@ extension Agent {
         signedData.append(writer.lengthAndData(of: sub))
 
         if let witness = witness {
-            try witness.witness(accessTo: secret, from: store, by: provenance)
+            try await witness.witness(accessTo: secret, from: store, by: provenance)
         }
 
         logger.debug("Agent signed request")
@@ -188,11 +188,11 @@ extension Agent {
 extension Agent {
 
     /// Gives any store with no loaded secrets a chance to reload.
-    func reloadSecretsIfNeccessary() {
+    func reloadSecretsIfNeccessary() async {
         for store in storeList.stores {
             if store.secrets.isEmpty {
                 logger.debug("Store \(store.name, privacy: .public) has no loaded secrets. Reloading.")
-                store.reloadSecrets()
+                await store.reloadSecrets()
             }
         }
     }

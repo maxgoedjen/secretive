@@ -9,13 +9,11 @@ public class AnySecretStore: SecretStore {
     private let _id: () -> UUID
     private let _name: () -> String
     private let _secrets: () -> [AnySecret]
-    private let _sign: (Data, AnySecret, SigningRequestProvenance) throws -> Data
-    private let _verify: (Data, Data, AnySecret) throws -> Bool
-    private let _existingPersistedAuthenticationContext: (AnySecret) -> PersistedAuthenticationContext?
-    private let _persistAuthentication: (AnySecret, TimeInterval) throws -> Void
-    private let _reloadSecrets: () -> Void
-
-    private var sink: AnyCancellable?
+    private let _sign: (Data, AnySecret, SigningRequestProvenance) async throws -> Data
+    private let _verify: (Data, Data, AnySecret) async throws -> Bool
+    private let _existingPersistedAuthenticationContext: (AnySecret) async -> PersistedAuthenticationContext?
+    private let _persistAuthentication: (AnySecret, TimeInterval) async throws -> Void
+    private let _reloadSecrets: () async -> Void
 
     public init<SecretStoreType>(_ secretStore: SecretStoreType) where SecretStoreType: SecretStore {
         base = secretStore
@@ -23,14 +21,11 @@ public class AnySecretStore: SecretStore {
         _name = { secretStore.name }
         _id = { secretStore.id }
         _secrets = { secretStore.secrets.map { AnySecret($0) } }
-        _sign = { try secretStore.sign(data: $0, with: $1.base as! SecretStoreType.SecretType, for: $2) }
-        _verify = { try secretStore.verify(signature: $0, for: $1, with: $2.base as! SecretStoreType.SecretType) }
-        _existingPersistedAuthenticationContext = { secretStore.existingPersistedAuthenticationContext(secret: $0.base as! SecretStoreType.SecretType) }
-        _persistAuthentication = { try secretStore.persistAuthentication(secret: $0.base as! SecretStoreType.SecretType, forDuration: $1) }
-        _reloadSecrets = { secretStore.reloadSecrets() }
-        sink = secretStore.objectWillChange.sink { _ in
-            self.objectWillChange.send()
-        }
+        _sign = { try await secretStore.sign(data: $0, with: $1.base as! SecretStoreType.SecretType, for: $2) }
+        _verify = { try await secretStore.verify(signature: $0, for: $1, with: $2.base as! SecretStoreType.SecretType) }
+        _existingPersistedAuthenticationContext = { await secretStore.existingPersistedAuthenticationContext(secret: $0.base as! SecretStoreType.SecretType) }
+        _persistAuthentication = { try await secretStore.persistAuthentication(secret: $0.base as! SecretStoreType.SecretType, forDuration: $1) }
+        _reloadSecrets = { await secretStore.reloadSecrets() }
     }
 
     public var isAvailable: Bool {
@@ -49,51 +44,51 @@ public class AnySecretStore: SecretStore {
         return _secrets()
     }
 
-    public func sign(data: Data, with secret: AnySecret, for provenance: SigningRequestProvenance) throws -> Data {
-        try _sign(data, secret, provenance)
+    public func sign(data: Data, with secret: AnySecret, for provenance: SigningRequestProvenance) async throws -> Data {
+        try await _sign(data, secret, provenance)
     }
 
-    public func verify(signature: Data, for data: Data, with secret: AnySecret) throws -> Bool {
-        try _verify(signature, data, secret)
+    public func verify(signature: Data, for data: Data, with secret: AnySecret) async throws -> Bool {
+        try await _verify(signature, data, secret)
     }
 
-    public func existingPersistedAuthenticationContext(secret: AnySecret) -> PersistedAuthenticationContext? {
-        _existingPersistedAuthenticationContext(secret)
+    public func existingPersistedAuthenticationContext(secret: AnySecret) async -> PersistedAuthenticationContext? {
+        await _existingPersistedAuthenticationContext(secret)
     }
 
-    public func persistAuthentication(secret: AnySecret, forDuration duration: TimeInterval) throws {
-        try _persistAuthentication(secret, duration)
+    public func persistAuthentication(secret: AnySecret, forDuration duration: TimeInterval) async throws {
+        try await _persistAuthentication(secret, duration)
     }
 
-    public func reloadSecrets() {
-        _reloadSecrets()
+    public func reloadSecrets() async {
+        await _reloadSecrets()
     }
 
 }
 
 public final class AnySecretStoreModifiable: AnySecretStore, SecretStoreModifiable {
 
-    private let _create: (String, Bool) throws -> Void
-    private let _delete: (AnySecret) throws -> Void
-    private let _update: (AnySecret, String) throws -> Void
+    private let _create: (String, Bool) async throws -> Void
+    private let _delete: (AnySecret) async throws -> Void
+    private let _update: (AnySecret, String) async throws -> Void
 
     public init<SecretStoreType>(modifiable secretStore: SecretStoreType) where SecretStoreType: SecretStoreModifiable {
-        _create = { try secretStore.create(name: $0, requiresAuthentication: $1) }
-        _delete = { try secretStore.delete(secret: $0.base as! SecretStoreType.SecretType) }
-        _update = { try secretStore.update(secret: $0.base as! SecretStoreType.SecretType, name: $1) }
+        _create = { try await secretStore.create(name: $0, requiresAuthentication: $1) }
+        _delete = { try await secretStore.delete(secret: $0.base as! SecretStoreType.SecretType) }
+        _update = { try await secretStore.update(secret: $0.base as! SecretStoreType.SecretType, name: $1) }
         super.init(secretStore)
     }
 
-    public func create(name: String, requiresAuthentication: Bool) throws {
-        try _create(name, requiresAuthentication)
+    public func create(name: String, requiresAuthentication: Bool) async throws {
+        try await _create(name, requiresAuthentication)
     }
 
-    public func delete(secret: AnySecret) throws {
-        try _delete(secret)
+    public func delete(secret: AnySecret) async throws {
+        try await _delete(secret)
     }
 
-    public func update(secret: AnySecret, name: String) throws {
-        try _update(secret, name)
+    public func update(secret: AnySecret, name: String) async throws {
+        try await _update(secret, name)
     }
 
 }

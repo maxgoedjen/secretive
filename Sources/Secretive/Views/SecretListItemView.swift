@@ -3,7 +3,7 @@ import SecretKit
 
 struct SecretListItemView: View {
 
-    @ObservedObject var store: AnySecretStore
+    @State var store: AnySecretStore
     var secret: AnySecret
     @Binding var activeSecret: AnySecret.ID?
 

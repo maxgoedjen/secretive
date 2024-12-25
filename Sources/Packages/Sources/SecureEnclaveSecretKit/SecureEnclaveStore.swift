@@ -1,38 +1,42 @@
 import Foundation
-import Combine
+import Observation
 import Security
-import CryptoTokenKit
+import CryptoKit
 import LocalAuthentication
 import SecretKit
+import Synchronization
 
 extension SecureEnclave {
 
     /// An implementation of Store backed by the Secure Enclave.
-    public final class Store: SecretStoreModifiable {
+    @Observable public final class Store: SecretStoreModifiable {
 
         public var isAvailable: Bool {
-            // For some reason, as of build time, CryptoKit.SecureEnclave.isAvailable always returns false
-            // error msg "Received error sending GET UNIQUE DEVICE command"
-            // Verify it with TKTokenWatcher manually.
-            TKTokenWatcher().tokenIDs.contains("com.apple.setoken")
+            CryptoKit.SecureEnclave.isAvailable
         }
         public let id = UUID()
         public let name = String(localized: "secure_enclave")
-        @Published public private(set) var secrets: [Secret] = []
+        public var secrets: [Secret] {
+            _secrets.withLock { $0 }
+        }
+        private let _secrets: Mutex<[Secret]> = .init([])
 
         private var persistedAuthenticationContexts: [Secret: PersistentAuthenticationContext] = [:]
 
         /// Initializes a Store.
         public init() {
-            DistributedNotificationCenter.default().addObserver(forName: .secretStoreUpdated, object: nil, queue: .main) { [reload = reloadSecretsInternal(notifyAgent:)] _ in
-                reload(false)
-            }
+            // FIXME: THIS
+//            Task {
+//                for await _ in DistributedNotificationCenter.default().notifications(named: .secretStoreUpdated) {
+//                    await reloadSecretsInternal(notifyAgent: false)
+//                }
+//            }
             loadSecrets()
         }
 
         // MARK: Public API
 
-        public func create(name: String, requiresAuthentication: Bool) throws {
+        public func create(name: String, requiresAuthentication: Bool) async throws {
             var accessError: SecurityError?
             let flags: SecAccessControlCreateFlags
             if requiresAuthentication {
@@ -69,10 +73,10 @@ extension SecureEnclave {
                 throw KeychainError(statusCode: nil)
             }
             try savePublicKey(publicKey, name: name)
-            reloadSecretsInternal()
+            await reloadSecretsInternal()
         }
 
-        public func delete(secret: Secret) throws {
+        public func delete(secret: Secret) async throws {
             let deleteAttributes = KeychainDictionary([
                 kSecClass: kSecClassKey,
                 kSecAttrApplicationLabel: secret.id as CFData
@@ -81,10 +85,10 @@ extension SecureEnclave {
             if status != errSecSuccess {
                 throw KeychainError(statusCode: status)
             }
-            reloadSecretsInternal()
+            await reloadSecretsInternal()
         }
 
-        public func update(secret: Secret, name: String) throws {
+        public func update(secret: Secret, name: String) async throws {
             let updateQuery = KeychainDictionary([
                 kSecClass: kSecClassKey,
                 kSecAttrApplicationLabel: secret.id as CFData
@@ -98,7 +102,7 @@ extension SecureEnclave {
             if status != errSecSuccess {
                 throw KeychainError(statusCode: status)
             }
-            reloadSecretsInternal()
+            await reloadSecretsInternal()
         }
         
         public func sign(data: Data, with secret: Secret, for provenance: SigningRequestProvenance) throws -> Data {
@@ -199,8 +203,8 @@ extension SecureEnclave {
             }
         }
 
-        public func reloadSecrets() {
-            reloadSecretsInternal(notifyAgent: false)
+        public func reloadSecrets() async {
+            await reloadSecretsInternal(notifyAgent: false)
         }
 
     }
@@ -211,9 +215,11 @@ extension SecureEnclave.Store {
 
     /// Reloads all secrets from the store.
     /// - Parameter notifyAgent: A boolean indicating whether a distributed notification should be posted, notifying other processes (ie, the SecretAgent) to reload their stores as well.
-    private func reloadSecretsInternal(notifyAgent: Bool = true) {
+    private func reloadSecretsInternal(notifyAgent: Bool = true) async {
         let before = secrets
-        secrets.removeAll()
+        _secrets.withLock {
+            $0.removeAll()
+        }
         loadSecrets()
         if secrets != before {
             NotificationCenter.default.post(name: .secretStoreReloaded, object: self)
@@ -275,7 +281,9 @@ extension SecureEnclave.Store {
             }
             return SecureEnclave.Secret(id: id, name: name, requiresAuthentication: requiresAuth, publicKey: publicKey)
         }
-        secrets.append(contentsOf: wrapped)
+        _secrets.withLock {
+            $0.append(contentsOf: wrapped)
+        }
     }
 
     /// Saves a public key.
@@ -304,8 +312,8 @@ extension SecureEnclave.Store {
 extension SecureEnclave {
 
     enum Constants {
-        static let keyTag = "com.maxgoedjen.secretive.secureenclave.key".data(using: .utf8)! as CFData
-        static let keyType = kSecAttrKeyTypeECSECPrimeRandom
+        static let keyTag = Data("com.maxgoedjen.secretive.secureenclave.key".utf8)
+        static let keyType = kSecAttrKeyTypeECSECPrimeRandom as String
         static let unauthenticatedThreshold: TimeInterval = 0.05
     }
 

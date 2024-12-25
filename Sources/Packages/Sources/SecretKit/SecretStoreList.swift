@@ -1,14 +1,13 @@
 import Foundation
-import Combine
+import Observation
 
 /// A "Store Store," which holds a list of type-erased stores.
-public final class SecretStoreList: ObservableObject {
+@Observable public final class SecretStoreList: ObservableObject {
 
     /// The Stores managed by the SecretStoreList.
-    @Published public var stores: [AnySecretStore] = []
+    public var stores: [AnySecretStore] = []
     /// A modifiable store, if one is available.
-    @Published public var modifiableStore: AnySecretStoreModifiable?
-    private var cancellables: Set<AnyCancellable> = []
+    public var modifiableStore: AnySecretStoreModifiable?
 
     /// Initializes a SecretStoreList.
     public init() {
@@ -41,9 +40,9 @@ extension SecretStoreList {
 
     private func addInternal(store: AnySecretStore) {
         stores.append(store)
-        store.objectWillChange.sink {
-            self.objectWillChange.send()
-        }.store(in: &cancellables)
+//        store.objectWillChange.sink {
+//            self.objectWillChange.send()
+//        }.store(in: &cancellables)
     }
 
 }

@@ -1,20 +1,32 @@
 import Foundation
-import Combine
+import Synchronization
+import Observation
 import Brief
 
-class PreviewUpdater: UpdaterProtocol {
+@Observable class PreviewUpdater: UpdaterProtocol {
 
-    let update: Release?
+    var update: Release? {
+        _update.withLock { $0 }
+    }
+    let _update: Mutex<Release?> = .init(nil)
+
     let testBuild = false
 
     init(update: Update = .none) {
         switch update {
         case .none:
-            self.update = nil
+            _update.withLock {
+                $0 = nil
+            }
         case .advisory:
-            self.update = Release(name: "10.10.10", prerelease: false, html_url: URL(string: "https://example.com")!, body: "Some regular update")
+            _update.withLock {
+                $0 = Release(name: "10.10.10", prerelease: false, html_url: URL(string: "https://example.com")!, body: "Some regular update")
+            }
         case .critical:
-            self.update = Release(name: "10.10.10", prerelease: false, html_url: URL(string: "https://example.com")!, body: "Critical Security Update")
+            _update.withLock {
+                $0 = Release(name: "10.10.10", prerelease: false, html_url: URL(string: "https://example.com")!, body: "Critical Security Update")
+
+            }
         }
     }
 

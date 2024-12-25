@@ -156,8 +156,10 @@ struct SecretAgentSetupView: View {
     }
 
     func install() {
-        LaunchAgentController().install()
-        buttonAction()
+        Task {
+            await LaunchAgentController().install()
+            buttonAction()
+        }
     }
 
 }

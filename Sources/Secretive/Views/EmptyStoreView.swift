@@ -3,7 +3,7 @@ import SecretKit
 
 struct EmptyStoreView: View {
 
-    @ObservedObject var store: AnySecretStore
+    @State var store: AnySecretStore
     @Binding var activeSecret: AnySecret.ID?
 
     var body: some View {
@@ -22,8 +22,8 @@ struct EmptyStoreView: View {
 extension EmptyStoreView {
     
     enum Constants {
-        static let emptyStoreModifiableTag: AnyHashable = "emptyStoreModifiableTag"
-        static let emptyStoreTag: AnyHashable = "emptyStoreTag"
+        static let emptyStoreModifiableTag = "emptyStoreModifiableTag"
+        static let emptyStoreTag = "emptyStoreTag"
     }
 
 }
