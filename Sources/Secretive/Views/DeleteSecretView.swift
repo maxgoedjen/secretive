@@ -49,9 +49,10 @@ struct DeleteSecretView<StoreType: SecretStoreModifiable>: View {
     }
     
     func delete() {
-        // FIXME: THIS
-//        try! store.delete(secret: secret)
-        dismissalBlock(true)
+        Task {
+            try! await store.delete(secret: secret)
+            dismissalBlock(true)
+        }
     }
 
 }

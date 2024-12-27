@@ -2,21 +2,19 @@ import Foundation
 import Combine
 
 /// Type eraser for SecretStore.
-public class AnySecretStore: SecretStore {
+public class AnySecretStore: SecretStore, @unchecked Sendable {
 
-    let base: Any
-    private let _isAvailable: () -> Bool
-    private let _id: () -> UUID
-    private let _name: () -> String
-    private let _secrets: () -> [AnySecret]
-    private let _sign: (Data, AnySecret, SigningRequestProvenance) async throws -> Data
-    private let _verify: (Data, Data, AnySecret) async throws -> Bool
-    private let _existingPersistedAuthenticationContext: (AnySecret) async -> PersistedAuthenticationContext?
-    private let _persistAuthentication: (AnySecret, TimeInterval) async throws -> Void
-    private let _reloadSecrets: () async -> Void
+    private let _isAvailable: @Sendable () -> Bool
+    private let _id: @Sendable () -> UUID
+    private let _name: @Sendable () -> String
+    private let _secrets: @Sendable () -> [AnySecret]
+    private let _sign: @Sendable (Data, AnySecret, SigningRequestProvenance) async throws -> Data
+    private let _verify: @Sendable (Data, Data, AnySecret) async throws -> Bool
+    private let _existingPersistedAuthenticationContext: @Sendable (AnySecret) async -> PersistedAuthenticationContext?
+    private let _persistAuthentication: @Sendable (AnySecret, TimeInterval) async throws -> Void
+    private let _reloadSecrets: @Sendable () async -> Void
 
     public init<SecretStoreType>(_ secretStore: SecretStoreType) where SecretStoreType: SecretStore {
-        base = secretStore
         _isAvailable = { secretStore.isAvailable }
         _name = { secretStore.name }
         _id = { secretStore.id }
@@ -66,11 +64,11 @@ public class AnySecretStore: SecretStore {
 
 }
 
-public final class AnySecretStoreModifiable: AnySecretStore, SecretStoreModifiable {
+public final class AnySecretStoreModifiable: AnySecretStore, SecretStoreModifiable, @unchecked Sendable {
 
-    private let _create: (String, Bool) async throws -> Void
-    private let _delete: (AnySecret) async throws -> Void
-    private let _update: (AnySecret, String) async throws -> Void
+    private let _create: @Sendable (String, Bool) async throws -> Void
+    private let _delete: @Sendable (AnySecret) async throws -> Void
+    private let _update: @Sendable (AnySecret, String) async throws -> Void
 
     public init<SecretStoreType>(modifiable secretStore: SecretStoreType) where SecretStoreType: SecretStoreModifiable {
         _create = { try await secretStore.create(name: $0, requiresAuthentication: $1) }

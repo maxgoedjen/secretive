@@ -44,8 +44,9 @@ struct RenameSecretView<StoreType: SecretStoreModifiable>: View {
     }
 
     func rename() {
-        // FIXME: THIS
-//        try? await store.update(secret: secret, name: newName)
-        dismissalBlock(true)
+        Task {
+            try? await store.update(secret: secret, name: newName)
+            dismissalBlock(true)
+        }
     }
 }
