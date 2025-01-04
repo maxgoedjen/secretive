@@ -4,12 +4,12 @@ on: [push, pull_request]
 jobs:
   test:
 #     runs-on: macOS-latest
-    runs-on: macos-14
+    runs-on: macos-15
     timeout-minutes: 10
     steps:
     - uses: actions/checkout@v4
     - name: Set Environment
-      run: sudo xcrun xcode-select -s /Applications/Xcode_15.4.app
+      run: sudo xcrun xcode-select -s /Applications/Xcode_16.2.app
     - name: Test
       run: |
             pushd Sources/Packages
