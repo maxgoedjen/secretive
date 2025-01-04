@@ -7,55 +7,44 @@ import LocalAuthentication
 import SecretKit
 
 extension SmartCard {
+    
+    private struct State {
+        var isAvailable = false
+        var name = String(localized: "smart_card")
+        var secrets: [Secret] = []
+        let watcher = TKTokenWatcher()
+        var tokenID: String? = nil
+    }
 
     /// An implementation of Store backed by a Smart Card.
     @Observable public final class Store: SecretStore {
 
+        private let state: Mutex<State> = .init(.init())
         public var isAvailable: Bool {
-            _isAvailable.withLock { $0 }
+            state.withLock { $0.isAvailable }
         }
-        private let _isAvailable: Mutex<Bool> = .init(false)
 
         public let id = UUID()
         public var name: String {
-            _name.withLock { $0 }
+            state.withLock { $0.name }
         }
-        private let _name: Mutex<String> = .init(String(localized: "smart_card"))
         public var secrets: [Secret] {
-            _secrets.withLock { $0 }
+            state.withLock { $0.secrets }
         }
-        private let _secrets: Mutex<[Secret]> = .init([])
-        private let watcher: Mutex<TKTokenWatcher> = .init(TKTokenWatcher())
-        private let tokenID: Mutex<String?> = .init(nil)
 
         /// Initializes a Store.
         public init() {
-            tokenID.withLock { tokenID in
-                watcher.withLock { watcher in
-                    let id = watcher.nonSecureEnclaveTokens.first
-                    watcher.setInsertionHandler { string in
-//                        guard self.tokenID == nil else { return }
-//                        guard !string.contains("setoken") else { return }
-//                        
-////                        self.tokenID.withLock {
-////                            $0 = string
-////                        }
-//                        //                DispatchQueue.main.async {
-//                        //                    reload()
-//                        //                }
-//                        watcher.addRemovalHandler(self.smartcardRemoved, forTokenID: string)
+            state.withLock { state in
+                if let tokenID = state.tokenID {
+                    state.isAvailable = true
+                    state.watcher.addRemovalHandler(self.smartcardRemoved, forTokenID: tokenID)
+                }
+                state.watcher.setInsertionHandler { id in
+                    // Setting insertion handler will cause it to be called immediately.
+                    // Make a thread jump so we don't hit a recursive lock attempt.
+                    Task {
+                        self.smartcardInserted(for: id)
                     }
-                    tokenID = id
-                }
-            }
-            // FIXME: THIS
-            if let tokenID = tokenID.withLock({ $0 }) {
-                _isAvailable.withLock {
-                    $0 = true
-                }
-                watcher.withLock {
-                    $0.addRemovalHandler(self.smartcardRemoved, forTokenID: tokenID)
-                    
                 }
             }
             loadSecrets()
@@ -72,7 +61,7 @@ extension SmartCard {
         }
 
         public func sign(data: Data, with secret: Secret, for provenance: SigningRequestProvenance) throws -> Data {
-            guard let tokenID = tokenID.withLock({ $0 }) else { fatalError() }
+            guard let tokenID = state.withLock({ $0.tokenID }) else { fatalError() }
             let context = LAContext()
             context.localizedReason = String(localized: "auth_context_request_signature_description_\(provenance.origin.displayName)_\(secret.name)")
             context.localizedCancelTitle = String(localized: "auth_context_request_deny_button")
@@ -142,12 +131,11 @@ extension SmartCard {
 extension SmartCard.Store {
 
     private func reloadSecretsInternal() {
-        _isAvailable.withLock {
-            $0 = tokenID.withLock({ $0 }) != nil
-        }
-        let before = self.secrets
-        self._secrets.withLock {
-            $0.removeAll()
+        let before = state.withLock {
+            $0.isAvailable = $0.tokenID != nil
+            let before = $0.secrets
+            $0.secrets.removeAll()
+            return before
         }
         self.loadSecrets()
         if self.secrets != before {
@@ -156,24 +144,37 @@ extension SmartCard.Store {
     }
 
     /// Resets the token ID and reloads secrets.
+    /// - Parameter tokenID: The ID of the token that was inserted.
+    private func smartcardInserted(for tokenID: String? = nil) {
+        state.withLock { state in
+            guard let string = state.watcher.nonSecureEnclaveTokens.first else { return }
+            guard state.tokenID == nil else { return }
+            guard !string.contains("setoken") else { return }
+            state.tokenID = string
+            state.watcher.addRemovalHandler(self.smartcardRemoved, forTokenID: string)
+            state.tokenID = string
+        }
+    }
+
+    /// Resets the token ID and reloads secrets.
     /// - Parameter tokenID: The ID of the token that was removed.
     private func smartcardRemoved(for tokenID: String? = nil) {
-        self.tokenID.withLock {
-            $0 = nil
+        state.withLock {
+            $0.tokenID = nil
         }
         reloadSecrets()
     }
 
     /// Loads all secrets from the store.
     private func loadSecrets() {
-        guard let tokenID = tokenID.withLock({ $0 }) else { return }
+        guard let tokenID = state.withLock({ $0.tokenID }) else { return }
 
         let fallbackName = String(localized: "smart_card")
-        _name.withLock {
-            if let driverName = watcher.withLock({ $0.tokenInfo(forTokenID: tokenID)?.driverName }) {
-                $0 = driverName
+        state.withLock {
+            if let driverName = $0.watcher.tokenInfo(forTokenID: tokenID)?.driverName  {
+                $0.name = driverName
             } else {
-                $0 = fallbackName
+                $0.name = fallbackName
             }
         }
 
@@ -198,8 +199,8 @@ extension SmartCard.Store {
             let publicKey = publicKeyAttributes[kSecValueData] as! Data
             return SmartCard.Secret(id: tokenID, name: name, algorithm: algorithm, keySize: keySize, publicKey: publicKey)
         }
-        _secrets.withLock {
-            $0.append(contentsOf: wrapped)
+        state.withLock {
+            $0.secrets.append(contentsOf: wrapped)
         }
     }
 
@@ -244,7 +245,7 @@ extension SmartCard.Store {
     /// - Returns: The decrypted data.
     /// - Warning: Encryption functions are deliberately only exposed on a library level, and are not exposed in Secretive itself to prevent users from data loss. Any pull requests which expose this functionality in the app will not be merged.
     public func decrypt(data: Data, with secret: SecretType) throws -> Data {
-        guard let tokenID = tokenID.withLock({ $0 }) else { fatalError() }
+        guard let tokenID = state.withLock({ $0.tokenID }) else { fatalError() }
         let context = LAContext()
         context.localizedReason = String(localized: "auth_context_request_decrypt_description_\(secret.name)")
         context.localizedCancelTitle = String(localized: "auth_context_request_deny_button")
