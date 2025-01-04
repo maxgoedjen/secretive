@@ -26,7 +26,7 @@ struct LaunchAgentController {
         let config = NSWorkspace.OpenConfiguration()
         config.activates = false
         do {
-            let app = try await NSWorkspace.shared.openApplication(at: url, configuration: config)
+            try await NSWorkspace.shared.openApplication(at: url, configuration: config)
             logger.debug("Agent force launched")
             return true
         } catch {
@@ -36,8 +36,17 @@ struct LaunchAgentController {
     }
 
     private func setEnabled(_ enabled: Bool) -> Bool {
-        // FIXME: THIS
-        SMLoginItemSetEnabled(Bundle.main.agentBundleID as CFString, enabled)
+        let service = SMAppService.loginItem(identifier: Bundle.main.agentBundleID)
+        do {
+            if enabled {
+                try service.register()
+            } else {
+                try service.unregister()
+            }
+            return true
+        } catch {
+            return false
+        }
     }
 
 }
