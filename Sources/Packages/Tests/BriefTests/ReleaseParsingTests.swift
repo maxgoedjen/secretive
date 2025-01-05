@@ -72,8 +72,8 @@ import Foundation
             Release(name: "1.0.2", prerelease: false, html_url: URL(string: "https://example.com")!, body: "Emergency patch! Minimum macOS Version: 1.2.3"),
         ]
 
-        updater.evaluate(releases: releases)
-        try await Task.sleep(nanoseconds: 500)
+        await updater.evaluate(releases: releases)
+        try await Task.sleep(nanoseconds: 1)
         #expect(updater.update == two)
     }
 
@@ -89,8 +89,8 @@ import Foundation
             Release(name: "2.0.0", prerelease: false, html_url: URL(string: "https://example.com")!, body: "2.0 available! Minimum macOS Version: 2.2.3"),
             Release(name: "1.0.2", prerelease: false, html_url: URL(string: "https://example.com")!, body: "Emergency patch! Minimum macOS Version: 1.2.3"),
         ]
-        updater.evaluate(releases: releases)
-        try await Task.sleep(nanoseconds: 500)
+        await updater.evaluate(releases: releases)
+        try await Task.sleep(nanoseconds: 1)
         #expect(updater.update == oneOhTwo)
     }
 
