@@ -1,7 +1,7 @@
 import Foundation
 import SecretAgentKit
 
-class StubFileHandleWriter: FileHandleWriter {
+class StubFileHandleWriter: FileHandleWriter, @unchecked Sendable {
 
     var data = Data()
 

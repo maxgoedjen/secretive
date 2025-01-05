@@ -4,6 +4,7 @@ import Combine
 /// Type eraser for SecretStore.
 public class AnySecretStore: SecretStore, @unchecked Sendable {
 
+    let base: Any
     private let _isAvailable: @Sendable () -> Bool
     private let _id: @Sendable () -> UUID
     private let _name: @Sendable () -> String
@@ -15,6 +16,7 @@ public class AnySecretStore: SecretStore, @unchecked Sendable {
     private let _reloadSecrets: @Sendable () async -> Void
 
     public init<SecretStoreType>(_ secretStore: SecretStoreType) where SecretStoreType: SecretStore {
+        base = secretStore
         _isAvailable = { secretStore.isAvailable }
         _name = { secretStore.name }
         _id = { secretStore.id }
