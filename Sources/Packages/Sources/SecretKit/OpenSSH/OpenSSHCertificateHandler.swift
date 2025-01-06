@@ -1,6 +1,7 @@
 import Foundation
 import OSLog
 import Synchronization
+import Backports
 
 /// Manages storage and lookup for OpenSSH certificates.
 public final class OpenSSHCertificateHandler: Sendable {
@@ -8,7 +9,7 @@ public final class OpenSSHCertificateHandler: Sendable {
     private let publicKeyFileStoreController = PublicKeyFileStoreController(homeDirectory: NSHomeDirectory())
     private let logger = Logger(subsystem: "com.maxgoedjen.secretive.secretagent", category: "OpenSSHCertificateHandler")
     private let writer = OpenSSHKeyWriter()
-    private let keyBlobsAndNames: Mutex<[AnySecret: (Data, Data)]> = .init([:])
+    private let keyBlobsAndNames: _Mutex<[AnySecret: (Data, Data)]> = .init([:])
 
     /// Initializes an OpenSSHCertificateHandler.
     public init() {

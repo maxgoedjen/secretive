@@ -27,18 +27,26 @@ let package = Package(
         .library(
             name: "Brief",
             targets: ["Brief"]),
+        .library(
+            name: "Backports",
+            targets: ["Backports"]),
     ],
     dependencies: [
     ],
     targets: [
         .target(
-            name: "SecretKit",
+            name: "Backports",
             dependencies: [],
+            swiftSettings: swiftSettings
+        ),
+        .target(
+            name: "SecretKit",
+            dependencies: ["Backports"],
             swiftSettings: swiftSettings
         ),
         .testTarget(
             name: "SecretKitTests",
-            dependencies: ["SecretKit", "SecureEnclaveSecretKit", "SmartCardSecretKit"],
+            dependencies: ["Backports", "SecretKit", "SecureEnclaveSecretKit", "SmartCardSecretKit"],
             swiftSettings: swiftSettings
         ),
         .target(
@@ -48,12 +56,12 @@ let package = Package(
         ),
         .target(
             name: "SmartCardSecretKit",
-            dependencies: ["SecretKit"],
+            dependencies: ["Backports", "SecretKit"],
             swiftSettings: swiftSettings
         ),
         .target(
             name: "SecretAgentKit",
-            dependencies: ["SecretKit", "SecretAgentKitHeaders"],
+            dependencies: ["Backports", "SecretKit", "SecretAgentKitHeaders"],
             swiftSettings: swiftSettings
         ),
         .systemLibrary(
@@ -65,7 +73,7 @@ let package = Package(
         ,
         .target(
             name: "Brief",
-            dependencies: []
+            dependencies: ["Backports"]
         ),
         .testTarget(
             name: "BriefTests",
