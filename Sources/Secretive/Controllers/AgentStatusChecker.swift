@@ -2,15 +2,16 @@ import Foundation
 import Combine
 import AppKit
 import SecretKit
+import Observation
 
-protocol AgentStatusCheckerProtocol: ObservableObject {
+protocol AgentStatusCheckerProtocol: Observable {
     var running: Bool { get }
     var developmentBuild: Bool { get }
 }
 
-class AgentStatusChecker: ObservableObject, AgentStatusCheckerProtocol {
+@Observable class AgentStatusChecker: AgentStatusCheckerProtocol {
 
-    @Published var running: Bool = false
+    var running: Bool = false
 
     init() {
         check()

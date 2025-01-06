@@ -1,13 +1,14 @@
 import Foundation
 import OSLog
+import Synchronization
 
 /// Manages storage and lookup for OpenSSH certificates.
-public final class OpenSSHCertificateHandler {
+public final class OpenSSHCertificateHandler: Sendable {
 
     private let publicKeyFileStoreController = PublicKeyFileStoreController(homeDirectory: NSHomeDirectory())
     private let logger = Logger(subsystem: "com.maxgoedjen.secretive.secretagent", category: "OpenSSHCertificateHandler")
     private let writer = OpenSSHKeyWriter()
-    private var keyBlobsAndNames: [AnySecret: (Data, Data)] = [:]
+    private let keyBlobsAndNames: Mutex<[AnySecret: (Data, Data)]> = .init([:])
 
     /// Initializes an OpenSSHCertificateHandler.
     public init() {
@@ -20,8 +21,10 @@ public final class OpenSSHCertificateHandler {
             logger.log("No certificates, short circuiting")
             return
         }
-        keyBlobsAndNames = secrets.reduce(into: [:]) { partialResult, next in
-            partialResult[next] = try? loadKeyblobAndName(for: next)
+        keyBlobsAndNames.withLock {
+            $0 = secrets.reduce(into: [:]) { partialResult, next in
+                partialResult[next] = try? loadKeyblobAndName(for: next)
+            }
         }
     }
 
@@ -29,7 +32,10 @@ public final class OpenSSHCertificateHandler {
     /// - Parameter secret: The secret to check for a certificate.
     /// - Returns: A boolean describing whether or not the certificate handler has a certifiicate associated with a given secret
     public func hasCertificate<SecretType: Secret>(for secret: SecretType) -> Bool {
-        keyBlobsAndNames[AnySecret(secret)] != nil
+        keyBlobsAndNames.withLock {
+            $0[AnySecret(secret)] != nil
+        }
+        
     }
 
 
@@ -61,7 +67,9 @@ public final class OpenSSHCertificateHandler {
     /// - Parameter secret: The secret to search for a certificate with
     /// - Returns: A (``Data``, ``Data``) tuple containing the certificate and certificate name, respectively.
     public func keyBlobAndName<SecretType: Secret>(for secret: SecretType) throws -> (Data, Data)? {
-        keyBlobsAndNames[AnySecret(secret)]
+        keyBlobsAndNames.withLock {
+            $0[AnySecret(secret)]
+        }
     }
     
     /// Attempts to find an OpenSSH Certificate  that corresponds to a ``Secret``

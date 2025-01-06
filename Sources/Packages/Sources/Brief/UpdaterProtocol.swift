@@ -2,7 +2,7 @@ import Foundation
 import Synchronization
 
 /// A protocol for retreiving the latest available version of an app.
-public protocol UpdaterProtocol: ObservableObject {
+public protocol UpdaterProtocol: Observable {
 
     /// The latest update
     var update: Release? { get }

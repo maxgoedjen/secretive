@@ -4,7 +4,7 @@ import SecureEnclaveSecretKit
 import SmartCardSecretKit
 import Brief
 
-struct ContentView<UpdaterType: UpdaterProtocol, AgentStatusCheckerType: AgentStatusCheckerProtocol>: View {
+struct ContentView: View {
 
     @Binding var showingCreation: Bool
     @Binding var runningSetup: Bool
@@ -13,9 +13,9 @@ struct ContentView<UpdaterType: UpdaterProtocol, AgentStatusCheckerType: AgentSt
     @State var activeSecret: AnySecret.ID?
     @Environment(\.colorScheme) var colorScheme
 
-    @EnvironmentObject private var storeList: SecretStoreList
-    @EnvironmentObject private var updater: UpdaterType
-    @EnvironmentObject private var agentStatusChecker: AgentStatusCheckerType
+    @Environment(\.secretStoreList) private var storeList: SecretStoreList
+    @Environment(\.updater) private var updater: any UpdaterProtocol
+    @Environment(\.agentStatusChecker) private var agentStatusChecker: any AgentStatusCheckerProtocol
 
     @State private var selectedUpdate: Release?
     @State private var showingAppPathNotice = false

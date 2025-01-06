@@ -2,7 +2,7 @@ import Foundation
 import SecretKit
 
 /// A protocol that allows conformers to be notified of access to secrets, and optionally prevent access.
-public protocol SigningWitness {
+public protocol SigningWitness: Sendable {
 
     /// A ridiculously named method that notifies the callee that a signing operation is about to be performed using a secret. The callee may `throw` an `Error` to prevent access from occurring.
     /// - Parameters:

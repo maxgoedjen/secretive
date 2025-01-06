@@ -6,6 +6,7 @@ import SecureEnclaveSecretKit
 import SmartCardSecretKit
 import SecretAgentKit
 import Brief
+import Observation
 
 @main
 class AppDelegate: NSObject, NSApplicationDelegate {
@@ -31,19 +32,28 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         logger.debug("SecretAgent finished launching")
-//        DispatchQueue.main.async {
-//            self.socketController.handler = self.agent.handle(reader:writer:)
-//        }
-//        NotificationCenter.default.addObserver(forName: .secretStoreReloaded, object: nil, queue: .main) { [self] _ in
-//            try? publicKeyFileStoreController.generatePublicKeys(for: storeList.allSecrets, clear: true)
-//        }
+        Task { @MainActor in
+            socketController.handler = { [agent] reader, writer in
+                await agent.handle(reader: reader, writer: writer)
+            }
+        }
+        Task {
+            for await _ in NotificationCenter.default.notifications(named: .secretStoreReloaded) {
+                try? publicKeyFileStoreController.generatePublicKeys(for: storeList.allSecrets, clear: true)
+            }
+        }
         try? publicKeyFileStoreController.generatePublicKeys(for: storeList.allSecrets, clear: true)
         notifier.prompt()
-//        updateSink = updater.$update.sink { update in
-//            guard let update = update else { return }
-//            self.notifier.notify(update: update, ignore: self.updater.ignore(release:))
-//        }
+        _ = withObservationTracking {
+            updater.update
+        } onChange: { [updater, notifier] in
+            notifier.notify(update: updater.update!) { release in
+                Task {
+                    await updater.ignore(release: release)
+                }
+            }
+        }
     }
-
+    
 }
 

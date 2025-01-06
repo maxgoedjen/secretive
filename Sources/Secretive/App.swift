@@ -5,9 +5,20 @@ import SecureEnclaveSecretKit
 import SmartCardSecretKit
 import Brief
 
+extension EnvironmentValues {
+    @Entry var secretStoreList: SecretStoreList = {
+        let list = SecretStoreList()
+        list.add(store: SecureEnclave.Store())
+        list.add(store: SmartCard.Store())
+        return list
+    }()
+    @Entry var agentStatusChecker: any AgentStatusCheckerProtocol = AgentStatusChecker()
+    @Entry var updater: any UpdaterProtocol = Updater(checkOnLaunch: false)
+}
+
 @main
 struct Secretive: App {
-
+    
     private let storeList: SecretStoreList = {
         let list = SecretStoreList()
         list.add(store: SecureEnclave.Store())
@@ -23,10 +34,10 @@ struct Secretive: App {
 
     @SceneBuilder var body: some Scene {
         WindowGroup {
-            ContentView<Updater, AgentStatusChecker>(showingCreation: $showingCreation, runningSetup: $showingSetup, hasRunSetup: $hasRunSetup)
-                .environmentObject(storeList)
-                .environmentObject(Updater(checkOnLaunch: hasRunSetup))
-                .environmentObject(agentStatusChecker)
+            ContentView(showingCreation: $showingCreation, runningSetup: $showingSetup, hasRunSetup: $hasRunSetup)
+                .environment(storeList)
+                .environment(Updater(checkOnLaunch: hasRunSetup))
+                .environment(agentStatusChecker)
                 .onAppear {
                     if !hasRunSetup {
                         showingSetup = true

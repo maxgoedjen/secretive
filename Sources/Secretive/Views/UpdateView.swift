@@ -3,7 +3,7 @@ import Brief
 
 struct UpdateDetailView<UpdaterType: Updater>: View {
 
-    @EnvironmentObject var updater: UpdaterType
+    @Environment(UpdaterType.self) var updater: UpdaterType
 
     let update: Release
 
