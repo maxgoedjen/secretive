@@ -5,7 +5,6 @@ import SecretKit
 import SecretAgentKit
 import Brief
 import Synchronization
-import Backports
 
 final class Notifier: Sendable {
 
@@ -152,7 +151,7 @@ final class NotificationDelegate: NSObject, UNUserNotificationCenterDelegate, Se
         fileprivate var pendingPersistableSecrets: [String: AnySecret] = [:]
     }
     
-    fileprivate let state: _Mutex<State> = .init(.init())
+    fileprivate let state: Mutex<State> = .init(.init())
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, openSettingsFor notification: UNNotification?) {
 

@@ -5,7 +5,6 @@ import CryptoKit
 import LocalAuthentication
 import SecretKit
 import Synchronization
-import Backports
 
 extension SecureEnclave {
 
@@ -20,9 +19,9 @@ extension SecureEnclave {
         public var secrets: [Secret] {
             _secrets.withLock { $0 }
         }
-        private let _secrets: _Mutex<[Secret]> = .init([])
+        private let _secrets: Mutex<[Secret]> = .init([])
 
-        private let persistedAuthenticationContexts: _Mutex<[Secret: PersistentAuthenticationContext]> = .init([:])
+        private let persistedAuthenticationContexts: Mutex<[Secret: PersistentAuthenticationContext]> = .init([:])
 
         /// Initializes a Store.
         public init() {
@@ -106,7 +105,7 @@ extension SecureEnclave {
         }
         
         public func sign(data: Data, with secret: Secret, for provenance: SigningRequestProvenance) throws -> Data {
-            let context: _Mutex<LAContext>
+            let context: Mutex<LAContext>
 //            if let existing = persistedAuthenticationContexts.withLock({ $0 })[secret], existing.valid {
 //                context = existing.context
 //            } else {

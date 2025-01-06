@@ -2,14 +2,13 @@ import Foundation
 import Synchronization
 import Observation
 import Brief
-import Backports
 
 @Observable class PreviewUpdater: UpdaterProtocol {
 
     var update: Release? {
         _update.withLock { $0 }
     }
-    let _update: _Mutex<Release?> = .init(nil)
+    let _update: Mutex<Release?> = .init(nil)
 
     let testBuild = false
 

@@ -1,7 +1,6 @@
 import Foundation
 import Observation
 import Synchronization
-import Backports
 
 /// A concrete implementation of ``UpdaterProtocol`` which considers the current release and OS version.
 @Observable public final class Updater: UpdaterProtocol, ObservableObject, Sendable {
@@ -9,7 +8,7 @@ import Backports
     public var update: Release? {
         _update.withLock { $0 }
     }
-    private let _update: _Mutex<Release?> = .init(nil)
+    private let _update: Mutex<Release?> = .init(nil)
     public let testBuild: Bool
 
     /// The current OS version.

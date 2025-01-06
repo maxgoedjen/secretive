@@ -5,7 +5,6 @@ import Security
 import CryptoTokenKit
 import LocalAuthentication
 import SecretKit
-import Backports
 
 extension SmartCard {
     
@@ -20,7 +19,7 @@ extension SmartCard {
     /// An implementation of Store backed by a Smart Card.
     @Observable public final class Store: SecretStore {
 
-        private let state: _Mutex<State> = .init(.init())
+        private let state: Mutex<State> = .init(.init())
         public var isAvailable: Bool {
             state.withLock { $0.isAvailable }
         }
