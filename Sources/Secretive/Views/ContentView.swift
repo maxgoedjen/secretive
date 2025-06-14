@@ -30,10 +30,12 @@ struct ContentView<UpdaterType: UpdaterProtocol, AgentStatusCheckerType: AgentSt
         }
         .frame(minWidth: 640, minHeight: 320)
         .toolbar {
-            toolbarItem(updateNoticeView, id: "update")
-            toolbarItem(runningOrRunSetupView, id: "setup")
-            toolbarItem(appPathNoticeView, id: "appPath")
-            toolbarItem(newItemView, id: "new")
+            if #available(macOS 26.0, *) {
+                toolbarItem(updateNoticeView, id: "update")
+                toolbarItem(runningOrRunSetupView, id: "setup")
+                toolbarItem(appPathNoticeView, id: "appPath")
+                toolbarItem(newItemView, id: "new")
+            }
         }
         .sheet(isPresented: $runningSetup) {
             SetupView(visible: $runningSetup, setupComplete: $hasRunSetup)
@@ -44,9 +46,14 @@ struct ContentView<UpdaterType: UpdaterProtocol, AgentStatusCheckerType: AgentSt
 
 extension ContentView {
 
-
-    func toolbarItem(_ view: some View, id: String) -> ToolbarItem<String, some View> {
-        ToolbarItem(id: id) { view }
+    @ToolbarContentBuilder
+    func toolbarItem(_ view: some View, id: String) -> some ToolbarContent {
+        if #available(macOS 26.0, *) {
+            ToolbarItem(id: id) { view }
+                .sharedBackgroundVisibility(.hidden)
+        } else {
+            ToolbarItem(id: id) { view }
+        }
     }
 
     var needsSetup: Bool {
