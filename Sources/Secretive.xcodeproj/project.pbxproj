@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 54;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -438,6 +438,9 @@
 				ca,
 			);
 			mainGroup = 50617D7623FCE48D0099B055;
+			packageReferences = (
+				5068431C2DFE2DE000920856 /* XCLocalSwiftPackageReference "Packages" */,
+			);
 			productRefGroup = 50617D8023FCE48E0099B055 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -1009,6 +1012,13 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		5068431C2DFE2DE000920856 /* XCLocalSwiftPackageReference "Packages" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Packages;
+		};
+/* End XCLocalSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
 		5003EF3A278005E800DF2006 /* SecretKit */ = {
