@@ -93,14 +93,14 @@ struct ThumbnailPickerView<ValueType: Hashable>: View {
 
 extension ThumbnailPickerView {
 
-    struct Item<ValueType: Hashable>: Identifiable {
+    struct Item<InnerValueType: Hashable>: Identifiable {
         let id = UUID()
-        let value: ValueType
+        let value: InnerValueType
         let name: LocalizedStringKey
         let description: LocalizedStringKey
         let thumbnail: AnyView
 
-        init<ViewType: View>(value: ValueType, name: LocalizedStringKey, description: LocalizedStringKey, thumbnail: ViewType) {
+        init<ViewType: View>(value: InnerValueType, name: LocalizedStringKey, description: LocalizedStringKey, thumbnail: ViewType) {
             self.value = value
             self.name = name
             self.description = description
