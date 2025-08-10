@@ -232,19 +232,19 @@ struct NotificationView: View {
 
 }
 
-//#if DEBUG
-//
-//struct CreateSecretView_Previews: PreviewProvider {
-//
-//    static var previews: some View {
-//        Group {
-//            CreateSecretView(store: Preview.StoreModifiable(), showing: .constant(true))
-//                AuthenticationView().environment(\.colorScheme, .dark)
-//                AuthenticationView().environment(\.colorScheme, .light)
-//                NotificationView().environment(\.colorScheme, .dark)
-//                NotificationView().environment(\.colorScheme, .light)
-//        }
-//    }
-//}
-//
-//#endif
+#if DEBUG
+
+struct CreateSecretView_Previews: PreviewProvider {
+
+    static var previews: some View {
+        Group {
+            CreateSecretView(store: Preview.StoreModifiable(), showing: .constant(true))
+                AuthenticationView().environment(\.colorScheme, .dark)
+                AuthenticationView().environment(\.colorScheme, .light)
+                NotificationView().environment(\.colorScheme, .dark)
+                NotificationView().environment(\.colorScheme, .light)
+        }
+    }
+}
+
+#endif
