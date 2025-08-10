@@ -44,9 +44,14 @@ struct ContentView: View {
 
 extension ContentView {
 
-
-    func toolbarItem(_ view: some View, id: String) -> ToolbarItem<String, some View> {
-        ToolbarItem(id: id) { view }
+    @ToolbarContentBuilder
+    func toolbarItem(_ view: some View, id: String) -> some ToolbarContent {
+        if #available(macOS 26.0, *) {
+            ToolbarItem(id: id) { view }
+                .sharedBackgroundVisibility(.hidden)
+        } else {
+            ToolbarItem(id: id) { view }
+        }
     }
 
     var needsSetup: Bool {
