@@ -4,8 +4,8 @@ import SecretKit
 
 struct StoreListView: View {
 
-    @Binding var activeSecret: AnySecret.ID?
-    
+    @Binding var activeSecret: AnySecret?
+
     @Environment(SecretStoreList.self) private var storeList: SecretStoreList
 
     private func secretDeleted(secret: AnySecret) {
@@ -13,25 +13,24 @@ struct StoreListView: View {
     }
 
     private func secretRenamed(secret: AnySecret) {
-        activeSecret = secret.id
+        activeSecret = secret
     }
 
     var body: some View {
-        NavigationView {
+        NavigationSplitView {
             List(selection: $activeSecret) {
                 ForEach(storeList.stores) { store in
                     if store.isAvailable {
                         Section(header: Text(store.name)) {
                             if store.secrets.isEmpty {
-                                EmptyStoreView(store: store, activeSecret: $activeSecret)
+                                EmptyStoreView(store: store)
                             } else {
                                 ForEach(store.secrets) { secret in
                                     SecretListItemView(
                                         store: store,
                                         secret: secret,
-                                        activeSecret: $activeSecret,
-                                        deletedSecret: self.secretDeleted,
-                                        renamedSecret: self.secretRenamed
+                                        deletedSecret: secretDeleted,
+                                        renamedSecret: secretRenamed
                                     )
                                 }
                             }
@@ -39,25 +38,26 @@ struct StoreListView: View {
                     }
                 }
             }
-            .listStyle(SidebarListStyle())
-            .onAppear {
-                activeSecret = nextDefaultSecret
+        } detail: {
+            if let activeSecret {
+                SecretDetailView(secret: activeSecret)
+            } else {
+                EmptyStoreView(store: storeList.stores.first)
             }
-            .frame(minWidth: 100, idealWidth: 240)
         }
+        .navigationSplitViewStyle(.balanced)
+        .onAppear {
+            activeSecret = nextDefaultSecret
+        }
+        .frame(minWidth: 100, idealWidth: 240)
+
     }
 }
 
 extension StoreListView {
 
-    var nextDefaultSecret: AnyHashable? {
-        let fallback: AnyHashable
-        if storeList.modifiableStore?.isAvailable ?? false {
-            fallback = EmptyStoreView.Constants.emptyStoreModifiableTag
-        } else {
-            fallback = EmptyStoreView.Constants.emptyStoreTag
-        }
-        return storeList.stores.compactMap(\.secrets.first).first?.id ?? fallback
+    private var nextDefaultSecret: AnySecret? {
+        return storeList.stores.compactMap(\.secrets.first).first
     }
     
 }

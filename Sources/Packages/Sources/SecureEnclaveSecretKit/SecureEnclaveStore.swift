@@ -2,7 +2,7 @@ import Foundation
 import Observation
 import Security
 import CryptoKit
-import LocalAuthentication
+@preconcurrency import LocalAuthentication
 import SecretKit
 import Synchronization
 

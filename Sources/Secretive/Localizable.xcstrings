@@ -2256,6 +2256,7 @@
       }
     },
     "empty_store_modifiable_title" : {
+      "extractionState" : "stale",
       "localizations" : {
         "ca" : {
           "stringUnit" : {

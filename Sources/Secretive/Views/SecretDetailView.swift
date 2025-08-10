@@ -3,7 +3,7 @@ import SecretKit
 
 struct SecretDetailView<SecretType: Secret>: View {
     
-    @State var secret: SecretType
+    let secret: SecretType
 
     private let keyWriter = OpenSSHKeyWriter()
     private let publicKeyFileStoreController = PublicKeyFileStoreController(homeDirectory: NSHomeDirectory().replacingOccurrences(of: Bundle.main.hostBundleID, with: Bundle.main.agentBundleID))
@@ -47,12 +47,12 @@ struct SecretDetailView<SecretType: Secret>: View {
 
 }
 
-//#if DEBUG
-//
-//struct SecretDetailView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        SecretDetailView(secret: Preview.Store(numberOfRandomSecrets: 1).secrets[0])
-//    }
-//}
-//
-//#endif
+#if DEBUG
+
+struct SecretDetailView_Previews: PreviewProvider {
+    static var previews: some View {
+        SecretDetailView(secret: Preview.Store(numberOfRandomSecrets: 1).secrets[0])
+    }
+}
+
+#endif

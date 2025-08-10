@@ -3,29 +3,15 @@ import SecretKit
 
 struct EmptyStoreView: View {
 
-    @State var store: AnySecretStore
-    @Binding var activeSecret: AnySecret.ID?
-
+    @State var store: AnySecretStore?
+    
     var body: some View {
         if store is AnySecretStoreModifiable {
-            NavigationLink(destination: EmptyStoreModifiableView(), tag: Constants.emptyStoreModifiableTag, selection: $activeSecret) {
-                Text("empty_store_modifiable_title")
-            }
+            EmptyStoreModifiableView()
         } else {
-            NavigationLink(destination: EmptyStoreImmutableView(), tag: Constants.emptyStoreTag, selection: $activeSecret) {
-                Text("empty_store_nonmodifiable_title")
-            }
+            EmptyStoreImmutableView()
         }
     }
-}
-
-extension EmptyStoreView {
-    
-    enum Constants {
-        static let emptyStoreModifiableTag = "emptyStoreModifiableTag"
-        static let emptyStoreTag = "emptyStoreTag"
-    }
-
 }
 
 struct EmptyStoreImmutableView: View {

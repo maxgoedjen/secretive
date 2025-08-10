@@ -10,7 +10,7 @@ struct ContentView: View {
     @Binding var runningSetup: Bool
     @Binding var hasRunSetup: Bool
     @State var showingAgentInfo = false
-    @State var activeSecret: AnySecret.ID?
+    @State var activeSecret: AnySecret?
     @Environment(\.colorScheme) var colorScheme
 
     @Environment(\.secretStoreList) private var storeList: SecretStoreList
@@ -106,7 +106,7 @@ extension ContentView {
                 if let modifiable = storeList.modifiableStore {
                     CreateSecretView(store: modifiable, showing: $showingCreation)
                         .onDisappear {
-                            guard let newest = modifiable.secrets.last?.id else { return }
+                            guard let newest = modifiable.secrets.last else { return }
                             activeSecret = newest
                         }
                 }

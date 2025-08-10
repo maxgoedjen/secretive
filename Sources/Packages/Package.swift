@@ -65,7 +65,8 @@ let package = Package(
         ,
         .target(
             name: "Brief",
-            dependencies: []
+            dependencies: [],
+            swiftSettings: swiftSettings
         ),
         .testTarget(
             name: "BriefTests",
