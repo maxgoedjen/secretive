@@ -1,6 +1,7 @@
 import Foundation
 import Testing
 import CryptoKit
+import Synchronization
 @testable import SecretKit
 @testable import SecretAgentKit
 
@@ -90,34 +91,35 @@ import CryptoKit
     @Test func witnessSignature() async {
         let stubReader = StubFileHandleReader(availableData: Constants.Requests.requestSignature)
         let list = storeList(with: [Constants.Secrets.ecdsa256Secret])
-        var witnessed = false
+        let witnessed: Mutex<Bool> = .init(false)
         let witness = StubWitness(speakNow: { _, trace  in
             return false
         }, witness: { _, trace in
-            witnessed = true
+            witnessed.lockedValue = true
         })
         let agent = Agent(storeList: list, witness: witness)
         await agent.handle(reader: stubReader, writer: stubWriter)
-        #expect(witnessed)
+        let value = witnessed.lockedValue
+        #expect(value)
     }
 
     @Test func requestTracing() async {
         let stubReader = StubFileHandleReader(availableData: Constants.Requests.requestSignature)
         let list = storeList(with: [Constants.Secrets.ecdsa256Secret])
-        var speakNowTrace: SigningRequestProvenance! = nil
-        var witnessTrace: SigningRequestProvenance! = nil
+        let speakNowTrace: Mutex<SigningRequestProvenance?> = .init(nil)
+        let witnessTrace: Mutex<SigningRequestProvenance?> = .init(nil)
         let witness = StubWitness(speakNow: { _, trace  in
-            speakNowTrace = trace
+            speakNowTrace.lockedValue = trace
             return false
         }, witness: { _, trace in
-            witnessTrace = trace
+            witnessTrace.lockedValue = trace
         })
         let agent = Agent(storeList: list, witness: witness)
         await agent.handle(reader: stubReader, writer: stubWriter)
-        #expect(witnessTrace == speakNowTrace)
-        #expect(witnessTrace.origin.displayName == "Finder")
-        #expect(witnessTrace.origin.validSignature == true)
-        #expect(witnessTrace.origin.parentPID == 1)
+        #expect(witnessTrace.lockedValue == speakNowTrace.lockedValue)
+        #expect(witnessTrace.lockedValue?.origin.displayName == "Finder")
+        #expect(witnessTrace.lockedValue?.origin.validSignature == true)
+        #expect(witnessTrace.lockedValue?.origin.parentPID == 1)
     }
 
     // MARK: Exception Handling
@@ -139,6 +141,19 @@ import CryptoKit
         let agent = Agent(storeList: SecretStoreList())
         await agent.handle(reader: stubReader, writer: stubWriter)
         #expect(stubWriter.data == Constants.Responses.requestFailure)
+    }
+
+}
+
+extension Mutex where Value: Sendable {
+    
+    var lockedValue: Value {
+        get {
+            withLock { $0 }
+        }
+        nonmutating set {
+            withLock { $0 = newValue }
+        }
     }
 
 }
