@@ -20,7 +20,7 @@ If you'd like to contribute a translation, please see [Localizing](LOCALIZING.md
 
 ## Credits
 
-If you make a material contribution to the app, please add yourself to the end of the [credits](https://github.com/maxgoedjen/secretive/blob/main/Secretive/Credits.rtf).
+If you make a material contribution to the app, please add yourself to the end of the [credits](https://github.com/maxgoedjen/secretive/blob/main/Sources/Secretive/Credits.rtf).
 
 ## Collaborator Status
 
