@@ -1,5 +1,5 @@
 import Foundation
-import Synchronization
+import os
 
 /// A protocol for retreiving the latest available version of an app.
 public protocol UpdaterProtocol: Observable {

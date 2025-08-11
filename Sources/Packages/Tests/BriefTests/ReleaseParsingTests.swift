@@ -2,7 +2,6 @@ import Testing
 import Foundation
 @testable import Brief
 
-
 @Suite struct ReleaseParsingTests {
 
     @Test

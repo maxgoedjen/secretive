@@ -3,8 +3,8 @@ import SecretAgentKit
 
 struct StubWitness {
 
-    let speakNow: (AnySecret, SigningRequestProvenance) -> Bool
-    let witness: (AnySecret, SigningRequestProvenance) -> ()
+    let speakNow: @Sendable (AnySecret, SigningRequestProvenance) -> Bool
+    let witness: @Sendable (AnySecret, SigningRequestProvenance) -> ()
 
 }
 

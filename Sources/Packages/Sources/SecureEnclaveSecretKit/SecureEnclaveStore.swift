@@ -4,7 +4,8 @@ import Security
 import CryptoKit
 @preconcurrency import LocalAuthentication
 import SecretKit
-import Synchronization
+import os
+import Common
 
 extension SecureEnclave {
 
@@ -17,11 +18,11 @@ extension SecureEnclave {
         public let id = UUID()
         public let name = String(localized: "secure_enclave")
         public var secrets: [Secret] {
-            _secrets.withLock { $0 }
+            _secrets.lockedValue
         }
-        private let _secrets: Mutex<[Secret]> = .init([])
+        private let _secrets: OSAllocatedUnfairLock<[Secret]> = .init(uncheckedState: [])
 
-        private let persistedAuthenticationContexts: Mutex<[Secret: PersistentAuthenticationContext]> = .init([:])
+        private let persistedAuthenticationContexts: OSAllocatedUnfairLock<[Secret: PersistentAuthenticationContext]> = .init(uncheckedState: [:])
 
         /// Initializes a Store.
         public init() {
@@ -105,42 +106,40 @@ extension SecureEnclave {
         }
         
         public func sign(data: Data, with secret: Secret, for provenance: SigningRequestProvenance) throws -> Data {
-            let context: Mutex<LAContext>
-//            if let existing = persistedAuthenticationContexts.withLock({ $0 })[secret], existing.valid {
-//                context = existing.context
-//            } else {
+            var context: LAContext
+            if let existing = persistedAuthenticationContexts.lockedValue[secret], existing.valid {
+                context = existing.context
+            } else {
                 let newContext = LAContext()
                 newContext.localizedCancelTitle = String(localized: "auth_context_request_deny_button")
-                context = .init(newContext)
-//            }
-            return try context.withLock { context in
-                context.localizedReason = String(localized: "auth_context_request_signature_description_\(provenance.origin.displayName)_\(secret.name)")
-                let attributes = KeychainDictionary([
-                    kSecClass: kSecClassKey,
-                    kSecAttrKeyClass: kSecAttrKeyClassPrivate,
-                    kSecAttrApplicationLabel: secret.id as CFData,
-                    kSecAttrKeyType: Constants.keyType,
-                    kSecAttrTokenID: kSecAttrTokenIDSecureEnclave,
-                    kSecAttrApplicationTag: Constants.keyTag,
-                    kSecUseAuthenticationContext: context,
-                    kSecReturnRef: true
-                ])
-                var untyped: CFTypeRef?
-                let status = SecItemCopyMatching(attributes, &untyped)
-                if status != errSecSuccess {
-                    throw KeychainError(statusCode: status)
-                }
-                guard let untypedSafe = untyped else {
-                    throw KeychainError(statusCode: errSecSuccess)
-                }
-                let key = untypedSafe as! SecKey
-                var signError: SecurityError?
-                
-                guard let signature = SecKeyCreateSignature(key, .ecdsaSignatureMessageX962SHA256, data as CFData, &signError) else {
-                    throw SigningError(error: signError)
-                }
-                return signature as Data
+                context = newContext
             }
+            context.localizedReason = String(localized: "auth_context_request_signature_description_\(provenance.origin.displayName)_\(secret.name)")
+            let attributes = KeychainDictionary([
+                kSecClass: kSecClassKey,
+                kSecAttrKeyClass: kSecAttrKeyClassPrivate,
+                kSecAttrApplicationLabel: secret.id as CFData,
+                kSecAttrKeyType: Constants.keyType,
+                kSecAttrTokenID: kSecAttrTokenIDSecureEnclave,
+                kSecAttrApplicationTag: Constants.keyTag,
+                kSecUseAuthenticationContext: context,
+                kSecReturnRef: true
+            ])
+            var untyped: CFTypeRef?
+            let status = SecItemCopyMatching(attributes, &untyped)
+            if status != errSecSuccess {
+                throw KeychainError(statusCode: status)
+            }
+            guard let untypedSafe = untyped else {
+                throw KeychainError(statusCode: errSecSuccess)
+            }
+            let key = untypedSafe as! SecKey
+            var signError: SecurityError?
+            
+            guard let signature = SecKeyCreateSignature(key, .ecdsaSignatureMessageX962SHA256, data as CFData, &signError) else {
+                throw SigningError(error: signError)
+            }
+            return signature as Data
         }
 
         public func verify(signature: Data, for data: Data, with secret: Secret) throws -> Bool {
@@ -179,7 +178,7 @@ extension SecureEnclave {
         }
 
         public func existingPersistedAuthenticationContext(secret: Secret) -> PersistedAuthenticationContext? {
-            guard let persisted = persistedAuthenticationContexts.withLock({ $0 })[secret], persisted.valid else { return nil }
+            guard let persisted = persistedAuthenticationContexts.lockedValue[secret], persisted.valid else { return nil }
             return persisted
         }
 

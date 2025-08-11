@@ -4,7 +4,7 @@ import AppKit
 import SecretKit
 import SecretAgentKit
 import Brief
-import Synchronization
+import os
 
 final class Notifier: Sendable {
 
@@ -84,10 +84,10 @@ final class Notifier: Sendable {
         try? await notificationCenter.add(request)
     }
 
-    func notify(update: Release, ignore: ((Release) -> Void)?) {
+    func notify(update: Release, ignore: (@Sendable (Release) -> Void)?) {
         notificationDelegate.state.withLock { [update] state in
             state.release = update
-//            state.ignore = ignore
+            state.ignore = ignore
         }
         let notificationCenter = UNUserNotificationCenter.current()
         let notificationContent = UNMutableNotificationContent()
@@ -141,7 +141,7 @@ extension Notifier {
 final class NotificationDelegate: NSObject, UNUserNotificationCenterDelegate, Sendable {
 
     struct State {
-        typealias PersistAuthentication = ((AnySecret, AnySecretStore, TimeInterval?) async -> Void)
+        typealias PersistAuthentication = (@Sendable (AnySecret, AnySecretStore, TimeInterval?) async -> Void)
         typealias Ignore = ((Release) -> Void)
         fileprivate var release: Release?
         fileprivate var ignore: Ignore?
@@ -151,7 +151,7 @@ final class NotificationDelegate: NSObject, UNUserNotificationCenterDelegate, Se
         fileprivate var pendingPersistableSecrets: [String: AnySecret] = [:]
     }
     
-    fileprivate let state: Mutex<State> = .init(.init())
+    fileprivate let state: OSAllocatedUnfairLock<State> = .init(uncheckedState: .init())
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, openSettingsFor notification: UNNotification?) {
 
@@ -170,9 +170,10 @@ final class NotificationDelegate: NSObject, UNUserNotificationCenterDelegate, Se
     }
 
     func handleUpdateResponse(response: UNNotificationResponse) {
+        let id = response.actionIdentifier
         state.withLock { state in
             guard let update = state.release else { return }
-            switch response.actionIdentifier {
+            switch id {
             case Notifier.Constants.updateActionIdentitifier, UNNotificationDefaultActionIdentifier:
                 NSWorkspace.shared.open(update.html_url)
             case Notifier.Constants.ignoreActionIdentitifier:
@@ -184,15 +185,21 @@ final class NotificationDelegate: NSObject, UNUserNotificationCenterDelegate, Se
     }
 
     func handlePersistAuthenticationResponse(response: UNNotificationResponse) async {
-//        let (secret, store, persistOptions, callback): (AnySecret?, AnySecretStore?, TimeInterval?, State.PersistAuthentication?) = state.withLock { state in
-//            guard let secretID = response.notification.request.content.userInfo[Notifier.Constants.persistSecretIDKey] as? String, let secret = state.pendingPersistableSecrets[secretID],
-//                  let storeID = response.notification.request.content.userInfo[Notifier.Constants.persistStoreIDKey] as? String, let store = state.pendingPersistableStores[storeID]
-//            else { return (nil, nil, nil, nil) }
-//            state.pendingPersistableSecrets[secretID] = nil
-//            return (secret, store, state.persistOptions[response.actionIdentifier], state.persistAuthentication)
-//        }
-//        guard let secret, let store, let persistOptions else { return }
-//        await callback?(secret, store, persistOptions)
+        guard let secretID = response.notification.request.content.userInfo[Notifier.Constants.persistSecretIDKey] as? String,
+              let storeID = response.notification.request.content.userInfo[Notifier.Constants.persistStoreIDKey] as? String else {
+            return
+        }
+        let id = response.actionIdentifier
+              
+        let (secret, store, persistOptions, callback): (AnySecret?, AnySecretStore?, TimeInterval?, State.PersistAuthentication?) = state.withLock { state in
+            guard let secret = state.pendingPersistableSecrets[secretID],
+                let store = state.pendingPersistableStores[storeID]
+            else { return (nil, nil, nil, nil) }
+            state.pendingPersistableSecrets[secretID] = nil
+            return (secret, store, state.persistOptions[id], state.persistAuthentication)
+        }
+        guard let secret, let store, let persistOptions else { return }
+        await callback?(secret, store, persistOptions)
     }
 
     

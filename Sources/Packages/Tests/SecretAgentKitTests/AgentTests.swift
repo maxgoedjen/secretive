@@ -1,8 +1,10 @@
 import Foundation
+import os
 import Testing
 import CryptoKit
 @testable import SecretKit
 @testable import SecretAgentKit
+import Common
 
 @Suite struct AgentTests {
 
@@ -90,34 +92,35 @@ import CryptoKit
     @Test func witnessSignature() async {
         let stubReader = StubFileHandleReader(availableData: Constants.Requests.requestSignature)
         let list = storeList(with: [Constants.Secrets.ecdsa256Secret])
-        var witnessed = false
+        let witnessed: OSAllocatedUnfairLock<Bool> = .init(uncheckedState: false)
         let witness = StubWitness(speakNow: { _, trace  in
             return false
         }, witness: { _, trace in
-            witnessed = true
+            witnessed.lockedValue = true
         })
         let agent = Agent(storeList: list, witness: witness)
         await agent.handle(reader: stubReader, writer: stubWriter)
-        #expect(witnessed)
+        let value = witnessed.lockedValue
+        #expect(value)
     }
 
     @Test func requestTracing() async {
         let stubReader = StubFileHandleReader(availableData: Constants.Requests.requestSignature)
         let list = storeList(with: [Constants.Secrets.ecdsa256Secret])
-        var speakNowTrace: SigningRequestProvenance! = nil
-        var witnessTrace: SigningRequestProvenance! = nil
+        let speakNowTrace: OSAllocatedUnfairLock<SigningRequestProvenance?> = .init(uncheckedState: nil)
+        let witnessTrace: OSAllocatedUnfairLock<SigningRequestProvenance?> = .init(uncheckedState: nil)
         let witness = StubWitness(speakNow: { _, trace  in
-            speakNowTrace = trace
+            speakNowTrace.lockedValue = trace
             return false
         }, witness: { _, trace in
-            witnessTrace = trace
+            witnessTrace.lockedValue = trace
         })
         let agent = Agent(storeList: list, witness: witness)
         await agent.handle(reader: stubReader, writer: stubWriter)
-        #expect(witnessTrace == speakNowTrace)
-        #expect(witnessTrace.origin.displayName == "Finder")
-        #expect(witnessTrace.origin.validSignature == true)
-        #expect(witnessTrace.origin.parentPID == 1)
+        #expect(witnessTrace.lockedValue == speakNowTrace.lockedValue)
+        #expect(witnessTrace.lockedValue?.origin.displayName == "Finder")
+        #expect(witnessTrace.lockedValue?.origin.validSignature == true)
+        #expect(witnessTrace.lockedValue?.origin.parentPID == 1)
     }
 
     // MARK: Exception Handling

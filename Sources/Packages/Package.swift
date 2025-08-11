@@ -6,7 +6,7 @@ import PackageDescription
 let package = Package(
     name: "SecretivePackages",
     platforms: [
-        .macOS(.v15)
+        .macOS(.v14)
     ],
     products: [
         .library(
@@ -27,13 +27,16 @@ let package = Package(
         .library(
             name: "Brief",
             targets: ["Brief"]),
+        .library(
+            name: "Common",
+            targets: ["Common"]),
     ],
     dependencies: [
     ],
     targets: [
         .target(
             name: "SecretKit",
-            dependencies: [],
+            dependencies: ["Common"],
             swiftSettings: swiftSettings
         ),
         .testTarget(
@@ -43,17 +46,17 @@ let package = Package(
         ),
         .target(
             name: "SecureEnclaveSecretKit",
-            dependencies: ["SecretKit"],
+            dependencies: ["Common", "SecretKit"],
             swiftSettings: swiftSettings
         ),
         .target(
             name: "SmartCardSecretKit",
-            dependencies: ["SecretKit"],
+            dependencies: ["Common", "SecretKit"],
             swiftSettings: swiftSettings
         ),
         .target(
             name: "SecretAgentKit",
-            dependencies: ["SecretKit", "SecretAgentKitHeaders"],
+            dependencies: ["Common", "SecretKit", "SecretAgentKitHeaders"],
             swiftSettings: swiftSettings
         ),
         .systemLibrary(
@@ -65,12 +68,17 @@ let package = Package(
         ,
         .target(
             name: "Brief",
-            dependencies: [],
+            dependencies: ["Common"],
             swiftSettings: swiftSettings
         ),
         .testTarget(
             name: "BriefTests",
             dependencies: ["Brief"]
+        ),
+        .target(
+            name: "Common",
+            dependencies: [],
+            swiftSettings: swiftSettings
         ),
     ]
 )

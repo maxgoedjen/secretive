@@ -1,14 +1,15 @@
 import Foundation
 import Observation
-import Synchronization
+import os
+import Common
 
 /// A concrete implementation of ``UpdaterProtocol`` which considers the current release and OS version.
 @Observable public final class Updater: UpdaterProtocol, ObservableObject, Sendable {
 
     public var update: Release? {
-        _update.withLock { $0 }
+        _update.lockedValue
     }
-    private let _update: Mutex<Release?> = .init(nil)
+    private let _update: OSAllocatedUnfairLock<Release?> = .init(uncheckedState: nil)
     public let testBuild: Bool
 
     /// The current OS version.
@@ -53,9 +54,7 @@ import Synchronization
         guard !release.critical else { return }
         defaults.set(true, forKey: release.name)
         await MainActor.run {
-            _update.withLock { value in
-                value = nil
-            }
+            _update.lockedValue = nil
         }
     }
 
@@ -76,9 +75,7 @@ extension Updater {
         let latestVersion = SemVer(release.name)
         if latestVersion > currentVersion {
             await MainActor.run {
-                _update.withLock { value in
-                    value = release
-                }
+                _update.lockedValue = release
             }
         }
     }
