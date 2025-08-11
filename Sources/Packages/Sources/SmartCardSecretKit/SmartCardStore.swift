@@ -1,5 +1,5 @@
 import Foundation
-import Synchronization
+import os
 import Observation
 import Security
 import CryptoTokenKit
@@ -19,7 +19,7 @@ extension SmartCard {
     /// An implementation of Store backed by a Smart Card.
     @Observable public final class Store: SecretStore {
 
-        private let state: Mutex<State> = .init(.init())
+        private let state: OSAllocatedUnfairLock<State> = .init(uncheckedState: .init())
         public var isAvailable: Bool {
             state.withLock { $0.isAvailable }
         }

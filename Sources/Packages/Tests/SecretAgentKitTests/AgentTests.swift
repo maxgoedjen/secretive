@@ -1,9 +1,10 @@
 import Foundation
+import os
 import Testing
 import CryptoKit
-import Synchronization
 @testable import SecretKit
 @testable import SecretAgentKit
+import Common
 
 @Suite struct AgentTests {
 
@@ -91,7 +92,7 @@ import Synchronization
     @Test func witnessSignature() async {
         let stubReader = StubFileHandleReader(availableData: Constants.Requests.requestSignature)
         let list = storeList(with: [Constants.Secrets.ecdsa256Secret])
-        let witnessed: Mutex<Bool> = .init(false)
+        let witnessed: OSAllocatedUnfairLock<Bool> = .init(uncheckedState: false)
         let witness = StubWitness(speakNow: { _, trace  in
             return false
         }, witness: { _, trace in
@@ -106,8 +107,8 @@ import Synchronization
     @Test func requestTracing() async {
         let stubReader = StubFileHandleReader(availableData: Constants.Requests.requestSignature)
         let list = storeList(with: [Constants.Secrets.ecdsa256Secret])
-        let speakNowTrace: Mutex<SigningRequestProvenance?> = .init(nil)
-        let witnessTrace: Mutex<SigningRequestProvenance?> = .init(nil)
+        let speakNowTrace: OSAllocatedUnfairLock<SigningRequestProvenance?> = .init(uncheckedState: nil)
+        let witnessTrace: OSAllocatedUnfairLock<SigningRequestProvenance?> = .init(uncheckedState: nil)
         let witness = StubWitness(speakNow: { _, trace  in
             speakNowTrace.lockedValue = trace
             return false
@@ -141,19 +142,6 @@ import Synchronization
         let agent = Agent(storeList: SecretStoreList())
         await agent.handle(reader: stubReader, writer: stubWriter)
         #expect(stubWriter.data == Constants.Responses.requestFailure)
-    }
-
-}
-
-extension Mutex where Value: Sendable {
-    
-    var lockedValue: Value {
-        get {
-            withLock { $0 }
-        }
-        nonmutating set {
-            withLock { $0 = newValue }
-        }
     }
 
 }

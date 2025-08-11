@@ -1,32 +1,25 @@
 import Foundation
-import Synchronization
+import os
 import Observation
 import Brief
 
 @Observable class PreviewUpdater: UpdaterProtocol {
 
     var update: Release? {
-        _update.withLock { $0 }
+        _update.lockedValue
     }
-    let _update: Mutex<Release?> = .init(nil)
+    let _update: OSAllocatedUnfairLock<Release?> = .init(uncheckedState: nil)
 
     let testBuild = false
 
     init(update: Update = .none) {
         switch update {
         case .none:
-            _update.withLock {
-                $0 = nil
-            }
+            _update.lockedValue = nil
         case .advisory:
-            _update.withLock {
-                $0 = Release(name: "10.10.10", prerelease: false, html_url: URL(string: "https://example.com")!, body: "Some regular update")
-            }
+            _update.lockedValue = Release(name: "10.10.10", prerelease: false, html_url: URL(string: "https://example.com")!, body: "Some regular update")
         case .critical:
-            _update.withLock {
-                $0 = Release(name: "10.10.10", prerelease: false, html_url: URL(string: "https://example.com")!, body: "Critical Security Update")
-
-            }
+            _update.lockedValue = Release(name: "10.10.10", prerelease: false, html_url: URL(string: "https://example.com")!, body: "Critical Security Update")
         }
     }
 
