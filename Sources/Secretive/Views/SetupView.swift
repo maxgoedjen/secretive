@@ -2,6 +2,124 @@ import SwiftUI
 
 struct SetupView: View {
 
+    @Binding var visible: Bool
+    @Binding var setupComplete: Bool
+    
+    @State var installed = false
+    @State var updates = false
+    @State var sshConfig = false
+
+    var body: some View {
+        VStack(spacing: 0) {
+            NewStepView(title: "setup_agent_title", description: "setup_agent_description") {
+                OnboardingButton("setup_agent_install_button", installed) {
+                    Task {
+                        await LaunchAgentController().install()
+                        installed = true
+                    }
+                }
+            }
+            Divider()
+            NewStepView(title: "setup_updates_title", description: "setup_updates_description") {
+                OnboardingButton("setup_updates_ok", false) {
+                    Task {
+                        updates = true
+                    }
+                }
+            }
+            Divider()
+            NewStepView(title: "setup_ssh_title", description: "setup_ssh_description") {
+                HStack {
+                    OnboardingButton("setup_ssh_added_manually_button", false) {
+                        sshConfig = true
+                    }
+                    OnboardingButton("Add Automatically", false) {
+//                        let controller = ShellConfigurationController()
+//                        if controller.addToShell(shellInstructions: selectedShellInstruction) {
+//                        }
+                        sshConfig = true
+                    }
+                }
+            }
+        }
+        .background(.white.opacity(0.1), in: RoundedRectangle(cornerRadius: 10))
+            .frame(minWidth: 500, idealWidth: 500, minHeight: 500, idealHeight: 500)
+            .padding()
+
+    }
+    
+}
+
+struct OnboardingButton: View {
+
+    let label: LocalizedStringResource
+    let complete: Bool
+    let action: () -> Void
+    
+    init(_ label: LocalizedStringResource, _ complete: Bool, action: @escaping () -> Void) {
+        self.label = label
+        self.complete = complete
+        self.action = action
+    }
+    
+    var body: some View {
+        Button(action: action) {
+            HStack(spacing: 6) {
+                Text(label)
+                if complete {
+                    Image(systemName: "checkmark.circle.fill")
+                }
+            }
+            .padding(.vertical, 2)
+        }
+        .disabled(complete)
+        .styled
+    }
+        
+}
+
+extension View {
+    
+    @ViewBuilder
+    var styled: some View {
+        if #available(macOS 26.0, *) {
+            buttonStyle(.glassProminent)
+        } else {
+            buttonStyle(.borderedProminent)
+        }
+    }
+    
+}
+
+struct NewStepView<Content: View>: View {
+    
+    let title: LocalizedStringResource
+    let description: LocalizedStringResource
+    let actions: Content
+    
+    init(title: LocalizedStringResource, description: LocalizedStringResource, actions: () -> Content) {
+        self.title = title
+        self.description = description
+        self.actions = actions()
+    }
+    
+    var body: some View {
+        HStack {
+            VStack(alignment: .leading, spacing: 6) {
+                Text(title)
+                    .bold()
+                Text(description)
+            }
+            Spacer(minLength: 20)
+            actions
+        }
+        .padding(20)
+    }
+    
+}
+
+struct OldSetupView: View {
+
     @State var stepIndex = 0
     @Binding var visible: Bool
     @Binding var setupComplete: Bool
