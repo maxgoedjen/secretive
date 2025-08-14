@@ -37,16 +37,24 @@ extension Agent {
     ///   - Boolean if data could be read
     @discardableResult public func handle(reader: FileHandleReader, writer: FileHandleWriter) async -> Bool {
         logger.debug("Agent handling new data")
-        let data = Data(reader.availableData)
-        guard data.count > 4 else { return false}
-        let requestTypeInt = data[4]
+        let newData = reader.availableData
+                
+        // If client closed the connection, availableData will be empty
+        guard !newData.isEmpty else { return false }
+        
+        guard let message = reader.appendAndParseMessage(from: newData) else {
+            return true  // only return true if we received something
+        }
+        
+        guard message.count >= 1 else { return false }
+        let requestTypeInt = message[0]
         guard let requestType = SSHAgent.RequestType(rawValue: requestTypeInt) else {
             writer.write(OpenSSHKeyWriter().lengthAndData(of: SSHAgent.ResponseType.agentFailure.data))
             logger.debug("Agent returned \(SSHAgent.ResponseType.agentFailure.debugDescription)")
             return true
         }
         logger.debug("Agent handling request of type \(requestType.debugDescription)")
-        let subData = Data(data[5...])
+        let subData = Data(message.dropFirst())
         let response = await handle(requestType: requestType, data: subData, reader: reader)
         writer.write(response)
         return true
