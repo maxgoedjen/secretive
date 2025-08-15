@@ -112,10 +112,10 @@ extension ThumbnailPickerView {
 
 }
 
-@MainActor class SystemBackground: ObservableObject {
+@MainActor @Observable class SystemBackground {
 
     static let shared = SystemBackground()
-    @Published var image: NSImage?
+    var image: NSImage?
 
     private init() {
         if let mainScreen = NSScreen.main, let imageURL = NSWorkspace.shared.desktopImageURL(for: mainScreen) {

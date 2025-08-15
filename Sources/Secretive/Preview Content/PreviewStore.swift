@@ -20,7 +20,7 @@ extension Preview {
 
 extension Preview {
 
-    final class Store: SecretStore, ObservableObject {
+    @Observable final class Store: SecretStore {
 
         let isAvailable = true
         let id = UUID()
