@@ -135,7 +135,7 @@ extension SecureEnclave {
             }
             let key = untypedSafe as! SecKey
             var signError: SecurityError?
-            
+
             guard let signature = SecKeyCreateSignature(key, .ecdsaSignatureMessageX962SHA256, data as CFData, &signError) else {
                 throw SigningError(error: signError)
             }
