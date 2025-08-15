@@ -150,13 +150,13 @@ final class NotificationDelegate: NSObject, UNUserNotificationCenterDelegate, Se
         fileprivate var pendingPersistableStores: [String: AnySecretStore] = [:]
         fileprivate var pendingPersistableSecrets: [String: AnySecret] = [:]
     }
-    
+
     fileprivate let state: OSAllocatedUnfairLock<State> = .init(uncheckedState: .init())
-    
+
     func userNotificationCenter(_ center: UNUserNotificationCenter, openSettingsFor notification: UNNotification?) {
 
     }
-    
+
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse) async {
         let category = response.notification.request.content.categoryIdentifier
         switch category {
@@ -190,7 +190,7 @@ final class NotificationDelegate: NSObject, UNUserNotificationCenterDelegate, Se
             return
         }
         let id = response.actionIdentifier
-              
+
         let (secret, store, persistOptions, callback): (AnySecret?, AnySecretStore?, TimeInterval?, State.PersistAuthentication?) = state.withLock { state in
             guard let secret = state.pendingPersistableSecrets[secretID],
                 let store = state.pendingPersistableStores[storeID]
@@ -202,9 +202,10 @@ final class NotificationDelegate: NSObject, UNUserNotificationCenterDelegate, Se
         await callback?(secret, store, persistOptions)
     }
 
-    
+
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification) async -> UNNotificationPresentationOptions {
         [.list, .banner]
     }
 
 }
+
