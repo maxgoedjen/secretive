@@ -106,7 +106,7 @@ extension SecureEnclave {
         }
         
         public func sign(data: Data, with secret: Secret, for provenance: SigningRequestProvenance) throws -> Data {
-            var context: LAContext
+            let context: LAContext
             if let existing = persistedAuthenticationContexts.lockedValue[secret], existing.valid {
                 context = existing.context
             } else {
