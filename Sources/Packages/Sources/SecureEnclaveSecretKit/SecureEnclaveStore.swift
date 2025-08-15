@@ -182,7 +182,7 @@ extension SecureEnclave {
             return persisted
         }
 
-        public func persistAuthentication(secret: Secret, forDuration duration: TimeInterval) throws {
+        public func persistAuthentication(secret: Secret, forDuration duration: TimeInterval) async throws {
             let newContext = LAContext()
             newContext.touchIDAuthenticationAllowableReuseDuration = duration
             newContext.localizedCancelTitle = String(localized: "auth_context_request_deny_button")
@@ -196,12 +196,10 @@ extension SecureEnclave {
             } else {
                 newContext.localizedReason = String(localized: "auth_context_persist_for_duration_unknown_\(secret.name)")
             }
-            newContext.evaluatePolicy(LAPolicy.deviceOwnerAuthentication, localizedReason: newContext.localizedReason) { [weak self] success, _ in
-                guard success, let self else { return }
-                let context = PersistentAuthenticationContext(secret: secret, context: newContext, duration: duration)
-                self.persistedAuthenticationContexts.withLock {
-                    $0[secret] = context
-                }
+            guard try await newContext.evaluatePolicy(.deviceOwnerAuthentication, localizedReason: newContext.localizedReason) else { return }
+            let context = PersistentAuthenticationContext(secret: secret, context: newContext, duration: duration)
+            self.persistedAuthenticationContexts.withLock {
+                $0[secret] = context
             }
         }
 
