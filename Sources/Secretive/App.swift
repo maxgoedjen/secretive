@@ -19,15 +19,8 @@ extension EnvironmentValues {
 @main
 struct Secretive: App {
     
-    private let storeList: SecretStoreList = {
-        let list = SecretStoreList()
-        list.add(store: SecureEnclave.Store())
-        list.add(store: SmartCard.Store())
-        return list
-    }()
-    private let agentStatusChecker = AgentStatusChecker()
     private let justUpdatedChecker = JustUpdatedChecker()
-
+    @Environment(\.agentStatusChecker) var agentStatusChecker
     @AppStorage("defaultsHasRunSetup") var hasRunSetup = false
     @State private var showingSetup = false
     @State private var showingCreation = false
@@ -35,9 +28,8 @@ struct Secretive: App {
     @SceneBuilder var body: some Scene {
         WindowGroup {
             ContentView(showingCreation: $showingCreation, runningSetup: $showingSetup, hasRunSetup: $hasRunSetup)
-                .environment(storeList)
+            // This one is explicitly injected via environment to support hasRunSetup.
                 .environment(Updater(checkOnLaunch: hasRunSetup))
-                .environment(agentStatusChecker)
                 .onAppear {
                     if !hasRunSetup {
                         showingSetup = true

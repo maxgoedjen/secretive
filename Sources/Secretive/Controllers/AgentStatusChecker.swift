@@ -7,6 +7,7 @@ import Observation
 protocol AgentStatusCheckerProtocol: Observable {
     var running: Bool { get }
     var developmentBuild: Bool { get }
+    func check()
 }
 
 @Observable class AgentStatusChecker: AgentStatusCheckerProtocol {
