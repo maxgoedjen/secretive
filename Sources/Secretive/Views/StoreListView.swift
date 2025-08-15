@@ -6,7 +6,7 @@ struct StoreListView: View {
 
     @Binding var activeSecret: AnySecret?
 
-    @Environment(SecretStoreList.self) private var storeList: SecretStoreList
+    @Environment(\.secretStoreList) private var storeList: SecretStoreList
 
     private func secretDeleted(secret: AnySecret) {
         activeSecret = nextDefaultSecret

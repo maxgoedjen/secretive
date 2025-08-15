@@ -1,9 +1,9 @@
 import SwiftUI
 import Brief
 
-struct UpdateDetailView<UpdaterType: Updater>: View {
+struct UpdateDetailView: View {
 
-    @Environment(UpdaterType.self) var updater: UpdaterType
+    @Environment(\.updater) var updater: any UpdaterProtocol
 
     let update: Release
 

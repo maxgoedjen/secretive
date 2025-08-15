@@ -3,7 +3,7 @@ import os
 import Observation
 import Brief
 
-@Observable class PreviewUpdater: UpdaterProtocol {
+@Observable final class PreviewUpdater: UpdaterProtocol {
 
     var update: Release? {
         _update.lockedValue
@@ -23,6 +23,9 @@ import Brief
         }
     }
 
+    func ignore(release: Release) async {
+    }
+    
 }
 
 extension PreviewUpdater {

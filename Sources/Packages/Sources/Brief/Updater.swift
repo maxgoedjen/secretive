@@ -4,7 +4,7 @@ import os
 import Common
 
 /// A concrete implementation of ``UpdaterProtocol`` which considers the current release and OS version.
-@Observable public final class Updater: UpdaterProtocol, ObservableObject, Sendable {
+@Observable public final class Updater: UpdaterProtocol, Sendable {
 
     public var update: Release? {
         _update.lockedValue
