@@ -110,6 +110,15 @@ Add this to `~/Library/LaunchAgents/com.maxgoedjen.Secretive.SecretAgent.plist`
 
 Log out and log in again before launching Gitkraken. Then enable "Use local SSH agent in GitKraken Preferences (Located under Preferences -> SSH)
 
+## Retcon
+
+Add this to your `~/.ssh/config` (the path should match the socket path from the setup flow).
+
+```
+Host *
+	IdentityAgent /Users/$YOUR_USERNAME/Library/Containers/com.maxgoedjen.Secretive.SecretAgent/Data/socket.ssh
+```
+
 # The app I use isn't listed here!
 
 If you know how to get it set up, please open a PR for this page and add it! Contributions are very welcome.
