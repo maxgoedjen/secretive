@@ -2,7 +2,7 @@ import Foundation
 import CryptoKit
 
 /// Generates OpenSSH representations of Secrets.
-public struct OpenSSHKeyWriter {
+public struct OpenSSHKeyWriter: Sendable {
 
     /// Initializes the writer.
     public init() {

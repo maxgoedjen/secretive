@@ -2,13 +2,13 @@ import Foundation
 import Combine
 import AppKit
 
-protocol JustUpdatedCheckerProtocol: ObservableObject {
+protocol JustUpdatedCheckerProtocol: Observable {
     var justUpdated: Bool { get }
 }
 
-class JustUpdatedChecker: ObservableObject, JustUpdatedCheckerProtocol {
+@Observable class JustUpdatedChecker: JustUpdatedCheckerProtocol {
 
-    @Published var justUpdated: Bool = false
+    var justUpdated: Bool = false
 
     init() {
         check()

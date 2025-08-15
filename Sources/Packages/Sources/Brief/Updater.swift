@@ -1,10 +1,15 @@
 import Foundation
-import Combine
+import Observation
+import os
+import Common
 
 /// A concrete implementation of ``UpdaterProtocol`` which considers the current release and OS version.
-public final class Updater: ObservableObject, UpdaterProtocol {
+@Observable public final class Updater: UpdaterProtocol, Sendable {
 
-    @Published public var update: Release?
+    public var update: Release? {
+        _update.lockedValue
+    }
+    private let _update: OSAllocatedUnfairLock<Release?> = .init(uncheckedState: nil)
     public let testBuild: Bool
 
     /// The current OS version.
@@ -24,30 +29,32 @@ public final class Updater: ObservableObject, UpdaterProtocol {
         testBuild = currentVersion == SemVer("0.0.0")
         if checkOnLaunch {
             // Don't do a launch check if the user hasn't seen the setup prompt explaining updater yet.
-            checkForUpdates()
+            Task {
+                await checkForUpdates()
+            }
         }
-        let timer = Timer.scheduledTimer(withTimeInterval: checkFrequency, repeats: true) { _ in
-            self.checkForUpdates()
+        Task {
+            while !Task.isCancelled {
+                try? await Task.sleep(for: .seconds(Int(checkFrequency)))
+                await checkForUpdates()
+            }
         }
-        timer.tolerance = 60*60
     }
 
     /// Manually trigger an update check.
-    public func checkForUpdates() {
-        URLSession.shared.dataTask(with: Constants.updateURL) { data, _, _ in
-            guard let data = data else { return }
-            guard let releases = try? JSONDecoder().decode([Release].self, from: data) else { return }
-            self.evaluate(releases: releases)
-        }.resume()
+    public func checkForUpdates() async {
+        guard let (data, _) = try? await URLSession.shared.data(from: Constants.updateURL) else { return }
+        guard let releases = try? JSONDecoder().decode([Release].self, from: data) else { return }
+        await evaluate(releases: releases)
     }
 
     /// Ignores a specified release. `update` will be nil if the user has ignored the latest available release.
     /// - Parameter release: The release to ignore.
-    public func ignore(release: Release) {
+    public func ignore(release: Release) async {
         guard !release.critical else { return }
         defaults.set(true, forKey: release.name)
-        DispatchQueue.main.async {
-            self.update = nil
+        await MainActor.run {
+            _update.lockedValue = nil
         }
     }
 
@@ -57,7 +64,7 @@ extension Updater {
 
     /// Evaluates the available downloadable releases, and selects the newest non-prerelease release that the user is able to run.
     /// - Parameter releases: An array of ``Release`` objects.
-    func evaluate(releases: [Release]) {
+    func evaluate(releases: [Release]) async {
         guard let release = releases
                 .sorted()
                 .reversed()
@@ -67,8 +74,8 @@ extension Updater {
         guard !release.prerelease else { return }
         let latestVersion = SemVer(release.name)
         if latestVersion > currentVersion {
-            DispatchQueue.main.async {
-                self.update = release
+            await MainActor.run {
+                _update.lockedValue = release
             }
         }
     }

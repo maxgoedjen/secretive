@@ -1,23 +1,31 @@
 import Foundation
-import Combine
+import os
+import Observation
 import Brief
 
-class PreviewUpdater: UpdaterProtocol {
+@Observable final class PreviewUpdater: UpdaterProtocol {
 
-    let update: Release?
+    var update: Release? {
+        _update.lockedValue
+    }
+    let _update: OSAllocatedUnfairLock<Release?> = .init(uncheckedState: nil)
+
     let testBuild = false
 
     init(update: Update = .none) {
         switch update {
         case .none:
-            self.update = nil
+            _update.lockedValue = nil
         case .advisory:
-            self.update = Release(name: "10.10.10", prerelease: false, html_url: URL(string: "https://example.com")!, body: "Some regular update")
+            _update.lockedValue = Release(name: "10.10.10", prerelease: false, html_url: URL(string: "https://example.com")!, body: "Some regular update")
         case .critical:
-            self.update = Release(name: "10.10.10", prerelease: false, html_url: URL(string: "https://example.com")!, body: "Critical Security Update")
+            _update.lockedValue = Release(name: "10.10.10", prerelease: false, html_url: URL(string: "https://example.com")!, body: "Critical Security Update")
         }
     }
 
+    func ignore(release: Release) async {
+    }
+    
 }
 
 extension PreviewUpdater {

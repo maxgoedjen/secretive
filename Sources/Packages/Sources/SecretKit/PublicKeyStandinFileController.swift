@@ -2,7 +2,7 @@ import Foundation
 import OSLog
 
 /// Controller responsible for writing public keys to disk, so that they're easily accessible by scripts.
-public final class PublicKeyFileStoreController {
+public final class PublicKeyFileStoreController: Sendable {
 
     private let logger = Logger(subsystem: "com.maxgoedjen.secretive.secretagent", category: "PublicKeyFileStoreController")
     private let directory: String

@@ -1,7 +1,7 @@
 import Foundation
 
 /// A representation of a Semantic Version.
-public struct SemVer {
+public struct SemVer: Sendable {
 
     /// The SemVer broken into an array of integers.
     let versionNumbers: [Int]

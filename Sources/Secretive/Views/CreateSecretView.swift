@@ -3,7 +3,7 @@ import SecretKit
 
 struct CreateSecretView<StoreType: SecretStoreModifiable>: View {
 
-    @ObservedObject var store: StoreType
+    @State var store: StoreType
     @Binding var showing: Bool
 
     @State private var name = ""
@@ -45,8 +45,10 @@ struct CreateSecretView<StoreType: SecretStoreModifiable>: View {
     }
 
     func save() {
-        try! store.create(name: name, requiresAuthentication: requiresAuthentication)
-        showing = false
+        Task {
+            try! await store.create(name: name, requiresAuthentication: requiresAuthentication)
+            showing = false
+        }
     }
 
 }
@@ -93,14 +95,14 @@ struct ThumbnailPickerView<ValueType: Hashable>: View {
 
 extension ThumbnailPickerView {
 
-    struct Item<ValueType: Hashable>: Identifiable {
+    struct Item<InnerValueType: Hashable>: Identifiable {
         let id = UUID()
-        let value: ValueType
+        let value: InnerValueType
         let name: LocalizedStringKey
         let description: LocalizedStringKey
         let thumbnail: AnyView
 
-        init<ViewType: View>(value: ValueType, name: LocalizedStringKey, description: LocalizedStringKey, thumbnail: ViewType) {
+        init<ViewType: View>(value: InnerValueType, name: LocalizedStringKey, description: LocalizedStringKey, thumbnail: ViewType) {
             self.value = value
             self.name = name
             self.description = description
@@ -110,10 +112,10 @@ extension ThumbnailPickerView {
 
 }
 
-@MainActor class SystemBackground: ObservableObject {
+@MainActor @Observable class SystemBackground {
 
     static let shared = SystemBackground()
-    @Published var image: NSImage?
+    var image: NSImage?
 
     private init() {
         if let mainScreen = NSScreen.main, let imageURL = NSWorkspace.shared.desktopImageURL(for: mainScreen) {

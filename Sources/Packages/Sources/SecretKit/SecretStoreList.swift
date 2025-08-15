@@ -1,14 +1,22 @@
 import Foundation
-import Combine
+import Observation
+import os
+import Common
 
 /// A "Store Store," which holds a list of type-erased stores.
-public final class SecretStoreList: ObservableObject {
+@Observable public final class SecretStoreList: Sendable {
 
     /// The Stores managed by the SecretStoreList.
-    @Published public var stores: [AnySecretStore] = []
+    public var stores: [AnySecretStore] {
+        __stores.lockedValue
+    }
+    private let __stores: OSAllocatedUnfairLock<[AnySecretStore]> = .init(uncheckedState: [])
+    
     /// A modifiable store, if one is available.
-    @Published public var modifiableStore: AnySecretStoreModifiable?
-    private var cancellables: Set<AnyCancellable> = []
+    public var modifiableStore: AnySecretStoreModifiable? {
+        __modifiableStore.withLock { $0 }
+    }
+    private let __modifiableStore: OSAllocatedUnfairLock<AnySecretStoreModifiable?> = .init(uncheckedState: nil)
 
     /// Initializes a SecretStoreList.
     public init() {
@@ -16,34 +24,27 @@ public final class SecretStoreList: ObservableObject {
 
     /// Adds a non-type-erased SecretStore to the list.
     public func add<SecretStoreType: SecretStore>(store: SecretStoreType) {
-        addInternal(store: AnySecretStore(store))
+        __stores.withLock {
+            $0.append(AnySecretStore(store))
+        }
     }
 
     /// Adds a non-type-erased modifiable SecretStore.
     public func add<SecretStoreType: SecretStoreModifiable>(store: SecretStoreType) {
         let modifiable = AnySecretStoreModifiable(modifiable: store)
-        modifiableStore = modifiable
-        addInternal(store: modifiable)
+        __modifiableStore.lockedValue = modifiable
+        __stores.withLock {
+            $0.append(modifiable)
+        }
     }
 
     /// A boolean describing whether there are any Stores available.
     public var anyAvailable: Bool {
-        stores.reduce(false, { $0 || $1.isAvailable })
+        __stores.lockedValue.contains(where: \.isAvailable)
     }
 
     public var allSecrets: [AnySecret] {
-        stores.flatMap(\.secrets)
-    }
-
-}
-
-extension SecretStoreList {
-
-    private func addInternal(store: AnySecretStore) {
-        stores.append(store)
-        store.objectWillChange.sink {
-            self.objectWillChange.send()
-        }.store(in: &cancellables)
+        __stores.lockedValue.flatMap(\.secrets)
     }
 
 }

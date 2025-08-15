@@ -10,4 +10,7 @@ class PreviewAgentStatusChecker: AgentStatusCheckerProtocol {
         self.running = running
     }
 
+    func check() {
+    }
+
 }

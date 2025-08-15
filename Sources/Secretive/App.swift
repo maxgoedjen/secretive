@@ -5,28 +5,31 @@ import SecureEnclaveSecretKit
 import SmartCardSecretKit
 import Brief
 
-@main
-struct Secretive: App {
-
-    private let storeList: SecretStoreList = {
+extension EnvironmentValues {
+    @Entry var secretStoreList: SecretStoreList = {
         let list = SecretStoreList()
         list.add(store: SecureEnclave.Store())
         list.add(store: SmartCard.Store())
         return list
     }()
-    private let agentStatusChecker = AgentStatusChecker()
-    private let justUpdatedChecker = JustUpdatedChecker()
+    @Entry var agentStatusChecker: any AgentStatusCheckerProtocol = AgentStatusChecker()
+    @Entry var updater: any UpdaterProtocol = Updater(checkOnLaunch: false)
+}
 
+@main
+struct Secretive: App {
+    
+    private let justUpdatedChecker = JustUpdatedChecker()
+    @Environment(\.agentStatusChecker) var agentStatusChecker
     @AppStorage("defaultsHasRunSetup") var hasRunSetup = false
     @State private var showingSetup = false
     @State private var showingCreation = false
 
     @SceneBuilder var body: some Scene {
         WindowGroup {
-            ContentView<Updater, AgentStatusChecker>(showingCreation: $showingCreation, runningSetup: $showingSetup, hasRunSetup: $hasRunSetup)
-                .environmentObject(storeList)
-                .environmentObject(Updater(checkOnLaunch: hasRunSetup))
-                .environmentObject(agentStatusChecker)
+            ContentView(showingCreation: $showingCreation, runningSetup: $showingSetup, hasRunSetup: $hasRunSetup)
+            // This one is explicitly injected via environment to support hasRunSetup.
+                .environment(Updater(checkOnLaunch: hasRunSetup))
                 .onAppear {
                     if !hasRunSetup {
                         showingSetup = true
@@ -70,13 +73,12 @@ extension Secretive {
 
     private func reinstallAgent() {
         justUpdatedChecker.check()
-        LaunchAgentController().install {
-            // Wait a second for launchd to kick in (next runloop isn't enough).
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                agentStatusChecker.check()
-                if !agentStatusChecker.running {
-                    forceLaunchAgent()
-                }
+        Task {
+            await LaunchAgentController().install()
+            try? await Task.sleep(for: .seconds(1))
+            agentStatusChecker.check()
+            if !agentStatusChecker.running {
+                forceLaunchAgent()
             }
         }
     }
@@ -84,7 +86,8 @@ extension Secretive {
     private func forceLaunchAgent() {
         // We've run setup, we didn't just update, launchd is just not doing it's thing.
         // Force a launch directly.
-        LaunchAgentController().forceLaunch { _ in
+        Task {
+            _ = await LaunchAgentController().forceLaunch()
             agentStatusChecker.check()
         }
     }

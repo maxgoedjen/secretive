@@ -1,51 +1,52 @@
-import XCTest
+import Testing
+import Foundation
 @testable import Brief
 
-class SemVerTests: XCTestCase {
+@Suite struct SemVerTests {
 
-    func testEqual() {
+    @Test func equal() {
         let current = SemVer("1.0.2")
         let old = SemVer("1.0.2")
-        XCTAssert(!(current > old))
+        #expect(!(current > old))
     }
 
-    func testPatchGreaterButMinorLess() {
+    @Test func patchGreaterButMinorLess() {
         let current = SemVer("1.1.0")
         let old = SemVer("1.0.2")
-        XCTAssert(current > old)
+        #expect(current > old)
     }
 
-    func testMajorSameMinorGreater() {
+    @Test func majorSameMinorGreater() {
         let current = SemVer("1.0.2")
         let new = SemVer("1.0.3")
-        XCTAssert(current < new)
+        #expect(current < new)
     }
 
-    func testMajorGreaterMinorLesser() {
+    @Test func majorGreaterMinorLesser() {
         let current = SemVer("1.0.2")
         let new = SemVer("2.0.0")
-        XCTAssert(current < new)
+        #expect(current < new)
     }
 
-    func testRegularParsing() {
+    @Test func regularParsing() {
         let current = SemVer("1.0.2")
-        XCTAssert(current.versionNumbers == [1, 0, 2])
+        #expect(current.versionNumbers == [1, 0, 2])
     }
 
-    func testNoPatch() {
+    @Test func noPatch() {
         let current = SemVer("1.1")
-        XCTAssert(current.versionNumbers == [1, 1, 0])
+        #expect(current.versionNumbers == [1, 1, 0])
     }
 
-    func testGarbage() {
+    @Test func garbage() {
         let current = SemVer("Test")
-        XCTAssert(current.versionNumbers == [0, 0, 0])
+        #expect(current.versionNumbers == [0, 0, 0])
     }
 
-    func testBeta() {
+    @Test func beta() {
         let current = SemVer("1.0.2")
         let new = SemVer("1.1.0_beta1")
-        XCTAssert(current < new)
+        #expect(current < new)
     }
 
 }

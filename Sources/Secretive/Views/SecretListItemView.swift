@@ -2,24 +2,30 @@ import SwiftUI
 import SecretKit
 
 struct SecretListItemView: View {
-
-    @ObservedObject var store: AnySecretStore
+    
+    @State var store: AnySecretStore
     var secret: AnySecret
-    @Binding var activeSecret: AnySecret.ID?
-
+    
     @State var isDeleting: Bool = false
     @State var isRenaming: Bool = false
-
+    
     var deletedSecret: (AnySecret) -> Void
     var renamedSecret: (AnySecret) -> Void
-
-    var body: some View {
-        let showingPopupWrapped = Binding(
+    
+    private var showingPopup: Binding<Bool> {
+        Binding(
             get: { isDeleting || isRenaming },
-            set: { if $0 == false { isDeleting = false; isRenaming = false } }
+            set: {
+                if $0 == false {
+                    isDeleting = false
+                    isRenaming = false
+                }
+            }
         )
-
-        return NavigationLink(destination: SecretDetailView(secret: secret), tag: secret.id, selection: $activeSecret) {
+    }
+    
+    var body: some View {
+        NavigationLink(value: secret) {
             if secret.requiresAuthentication {
                 HStack {
                     Text(secret.name)
@@ -40,7 +46,7 @@ struct SecretListItemView: View {
                 }
             }
         }
-        .popover(isPresented: showingPopupWrapped) {
+        .popover(isPresented: showingPopup) {
             if let modifiable = store as? AnySecretStoreModifiable {
                 if isDeleting {
                     DeleteSecretView(store: modifiable, secret: secret) { deleted in

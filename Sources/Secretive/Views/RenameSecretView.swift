@@ -3,7 +3,7 @@ import SecretKit
 
 struct RenameSecretView<StoreType: SecretStoreModifiable>: View {
 
-    @ObservedObject var store: StoreType
+    @State var store: StoreType
     let secret: StoreType.SecretType
     var dismissalBlock: (_ renamed: Bool) -> ()
 
@@ -44,7 +44,9 @@ struct RenameSecretView<StoreType: SecretStoreModifiable>: View {
     }
 
     func rename() {
-        try? store.update(secret: secret, name: newName)
-        dismissalBlock(true)
+        Task {
+            try? await store.update(secret: secret, name: newName)
+            dismissalBlock(true)
+        }
     }
 }
