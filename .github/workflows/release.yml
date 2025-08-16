@@ -21,7 +21,7 @@ jobs:
         APPLE_API_KEY_ID: ${{ secrets.APPLE_API_KEY_ID }}
       run: ./.github/scripts/signing.sh
     - name: Set Environment
-      run: sudo xcrun xcode-select -s /Applications/Xcode_16.4.app
+      run: sudo xcrun xcode-select -s /Applications/Xcode_26_beta.app
     - name: Test
       run: |
             pushd Sources/Packages
@@ -43,7 +43,7 @@ jobs:
         APPLE_API_KEY_ID: ${{ secrets.APPLE_API_KEY_ID }}
       run: ./.github/scripts/signing.sh
     - name: Set Environment
-      run: sudo xcrun xcode-select -s /Applications/Xcode_16.4.app
+      run: sudo xcrun xcode-select -s /Applications/Xcode_26_beta.app
     - name: Update Build Number
       env:
         TAG_NAME: ${{ github.ref }}
