@@ -4,11 +4,11 @@ import Combine
 /// Type eraser for SecretStore.
 public class AnySecretStore: SecretStore, @unchecked Sendable {
 
-    let base: Any
-    private let _isAvailable: @Sendable () -> Bool
+    let base: any Sendable
+    private let _isAvailable: @MainActor @Sendable () -> Bool
     private let _id: @Sendable () -> UUID
-    private let _name: @Sendable () -> String
-    private let _secrets: @Sendable () -> [AnySecret]
+    private let _name: @MainActor @Sendable () -> String
+    private let _secrets: @MainActor @Sendable () -> [AnySecret]
     private let _sign: @Sendable (Data, AnySecret, SigningRequestProvenance) async throws -> Data
     private let _verify: @Sendable (Data, Data, AnySecret) async throws -> Bool
     private let _existingPersistedAuthenticationContext: @Sendable (AnySecret) async -> PersistedAuthenticationContext?
@@ -28,7 +28,7 @@ public class AnySecretStore: SecretStore, @unchecked Sendable {
         _reloadSecrets = { await secretStore.reloadSecrets() }
     }
 
-    public var isAvailable: Bool {
+    @MainActor public var isAvailable: Bool {
         return _isAvailable()
     }
 
@@ -36,11 +36,11 @@ public class AnySecretStore: SecretStore, @unchecked Sendable {
         return _id()
     }
 
-    public var name: String {
+    @MainActor public var name: String {
         return _name()
     }
 
-    public var secrets: [AnySecret] {
+    @MainActor public var secrets: [AnySecret] {
         return _secrets()
     }
 

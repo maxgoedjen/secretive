@@ -59,7 +59,7 @@ import Foundation
     }
 
     @Test
-    func greatestSelectedIfOldPatchIsPublishedLater() async throws {
+    @MainActor func greatestSelectedIfOldPatchIsPublishedLater() async throws {
         // If 2.x.x series has been published, and a patch for 1.x.x is issued
         // 2.x.x should still be selected if user can run it.
         let updater = Updater(checkOnLaunch: false, osVersion: SemVer("2.2.3"), currentVersion: SemVer("1.0.0"))
@@ -77,7 +77,7 @@ import Foundation
     }
 
     @Test
-    func latestVersionIsRunnable() async throws {
+    @MainActor func latestVersionIsRunnable() async throws {
         // If the 2.x.x series has been published but the user can't run it
         // the last version the user can run should be selected.
         let updater = Updater(checkOnLaunch: false, osVersion: SemVer("1.2.3"), currentVersion: SemVer("1.0.0"))

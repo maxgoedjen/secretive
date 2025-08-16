@@ -1,14 +1,13 @@
 import Foundation
 import OSLog
-import os
 
 /// Manages storage and lookup for OpenSSH certificates.
-public final class OpenSSHCertificateHandler: Sendable {
+public actor OpenSSHCertificateHandler: Sendable {
 
     private let publicKeyFileStoreController = PublicKeyFileStoreController(homeDirectory: NSHomeDirectory())
     private let logger = Logger(subsystem: "com.maxgoedjen.secretive.secretagent", category: "OpenSSHCertificateHandler")
     private let writer = OpenSSHKeyWriter()
-    private let keyBlobsAndNames: OSAllocatedUnfairLock<[AnySecret: (Data, Data)]> = .init(uncheckedState: [:])
+    private var keyBlobsAndNames: [AnySecret: (Data, Data)] = [:]
 
     /// Initializes an OpenSSHCertificateHandler.
     public init() {
@@ -21,20 +20,10 @@ public final class OpenSSHCertificateHandler: Sendable {
             logger.log("No certificates, short circuiting")
             return
         }
-        keyBlobsAndNames.withLock {
-            $0 = secrets.reduce(into: [:]) { partialResult, next in
-                partialResult[next] = try? loadKeyblobAndName(for: next)
-            }
+        keyBlobsAndNames = secrets.reduce(into: [:]) { partialResult, next in
+            partialResult[next] = try? loadKeyblobAndName(for: next)
         }
     }
-
-    /// Whether or not the certificate handler has a certifiicate associated with a given secret.
-    /// - Parameter secret: The secret to check for a certificate.
-    /// - Returns: A boolean describing whether or not the certificate handler has a certifiicate associated with a given secret
-    public func hasCertificate<SecretType: Secret>(for secret: SecretType) -> Bool {
-        keyBlobsAndNames.withLock { $0[AnySecret(secret)] != nil }
-    }
-
 
     /// Reconstructs a public key from a ``Data``, if that ``Data`` contains an OpenSSH certificate hash. Currently only ecdsa certificates are supported
     /// - Parameter certBlock: The openssh certificate to extract the public key from
@@ -64,7 +53,7 @@ public final class OpenSSHCertificateHandler: Sendable {
     /// - Parameter secret: The secret to search for a certificate with
     /// - Returns: A (``Data``, ``Data``) tuple containing the certificate and certificate name, respectively.
     public func keyBlobAndName<SecretType: Secret>(for secret: SecretType) throws -> (Data, Data)? {
-        keyBlobsAndNames.withLock { $0[AnySecret(secret)] }
+        keyBlobsAndNames[AnySecret(secret)]
     }
     
     /// Attempts to find an OpenSSH Certificate  that corresponds to a ``Secret``

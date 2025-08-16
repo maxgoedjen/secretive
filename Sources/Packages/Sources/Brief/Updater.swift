@@ -83,7 +83,6 @@ extension Updater {
         let latestVersion = SemVer(release.name)
         if latestVersion > currentVersion {
             await MainActor.run {
-                print("SET \(release)")
                 state.update = release
             }
         }

@@ -23,7 +23,7 @@ public final class Agent: Sendable {
         self.storeList = storeList
         self.witness = witness
         Task { @MainActor in
-            certificateHandler.reloadCertificates(for: storeList.allSecrets)
+            await certificateHandler.reloadCertificates(for: storeList.allSecrets)
         }
     }
     
@@ -87,7 +87,7 @@ extension Agent {
     /// - Returns: An OpenSSH formatted Data payload listing the identities available for signing operations.
     func identities() async -> Data {
         let secrets = await storeList.allSecrets
-        certificateHandler.reloadCertificates(for: secrets)
+        await certificateHandler.reloadCertificates(for: secrets)
         var count = secrets.count
         var keyData = Data()
 
@@ -97,7 +97,7 @@ extension Agent {
             keyData.append(writer.lengthAndData(of: keyBlob))
             keyData.append(writer.lengthAndData(of: curveData))
             
-            if let (certificateData, name) = try? certificateHandler.keyBlobAndName(for: secret) {
+            if let (certificateData, name) = try? await certificateHandler.keyBlobAndName(for: secret) {
                 keyData.append(writer.lengthAndData(of: certificateData))
                 keyData.append(writer.lengthAndData(of: name))
                 count += 1
@@ -119,7 +119,7 @@ extension Agent {
         let payloadHash = reader.readNextChunk()
         let hash: Data
         // Check if hash is actually an openssh certificate and reconstruct the public key if it is
-        if let certificatePublicKey = certificateHandler.publicKeyHash(from: payloadHash) {
+        if let certificatePublicKey = await certificateHandler.publicKeyHash(from: payloadHash) {
             hash = certificatePublicKey
         } else {
             hash = payloadHash
@@ -192,8 +192,9 @@ extension Agent {
     /// Gives any store with no loaded secrets a chance to reload.
     func reloadSecretsIfNeccessary() async {
         for store in await storeList.stores {
-            if store.secrets.isEmpty {
-                logger.debug("Store \(store.name, privacy: .public) has no loaded secrets. Reloading.")
+            if await store.secrets.isEmpty {
+                let name = await store.name
+                logger.debug("Store \(name, privacy: .public) has no loaded secrets. Reloading.")
                 await store.reloadSecrets()
             }
         }
@@ -203,15 +204,15 @@ extension Agent {
     /// - Parameter hash: The hash to match against.
     /// - Returns: A ``Secret`` and the ``SecretStore`` containing it, if a match is found.
     func secret(matching hash: Data) async -> (AnySecretStore, AnySecret)? {
-        await storeList.stores.compactMap { store -> (AnySecretStore, AnySecret)? in
-            let allMatching = store.secrets.filter { secret in
+        for store in await storeList.stores {
+            let allMatching = await store.secrets.filter { secret in
                 hash == writer.data(secret: secret)
             }
             if let matching = allMatching.first {
                 return (store, matching)
             }
-            return nil
-        }.first
+        }
+        return nil
     }
 
 }

@@ -1,10 +1,8 @@
 import Foundation
-import os
 import Testing
 import CryptoKit
 @testable import SecretKit
 @testable import SecretAgentKit
-import Common
 
 @Suite struct AgentTests {
 
@@ -21,7 +19,7 @@ import Common
 
     @Test func identitiesList() async {
         let stubReader = StubFileHandleReader(availableData: Constants.Requests.requestIdentities)
-        let list = storeList(with: [Constants.Secrets.ecdsa256Secret, Constants.Secrets.ecdsa384Secret])
+        let list = await storeList(with: [Constants.Secrets.ecdsa256Secret, Constants.Secrets.ecdsa384Secret])
         let agent = Agent(storeList: list)
         await agent.handle(reader: stubReader, writer: stubWriter)
         #expect(stubWriter.data == Constants.Responses.requestIdentitiesMultiple)
@@ -31,7 +29,7 @@ import Common
 
     @Test func noMatchingIdentities() async {
         let stubReader = StubFileHandleReader(availableData: Constants.Requests.requestSignatureWithNoneMatching)
-        let list = storeList(with: [Constants.Secrets.ecdsa256Secret, Constants.Secrets.ecdsa384Secret])
+        let list = await storeList(with: [Constants.Secrets.ecdsa256Secret, Constants.Secrets.ecdsa384Secret])
         let agent = Agent(storeList: list)
         await agent.handle(reader: stubReader, writer: stubWriter)
         #expect(stubWriter.data == Constants.Responses.requestFailure)
@@ -42,7 +40,7 @@ import Common
         let requestReader = OpenSSHReader(data: Constants.Requests.requestSignature[5...])
         _ = requestReader.readNextChunk()
         let dataToSign = requestReader.readNextChunk()
-        let list = storeList(with: [Constants.Secrets.ecdsa256Secret, Constants.Secrets.ecdsa384Secret])
+        let list = await storeList(with: [Constants.Secrets.ecdsa256Secret, Constants.Secrets.ecdsa384Secret])
         let agent = Agent(storeList: list)
         await agent.handle(reader: stubReader, writer: stubWriter)
         let outer = OpenSSHReader(data: stubWriter.data[5...])
@@ -64,7 +62,7 @@ import Common
         rs.append(s)
         let signature = try! P256.Signing.ECDSASignature(rawRepresentation: rs)
         let referenceValid = try! P256.Signing.PublicKey(x963Representation: Constants.Secrets.ecdsa256Secret.publicKey).isValidSignature(signature, for: dataToSign)
-        let store = list.stores.first!
+        let store = await list.stores.first!
         let derVerifies = try await store.verify(signature: signature.derRepresentation, for: dataToSign, with: AnySecret(Constants.Secrets.ecdsa256Secret))
         let invalidRandomSignature = try await store.verify(signature: "invalid".data(using: .utf8)!, for: dataToSign, with: AnySecret(Constants.Secrets.ecdsa256Secret))
         let invalidRandomData = try await store.verify(signature: signature.derRepresentation, for: "invalid".data(using: .utf8)!, with: AnySecret(Constants.Secrets.ecdsa256Secret))
@@ -80,7 +78,7 @@ import Common
 
     @Test func witnessObjectionStopsRequest() async {
         let stubReader = StubFileHandleReader(availableData: Constants.Requests.requestSignature)
-        let list = storeList(with: [Constants.Secrets.ecdsa256Secret])
+        let list = await storeList(with: [Constants.Secrets.ecdsa256Secret])
         let witness = StubWitness(speakNow: { _,_  in
             return true
         }, witness: { _, _ in })
@@ -91,44 +89,43 @@ import Common
 
     @Test func witnessSignature() async {
         let stubReader = StubFileHandleReader(availableData: Constants.Requests.requestSignature)
-        let list = storeList(with: [Constants.Secrets.ecdsa256Secret])
-        let witnessed: OSAllocatedUnfairLock<Bool> = .init(uncheckedState: false)
+        let list = await storeList(with: [Constants.Secrets.ecdsa256Secret])
+        nonisolated(unsafe) var witnessed = false
         let witness = StubWitness(speakNow: { _, trace  in
             return false
         }, witness: { _, trace in
-            witnessed.lockedValue = true
+            witnessed = true
         })
         let agent = Agent(storeList: list, witness: witness)
         await agent.handle(reader: stubReader, writer: stubWriter)
-        let value = witnessed.lockedValue
-        #expect(value)
+        #expect(witnessed)
     }
 
     @Test func requestTracing() async {
         let stubReader = StubFileHandleReader(availableData: Constants.Requests.requestSignature)
-        let list = storeList(with: [Constants.Secrets.ecdsa256Secret])
-        let speakNowTrace: OSAllocatedUnfairLock<SigningRequestProvenance?> = .init(uncheckedState: nil)
-        let witnessTrace: OSAllocatedUnfairLock<SigningRequestProvenance?> = .init(uncheckedState: nil)
+        let list = await storeList(with: [Constants.Secrets.ecdsa256Secret])
+        nonisolated(unsafe) var speakNowTrace: SigningRequestProvenance?
+        nonisolated(unsafe) var witnessTrace: SigningRequestProvenance?
         let witness = StubWitness(speakNow: { _, trace  in
-            speakNowTrace.lockedValue = trace
+            speakNowTrace = trace
             return false
         }, witness: { _, trace in
-            witnessTrace.lockedValue = trace
+            witnessTrace = trace
         })
         let agent = Agent(storeList: list, witness: witness)
         await agent.handle(reader: stubReader, writer: stubWriter)
-        #expect(witnessTrace.lockedValue == speakNowTrace.lockedValue)
-        #expect(witnessTrace.lockedValue?.origin.displayName == "Finder")
-        #expect(witnessTrace.lockedValue?.origin.validSignature == true)
-        #expect(witnessTrace.lockedValue?.origin.parentPID == 1)
+        #expect(witnessTrace == speakNowTrace)
+        #expect(witnessTrace?.origin.displayName == "Finder")
+        #expect(witnessTrace?.origin.validSignature == true)
+        #expect(witnessTrace?.origin.parentPID == 1)
     }
 
     // MARK: Exception Handling
 
     @Test func signatureException() async {
         let stubReader = StubFileHandleReader(availableData: Constants.Requests.requestSignature)
-        let list = storeList(with: [Constants.Secrets.ecdsa256Secret, Constants.Secrets.ecdsa384Secret])
-        let store = list.stores.first?.base as! Stub.Store
+        let list = await storeList(with: [Constants.Secrets.ecdsa256Secret, Constants.Secrets.ecdsa384Secret])
+        let store = await list.stores.first?.base as! Stub.Store
         store.shouldThrow = true
         let agent = Agent(storeList: list)
         await agent.handle(reader: stubReader, writer: stubWriter)
@@ -148,7 +145,7 @@ import Common
 
 extension AgentTests {
 
-    func storeList(with secrets: [Stub.Secret]) -> SecretStoreList {
+    @MainActor func storeList(with secrets: [Stub.Secret]) async -> SecretStoreList {
         let store = Stub.Store()
         store.secrets.append(contentsOf: secrets)
         let storeList = SecretStoreList()

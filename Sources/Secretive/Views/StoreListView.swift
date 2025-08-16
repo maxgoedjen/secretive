@@ -42,12 +42,18 @@ struct StoreListView: View {
             if let activeSecret {
                 SecretDetailView(secret: activeSecret)
             } else {
-                EmptyStoreView(store: storeList.stores.first)
+                EmptyStoreView(store: storeList.modifiableStore ?? storeList.stores.first)
             }
         }
         .navigationSplitViewStyle(.balanced)
         .onAppear {
-            activeSecret = nextDefaultSecret
+            withObservationTracking {
+                _ = nextDefaultSecret
+            } onChange: {
+                Task { @MainActor in
+                    activeSecret = nextDefaultSecret
+                }
+            }
         }
         .frame(minWidth: 100, idealWidth: 240)
 
@@ -57,7 +63,7 @@ struct StoreListView: View {
 extension StoreListView {
 
     private var nextDefaultSecret: AnySecret? {
-        return storeList.stores.compactMap(\.secrets.first).first
+        return storeList.stores.first(where: { !$0.secrets.isEmpty })?.secrets.first
     }
     
 }

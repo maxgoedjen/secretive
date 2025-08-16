@@ -7,13 +7,13 @@ public protocol SecretStore: Identifiable, Sendable {
     associatedtype SecretType: Secret
 
     /// A boolean indicating whether or not the store is available.
-    var isAvailable: Bool { get }
+    @MainActor var isAvailable: Bool { get }
     /// A unique identifier for the store.
     var id: UUID { get }
     /// A user-facing name for the store.
-    var name: String { get }
+    @MainActor var name: String { get }
     /// The secrets the store manages.
-    var secrets: [SecretType] { get }
+    @MainActor var secrets: [SecretType] { get }
 
     /// Signs a data payload with a specified Secret.
     /// - Parameters:

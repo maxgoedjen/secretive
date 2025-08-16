@@ -4,47 +4,28 @@ import Security
 import CryptoKit
 @preconcurrency import LocalAuthentication
 import SecretKit
-import os
-
-public extension OSAllocatedUnfairLock where State: Sendable {
-
-    var lockedValue: State {
-        get {
-            withLock { $0 }
-        }
-        nonmutating set {
-            withLock { $0 = newValue }
-        }
-    }
-
-}
-
 
 extension SecureEnclave {
 
     /// An implementation of Store backed by the Secure Enclave.
     @Observable public final class Store: SecretStoreModifiable {
 
+        @MainActor public var secrets: [Secret] = []
         public var isAvailable: Bool {
             CryptoKit.SecureEnclave.isAvailable
         }
         public let id = UUID()
         public let name = String(localized: "secure_enclave")
-        public var secrets: [Secret] {
-            _secrets.lockedValue
-        }
-        private let _secrets: OSAllocatedUnfairLock<[Secret]> = .init(uncheckedState: [])
-
-        private let persistedAuthenticationContexts: OSAllocatedUnfairLock<[Secret: PersistentAuthenticationContext]> = .init(uncheckedState: [:])
+        private let persistentAuthenticationHandler = PersistentAuthenticationHandler()
 
         /// Initializes a Store.
         public init() {
             Task {
+                await loadSecrets()
                 for await _ in DistributedNotificationCenter.default().notifications(named: .secretStoreUpdated) {
                     await reloadSecretsInternal(notifyAgent: false)
                 }
             }
-            loadSecrets()
         }
 
         // MARK: Public API
@@ -118,9 +99,9 @@ extension SecureEnclave {
             await reloadSecretsInternal()
         }
         
-        public func sign(data: Data, with secret: Secret, for provenance: SigningRequestProvenance) throws -> Data {
+        public func sign(data: Data, with secret: Secret, for provenance: SigningRequestProvenance) async throws -> Data {
             let context: LAContext
-            if let existing = persistedAuthenticationContexts.lockedValue[secret], existing.valid {
+            if let existing = await persistentAuthenticationHandler.existingPersistedAuthenticationContext(secret: secret) {
                 context = existing.context
             } else {
                 let newContext = LAContext()
@@ -190,30 +171,12 @@ extension SecureEnclave {
             return verified
         }
 
-        public func existingPersistedAuthenticationContext(secret: Secret) -> PersistedAuthenticationContext? {
-            guard let persisted = persistedAuthenticationContexts.lockedValue[secret], persisted.valid else { return nil }
-            return persisted
+        public func existingPersistedAuthenticationContext(secret: Secret) async -> PersistedAuthenticationContext? {
+            await persistentAuthenticationHandler.existingPersistedAuthenticationContext(secret: secret)
         }
 
         public func persistAuthentication(secret: Secret, forDuration duration: TimeInterval) async throws {
-            let newContext = LAContext()
-            newContext.touchIDAuthenticationAllowableReuseDuration = duration
-            newContext.localizedCancelTitle = String(localized: "auth_context_request_deny_button")
-
-            let formatter = DateComponentsFormatter()
-            formatter.unitsStyle = .spellOut
-            formatter.allowedUnits = [.hour, .minute, .day]
-
-            if let durationString = formatter.string(from: duration) {
-                newContext.localizedReason = String(localized: "auth_context_persist_for_duration_\(secret.name)_\(durationString)")
-            } else {
-                newContext.localizedReason = String(localized: "auth_context_persist_for_duration_unknown_\(secret.name)")
-            }
-            guard try await newContext.evaluatePolicy(.deviceOwnerAuthentication, localizedReason: newContext.localizedReason) else { return }
-            let context = PersistentAuthenticationContext(secret: secret, context: newContext, duration: duration)
-            self.persistedAuthenticationContexts.withLock {
-                $0[secret] = context
-            }
+            try await persistentAuthenticationHandler.persistAuthentication(secret: secret, forDuration: duration)
         }
 
         public func reloadSecrets() async {
@@ -228,12 +191,10 @@ extension SecureEnclave.Store {
 
     /// Reloads all secrets from the store.
     /// - Parameter notifyAgent: A boolean indicating whether a distributed notification should be posted, notifying other processes (ie, the SecretAgent) to reload their stores as well.
-    private func reloadSecretsInternal(notifyAgent: Bool = true) async {
+    @MainActor private func reloadSecretsInternal(notifyAgent: Bool = true) async {
         let before = secrets
-        _secrets.withLock {
-            $0.removeAll()
-        }
-        loadSecrets()
+        secrets.removeAll()
+        await loadSecrets()
         if secrets != before {
             NotificationCenter.default.post(name: .secretStoreReloaded, object: self)
             if notifyAgent {
@@ -243,7 +204,7 @@ extension SecureEnclave.Store {
     }
 
     /// Loads all secrets from the store.
-    private func loadSecrets() {
+    private func loadSecrets() async {
         let publicAttributes = KeychainDictionary([
             kSecClass: kSecClassKey,
             kSecAttrKeyType: SecureEnclave.Constants.keyType,
@@ -294,8 +255,8 @@ extension SecureEnclave.Store {
             }
             return SecureEnclave.Secret(id: id, name: name, requiresAuthentication: requiresAuth, publicKey: publicKey)
         }
-        _secrets.withLock {
-            $0.append(contentsOf: wrapped)
+        Task { @MainActor in
+            secrets.append(contentsOf: wrapped)
         }
     }
 
@@ -335,7 +296,7 @@ extension SecureEnclave {
 extension SecureEnclave {
 
     /// A context describing a persisted authentication.
-    private final class PersistentAuthenticationContext: PersistedAuthenticationContext {
+    final class PersistentAuthenticationContext: PersistedAuthenticationContext {
 
         /// The Secret to persist authentication for.
         let secret: Secret
