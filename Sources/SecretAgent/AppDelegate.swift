@@ -11,13 +11,13 @@ import Observation
 @main
 class AppDelegate: NSObject, NSApplicationDelegate {
 
-    private let storeList: SecretStoreList = {
+    @MainActor private let storeList: SecretStoreList = {
         let list = SecretStoreList()
         list.add(store: SecureEnclave.Store())
         list.add(store: SmartCard.Store())
         return list
     }()
-    private let updater = Updater(checkOnLaunch: false)
+    private let updater = Updater(checkOnLaunch: true)
     private let notifier = Notifier()
     private let publicKeyFileStoreController = PublicKeyFileStoreController(homeDirectory: NSHomeDirectory())
     private lazy var agent: Agent = {
@@ -44,15 +44,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
         try? publicKeyFileStoreController.generatePublicKeys(for: storeList.allSecrets, clear: true)
         notifier.prompt()
-        _ = withObservationTracking {
-            updater.update
-        } onChange: { [updater, notifier] in
-            notifier.notify(update: updater.update!) { release in
-                Task {
-                    await updater.ignore(release: release)
-                }
-            }
-        }
+//        _ = withObservationTracking {
+//            updater.update
+//        } onChange: { [updater, notifier] in
+//            notifier.notify(update: updater.update!) { release in
+//                Task {
+//                    await updater.ignore(release: release)
+//                }
+//            }
+//        }
     }
 
 }

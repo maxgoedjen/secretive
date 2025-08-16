@@ -1,15 +1,18 @@
 import Foundation
 import Observation
-import os
-import Common
 
 /// A concrete implementation of ``UpdaterProtocol`` which considers the current release and OS version.
 @Observable public final class Updater: UpdaterProtocol, Sendable {
 
-    public var update: Release? {
-        _update.lockedValue
+    private let state = State()
+    @MainActor @Observable public final class State {
+        var update: Release? = nil
+        nonisolated init() {}
     }
-    private let _update: OSAllocatedUnfairLock<Release?> = .init(uncheckedState: nil)
+    public var update: Release? {
+        state.update
+    }
+
     public let testBuild: Bool
 
     /// The current OS version.
@@ -23,7 +26,12 @@ import Common
     ///   - checkFrequency: The interval at which the Updater should check for updates. Subject to a tolerance of 1 hour.
     ///   - osVersion: The current OS version.
     ///   - currentVersion: The current version of the app that is running.
-    public init(checkOnLaunch: Bool, checkFrequency: TimeInterval = Measurement(value: 24, unit: UnitDuration.hours).converted(to: .seconds).value, osVersion: SemVer = SemVer(ProcessInfo.processInfo.operatingSystemVersion), currentVersion: SemVer = SemVer(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "0.0.0")) {
+    public init(
+        checkOnLaunch: Bool,
+        checkFrequency: TimeInterval = Measurement(value: 24, unit: UnitDuration.hours).converted(to: .seconds).value,
+        osVersion: SemVer = SemVer(ProcessInfo.processInfo.operatingSystemVersion),
+        currentVersion: SemVer = SemVer(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "0.0.0")
+    ) {
         self.osVersion = osVersion
         self.currentVersion = currentVersion
         testBuild = currentVersion == SemVer("0.0.0")
@@ -54,7 +62,7 @@ import Common
         guard !release.critical else { return }
         defaults.set(true, forKey: release.name)
         await MainActor.run {
-            _update.lockedValue = nil
+            state.update = nil
         }
     }
 
@@ -75,7 +83,8 @@ extension Updater {
         let latestVersion = SemVer(release.name)
         if latestVersion > currentVersion {
             await MainActor.run {
-                _update.lockedValue = release
+                print("SET \(release)")
+                state.update = release
             }
         }
     }

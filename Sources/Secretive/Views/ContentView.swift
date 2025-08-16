@@ -91,6 +91,8 @@ extension ContentView {
             .popover(item: $selectedUpdate, attachmentAnchor: attachmentAnchor, arrowEdge: .bottom) { update in
                 UpdateDetailView(update: update)
             }
+        } else {
+            Text("No Update: \(updater.update as Any)")
         }
     }
 

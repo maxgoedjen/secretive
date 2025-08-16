@@ -4,18 +4,20 @@ import AppKit
 import SecretKit
 import Observation
 
-protocol AgentStatusCheckerProtocol: Observable {
+@MainActor protocol AgentStatusCheckerProtocol: Observable, Sendable {
     var running: Bool { get }
     var developmentBuild: Bool { get }
     func check()
 }
 
-@Observable class AgentStatusChecker: AgentStatusCheckerProtocol {
+@Observable @MainActor final class AgentStatusChecker: AgentStatusCheckerProtocol {
 
     var running: Bool = false
 
-    init() {
-        check()
+    nonisolated init() {
+        Task { @MainActor in
+            check()
+        }
     }
 
     func check() {

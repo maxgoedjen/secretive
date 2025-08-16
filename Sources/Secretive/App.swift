@@ -6,14 +6,19 @@ import SmartCardSecretKit
 import Brief
 
 extension EnvironmentValues {
-    @Entry var secretStoreList: SecretStoreList = {
+    private static let _secretStoreList: SecretStoreList = {
         let list = SecretStoreList()
-        list.add(store: SecureEnclave.Store())
-        list.add(store: SmartCard.Store())
+        Task { @MainActor in
+            list.add(store: SecureEnclave.Store())
+            list.add(store: SmartCard.Store())
+        }
         return list
     }()
-    @Entry var agentStatusChecker: any AgentStatusCheckerProtocol = AgentStatusChecker()
-    @Entry var updater: any UpdaterProtocol = Updater(checkOnLaunch: false)
+    @Entry var secretStoreList = _secretStoreList
+    private static let _agentStatusChecker = AgentStatusChecker()
+    @Entry var agentStatusChecker: any AgentStatusCheckerProtocol = _agentStatusChecker
+    private static let _updater: any UpdaterProtocol = Updater(checkOnLaunch: true)
+    @Entry var updater: any UpdaterProtocol = _updater
 }
 
 @main
@@ -29,7 +34,7 @@ struct Secretive: App {
         WindowGroup {
             ContentView(showingCreation: $showingCreation, runningSetup: $showingSetup, hasRunSetup: $hasRunSetup)
             // This one is explicitly injected via environment to support hasRunSetup.
-                .environment(Updater(checkOnLaunch: hasRunSetup))
+//                .environment(Updater(checkOnLaunch: hasRunSetup))
                 .onAppear {
                     if !hasRunSetup {
                         showingSetup = true

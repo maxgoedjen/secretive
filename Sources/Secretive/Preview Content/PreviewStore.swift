@@ -104,7 +104,7 @@ extension Preview {
 
 extension Preview {
 
-    static func storeList(stores: [Store] = [], modifiableStores: [StoreModifiable] = []) -> SecretStoreList {
+    @MainActor static func storeList(stores: [Store] = [], modifiableStores: [StoreModifiable] = []) -> SecretStoreList {
         let list = SecretStoreList()
         for store in stores {
             list.add(store: store)

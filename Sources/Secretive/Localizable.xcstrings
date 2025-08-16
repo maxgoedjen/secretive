@@ -2512,6 +2512,9 @@
         }
       }
     },
+    "No Update: %@" : {
+
+    },
     "no_secure_storage_description" : {
       "localizations" : {
         "ca" : {

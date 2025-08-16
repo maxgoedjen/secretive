@@ -5,7 +5,20 @@ import CryptoKit
 @preconcurrency import LocalAuthentication
 import SecretKit
 import os
-import Common
+
+public extension OSAllocatedUnfairLock where State: Sendable {
+
+    var lockedValue: State {
+        get {
+            withLock { $0 }
+        }
+        nonmutating set {
+            withLock { $0 = newValue }
+        }
+    }
+
+}
+
 
 extension SecureEnclave {
 

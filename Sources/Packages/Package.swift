@@ -27,16 +27,13 @@ let package = Package(
         .library(
             name: "Brief",
             targets: ["Brief"]),
-        .library(
-            name: "Common",
-            targets: ["Common"]),
     ],
     dependencies: [
     ],
     targets: [
         .target(
             name: "SecretKit",
-            dependencies: ["Common"],
+            dependencies: [],
             swiftSettings: swiftSettings
         ),
         .testTarget(
@@ -46,17 +43,17 @@ let package = Package(
         ),
         .target(
             name: "SecureEnclaveSecretKit",
-            dependencies: ["Common", "SecretKit"],
+            dependencies: ["SecretKit"],
             swiftSettings: swiftSettings
         ),
         .target(
             name: "SmartCardSecretKit",
-            dependencies: ["Common", "SecretKit"],
+            dependencies: ["SecretKit"],
             swiftSettings: swiftSettings
         ),
         .target(
             name: "SecretAgentKit",
-            dependencies: ["Common", "SecretKit", "SecretAgentKitHeaders"],
+            dependencies: ["SecretKit", "SecretAgentKitHeaders"],
             swiftSettings: swiftSettings
         ),
         .systemLibrary(
@@ -68,17 +65,12 @@ let package = Package(
         ,
         .target(
             name: "Brief",
-            dependencies: ["Common"],
+            dependencies: [],
             swiftSettings: swiftSettings
         ),
         .testTarget(
             name: "BriefTests",
             dependencies: ["Brief"]
-        ),
-        .target(
-            name: "Common",
-            dependencies: [],
-            swiftSettings: swiftSettings
         ),
     ]
 )

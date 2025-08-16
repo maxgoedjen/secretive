@@ -32,7 +32,7 @@ public final class OpenSSHCertificateHandler: Sendable {
     /// - Parameter secret: The secret to check for a certificate.
     /// - Returns: A boolean describing whether or not the certificate handler has a certifiicate associated with a given secret
     public func hasCertificate<SecretType: Secret>(for secret: SecretType) -> Bool {
-        keyBlobsAndNames.lockedValue[AnySecret(secret)] != nil
+        keyBlobsAndNames.withLock { $0[AnySecret(secret)] != nil }
     }
 
 
@@ -64,7 +64,7 @@ public final class OpenSSHCertificateHandler: Sendable {
     /// - Parameter secret: The secret to search for a certificate with
     /// - Returns: A (``Data``, ``Data``) tuple containing the certificate and certificate name, respectively.
     public func keyBlobAndName<SecretType: Secret>(for secret: SecretType) throws -> (Data, Data)? {
-        keyBlobsAndNames.lockedValue[AnySecret(secret)]
+        keyBlobsAndNames.withLock { $0[AnySecret(secret)] }
     }
     
     /// Attempts to find an OpenSSH Certificate  that corresponds to a ``Secret``
