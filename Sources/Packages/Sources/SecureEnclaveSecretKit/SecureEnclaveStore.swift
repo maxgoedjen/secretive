@@ -1,38 +1,36 @@
 import Foundation
-import Combine
+import Observation
 import Security
-import CryptoTokenKit
+import CryptoKit
 import LocalAuthentication
 import SecretKit
 
 extension SecureEnclave {
 
     /// An implementation of Store backed by the Secure Enclave.
-    public final class Store: SecretStoreModifiable {
+    @Observable public final class Store: SecretStoreModifiable {
 
+        @MainActor public var secrets: [Secret] = []
         public var isAvailable: Bool {
-            // For some reason, as of build time, CryptoKit.SecureEnclave.isAvailable always returns false
-            // error msg "Received error sending GET UNIQUE DEVICE command"
-            // Verify it with TKTokenWatcher manually.
-            TKTokenWatcher().tokenIDs.contains("com.apple.setoken")
+            CryptoKit.SecureEnclave.isAvailable
         }
         public let id = UUID()
         public let name = String(localized: "secure_enclave")
-        @Published public private(set) var secrets: [Secret] = []
-
-        private var persistedAuthenticationContexts: [Secret: PersistentAuthenticationContext] = [:]
+        private let persistentAuthenticationHandler = PersistentAuthenticationHandler()
 
         /// Initializes a Store.
-        public init() {
-            DistributedNotificationCenter.default().addObserver(forName: .secretStoreUpdated, object: nil, queue: .main) { [reload = reloadSecretsInternal(notifyAgent:)] _ in
-                reload(false)
-            }
+        @MainActor public init() {
             loadSecrets()
+            Task {
+                for await _ in DistributedNotificationCenter.default().notifications(named: .secretStoreUpdated) {
+                    await reloadSecretsInternal(notifyAgent: false)
+                }
+            }
         }
 
         // MARK: Public API
 
-        public func create(name: String, requiresAuthentication: Bool) throws {
+        public func create(name: String, requiresAuthentication: Bool) async throws {
             var accessError: SecurityError?
             let flags: SecAccessControlCreateFlags
             if requiresAuthentication {
@@ -69,10 +67,10 @@ extension SecureEnclave {
                 throw KeychainError(statusCode: nil)
             }
             try savePublicKey(publicKey, name: name)
-            reloadSecretsInternal()
+            await reloadSecretsInternal()
         }
 
-        public func delete(secret: Secret) throws {
+        public func delete(secret: Secret) async throws {
             let deleteAttributes = KeychainDictionary([
                 kSecClass: kSecClassKey,
                 kSecAttrApplicationLabel: secret.id as CFData
@@ -81,10 +79,10 @@ extension SecureEnclave {
             if status != errSecSuccess {
                 throw KeychainError(statusCode: status)
             }
-            reloadSecretsInternal()
+            await reloadSecretsInternal()
         }
 
-        public func update(secret: Secret, name: String) throws {
+        public func update(secret: Secret, name: String) async throws {
             let updateQuery = KeychainDictionary([
                 kSecClass: kSecClassKey,
                 kSecAttrApplicationLabel: secret.id as CFData
@@ -98,12 +96,12 @@ extension SecureEnclave {
             if status != errSecSuccess {
                 throw KeychainError(statusCode: status)
             }
-            reloadSecretsInternal()
+            await reloadSecretsInternal()
         }
         
-        public func sign(data: Data, with secret: Secret, for provenance: SigningRequestProvenance) throws -> Data {
+        public func sign(data: Data, with secret: Secret, for provenance: SigningRequestProvenance) async throws -> Data {
             let context: LAContext
-            if let existing = persistedAuthenticationContexts[secret], existing.valid {
+            if let existing = await persistentAuthenticationHandler.existingPersistedAuthenticationContext(secret: secret) {
                 context = existing.context
             } else {
                 let newContext = LAContext()
@@ -120,7 +118,7 @@ extension SecureEnclave {
                 kSecAttrApplicationTag: Constants.keyTag,
                 kSecUseAuthenticationContext: context,
                 kSecReturnRef: true
-                ])
+            ])
             var untyped: CFTypeRef?
             let status = SecItemCopyMatching(attributes, &untyped)
             if status != errSecSuccess {
@@ -173,34 +171,16 @@ extension SecureEnclave {
             return verified
         }
 
-        public func existingPersistedAuthenticationContext(secret: Secret) -> PersistedAuthenticationContext? {
-            guard let persisted = persistedAuthenticationContexts[secret], persisted.valid else { return nil }
-            return persisted
+        public func existingPersistedAuthenticationContext(secret: Secret) async -> PersistedAuthenticationContext? {
+            await persistentAuthenticationHandler.existingPersistedAuthenticationContext(secret: secret)
         }
 
-        public func persistAuthentication(secret: Secret, forDuration duration: TimeInterval) throws {
-            let newContext = LAContext()
-            newContext.touchIDAuthenticationAllowableReuseDuration = duration
-            newContext.localizedCancelTitle = String(localized: "auth_context_request_deny_button")
-
-            let formatter = DateComponentsFormatter()
-            formatter.unitsStyle = .spellOut
-            formatter.allowedUnits = [.hour, .minute, .day]
-
-            if let durationString = formatter.string(from: duration) {
-                newContext.localizedReason = String(localized: "auth_context_persist_for_duration_\(secret.name)_\(durationString)")
-            } else {
-                newContext.localizedReason = String(localized: "auth_context_persist_for_duration_unknown_\(secret.name)")
-            }
-            newContext.evaluatePolicy(LAPolicy.deviceOwnerAuthentication, localizedReason: newContext.localizedReason) { [weak self] success, _ in
-                guard success else { return }
-                let context = PersistentAuthenticationContext(secret: secret, context: newContext, duration: duration)
-                self?.persistedAuthenticationContexts[secret] = context
-            }
+        public func persistAuthentication(secret: Secret, forDuration duration: TimeInterval) async throws {
+            try await persistentAuthenticationHandler.persistAuthentication(secret: secret, forDuration: duration)
         }
 
-        public func reloadSecrets() {
-            reloadSecretsInternal(notifyAgent: false)
+        public func reloadSecrets() async {
+            await reloadSecretsInternal(notifyAgent: false)
         }
 
     }
@@ -211,7 +191,7 @@ extension SecureEnclave.Store {
 
     /// Reloads all secrets from the store.
     /// - Parameter notifyAgent: A boolean indicating whether a distributed notification should be posted, notifying other processes (ie, the SecretAgent) to reload their stores as well.
-    private func reloadSecretsInternal(notifyAgent: Bool = true) {
+    @MainActor private func reloadSecretsInternal(notifyAgent: Bool = true) async {
         let before = secrets
         secrets.removeAll()
         loadSecrets()
@@ -224,7 +204,7 @@ extension SecureEnclave.Store {
     }
 
     /// Loads all secrets from the store.
-    private func loadSecrets() {
+    @MainActor private func loadSecrets() {
         let publicAttributes = KeychainDictionary([
             kSecClass: kSecClassKey,
             kSecAttrKeyType: SecureEnclave.Constants.keyType,
@@ -304,48 +284,9 @@ extension SecureEnclave.Store {
 extension SecureEnclave {
 
     enum Constants {
-        static let keyTag = "com.maxgoedjen.secretive.secureenclave.key".data(using: .utf8)! as CFData
-        static let keyType = kSecAttrKeyTypeECSECPrimeRandom
+        static let keyTag = Data("com.maxgoedjen.secretive.secureenclave.key".utf8)
+        static let keyType = kSecAttrKeyTypeECSECPrimeRandom as String
         static let unauthenticatedThreshold: TimeInterval = 0.05
-    }
-
-}
-
-extension SecureEnclave {
-
-    /// A context describing a persisted authentication.
-    private struct PersistentAuthenticationContext: PersistedAuthenticationContext {
-
-        /// The Secret to persist authentication for.
-        let secret: Secret
-        /// The LAContext used to authorize the persistent context.
-        let context: LAContext
-        /// An expiration date for the context.
-        /// - Note -  Monotonic time instead of Date() to prevent people setting the clock back.
-        let monotonicExpiration: UInt64
-
-        /// Initializes a context.
-        /// - Parameters:
-        ///   - secret: The Secret to persist authentication for.
-        ///   - context: The LAContext used to authorize the persistent context.
-        ///   - duration: The duration of the authorization context, in seconds.
-        init(secret: Secret, context: LAContext, duration: TimeInterval) {
-            self.secret = secret
-            self.context = context
-            let durationInNanoSeconds = Measurement(value: duration, unit: UnitDuration.seconds).converted(to: .nanoseconds).value
-            self.monotonicExpiration = clock_gettime_nsec_np(CLOCK_MONOTONIC) + UInt64(durationInNanoSeconds)
-        }
-
-        /// A boolean describing whether or not the context is still valid.
-        var valid: Bool {
-            clock_gettime_nsec_np(CLOCK_MONOTONIC) < monotonicExpiration
-        }
-
-        var expiration: Date {
-            let remainingNanoseconds = monotonicExpiration - clock_gettime_nsec_np(CLOCK_MONOTONIC)
-            let remainingInSeconds = Measurement(value: Double(remainingNanoseconds), unit: UnitDuration.nanoseconds).converted(to: .seconds).value
-            return Date(timeIntervalSinceNow: remainingInSeconds)
-        }
     }
 
 }

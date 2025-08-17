@@ -1,7 +1,7 @@
 import Foundation
 
 /// The base protocol for describing a Secret
-public protocol Secret: Identifiable, Hashable {
+public protocol Secret: Identifiable, Hashable, Sendable {
 
     /// A user-facing string identifying the Secret.
     var name: String { get }
@@ -17,7 +17,7 @@ public protocol Secret: Identifiable, Hashable {
 }
 
 /// The type of algorithm the Secret uses. Currently, only elliptic curve algorithms are supported.
-public enum Algorithm: Hashable {
+public enum Algorithm: Hashable, Sendable {
 
     case ellipticCurve
     case rsa

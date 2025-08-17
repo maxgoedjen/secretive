@@ -1,4 +1,4 @@
-// swift-tools-version:5.9
+// swift-tools-version:6.2
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
@@ -6,7 +6,7 @@ import PackageDescription
 let package = Package(
     name: "SecretivePackages",
     platforms: [
-        .macOS(.v12)
+        .macOS(.v14)
     ],
     products: [
         .library(
@@ -34,27 +34,27 @@ let package = Package(
         .target(
             name: "SecretKit",
             dependencies: [],
-            swiftSettings: [.unsafeFlags(["-warnings-as-errors"])]
+            swiftSettings: swiftSettings
         ),
         .testTarget(
             name: "SecretKitTests",
             dependencies: ["SecretKit", "SecureEnclaveSecretKit", "SmartCardSecretKit"],
-            swiftSettings: [.unsafeFlags(["-warnings-as-errors"])]
+            swiftSettings: swiftSettings
         ),
         .target(
             name: "SecureEnclaveSecretKit",
             dependencies: ["SecretKit"],
-            swiftSettings: [.unsafeFlags(["-warnings-as-errors"])]
+            swiftSettings: swiftSettings
         ),
         .target(
             name: "SmartCardSecretKit",
             dependencies: ["SecretKit"],
-            swiftSettings: [.unsafeFlags(["-warnings-as-errors"])]
+            swiftSettings: swiftSettings
         ),
         .target(
             name: "SecretAgentKit",
             dependencies: ["SecretKit", "SecretAgentKitHeaders"],
-            swiftSettings: [.unsafeFlags(["-warnings-as-errors"])]
+            swiftSettings: swiftSettings
         ),
         .systemLibrary(
             name: "SecretAgentKitHeaders"
@@ -65,7 +65,8 @@ let package = Package(
         ,
         .target(
             name: "Brief",
-            dependencies: []
+            dependencies: [],
+            swiftSettings: swiftSettings
         ),
         .testTarget(
             name: "BriefTests",
@@ -73,3 +74,10 @@ let package = Package(
         ),
     ]
 )
+
+var swiftSettings: [PackageDescription.SwiftSetting] {
+    [
+        .swiftLanguageMode(.v6),
+        .unsafeFlags(["-warnings-as-errors"])
+    ]
+}

@@ -5,7 +5,7 @@ import SecretKit
 import AppKit
 
 /// The `Agent` is an implementation of an SSH agent. It manages coordination and access between a socket, traces requests, notifies witnesses and passes requests to stores.
-public final class Agent {
+public final class Agent: Sendable {
 
     private let storeList: SecretStoreList
     private let witness: SigningWitness?
@@ -22,7 +22,9 @@ public final class Agent {
         logger.debug("Agent is running")
         self.storeList = storeList
         self.witness = witness
-        certificateHandler.reloadCertificates(for: storeList.allSecrets)
+        Task { @MainActor in
+            await certificateHandler.reloadCertificates(for: storeList.allSecrets)
+        }
     }
     
 }
@@ -54,18 +56,18 @@ extension Agent {
 
     func handle(requestType: SSHAgent.RequestType, data: Data, reader: FileHandleReader) async -> Data {
         // Depending on the launch context (such as after macOS update), the agent may need to reload secrets before acting
-        reloadSecretsIfNeccessary()
+        await reloadSecretsIfNeccessary()
         var response = Data()
         do {
             switch requestType {
             case .requestIdentities:
                 response.append(SSHAgent.ResponseType.agentIdentitiesAnswer.data)
-                response.append(identities())
+                response.append(await identities())
                 logger.debug("Agent returned \(SSHAgent.ResponseType.agentIdentitiesAnswer.debugDescription)")
             case .signRequest:
                 let provenance = requestTracer.provenance(from: reader)
                 response.append(SSHAgent.ResponseType.agentSignResponse.data)
-                response.append(try sign(data: data, provenance: provenance))
+                response.append(try await sign(data: data, provenance: provenance))
                 logger.debug("Agent returned \(SSHAgent.ResponseType.agentSignResponse.debugDescription)")
             }
         } catch {
@@ -83,9 +85,9 @@ extension Agent {
 
     /// Lists the identities available for signing operations
     /// - Returns: An OpenSSH formatted Data payload listing the identities available for signing operations.
-    func identities() -> Data {
-        let secrets = storeList.allSecrets
-        certificateHandler.reloadCertificates(for: secrets)
+    func identities() async -> Data {
+        let secrets = await storeList.allSecrets
+        await certificateHandler.reloadCertificates(for: secrets)
         var count = secrets.count
         var keyData = Data()
 
@@ -95,7 +97,7 @@ extension Agent {
             keyData.append(writer.lengthAndData(of: keyBlob))
             keyData.append(writer.lengthAndData(of: curveData))
             
-            if let (certificateData, name) = try? certificateHandler.keyBlobAndName(for: secret) {
+            if let (certificateData, name) = try? await certificateHandler.keyBlobAndName(for: secret) {
                 keyData.append(writer.lengthAndData(of: certificateData))
                 keyData.append(writer.lengthAndData(of: name))
                 count += 1
@@ -112,28 +114,28 @@ extension Agent {
     ///   - data: The data to sign.
     ///   - provenance: A ``SecretKit.SigningRequestProvenance`` object describing the origin of the request.
     /// - Returns: An OpenSSH formatted Data payload containing the signed data response.
-    func sign(data: Data, provenance: SigningRequestProvenance) throws -> Data {
+    func sign(data: Data, provenance: SigningRequestProvenance) async throws -> Data {
         let reader = OpenSSHReader(data: data)
         let payloadHash = reader.readNextChunk()
         let hash: Data
         // Check if hash is actually an openssh certificate and reconstruct the public key if it is
-        if let certificatePublicKey = certificateHandler.publicKeyHash(from: payloadHash) {
+        if let certificatePublicKey = await certificateHandler.publicKeyHash(from: payloadHash) {
             hash = certificatePublicKey
         } else {
             hash = payloadHash
         }
         
-        guard let (store, secret) = secret(matching: hash) else {
+        guard let (store, secret) = await secret(matching: hash) else {
             logger.debug("Agent did not have a key matching \(hash as NSData)")
             throw AgentError.noMatchingKey
         }
 
         if let witness = witness {
-            try witness.speakNowOrForeverHoldYourPeace(forAccessTo: secret, from: store, by: provenance)
+            try await witness.speakNowOrForeverHoldYourPeace(forAccessTo: secret, from: store, by: provenance)
         }
 
         let dataToSign = reader.readNextChunk()
-        let signed = try store.sign(data: dataToSign, with: secret, for: provenance)
+        let signed = try await store.sign(data: dataToSign, with: secret, for: provenance)
         let derSignature = signed
 
         let curveData = writer.curveType(for: secret.algorithm, length: secret.keySize).data(using: .utf8)!
@@ -175,7 +177,7 @@ extension Agent {
         signedData.append(writer.lengthAndData(of: sub))
 
         if let witness = witness {
-            try witness.witness(accessTo: secret, from: store, by: provenance)
+            try await witness.witness(accessTo: secret, from: store, by: provenance)
         }
 
         logger.debug("Agent signed request")
@@ -188,11 +190,12 @@ extension Agent {
 extension Agent {
 
     /// Gives any store with no loaded secrets a chance to reload.
-    func reloadSecretsIfNeccessary() {
-        for store in storeList.stores {
-            if store.secrets.isEmpty {
-                logger.debug("Store \(store.name, privacy: .public) has no loaded secrets. Reloading.")
-                store.reloadSecrets()
+    func reloadSecretsIfNeccessary() async {
+        for store in await storeList.stores {
+            if await store.secrets.isEmpty {
+                let name = await store.name
+                logger.debug("Store \(name, privacy: .public) has no loaded secrets. Reloading.")
+                await store.reloadSecrets()
             }
         }
     }
@@ -200,16 +203,16 @@ extension Agent {
     /// Finds a ``Secret`` matching a specified hash whos signature was requested.
     /// - Parameter hash: The hash to match against.
     /// - Returns: A ``Secret`` and the ``SecretStore`` containing it, if a match is found.
-    func secret(matching hash: Data) -> (AnySecretStore, AnySecret)? {
-        storeList.stores.compactMap { store -> (AnySecretStore, AnySecret)? in
-            let allMatching = store.secrets.filter { secret in
+    func secret(matching hash: Data) async -> (AnySecretStore, AnySecret)? {
+        for store in await storeList.stores {
+            let allMatching = await store.secrets.filter { secret in
                 hash == writer.data(secret: secret)
             }
             if let matching = allMatching.first {
                 return (store, matching)
             }
-            return nil
-        }.first
+        }
+        return nil
     }
 
 }

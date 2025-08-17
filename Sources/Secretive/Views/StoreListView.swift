@@ -4,60 +4,60 @@ import SecretKit
 
 struct StoreListView: View {
 
-    @Binding var activeSecret: AnySecret.ID?
-    
-    @EnvironmentObject private var storeList: SecretStoreList
+    @Binding var activeSecret: AnySecret?
+
+    @Environment(\.secretStoreList) private var storeList
 
     private func secretDeleted(secret: AnySecret) {
         activeSecret = nextDefaultSecret
     }
 
     private func secretRenamed(secret: AnySecret) {
-        activeSecret = secret.id
+        activeSecret = secret
     }
 
     var body: some View {
-        NavigationView {
+        NavigationSplitView {
             List(selection: $activeSecret) {
                 ForEach(storeList.stores) { store in
                     if store.isAvailable {
                         Section(header: Text(store.name)) {
-                            if store.secrets.isEmpty {
-                                EmptyStoreView(store: store, activeSecret: $activeSecret)
-                            } else {
-                                ForEach(store.secrets) { secret in
-                                    SecretListItemView(
-                                        store: store,
-                                        secret: secret,
-                                        activeSecret: $activeSecret,
-                                        deletedSecret: self.secretDeleted,
-                                        renamedSecret: self.secretRenamed
-                                    )
-                                }
+                            ForEach(store.secrets) { secret in
+                                SecretListItemView(
+                                    store: store,
+                                    secret: secret,
+                                    deletedSecret: secretDeleted,
+                                    renamedSecret: secretRenamed
+                                )
                             }
                         }
                     }
                 }
             }
-            .listStyle(SidebarListStyle())
-            .onAppear {
-                activeSecret = nextDefaultSecret
+        } detail: {
+            if let activeSecret {
+                SecretDetailView(secret: activeSecret)
+            } else if let nextDefaultSecret {
+                // This just means onAppear hasn't executed yet.
+                // Do this to avoid a blip.
+                SecretDetailView(secret: nextDefaultSecret)
+            } else {
+                EmptyStoreView(store: storeList.modifiableStore ?? storeList.stores.first)
             }
-            .frame(minWidth: 100, idealWidth: 240)
         }
+        .navigationSplitViewStyle(.balanced)
+        .onAppear {
+            activeSecret = nextDefaultSecret
+        }
+        .frame(minWidth: 100, idealWidth: 240)
+
     }
 }
 
 extension StoreListView {
 
-    var nextDefaultSecret: AnyHashable? {
-        let fallback: AnyHashable
-        if storeList.modifiableStore?.isAvailable ?? false {
-            fallback = EmptyStoreView.Constants.emptyStoreModifiableTag
-        } else {
-            fallback = EmptyStoreView.Constants.emptyStoreTag
-        }
-        return storeList.stores.compactMap(\.secrets.first).first?.id ?? fallback
+    private var nextDefaultSecret: AnySecret? {
+        return storeList.stores.first(where: { !$0.secrets.isEmpty })?.secrets.first
     }
     
 }

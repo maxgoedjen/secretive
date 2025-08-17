@@ -20,20 +20,20 @@ extension Preview {
 
 extension Preview {
 
-    class Store: SecretStore, ObservableObject {
+    @Observable final class Store: SecretStore {
 
         let isAvailable = true
         let id = UUID()
         var name: String { "Preview Store" }
-        @Published var secrets: [Secret] = []
+        let secrets: [Secret]
 
         init(secrets: [Secret]) {
-            self.secrets.append(contentsOf: secrets)
+            self.secrets = secrets
         }
 
-        init(numberOfRandomSecrets: Int = 5) {
+        convenience init(numberOfRandomSecrets: Int = 5) {
             let new = (0..<numberOfRandomSecrets).map { Secret(name: String(describing: $0)) }
-            self.secrets.append(contentsOf: new)
+            self.init(secrets: new)
         }
 
         func sign(data: Data, with secret: Preview.Secret, for provenance: SigningRequestProvenance) throws -> Data {
@@ -56,8 +56,40 @@ extension Preview {
 
     }
 
-    class StoreModifiable: Store, SecretStoreModifiable {
-        override var name: String { "Modifiable Preview Store" }
+    final class StoreModifiable: SecretStoreModifiable {
+        
+        let isAvailable = true
+        let id = UUID()
+        var name: String { "Modifiable Preview Store" }
+        let secrets: [Secret]
+
+        init(secrets: [Secret]) {
+            self.secrets = secrets
+        }
+
+        convenience init(numberOfRandomSecrets: Int = 5) {
+            let new = (0..<numberOfRandomSecrets).map { Secret(name: String(describing: $0)) }
+            self.init(secrets: new)
+        }
+
+        func sign(data: Data, with secret: Preview.Secret, for provenance: SigningRequestProvenance) throws -> Data {
+            return data
+        }
+
+        func verify(signature data: Data, for signature: Data, with secret: Preview.Secret) throws -> Bool {
+            true
+        }
+
+        func existingPersistedAuthenticationContext(secret: Preview.Secret) -> PersistedAuthenticationContext? {
+            nil
+        }
+
+        func persistAuthentication(secret: Preview.Secret, forDuration duration: TimeInterval) throws {
+        }
+
+        func reloadSecrets() {
+        }
+
 
         func create(name: String, requiresAuthentication: Bool) throws {
         }
@@ -72,7 +104,7 @@ extension Preview {
 
 extension Preview {
 
-    static func storeList(stores: [Store] = [], modifiableStores: [StoreModifiable] = []) -> SecretStoreList {
+    @MainActor static func storeList(stores: [Store] = [], modifiableStores: [StoreModifiable] = []) -> SecretStoreList {
         let list = SecretStoreList()
         for store in stores {
             list.add(store: store)

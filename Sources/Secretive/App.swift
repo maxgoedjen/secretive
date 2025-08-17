@@ -5,28 +5,42 @@ import SecureEnclaveSecretKit
 import SmartCardSecretKit
 import Brief
 
-@main
-struct Secretive: App {
+extension EnvironmentValues {
 
-    private let storeList: SecretStoreList = {
+    // This is injected through .environment modifier below instead of @Entry for performance reasons (basially, restrictions around init/mainactor causing delay in loading secrets/"empty screen" blip).
+    @MainActor fileprivate static let _secretStoreList: SecretStoreList = {
         let list = SecretStoreList()
         list.add(store: SecureEnclave.Store())
         list.add(store: SmartCard.Store())
         return list
     }()
-    private let agentStatusChecker = AgentStatusChecker()
-    private let justUpdatedChecker = JustUpdatedChecker()
 
+    private static let _agentStatusChecker = AgentStatusChecker()
+    @Entry var agentStatusChecker: any AgentStatusCheckerProtocol = _agentStatusChecker
+    private static let _updater: any UpdaterProtocol = {
+        @AppStorage("defaultsHasRunSetup") var hasRunSetup = false
+        return Updater(checkOnLaunch: hasRunSetup)
+    }()
+    @Entry var updater: any UpdaterProtocol = _updater
+
+    @MainActor var secretStoreList: SecretStoreList {
+        EnvironmentValues._secretStoreList
+    }
+}
+
+@main
+struct Secretive: App {
+    
+    private let justUpdatedChecker = JustUpdatedChecker()
+    @Environment(\.agentStatusChecker) var agentStatusChecker
     @AppStorage("defaultsHasRunSetup") var hasRunSetup = false
     @State private var showingSetup = false
     @State private var showingCreation = false
 
     @SceneBuilder var body: some Scene {
         WindowGroup {
-            ContentView<Updater, AgentStatusChecker>(showingCreation: $showingCreation, runningSetup: $showingSetup, hasRunSetup: $hasRunSetup)
-                .environmentObject(storeList)
-                .environmentObject(Updater(checkOnLaunch: hasRunSetup))
-                .environmentObject(agentStatusChecker)
+            ContentView(showingCreation: $showingCreation, runningSetup: $showingSetup, hasRunSetup: $hasRunSetup)
+                .environment(EnvironmentValues._secretStoreList)
                 .onAppear {
                     if !hasRunSetup {
                         showingSetup = true
@@ -70,13 +84,12 @@ extension Secretive {
 
     private func reinstallAgent() {
         justUpdatedChecker.check()
-        LaunchAgentController().install {
-            // Wait a second for launchd to kick in (next runloop isn't enough).
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                agentStatusChecker.check()
-                if !agentStatusChecker.running {
-                    forceLaunchAgent()
-                }
+        Task {
+            await LaunchAgentController().install()
+            try? await Task.sleep(for: .seconds(1))
+            agentStatusChecker.check()
+            if !agentStatusChecker.running {
+                forceLaunchAgent()
             }
         }
     }
@@ -84,7 +97,8 @@ extension Secretive {
     private func forceLaunchAgent() {
         // We've run setup, we didn't just update, launchd is just not doing it's thing.
         // Force a launch directly.
-        LaunchAgentController().forceLaunch { _ in
+        Task {
+            _ = await LaunchAgentController().forceLaunch()
             agentStatusChecker.check()
         }
     }

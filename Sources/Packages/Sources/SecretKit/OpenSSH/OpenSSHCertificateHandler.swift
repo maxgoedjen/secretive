@@ -2,7 +2,7 @@ import Foundation
 import OSLog
 
 /// Manages storage and lookup for OpenSSH certificates.
-public final class OpenSSHCertificateHandler {
+public actor OpenSSHCertificateHandler: Sendable {
 
     private let publicKeyFileStoreController = PublicKeyFileStoreController(homeDirectory: NSHomeDirectory())
     private let logger = Logger(subsystem: "com.maxgoedjen.secretive.secretagent", category: "OpenSSHCertificateHandler")
@@ -24,14 +24,6 @@ public final class OpenSSHCertificateHandler {
             partialResult[next] = try? loadKeyblobAndName(for: next)
         }
     }
-
-    /// Whether or not the certificate handler has a certifiicate associated with a given secret.
-    /// - Parameter secret: The secret to check for a certificate.
-    /// - Returns: A boolean describing whether or not the certificate handler has a certifiicate associated with a given secret
-    public func hasCertificate<SecretType: Secret>(for secret: SecretType) -> Bool {
-        keyBlobsAndNames[AnySecret(secret)] != nil
-    }
-
 
     /// Reconstructs a public key from a ``Data``, if that ``Data`` contains an OpenSSH certificate hash. Currently only ecdsa certificates are supported
     /// - Parameter certBlock: The openssh certificate to extract the public key from

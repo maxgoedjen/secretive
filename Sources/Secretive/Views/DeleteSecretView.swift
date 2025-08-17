@@ -3,7 +3,7 @@ import SecretKit
 
 struct DeleteSecretView<StoreType: SecretStoreModifiable>: View {
 
-    @ObservedObject var store: StoreType
+    @State var store: StoreType
     let secret: StoreType.SecretType
     var dismissalBlock: (Bool) -> ()
 
@@ -49,8 +49,10 @@ struct DeleteSecretView<StoreType: SecretStoreModifiable>: View {
     }
     
     func delete() {
-        try! store.delete(secret: secret)
-        dismissalBlock(true)
+        Task {
+            try! await store.delete(secret: secret)
+            dismissalBlock(true)
+        }
     }
 
 }
