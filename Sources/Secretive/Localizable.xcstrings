@@ -2,6 +2,7 @@
   "sourceLanguage" : "en",
   "strings" : {
     "agent_not_running_notice_title" : {
+      "extractionState" : "manual",
       "localizations" : {
         "ca" : {
           "stringUnit" : {
@@ -78,6 +79,7 @@
       }
     },
     "agent_running_notice_detail_description" : {
+      "extractionState" : "manual",
       "localizations" : {
         "ca" : {
           "stringUnit" : {
@@ -154,6 +156,7 @@
       }
     },
     "agent_running_notice_detail_title" : {
+      "extractionState" : "manual",
       "localizations" : {
         "ca" : {
           "stringUnit" : {
@@ -230,6 +233,7 @@
       }
     },
     "agent_running_notice_title" : {
+      "extractionState" : "manual",
       "localizations" : {
         "ca" : {
           "stringUnit" : {
@@ -306,6 +310,7 @@
       }
     },
     "agent_setup_notice_title" : {
+      "extractionState" : "manual",
       "localizations" : {
         "ca" : {
           "stringUnit" : {
@@ -382,6 +387,7 @@
       }
     },
     "app_menu_help_button" : {
+      "extractionState" : "manual",
       "localizations" : {
         "ca" : {
           "stringUnit" : {
@@ -458,6 +464,7 @@
       }
     },
     "app_menu_new_secret_button" : {
+      "extractionState" : "manual",
       "localizations" : {
         "ca" : {
           "stringUnit" : {
@@ -534,6 +541,7 @@
       }
     },
     "app_menu_setup_button" : {
+      "extractionState" : "manual",
       "localizations" : {
         "ca" : {
           "stringUnit" : {
@@ -610,6 +618,7 @@
       }
     },
     "app_not_in_applications_notice_detail_description" : {
+      "extractionState" : "manual",
       "localizations" : {
         "ca" : {
           "stringUnit" : {
@@ -686,6 +695,7 @@
       }
     },
     "app_not_in_applications_notice_title" : {
+      "extractionState" : "manual",
       "localizations" : {
         "ca" : {
           "stringUnit" : {
@@ -1308,6 +1318,7 @@
       }
     },
     "copyable_click_to_copy_button" : {
+      "extractionState" : "manual",
       "localizations" : {
         "ca" : {
           "stringUnit" : {
@@ -1384,6 +1395,7 @@
       }
     },
     "copyable_copied" : {
+      "extractionState" : "manual",
       "localizations" : {
         "ca" : {
           "stringUnit" : {
@@ -1460,6 +1472,7 @@
       }
     },
     "create_secret_cancel_button" : {
+      "extractionState" : "manual",
       "localizations" : {
         "ca" : {
           "stringUnit" : {
@@ -1536,6 +1549,7 @@
       }
     },
     "create_secret_create_button" : {
+      "extractionState" : "manual",
       "localizations" : {
         "ca" : {
           "stringUnit" : {
@@ -1612,6 +1626,7 @@
       }
     },
     "create_secret_name_label" : {
+      "extractionState" : "manual",
       "localizations" : {
         "ca" : {
           "stringUnit" : {
@@ -1688,6 +1703,7 @@
       }
     },
     "create_secret_name_placeholder" : {
+      "extractionState" : "manual",
       "localizations" : {
         "ca" : {
           "stringUnit" : {
@@ -1764,6 +1780,7 @@
       }
     },
     "create_secret_notify_description" : {
+      "extractionState" : "manual",
       "localizations" : {
         "ca" : {
           "stringUnit" : {
@@ -1840,6 +1857,7 @@
       }
     },
     "create_secret_notify_title" : {
+      "extractionState" : "manual",
       "localizations" : {
         "ca" : {
           "stringUnit" : {
@@ -1916,6 +1934,7 @@
       }
     },
     "create_secret_require_authentication_description" : {
+      "extractionState" : "manual",
       "localizations" : {
         "ca" : {
           "stringUnit" : {
@@ -1992,6 +2011,7 @@
       }
     },
     "create_secret_require_authentication_title" : {
+      "extractionState" : "manual",
       "localizations" : {
         "ca" : {
           "stringUnit" : {
@@ -2068,6 +2088,7 @@
       }
     },
     "create_secret_title" : {
+      "extractionState" : "manual",
       "localizations" : {
         "ca" : {
           "stringUnit" : {
@@ -2144,6 +2165,7 @@
       }
     },
     "delete_confirmation_cancel_button" : {
+      "extractionState" : "manual",
       "localizations" : {
         "ca" : {
           "stringUnit" : {
@@ -2220,6 +2242,7 @@
       }
     },
     "delete_confirmation_confirm_name_label" : {
+      "extractionState" : "manual",
       "localizations" : {
         "ca" : {
           "stringUnit" : {
@@ -2296,6 +2319,7 @@
       }
     },
     "delete_confirmation_delete_button" : {
+      "extractionState" : "manual",
       "localizations" : {
         "ca" : {
           "stringUnit" : {
@@ -2372,6 +2396,7 @@
       }
     },
     "delete_confirmation_description_%@_%@" : {
+      "extractionState" : "manual",
       "localizations" : {
         "ca" : {
           "stringUnit" : {
@@ -2448,6 +2473,7 @@
       }
     },
     "delete_confirmation_title_%@" : {
+      "extractionState" : "manual",
       "localizations" : {
         "ca" : {
           "stringUnit" : {
@@ -2524,6 +2550,7 @@
       }
     },
     "empty_store_modifiable_click_here_description" : {
+      "extractionState" : "manual",
       "localizations" : {
         "ca" : {
           "stringUnit" : {
@@ -2600,83 +2627,7 @@
       }
     },
     "empty_store_modifiable_click_here_title" : {
-      "localizations" : {
-        "ca" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Sense secrets"
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Keine Secrets"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "No Secrets"
-          }
-        },
-        "fi" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ei salaisuuksia"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Aucun secret"
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Nessun Segreto"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "シークレットがありません"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "비밀이 없음"
-          }
-        },
-        "pl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Brak sekretów"
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Sem Segredos"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Нет секретов"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "没有密钥串"
-          }
-        }
-      }
-    },
-    "empty_store_modifiable_title" : {
-      "extractionState" : "stale",
+      "extractionState" : "manual",
       "localizations" : {
         "ca" : {
           "stringUnit" : {
@@ -2753,6 +2704,7 @@
       }
     },
     "empty_store_nonmodifiable_description" : {
+      "extractionState" : "manual",
       "localizations" : {
         "ca" : {
           "stringUnit" : {
@@ -2829,6 +2781,7 @@
       }
     },
     "empty_store_nonmodifiable_supported_key_types" : {
+      "extractionState" : "manual",
       "localizations" : {
         "ca" : {
           "stringUnit" : {
@@ -2905,6 +2858,7 @@
       }
     },
     "empty_store_nonmodifiable_title" : {
+      "extractionState" : "manual",
       "localizations" : {
         "ca" : {
           "stringUnit" : {
@@ -2981,6 +2935,7 @@
       }
     },
     "no_secure_storage_description" : {
+      "extractionState" : "manual",
       "localizations" : {
         "ca" : {
           "stringUnit" : {
@@ -3057,6 +3012,7 @@
       }
     },
     "no_secure_storage_title" : {
+      "extractionState" : "manual",
       "localizations" : {
         "ca" : {
           "stringUnit" : {
@@ -3133,6 +3089,7 @@
       }
     },
     "no_secure_storage_yubico_link" : {
+      "extractionState" : "manual",
       "localizations" : {
         "ca" : {
           "stringUnit" : {
@@ -3365,6 +3322,7 @@
       }
     },
     "rename_cancel_button" : {
+      "extractionState" : "manual",
       "localizations" : {
         "ca" : {
           "stringUnit" : {
@@ -3435,6 +3393,7 @@
       }
     },
     "rename_rename_button" : {
+      "extractionState" : "manual",
       "localizations" : {
         "ca" : {
           "stringUnit" : {
@@ -3505,6 +3464,7 @@
       }
     },
     "rename_title_%@" : {
+      "extractionState" : "manual",
       "localizations" : {
         "ca" : {
           "stringUnit" : {
@@ -3575,6 +3535,7 @@
       }
     },
     "secret_detail_md5_fingerprint_label" : {
+      "extractionState" : "manual",
       "localizations" : {
         "ca" : {
           "stringUnit" : {
@@ -3645,6 +3606,7 @@
       }
     },
     "secret_detail_public_key_label" : {
+      "extractionState" : "manual",
       "localizations" : {
         "ca" : {
           "stringUnit" : {
@@ -3715,6 +3677,7 @@
       }
     },
     "secret_detail_public_key_path_label" : {
+      "extractionState" : "manual",
       "localizations" : {
         "ca" : {
           "stringUnit" : {
@@ -3785,6 +3748,7 @@
       }
     },
     "secret_detail_sha256_fingerprint_label" : {
+      "extractionState" : "manual",
       "localizations" : {
         "ca" : {
           "stringUnit" : {
@@ -3855,6 +3819,7 @@
       }
     },
     "secret_list_delete_button" : {
+      "extractionState" : "manual",
       "localizations" : {
         "ca" : {
           "stringUnit" : {
@@ -3925,6 +3890,7 @@
       }
     },
     "secret_list_rename_button" : {
+      "extractionState" : "manual",
       "localizations" : {
         "ca" : {
           "stringUnit" : {
@@ -4066,6 +4032,7 @@
       }
     },
     "setup_agent_activity_monitor_description" : {
+      "extractionState" : "manual",
       "localizations" : {
         "ca" : {
           "stringUnit" : {
@@ -4136,6 +4103,7 @@
       }
     },
     "setup_agent_description" : {
+      "extractionState" : "manual",
       "localizations" : {
         "ca" : {
           "stringUnit" : {
@@ -4206,6 +4174,7 @@
       }
     },
     "setup_agent_install_button" : {
+      "extractionState" : "manual",
       "localizations" : {
         "ca" : {
           "stringUnit" : {
@@ -4276,6 +4245,7 @@
       }
     },
     "setup_agent_title" : {
+      "extractionState" : "manual",
       "localizations" : {
         "ca" : {
           "stringUnit" : {
@@ -4346,6 +4316,7 @@
       }
     },
     "setup_ssh_add_for_me_button" : {
+      "extractionState" : "manual",
       "localizations" : {
         "ca" : {
           "stringUnit" : {
@@ -4416,6 +4387,7 @@
       }
     },
     "setup_ssh_add_to_config_button_%@" : {
+      "extractionState" : "manual",
       "localizations" : {
         "ca" : {
           "stringUnit" : {
@@ -4486,6 +4458,7 @@
       }
     },
     "setup_ssh_added_manually_button" : {
+      "extractionState" : "manual",
       "localizations" : {
         "ca" : {
           "stringUnit" : {
@@ -4556,6 +4529,7 @@
       }
     },
     "setup_ssh_description" : {
+      "extractionState" : "manual",
       "localizations" : {
         "ca" : {
           "stringUnit" : {
@@ -4626,6 +4600,7 @@
       }
     },
     "setup_ssh_title" : {
+      "extractionState" : "manual",
       "localizations" : {
         "ca" : {
           "stringUnit" : {
@@ -4696,6 +4671,7 @@
       }
     },
     "setup_step_complete_symbol" : {
+      "extractionState" : "manual",
       "localizations" : {
         "ca" : {
           "stringUnit" : {
@@ -4766,6 +4742,7 @@
       }
     },
     "setup_third_party_faq_link" : {
+      "extractionState" : "manual",
       "localizations" : {
         "ca" : {
           "stringUnit" : {
@@ -4836,6 +4813,7 @@
       }
     },
     "setup_updates_description" : {
+      "extractionState" : "manual",
       "localizations" : {
         "ca" : {
           "stringUnit" : {
@@ -4906,6 +4884,7 @@
       }
     },
     "setup_updates_ok" : {
+      "extractionState" : "manual",
       "localizations" : {
         "ca" : {
           "stringUnit" : {
@@ -4976,6 +4955,7 @@
       }
     },
     "setup_updates_readmore" : {
+      "extractionState" : "manual",
       "localizations" : {
         "ca" : {
           "stringUnit" : {
@@ -5046,6 +5026,7 @@
       }
     },
     "setup_updates_title" : {
+      "extractionState" : "manual",
       "localizations" : {
         "ca" : {
           "stringUnit" : {
@@ -5402,6 +5383,7 @@
       }
     },
     "update_critical_notice_title" : {
+      "extractionState" : "manual",
       "localizations" : {
         "ca" : {
           "stringUnit" : {
@@ -5472,6 +5454,7 @@
       }
     },
     "update_ignore_button" : {
+      "extractionState" : "manual",
       "localizations" : {
         "ca" : {
           "stringUnit" : {
@@ -5542,6 +5525,7 @@
       }
     },
     "update_normal_notice_title" : {
+      "extractionState" : "manual",
       "localizations" : {
         "ca" : {
           "stringUnit" : {
@@ -5972,6 +5956,7 @@
       }
     },
     "update_release_notes_title" : {
+      "extractionState" : "manual",
       "localizations" : {
         "ca" : {
           "stringUnit" : {
@@ -6042,6 +6027,7 @@
       }
     },
     "update_test_notice_title" : {
+      "extractionState" : "manual",
       "localizations" : {
         "ca" : {
           "stringUnit" : {
@@ -6112,6 +6098,7 @@
       }
     },
     "update_update_button" : {
+      "extractionState" : "manual",
       "localizations" : {
         "ca" : {
           "stringUnit" : {
@@ -6182,6 +6169,7 @@
       }
     },
     "update_version_name_%@" : {
+      "extractionState" : "manual",
       "localizations" : {
         "ca" : {
           "stringUnit" : {

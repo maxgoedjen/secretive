@@ -12,16 +12,16 @@ struct SecretDetailView<SecretType: Secret>: View {
         ScrollView {
             Form {
                 Section {
-                    CopyableView(title: "secret_detail_sha256_fingerprint_label", image: Image(systemName: "touchid"), text: keyWriter.openSSHSHA256Fingerprint(secret: secret))
+                    CopyableView(title: .secretDetailSha256FingerprintLabel, image: Image(systemName: "touchid"), text: keyWriter.openSSHSHA256Fingerprint(secret: secret))
                     Spacer()
                         .frame(height: 20)
-                    CopyableView(title: "secret_detail_md5_fingerprint_label", image: Image(systemName: "touchid"), text: keyWriter.openSSHMD5Fingerprint(secret: secret))
+                    CopyableView(title: .secretDetailMd5FingerprintLabel, image: Image(systemName: "touchid"), text: keyWriter.openSSHMD5Fingerprint(secret: secret))
                     Spacer()
                         .frame(height: 20)
-                    CopyableView(title: "secret_detail_public_key_label", image: Image(systemName: "key"), text: keyString)
+                    CopyableView(title: .secretDetailPublicKeyLabel, image: Image(systemName: "key"), text: keyString)
                     Spacer()
                         .frame(height: 20)
-                    CopyableView(title: "secret_detail_public_key_path_label", image: Image(systemName: "lock.doc"), text: publicKeyFileStoreController.publicKeyPath(for: secret))
+                    CopyableView(title: .secretDetailPublicKeyPathLabel, image: Image(systemName: "lock.doc"), text: publicKeyFileStoreController.publicKeyPath(for: secret))
                     Spacer()
                 }
             }

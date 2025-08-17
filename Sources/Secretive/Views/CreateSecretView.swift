@@ -14,30 +14,30 @@ struct CreateSecretView<StoreType: SecretStoreModifiable>: View {
             HStack {
                 VStack {
                     HStack {
-                        Text("create_secret_title")
+                        Text(.createSecretTitle)
                             .font(.largeTitle)
                         Spacer()
                     }
                     HStack {
-                        Text("create_secret_name_label")
-                        TextField("create_secret_name_placeholder", text: $name)
+                        Text(.createSecretNameLabel)
+                        TextField(String(localized: .createSecretNamePlaceholder), text: $name)
                             .focusable()
                     }
                     ThumbnailPickerView(items: [
-                        ThumbnailPickerView.Item(value: true, name: "create_secret_require_authentication_title", description: "create_secret_require_authentication_description", thumbnail: AuthenticationView()),
-                        ThumbnailPickerView.Item(value: false, name: "create_secret_notify_title",
-                                                 description: "create_secret_notify_description",
+                        ThumbnailPickerView.Item(value: true, name: .createSecretRequireAuthenticationTitle, description: .createSecretRequireAuthenticationDescription, thumbnail: AuthenticationView()),
+                        ThumbnailPickerView.Item(value: false, name: .createSecretNotifyTitle,
+                                                 description: .createSecretNotifyDescription,
                                                  thumbnail: NotificationView())
                     ], selection: $requiresAuthentication)
                 }
             }
             HStack {
                 Spacer()
-                Button("create_secret_cancel_button") {
+                Button(.createSecretCancelButton) {
                     showing = false
                 }
                 .keyboardShortcut(.cancelAction)
-                Button("create_secret_create_button", action: save)
+                Button(.createSecretCreateButton, action: save)
                     .disabled(name.isEmpty)
                     .keyboardShortcut(.defaultAction)
             }
@@ -98,11 +98,11 @@ extension ThumbnailPickerView {
     struct Item<InnerValueType: Hashable>: Identifiable {
         let id = UUID()
         let value: InnerValueType
-        let name: LocalizedStringKey
-        let description: LocalizedStringKey
+        let name: LocalizedStringResource
+        let description: LocalizedStringResource
         let thumbnail: AnyView
 
-        init<ViewType: View>(value: InnerValueType, name: LocalizedStringKey, description: LocalizedStringKey, thumbnail: ViewType) {
+        init<ViewType: View>(value: InnerValueType, name: LocalizedStringResource, description: LocalizedStringResource, thumbnail: ViewType) {
             self.value = value
             self.name = name
             self.description = description

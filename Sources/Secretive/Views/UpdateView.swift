@@ -9,22 +9,22 @@ struct UpdateDetailView: View {
 
     var body: some View {
         VStack {
-            Text("update_version_name_\(update.name)").font(.title)
-            GroupBox(label: Text("update_release_notes_title")) {
+            Text(.updateVersionName(update.name)).font(.title)
+            GroupBox(label: Text(.updateReleaseNotesTitle)) {
                 ScrollView {
                     attributedBody
                 }
             }
             HStack {
                 if !update.critical {
-                    Button("update_ignore_button") {
+                    Button(.updateIgnoreButton) {
                         Task {
                             await updater.ignore(release: update)
                         }
                     }
                     Spacer()
                 }
-                Button("update_update_button") {
+                Button(.updateUpdateButton) {
                     NSWorkspace.shared.open(update.html_url)
                 }
                 .keyboardShortcut(.defaultAction)

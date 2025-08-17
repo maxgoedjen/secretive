@@ -3,7 +3,7 @@ import UniformTypeIdentifiers
 
 struct CopyableView: View {
 
-    var title: LocalizedStringKey
+    var title: LocalizedStringResource
     var image: Image
     var text: String
 
@@ -66,12 +66,12 @@ struct CopyableView: View {
         )
     }
 
-    var hoverText: LocalizedStringKey {
+    var hoverText: LocalizedStringResource {
         switch interactionState {
         case .hovering:
-            return "copyable_click_to_copy_button"
+            return .copyableClickToCopyButton
         case .clicking:
-            return "copyable_copied"
+            return .copyableCopied
         case .normal:
             fatalError()
         }

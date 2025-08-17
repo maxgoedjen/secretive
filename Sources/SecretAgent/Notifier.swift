@@ -10,8 +10,8 @@ final class Notifier: Sendable {
     private let notificationDelegate = NotificationDelegate()
 
     init() {
-        let updateAction = UNNotificationAction(identifier: Constants.updateActionIdentitifier, title: String(localized: "update_notification_update_button"), options: [])
-        let ignoreAction = UNNotificationAction(identifier: Constants.ignoreActionIdentitifier, title: String(localized: "update_notification_ignore_button"), options: [])
+        let updateAction = UNNotificationAction(identifier: Constants.updateActionIdentitifier, title: String(localized: .updateNotificationUpdateButton), options: [])
+        let ignoreAction = UNNotificationAction(identifier: Constants.ignoreActionIdentitifier, title: String(localized: .updateNotificationIgnoreButton), options: [])
         let updateCategory = UNNotificationCategory(identifier: Constants.updateCategoryIdentitifier, actions: [updateAction, ignoreAction], intentIdentifiers: [], options: [])
         let criticalUpdateCategory = UNNotificationCategory(identifier: Constants.criticalUpdateCategoryIdentitifier, actions: [updateAction], intentIdentifiers: [], options: [])
 
@@ -22,7 +22,7 @@ final class Notifier: Sendable {
             Measurement(value: 24, unit: UnitDuration.hours)
         ]
 
-        let doNotPersistAction = UNNotificationAction(identifier: Constants.doNotPersistActionIdentitifier, title: String(localized: "persist_authentication_decline_button"), options: [])
+        let doNotPersistAction = UNNotificationAction(identifier: Constants.doNotPersistActionIdentitifier, title: String(localized: .persistAuthenticationDeclineButton), options: [])
         var allPersistenceActions = [doNotPersistAction]
 
         let formatter = DateComponentsFormatter()
@@ -41,7 +41,7 @@ final class Notifier: Sendable {
 
         let persistAuthenticationCategory = UNNotificationCategory(identifier: Constants.persistAuthenticationCategoryIdentitifier, actions: allPersistenceActions, intentIdentifiers: [], options: [])
         if persistAuthenticationCategory.responds(to: Selector(("actionsMenuTitle"))) {
-            persistAuthenticationCategory.setValue(String(localized: "persist_authentication_accept_button"), forKey: "_actionsMenuTitle")
+            persistAuthenticationCategory.setValue(String(localized: .persistAuthenticationAcceptButton), forKey: "_actionsMenuTitle")
         }
         UNUserNotificationCenter.current().setNotificationCategories([updateCategory, criticalUpdateCategory, persistAuthenticationCategory])
         UNUserNotificationCenter.current().delegate = notificationDelegate
@@ -64,8 +64,8 @@ final class Notifier: Sendable {
         await notificationDelegate.state.setPending(secret: secret, store: store)
         let notificationCenter = UNUserNotificationCenter.current()
         let notificationContent = UNMutableNotificationContent()
-        notificationContent.title = String(localized: "signed_notification_title_\(provenance.origin.displayName)")
-        notificationContent.subtitle = String(localized: "signed_notification_description_\(secret.name)")
+        notificationContent.title = String(localized: .signedNotificationTitle(provenance.origin.displayName))
+        notificationContent.subtitle = String(localized: .signedNotificationDescription(secret.name))
         notificationContent.userInfo[Constants.persistSecretIDKey] = secret.id.description
         notificationContent.userInfo[Constants.persistStoreIDKey] = store.id.description
         notificationContent.interruptionLevel = .timeSensitive
@@ -85,11 +85,11 @@ final class Notifier: Sendable {
         let notificationContent = UNMutableNotificationContent()
         if update.critical {
             notificationContent.interruptionLevel = .critical
-            notificationContent.title = String(localized: "update_notification_update_critical_title_\(update.name)")
+            notificationContent.title = String(localized: .updateNotificationUpdateCriticalTitle(update.name))
         } else {
-            notificationContent.title = String(localized: "update_notification_update_normal_title_\(update.name)")
+            notificationContent.title = String(localized: .updateNotificationUpdateNormalTitle(update.name))
         }
-        notificationContent.subtitle = String(localized: "update_notification_update_description")
+        notificationContent.subtitle = String(localized: .updateNotificationUpdateDescription)
         notificationContent.body = update.body
         notificationContent.categoryIdentifier = update.critical ? Constants.criticalUpdateCategoryIdentitifier : Constants.updateCategoryIdentitifier
         let request = UNNotificationRequest(identifier: UUID().uuidString, content: notificationContent, trigger: nil)

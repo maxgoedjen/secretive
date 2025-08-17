@@ -4,10 +4,10 @@ struct NoStoresView: View {
 
     var body: some View {
         VStack {
-            Text("no_secure_storage_title")
+            Text(.noSecureStorageTitle)
                 .bold()
-            Text("no_secure_storage_description")
-            Link("no_secure_storage_yubico_link", destination: URL(string: "https://www.yubico.com/products/compare-yubikey-5-series/")!)
+            Text(.noSecureStorageDescription)
+            Link(.noSecureStorageYubicoLink, destination: URL(string: "https://www.yubico.com/products/compare-yubikey-5-series/")!)
         }.padding()
     }
     
