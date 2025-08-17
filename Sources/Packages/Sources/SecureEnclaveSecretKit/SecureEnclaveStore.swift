@@ -4,7 +4,6 @@ import Security
 import CryptoKit
 import LocalAuthentication
 import SecretKit
-import Localization
 
 extension SecureEnclave {
 

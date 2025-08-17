@@ -771,7 +771,7 @@
         }
       }
     },
-    "auth_context_persist_for_duration_%@_%@" : {
+    "auth_context_persist_for_duration" : {
       "comment" : "When the user clicks the notification to leave a secret unlocked, they are shown a prompt to approve the action. This is the description, showing which secret will used. The first placeholder is the name of the secret. The second placeholder is a localized description of the time period it will remain unlocked for (eg: \"five minutes\")",
       "extractionState" : "manual",
       "localizations" : {
@@ -849,7 +849,7 @@
         }
       }
     },
-    "auth_context_persist_for_duration_unknown_%@" : {
+    "auth_context_persist_for_duration_unknown" : {
       "comment" : "When the user clicks the notification to leave a secret unlocked, they are shown a prompt to approve the action. This is the description, showing which secret will used. The placeholder is the name of the secret. This is a fallback used when a duration is unable to be specified.",
       "extractionState" : "manual",
       "localizations" : {
@@ -927,7 +927,7 @@
         }
       }
     },
-    "auth_context_request_decrypt_description_%@" : {
+    "auth_context_request_decrypt_description" : {
       "comment" : "When the user performs a decryption action using a secret, they are shown a prompt to approve the action. This is the description, showing which secret will be used. The placeholder is the name of the secret. NOTE: This is currently not exposed in UI.",
       "extractionState" : "manual",
       "localizations" : {
@@ -1083,7 +1083,7 @@
         }
       }
     },
-    "auth_context_request_encrypt_description_%@" : {
+    "auth_context_request_encrypt_description" : {
       "comment" : "When the user performs an encryption action using a secret, they are shown a prompt to approve the action. This is the description, showing which secret will be used. The placeholder is the name of the secret. NOTE: This is currently not exposed in UI.",
       "extractionState" : "manual",
       "localizations" : {
@@ -1161,7 +1161,7 @@
         }
       }
     },
-    "auth_context_request_signature_description_%@_%@" : {
+    "auth_context_request_signature_description" : {
       "comment" : "When the user performs a signature action using a secret, they are shown a prompt to approve the action. This is the description, showing which secret will be used, and where the request is coming from. The first placeholder is the name of the app requesting the operation. The second placeholder is the name of the secret.",
       "extractionState" : "manual",
       "localizations" : {
@@ -1239,7 +1239,7 @@
         }
       }
     },
-    "auth_context_request_verify_description_%@" : {
+    "auth_context_request_verify_description" : {
       "comment" : "When the user performs a signature verification action using a secret, they are shown a prompt to approve the action. This is the description, showing which secret will be used. The placeholder is the name of the secret. NOTE: This is currently not exposed in UI.",
       "extractionState" : "manual",
       "localizations" : {
@@ -2395,7 +2395,7 @@
         }
       }
     },
-    "delete_confirmation_description_%@_%@" : {
+    "delete_confirmation_description" : {
       "extractionState" : "manual",
       "localizations" : {
         "ca" : {
@@ -2472,7 +2472,7 @@
         }
       }
     },
-    "delete_confirmation_title_%@" : {
+    "delete_confirmation_title" : {
       "extractionState" : "manual",
       "localizations" : {
         "ca" : {
@@ -3463,7 +3463,7 @@
         }
       }
     },
-    "rename_title_%@" : {
+    "rename_title" : {
       "extractionState" : "manual",
       "localizations" : {
         "ca" : {
@@ -4386,7 +4386,7 @@
         }
       }
     },
-    "setup_ssh_add_to_config_button_%@" : {
+    "setup_ssh_add_to_config_button" : {
       "extractionState" : "manual",
       "localizations" : {
         "ca" : {
@@ -5096,7 +5096,7 @@
         }
       }
     },
-    "signed_notification_description_%@" : {
+    "signed_notification_description" : {
       "comment" : "When the user performs an action using a secret, they're shown a notification describing what happened. This is the description, showing which secret was used. The placeholder is the name of the secret.",
       "extractionState" : "manual",
       "localizations" : {
@@ -5168,7 +5168,7 @@
         }
       }
     },
-    "signed_notification_title_%@" : {
+    "signed_notification_title" : {
       "comment" : "When the user performs an action using a secret, they're shown a notification describing what happened. This is the title, showing which app requested the action. The placeholder is the name of the app.",
       "extractionState" : "manual",
       "localizations" : {
@@ -5739,7 +5739,7 @@
         }
       }
     },
-    "update_notification_update_critical_title_%@" : {
+    "update_notification_update_critical_title" : {
       "comment" : "When an update is available, a notification is shown. This is the title for a very high priority update with security fixes. The placeholder is for the application version, eg \"Critical Security Update - 2.0\"",
       "extractionState" : "manual",
       "localizations" : {
@@ -5883,7 +5883,7 @@
         }
       }
     },
-    "update_notification_update_normal_title_%@" : {
+    "update_notification_update_normal_title" : {
       "comment" : "When an update is available, a notification is shown. This is the title for a normal priority update. The placeholder is for the application version, eg \"Update Available - 2.0\"",
       "extractionState" : "manual",
       "localizations" : {
@@ -6168,7 +6168,7 @@
         }
       }
     },
-    "update_version_name_%@" : {
+    "update_version_name" : {
       "extractionState" : "manual",
       "localizations" : {
         "ca" : {

@@ -1,6 +1,5 @@
 import LocalAuthentication
 import SecretKit
-import Localization
 
 extension SecureEnclave {
 
