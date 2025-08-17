@@ -436,6 +436,7 @@
 				fi,
 				ko,
 				ca,
+				ru,
 				pl,
 			);
 			mainGroup = 50617D7623FCE48D0099B055;
