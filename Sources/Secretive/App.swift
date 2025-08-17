@@ -17,7 +17,10 @@ extension EnvironmentValues {
 
     private static let _agentStatusChecker = AgentStatusChecker()
     @Entry var agentStatusChecker: any AgentStatusCheckerProtocol = _agentStatusChecker
-    private static let _updater: any UpdaterProtocol = Updater(checkOnLaunch: true)
+    private static let _updater: any UpdaterProtocol = {
+        @AppStorage("defaultsHasRunSetup") var hasRunSetup = false
+        return Updater(checkOnLaunch: hasRunSetup)
+    }()
     @Entry var updater: any UpdaterProtocol = _updater
 
     @MainActor var secretStoreList: SecretStoreList {
