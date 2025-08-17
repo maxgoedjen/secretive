@@ -1,10 +1,11 @@
 import Foundation
-import Combine
+import Observation
 import Brief
 
-class PreviewUpdater: UpdaterProtocol {
+@Observable @MainActor final class PreviewUpdater: UpdaterProtocol {
 
-    let update: Release?
+    var update: Release? = nil
+
     let testBuild = false
 
     init(update: Update = .none) {
@@ -18,6 +19,9 @@ class PreviewUpdater: UpdaterProtocol {
         }
     }
 
+    func ignore(release: Release) async {
+    }
+    
 }
 
 extension PreviewUpdater {

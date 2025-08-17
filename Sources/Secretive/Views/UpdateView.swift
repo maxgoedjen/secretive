@@ -1,9 +1,9 @@
 import SwiftUI
 import Brief
 
-struct UpdateDetailView<UpdaterType: Updater>: View {
+struct UpdateDetailView: View {
 
-    @EnvironmentObject var updater: UpdaterType
+    @Environment(\.updater) var updater: any UpdaterProtocol
 
     let update: Release
 
@@ -18,7 +18,9 @@ struct UpdateDetailView<UpdaterType: Updater>: View {
             HStack {
                 if !update.critical {
                     Button("update_ignore_button") {
-                        updater.ignore(release: update)
+                        Task {
+                            await updater.ignore(release: update)
+                        }
                     }
                     Spacer()
                 }

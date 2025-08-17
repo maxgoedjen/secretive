@@ -6,17 +6,18 @@ import SecureEnclaveSecretKit
 import SmartCardSecretKit
 import SecretAgentKit
 import Brief
+import Observation
 
-@NSApplicationMain
+@main
 class AppDelegate: NSObject, NSApplicationDelegate {
 
-    private let storeList: SecretStoreList = {
+    @MainActor private let storeList: SecretStoreList = {
         let list = SecretStoreList()
         list.add(store: SecureEnclave.Store())
         list.add(store: SmartCard.Store())
         return list
     }()
-    private let updater = Updater(checkOnLaunch: false)
+    private let updater = Updater(checkOnLaunch: true)
     private let notifier = Notifier()
     private let publicKeyFileStoreController = PublicKeyFileStoreController(homeDirectory: NSHomeDirectory())
     private lazy var agent: Agent = {
@@ -31,17 +32,26 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         logger.debug("SecretAgent finished launching")
-        DispatchQueue.main.async {
-            self.socketController.handler = self.agent.handle(reader:writer:)
+        Task { @MainActor in
+            socketController.handler = { [agent] reader, writer in
+                await agent.handle(reader: reader, writer: writer)
+            }
         }
-        NotificationCenter.default.addObserver(forName: .secretStoreReloaded, object: nil, queue: .main) { [self] _ in
-            try? publicKeyFileStoreController.generatePublicKeys(for: storeList.allSecrets, clear: true)
+        Task {
+            for await _ in NotificationCenter.default.notifications(named: .secretStoreReloaded) {
+                try? publicKeyFileStoreController.generatePublicKeys(for: storeList.allSecrets, clear: true)
+            }
         }
         try? publicKeyFileStoreController.generatePublicKeys(for: storeList.allSecrets, clear: true)
         notifier.prompt()
-        updateSink = updater.$update.sink { update in
-            guard let update = update else { return }
-            self.notifier.notify(update: update, ignore: self.updater.ignore(release:))
+        _ = withObservationTracking {
+            updater.update
+        } onChange: { [updater, notifier] in
+            Task {
+                await notifier.notify(update: updater.update!) { release in
+                    await updater.ignore(release: release)
+                }
+            }
         }
     }
 

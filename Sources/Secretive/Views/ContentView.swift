@@ -4,18 +4,18 @@ import SecureEnclaveSecretKit
 import SmartCardSecretKit
 import Brief
 
-struct ContentView<UpdaterType: UpdaterProtocol, AgentStatusCheckerType: AgentStatusCheckerProtocol>: View {
+struct ContentView: View {
 
     @Binding var showingCreation: Bool
     @Binding var runningSetup: Bool
     @Binding var hasRunSetup: Bool
     @State var showingAgentInfo = false
-    @State var activeSecret: AnySecret.ID?
+    @State var activeSecret: AnySecret?
     @Environment(\.colorScheme) var colorScheme
 
-    @EnvironmentObject private var storeList: SecretStoreList
-    @EnvironmentObject private var updater: UpdaterType
-    @EnvironmentObject private var agentStatusChecker: AgentStatusCheckerType
+    @Environment(\.secretStoreList) private var storeList
+    @Environment(\.updater) private var updater: any UpdaterProtocol
+    @Environment(\.agentStatusChecker) private var agentStatusChecker: any AgentStatusCheckerProtocol
 
     @State private var selectedUpdate: Release?
     @State private var showingAppPathNotice = false
@@ -45,10 +45,16 @@ struct ContentView<UpdaterType: UpdaterProtocol, AgentStatusCheckerType: AgentSt
 extension ContentView {
 
 
-    func toolbarItem(_ view: some View, id: String) -> ToolbarItem<String, some View> {
-        ToolbarItem(id: id) { view }
+    @ToolbarContentBuilder
+    func toolbarItem(_ view: some View, id: String) -> some ToolbarContent {
+        if #available(macOS 26.0, *) {
+            ToolbarItem(id: id) { view }
+                .sharedBackgroundVisibility(.hidden)
+        } else {
+            ToolbarItem(id: id) { view }
+        }
     }
-
+    
     var needsSetup: Bool {
         (runningSetup || !hasRunSetup || !agentStatusChecker.running) && !agentStatusChecker.developmentBuild
     }
@@ -106,7 +112,7 @@ extension ContentView {
                 if let modifiable = storeList.modifiableStore {
                     CreateSecretView(store: modifiable, showing: $showingCreation)
                         .onDisappear {
-                            guard let newest = modifiable.secrets.last?.id else { return }
+                            guard let newest = modifiable.secrets.last else { return }
                             activeSecret = newest
                         }
                 }
@@ -197,34 +203,18 @@ extension ContentView {
 
 struct ContentView_Previews: PreviewProvider {
 
-    private static let storeList: SecretStoreList = {
-        let list = SecretStoreList()
-        list.add(store: SecureEnclave.Store())
-        list.add(store: SmartCard.Store())
-        return list
-    }()
-    private static let agentStatusChecker = AgentStatusChecker()
-    private static let justUpdatedChecker = JustUpdatedChecker()
-
-    @State var hasRunSetup = false
-    @State private var showingSetup = false
-    @State private var showingCreation = false
-
     static var previews: some View {
         Group {
             // Empty on modifiable and nonmodifiable
-            ContentView<PreviewUpdater, AgentStatusChecker>(showingCreation: .constant(false), runningSetup: .constant(false), hasRunSetup: .constant(true))
-                .environmentObject(Preview.storeList(stores: [Preview.Store(numberOfRandomSecrets: 0)], modifiableStores: [Preview.StoreModifiable(numberOfRandomSecrets: 0)]))
-                .environmentObject(PreviewUpdater())
-                .environmentObject(agentStatusChecker)
+            ContentView(showingCreation: .constant(false), runningSetup: .constant(false), hasRunSetup: .constant(true))
+                .environment(Preview.storeList(stores: [Preview.Store(numberOfRandomSecrets: 0)], modifiableStores: [Preview.StoreModifiable(numberOfRandomSecrets: 0)]))
+                .environment(PreviewUpdater())
 
             // 5 items on modifiable and nonmodifiable
-            ContentView<PreviewUpdater, AgentStatusChecker>(showingCreation: .constant(false), runningSetup: .constant(false), hasRunSetup: .constant(true))
-                .environmentObject(Preview.storeList(stores: [Preview.Store()], modifiableStores: [Preview.StoreModifiable()]))
-                .environmentObject(PreviewUpdater())
-                .environmentObject(agentStatusChecker)
+            ContentView(showingCreation: .constant(false), runningSetup: .constant(false), hasRunSetup: .constant(true))
+                .environment(Preview.storeList(stores: [Preview.Store()], modifiableStores: [Preview.StoreModifiable()]))
+                .environment(PreviewUpdater())
         }
-        .environmentObject(agentStatusChecker)
 
     }
 }

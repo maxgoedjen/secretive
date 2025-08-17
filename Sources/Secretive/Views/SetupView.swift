@@ -55,7 +55,7 @@ struct StepView: View {
                 .foregroundColor(.green)
                 .frame(width: max(0, ((width - (Constants.padding * 2)) / Double(numberOfSteps - 1)) * Double(currentStep) - (Constants.circleWidth / 2)), height: 5)
             HStack {
-                ForEach(0..<numberOfSteps) { index in
+                ForEach(Array(0..<numberOfSteps), id: \.self) { index in
                     ZStack {
                         if currentStep > index {
                             Circle()
@@ -156,8 +156,10 @@ struct SecretAgentSetupView: View {
     }
 
     func install() {
-        LaunchAgentController().install()
-        buttonAction()
+        Task {
+            await LaunchAgentController().install()
+            buttonAction()
+        }
     }
 
 }
