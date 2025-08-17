@@ -51,6 +51,12 @@
             "value" : "Agent가 실행되고 있지 않음"
           }
         },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Agent nie jest uruchomiony"
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
@@ -119,6 +125,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "SecretAgent는 요청에 서명하기 위해 백그라운드에서 실행되는 프로세스이므로 Secretive를 항상 열어 둘 필요가 없습니다.\n\n**Secretive를 닫아도 모든 것이 계속 작동합니다.**"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "SecretAgent to proces, który działa w tle, aby popisywać zapytania. Dzięki temu nie musisz mieć uruchomionej aplikacji Secretive cały czas."
           }
         },
         "pt-BR" : {
@@ -191,6 +203,12 @@
             "value" : "Secret Agent가 실행 중입니다."
           }
         },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Secret Agent jest uruchomiony"
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
@@ -259,6 +277,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Agent가 실행중"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Agent jest uruchomiony"
           }
         },
         "pt-BR" : {
@@ -331,6 +355,12 @@
             "value" : "Secretive 설치"
           }
         },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Konfiguracja Secretive"
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
@@ -399,6 +429,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "도움말"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pomoc"
           }
         },
         "pt-BR" : {
@@ -471,6 +507,12 @@
             "value" : "새 Secret"
           }
         },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nowy sekret"
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
@@ -539,6 +581,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Secretive 설치"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Skonfiguruj Scretive"
           }
         },
         "pt-BR" : {
@@ -611,6 +659,12 @@
             "value" : "Secretive가 제대로 작동하려면 Applications 폴더에 있어야 합니다. 이동한 후 다시 실행해 주세요."
           }
         },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Secretive musi być w katalogu Applications, aby działać prawidłowo. Zmień lokalizację aplikacji i uruchom ją ponownie."
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
@@ -679,6 +733,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Secretive가 Applications 폴더에 없음"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Secretive nie jest w folderze Applications"
           }
         },
         "pt-BR" : {
@@ -753,6 +813,12 @@
             "value" : "비밀 \"%1$@\"를 %2$@ 동안 잠금 해제"
           }
         },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "odblokuj sekret “%1$@” dla %2$@"
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
@@ -823,6 +889,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "비밀 \"%1$@\" 잠금 해제"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "odblokuj sekret “%1$@”"
           }
         },
         "pt-BR" : {
@@ -897,6 +969,12 @@
             "value" : "비밀 \"%1$@\"를 사용해서 데이터 복호화"
           }
         },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "odszyfruj dane używając sekretu “%1$@”"
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
@@ -967,6 +1045,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "거부"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Odrzuć"
           }
         },
         "pt-BR" : {
@@ -1041,6 +1125,12 @@
             "value" : "비밀 \"%1$@\"를 사용해서 데이터 암호화"
           }
         },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "zaszyfruj dane używając sekretu “%1$@”"
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1111,6 +1201,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "비밀 \"%2$@\"를 사용해서 \"%1$@\"의 요청에 서명"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "podpisz zapytanie od “%1$@\" za pomocą sekretu “%2$@”"
           }
         },
         "pt-BR" : {
@@ -1185,6 +1281,12 @@
             "value" : "비밀 \"%1$@\"를 사용하여 서명 검증"
           }
         },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "zweryfikuj sygnaturę za pomocą sekretu “%1$@”"
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1253,6 +1355,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "복사하기"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kliknij aby skopiować"
           }
         },
         "pt-BR" : {
@@ -1325,6 +1433,12 @@
             "value" : "복사됨"
           }
         },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Skopiowano"
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1393,6 +1507,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "취소"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Anuluj"
           }
         },
         "pt-BR" : {
@@ -1465,6 +1585,12 @@
             "value" : "생성"
           }
         },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Utwórz"
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1535,6 +1661,12 @@
             "value" : "이름:"
           }
         },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nazwa:"
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1600,6 +1732,12 @@
           }
         },
         "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Shhhhh"
+          }
+        },
+        "pl" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Shhhhh"
@@ -1675,6 +1813,12 @@
             "value" : "Mac이 잠금 해제되어 있는 동안에는 인증이 필요하지 않지만 비밀이 사용되면 알림을 받게 됩니다."
           }
         },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Uwierzytelnianie nie jest wymagane gdy twój Mac jest odblokowany. Otrzymasz powiadomienie kiedy sekret zostanie użyty."
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1743,6 +1887,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "알림"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Powiadom"
           }
         },
         "pt-BR" : {
@@ -1815,6 +1965,12 @@
             "value" : "매번 사용하기 전에 Touch ID, Apple Watch 또는 비밀번호를 사용하여 인증해야 합니다."
           }
         },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wymagane będzie uwierzytelnienie za pomocą Touch ID, Apple Watch lub hasła przed każdym użyciem."
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1883,6 +2039,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "인증 요구"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wymagaj uwierzytelnienia"
           }
         },
         "pt-BR" : {
@@ -1955,6 +2117,12 @@
             "value" : "새 비밀 생성"
           }
         },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Utwórz nowy sekret"
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2023,6 +2191,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "삭제하지 않기"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nie usuwaj"
           }
         },
         "pt-BR" : {
@@ -2095,6 +2269,12 @@
             "value" : "확인 이름:"
           }
         },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Powtórz nazwę:"
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2163,6 +2343,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "삭제"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Usuń"
           }
         },
         "pt-BR" : {
@@ -2235,6 +2421,12 @@
             "value" : "%1$@를 삭제하면 복구할 수 없습니다. 확인하려면 \"%2$@\"를 입력하세요."
           }
         },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Jeżeli usuniesz %1$@, nie będziesz w stanie go odzyskać. Napisz “%2$@” aby potwierdzić."
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2303,6 +2495,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%1$@를 지우겠습니까?"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Usunąć %1$@?"
           }
         },
         "pt-BR" : {
@@ -2375,6 +2573,12 @@
             "value" : "여기를 클릭해서 새로운 비밀 만들기."
           }
         },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Utwórz nowy klikając tutaj"
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2443,6 +2647,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "비밀이 없음"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Brak sekretów"
           }
         },
         "pt-BR" : {
@@ -2515,6 +2725,12 @@
             "value" : "비밀이 없음"
           }
         },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Brak sekretów"
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2583,6 +2799,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "스마트 카드의 관리 도구를 사용하여 비밀을 생성하세요."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Użyj oprogramowania twojego Smart Card aby stworzyć sekret."
           }
         },
         "pt-BR" : {
@@ -2655,6 +2877,12 @@
             "value" : "Secretive는 EC256, EC384, RSA1024 및 RSA2048 키를 지원합니다."
           }
         },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Secretive wspiera klucze EC256, EC384, RSA1024 i RSA2048."
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2723,6 +2951,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "비밀이 없음"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Brak sekretów"
           }
         },
         "pt-BR" : {
@@ -2795,6 +3029,12 @@
             "value" : "Mac에 Secure Enclave가 없고 호환되는 스마트 카드가 삽입되어 있지 않습니다."
           }
         },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Twój Mac nie posiada Secure Enclave i nie ma podpiętego kompatybilnego urządzenia Smart Card."
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2865,6 +3105,12 @@
             "value" : "보안 저장소를 사용할 수 없음"
           }
         },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nie znaleziono urządzenia obsługującego Secure Storage"
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2933,6 +3179,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Mac에 하나를 추가하고 싶다면 YubiKey 5 시리즈가 좋습니다."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Jeżeli chcesz dodać takie urządzenie do twojego Maca, YubiKey serii 5 są warte uwagi."
           }
         },
         "pt-BR" : {
@@ -3007,6 +3259,12 @@
             "value" : "잠금 해제 상태로 유지"
           }
         },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pozostaw odblokowany"
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3079,6 +3337,12 @@
             "value" : "잠금 해제하지 않음"
           }
         },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nie odblokowuj"
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3141,6 +3405,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "취소"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Anuluj"
           }
         },
         "pt-BR" : {
@@ -3207,6 +3477,12 @@
             "value" : "이름 변경"
           }
         },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zmień nazwę"
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3269,6 +3545,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "아래에 %1$@의 새 이름을 입력하세요."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wprowadź nową nazwę dla %1$@ poniżej."
           }
         },
         "pt-BR" : {
@@ -3335,6 +3617,12 @@
             "value" : "MD5 지문"
           }
         },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Suma kontrolna MD5"
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3397,6 +3685,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "공개 키"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Klucz publiczny"
           }
         },
         "pt-BR" : {
@@ -3463,6 +3757,12 @@
             "value" : "공개 키 경로"
           }
         },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ścieżka klucza publicznego"
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3525,6 +3825,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "SHA256 지문"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Suma kontrolna SHA256"
           }
         },
         "pt-BR" : {
@@ -3591,6 +3897,12 @@
             "value" : "삭제"
           }
         },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Usuń"
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3655,6 +3967,12 @@
             "value" : "이름 변경"
           }
         },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zmień nazwę"
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3715,6 +4033,12 @@
           }
         },
         "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Secure Enclave"
+          }
+        },
+        "pl" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Secure Enclave"
@@ -3784,6 +4108,12 @@
             "value" : "이 도우미 앱은 **Secret Agent**이라고 하며 활성 상태 보기에서 수시로 볼 수 있습니다."
           }
         },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ta aplikacja pomocnicza nazywa się **Secret Agent** i możesz zobaczyć ją od czasu do czasu w Monitorze Aktywności."
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3846,6 +4176,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Secretive가 제대로 작동하려면 도우미 앱을 설치해야 합니다. 백그라운드에서 SSH 클라이언트의 요청에 서명하므로 기본 Secretive 앱을 열어 둘 필요가 없습니다."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Secretive potrzebuje ustawić aplikację pomocniczą, aby działać prawidłowo. Będzie podpisywać zapytania od klientów SSH w tle. Dzięki temu główna aplikacja Secretive nie musi być ciągle uruchomiona."
           }
         },
         "pt-BR" : {
@@ -3912,6 +4248,12 @@
             "value" : "설치"
           }
         },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zainstaluj"
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3974,6 +4316,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Agent 설치"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Konfiguracja agenta"
           }
         },
         "pt-BR" : {
@@ -4040,6 +4388,12 @@
             "value" : "나를 위해 추가해주세요"
           }
         },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dodaj za mnie"
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4102,6 +4456,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%1$@에 추가"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dodaj do %1$@"
           }
         },
         "pt-BR" : {
@@ -4168,6 +4528,12 @@
             "value" : "내가 수동으로 추가했습니다"
           }
         },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dodałem to samodzielnie"
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4230,6 +4596,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "SSH가 인증을 원할 때 Secret Agent와 통신하도록 지시하는 이 줄을 쉘 구성에 추가하세요. Secretive는 이 작업을 자동으로 수행하거나 사용자가 이를 복사하여 구성 파일에 붙여넣을 수 있습니다."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dodaj tą linijkę to pliku konfiguracyjnego SSH, aby nawiązać połączenie z Secret Agent kiedy potrzebna jest autoryzacja. Secretive może ustawić to automatycznie lub możesz to zrobić samodzielnie kopiując to do pliku konfiguracyjnego."
           }
         },
         "pt-BR" : {
@@ -4296,6 +4668,12 @@
             "value" : "SSH Agent 설정"
           }
         },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Skonfiguruj twojego klienta SSH"
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4355,6 +4733,12 @@
           }
         },
         "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "✓"
+          }
+        },
+        "pl" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "✓"
@@ -4424,6 +4808,12 @@
             "value" : "타사 앱을 설정하려는 경우 FAQ를 확인하세요."
           }
         },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Jeżeli próbujesz ustawić aplikacje stron trzecich, sprawdź FAQ."
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4486,6 +4876,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Secretive는 주기적으로 GitHub를 확인하여 새 릴리스가 있는지 확인합니다. GitHub에 대한 네트워크 요청이 표시되는 이유입니다. "
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Secretive będzie co jakiś czas będzie sprawdzał GitHub, aby zobaczyć czy dostępna jest nowsza wersja aplikacji. Jeżeli zobaczysz jakikolwiek ruch sieciowy do GitHub, to właśnie dlatego."
           }
         },
         "pt-BR" : {
@@ -4552,6 +4948,12 @@
             "value" : "확인"
           }
         },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OK"
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4616,6 +5018,12 @@
             "value" : "이에 대한 자세한 내용은 여기를 참조하세요."
           }
         },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Przeczytaj więcej tutaj."
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4678,6 +5086,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "업데이트"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aktualizacje"
           }
         },
         "pt-BR" : {
@@ -4746,6 +5160,12 @@
             "value" : "비밀 %1$@ 사용됨"
           }
         },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Użyto sekretu %1$@"
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4810,6 +5230,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%1$@에서 서명 요청"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Podpisano żądanie od %1$@"
           }
         },
         "pt-BR" : {
@@ -4877,6 +5303,12 @@
             "value" : "스마트 카드"
           }
         },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Smart Card"
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4940,6 +5372,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "무명"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bez nazwy"
           }
         },
         "pt-BR" : {
@@ -5006,6 +5444,12 @@
             "value" : "치명적 보안 업데이트 필요"
           }
         },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Krytyczna aktualizacja bezpieczeństwa jest wymagana"
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
@@ -5070,6 +5514,12 @@
             "value" : "무시하기"
           }
         },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ignoruj"
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
@@ -5132,6 +5582,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "사용가능한 업데이트"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aktualizacja dostępna"
           }
         },
         "pt-BR" : {
@@ -5200,6 +5656,12 @@
             "value" : "무시"
           }
         },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ignoruj"
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
@@ -5264,6 +5726,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "업데이트"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aktualizuj"
           }
         },
         "pt-BR" : {
@@ -5332,6 +5800,12 @@
             "value" : "치명적 보안 업데이트 - %1$@"
           }
         },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Krytyczna aktualizacja bezpieczeństwa - %1$@"
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
@@ -5396,6 +5870,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "클릭해서 업데이트 하기"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kliknij aby zaktualizować"
           }
         },
         "pt-BR" : {
@@ -5464,6 +5944,12 @@
             "value" : "사용 가능한 업데이트 - %1$@"
           }
         },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aktualizacja dostępna - %1$@"
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
@@ -5526,6 +6012,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "릴리즈 노트"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Informacje o wersji"
           }
         },
         "pt-BR" : {
@@ -5592,6 +6084,12 @@
             "value" : "테스트 빌드"
           }
         },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wersja testowa"
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
@@ -5656,6 +6154,12 @@
             "value" : "업데이트"
           }
         },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aktualizuj"
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
@@ -5715,6 +6219,12 @@
           }
         },
         "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Secretive %1$@"
+          }
+        },
+        "pl" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Secretive %1$@"
