@@ -44,15 +44,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
         try? publicKeyFileStoreController.generatePublicKeys(for: storeList.allSecrets, clear: true)
         notifier.prompt()
-//        _ = withObservationTracking {
-//            updater.update
-//        } onChange: { [updater, notifier] in
-//            notifier.notify(update: updater.update!) { release in
-//                Task {
-//                    await updater.ignore(release: release)
-//                }
-//            }
-//        }
+        _ = withObservationTracking {
+            updater.update
+        } onChange: { [updater, notifier] in
+            Task {
+                await notifier.notify(update: updater.update!) { release in
+                    await updater.ignore(release: release)
+                }
+            }
+        }
     }
 
 }

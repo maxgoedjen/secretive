@@ -79,7 +79,7 @@ final class Notifier: Sendable {
         try? await notificationCenter.add(request)
     }
 
-    func notify(update: Release, ignore: (@Sendable (Release) -> Void)?) async {
+    func notify(update: Release, ignore: (@Sendable (Release) async -> Void)?) async {
         await notificationDelegate.state.prepareForNotification(release: update, ignoreAction: ignore)
         let notificationCenter = UNUserNotificationCenter.current()
         let notificationContent = UNMutableNotificationContent()
@@ -134,7 +134,7 @@ final class NotificationDelegate: NSObject, UNUserNotificationCenterDelegate, Se
 
     fileprivate actor State {
         typealias PersistAction = (@Sendable (AnySecret, AnySecretStore, TimeInterval?) async -> Void)
-        typealias IgnoreAction = (@Sendable (Release) -> Void)
+        typealias IgnoreAction = (@Sendable (Release) async -> Void)
         fileprivate var release: Release?
         fileprivate var ignoreAction: IgnoreAction?
         fileprivate var persistAction: PersistAction?
