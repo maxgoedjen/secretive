@@ -2,7 +2,7 @@ import Foundation
 import Observation
 import Security
 import CryptoKit
-@preconcurrency import LocalAuthentication
+import LocalAuthentication
 import SecretKit
 
 extension SecureEnclave {
