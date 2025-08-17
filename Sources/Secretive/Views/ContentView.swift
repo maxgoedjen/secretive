@@ -67,12 +67,12 @@ extension ContentView {
     var updateNoticeContent: (LocalizedStringResource, Color)? {
         guard let update = updater.update else { return nil }
         if update.critical {
-            return ("update_critical_notice_title", .red)
+            return (LocalizedStringResource.updateCriticalNoticeTitle, .red)
         } else {
             if updater.testBuild {
-                return ("update_test_notice_title", .blue)
+                return (LocalizedStringResource.updateTestNoticeTitle, .blue)
             } else {
-                return ("update_normal_notice_title", .orange)
+                return (LocalizedStringResource.updateNormalNoticeTitle, .orange)
             }
         }
     }

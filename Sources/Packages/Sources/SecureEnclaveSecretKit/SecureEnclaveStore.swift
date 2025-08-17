@@ -4,6 +4,7 @@ import Security
 import CryptoKit
 import LocalAuthentication
 import SecretKit
+import Localization
 
 extension SecureEnclave {
 
@@ -15,7 +16,7 @@ extension SecureEnclave {
             CryptoKit.SecureEnclave.isAvailable
         }
         public let id = UUID()
-        public let name = String(localized: "secure_enclave")
+        public let name = String(localized: .secureEnclave)
         private let persistentAuthenticationHandler = PersistentAuthenticationHandler()
 
         /// Initializes a Store.
@@ -105,10 +106,10 @@ extension SecureEnclave {
                 context = existing.context
             } else {
                 let newContext = LAContext()
-                newContext.localizedCancelTitle = String(localized: "auth_context_request_deny_button")
+                newContext.localizedCancelTitle = String(localized: .authContextRequestDenyButton)
                 context = newContext
             }
-            context.localizedReason = String(localized: "auth_context_request_signature_description_\(provenance.origin.displayName)_\(secret.name)")
+            context.localizedReason = String(localized: .authContextRequestSignatureDescription(appName: provenance.origin.displayName, secretName: secret.name))
             let attributes = KeychainDictionary([
                 kSecClass: kSecClassKey,
                 kSecAttrKeyClass: kSecAttrKeyClassPrivate,
@@ -138,8 +139,8 @@ extension SecureEnclave {
 
         public func verify(signature: Data, for data: Data, with secret: Secret) throws -> Bool {
             let context = LAContext()
-            context.localizedReason = String(localized: "auth_context_request_verify_description_\(secret.name)")
-            context.localizedCancelTitle = String(localized: "auth_context_request_deny_button")
+            context.localizedReason = String(localized: .authContextRequestVerifyDescription(secretName: secret.name, ""))
+            context.localizedCancelTitle = String(localized: .authContextRequestDenyButton)
             let attributes = KeychainDictionary([
                 kSecClass: kSecClassKey,
                 kSecAttrKeyClass: kSecAttrKeyClassPrivate,
@@ -240,7 +241,7 @@ extension SecureEnclave.Store {
                                             nil)!
 
         let wrapped: [SecureEnclave.Secret] = publicTyped.map {
-            let name = $0[kSecAttrLabel] as? String ?? String(localized: "unnamed_secret")
+            let name = $0[kSecAttrLabel] as? String ?? String(localized: .unnamedSecret)
             let id = $0[kSecAttrApplicationLabel] as! Data
             let publicKeyRef = $0[kSecValueRef] as! SecKey
             let publicKeyAttributes = SecKeyCopyAttributes(publicKeyRef) as! [CFString: Any]

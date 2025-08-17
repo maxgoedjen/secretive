@@ -9,7 +9,7 @@ extension SmartCard {
     
     @MainActor @Observable fileprivate final class State {
         var isAvailable = false
-        var name = String(localized: "smart_card")
+        var name = String(localized: .smartCard)
         var secrets: [Secret] = []
         let watcher = TKTokenWatcher()
         var tokenID: String? = nil
@@ -63,8 +63,8 @@ extension SmartCard {
         public func sign(data: Data, with secret: Secret, for provenance: SigningRequestProvenance) async throws -> Data {
             guard let tokenID = await state.tokenID else { fatalError() }
             let context = LAContext()
-            context.localizedReason = String(localized: "auth_context_request_signature_description_\(provenance.origin.displayName)_\(secret.name)")
-            context.localizedCancelTitle = String(localized: "auth_context_request_deny_button")
+            context.localizedReason = String(localized: .authContextRequestSignatureDescription(appName: provenance.origin.displayName, secretName: secret.name))
+            context.localizedCancelTitle = String(localized: .authContextRequestDenyButton)
             let attributes = KeychainDictionary([
                 kSecClass: kSecClassKey,
                 kSecAttrKeyClass: kSecAttrKeyClassPrivate,
@@ -162,7 +162,7 @@ extension SmartCard.Store {
     @MainActor private func loadSecrets() {
         guard let tokenID = state.tokenID  else { return }
 
-        let fallbackName = String(localized: "smart_card")
+        let fallbackName = String(localized: .smartCard)
         if let driverName = state.watcher.tokenInfo(forTokenID: tokenID)?.driverName  {
             state.name = driverName
         } else {
@@ -180,7 +180,7 @@ extension SmartCard.Store {
         SecItemCopyMatching(attributes, &untyped)
         guard let typed = untyped as? [[CFString: Any]] else { return }
         let wrapped = typed.map {
-            let name = $0[kSecAttrLabel] as? String ?? String(localized: "unnamed_secret")
+            let name = $0[kSecAttrLabel] as? String ?? String(localized: .unnamedSecret)
             let tokenID = $0[kSecAttrApplicationLabel] as! Data
             let algorithm = Algorithm(secAttr: $0[kSecAttrKeyType] as! NSNumber)
             let keySize = $0[kSecAttrKeySizeInBits] as! Int
@@ -207,8 +207,8 @@ extension SmartCard.Store {
     /// - Warning: Encryption functions are deliberately only exposed on a library level, and are not exposed in Secretive itself to prevent users from data loss. Any pull requests which expose this functionality in the app will not be merged.
     public func encrypt(data: Data, with secret: SecretType) throws -> Data {
         let context = LAContext()
-        context.localizedReason = String(localized: "auth_context_request_encrypt_description_\(secret.name)")
-        context.localizedCancelTitle = String(localized: "auth_context_request_deny_button")
+        context.localizedReason = String(localized: .authContextRequestEncryptDescription(secretName: secret.name))
+        context.localizedCancelTitle = String(localized: .authContextRequestDenyButton)
         let attributes = KeychainDictionary([
             kSecAttrKeyType: secret.algorithm.secAttrKeyType,
             kSecAttrKeySizeInBits: secret.keySize,
@@ -236,8 +236,8 @@ extension SmartCard.Store {
     public func decrypt(data: Data, with secret: SecretType) async throws -> Data {
         guard let tokenID = await state.tokenID else { fatalError() }
         let context = LAContext()
-        context.localizedReason = String(localized: "auth_context_request_decrypt_description_\(secret.name)")
-        context.localizedCancelTitle = String(localized: "auth_context_request_deny_button")
+        context.localizedReason = String(localized: .authContextRequestDecryptDescription(secretName: secret.name))
+        context.localizedCancelTitle = String(localized: .authContextRequestDenyButton)
         let attributes = KeychainDictionary([
             kSecClass: kSecClassKey,
             kSecAttrKeyClass: kSecAttrKeyClassPrivate,
