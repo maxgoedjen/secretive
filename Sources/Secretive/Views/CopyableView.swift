@@ -8,7 +8,6 @@ struct CopyableView: View {
     var text: String
 
     @State private var interactionState: InteractionState = .normal
-    @Namespace var namespace
     
     var content: some View {
         VStack(alignment: .leading) {
