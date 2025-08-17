@@ -25,7 +25,7 @@ struct StoreListView: View {
                             if store.secrets.isEmpty {
                                 EmptyStoreView(store: store, activeSecret: $activeSecret)
                             } else {
-                                ForEach(store.secrets) { secret in
+                                ForEach(store.secrets.sorted(by: { $0.name < $1.name })) { secret in
                                     SecretListItemView(
                                         store: store,
                                         secret: secret,
