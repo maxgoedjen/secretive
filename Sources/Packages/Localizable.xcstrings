@@ -1281,8 +1281,8 @@
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "シークレット“%2$@”を使って署名を検証します"
+            "state" : "translated",
+            "value" : "シークレット“%1$(secretName)@”を使って署名を検証します"
           }
         },
         "ko" : {

@@ -138,7 +138,7 @@ extension SecureEnclave {
 
         public func verify(signature: Data, for data: Data, with secret: Secret) throws -> Bool {
             let context = LAContext()
-            context.localizedReason = String(localized: .authContextRequestVerifyDescription(secretName: secret.name, ""))
+            context.localizedReason = String(localized: .authContextRequestVerifyDescription(secretName: secret.name))
             context.localizedCancelTitle = String(localized: .authContextRequestDenyButton)
             let attributes = KeychainDictionary([
                 kSecClass: kSecClassKey,
