@@ -6,7 +6,7 @@ struct StoreListView: View {
 
     @Binding var activeSecret: AnySecret?
 
-    @Environment(\.secretStoreList) private var storeList: SecretStoreList
+    @Environment(\.secretStoreList) private var storeList
 
     private func secretDeleted(secret: AnySecret) {
         activeSecret = nextDefaultSecret
@@ -22,17 +22,13 @@ struct StoreListView: View {
                 ForEach(storeList.stores) { store in
                     if store.isAvailable {
                         Section(header: Text(store.name)) {
-                            if store.secrets.isEmpty {
-                                EmptyStoreView(store: store)
-                            } else {
-                                ForEach(store.secrets) { secret in
-                                    SecretListItemView(
-                                        store: store,
-                                        secret: secret,
-                                        deletedSecret: secretDeleted,
-                                        renamedSecret: secretRenamed
-                                    )
-                                }
+                            ForEach(store.secrets) { secret in
+                                SecretListItemView(
+                                    store: store,
+                                    secret: secret,
+                                    deletedSecret: secretDeleted,
+                                    renamedSecret: secretRenamed
+                                )
                             }
                         }
                     }
@@ -41,19 +37,17 @@ struct StoreListView: View {
         } detail: {
             if let activeSecret {
                 SecretDetailView(secret: activeSecret)
+            } else if let nextDefaultSecret {
+                // This just means onAppear hasn't executed yet.
+                // Do this to avoid a blip.
+                SecretDetailView(secret: nextDefaultSecret)
             } else {
                 EmptyStoreView(store: storeList.modifiableStore ?? storeList.stores.first)
             }
         }
         .navigationSplitViewStyle(.balanced)
         .onAppear {
-            withObservationTracking {
-                _ = nextDefaultSecret
-            } onChange: {
-                Task { @MainActor in
-                    activeSecret = nextDefaultSecret
-                }
-            }
+            activeSecret = nextDefaultSecret
         }
         .frame(minWidth: 100, idealWidth: 240)
 

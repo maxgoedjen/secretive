@@ -6,19 +6,23 @@ import SmartCardSecretKit
 import Brief
 
 extension EnvironmentValues {
-    private static let _secretStoreList: SecretStoreList = {
+
+    // This is injected through .environment modifier below instead of @Entry for performance reasons (basially, restrictions around init/mainactor causing delay in loading secrets/"empty screen" blip).
+    @MainActor fileprivate static let _secretStoreList: SecretStoreList = {
         let list = SecretStoreList()
-        Task { @MainActor in
-            list.add(store: SecureEnclave.Store())
-            list.add(store: SmartCard.Store())
-        }
+        list.add(store: SecureEnclave.Store())
+        list.add(store: SmartCard.Store())
         return list
     }()
-    @Entry var secretStoreList = _secretStoreList
+
     private static let _agentStatusChecker = AgentStatusChecker()
     @Entry var agentStatusChecker: any AgentStatusCheckerProtocol = _agentStatusChecker
     private static let _updater: any UpdaterProtocol = Updater(checkOnLaunch: true)
     @Entry var updater: any UpdaterProtocol = _updater
+
+    @MainActor var secretStoreList: SecretStoreList {
+        EnvironmentValues._secretStoreList
+    }
 }
 
 @main
@@ -33,8 +37,7 @@ struct Secretive: App {
     @SceneBuilder var body: some Scene {
         WindowGroup {
             ContentView(showingCreation: $showingCreation, runningSetup: $showingSetup, hasRunSetup: $hasRunSetup)
-            // This one is explicitly injected via environment to support hasRunSetup.
-//                .environment(Updater(checkOnLaunch: hasRunSetup))
+                .environment(EnvironmentValues._secretStoreList)
                 .onAppear {
                     if !hasRunSetup {
                         showingSetup = true

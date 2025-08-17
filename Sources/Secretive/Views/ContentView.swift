@@ -13,7 +13,7 @@ struct ContentView: View {
     @State var activeSecret: AnySecret?
     @Environment(\.colorScheme) var colorScheme
 
-    @Environment(\.secretStoreList) private var storeList: SecretStoreList
+    @Environment(\.secretStoreList) private var storeList
     @Environment(\.updater) private var updater: any UpdaterProtocol
     @Environment(\.agentStatusChecker) private var agentStatusChecker: any AgentStatusCheckerProtocol
 
