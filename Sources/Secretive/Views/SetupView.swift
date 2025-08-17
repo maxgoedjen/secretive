@@ -185,7 +185,7 @@ struct SSHAgentSetupView: View {
                         .padding()
                 }
             }.pickerStyle(SegmentedPickerStyle())
-            CopyableView(title: .setupSshAddToConfigButton(selectedShellInstruction.shellConfigPath), image: Image(systemName: "greaterthan.square"), text: selectedShellInstruction.text)
+            CopyableView(title: .setupSshAddToConfigButton(configPath: selectedShellInstruction.shellConfigPath), image: Image(systemName: "greaterthan.square"), text: selectedShellInstruction.text)
             Button(.setupSshAddForMeButton) {
                 let controller = ShellConfigurationController()
                 if controller.addToShell(shellInstructions: selectedShellInstruction) {

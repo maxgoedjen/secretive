@@ -64,8 +64,8 @@ final class Notifier: Sendable {
         await notificationDelegate.state.setPending(secret: secret, store: store)
         let notificationCenter = UNUserNotificationCenter.current()
         let notificationContent = UNMutableNotificationContent()
-        notificationContent.title = String(localized: .signedNotificationTitle(provenance.origin.displayName))
-        notificationContent.subtitle = String(localized: .signedNotificationDescription(secret.name))
+        notificationContent.title = String(localized: .signedNotificationTitle(appName: provenance.origin.displayName))
+        notificationContent.subtitle = String(localized: .signedNotificationDescription(secretName: secret.name))
         notificationContent.userInfo[Constants.persistSecretIDKey] = secret.id.description
         notificationContent.userInfo[Constants.persistStoreIDKey] = store.id.description
         notificationContent.interruptionLevel = .timeSensitive
@@ -85,9 +85,9 @@ final class Notifier: Sendable {
         let notificationContent = UNMutableNotificationContent()
         if update.critical {
             notificationContent.interruptionLevel = .critical
-            notificationContent.title = String(localized: .updateNotificationUpdateCriticalTitle(update.name))
+            notificationContent.title = String(localized: .updateNotificationUpdateCriticalTitle(updateName: update.name))
         } else {
-            notificationContent.title = String(localized: .updateNotificationUpdateNormalTitle(update.name))
+            notificationContent.title = String(localized: .updateNotificationUpdateNormalTitle(updateName: update.name))
         }
         notificationContent.subtitle = String(localized: .updateNotificationUpdateDescription)
         notificationContent.body = update.body

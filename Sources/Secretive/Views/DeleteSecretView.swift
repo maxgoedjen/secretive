@@ -18,11 +18,11 @@ struct DeleteSecretView<StoreType: SecretStoreModifiable>: View {
                     .padding()
                 VStack {
                     HStack {
-                        Text(.deleteConfirmationTitle(secret.name)).bold()
+                        Text(.deleteConfirmationTitle(secretName: secret.name)).bold()
                         Spacer()
                     }
                     HStack {
-                        Text(.deleteConfirmationDescription(secret.name, secret.name))
+                        Text(.deleteConfirmationDescription(secretName: secret.name, confirmSecretName: secret.name))
                         Spacer()
                     }
                     HStack {

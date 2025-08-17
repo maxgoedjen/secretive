@@ -18,7 +18,7 @@ struct RenameSecretView<StoreType: SecretStoreModifiable>: View {
                     .padding()
                 VStack {
                     HStack {
-                        Text(.renameTitle(secret.name))
+                        Text(.renameTitle(secretName: secret.name))
                         Spacer()
                     }
                     HStack {

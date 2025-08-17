@@ -9,7 +9,7 @@ struct UpdateDetailView: View {
 
     var body: some View {
         VStack {
-            Text(.updateVersionName(update.name)).font(.title)
+            Text(.updateVersionName(updateName: update.name)).font(.title)
             GroupBox(label: Text(.updateReleaseNotesTitle)) {
                 ScrollView {
                     attributedBody
