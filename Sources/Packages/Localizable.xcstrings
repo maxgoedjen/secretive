@@ -777,13 +777,13 @@
       "localizations" : {
         "ca" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "desbloqueja el secret \"%1$(secretName)@\" per a %2$(duration)@"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Secret \"%1$(secretName)@\" für %2$(duration)@ entsperren"
           }
         },
@@ -795,55 +795,55 @@
         },
         "fi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "avaa salaisuuden \"%1$(secretName)@\" lukitus ajaksi %2$(duration)@"
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "déverrouiller le secret \"%1$(secretName)@\" pendant %2$(duration)@"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "sblocca il Segreto \"%1$(secretName)@\" per %2$(duration)@"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "シークレット“%1$(secretName)@”のロックを解除します (%2$(duration)@間)"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "비밀 \"%1$(secretName)@\"를 %2$(duration)@ 동안 잠금 해제"
           }
         },
         "pl" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "odblokuj sekret “%1$(secretName)@” dla %2$(duration)@"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "destravar segredo \"%1$(secretName)@\" for %2$(duration)@"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "разблокировать секрет \"%1$(secretName)@\" на %2$(duration)@"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "解锁密钥串 \"%1$(secretName)@\" 给 %2$(duration)@"
           }
         }
@@ -855,13 +855,13 @@
       "localizations" : {
         "ca" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "desbloqueja el secret \"%1$(secretName)@\""
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Secret \"%1$(secretName)@\" entsperren"
           }
         },
@@ -873,55 +873,55 @@
         },
         "fi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "avaa salaisuuden \"%1$(secretName)@\" lukitus"
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "déverrouiller le secret \"%1$(secretName)@\""
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "sblocca il Segreto \"%1$(secretName)@\""
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "シークレット“%1$(secretName)@”のロックを解除します"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "비밀 \"%1$(secretName)@\" 잠금 해제"
           }
         },
         "pl" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "odblokuj sekret “%1$(secretName)@”"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "destravar secreto \"%1$(secretName)@\""
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "разблокировать секрет \"%1$(secretName)@\""
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "解锁密钥串 \"%1$(secretName)@\""
           }
         }
@@ -933,13 +933,13 @@
       "localizations" : {
         "ca" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "desencripta dades usant el secret \"%1$(secretName)@\" "
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Daten mit dem Secret \"%1$(secretName)@\" entschlüsseln"
           }
         },
@@ -951,55 +951,55 @@
         },
         "fi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "pura salaus käyttäen salaisuutta \"%1$(secretName)@\""
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "déchiffrer les données en utilisant le secret \"%1$(secretName)@\"."
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "decifra i dati usando il Segreto \"%1$(secretName)@\""
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "シークレット“%1$(secretName)@”を使って復号化します"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "비밀 \"%1$(secretName)@\"를 사용해서 데이터 복호화"
           }
         },
         "pl" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "odszyfruj dane używając sekretu “%1$(secretName)@”"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "decriptar o dado utilizando segredo \"%1$(secretName)@\""
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "расшифровать данные используя секрет \"%1$(secretName)@\""
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "使用密钥串 \"%1$(secretName)@\" 解密数据"
           }
         }
@@ -1089,13 +1089,13 @@
       "localizations" : {
         "ca" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "encripta dades usant el secret \"%1$(secretName)@\""
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Daten mit dem Secret \"%1$(secretName)@\" verschlüsseln"
           }
         },
@@ -1107,55 +1107,55 @@
         },
         "fi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "salaa käyttäen salaisuutta \"%1$(secretName)@\""
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "chiffrer les données en utilisant le secret \"%1$(secretName)@\""
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "cifra i dati usando il Segreto \"%1$(secretName)@\""
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "シークレット“%1$(secretName)@”を使って暗号化します"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "비밀 \"%1$(secretName)@\"를 사용해서 데이터 암호화"
           }
         },
         "pl" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "zaszyfruj dane używając sekretu “%1$(secretName)@”"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "encriptar dado utilizando o segredo \"%1$(secretName)@\""
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "зашифровать данные используя секрет \"%1$(secretName)@\""
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "使用密钥串 \"%1$(secretName)@\" 加密数据"
           }
         }
@@ -1167,13 +1167,13 @@
       "localizations" : {
         "ca" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "signa una petición de \"%1$(appName)@\" usant el secret \"%2$(secretName)@\""
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "eine Anfrage von \"%1$(appName)@\" mit dem Secret \"%2$(secretName)@\" signieren"
           }
         },
@@ -1185,55 +1185,55 @@
         },
         "fi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "allekirjoita pyyntö lähteestä \"%1$(appName)@\" käyttäen salaisuutta \"%2$(secretName)@\""
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "signer une requête de \"%1$(appName)@\" en utilisant le secret \"%2$(secretName)@\""
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "firma la richiesta di \"%1$(appName)@\" usando il Segreto \"%2$(secretName)@\""
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "シークレット“%2$(secretName)@”を使って“%1$(appName)@”の要求に署名します"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "비밀 \"%2$(secretName)@\"를 사용해서 \"%1$(appName)@\"의 요청에 서명"
           }
         },
         "pl" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "podpisz zapytanie od “%1$(appName)@\" za pomocą sekretu “%2$(secretName)@”"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "assinar requisição a partir do \"%1$(appName)@\" utilizando o segredo \"%2$(secretName)@\""
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "подписать запрос от \"%1$(appName)@\" используя секрет \"%2$(secretName)@\""
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "使用密钥串 \"%2$(secretName)@\" 认证 \"%1$(appName)@\" "
           }
         }
@@ -1245,13 +1245,13 @@
       "localizations" : {
         "ca" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "verifica una signatura usant el secret \"%1$(secretName)@\""
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "eine Signatur mit dem Secret \"%1$(secretName)@\" verifizieren"
           }
         },
@@ -1263,19 +1263,19 @@
         },
         "fi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "varmista allekirjoitus käyttäen salaisuutta \"%1$(secretName)@\""
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "vérifier une signature en utilisant le secret \"%1$(secretName)@\""
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "verifica una firma usando il segreto \"%1$(secretName)@\""
           }
         },
@@ -1287,31 +1287,31 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "비밀 \"%1$(secretName)@\"를 사용하여 서명 검증"
           }
         },
         "pl" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "zweryfikuj sygnaturę za pomocą sekretu “%1$(secretName)@”"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "verificar a assinatura utilizando o segredo \"%1$(secretName)@\""
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "верифицировать подпись используя секрет \"%1$(secretName)@\""
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "使用密钥串 \"%1$(secretName)@\" 认证"
           }
         }
@@ -2400,13 +2400,13 @@
       "localizations" : {
         "ca" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Si esborres %1$(secretName)@, no podràs recuperar-la. Escriu \"%2$(confirmSecretName)@\" per a confirmar."
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Wenn du %1$(secretName)@ löschst, kannst du es nicht wiederherstellen. Gib zur Bestätigung \"%2$(confirmSecretName)@\" ein."
           }
         },
@@ -2418,55 +2418,55 @@
         },
         "fi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Jos poistat kohteen %1$(secretName)@, sitä ei pysty palauttamaan. Kirjoita \"%2$(confirmSecretName)@\" vahvistaaksesi poiston."
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Si vous effacez %1$(secretName)@, vous ne pourrez pas le récupérer. Tapez \"%2$(confirmSecretName)@\" pour confirmer."
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Se elimini %1$(secretName)@, non sarai più in grado di recuperarlo. Digita “%1$(secretName)@” per confermare."
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "一旦%1$(secretName)@を削除すると二度と元には戻せません。“%2$(confirmSecretName)@”と入力して確認してください。"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "%1$(secretName)@를 삭제하면 복구할 수 없습니다. 확인하려면 \"%2$(confirmSecretName)@\"를 입력하세요."
           }
         },
         "pl" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Jeżeli usuniesz %1$(secretName)@, nie będziesz w stanie go odzyskać. Napisz “%2$(confirmSecretName)@” aby potwierdzić."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Se você deletar %1$(secretName)@, você não será permitido recuperá-lo. Digite \"%2$(confirmSecretName)@\" para confirmar."
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Если Вы удалите %1$(secretName)@, вы не сможете его восстановить. Введите \"%2$(confirmSecretName)@\" для подтверждения."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "如果您删除 %1$(secretName)@ ，您将没有任何方式恢复它。输入 \"%2$(confirmSecretName)@\" 以确认。"
           }
         }
@@ -2477,13 +2477,13 @@
       "localizations" : {
         "ca" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Esborrar %1$(secretName)@?"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "%1$(secretName)@ Löschen?"
           }
         },
@@ -2495,55 +2495,55 @@
         },
         "fi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Poista %1$(secretName)@?"
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Supprimer %1$(secretName)@?"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Eliminare %1$(secretName)@?"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "%1$(secretName)@を削除しますか?"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "%1$(secretName)@를 지우겠습니까?"
           }
         },
         "pl" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Usunąć %1$(secretName)@?"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Deletar %1$(secretName)@?"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Удалить %1$(secretName)@?"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "删除 %1$(secretName)@ 吗？"
           }
         }
@@ -3468,13 +3468,13 @@
       "localizations" : {
         "ca" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Escriu el nou nom per a %1$(secretName)@ baix."
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Gib einen neuen Namen für %1$(secretName)@ ein."
           }
         },
@@ -3486,49 +3486,49 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Saisissez votre nouveau nom pour %1$(secretName)@ ci-dessous."
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Digita qui sotto il nuovo nome per %1$(secretName)@."
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "%1$(secretName)@の新しい名前を入力してください。"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "아래에 %1$(secretName)@의 새 이름을 입력하세요."
           }
         },
         "pl" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Wprowadź nową nazwę dla %1$(secretName)@ poniżej."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Digite o novo nome para %1$(secretName)@ abaixo."
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Введите новое название для \"%1$(secretName)@\" ниже."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "在此输入密钥串 %1$(secretName)@ 的新名字。"
           }
         }
@@ -4391,13 +4391,13 @@
       "localizations" : {
         "ca" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Afegeix a %1$(configPath)@"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "In %1$(configPath)@ einfügen"
           }
         },
@@ -4407,51 +4407,57 @@
             "value" : "Add to %1$(configPath)@"
           }
         },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add to %1$(configPath)@"
+          }
+        },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Ajouter à %1$(configPath)@"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Aggiungi a %1$(configPath)@"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "%1$(configPath)@に追加"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "%1$(configPath)@에 추가"
           }
         },
         "pl" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Dodaj do %1$(configPath)@"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Adicionar para %1$(configPath)@"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Добавить к %1$(configPath)@"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "添加到 %1$(configPath)@"
           }
         }
@@ -5102,13 +5108,13 @@
       "localizations" : {
         "ca" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Usant secret %1$(secretName)@"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Benutze Secret %1$(secretName)@"
           }
         },
@@ -5118,51 +5124,57 @@
             "value" : "Using secret %1$(secretName)@"
           }
         },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Using secret %1$(secretName)@"
+          }
+        },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Utilisation du secret %1$(secretName)@"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Usato il Segreto %1$(secretName)@"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "%1$(secretName)@を使用中"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "비밀 %1$(secretName)@ 사용됨"
           }
         },
         "pl" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Użyto sekretu %1$(secretName)@"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Utilizando o segredo %1$(secretName)@"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Используя секрет %1$(secretName)@"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "使用密钥串 %1$(secretName)@"
           }
         }
@@ -5174,13 +5186,13 @@
       "localizations" : {
         "ca" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Petició signada de %1$(appName)@"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Signierte Anfrage von %1$(appName)@"
           }
         },
@@ -5190,51 +5202,57 @@
             "value" : "Signed Request from %1$(appName)@"
           }
         },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Signed Request from %1$(appName)@"
+          }
+        },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Requête signée de %1$(appName)@"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Firmata la richiesta da %1$(appName)@"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "%1$(appName)@の要求に署名しました"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "%1$(appName)@에서 서명 요청"
           }
         },
         "pl" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Podpisano żądanie od %1$(appName)@"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Requisição Assinada fr %1$(appName)@"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Подписан запрос от %1$(appName)@"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "已认证来自 %1$(appName)@ 的请求"
           }
         }
@@ -5745,13 +5763,13 @@
       "localizations" : {
         "ca" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Actualització de seguretat crítica - %1$(updateName)@"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Kritisches Sicherheitsupdate - %1$(updateName)@"
           }
         },
@@ -5761,51 +5779,57 @@
             "value" : "Critical Security Update - %1$(updateName)@"
           }
         },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Critical Security Update - %1$(updateName)@"
+          }
+        },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Mise à jour critique de sécurité - %1$(updateName)@"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Aggiornamento di sicurezza critico - %1$(updateName)@"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "重要なセキュリティアップデート - %1$(updateName)@"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "치명적 보안 업데이트 - %1$(updateName)@"
           }
         },
         "pl" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Krytyczna aktualizacja bezpieczeństwa - %1$(updateName)@"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Atualização de Segurança Crítica - %1$(updateName)@"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Критическое обновление безопасности - %1$(updateName)@"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "重要安全更新 - %1$(updateName)@"
           }
         }
@@ -5889,13 +5913,13 @@
       "localizations" : {
         "ca" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Actualizació disponible - %1$(updateName)@"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Update Verfügbar - %1$(updateName)@"
           }
         },
@@ -5905,51 +5929,57 @@
             "value" : "Update Available - %1$(updateName)@"
           }
         },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Update Available - %1$(updateName)@"
+          }
+        },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Mise à jour disponible - %1$(updateName)@"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Aggiornamento disponibile - %1$(updateName)@"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "アップデートがあります - %1$(updateName)@"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "사용 가능한 업데이트 - %1$(updateName)@"
           }
         },
         "pl" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Aktualizacja dostępna - %1$(updateName)@"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Atualização disponível - %1$(updateName)@"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Доступно обновление - %1$(updateName)@"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "更新可用 - %1$(updateName)@"
           }
         }
@@ -6173,13 +6203,13 @@
       "localizations" : {
         "ca" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Secretive %1$(updateName)@"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Secretive %1$(updateName)@"
           }
         },
@@ -6189,51 +6219,57 @@
             "value" : "Secretive %1$(updateName)@"
           }
         },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Secretive %1$(updateName)@"
+          }
+        },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Secretive %1$(updateName)@"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Secretive %1$(updateName)@"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Secretive %1$(updateName)@"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Secretive %1$(updateName)@"
           }
         },
         "pl" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Secretive %1$(updateName)@"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Secretive %1$(updateName)@"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Secretive %1$(updateName)@"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Secretive %1$(updateName)@"
           }
         }
