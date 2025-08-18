@@ -54,10 +54,10 @@ public extension SecretStore {
     ///   - allowRSA: Whether or not RSA key types should be permited.
     /// - Returns: The appropriate algorithm.
     func signatureAlgorithm(for secret: SecretType, allowRSA: Bool = false) -> SecKeyAlgorithm {
-        switch (secret.algorithm, secret.keySize) {
-        case (.ellipticCurve, 256):
+        switch (secret.keyType.algorithm, secret.keyType.size) {
+        case (.ecdsa, 256):
             return .ecdsaSignatureMessageX962SHA256
-        case (.ellipticCurve, 384):
+        case (.ecdsa, 384):
             return .ecdsaSignatureMessageX962SHA384
         case (.rsa, 1024), (.rsa, 2048):
             guard allowRSA else { fatalError() }

@@ -52,14 +52,6 @@ extension SmartCard {
 
         // MARK: Public API
 
-        public func create(name: String) throws {
-            fatalError("Keys must be created on the smart card.")
-        }
-
-        public func delete(secret: Secret) throws {
-            fatalError("Keys must be deleted on the smart card.")
-        }
-
         public func sign(data: Data, with secret: Secret, for provenance: SigningRequestProvenance) async throws -> Data {
             guard let tokenID = await state.tokenID else { fatalError() }
             let context = LAContext()
@@ -91,8 +83,8 @@ extension SmartCard {
         
         public func verify(signature: Data, for data: Data, with secret: Secret) throws -> Bool {
             let attributes = KeychainDictionary([
-                kSecAttrKeyType: secret.algorithm.secAttrKeyType,
-                kSecAttrKeySizeInBits: secret.keySize,
+                kSecAttrKeyType: secret.keyType.secAttrKeyType as Any,
+                kSecAttrKeySizeInBits: secret.keyType.size,
                 kSecAttrKeyClass: kSecAttrKeyClassPublic
             ])
             var verifyError: SecurityError?
@@ -182,13 +174,13 @@ extension SmartCard.Store {
         let wrapped = typed.map {
             let name = $0[kSecAttrLabel] as? String ?? String(localized: .unnamedSecret)
             let tokenID = $0[kSecAttrApplicationLabel] as! Data
-            let algorithm = Algorithm(secAttr: $0[kSecAttrKeyType] as! NSNumber)
+            let algorithmSecAttr = $0[kSecAttrKeyType] as! NSNumber
             let keySize = $0[kSecAttrKeySizeInBits] as! Int
             let publicKeyRef = $0[kSecValueRef] as! SecKey
             let publicKeySecRef = SecKeyCopyPublicKey(publicKeyRef)!
             let publicKeyAttributes = SecKeyCopyAttributes(publicKeySecRef) as! [CFString: Any]
             let publicKey = publicKeyAttributes[kSecValueData] as! Data
-            return SmartCard.Secret(id: tokenID, name: name, algorithm: algorithm, keySize: keySize, publicKey: publicKey)
+            return SmartCard.Secret(id: tokenID, name: name, keyType: KeyType(secAttr: algorithmSecAttr, size: keySize)!, publicKey: publicKey)
         }
         state.secrets.append(contentsOf: wrapped)
     }
@@ -210,8 +202,8 @@ extension SmartCard.Store {
         context.localizedReason = String(localized: .authContextRequestEncryptDescription(secretName: secret.name))
         context.localizedCancelTitle = String(localized: .authContextRequestDenyButton)
         let attributes = KeychainDictionary([
-            kSecAttrKeyType: secret.algorithm.secAttrKeyType,
-            kSecAttrKeySizeInBits: secret.keySize,
+            kSecAttrKeyType: secret.keyType.secAttrKeyType as Any,
+            kSecAttrKeySizeInBits: secret.keyType.size,
             kSecAttrKeyClass: kSecAttrKeyClassPublic,
             kSecUseAuthenticationContext: context
         ])
@@ -263,10 +255,10 @@ extension SmartCard.Store {
     }
 
     private func encryptionAlgorithm(for secret: SecretType) -> SecKeyAlgorithm {
-        switch (secret.algorithm, secret.keySize) {
-        case (.ellipticCurve, 256):
+        switch (secret.keyType.algorithm, secret.keyType.size) {
+        case (.ecdsa, 256):
             return .eciesEncryptionCofactorVariableIVX963SHA256AESGCM
-        case (.ellipticCurve, 384):
+        case (.ecdsa, 384):
             return .eciesEncryptionCofactorVariableIVX963SHA384AESGCM
         case (.rsa, 1024), (.rsa, 2048):
             return .rsaEncryptionOAEPSHA512AESGCM

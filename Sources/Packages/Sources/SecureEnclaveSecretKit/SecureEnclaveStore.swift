@@ -16,6 +16,10 @@ extension SecureEnclave {
         }
         public let id = UUID()
         public let name = String(localized: .secureEnclave)
+        public var supportedKeyTypes: [KeyType] {
+            [KeyType(algorithm: .ecdsa, size: 256)]
+        }
+
         private let persistentAuthenticationHandler = PersistentAuthenticationHandler()
 
         /// Initializes a Store.
@@ -28,77 +32,10 @@ extension SecureEnclave {
             }
         }
 
-        // MARK: Public API
+        // MARK: - Public API
 
-        public func create(name: String, requiresAuthentication: Bool) async throws {
-            var accessError: SecurityError?
-            let flags: SecAccessControlCreateFlags
-            if requiresAuthentication {
-                flags = [.privateKeyUsage, .userPresence]
-            } else {
-                flags = .privateKeyUsage
-            }
-            let access =
-                SecAccessControlCreateWithFlags(kCFAllocatorDefault,
-                                                kSecAttrAccessibleWhenUnlockedThisDeviceOnly,
-                                                flags,
-                                                &accessError) as Any
-            if let error = accessError {
-                throw error.takeRetainedValue() as Error
-            }
+        // MARK: SecretStore
 
-            let attributes = KeychainDictionary([
-                kSecAttrLabel: name,
-                kSecAttrKeyType: Constants.keyType,
-                kSecAttrTokenID: kSecAttrTokenIDSecureEnclave,
-                kSecAttrApplicationTag: Constants.keyTag,
-                kSecPrivateKeyAttrs: [
-                    kSecAttrIsPermanent: true,
-                    kSecAttrAccessControl: access
-                ]
-            ])
-
-            var createKeyError: SecurityError?
-            let keypair = SecKeyCreateRandomKey(attributes, &createKeyError)
-            if let error = createKeyError {
-                throw error.takeRetainedValue() as Error
-            }
-            guard let keypair = keypair, let publicKey = SecKeyCopyPublicKey(keypair) else {
-                throw KeychainError(statusCode: nil)
-            }
-            try savePublicKey(publicKey, name: name)
-            await reloadSecretsInternal()
-        }
-
-        public func delete(secret: Secret) async throws {
-            let deleteAttributes = KeychainDictionary([
-                kSecClass: kSecClassKey,
-                kSecAttrApplicationLabel: secret.id as CFData
-            ])
-            let status = SecItemDelete(deleteAttributes)
-            if status != errSecSuccess {
-                throw KeychainError(statusCode: status)
-            }
-            await reloadSecretsInternal()
-        }
-
-        public func update(secret: Secret, name: String) async throws {
-            let updateQuery = KeychainDictionary([
-                kSecClass: kSecClassKey,
-                kSecAttrApplicationLabel: secret.id as CFData
-            ])
-
-            let updatedAttributes = KeychainDictionary([
-                kSecAttrLabel: name,
-            ])
-
-            let status = SecItemUpdate(updateQuery, updatedAttributes)
-            if status != errSecSuccess {
-                throw KeychainError(statusCode: status)
-            }
-            await reloadSecretsInternal()
-        }
-        
         public func sign(data: Data, with secret: Secret, for provenance: SigningRequestProvenance) async throws -> Data {
             let context: LAContext
             if let existing = await persistentAuthenticationHandler.existingPersistedAuthenticationContext(secret: secret) {
@@ -183,6 +120,78 @@ extension SecureEnclave {
             await reloadSecretsInternal(notifyAgent: false)
         }
 
+        // MARK: SecretStoreModifiable
+
+        public func create(name: String, attributes: Attributes) async throws {
+            var accessError: SecurityError?
+            let flags: SecAccessControlCreateFlags
+            if attributes.authentication.required {
+                flags = [.privateKeyUsage, .userPresence]
+            } else {
+                flags = .privateKeyUsage
+            }
+            let access =
+                SecAccessControlCreateWithFlags(kCFAllocatorDefault,
+                                                kSecAttrAccessibleWhenUnlockedThisDeviceOnly,
+                                                flags,
+                                                &accessError) as Any
+            if let error = accessError {
+                throw error.takeRetainedValue() as Error
+            }
+
+            let attributes = KeychainDictionary([
+                kSecAttrLabel: name,
+                kSecAttrKeyType: Constants.keyType,
+                kSecAttrTokenID: kSecAttrTokenIDSecureEnclave,
+                kSecAttrApplicationTag: Constants.keyTag,
+                kSecPrivateKeyAttrs: [
+                    kSecAttrIsPermanent: true,
+                    kSecAttrAccessControl: access
+                ]
+            ])
+
+            var createKeyError: SecurityError?
+            let keypair = SecKeyCreateRandomKey(attributes, &createKeyError)
+            if let error = createKeyError {
+                throw error.takeRetainedValue() as Error
+            }
+            guard let keypair = keypair, let publicKey = SecKeyCopyPublicKey(keypair) else {
+                throw KeychainError(statusCode: nil)
+            }
+            try savePublicKey(publicKey, name: name)
+            await reloadSecretsInternal()
+        }
+
+        public func delete(secret: Secret) async throws {
+            let deleteAttributes = KeychainDictionary([
+                kSecClass: kSecClassKey,
+                kSecAttrApplicationLabel: secret.id as CFData
+            ])
+            let status = SecItemDelete(deleteAttributes)
+            if status != errSecSuccess {
+                throw KeychainError(statusCode: status)
+            }
+            await reloadSecretsInternal()
+        }
+
+        public func update(secret: Secret, name: String) async throws {
+            let updateQuery = KeychainDictionary([
+                kSecClass: kSecClassKey,
+                kSecAttrApplicationLabel: secret.id as CFData
+            ])
+
+            let updatedAttributes = KeychainDictionary([
+                kSecAttrLabel: name,
+            ])
+
+            let status = SecItemUpdate(updateQuery, updatedAttributes)
+            if status != errSecSuccess {
+                throw KeychainError(statusCode: status)
+            }
+            await reloadSecretsInternal()
+        }
+
+
     }
 
 }
@@ -217,43 +226,13 @@ extension SecureEnclave.Store {
         var publicUntyped: CFTypeRef?
         SecItemCopyMatching(publicAttributes, &publicUntyped)
         guard let publicTyped = publicUntyped as? [[CFString: Any]] else { return }
-        let privateAttributes = KeychainDictionary([
-            kSecClass: kSecClassKey,
-            kSecAttrKeyType: SecureEnclave.Constants.keyType,
-            kSecAttrApplicationTag: SecureEnclave.Constants.keyTag,
-            kSecAttrKeyClass: kSecAttrKeyClassPrivate,
-            kSecReturnRef: true,
-            kSecMatchLimit: kSecMatchLimitAll,
-            kSecReturnAttributes: true
-            ])
-        var privateUntyped: CFTypeRef?
-        SecItemCopyMatching(privateAttributes, &privateUntyped)
-        guard let privateTyped = privateUntyped as? [[CFString: Any]] else { return }
-        let privateMapped = privateTyped.reduce(into: [:] as [Data: [CFString: Any]]) { partialResult, next in
-            let id = next[kSecAttrApplicationLabel] as! Data
-            partialResult[id] = next
-        }
-        let authNotRequiredAccessControl: SecAccessControl =
-            SecAccessControlCreateWithFlags(kCFAllocatorDefault,
-                                            kSecAttrAccessibleWhenUnlockedThisDeviceOnly,
-                                            [.privateKeyUsage],
-                                            nil)!
-
         let wrapped: [SecureEnclave.Secret] = publicTyped.map {
             let name = $0[kSecAttrLabel] as? String ?? String(localized: .unnamedSecret)
             let id = $0[kSecAttrApplicationLabel] as! Data
             let publicKeyRef = $0[kSecValueRef] as! SecKey
             let publicKeyAttributes = SecKeyCopyAttributes(publicKeyRef) as! [CFString: Any]
             let publicKey = publicKeyAttributes[kSecValueData] as! Data
-            let privateKey = privateMapped[id]
-            let requiresAuth: Bool
-            if let authRequirements = privateKey?[kSecAttrAccessControl] {
-                // Unfortunately we can't inspect the access control object directly, but it does behave predicatable with equality.
-                requiresAuth = authRequirements as! SecAccessControl != authNotRequiredAccessControl
-            } else {
-                requiresAuth = false
-            }
-            return SecureEnclave.Secret(id: id, name: name, requiresAuthentication: requiresAuth, publicKey: publicKey)
+            return SecureEnclave.Secret(id: id, name: name, authenticationRequirement: .unknown, publicKey: publicKey)
         }
         secrets.append(contentsOf: wrapped)
     }

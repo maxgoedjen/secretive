@@ -11,15 +11,15 @@ public struct OpenSSHKeyWriter: Sendable {
     /// Generates an OpenSSH data payload identifying the secret.
     /// - Returns: OpenSSH data payload identifying the secret.
     public func data<SecretType: Secret>(secret: SecretType) -> Data {
-        lengthAndData(of: curveType(for: secret.algorithm, length: secret.keySize).data(using: .utf8)!) +
-            lengthAndData(of: curveIdentifier(for: secret.algorithm, length: secret.keySize).data(using: .utf8)!) +
+        lengthAndData(of: curveType(for: secret.keyType).data(using: .utf8)!) +
+        lengthAndData(of: curveIdentifier(for: secret.keyType).data(using: .utf8)!) +
             lengthAndData(of: secret.publicKey)
     }
 
     /// Generates an OpenSSH string representation of the secret.
     /// - Returns: OpenSSH string representation of the secret.
     public func openSSHString<SecretType: Secret>(secret: SecretType, comment: String? = nil) -> String {
-        [curveType(for: secret.algorithm, length: secret.keySize), data(secret: secret).base64EncodedString(), comment]
+        [curveType(for: secret.keyType), data(secret: secret).base64EncodedString(), comment]
             .compactMap { $0 }
             .joined(separator: " ")
     }
@@ -60,14 +60,16 @@ extension OpenSSHKeyWriter {
     ///   - algorithm: The algorithm to identify.
     ///   - length: The key length of the algorithm.
     /// - Returns: The OpenSSH identifier for the algorithm.
-    public func curveType(for algorithm: Algorithm, length: Int) -> String {
-        switch algorithm {
-        case .ellipticCurve:
-            return "ecdsa-sha2-nistp" + String(describing: length)
+    public func curveType(for keyType: KeyType) -> String {
+        switch keyType.algorithm {
+        case .ecdsa:
+            "ecdsa-sha2-nistp" + String(describing: keyType.size)
         case .rsa:
             // All RSA keys use the same 512 bit hash function, per
             // https://security.stackexchange.com/questions/255074/why-are-rsa-sha2-512-and-rsa-sha2-256-supported-but-not-reported-by-ssh-q-key
-            return "rsa-sha2-512"
+             "rsa-sha2-512"
+        case .mldsa:
+            "unknown"
         }
     }
 
@@ -76,13 +78,15 @@ extension OpenSSHKeyWriter {
     ///   - algorithm: The algorithm to identify.
     ///   - length: The key length of the algorithm.
     /// - Returns: The OpenSSH identifier for the algorithm.
-    private func curveIdentifier(for algorithm: Algorithm, length: Int) -> String {
-        switch algorithm {
-        case .ellipticCurve:
-            return "nistp" + String(describing: length)
+    private func curveIdentifier(for keyType: KeyType) -> String {
+        switch keyType.algorithm {
+        case .ecdsa:
+            "nistp" + String(describing: keyType.size)
+        case .mldsa:
+            "unknown"
         case .rsa:
             // All RSA keys use the same 512 bit hash function
-            return "rsa-sha2-512"
+            "rsa-sha2-512"
         }
     }
 

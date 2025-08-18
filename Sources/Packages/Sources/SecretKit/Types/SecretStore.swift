@@ -55,8 +55,8 @@ public protocol SecretStoreModifiable: SecretStore {
     /// Creates a new ``Secret`` in the store.
     /// - Parameters:
     ///   - name: The user-facing name for the ``Secret``.
-    ///   - requiresAuthentication: A boolean indicating whether or not the user will be required to authenticate before performing signature operations with the secret.
-    func create(name: String, requiresAuthentication: Bool) async throws
+    ///   - attributes: A struct describing the options for creating the key.
+    func create(name: String, attributes: Attributes) async throws
 
     /// Deletes a Secret in the store.
     /// - Parameters:
@@ -68,6 +68,8 @@ public protocol SecretStoreModifiable: SecretStore {
     ///   - secret: The ``Secret`` to update.
     ///   - name: The new name for the Secret.
     func update(secret: SecretType, name: String) async throws
+    
+    var supportedKeyTypes: [KeyType] { get }
 
 }
 

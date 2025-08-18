@@ -93,7 +93,7 @@ extension Agent {
 
         for secret in secrets {
             let keyBlob = writer.data(secret: secret)
-            let curveData = writer.curveType(for: secret.algorithm, length: secret.keySize).data(using: .utf8)!
+            let curveData = writer.curveType(for: secret.keyType).data(using: .utf8)!
             keyData.append(writer.lengthAndData(of: keyBlob))
             keyData.append(writer.lengthAndData(of: curveData))
             
@@ -138,15 +138,15 @@ extension Agent {
         let signed = try await store.sign(data: dataToSign, with: secret, for: provenance)
         let derSignature = signed
 
-        let curveData = writer.curveType(for: secret.algorithm, length: secret.keySize).data(using: .utf8)!
+        let curveData = writer.curveType(for: secret.keyType).data(using: .utf8)!
 
         // Convert from DER formatted rep to raw (r||s)
 
         let rawRepresentation: Data
-        switch (secret.algorithm, secret.keySize) {
-        case (.ellipticCurve, 256):
+        switch (secret.keyType.algorithm, secret.keyType.size) {
+        case (.ecdsa, 256):
             rawRepresentation = try CryptoKit.P256.Signing.ECDSASignature(derRepresentation: derSignature).rawRepresentation
-        case (.ellipticCurve, 384):
+        case (.ecdsa, 384):
             rawRepresentation = try CryptoKit.P384.Signing.ECDSASignature(derRepresentation: derSignature).rawRepresentation
         default:
             throw AgentError.unsupportedKeyType

@@ -68,19 +68,21 @@ public class AnySecretStore: SecretStore, @unchecked Sendable {
 
 public final class AnySecretStoreModifiable: AnySecretStore, SecretStoreModifiable, @unchecked Sendable {
 
-    private let _create: @Sendable (String, Bool) async throws -> Void
+    private let _create: @Sendable (String, Attributes) async throws -> Void
     private let _delete: @Sendable (AnySecret) async throws -> Void
     private let _update: @Sendable (AnySecret, String) async throws -> Void
+    private let _supportedKeyTypes: @Sendable () -> [KeyType]
 
     public init<SecretStoreType>(modifiable secretStore: SecretStoreType) where SecretStoreType: SecretStoreModifiable {
-        _create = { try await secretStore.create(name: $0, requiresAuthentication: $1) }
+        _create = { try await secretStore.create(name: $0, attributes: $1) }
         _delete = { try await secretStore.delete(secret: $0.base as! SecretStoreType.SecretType) }
         _update = { try await secretStore.update(secret: $0.base as! SecretStoreType.SecretType, name: $1) }
+        _supportedKeyTypes = { secretStore.supportedKeyTypes }
         super.init(secretStore)
     }
 
-    public func create(name: String, requiresAuthentication: Bool) async throws {
-        try await _create(name, requiresAuthentication)
+    public func create(name: String, attributes: Attributes) async throws {
+        try await _create(name, attributes)
     }
 
     public func delete(secret: AnySecret) async throws {
@@ -89,6 +91,10 @@ public final class AnySecretStoreModifiable: AnySecretStore, SecretStoreModifiab
 
     public func update(secret: AnySecret, name: String) async throws {
         try await _update(secret, name)
+    }
+
+    public var supportedKeyTypes: [KeyType] {
+        _supportedKeyTypes()
     }
 
 }

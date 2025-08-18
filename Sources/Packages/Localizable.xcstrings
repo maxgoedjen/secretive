@@ -1239,6 +1239,16 @@
         }
       }
     },
+    "auth_context_request_signature_description_%@_%@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "auth_context_request_signature_description_%1$@_%2$@"
+          }
+        }
+      }
+    },
     "auth_context_request_verify_description" : {
       "comment" : "When the user performs a signature verification action using a secret, they are shown a prompt to approve the action. This is the description, showing which secret will be used. The placeholder is the name of the secret. NOTE: This is currently not exposed in UI.",
       "extractionState" : "manual",
@@ -1316,6 +1326,9 @@
           }
         }
       }
+    },
+    "auth_context_request_verify_description_%@" : {
+
     },
     "copyable_click_to_copy_button" : {
       "extractionState" : "manual",

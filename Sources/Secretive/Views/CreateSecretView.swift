@@ -46,7 +46,7 @@ struct CreateSecretView<StoreType: SecretStoreModifiable>: View {
 
     func save() {
         Task {
-            try! await store.create(name: name, requiresAuthentication: requiresAuthentication)
+            try! await store.create(name: name, attributes: .init(keyType: .init(algorithm: .ecdsa, size: 256), authentication: .presenceRequired, publicKeyAttribution: nil))
             showing = false
         }
     }

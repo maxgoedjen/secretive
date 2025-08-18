@@ -7,10 +7,10 @@ public struct AnySecret: Secret, @unchecked Sendable {
     private let hashable: AnyHashable
     private let _id: () -> AnyHashable
     private let _name: () -> String
-    private let _algorithm: () -> Algorithm
-    private let _keySize: () -> Int
-    private let _requiresAuthentication: () -> Bool
+    private let _keyType: () -> KeyType
+    private let _authenticationRequirement: () -> AuthenticationRequirement
     private let _publicKey: () -> Data
+    private let _publicKeyAttribution: () -> String?
 
     public init<T>(_ secret: T) where T: Secret {
         if let secret = secret as? AnySecret {
@@ -18,19 +18,19 @@ public struct AnySecret: Secret, @unchecked Sendable {
             hashable = secret.hashable
             _id = secret._id
             _name = secret._name
-            _algorithm = secret._algorithm
-            _keySize = secret._keySize
-            _requiresAuthentication = secret._requiresAuthentication
+            _keyType = secret._keyType
+            _authenticationRequirement = secret._authenticationRequirement
             _publicKey = secret._publicKey
+            _publicKeyAttribution = secret._publicKeyAttribution
         } else {
             base = secret as Any
             self.hashable = secret
             _id = { secret.id as AnyHashable }
             _name = { secret.name }
-            _algorithm = { secret.algorithm }
-            _keySize = { secret.keySize }
-            _requiresAuthentication = { secret.requiresAuthentication }
+            _keyType = { secret.keyType }
+            _authenticationRequirement = { secret.authenticationRequirement }
             _publicKey = { secret.publicKey }
+            _publicKeyAttribution = { secret.publicKeyAttribution }
         }
     }
 
@@ -42,20 +42,21 @@ public struct AnySecret: Secret, @unchecked Sendable {
         _name()
     }
 
-    public var algorithm: Algorithm {
-        _algorithm()
+    public var keyType: KeyType {
+        _keyType()
     }
 
-    public var keySize: Int {
-        _keySize()
-    }
 
-    public var requiresAuthentication: Bool {
-        _requiresAuthentication()
+    public var authenticationRequirement: AuthenticationRequirement {
+        _authenticationRequirement()
     }
 
     public var publicKey: Data {
         _publicKey()
+    }
+    
+    public var publicKeyAttribution: String? {
+        _publicKeyAttribution()
     }
 
     public static func == (lhs: AnySecret, rhs: AnySecret) -> Bool {

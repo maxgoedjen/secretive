@@ -26,7 +26,7 @@ struct SecretListItemView: View {
     
     var body: some View {
         NavigationLink(value: secret) {
-            if secret.requiresAuthentication {
+            if secret.authenticationRequirement.required {
                 HStack {
                     Text(secret.name)
                     Spacer()
