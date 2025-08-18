@@ -30,8 +30,8 @@ public struct Attributes: Sendable, Codable {
 }
 
 /// The option specified
-public enum AuthenticationRequirement: String, Hashable, Sendable, Codable {
-    
+public enum AuthenticationRequirement: String, Hashable, Sendable, Codable, Identifiable {
+
     /// Authentication is not required for usage.
     case notRequired
     
@@ -48,5 +48,9 @@ public enum AuthenticationRequirement: String, Hashable, Sendable, Codable {
     /// Whether or not the key is known to require authentication.
     public var required: Bool {
         self == .presenceRequired || self == .biometryCurrent
+    }
+
+    public var id: AuthenticationRequirement {
+        self
     }
 }

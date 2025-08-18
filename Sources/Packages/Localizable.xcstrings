@@ -1,6 +1,9 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "Advanced" : {
+
+    },
     "agent_not_running_notice_title" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1644,72 +1647,72 @@
         "ca" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Nom:"
+            "value" : "Nom"
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Name:"
+            "value" : "Name"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Name:"
+            "value" : "Name"
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Nimi:"
+            "value" : "Nimi"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Nom :"
+            "value" : "Nom"
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Nome:"
+            "value" : "Nome"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "名前:"
+            "value" : "名前"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "이름:"
+            "value" : "이름"
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Nazwa:"
+            "value" : "Nazwa"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Nome:"
+            "value" : "Nome"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Название:"
+            "value" : "Название"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "名称"
           }
         }
@@ -2260,72 +2263,72 @@
         "ca" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Confirma el nom:"
+            "value" : "Confirma el nom"
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Name bestätigen:"
+            "value" : "Name bestätigen"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Confirm Name:"
+            "value" : "Confirm Name"
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Vahvista nimi:"
+            "value" : "Vahvista nimi"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Confirmer le nom :"
+            "value" : "Confirmer le nom"
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Conferma nome:"
+            "value" : "Conferma nome"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "名前の確認:"
+            "value" : "名前の確認"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "확인 이름:"
+            "value" : "확인 이름"
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Powtórz nazwę:"
+            "value" : "Powtórz nazwę"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Confirmar Nome:"
+            "value" : "Confirmar Nome"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Подтвердить название:"
+            "value" : "Подтвердить название"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "确认名称"
           }
         }
@@ -2946,6 +2949,12 @@
           }
         }
       }
+    },
+    "Key Attribution" : {
+
+    },
+    "Key Type" : {
+
     },
     "no_secure_storage_description" : {
       "extractionState" : "manual",
@@ -5323,6 +5332,9 @@
           }
         }
       }
+    },
+    "test@example.com" : {
+
     },
     "unnamed_secret" : {
       "extractionState" : "manual",
