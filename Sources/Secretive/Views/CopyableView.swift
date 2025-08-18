@@ -125,7 +125,8 @@ extension View {
 fileprivate struct BackgroundViewModifier: ViewModifier {
     
     @Environment(\.colorScheme) private var colorScheme
-    
+    @Environment(\.appearsActive) private var appearsActive
+
     let interactionState: InteractionState
 
     func body(content: Content) -> some View {
@@ -148,6 +149,7 @@ fileprivate struct BackgroundViewModifier: ViewModifier {
     }
     
     func backgroundColor(interactionState: InteractionState) -> Color {
+        guard appearsActive else { return Color.clear }
         switch interactionState {
         case .normal:
             return colorScheme == .dark ? Color(white: 0.2) : Color(white: 0.885)
