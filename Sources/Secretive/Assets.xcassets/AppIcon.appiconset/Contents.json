@@ -1,60 +1,61 @@
 {
   "images" : [
     {
-      "filename" : "Icon-macOS-Dark-16x16@1x.png",
+      "filename" : "Icon-macOS-ClearDark-16x16@1x.png",
       "idiom" : "mac",
       "scale" : "1x",
       "size" : "16x16"
     },
     {
-      "filename" : "Icon-macOS-Dark-16x16@2x.png",
+      "filename" : "Icon-macOS-ClearDark-16x16@2x.png",
       "idiom" : "mac",
       "scale" : "2x",
       "size" : "16x16"
     },
     {
-      "filename" : "Icon-macOS-Dark-32x32@1x.png",
+      "filename" : "Icon-macOS-ClearDark-32x32@1x.png",
       "idiom" : "mac",
       "scale" : "1x",
       "size" : "32x32"
     },
     {
-      "filename" : "Icon-macOS-Dark-32x32@2x.png",
+      "filename" : "Icon-macOS-ClearDark-32x32@2x.png",
       "idiom" : "mac",
       "scale" : "2x",
       "size" : "32x32"
     },
     {
-      "filename" : "Icon-macOS-Dark-128x128@1x.png",
+      "filename" : "Icon-macOS-ClearDark-128x128@1x.png",
       "idiom" : "mac",
       "scale" : "1x",
       "size" : "128x128"
     },
     {
-      "filename" : "Icon-macOS-Dark-128x128@2x.png",
+      "filename" : "Icon-macOS-ClearDark-128x128@2x.png",
       "idiom" : "mac",
       "scale" : "2x",
       "size" : "128x128"
     },
     {
-      "filename" : "Icon-macOS-Dark-256x256@1x.png",
+      "filename" : "Icon-macOS-ClearDark-256x256@1x.png",
       "idiom" : "mac",
       "scale" : "1x",
       "size" : "256x256"
     },
     {
-      "filename" : "Icon-macOS-Dark-256x256@2x.png",
+      "filename" : "Icon-macOS-ClearDark-256x256@2x.png",
       "idiom" : "mac",
       "scale" : "2x",
       "size" : "256x256"
     },
     {
-      "filename" : "Icon-macOS-Dark-512x512@1x.png",
+      "filename" : "Icon-macOS-ClearDark-512x512@1x.png",
       "idiom" : "mac",
       "scale" : "1x",
       "size" : "512x512"
     },
     {
+      "filename" : "Icon-macOS-ClearDark-1024x1024@1x.png",
       "idiom" : "mac",
       "scale" : "2x",
       "size" : "512x512"
