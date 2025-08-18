@@ -65,7 +65,11 @@ extension Preview {
         var name: String { "Modifiable Preview Store" }
         let secrets: [Secret]
         var supportedKeyTypes: [KeyType] {
-            [.init(algorithm: .ecdsa, size: 256)]
+            [
+                .init(algorithm: .ecdsa, size: 256),
+                .init(algorithm: .mldsa, size: 65),
+                .init(algorithm: .mldsa, size: 87),
+            ]
         }
 
         init(secrets: [Secret]) {

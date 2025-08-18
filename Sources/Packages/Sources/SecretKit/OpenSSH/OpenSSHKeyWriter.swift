@@ -72,14 +72,16 @@ extension OpenSSHKeyWriter {
     ///   - length: The key length of the algorithm.
     /// - Returns: The OpenSSH identifier for the algorithm.
     public func curveType(for keyType: KeyType) -> String {
-        switch keyType.algorithm {
-        case .ecdsa:
+        switch (keyType.algorithm, keyType.size) {
+        case (.ecdsa, 256), (.ecdsa, 384):
             "ecdsa-sha2-nistp" + String(describing: keyType.size)
-        case .rsa:
+        case (.mldsa, 65), (.mldsa, 87):
+            "ssh-mldsa-" + String(describing: keyType.size)
+        case (.rsa, _):
             // All RSA keys use the same 512 bit hash function, per
             // https://security.stackexchange.com/questions/255074/why-are-rsa-sha2-512-and-rsa-sha2-256-supported-but-not-reported-by-ssh-q-key
              "rsa-sha2-512"
-        case .mldsa:
+        default:
             "unknown"
         }
     }
