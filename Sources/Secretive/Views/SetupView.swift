@@ -61,7 +61,7 @@ struct StepView: View {
                             Circle()
                                 .foregroundColor(.green)
                                 .frame(width: Constants.circleWidth, height: Constants.circleWidth)
-                            Text("setup_step_complete_symbol")
+                            Text(.setupStepCompleteSymbol)
                                 .foregroundColor(.white)
                                 .bold()
                         } else {
@@ -101,14 +101,14 @@ extension StepView {
 
 struct SetupStepView<Content> : View where Content : View {
 
-    let title: LocalizedStringKey
+    let title: LocalizedStringResource
     let image: Image
-    let bodyText: LocalizedStringKey
-    let buttonTitle: LocalizedStringKey
+    let bodyText: LocalizedStringResource
+    let buttonTitle: LocalizedStringResource
     let buttonAction: () -> Void
     let content: Content
 
-    init(title: LocalizedStringKey, image: Image, bodyText: LocalizedStringKey, buttonTitle: LocalizedStringKey, buttonAction: @escaping () -> Void = {}, @ViewBuilder content: () -> Content) {
+    init(title: LocalizedStringResource, image: Image, bodyText: LocalizedStringResource, buttonTitle: LocalizedStringResource, buttonAction: @escaping () -> Void = {}, @ViewBuilder content: () -> Content) {
         self.title = title
         self.image = image
         self.bodyText = bodyText
@@ -145,12 +145,12 @@ struct SecretAgentSetupView: View {
     let buttonAction: () -> Void
 
     var body: some View {
-        SetupStepView(title: "setup_agent_title",
+        SetupStepView(title: .setupAgentTitle,
                       image: Image(nsImage: NSApplication.shared.applicationIconImage),
-                      bodyText: "setup_agent_description",
-                      buttonTitle: "setup_agent_install_button",
+                      bodyText: .setupAgentDescription,
+                      buttonTitle: .setupAgentInstallButton,
                       buttonAction: install) {
-            Text("setup_agent_activity_monitor_description")
+            Text(.setupAgentActivityMonitorDescription)
                 .multilineTextAlignment(.center)
         }
     }
@@ -172,12 +172,12 @@ struct SSHAgentSetupView: View {
     @State private var selectedShellInstruction: ShellConfigInstruction = controller.shellInstructions.first!
 
     var body: some View {
-        SetupStepView(title: "setup_ssh_title",
+        SetupStepView(title: .setupSshTitle,
                       image: Image(systemName: "terminal"),
-                      bodyText: "setup_ssh_description",
-                      buttonTitle: "setup_ssh_added_manually_button",
+                      bodyText: .setupSshDescription,
+                      buttonTitle: .setupSshAddedManuallyButton,
                       buttonAction: buttonAction) {
-        Link("setup_third_party_faq_link", destination: URL(string: "https://github.com/maxgoedjen/secretive/blob/main/APP_CONFIG.md")!)
+        Link(.setupThirdPartyFaqLink, destination: URL(string: "https://github.com/maxgoedjen/secretive/blob/main/APP_CONFIG.md")!)
             Picker(selection: $selectedShellInstruction, label: EmptyView()) {
                 ForEach(SSHAgentSetupView.controller.shellInstructions) { instruction in
                     Text(instruction.shell)
@@ -185,8 +185,8 @@ struct SSHAgentSetupView: View {
                         .padding()
                 }
             }.pickerStyle(SegmentedPickerStyle())
-            CopyableView(title: "setup_ssh_add_to_config_button_\(selectedShellInstruction.shellConfigPath)", image: Image(systemName: "greaterthan.square"), text: selectedShellInstruction.text)
-            Button("setup_ssh_add_for_me_button") {
+            CopyableView(title: .setupSshAddToConfigButton(configPath: selectedShellInstruction.shellConfigPath), image: Image(systemName: "greaterthan.square"), text: selectedShellInstruction.text)
+            Button(.setupSshAddForMeButton) {
                 let controller = ShellConfigurationController()
                 if controller.addToShell(shellInstructions: selectedShellInstruction) {
                     buttonAction()
@@ -216,12 +216,12 @@ struct UpdaterExplainerView: View {
     let buttonAction: () -> Void
 
     var body: some View {
-        SetupStepView(title: "setup_updates_title",
+        SetupStepView(title: .setupUpdatesTitle,
                       image: Image(systemName: "dot.radiowaves.left.and.right"),
-                      bodyText: "setup_updates_description",
-                      buttonTitle: "setup_updates_ok",
+                      bodyText: .setupUpdatesDescription,
+                      buttonTitle: .setupUpdatesOk,
                       buttonAction: buttonAction) {
-            Link("setup_updates_readmore", destination: SetupView.Constants.updaterFAQURL)
+            Link(.setupUpdatesReadmore, destination: SetupView.Constants.updaterFAQURL)
         }
     }
 

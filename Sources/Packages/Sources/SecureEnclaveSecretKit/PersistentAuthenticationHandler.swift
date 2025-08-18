@@ -50,16 +50,16 @@ extension SecureEnclave {
         func persistAuthentication(secret: Secret, forDuration duration: TimeInterval) async throws {
             let newContext = LAContext()
             newContext.touchIDAuthenticationAllowableReuseDuration = duration
-            newContext.localizedCancelTitle = String(localized: "auth_context_request_deny_button")
+            newContext.localizedCancelTitle = String(localized: .authContextRequestDenyButton)
 
             let formatter = DateComponentsFormatter()
             formatter.unitsStyle = .spellOut
             formatter.allowedUnits = [.hour, .minute, .day]
 
             if let durationString = formatter.string(from: duration) {
-                newContext.localizedReason = String(localized: "auth_context_persist_for_duration_\(secret.name)_\(durationString)")
+                newContext.localizedReason = String(localized: .authContextPersistForDuration(secretName: secret.name, duration: durationString))
             } else {
-                newContext.localizedReason = String(localized: "auth_context_persist_for_duration_unknown_\(secret.name)")
+                newContext.localizedReason = String(localized: .authContextPersistForDurationUnknown(secretName: secret.name))
             }
             let success = try await newContext.evaluatePolicy(.deviceOwnerAuthentication, localizedReason: newContext.localizedReason)
             guard success else { return }

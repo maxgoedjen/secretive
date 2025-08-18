@@ -59,18 +59,18 @@ struct Secretive: App {
         }
         .commands {
             CommandGroup(after: CommandGroupPlacement.newItem) {
-                Button("app_menu_new_secret_button") {
+                Button(.appMenuNewSecretButton) {
                     showingCreation = true
                 }
                 .keyboardShortcut(KeyboardShortcut(KeyEquivalent("N"), modifiers: [.command, .shift]))
             }
             CommandGroup(replacing: .help) {
-                Button("app_menu_help_button") {
+                Button(.appMenuHelpButton) {
                     NSWorkspace.shared.open(Constants.helpURL)
                 }
             }
             CommandGroup(after: .help) {
-                Button("app_menu_setup_button") {
+                Button(.appMenuSetupButton) {
                     showingSetup = true
                 }
             }

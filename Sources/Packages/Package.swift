@@ -5,6 +5,7 @@ import PackageDescription
 
 let package = Package(
     name: "SecretivePackages",
+    defaultLocalization: "en",
     platforms: [
         .macOS(.v14)
     ],
@@ -34,6 +35,7 @@ let package = Package(
         .target(
             name: "SecretKit",
             dependencies: [],
+            resources: [localization],
             swiftSettings: swiftSettings
         ),
         .testTarget(
@@ -44,16 +46,19 @@ let package = Package(
         .target(
             name: "SecureEnclaveSecretKit",
             dependencies: ["SecretKit"],
+            resources: [localization],
             swiftSettings: swiftSettings
         ),
         .target(
             name: "SmartCardSecretKit",
             dependencies: ["SecretKit"],
+            resources: [localization],
             swiftSettings: swiftSettings
         ),
         .target(
             name: "SecretAgentKit",
             dependencies: ["SecretKit", "SecretAgentKitHeaders"],
+            resources: [localization],
             swiftSettings: swiftSettings
         ),
         .systemLibrary(
@@ -66,6 +71,7 @@ let package = Package(
         .target(
             name: "Brief",
             dependencies: [],
+            resources: [localization],
             swiftSettings: swiftSettings
         ),
         .testTarget(
@@ -74,6 +80,10 @@ let package = Package(
         ),
     ]
 )
+
+var localization: Resource {
+    .process("../../Localizable.xcstrings")
+}
 
 var swiftSettings: [PackageDescription.SwiftSetting] {
     [

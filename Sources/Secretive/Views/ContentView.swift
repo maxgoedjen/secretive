@@ -70,15 +70,15 @@ extension ContentView {
         }
     }
 
-    var updateNoticeContent: (LocalizedStringKey, Color)? {
+    var updateNoticeContent: (LocalizedStringResource, Color)? {
         guard let update = updater.update else { return nil }
         if update.critical {
-            return ("update_critical_notice_title", .red)
+            return (.updateCriticalNoticeTitle, .red)
         } else {
             if updater.testBuild {
-                return ("update_test_notice_title", .blue)
+                return (.updateTestNoticeTitle, .blue)
             } else {
-                return ("update_normal_notice_title", .orange)
+                return (.updateNormalNoticeTitle, .orange)
             }
         }
     }
@@ -127,13 +127,13 @@ extension ContentView {
         }, label: {
             Group {
                 if hasRunSetup && !agentStatusChecker.running {
-                    Text("agent_not_running_notice_title")
+                    Text(.agentNotRunningNoticeTitle)
                 } else {
-                    Text("agent_setup_notice_title")
+                    Text(.agentSetupNoticeTitle)
                 }
             }
             .font(.headline)
-            .foregroundColor(.white)
+
         })
         .buttonStyle(ToolbarButtonStyle(color: .orange))
     }
@@ -144,7 +144,7 @@ extension ContentView {
             showingAgentInfo = true
         }, label: {
             HStack {
-                Text("agent_running_notice_title")
+                Text(.agentRunningNoticeTitle)
                     .font(.headline)
                     .foregroundColor(colorScheme == .light ? Color(white: 0.3) : .white)
                 Circle()
@@ -155,10 +155,10 @@ extension ContentView {
         .buttonStyle(ToolbarButtonStyle(lightColor: .black.opacity(0.05), darkColor: .white.opacity(0.05)))
         .popover(isPresented: $showingAgentInfo, attachmentAnchor: attachmentAnchor, arrowEdge: .bottom) {
             VStack {
-                Text("agent_running_notice_detail_title")
+                Text(.agentRunningNoticeDetailTitle)
                     .font(.title)
                     .padding(5)
-                Text("agent_running_notice_detail_description")
+                Text(.agentRunningNoticeDetailDescription)
                     .frame(width: 300)
             }
             .padding()
@@ -172,7 +172,7 @@ extension ContentView {
                 showingAppPathNotice = true
             }, label: {
                 Group {
-                    Text("app_not_in_applications_notice_title")
+                    Text(.appNotInApplicationsNoticeTitle)
                 }
                 .font(.headline)
                 .foregroundColor(.white)
@@ -184,7 +184,7 @@ extension ContentView {
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(width: 64)
-                    Text("app_not_in_applications_notice_detail_description")
+                    Text(.appNotInApplicationsNoticeDetailDescription)
                         .frame(maxWidth: 300)
                 }
                 .padding()
