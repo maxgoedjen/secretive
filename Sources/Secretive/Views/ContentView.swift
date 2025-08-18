@@ -30,7 +30,7 @@ struct ContentView: View {
         }
         .frame(minWidth: 640, minHeight: 320)
         .toolbar {
-            toolbarItem(updateNoticeView, id: "update")
+//            toolbarItem(updateNoticeView, id: "update")
             toolbarItem(runningOrRunSetupView, id: "setup")
             toolbarItem(appPathNoticeView, id: "appPath")
             toolbarItem(newItemView, id: "new")
@@ -45,10 +45,16 @@ struct ContentView: View {
 extension ContentView {
 
 
-    func toolbarItem(_ view: some View, id: String) -> ToolbarItem<String, some View> {
-        ToolbarItem(id: id) { view }
+    @ToolbarContentBuilder
+    func toolbarItem(_ view: some View, id: String) -> some ToolbarContent {
+        if #available(macOS 26.0, *) {
+            ToolbarItem(id: id) { view }
+                .sharedBackgroundVisibility(.hidden)
+        } else {
+            ToolbarItem(id: id) { view }
+        }
     }
-
+    
     var needsSetup: Bool {
         (runningSetup || !hasRunSetup || !agentStatusChecker.running) && !agentStatusChecker.developmentBuild
     }

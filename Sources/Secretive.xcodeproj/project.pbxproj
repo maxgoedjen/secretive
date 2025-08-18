@@ -19,7 +19,8 @@
 		5003EF632780081B00DF2006 /* SecureEnclaveSecretKit in Frameworks */ = {isa = PBXBuildFile; productRef = 5003EF622780081B00DF2006 /* SecureEnclaveSecretKit */; };
 		5003EF652780081B00DF2006 /* SmartCardSecretKit in Frameworks */ = {isa = PBXBuildFile; productRef = 5003EF642780081B00DF2006 /* SmartCardSecretKit */; };
 		5008C23E2E525D8900507AC2 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 5008C23D2E525D8200507AC2 /* Localizable.xcstrings */; };
-		5008C23F2E525D8900507AC2 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 5008C23D2E525D8200507AC2 /* Localizable.xcstrings */; };
+		5008C2402E52792400507AC2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 50617D8623FCE48E0099B055 /* Assets.xcassets */; };
+		5008C2412E52D18700507AC2 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 5008C23D2E525D8200507AC2 /* Localizable.xcstrings */; };
 		501421622781262300BBAA70 /* Brief in Frameworks */ = {isa = PBXBuildFile; productRef = 501421612781262300BBAA70 /* Brief */; };
 		501421652781268000BBAA70 /* SecretAgent.app in CopyFiles */ = {isa = PBXBuildFile; fileRef = 50A3B78A24026B7500D209EA /* SecretAgent.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		50153E20250AFCB200525160 /* UpdateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50153E1F250AFCB200525160 /* UpdateView.swift */; };
@@ -46,7 +47,6 @@
 		508BF2AA25B4F1CB009EFB7E /* InternetAccessPolicy.plist in Resources */ = {isa = PBXBuildFile; fileRef = 508BF29425B4F140009EFB7E /* InternetAccessPolicy.plist */; };
 		5091D2BC25183B830049FD9B /* ApplicationDirectoryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5091D2BB25183B830049FD9B /* ApplicationDirectoryController.swift */; };
 		5099A02423FD2AAA0062B6F2 /* CreateSecretView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5099A02323FD2AAA0062B6F2 /* CreateSecretView.swift */; };
-		50A3B79124026B7600D209EA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 50A3B79024026B7600D209EA /* Assets.xcassets */; };
 		50A3B79424026B7600D209EA /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 50A3B79324026B7600D209EA /* Preview Assets.xcassets */; };
 		50A3B79724026B7600D209EA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 50A3B79524026B7600D209EA /* Main.storyboard */; };
 		50B8550D24138C4F009958AC /* DeleteSecretView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B8550C24138C4F009958AC /* DeleteSecretView.swift */; };
@@ -133,7 +133,6 @@
 		5091D2BB25183B830049FD9B /* ApplicationDirectoryController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationDirectoryController.swift; sourceTree = "<group>"; };
 		5099A02323FD2AAA0062B6F2 /* CreateSecretView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateSecretView.swift; sourceTree = "<group>"; };
 		50A3B78A24026B7500D209EA /* SecretAgent.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SecretAgent.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		50A3B79024026B7600D209EA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		50A3B79324026B7600D209EA /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		50A3B79624026B7600D209EA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		50A3B79824026B7600D209EA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -281,7 +280,6 @@
 			children = (
 				50020BAF24064869003D4025 /* AppDelegate.swift */,
 				5018F54E24064786002EB505 /* Notifier.swift */,
-				50A3B79024026B7600D209EA /* Assets.xcassets */,
 				50A3B79524026B7600D209EA /* Main.storyboard */,
 				50A3B79824026B7600D209EA /* Info.plist */,
 				508BF29425B4F140009EFB7E /* InternetAccessPolicy.plist */,
@@ -418,10 +416,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				50A3B79724026B7600D209EA /* Main.storyboard in Resources */,
-				5008C23F2E525D8900507AC2 /* Localizable.xcstrings in Resources */,
+				5008C2412E52D18700507AC2 /* Localizable.xcstrings in Resources */,
 				50A3B79424026B7600D209EA /* Preview Assets.xcassets in Resources */,
-				50A3B79124026B7600D209EA /* Assets.xcassets in Resources */,
 				508BF2AA25B4F1CB009EFB7E /* InternetAccessPolicy.plist in Resources */,
+				5008C2402E52792400507AC2 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

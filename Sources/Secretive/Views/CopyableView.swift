@@ -8,9 +8,8 @@ struct CopyableView: View {
     var text: String
 
     @State private var interactionState: InteractionState = .normal
-    @Environment(\.colorScheme) private var colorScheme
-
-    var body: some View {
+    
+    var content: some View {
         VStack(alignment: .leading) {
             HStack {
                 image
@@ -22,7 +21,7 @@ struct CopyableView: View {
                     .foregroundColor(primaryTextColor)
                 Spacer()
                 if interactionState != .normal {
-                    Text(hoverText)
+                    hoverIcon
                         .bold()
                         .textCase(.uppercase)
                         .foregroundColor(secondaryTextColor)
@@ -39,17 +38,23 @@ struct CopyableView: View {
                 .multilineTextAlignment(.leading)
                 .font(.system(.body, design: .monospaced))
         }
-        .background(backgroundColor)
+        ._background(interactionState: interactionState)
         .frame(minWidth: 150, maxWidth: .infinity)
-        .cornerRadius(10)
+    }
+
+    var body: some View {
+        content
         .onHover { hovering in
             withAnimation {
                 interactionState = hovering ? .hovering : .normal
             }
         }
-        .onDrag {
+        .onDrag({
             NSItemProvider(item: NSData(data: text.data(using: .utf8)!), typeIdentifier: UTType.utf8PlainText.identifier)
-        }
+        }, preview: {
+            content
+                ._background(interactionState: .dragging)
+        })
         .onTapGesture {
             copy()
             withAnimation {
@@ -66,31 +71,23 @@ struct CopyableView: View {
         )
     }
 
-    var hoverText: LocalizedStringResource {
+    @ViewBuilder
+    var hoverIcon: some View {
         switch interactionState {
         case .hovering:
-            return .copyableClickToCopyButton
+            Image(systemName: "document.on.document")
+                .accessibilityLabel(String(localized: "copyable_click_to_copy_button"))
         case .clicking:
-            return .copyableCopied
-        case .normal:
-            fatalError()
-        }
-    }
-
-    var backgroundColor: Color {
-        switch interactionState {
-        case .normal:
-            return colorScheme == .dark ? Color(white: 0.2) : Color(white: 0.885)
-        case .hovering:
-            return colorScheme == .dark ? Color(white: 0.275) : Color(white: 0.82)
-        case .clicking:
-            return .accentColor
+            Image(systemName: "checkmark.circle.fill")
+                .accessibilityLabel(String(localized: "copyable_copied"))
+        case .normal, .dragging:
+            EmptyView()
         }
     }
 
     var primaryTextColor: Color {
         switch interactionState {
-        case .normal, .hovering:
+        case .normal, .hovering, .dragging:
             return Color(.textColor)
         case .clicking:
             return .white
@@ -99,7 +96,7 @@ struct CopyableView: View {
 
     var secondaryTextColor: Color {
         switch interactionState {
-        case .normal, .hovering:
+        case .normal, .hovering, .dragging:
             return Color(.secondaryLabelColor)
         case .clicking:
             return .white
@@ -111,10 +108,57 @@ struct CopyableView: View {
         NSPasteboard.general.setString(text, forType: .string)
     }
 
-    private enum InteractionState {
-        case normal, hovering, clicking
+}
+
+fileprivate enum InteractionState {
+    case normal, hovering, clicking, dragging
+}
+
+extension View {
+       
+    fileprivate func _background(interactionState: InteractionState) -> some View {
+        modifier(BackgroundViewModifier(interactionState: interactionState))
+    }
+    
+}
+
+fileprivate struct BackgroundViewModifier: ViewModifier {
+    
+    @Environment(\.colorScheme) private var colorScheme
+    
+    let interactionState: InteractionState
+
+    func body(content: Content) -> some View {
+        if interactionState == .dragging {
+            content
+                .background(backgroundColor(interactionState: interactionState), in: RoundedRectangle(cornerRadius: 15))
+        } else {
+            if #available(macOS 26.0, *) {
+                content
+                // Very thin opacity lets user hover anywhere over the view, glassEffect doesn't allow.
+                    .background(.white.opacity(0.01), in: RoundedRectangle(cornerRadius: 15))
+                    .glassEffect(.regular.tint(backgroundColor(interactionState: interactionState)), in: RoundedRectangle(cornerRadius: 15))
+                
+            } else {
+                content
+                    .background(backgroundColor(interactionState: interactionState))
+                    .cornerRadius(10)
+            }
+        }
+    }
+    
+    func backgroundColor(interactionState: InteractionState) -> Color {
+        switch interactionState {
+        case .normal:
+            return colorScheme == .dark ? Color(white: 0.2) : Color(white: 0.885)
+        case .hovering, .dragging:
+            return colorScheme == .dark ? Color(white: 0.275) : Color(white: 0.82)
+        case .clicking:
+            return .accentColor
+        }
     }
 
+    
 }
 
 #if DEBUG
