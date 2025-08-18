@@ -23,10 +23,7 @@ jobs:
     - name: Set Environment
       run: sudo xcrun xcode-select -s /Applications/Xcode_26_beta_5.app	
     - name: Test
-      run: |
-            pushd Sources/Packages
-            swift test
-            popd
+      run: swift build --build-system swiftbuild --package-path Sources/Packages
   build:
 #     runs-on: macOS-latest
     runs-on: macos-15
