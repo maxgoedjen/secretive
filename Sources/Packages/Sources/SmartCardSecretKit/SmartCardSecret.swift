@@ -9,10 +9,8 @@ extension SmartCard {
 
         public let id: Data
         public let name: String
-        public let keyType: KeyType
-        public let authenticationRequirement: AuthenticationRequirement = .unknown
         public let publicKey: Data
-        public var publicKeyAttribution: String? = nil
+        public var attributes: Attributes
 
     }
 

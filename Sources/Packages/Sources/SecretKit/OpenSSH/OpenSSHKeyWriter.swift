@@ -18,8 +18,19 @@ public struct OpenSSHKeyWriter: Sendable {
 
     /// Generates an OpenSSH string representation of the secret.
     /// - Returns: OpenSSH string representation of the secret.
-    public func openSSHString<SecretType: Secret>(secret: SecretType, comment: String? = nil) -> String {
-        [curveType(for: secret.keyType), data(secret: secret).base64EncodedString(), comment]
+    public func openSSHString<SecretType: Secret>(secret: SecretType) -> String {
+        let resolvedComment: String
+        if let comment = secret.publicKeyAttribution {
+            resolvedComment = comment
+        } else {
+            let dashedKeyName = secret.name.replacingOccurrences(of: " ", with: "-")
+            let dashedHostName = ["secretive", Host.current().localizedName, "local"]
+                .compactMap { $0 }
+                .joined(separator: ".")
+                .replacingOccurrences(of: " ", with: "-")
+            resolvedComment = "\(dashedKeyName)@\(dashedHostName)"
+        }
+        return [curveType(for: secret.keyType), data(secret: secret).base64EncodedString(), resolvedComment]
             .compactMap { $0 }
             .joined(separator: " ")
     }

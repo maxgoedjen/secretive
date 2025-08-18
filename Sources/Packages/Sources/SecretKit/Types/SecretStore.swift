@@ -67,8 +67,9 @@ public protocol SecretStoreModifiable: SecretStore {
     /// - Parameters:
     ///   - secret: The ``Secret`` to update.
     ///   - name: The new name for the Secret.
-    func update(secret: SecretType, name: String) async throws
-    
+    ///   - attributes: The new attributes for the secret.
+    func update(secret: SecretType, name: String, attributes: Attributes) async throws
+
     var supportedKeyTypes: [KeyType] { get }
 
 }

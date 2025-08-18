@@ -70,13 +70,13 @@ public final class AnySecretStoreModifiable: AnySecretStore, SecretStoreModifiab
 
     private let _create: @Sendable (String, Attributes) async throws -> Void
     private let _delete: @Sendable (AnySecret) async throws -> Void
-    private let _update: @Sendable (AnySecret, String) async throws -> Void
+    private let _update: @Sendable (AnySecret, String, Attributes) async throws -> Void
     private let _supportedKeyTypes: @Sendable () -> [KeyType]
 
     public init<SecretStoreType>(modifiable secretStore: SecretStoreType) where SecretStoreType: SecretStoreModifiable {
         _create = { try await secretStore.create(name: $0, attributes: $1) }
         _delete = { try await secretStore.delete(secret: $0.base as! SecretStoreType.SecretType) }
-        _update = { try await secretStore.update(secret: $0.base as! SecretStoreType.SecretType, name: $1) }
+        _update = { try await secretStore.update(secret: $0.base as! SecretStoreType.SecretType, name: $1, attributes: $2) }
         _supportedKeyTypes = { secretStore.supportedKeyTypes }
         super.init(secretStore)
     }
@@ -89,8 +89,8 @@ public final class AnySecretStoreModifiable: AnySecretStore, SecretStoreModifiab
         try await _delete(secret)
     }
 
-    public func update(secret: AnySecret, name: String) async throws {
-        try await _update(secret, name)
+    public func update(secret: AnySecret, name: String, attributes: Attributes) async throws {
+        try await _update(secret, name, attributes)
     }
 
     public var supportedKeyTypes: [KeyType] {

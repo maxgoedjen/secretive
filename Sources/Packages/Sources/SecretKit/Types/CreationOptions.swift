@@ -1,10 +1,10 @@
 import Foundation
 
-public struct Attributes: Sendable, Codable {
+public struct Attributes: Sendable, Codable, Hashable {
     
     /// The type of key involved.
-    public var keyType: KeyType
-    
+    public let keyType: KeyType
+
     /// The authentication requirements for the key. This is simply a description of the option recorded at creation – modifying it doers not modify the key's authentication requirements.
     public let authentication: AuthenticationRequirement
     

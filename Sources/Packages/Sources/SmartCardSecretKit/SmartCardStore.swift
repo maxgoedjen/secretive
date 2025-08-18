@@ -180,7 +180,8 @@ extension SmartCard.Store {
             let publicKeySecRef = SecKeyCopyPublicKey(publicKeyRef)!
             let publicKeyAttributes = SecKeyCopyAttributes(publicKeySecRef) as! [CFString: Any]
             let publicKey = publicKeyAttributes[kSecValueData] as! Data
-            return SmartCard.Secret(id: tokenID, name: name, keyType: KeyType(secAttr: algorithmSecAttr, size: keySize)!, publicKey: publicKey)
+            let attributes = Attributes(keyType: KeyType(secAttr: algorithmSecAttr, size: keySize)!)
+            return SmartCard.Secret(id: tokenID, name: name, publicKey: publicKey, attributes: attributes)
         }
         state.secrets.append(contentsOf: wrapped)
     }

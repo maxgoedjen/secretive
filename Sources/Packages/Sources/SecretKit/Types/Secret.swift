@@ -5,14 +5,28 @@ public protocol Secret: Identifiable, Hashable, Sendable {
 
     /// A user-facing string identifying the Secret.
     var name: String { get }
-    /// The algorithm this secret uses.
-    var keyType: KeyType { get }
-    /// Whether the secret requires authentication before use.
-    var authenticationRequirement: AuthenticationRequirement { get }
     /// The public key data for the secret.
     var publicKey: Data { get }
+    /// The attributes of the key.
+    var attributes: Attributes { get }
+
+}
+
+public extension Secret {
+
+    /// The algorithm and key size this secret uses.
+    var keyType: KeyType {
+        attributes.keyType
+    }
+
+    /// Whether the secret requires authentication before use.
+    var authenticationRequirement: AuthenticationRequirement {
+        attributes.authentication
+    }
     /// An attribution string to apply to the generated public key.
-    var publicKeyAttribution: String? { get }
+    var publicKeyAttribution: String? {
+        attributes.publicKeyAttribution
+    }
 
 }
 

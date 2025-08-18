@@ -188,7 +188,7 @@ extension SecureEnclave {
             await reloadSecretsInternal()
         }
 
-        public func update(secret: Secret, name: String) async throws {
+        public func update(secret: Secret, name: String, attributes: Attributes) async throws {
             let updateQuery = KeychainDictionary([
                 kSecClass: kSecClassKey,
                 kSecAttrApplicationLabel: secret.id as CFData

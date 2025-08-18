@@ -9,10 +9,13 @@ extension Preview {
 
         let id = UUID().uuidString
         let name: String
-        let keyType = KeyType(algorithm: .ecdsa, size: 256)
-        let authenticationRequirement = AuthenticationRequirement.presenceRequired
         let publicKey = UUID().uuidString.data(using: .utf8)!
-        var publicKeyAttribution: String?
+        var attributes: Attributes {
+            Attributes(
+                keyType: .init(algorithm: .ecdsa, size: 256),
+                authentication: .presenceRequired,
+            )
+        }
     }
 
 }
@@ -99,7 +102,7 @@ extension Preview {
         func delete(secret: Preview.Secret) throws {
         }
 
-        func update(secret: Preview.Secret, name: String) throws {
+        func update(secret: Preview.Secret, name: String, attributes: Attributes) throws {
         }
     }
 }
