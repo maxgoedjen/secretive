@@ -29,7 +29,7 @@ jobs:
     runs-on: macos-15
     permissions:
       id-token: write
-      contents: read
+      contents: write
       attestations: write
     timeout-minutes: 10
     steps:
@@ -71,12 +71,16 @@ jobs:
         subject-path: 'Secretive.zip, Xcode_Archive.zip'
     - name: Create Release
       run: |
+            sed -i.tmp "s/RUN_ID/$RUN_ID/g" .github/templates/release.md
+            sed -i.tmp "s/ATTESTATION_ID/$ATTESTATION_ID/g" .github/templates/release.md
             gh release create $TAG_NAME -d -F .github/templates/release.md
             gh release upload Secretive.zip
             gh release upload Xcode_Archive.zip
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         TAG_NAME: ${{ github.ref }}
+        RUN_ID: ${{ github.run_id }}
+        
     - name: Upload App to Artifacts
       uses: actions/upload-artifact@v4
       with:
