@@ -71,7 +71,7 @@ jobs:
         subject-path: 'Secretive.zip, Xcode_Archive.zip'
     - name: Create Release
       run: |
-            gh release create $TAG_NAME -d -F templates/release.md
+            gh release create $TAG_NAME -d -F .github/templates/release.md
             gh release upload Secretive.zip
             gh release upload Xcode_Archive.zip
       env:
