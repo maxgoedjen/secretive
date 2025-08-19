@@ -27,6 +27,10 @@ jobs:
   build:
 #     runs-on: macOS-latest
     runs-on: macos-15
+    permissions:
+      id-token: write
+      contents: read
+      attestations: write
     timeout-minutes: 10
     steps:
     - uses: actions/checkout@v5
@@ -55,7 +59,7 @@ jobs:
     - name: Create ZIPs
       run: |
             ditto -c -k --sequesterRsrc --keepParent Archive.xcarchive/Products/Applications/Secretive.app ./Secretive.zip
-            ditto -c -k --sequesterRsrc --keepParent Archive.xcarchive ./Archive.zip
+            ditto -c -k --sequesterRsrc --keepParent Archive.xcarchive ./Xcode_Archive.zip
     - name: Notarize
       env: 
         APPLE_API_KEY_ID: ${{ secrets.APPLE_API_KEY_ID }}
@@ -65,10 +69,14 @@ jobs:
       run: |
             echo "sha-512:"
             shasum -a 512 Secretive.zip
-            shasum -a 512 Archive.zip
+            shasum -a 512 Xcode_Archive.zip
             echo "sha-256:"
             shasum -a 256 Secretive.zip
-            shasum -a 256 Archive.zip
+            shasum -a 256 Xcode_Archive.zip
+    - name: Attest 
+      uses: actions/attest-build-provenance@v2
+      with:
+        subject-path: 'Secretive.zip, Xcode_Archive.zip'
     - name: Create Release
       id: create_release
       uses: actions/create-release@v1
@@ -112,4 +120,4 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: Xcode_Archive.zip
-        path: Archive.zip
+        path: Xcode_Archive.zip
