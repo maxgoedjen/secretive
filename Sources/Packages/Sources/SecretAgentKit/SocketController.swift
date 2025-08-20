@@ -82,12 +82,12 @@ public final class SocketController {
         logger.debug("Socket controller has new data available")
         guard let new = notification.object as? FileHandle else { return }
         logger.debug("Socket controller received new file handle")
-        Task { [handler, logger = UncheckedSendable(logger)] in
+        Task { [handler, logger = logger] in
             if((await handler?(new, new)) == true) {
-                logger.value.debug("Socket controller handled data, wait for more data")
+                logger.debug("Socket controller handled data, wait for more data")
                 await new.waitForDataInBackgroundAndNotifyOnMainActor()
             } else {
-                logger.value.debug("Socket controller called with empty data, socked closed")
+                logger.debug("Socket controller called with empty data, socked closed")
             }
         }
     }
