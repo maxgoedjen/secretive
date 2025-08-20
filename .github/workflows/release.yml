@@ -27,6 +27,10 @@ jobs:
   build:
 #     runs-on: macOS-latest
     runs-on: macos-15
+    permissions:
+      id-token: write
+      contents: write
+      attestations: write
     timeout-minutes: 10
     steps:
     - uses: actions/checkout@v5
@@ -55,54 +59,29 @@ jobs:
     - name: Create ZIPs
       run: |
             ditto -c -k --sequesterRsrc --keepParent Archive.xcarchive/Products/Applications/Secretive.app ./Secretive.zip
-            ditto -c -k --sequesterRsrc --keepParent Archive.xcarchive ./Archive.zip
+            ditto -c -k --sequesterRsrc --keepParent Archive.xcarchive ./Xcode_Archive.zip
     - name: Notarize
       env: 
         APPLE_API_KEY_ID: ${{ secrets.APPLE_API_KEY_ID }}
         APPLE_API_ISSUER: ${{ secrets.APPLE_API_ISSUER }}
       run: xcrun notarytool submit --key ~/.private_keys/AuthKey_$APPLE_API_KEY_ID.p8 --key-id $APPLE_API_KEY_ID --issuer $APPLE_API_ISSUER Secretive.zip
-    - name: Document SHAs
-      run: |
-            echo "sha-512:"
-            shasum -a 512 Secretive.zip
-            shasum -a 512 Archive.zip
-            echo "sha-256:"
-            shasum -a 256 Secretive.zip
-            shasum -a 256 Archive.zip
+    - name: Attest
+      id: attest
+      uses: actions/attest-build-provenance@v2
+      with:
+        subject-path: 'Secretive.zip, Xcode_Archive.zip'
     - name: Create Release
-      id: create_release
-      uses: actions/create-release@v1
+      run: |
+            sed -i.tmp "s/RUN_ID/$RUN_ID/g" .github/templates/release.md
+            sed -i.tmp "s/ATTESTATION_ID/$ATTESTATION_ID/g" .github/templates/release.md
+            gh release create $TAG_NAME -d -F .github/templates/release.md
+            gh release upload Secretive.zip
+            gh release upload Xcode_Archive.zip
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        tag_name: ${{ github.ref }}
-        release_name: ${{ github.ref }}
-        body: |
-          Update description
-
-          ## Features
-
-
-          ## Fixes
-
-
-          ## Minimum macOS Version
-
-
-          ## Build
-          https://github.com/maxgoedjen/secretive/actions/runs/${{ github.run_id }}
-        draft: true
-        prerelease: false
-    - name: Upload App to Release
-      id: upload-release-asset-app
-      uses: actions/upload-release-asset@v1.0.1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./Secretive.zip
-        asset_name: Secretive.zip
-        asset_content_type: application/zip
+        TAG_NAME: ${{ github.ref }}
+        RUN_ID: ${{ github.run_id }}
+        ATTESTATION_ID: ${{ steps.attest.outputs.attestation-id }}
     - name: Upload App to Artifacts
       uses: actions/upload-artifact@v4
       with:
@@ -112,4 +91,4 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: Xcode_Archive.zip
-        path: Archive.zip
+        path: Xcode_Archive.zip
