@@ -39,9 +39,11 @@ struct SecretListItemView: View {
         .contextMenu {
             if store is AnySecretStoreModifiable {
                 Button(action: { isRenaming = true }) {
-                    Text(.secretListRenameButton)
+                    Image(systemName: "pencil")
+                    Text(.secretListEditButton)
                 }
                 Button(action: { isDeleting = true }) {
+                    Image(systemName: "trash")
                     Text(.secretListDeleteButton)
                 }
             }

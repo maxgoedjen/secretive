@@ -3911,72 +3911,72 @@
         }
       }
     },
-    "secret_list_rename_button" : {
+    "secret_list_edit_button" : {
       "extractionState" : "manual",
       "localizations" : {
         "ca" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Canvia el nom"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Umbenennen"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Rename"
+            "value" : "Edit"
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Renommer"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Rinomina"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "名前を変更"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "이름 변경"
           }
         },
         "pl" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Zmień nazwę"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Renomear"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Переименовать"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "重命名"
           }
         }
@@ -5354,6 +5354,9 @@
     "test@example.com" : {
 
     },
+    "This shows at the end of your public key." : {
+
+    },
     "unnamed_secret" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -6299,6 +6302,9 @@
           }
         }
       }
+    },
+    "Warning: ML-DSA keys are very new, and not supported by many servers yet. Please verify the server you'll be using this key for accepts ML-DSA keys." : {
+
     }
   },
   "version" : "1.0"

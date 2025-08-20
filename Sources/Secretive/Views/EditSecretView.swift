@@ -23,7 +23,11 @@ struct EditSecretView<StoreType: SecretStoreModifiable>: View {
             Form {
                 Section {
                     TextField(String(localized: .createSecretNameLabel), text: $name, prompt: Text(.createSecretNamePlaceholder))
-                    TextField("Key Attribution", text: $publicKeyAttribution, prompt: Text("test@example.com"))
+                    VStack(alignment: .leading) {
+                        TextField("Key Attribution", text: $publicKeyAttribution, prompt: Text("test@example.com"))
+                        Text("This shows at the end of your public key.")
+                            .font(.caption)
+                    }
                 }
             }
             HStack {

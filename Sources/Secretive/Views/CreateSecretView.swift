@@ -45,7 +45,11 @@ struct CreateSecretView<StoreType: SecretStoreModifiable>: View {
                                     .background(.red.opacity(0.5), in:  RoundedRectangle(cornerRadius: 5))
                             }
                         }
-                        TextField("Key Attribution", text: $keyAttribution, prompt: Text("test@example.com"))
+                        VStack(alignment: .leading) {
+                            TextField("Key Attribution", text: $keyAttribution, prompt: Text("test@example.com"))
+                            Text("This shows at the end of your public key.")
+                                .font(.caption)
+                        }
                     }
                 }
             }
