@@ -13,4 +13,4 @@ Update description
 https://github.com/maxgoedjen/secretive/actions/runs/RUN_ID
 
 ## Attestation
-https://github.com/maxgoedjen/secretive/actions/runs/RUN_ID
+https://github.com/maxgoedjen/secretive/attestations/ATTESTATION_ID

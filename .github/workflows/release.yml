@@ -29,7 +29,7 @@ jobs:
     runs-on: macos-15
     permissions:
       id-token: write
-      contents: read
+      contents: write
       attestations: write
     timeout-minutes: 10
     steps:
@@ -65,18 +65,23 @@ jobs:
         APPLE_API_KEY_ID: ${{ secrets.APPLE_API_KEY_ID }}
         APPLE_API_ISSUER: ${{ secrets.APPLE_API_ISSUER }}
       run: xcrun notarytool submit --key ~/.private_keys/AuthKey_$APPLE_API_KEY_ID.p8 --key-id $APPLE_API_KEY_ID --issuer $APPLE_API_ISSUER Secretive.zip
-    - name: Attest 
+    - name: Attest
+      id: attest
       uses: actions/attest-build-provenance@v2
       with:
         subject-path: 'Secretive.zip, Xcode_Archive.zip'
     - name: Create Release
       run: |
-            gh release create $TAG_NAME -d -F templates/release.md
+            sed -i.tmp "s/RUN_ID/$RUN_ID/g" .github/templates/release.md
+            sed -i.tmp "s/ATTESTATION_ID/$ATTESTATION_ID/g" .github/templates/release.md
+            gh release create $TAG_NAME -d -F .github/templates/release.md
             gh release upload Secretive.zip
             gh release upload Xcode_Archive.zip
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         TAG_NAME: ${{ github.ref }}
+        RUN_ID: ${{ github.run_id }}
+        ATTESTATION_ID: ${{ steps.attest.outputs.attestation-id }}
     - name: Upload App to Artifacts
       uses: actions/upload-artifact@v4
       with:
