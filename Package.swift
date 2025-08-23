@@ -63,6 +63,7 @@ var localization: Resource {
 var swiftSettings: [PackageDescription.SwiftSetting] {
     [
         .swiftLanguageMode(.v6),
-        .treatAllWarnings(as: .error),
+        // This freaks out Xcode in a dependency context.
+        // .treatAllWarnings(as: .error),
     ]
 }
