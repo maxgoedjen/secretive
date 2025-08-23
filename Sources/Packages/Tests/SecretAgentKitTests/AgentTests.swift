@@ -60,18 +60,10 @@ import CryptoKit
         }
         var rs = r
         rs.append(s)
-        let signature = try! P256.Signing.ECDSASignature(rawRepresentation: rs)
-        let referenceValid = try! P256.Signing.PublicKey(x963Representation: Constants.Secrets.ecdsa256Secret.publicKey).isValidSignature(signature, for: dataToSign)
-        let store = await list.stores.first!
-        let derVerifies = try await store.verify(signature: signature.derRepresentation, for: dataToSign, with: AnySecret(Constants.Secrets.ecdsa256Secret))
-        let invalidRandomSignature = try await store.verify(signature: "invalid".data(using: .utf8)!, for: dataToSign, with: AnySecret(Constants.Secrets.ecdsa256Secret))
-        let invalidRandomData = try await store.verify(signature: signature.derRepresentation, for: "invalid".data(using: .utf8)!, with: AnySecret(Constants.Secrets.ecdsa256Secret))
-        let invalidWrongKey = try await store.verify(signature: signature.derRepresentation, for: dataToSign, with: AnySecret(Constants.Secrets.ecdsa384Secret))
-        #expect(referenceValid)
-        #expect(derVerifies)
-        #expect(invalidRandomSignature == false)
-        #expect(invalidRandomData == false)
-        #expect(invalidWrongKey == false)
+        let signature = try P256.Signing.ECDSASignature(rawRepresentation: rs)
+        // Correct signature
+        #expect(try P256.Signing.PublicKey(x963Representation: Constants.Secrets.ecdsa256Secret.publicKey)
+            .isValidSignature(signature, for: dataToSign))
     }
 
     // MARK: Witness protocol

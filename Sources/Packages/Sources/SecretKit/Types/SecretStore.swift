@@ -23,14 +23,6 @@ public protocol SecretStore: Identifiable, Sendable {
     /// - Returns: The signed data.
     func sign(data: Data, with secret: SecretType, for provenance: SigningRequestProvenance) async throws -> Data
 
-    /// Verifies that a signature is valid over a specified payload.
-    /// - Parameters:
-    ///   - signature: The signature over the data.
-    ///   - data: The data to verify the signature of.
-    ///   - secret: The secret whose signature to verify.
-    /// - Returns: Whether the signature was verified.
-    func verify(signature: Data, for data: Data, with secret: SecretType) async throws -> Bool
-
     /// Checks to see if there is currently a valid persisted authentication for a given secret.
     /// - Parameters:
     ///   - secret: The ``Secret`` to check if there is a persisted authentication for.

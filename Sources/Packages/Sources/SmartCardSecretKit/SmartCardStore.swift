@@ -89,29 +89,6 @@ extension SmartCard {
             return signature as Data
         }
         
-        public func verify(signature: Data, for data: Data, with secret: Secret) throws -> Bool {
-            let attributes = KeychainDictionary([
-                kSecAttrKeyType: secret.algorithm.secAttrKeyType,
-                kSecAttrKeySizeInBits: secret.keySize,
-                kSecAttrKeyClass: kSecAttrKeyClassPublic
-            ])
-            var verifyError: SecurityError?
-            let untyped: CFTypeRef? = SecKeyCreateWithData(secret.publicKey as CFData, attributes, &verifyError)
-            guard let untypedSafe = untyped else {
-                throw KeychainError(statusCode: errSecSuccess)
-            }
-            let key = untypedSafe as! SecKey
-            let verified = SecKeyVerifySignature(key, signatureAlgorithm(for: secret, allowRSA: true), data as CFData, signature as CFData, &verifyError)
-            if !verified, let verifyError {
-                if verifyError.takeUnretainedValue() ~= .verifyError {
-                    return false
-                } else {
-                    throw SigningError(error: verifyError)
-                }
-            }
-            return verified
-        }
-
         public func existingPersistedAuthenticationContext(secret: Secret) -> PersistedAuthenticationContext? {
             nil
         }
