@@ -61,29 +61,6 @@ extension Stub {
             return SecKeyCreateSignature(privateKey, signatureAlgorithm(for: secret), data as CFData, nil)! as Data
         }
 
-        public func verify(signature: Data, for data: Data, with secret: Stub.Secret) throws -> Bool {
-            let attributes = KeychainDictionary([
-                kSecAttrKeyType: secret.algorithm.secAttrKeyType,
-                kSecAttrKeySizeInBits: secret.keySize,
-                kSecAttrKeyClass: kSecAttrKeyClassPublic
-            ])
-            var verifyError: Unmanaged<CFError>?
-            let untyped: CFTypeRef? = SecKeyCreateWithData(secret.publicKey as CFData, attributes, &verifyError)
-            guard let untypedSafe = untyped else {
-                throw NSError(domain: "test", code: 0, userInfo: nil)
-            }
-            let key = untypedSafe as! SecKey
-            let verified = SecKeyVerifySignature(key, signatureAlgorithm(for: secret), data as CFData, signature as CFData, &verifyError)
-            if let verifyError {
-                if verifyError.takeUnretainedValue() ~= .verifyError {
-                    return false
-                } else {
-                    throw NSError(domain: "test", code: 0, userInfo: nil)
-                }
-            }
-            return verified
-        }
-
         public func existingPersistedAuthenticationContext(secret: Stub.Secret) -> PersistedAuthenticationContext? {
             nil
         }
