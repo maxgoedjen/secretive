@@ -2180,6 +2180,9 @@
         }
       }
     },
+    "Current Biometrics" : {
+
+    },
     "delete_confirmation_cancel_button" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -2950,6 +2953,9 @@
         }
       }
     },
+    "If you change your biometric settings in _any way_, including adding a new fingerprint, this key will no longer be accessible." : {
+
+    },
     "Key Attribution" : {
 
     },
@@ -3555,6 +3561,9 @@
           }
         }
       }
+    },
+    "Require authentication with current set of biometrics." : {
+
     },
     "secret_detail_md5_fingerprint_label" : {
       "extractionState" : "manual",
@@ -5350,6 +5359,9 @@
           }
         }
       }
+    },
+    "Test" : {
+
     },
     "test@example.com" : {
 

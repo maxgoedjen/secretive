@@ -26,7 +26,8 @@ struct EditSecretView<StoreType: SecretStoreModifiable>: View {
                     VStack(alignment: .leading) {
                         TextField("Key Attribution", text: $publicKeyAttribution, prompt: Text("test@example.com"))
                         Text("This shows at the end of your public key.")
-                            .font(.caption)
+                            .font(.subheadline)
+                            .foregroundStyle(.secondary)
                     }
                 }
             }

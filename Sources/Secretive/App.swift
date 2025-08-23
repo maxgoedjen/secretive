@@ -1,4 +1,3 @@
-import Cocoa
 import SwiftUI
 import SecretKit
 import SecureEnclaveSecretKit
@@ -10,6 +9,7 @@ extension EnvironmentValues {
     // This is injected through .environment modifier below instead of @Entry for performance reasons (basially, restrictions around init/mainactor causing delay in loading secrets/"empty screen" blip).
     @MainActor fileprivate static let _secretStoreList: SecretStoreList = {
         let list = SecretStoreList()
+        list.add(store: SecureEnclave.Store())
         list.add(store: SecureEnclave.CryptoKitStore())
         list.add(store: SmartCard.Store())
         return list

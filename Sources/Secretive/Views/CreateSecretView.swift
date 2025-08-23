@@ -13,7 +13,11 @@ struct CreateSecretView<StoreType: SecretStoreModifiable>: View {
     @State var advanced = false
 
     private var authenticationOptions: [AuthenticationRequirement] {
-        [.presenceRequired, .notRequired]
+        if advanced || authenticationRequirement == .biometryCurrent {
+            [.presenceRequired, .notRequired, .biometryCurrent]
+        } else {
+            [.presenceRequired, .notRequired]
+        }
     }
 
     var body: some View {
@@ -21,11 +25,48 @@ struct CreateSecretView<StoreType: SecretStoreModifiable>: View {
             Form {
                 Section {
                     TextField(String(localized: .createSecretNameLabel), text: $name, prompt: Text(.createSecretNamePlaceholder))
-                    Picker(.createSecretRequireAuthenticationTitle, selection: $authenticationRequirement) {
-                        ForEach(authenticationOptions) { option in
-                            Text(String(describing: option))
+                    VStack(alignment: .leading, spacing: 10) {
+                        Picker(.createSecretRequireAuthenticationTitle, selection: $authenticationRequirement) {
+                            ForEach(authenticationOptions) { option in
+                                HStack {
+                                    switch option {
+                                    case .notRequired:
+                                        Image(systemName: "bell")
+                                        Text(.createSecretNotifyTitle)
+                                    case .presenceRequired:
+                                        Image(systemName: "lock")
+                                        Text(.createSecretRequireAuthenticationTitle)
+                                    case .biometryCurrent:
+                                        Image(systemName: "lock.trianglebadge.exclamationmark.fill")
+                                        Text("Current Biometrics")
+                                    case .unknown:
+                                        EmptyView()
+                                    }
+                                }
                                 .tag(option)
+                            }
                         }
+                        Group {
+                            switch  authenticationRequirement {
+                            case .notRequired:
+                                Text(.createSecretNotifyDescription)
+                            case .presenceRequired:
+                                Text(.createSecretRequireAuthenticationDescription)
+                            case .biometryCurrent:
+                                Text("Require authentication with current set of biometrics.")
+                            case .unknown:
+                                EmptyView()
+                            }
+                        }
+                        .font(.subheadline)
+                        .foregroundStyle(.secondary)
+                        if authenticationRequirement == .biometryCurrent {
+                            Text("If you change your biometric settings in _any way_, including adding a new fingerprint, this key will no longer be accessible.")
+                                .padding(.horizontal, 10)
+                                .padding(.vertical, 3)
+                                .background(.red.opacity(0.5), in:  RoundedRectangle(cornerRadius: 5))
+                        }
+
                     }
                 }
                 if advanced {
@@ -48,7 +89,8 @@ struct CreateSecretView<StoreType: SecretStoreModifiable>: View {
                         VStack(alignment: .leading) {
                             TextField("Key Attribution", text: $keyAttribution, prompt: Text("test@example.com"))
                             Text("This shows at the end of your public key.")
-                                .font(.caption)
+                                .font(.subheadline)
+                                .foregroundStyle(.secondary)
                         }
                     }
                 }
