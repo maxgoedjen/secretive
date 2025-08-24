@@ -10,5 +10,7 @@ jobs:
     - uses: actions/checkout@v5
     - name: Set Environment
       run: sudo xcrun xcode-select -s /Applications/Xcode_26.0.app
-    - name: Test
-      run: swift build --build-system swiftbuild --package-path Sources/Packages
+    - name: Test Main Packages
+      run: swift test --build-system swiftbuild --package-path Sources/Packages
+    - name: Test SecretKit Packages
+      run: swift test --build-system swiftbuild
