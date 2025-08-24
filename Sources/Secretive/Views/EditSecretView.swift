@@ -24,18 +24,18 @@ struct EditSecretView<StoreType: SecretStoreModifiable>: View {
                 Section {
                     TextField(String(localized: .createSecretNameLabel), text: $name, prompt: Text(.createSecretNamePlaceholder))
                     VStack(alignment: .leading) {
-                        TextField("Key Attribution", text: $publicKeyAttribution, prompt: Text("test@example.com"))
-                        Text("This shows at the end of your public key.")
+                        TextField(.createSecretKeyAttributionLabel, text: $publicKeyAttribution, prompt: Text(verbatim: "test@example.com"))
+                        Text(.createSecretKeyAttributionDescription)
                             .font(.subheadline)
                             .foregroundStyle(.secondary)
                     }
                 }
             }
             HStack {
-                Button(.renameRenameButton, action: rename)
+                Button(.editSaveButton, action: rename)
                     .disabled(name.isEmpty)
                     .keyboardShortcut(.return)
-                Button(.renameCancelButton) {
+                Button(.editCancelButton) {
                     dismissalBlock(false)
                 }.keyboardShortcut(.cancelAction)
             }
