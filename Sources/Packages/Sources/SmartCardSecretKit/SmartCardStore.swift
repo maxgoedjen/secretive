@@ -66,6 +66,9 @@ extension SmartCard {
 
         public func sign(data: Data, with secret: Secret, for provenance: SigningRequestProvenance) async throws -> Data {
             guard let tokenID = await state.tokenID else { fatalError() }
+            guard secret.capabilities.contains(.signature) else {
+                throw SigningError(error: nil)
+            }
             let context = LAContext()
             context.localizedReason = String(localized: .authContextRequestSignatureDescription(appName: provenance.origin.displayName, secretName: secret.name))
             context.localizedCancelTitle = String(localized: .authContextRequestDenyButton)
