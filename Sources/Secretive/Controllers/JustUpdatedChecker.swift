@@ -1,5 +1,4 @@
 import Foundation
-import Combine
 import AppKit
 
 protocol JustUpdatedCheckerProtocol: Observable {

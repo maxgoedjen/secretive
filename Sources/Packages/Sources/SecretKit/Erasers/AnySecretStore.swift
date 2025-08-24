@@ -1,8 +1,7 @@
 import Foundation
-import Combine
 
 /// Type eraser for SecretStore.
-public class AnySecretStore: SecretStore, @unchecked Sendable {
+open class AnySecretStore: SecretStore, @unchecked Sendable {
 
     let base: any Sendable
     private let _isAvailable: @MainActor @Sendable () -> Bool
