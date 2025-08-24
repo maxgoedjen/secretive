@@ -84,41 +84,6 @@ extension SecureEnclave {
 
         }
 
-        func verify(signature: Data, for data: Data, with secret: Secret) throws -> Bool {
-            let context = LAContext()
-            context.localizedReason = String(localized: "auth_context_request_verify_description_\(secret.name)")
-            context.localizedCancelTitle = String(localized: "auth_context_request_deny_button")
-            let attributes = KeychainDictionary([
-                kSecClass: kSecClassKey,
-                kSecAttrKeyClass: kSecAttrKeyClassPrivate,
-                kSecAttrApplicationLabel: secret.id as CFData,
-                kSecAttrKeyType: Constants.keyClass,
-                kSecAttrTokenID: kSecAttrTokenIDSecureEnclave,
-                kSecAttrApplicationTag: SecureEnclave.Constants.keyTag,
-                kSecUseAuthenticationContext: context,
-                kSecReturnRef: true
-                ])
-            var verifyError: SecurityError?
-            var untyped: CFTypeRef?
-            let status = SecItemCopyMatching(attributes, &untyped)
-            if status != errSecSuccess {
-                throw KeychainError(statusCode: status)
-            }
-            guard let untypedSafe = untyped else {
-                throw KeychainError(statusCode: errSecSuccess)
-            }
-            let key = untypedSafe as! SecKey
-            let verified = SecKeyVerifySignature(key, .ecdsaSignatureMessageX962SHA256, data as CFData, signature as CFData, &verifyError)
-            if !verified, let verifyError {
-                if verifyError.takeUnretainedValue() ~= .verifyError {
-                    return false
-                } else {
-                    throw SigningError(error: verifyError)
-                }
-            }
-            return verified
-        }
-
         func existingPersistedAuthenticationContext(secret: Secret) async -> PersistedAuthenticationContext? {
             await persistentAuthenticationHandler.existingPersistedAuthenticationContext(secret: secret)
         }

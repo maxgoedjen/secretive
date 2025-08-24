@@ -1330,9 +1330,6 @@
         }
       }
     },
-    "auth_context_request_verify_description_%@" : {
-
-    },
     "copyable_click_to_copy_button" : {
       "extractionState" : "manual",
       "localizations" : {
