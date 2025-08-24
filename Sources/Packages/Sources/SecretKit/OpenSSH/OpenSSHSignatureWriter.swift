@@ -14,56 +14,53 @@ public struct OpenSSHSignatureWriter: Sendable {
         switch secret.keyType.algorithm {
         case .ecdsa:
             // https://datatracker.ietf.org/doc/html/rfc5656#section-3.1
-            fatalError()
+            ecdsaSignature(signature, keyType: secret.keyType)
         case .mldsa:
             // https://www.ietf.org/archive/id/draft-sfluhrer-ssh-mldsa-04.txt
             fatalError()
         case .rsa:
             // https://datatracker.ietf.org/doc/html/rfc4253#section-6.6
-            fatalError()
+            rsaSignature(signature)
         }
     }
 
 }
 
+
 extension OpenSSHSignatureWriter {
 
-
-    /// The fully qualified OpenSSH identifier for the algorithm.
-    /// - Parameters:
-    ///   - algorithm: The algorithm to identify.
-    ///   - length: The key length of the algorithm.
-    /// - Returns: The OpenSSH identifier for the algorithm.
-    public func openSSHIdentifier(for keyType: KeyType) -> String {
-        switch (keyType.algorithm, keyType.size) {
-        case (.ecdsa, 256), (.ecdsa, 384):
-            "ecdsa-sha2-nistp" + String(describing: keyType.size)
-        case (.mldsa, 65), (.mldsa, 87):
-            "ssh-mldsa-" + String(describing: keyType.size)
-        case (.rsa, _):
-            "ssh-rsa"
-        default:
-            "unknown"
+    func ecdsaSignature(_ rawRepresentation: Data, keyType: KeyType) -> Data {
+        let rawLength = rawRepresentation.count/2
+        // Check if we need to pad with 0x00 to prevent certain
+        // ssh servers from thinking r or s is negative
+        let paddingRange: ClosedRange<UInt8> = 0x80...0xFF
+        var r = Data(rawRepresentation[0..<rawLength])
+        if paddingRange ~= r.first! {
+            r.insert(0x00, at: 0)
         }
+        var s = Data(rawRepresentation[rawLength...])
+        if paddingRange ~= s.first! {
+            s.insert(0x00, at: 0)
+        }
+
+        var signatureChunk = Data()
+        signatureChunk.append(r.lengthAndData)
+        signatureChunk.append(s.lengthAndData)
+        var mutSignedData = Data()
+        var sub = Data()
+        sub.append(OpenSSHPublicKeyWriter().openSSHIdentifier(for: keyType).lengthAndData)
+        sub.append(signatureChunk.lengthAndData)
+        mutSignedData.append(sub.lengthAndData)
+        return mutSignedData
     }
 
-}
-
-extension OpenSSHSignatureWriter {
-
-    public func rsaPublicKeyBlob<SecretType: Secret>(secret: SecretType) -> Data {
-        // Cheap way to pull out e and n as defined in https://datatracker.ietf.org/doc/html/rfc4253
-        // Keychain stores it as a thin ASN.1 wrapper with this format:
-        // [4 byte prefix][2 byte prefix][n][2 byte prefix][e]
-        // Rather than parse out the whole ASN.1 blob, we'll cheat and pull values directly since
-        // we only support one key type, and the keychain always gives it in a specific format.
-        let keySize = secret.keyType.size
-        guard secret.keyType.algorithm == .rsa && keySize == 2048 else { fatalError() }
-        let length = secret.keyType.size/8
-        let data = secret.publicKey
-        let n = Data(data[8..<(9+length)])
-        let e = Data(data[(2+9+length)...])
-        return e.lengthAndData + n.lengthAndData
+    func rsaSignature(_ rawRepresentation: Data) -> Data {
+        var mutSignedData = Data()
+        var sub = Data()
+        sub.append("rsa-sha2-512".lengthAndData)
+        sub.append(rawRepresentation.lengthAndData)
+        mutSignedData.append(sub.lengthAndData)
+        return mutSignedData
     }
 
 }

@@ -136,42 +136,7 @@ extension Agent {
 
         let dataToSign = reader.readNextChunk()
         let rawRepresentation = try await store.sign(data: dataToSign, with: secret, for: provenance)
-
-        let curveData = publicKeyWriter.openSSHIdentifier(for: secret.keyType)
-
-        let signedData: Data
-        if secret.keyType.algorithm == .ecdsa {
-            let rawLength = rawRepresentation.count/2
-            // Check if we need to pad with 0x00 to prevent certain
-            // ssh servers from thinking r or s is negative
-            let paddingRange: ClosedRange<UInt8> = 0x80...0xFF
-            var r = Data(rawRepresentation[0..<rawLength])
-            if paddingRange ~= r.first! {
-                r.insert(0x00, at: 0)
-            }
-            var s = Data(rawRepresentation[rawLength...])
-            if paddingRange ~= s.first! {
-                s.insert(0x00, at: 0)
-            }
-
-            var signatureChunk = Data()
-            signatureChunk.append(r.lengthAndData)
-            signatureChunk.append(s.lengthAndData)
-            var mutSignedData = Data()
-            var sub = Data()
-            sub.append(curveData.lengthAndData)
-            sub.append(signatureChunk.lengthAndData)
-            mutSignedData.append(sub.lengthAndData)
-            signedData = mutSignedData
-        } else {
-            var mutSignedData = Data()
-            var sub = Data()
-            sub.append("rsa-sha2-512".lengthAndData)
-            sub.append(rawRepresentation.lengthAndData)
-            mutSignedData.append(sub.lengthAndData)
-
-            signedData = mutSignedData
-        }
+        let signedData = signatureWriter.data(secret: secret, signature: rawRepresentation)
 
         if let witness = witness {
             try await witness.witness(accessTo: secret, from: store, by: provenance)
