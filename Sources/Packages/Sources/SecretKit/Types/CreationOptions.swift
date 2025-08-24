@@ -14,10 +14,9 @@ public struct Attributes: Sendable, Codable, Hashable {
 
     public init(
         keyType: KeyType,
-        authentication: AuthenticationRequirement = .presenceRequired,
+        authentication: AuthenticationRequirement,
         publicKeyAttribution: String? = nil
     ) {
-//        assert(authentication != .unknown, "Secrets cannot be created with an unknown authentication requirement.")
         self.keyType = keyType
         self.authentication = authentication
         self.publicKeyAttribution = publicKeyAttribution
