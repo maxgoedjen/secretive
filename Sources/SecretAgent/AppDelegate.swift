@@ -1,6 +1,5 @@
 import Cocoa
 import OSLog
-import Combine
 import SecretKit
 import SecureEnclaveSecretKit
 import SmartCardSecretKit
@@ -28,7 +27,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let path = (NSHomeDirectory() as NSString).appendingPathComponent("socket.ssh") as String
         return SocketController(path: path)
     }()
-    private var updateSink: AnyCancellable?
     private let logger = Logger(subsystem: "com.maxgoedjen.secretive.secretagent", category: "AppDelegate")
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {

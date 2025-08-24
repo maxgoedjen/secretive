@@ -3,8 +3,11 @@
 
 import PackageDescription
 
+// This is basically the same package as `Sources/Packages/Package.swift`, but thinned slightly.
+// Ideally this would be the same package, but SPM requires it to be at the root of the project,
+// and Xcode does _not_ like that, so they're separate.
 let package = Package(
-    name: "SecretivePackages",
+    name: "SecretKit",
     defaultLocalization: "en",
     platforms: [
         .macOS(.v14)
@@ -19,15 +22,6 @@ let package = Package(
         .library(
             name: "SmartCardSecretKit",
             targets: ["SmartCardSecretKit"]),
-        .library(
-            name: "SecretAgentKit",
-            targets: ["SecretAgentKit"]),
-        .library(
-            name: "SecretAgentKitHeaders",
-            targets: ["SecretAgentKitHeaders"]),
-        .library(
-            name: "Brief",
-            targets: ["Brief"]),
     ],
     dependencies: [
     ],
@@ -35,48 +29,29 @@ let package = Package(
         .target(
             name: "SecretKit",
             dependencies: [],
+            path: "Sources/Packages/Sources/SecretKit",
             resources: [localization],
-            swiftSettings: swiftSettings,
+            swiftSettings: swiftSettings
         ),
         .testTarget(
             name: "SecretKitTests",
             dependencies: ["SecretKit", "SecureEnclaveSecretKit", "SmartCardSecretKit"],
-            swiftSettings: swiftSettings,
+            path: "Sources/Packages/Tests/SecretKitTests",
+            swiftSettings: swiftSettings
         ),
         .target(
             name: "SecureEnclaveSecretKit",
             dependencies: ["SecretKit"],
+            path: "Sources/Packages/Sources/SecureEnclaveSecretKit",
             resources: [localization],
-            swiftSettings: swiftSettings,
+            swiftSettings: swiftSettings
         ),
         .target(
             name: "SmartCardSecretKit",
             dependencies: ["SecretKit"],
+            path: "Sources/Packages/Sources/SmartCardSecretKit",
             resources: [localization],
-            swiftSettings: swiftSettings,
-        ),
-        .target(
-            name: "SecretAgentKit",
-            dependencies: ["SecretKit", "SecretAgentKitHeaders"],
-            resources: [localization],
-            swiftSettings: swiftSettings,
-        ),
-        .systemLibrary(
-            name: "SecretAgentKitHeaders",
-        ),
-        .testTarget(
-            name: "SecretAgentKitTests",
-            dependencies: ["SecretAgentKit"],
-        ),
-        .target(
-            name: "Brief",
-            dependencies: [],
-            resources: [localization],
-            swiftSettings: swiftSettings,
-        ),
-        .testTarget(
-            name: "BriefTests",
-            dependencies: ["Brief"],
+            swiftSettings: swiftSettings
         ),
     ]
 )
@@ -88,6 +63,7 @@ var localization: Resource {
 var swiftSettings: [PackageDescription.SwiftSetting] {
     [
         .swiftLanguageMode(.v6),
-        .treatAllWarnings(as: .error),
+        // This freaks out Xcode in a dependency context.
+        // .treatAllWarnings(as: .error),
     ]
 }

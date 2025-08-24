@@ -1,7 +1,7 @@
 import Foundation
 import Observation
 import Security
-import CryptoTokenKit
+@preconcurrency import CryptoTokenKit
 import LocalAuthentication
 import SecretKit
 
@@ -23,6 +23,9 @@ extension SmartCard {
         public var isAvailable: Bool {
             state.isAvailable
         }
+        @MainActor public var smartcardTokenID: String? {
+            state.tokenID
+        }
 
         public let id = UUID()
         @MainActor public var name: String {
@@ -34,17 +37,18 @@ extension SmartCard {
 
         /// Initializes a Store.
         public init() {
-            Task { @MainActor in
-                if let tokenID = state.tokenID {
-                    state.isAvailable = true
-                    state.watcher.addRemovalHandler(self.smartcardRemoved, forTokenID: tokenID)
+            Task {
+                await MainActor.run {
+                    if let tokenID = smartcardTokenID {
+                        state.isAvailable = true
+                        state.watcher.addRemovalHandler(self.smartcardRemoved, forTokenID: tokenID)
+                    }
+                    loadSecrets()
                 }
-                loadSecrets()
-                state.watcher.setInsertionHandler { id in
-                    // Setting insertion handler will cause it to be called immediately.
-                    // Make a thread jump so we don't hit a recursive lock attempt.
+                // Doing this inside a regular mainactor handler casues thread assertions in CryptoTokenKit to blow up when the handler executes.
+                await state.watcher.setInsertionHandler { id in
                     Task {
-                        self.smartcardInserted(for: id)
+                        await self.smartcardInserted(for: id)
                     }
                 }
             }
@@ -81,29 +85,6 @@ extension SmartCard {
             return signature as Data
         }
         
-        public func verify(signature: Data, for data: Data, with secret: Secret) throws -> Bool {
-            let attributes = KeychainDictionary([
-                kSecAttrKeyType: secret.keyType.secAttrKeyType as Any,
-                kSecAttrKeySizeInBits: secret.keyType.size,
-                kSecAttrKeyClass: kSecAttrKeyClassPublic
-            ])
-            var verifyError: SecurityError?
-            let untyped: CFTypeRef? = SecKeyCreateWithData(secret.publicKey as CFData, attributes, &verifyError)
-            guard let untypedSafe = untyped else {
-                throw KeychainError(statusCode: errSecSuccess)
-            }
-            let key = untypedSafe as! SecKey
-            let verified = SecKeyVerifySignature(key, signatureAlgorithm(for: secret, allowRSA: true), data as CFData, signature as CFData, &verifyError)
-            if !verified, let verifyError {
-                if verifyError.takeUnretainedValue() ~= .verifyError {
-                    return false
-                } else {
-                    throw SigningError(error: verifyError)
-                }
-            }
-            return verified
-        }
-
         public func existingPersistedAuthenticationContext(secret: Secret) -> PersistedAuthenticationContext? {
             nil
         }
@@ -135,12 +116,13 @@ extension SmartCard.Store {
     /// Resets the token ID and reloads secrets.
     /// - Parameter tokenID: The ID of the token that was inserted.
     @MainActor private func smartcardInserted(for tokenID: String? = nil) {
-            guard let string = state.watcher.nonSecureEnclaveTokens.first else { return }
-            guard state.tokenID == nil else { return }
-            guard !string.contains("setoken") else { return }
-            state.tokenID = string
-            state.watcher.addRemovalHandler(self.smartcardRemoved, forTokenID: string)
-            state.tokenID = string
+        guard let string = state.watcher.nonSecureEnclaveTokens.first else { return }
+        guard state.tokenID == nil else { return }
+        guard !string.contains("setoken") else { return }
+        state.tokenID = string
+        state.watcher.addRemovalHandler(self.smartcardRemoved, forTokenID: string)
+        state.tokenID = string
+        reloadSecretsInternal()
     }
 
     /// Resets the token ID and reloads secrets.
@@ -184,88 +166,6 @@ extension SmartCard.Store {
             return SmartCard.Secret(id: tokenID, name: name, publicKey: publicKey, attributes: attributes)
         }
         state.secrets.append(contentsOf: wrapped)
-    }
-
-}
-
-
-// MARK: Smart Card specific encryption/decryption/verification
-extension SmartCard.Store {
-
-    /// Encrypts a payload with a specified key.
-    /// - Parameters:
-    ///   - data: The payload to encrypt.
-    ///   - secret: The secret to encrypt with.
-    /// - Returns: The encrypted data.
-    /// - Warning: Encryption functions are deliberately only exposed on a library level, and are not exposed in Secretive itself to prevent users from data loss. Any pull requests which expose this functionality in the app will not be merged.
-    public func encrypt(data: Data, with secret: SecretType) throws -> Data {
-        let context = LAContext()
-        context.localizedReason = String(localized: .authContextRequestEncryptDescription(secretName: secret.name))
-        context.localizedCancelTitle = String(localized: .authContextRequestDenyButton)
-        let attributes = KeychainDictionary([
-            kSecAttrKeyType: secret.keyType.secAttrKeyType as Any,
-            kSecAttrKeySizeInBits: secret.keyType.size,
-            kSecAttrKeyClass: kSecAttrKeyClassPublic,
-            kSecUseAuthenticationContext: context
-        ])
-        var encryptError: SecurityError?
-        let untyped: CFTypeRef? = SecKeyCreateWithData(secret.publicKey as CFData, attributes, &encryptError)
-        guard let untypedSafe = untyped else {
-            throw KeychainError(statusCode: errSecSuccess)
-        }
-        let key = untypedSafe as! SecKey
-        guard let signature = SecKeyCreateEncryptedData(key, encryptionAlgorithm(for: secret), data as CFData, &encryptError) else {
-            throw SigningError(error: encryptError)
-        }
-        return signature as Data
-    }
-
-    /// Decrypts a payload with a specified key.
-    /// - Parameters:
-    ///   - data: The payload to decrypt.
-    ///   - secret: The secret to decrypt with.
-    /// - Returns: The decrypted data.
-    /// - Warning: Encryption functions are deliberately only exposed on a library level, and are not exposed in Secretive itself to prevent users from data loss. Any pull requests which expose this functionality in the app will not be merged.
-    public func decrypt(data: Data, with secret: SecretType) async throws -> Data {
-        guard let tokenID = await state.tokenID else { fatalError() }
-        let context = LAContext()
-        context.localizedReason = String(localized: .authContextRequestDecryptDescription(secretName: secret.name))
-        context.localizedCancelTitle = String(localized: .authContextRequestDenyButton)
-        let attributes = KeychainDictionary([
-            kSecClass: kSecClassKey,
-            kSecAttrKeyClass: kSecAttrKeyClassPrivate,
-            kSecAttrApplicationLabel: secret.id as CFData,
-            kSecAttrTokenID: tokenID,
-            kSecUseAuthenticationContext: context,
-            kSecReturnRef: true
-        ])
-        var untyped: CFTypeRef?
-        let status = SecItemCopyMatching(attributes, &untyped)
-        if status != errSecSuccess {
-            throw KeychainError(statusCode: status)
-        }
-        guard let untypedSafe = untyped else {
-            throw KeychainError(statusCode: errSecSuccess)
-        }
-        let key = untypedSafe as! SecKey
-        var encryptError: SecurityError?
-        guard let signature = SecKeyCreateDecryptedData(key, encryptionAlgorithm(for: secret), data as CFData, &encryptError) else {
-            throw SigningError(error: encryptError)
-        }
-        return signature as Data
-    }
-
-    private func encryptionAlgorithm(for secret: SecretType) -> SecKeyAlgorithm {
-        switch (secret.keyType.algorithm, secret.keyType.size) {
-        case (.ecdsa, 256):
-            return .eciesEncryptionCofactorVariableIVX963SHA256AESGCM
-        case (.ecdsa, 384):
-            return .eciesEncryptionCofactorVariableIVX963SHA384AESGCM
-        case (.rsa, 1024), (.rsa, 2048):
-            return .rsaEncryptionOAEPSHA512AESGCM
-        default:
-            fatalError()
-        }
     }
 
 }

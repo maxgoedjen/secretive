@@ -42,10 +42,6 @@ extension Preview {
             return data
         }
 
-        func verify(signature data: Data, for signature: Data, with secret: Preview.Secret) throws -> Bool {
-            true
-        }
-
         func existingPersistedAuthenticationContext(secret: Preview.Secret) -> PersistedAuthenticationContext? {
             nil
         }
@@ -83,10 +79,6 @@ extension Preview {
 
         func sign(data: Data, with secret: Preview.Secret, for provenance: SigningRequestProvenance) throws -> Data {
             return data
-        }
-
-        func verify(signature data: Data, for signature: Data, with secret: Preview.Secret) throws -> Bool {
-            true
         }
 
         func existingPersistedAuthenticationContext(secret: Preview.Secret) -> PersistedAuthenticationContext? {

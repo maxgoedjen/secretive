@@ -1,5 +1,4 @@
 import Foundation
-import Combine
 
 /// Manages access to Secrets, and performs signature operations on data using those Secrets.
 public protocol SecretStore: Identifiable, Sendable {
@@ -22,14 +21,6 @@ public protocol SecretStore: Identifiable, Sendable {
     ///   - provenance: A ``SigningRequestProvenance`` describing where the request came from.
     /// - Returns: The signed data.
     func sign(data: Data, with secret: SecretType, for provenance: SigningRequestProvenance) async throws -> Data
-
-    /// Verifies that a signature is valid over a specified payload.
-    /// - Parameters:
-    ///   - signature: The signature over the data.
-    ///   - data: The data to verify the signature of.
-    ///   - secret: The secret whose signature to verify.
-    /// - Returns: Whether the signature was verified.
-    func verify(signature: Data, for data: Data, with secret: SecretType) async throws -> Bool
 
     /// Checks to see if there is currently a valid persisted authentication for a given secret.
     /// - Parameters:

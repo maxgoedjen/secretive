@@ -73,41 +73,6 @@ extension SecureEnclave {
             return signature as Data
         }
 
-        public func verify(signature: Data, for data: Data, with secret: Secret) throws -> Bool {
-            let context = LAContext()
-            context.localizedReason = String(localized: .authContextRequestVerifyDescription(secretName: secret.name))
-            context.localizedCancelTitle = String(localized: .authContextRequestDenyButton)
-            let attributes = KeychainDictionary([
-                kSecClass: kSecClassKey,
-                kSecAttrKeyClass: kSecAttrKeyClassPrivate,
-                kSecAttrApplicationLabel: secret.id as CFData,
-                kSecAttrKeyType: Constants.keyType,
-                kSecAttrTokenID: kSecAttrTokenIDSecureEnclave,
-                kSecAttrApplicationTag: Constants.keyTag,
-                kSecUseAuthenticationContext: context,
-                kSecReturnRef: true
-                ])
-            var verifyError: SecurityError?
-            var untyped: CFTypeRef?
-            let status = SecItemCopyMatching(attributes, &untyped)
-            if status != errSecSuccess {
-                throw KeychainError(statusCode: status)
-            }
-            guard let untypedSafe = untyped else {
-                throw KeychainError(statusCode: errSecSuccess)
-            }
-            let key = untypedSafe as! SecKey
-            let verified = SecKeyVerifySignature(key, .ecdsaSignatureMessageX962SHA256, data as CFData, signature as CFData, &verifyError)
-            if !verified, let verifyError {
-                if verifyError.takeUnretainedValue() ~= .verifyError {
-                    return false
-                } else {
-                    throw SigningError(error: verifyError)
-                }
-            }
-            return verified
-        }
-
         public func existingPersistedAuthenticationContext(secret: Secret) async -> PersistedAuthenticationContext? {
             await persistentAuthenticationHandler.existingPersistedAuthenticationContext(secret: secret)
         }
@@ -262,9 +227,9 @@ extension SecureEnclave.Store {
 
 extension SecureEnclave {
 
-    enum Constants {
-        static let keyTag = Data("com.maxgoedjen.secretive.secureenclave.key".utf8)
-        static let keyType = kSecAttrKeyTypeECSECPrimeRandom as String
+    public enum Constants {
+        public static let keyTag = Data("com.maxgoedjen.secretive.secureenclave.key".utf8)
+        public static let keyType = kSecAttrKeyTypeECSECPrimeRandom as String
         static let unauthenticatedThreshold: TimeInterval = 0.05
     }
 
