@@ -35,7 +35,7 @@ import CryptoKit
         #expect(stubWriter.data == Constants.Responses.requestFailure)
     }
 
-    @Test func signature() async throws {
+    @Test func ecdsaSignature() async throws {
         let stubReader = StubFileHandleReader(availableData: Constants.Requests.requestSignature)
         let requestReader = OpenSSHReader(data: Constants.Requests.requestSignature[5...])
         _ = requestReader.readNextChunk()

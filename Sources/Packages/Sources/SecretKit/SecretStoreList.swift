@@ -20,7 +20,7 @@ import Observation
 
     /// Adds a non-type-erased modifiable SecretStore.
     public func add<SecretStoreType: SecretStoreModifiable>(store: SecretStoreType) {
-        let modifiable = AnySecretStoreModifiable(modifiable: store)
+        let modifiable = AnySecretStoreModifiable(store)
         if modifiableStore == nil {
             modifiableStore = modifiable
         }

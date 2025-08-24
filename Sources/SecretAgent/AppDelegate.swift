@@ -12,7 +12,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     @MainActor private let storeList: SecretStoreList = {
         let list = SecretStoreList()
-        list.add(store: SecureEnclave.Store())
+        let cryptoKit = SecureEnclave.Store()
+        let migrator = SecureEnclave.CryptoKitMigrator()
+        try? migrator.migrate(to: cryptoKit)
+        list.add(store: cryptoKit)
         list.add(store: SmartCard.Store())
         return list
     }()
@@ -46,6 +49,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             updater.update
         } onChange: { [updater, notifier] in
             Task {
+                guard !updater.testBuild else { return }
                 await notifier.notify(update: updater.update!) { release in
                     await updater.ignore(release: release)
                 }

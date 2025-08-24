@@ -26,7 +26,7 @@ struct SecretListItemView: View {
     
     var body: some View {
         NavigationLink(value: secret) {
-            if secret.requiresAuthentication {
+            if secret.authenticationRequirement.required {
                 HStack {
                     Text(secret.name)
                     Spacer()
@@ -39,14 +39,16 @@ struct SecretListItemView: View {
         .contextMenu {
             if store is AnySecretStoreModifiable {
                 Button(action: { isRenaming = true }) {
-                    Text(.secretListRenameButton)
+                    Image(systemName: "pencil")
+                    Text(.secretListEditButton)
                 }
                 Button(action: { isDeleting = true }) {
+                    Image(systemName: "trash")
                     Text(.secretListDeleteButton)
                 }
             }
         }
-        .popover(isPresented: showingPopup) {
+        .sheet(isPresented: showingPopup) {
             if let modifiable = store as? AnySecretStoreModifiable {
                 if isDeleting {
                     DeleteSecretView(store: modifiable, secret: secret) { deleted in
@@ -56,7 +58,7 @@ struct SecretListItemView: View {
                         }
                     }
                 } else if isRenaming {
-                    RenameSecretView(store: modifiable, secret: secret) { renamed in
+                    EditSecretView(store: modifiable, secret: secret) { renamed in
                         isRenaming = false
                         if renamed {
                             renamedSecret(secret)

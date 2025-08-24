@@ -9,11 +9,13 @@ extension Preview {
 
         let id = UUID().uuidString
         let name: String
-        let algorithm = Algorithm.ellipticCurve
-        let keySize = 256
-        let requiresAuthentication: Bool = false
-        let publicKey = UUID().uuidString.data(using: .utf8)!
-
+        let publicKey = Data(UUID().uuidString.utf8)
+        var attributes: Attributes {
+            Attributes(
+                keyType: .init(algorithm: .ecdsa, size: 256),
+                authentication: .presenceRequired,
+            )
+        }
     }
 
 }
@@ -58,6 +60,11 @@ extension Preview {
         let id = UUID()
         var name: String { "Modifiable Preview Store" }
         let secrets: [Secret]
+        var supportedKeyTypes: [KeyType] {
+            [
+                .init(algorithm: .ecdsa, size: 256),
+            ]
+        }
 
         init(secrets: [Secret]) {
             self.secrets = secrets
@@ -83,13 +90,13 @@ extension Preview {
         }
 
 
-        func create(name: String, requiresAuthentication: Bool) throws {
+        func create(name: String, attributes: Attributes) throws {
         }
 
         func delete(secret: Preview.Secret) throws {
         }
 
-        func update(secret: Preview.Secret, name: String) throws {
+        func update(secret: Preview.Secret, name: String, attributes: Attributes) throws {
         }
     }
 }

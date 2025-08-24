@@ -56,14 +56,6 @@ extension SmartCard {
 
         // MARK: Public API
 
-        public func create(name: String) throws {
-            fatalError("Keys must be created on the smart card.")
-        }
-
-        public func delete(secret: Secret) throws {
-            fatalError("Keys must be deleted on the smart card.")
-        }
-
         public func sign(data: Data, with secret: Secret, for provenance: SigningRequestProvenance) async throws -> Data {
             guard let tokenID = await state.tokenID else { fatalError() }
             let context = LAContext()
@@ -87,7 +79,8 @@ extension SmartCard {
             }
             let key = untypedSafe as! SecKey
             var signError: SecurityError?
-            guard let signature = SecKeyCreateSignature(key, signatureAlgorithm(for: secret, allowRSA: true), data as CFData, &signError) else {
+            guard let algorithm = signatureAlgorithm(for: secret) else { throw UnsupportKeyType() }
+            guard let signature = SecKeyCreateSignature(key, algorithm, data as CFData, &signError) else {
                 throw SigningError(error: signError)
             }
             return signature as Data
@@ -161,16 +154,19 @@ extension SmartCard.Store {
         var untyped: CFTypeRef?
         SecItemCopyMatching(attributes, &untyped)
         guard let typed = untyped as? [[CFString: Any]] else { return }
-        let wrapped = typed.map {
+        let wrapped: [SecretType] = typed.compactMap {
             let name = $0[kSecAttrLabel] as? String ?? String(localized: .unnamedSecret)
             let tokenID = $0[kSecAttrApplicationLabel] as! Data
-            let algorithm = Algorithm(secAttr: $0[kSecAttrKeyType] as! NSNumber)
+            let algorithmSecAttr = $0[kSecAttrKeyType] as! NSNumber
             let keySize = $0[kSecAttrKeySizeInBits] as! Int
             let publicKeyRef = $0[kSecValueRef] as! SecKey
             let publicKeySecRef = SecKeyCopyPublicKey(publicKeyRef)!
             let publicKeyAttributes = SecKeyCopyAttributes(publicKeySecRef) as! [CFString: Any]
             let publicKey = publicKeyAttributes[kSecValueData] as! Data
-            return SmartCard.Secret(id: tokenID, name: name, algorithm: algorithm, keySize: keySize, publicKey: publicKey)
+            let attributes = Attributes(keyType: KeyType(secAttr: algorithmSecAttr, size: keySize)!, authentication: .unknown)
+            let secret = SmartCard.Secret(id: tokenID, name: name, publicKey: publicKey, attributes: attributes)
+            guard signatureAlgorithm(for: secret) != nil else { return nil }
+            return secret
         }
         state.secrets.append(contentsOf: wrapped)
     }
@@ -183,5 +179,11 @@ extension TKTokenWatcher {
     fileprivate var nonSecureEnclaveTokens: [String] {
         tokenIDs.filter { !$0.contains("setoken") }
     }
+
+}
+
+extension SmartCard {
+
+    public struct UnsupportKeyType: Error {}
 
 }

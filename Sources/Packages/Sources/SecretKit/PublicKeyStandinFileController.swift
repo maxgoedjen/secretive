@@ -6,7 +6,7 @@ public final class PublicKeyFileStoreController: Sendable {
 
     private let logger = Logger(subsystem: "com.maxgoedjen.secretive.secretagent", category: "PublicKeyFileStoreController")
     private let directory: String
-    private let keyWriter = OpenSSHKeyWriter()
+    private let keyWriter = OpenSSHPublicKeyWriter()
 
     /// Initializes a PublicKeyFileStoreController.
     public init(homeDirectory: String) {
@@ -32,7 +32,7 @@ public final class PublicKeyFileStoreController: Sendable {
         try? FileManager.default.createDirectory(at: URL(fileURLWithPath: directory), withIntermediateDirectories: false, attributes: nil)
         for secret in secrets {
             let path = publicKeyPath(for: secret)
-            guard let data = keyWriter.openSSHString(secret: secret).data(using: .utf8) else { continue }
+            let data = Data(keyWriter.openSSHString(secret: secret).utf8)
             FileManager.default.createFile(atPath: path, contents: data, attributes: nil)
         }
         logger.log("Finished writing public keys")

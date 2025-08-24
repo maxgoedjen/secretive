@@ -51,19 +51,17 @@ public extension SecretStore {
     /// Returns the appropriate keychian signature algorithm to use for a given secret.
     /// - Parameters:
     ///   - secret: The secret which will be used for signing.
-    ///   - allowRSA: Whether or not RSA key types should be permited.
     /// - Returns: The appropriate algorithm.
-    func signatureAlgorithm(for secret: SecretType, allowRSA: Bool = false) -> SecKeyAlgorithm {
-        switch (secret.algorithm, secret.keySize) {
-        case (.ellipticCurve, 256):
-            return .ecdsaSignatureMessageX962SHA256
-        case (.ellipticCurve, 384):
-            return .ecdsaSignatureMessageX962SHA384
-        case (.rsa, 1024), (.rsa, 2048):
-            guard allowRSA else { fatalError() }
-            return .rsaSignatureMessagePKCS1v15SHA512
+    func signatureAlgorithm(for secret: SecretType) -> SecKeyAlgorithm? {
+        switch (secret.keyType.algorithm, secret.keyType.size) {
+        case (.ecdsa, 256):
+            .ecdsaSignatureMessageX962SHA256
+        case (.ecdsa, 384):
+            .ecdsaSignatureMessageX962SHA384
+        case (.rsa, 2048):
+            .rsaSignatureMessagePKCS1v15SHA512
         default:
-            fatalError()
+            nil
         }
 
     }

@@ -3,14 +3,12 @@ import Foundation
 /// Type eraser for Secret.
 public struct AnySecret: Secret, @unchecked Sendable {
 
-    public let base: Any
+    public let base: any Secret
     private let hashable: AnyHashable
     private let _id: () -> AnyHashable
     private let _name: () -> String
-    private let _algorithm: () -> Algorithm
-    private let _keySize: () -> Int
-    private let _requiresAuthentication: () -> Bool
     private let _publicKey: () -> Data
+    private let _attributes: () -> Attributes
 
     public init<T>(_ secret: T) where T: Secret {
         if let secret = secret as? AnySecret {
@@ -18,19 +16,15 @@ public struct AnySecret: Secret, @unchecked Sendable {
             hashable = secret.hashable
             _id = secret._id
             _name = secret._name
-            _algorithm = secret._algorithm
-            _keySize = secret._keySize
-            _requiresAuthentication = secret._requiresAuthentication
             _publicKey = secret._publicKey
+            _attributes = secret._attributes
         } else {
-            base = secret as Any
+            base = secret
             self.hashable = secret
             _id = { secret.id as AnyHashable }
             _name = { secret.name }
-            _algorithm = { secret.algorithm }
-            _keySize = { secret.keySize }
-            _requiresAuthentication = { secret.requiresAuthentication }
             _publicKey = { secret.publicKey }
+            _attributes = { secret.attributes }
         }
     }
 
@@ -42,20 +36,12 @@ public struct AnySecret: Secret, @unchecked Sendable {
         _name()
     }
 
-    public var algorithm: Algorithm {
-        _algorithm()
-    }
-
-    public var keySize: Int {
-        _keySize()
-    }
-
-    public var requiresAuthentication: Bool {
-        _requiresAuthentication()
-    }
-
     public var publicKey: Data {
         _publicKey()
+    }
+    
+    public var attributes: Attributes {
+        _attributes()
     }
 
     public static func == (lhs: AnySecret, rhs: AnySecret) -> Bool {

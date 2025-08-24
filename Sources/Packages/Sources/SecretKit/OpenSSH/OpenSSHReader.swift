@@ -17,9 +17,7 @@ public final class OpenSSHReader {
         let lengthRange = 0..<(UInt32.bitWidth/8)
         let lengthChunk = remaining[lengthRange]
         remaining.removeSubrange(lengthRange)
-        let littleEndianLength = lengthChunk.withUnsafeBytes { pointer in
-            return pointer.load(as: UInt32.self)
-        }
+        let littleEndianLength = lengthChunk.bytes.unsafeLoad(as: UInt32.self)
         let length = Int(littleEndianLength.bigEndian)
         let dataRange = 0..<length
         let ret = Data(remaining[dataRange])
