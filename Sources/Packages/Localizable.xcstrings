@@ -6152,6 +6152,9 @@
           }
         }
       }
+    },
+    "Warning: ML-DSA keys are very new, and not supported by many servers yet. Please verify the server you'll be using this key for accepts ML-DSA keys." : {
+
     }
   },
   "version" : "1.0"
