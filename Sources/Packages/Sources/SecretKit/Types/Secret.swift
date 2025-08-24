@@ -68,7 +68,7 @@ public struct KeyType: Hashable, Sendable, Codable, CustomStringConvertible {
             kSecAttrKeyTypeEC
         case .rsa:
             kSecAttrKeyTypeRSA
-        default:
+        case .mldsa:
             nil
         }
     }
