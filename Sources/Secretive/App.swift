@@ -10,7 +10,6 @@ extension EnvironmentValues {
     @MainActor fileprivate static let _secretStoreList: SecretStoreList = {
         let list = SecretStoreList()
         list.add(store: SecureEnclave.Store())
-        list.add(store: SecureEnclave.CryptoKitStore())
         list.add(store: SmartCard.Store())
         return list
     }()

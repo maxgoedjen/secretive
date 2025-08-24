@@ -41,6 +41,7 @@ extension SecureEnclave {
             self.publicKey = publicKey
             self.attributes = attributes
         }
+
     }
 
 }

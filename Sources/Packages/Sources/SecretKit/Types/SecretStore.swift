@@ -1,7 +1,7 @@
 import Foundation
 
 /// Manages access to Secrets, and performs signature operations on data using those Secrets.
-public protocol SecretStore: Identifiable, Sendable {
+public protocol SecretStore<SecretType>: Identifiable, Sendable {
 
     associatedtype SecretType: Secret
 
@@ -41,7 +41,7 @@ public protocol SecretStore: Identifiable, Sendable {
 }
 
 /// A SecretStore that the Secretive admin app can modify.
-public protocol SecretStoreModifiable: SecretStore {
+public protocol SecretStoreModifiable<SecretType>: SecretStore {
 
     /// Creates a new ``Secret`` in the store.
     /// - Parameters:

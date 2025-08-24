@@ -66,7 +66,7 @@ public final class AnySecretStoreModifiable: AnySecretStore, SecretStoreModifiab
     private let _update: @Sendable (AnySecret, String, Attributes) async throws -> Void
     private let _supportedKeyTypes: @Sendable () -> [KeyType]
 
-    public init<SecretStoreType>(modifiable secretStore: SecretStoreType) where SecretStoreType: SecretStoreModifiable {
+    public init<SecretStoreType>(_ secretStore: SecretStoreType) where SecretStoreType: SecretStoreModifiable {
         _create = { try await secretStore.create(name: $0, attributes: $1) }
         _delete = { try await secretStore.delete(secret: $0.base as! SecretStoreType.SecretType) }
         _update = { try await secretStore.update(secret: $0.base as! SecretStoreType.SecretType, name: $1, attributes: $2) }

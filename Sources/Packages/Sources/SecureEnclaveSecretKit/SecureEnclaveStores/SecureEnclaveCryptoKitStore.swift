@@ -9,15 +9,14 @@ import os
 extension SecureEnclave {
 
     /// An implementation of Store backed by the Secure Enclave using CryptoKit API.
-    @available(macOS 14, *)
-    @Observable public final class CryptoKitStore: SecretStoreModifiable {
+    @Observable final class CryptoKitStore: SecretStoreModifiable {
 
-        @MainActor public var secrets: [Secret] = []
-        public var isAvailable: Bool {
+        @MainActor var secrets: [Secret] = []
+        var isAvailable: Bool {
             CryptoKit.SecureEnclave.isAvailable
         }
-        public let id = UUID()
-        public let name = String(localized: .secureEnclave)
+        let id = UUID()
+        let name = String(localized: .secureEnclave)
         private let persistentAuthenticationHandler = PersistentAuthenticationHandler()
 
         /// Initializes a Store.
@@ -25,7 +24,7 @@ extension SecureEnclave {
             loadSecrets()
             Task {
                 for await _ in DistributedNotificationCenter.default().notifications(named: .secretStoreUpdated) {
-                    await reloadSecretsInternal(notifyAgent: false)
+                    reloadSecrets()
                 }
             }
         }
@@ -47,7 +46,7 @@ extension SecureEnclave {
 
             let queryAttributes = KeychainDictionary([
                 kSecClass: Constants.keyClass,
-                kSecAttrService: Constants.keyTag,
+                kSecAttrService: SecureEnclave.Constants.keyTag,
                 kSecUseDataProtectionKeychain: true,
                 kSecAttrAccount: String(decoding: secret.id, as: UTF8.self),
                 kSecReturnAttributes: true,
@@ -95,7 +94,7 @@ extension SecureEnclave {
                 kSecAttrApplicationLabel: secret.id as CFData,
                 kSecAttrKeyType: Constants.keyClass,
                 kSecAttrTokenID: kSecAttrTokenIDSecureEnclave,
-                kSecAttrApplicationTag: Constants.keyTag,
+                kSecAttrApplicationTag: SecureEnclave.Constants.keyTag,
                 kSecUseAuthenticationContext: context,
                 kSecReturnRef: true
                 ])
@@ -128,8 +127,9 @@ extension SecureEnclave {
             try await persistentAuthenticationHandler.persistAuthentication(secret: secret, forDuration: duration)
         }
 
-        public func reloadSecrets() async {
-            await reloadSecretsInternal(notifyAgent: false)
+        @MainActor public func reloadSecrets() {
+            secrets.removeAll()
+            loadSecrets()
         }
 
         // MARK: SecretStoreModifiable
@@ -171,13 +171,13 @@ extension SecureEnclave {
                 throw Attributes.UnsupportedOptionError()
             }
             try saveKey(dataRep, name: name, attributes: attributes)
-            await reloadSecretsInternal()
+            await reloadSecrets()
         }
 
         public func delete(secret: Secret) async throws {
             let deleteAttributes = KeychainDictionary([
                 kSecClass: Constants.keyClass,
-                kSecAttrService: Constants.keyTag,
+                kSecAttrService: SecureEnclave.Constants.keyTag,
                 kSecUseDataProtectionKeychain: true,
                 kSecAttrAccount: String(decoding: secret.id, as: UTF8.self)
             ])
@@ -185,7 +185,7 @@ extension SecureEnclave {
             if status != errSecSuccess {
                 throw KeychainError(statusCode: status)
             }
-            await reloadSecretsInternal()
+            await reloadSecrets()
         }
 
         public func update(secret: Secret, name: String, attributes: Attributes) async throws {
@@ -202,7 +202,7 @@ extension SecureEnclave {
             if status != errSecSuccess {
                 throw KeychainError(statusCode: status)
             }
-            await reloadSecretsInternal()
+            await reloadSecrets()
         }
         
         public var supportedKeyTypes: [KeyType] {
@@ -217,28 +217,13 @@ extension SecureEnclave {
 
 }
 
-@available(macOS 14, *)
 extension SecureEnclave.CryptoKitStore {
-
-    /// Reloads all secrets from the store.
-    /// - Parameter notifyAgent: A boolean indicating whether a distributed notification should be posted, notifying other processes (ie, the SecretAgent) to reload their stores as well.
-    @MainActor private func reloadSecretsInternal(notifyAgent: Bool = true) async {
-        let before = secrets
-        secrets.removeAll()
-        loadSecrets()
-        if secrets != before {
-            NotificationCenter.default.post(name: .secretStoreReloaded, object: self)
-            if notifyAgent {
-                DistributedNotificationCenter.default().postNotificationName(.secretStoreUpdated, object: nil, deliverImmediately: true)
-            }
-        }
-    }
 
     /// Loads all secrets from the store.
     @MainActor private func loadSecrets() {
         let queryAttributes = KeychainDictionary([
             kSecClass: Constants.keyClass,
-            kSecAttrService: Constants.keyTag,
+            kSecAttrService: SecureEnclave.Constants.keyTag,
             kSecUseDataProtectionKeychain: true,
             kSecReturnData: true,
             kSecMatchLimit: kSecMatchLimitAll,
@@ -290,7 +275,7 @@ extension SecureEnclave.CryptoKitStore {
         let attributes = try JSONEncoder().encode(attributes)
         let keychainAttributes = KeychainDictionary([
             kSecClass: Constants.keyClass,
-            kSecAttrService: Constants.keyTag,
+            kSecAttrService: SecureEnclave.Constants.keyTag,
             kSecUseDataProtectionKeychain: true,
             kSecAttrAccessible: kSecAttrAccessibleWhenUnlockedThisDeviceOnly,
             kSecAttrAccount: UUID().uuidString,
@@ -306,11 +291,9 @@ extension SecureEnclave.CryptoKitStore {
     
 }
 
-@available(macOS 14, *)
 extension SecureEnclave.CryptoKitStore {
 
     enum Constants {
-        static let keyTag = Data("com.maxgoedjen.secretive.secureenclave.key".utf8)
         static let keyClass = kSecClassGenericPassword as String
     }
     

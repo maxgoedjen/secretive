@@ -12,7 +12,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     @MainActor private let storeList: SecretStoreList = {
         let list = SecretStoreList()
-//        list.add(store: SecureEnclave.CryptoKitStore())
         list.add(store: SecureEnclave.Store())
         list.add(store: SmartCard.Store())
         return list
