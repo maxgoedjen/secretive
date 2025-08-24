@@ -69,7 +69,7 @@ extension SecureEnclave {
             switch (attributes.keyType.algorithm, attributes.keyType.size) {
             case (.ecdsa, 256):
                 let key = try CryptoKit.SecureEnclave.P256.Signing.PrivateKey(dataRepresentation: keyData)
-                return try key.signature(for: data).derRepresentation
+                return try key.signature(for: data).rawRepresentation
             case (.mldsa, 65):
                 guard #available(macOS 26.0, *)  else { throw UnsupportedAlgorithmError() }
                 let key = try CryptoKit.SecureEnclave.MLDSA65.PrivateKey(dataRepresentation: keyData)

@@ -135,46 +135,43 @@ extension Agent {
         }
 
         let dataToSign = reader.readNextChunk()
-        let signed = try await store.sign(data: dataToSign, with: secret, for: provenance)
-        let derSignature = signed
+        let rawRepresentation = try await store.sign(data: dataToSign, with: secret, for: provenance)
 
         let curveData = Data(writer.curveType(for: secret.keyType).utf8)
 
-        // Convert from DER formatted rep to raw (r||s)
+        let signedData: Data
+        if secret.keyType.algorithm == .ecdsa {
+            let rawLength = rawRepresentation.count/2
+            // Check if we need to pad with 0x00 to prevent certain
+            // ssh servers from thinking r or s is negative
+            let paddingRange: ClosedRange<UInt8> = 0x80...0xFF
+            var r = Data(rawRepresentation[0..<rawLength])
+            if paddingRange ~= r.first! {
+                r.insert(0x00, at: 0)
+            }
+            var s = Data(rawRepresentation[rawLength...])
+            if paddingRange ~= s.first! {
+                s.insert(0x00, at: 0)
+            }
 
-        let rawRepresentation: Data
-        switch (secret.keyType.algorithm, secret.keyType.size) {
-        case (.ecdsa, 256):
-            rawRepresentation = try CryptoKit.P256.Signing.ECDSASignature(derRepresentation: derSignature).rawRepresentation
-        case (.ecdsa, 384):
-            rawRepresentation = try CryptoKit.P384.Signing.ECDSASignature(derRepresentation: derSignature).rawRepresentation
-        default:
-            throw AgentError.unsupportedKeyType
+            var signatureChunk = Data()
+            signatureChunk.append(writer.lengthAndData(of: r))
+            signatureChunk.append(writer.lengthAndData(of: s))
+            var mutSignedData = Data()
+            var sub = Data()
+            sub.append(writer.lengthAndData(of: curveData))
+            sub.append(writer.lengthAndData(of: signatureChunk))
+            mutSignedData.append(writer.lengthAndData(of: sub))
+            signedData = mutSignedData
+        } else {
+            var mutSignedData = Data()
+            var sub = Data()
+            sub.append(writer.lengthAndData(of: Data("rsa-sha2-512".utf8)))
+            sub.append(writer.lengthAndData(of: rawRepresentation))
+            mutSignedData.append(writer.lengthAndData(of: sub))
+
+            signedData = mutSignedData
         }
-
-
-        let rawLength = rawRepresentation.count/2
-        // Check if we need to pad with 0x00 to prevent certain
-        // ssh servers from thinking r or s is negative
-        let paddingRange: ClosedRange<UInt8> = 0x80...0xFF
-        var r = Data(rawRepresentation[0..<rawLength])
-        if paddingRange ~= r.first! {
-            r.insert(0x00, at: 0)
-        }
-        var s = Data(rawRepresentation[rawLength...])
-        if paddingRange ~= s.first! {
-            s.insert(0x00, at: 0)
-        }
-
-        var signatureChunk = Data()
-        signatureChunk.append(writer.lengthAndData(of: r))
-        signatureChunk.append(writer.lengthAndData(of: s))
-
-        var signedData = Data()
-        var sub = Data()
-        sub.append(writer.lengthAndData(of: curveData))
-        sub.append(writer.lengthAndData(of: signatureChunk))
-        signedData.append(writer.lengthAndData(of: sub))
 
         if let witness = witness {
             try await witness.witness(accessTo: secret, from: store, by: provenance)

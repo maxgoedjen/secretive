@@ -104,9 +104,8 @@ extension OpenSSHKeyWriter {
             "nistp" + String(describing: keyType.size)
         case .mldsa:
             "mldsa" + String(describing: keyType.size)
-        case .rsa:
-            // All RSA keys use the same 512 bit hash function
-            "rsa-sha2-512"
+        default:
+            fatalError()
         }
     }
 

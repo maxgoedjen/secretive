@@ -79,7 +79,7 @@ extension SmartCard {
             }
             let key = untypedSafe as! SecKey
             var signError: SecurityError?
-            guard let signature = SecKeyCreateSignature(key, signatureAlgorithm(for: secret, allowRSA: true), data as CFData, &signError) else {
+            guard let signature = SecKeyCreateSignature(key, signatureAlgorithm(for: secret), data as CFData, &signError) else {
                 throw SigningError(error: signError)
             }
             return signature as Data
