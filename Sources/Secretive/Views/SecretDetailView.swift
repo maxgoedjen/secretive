@@ -5,7 +5,7 @@ struct SecretDetailView<SecretType: Secret>: View {
     
     let secret: SecretType
 
-    private let keyWriter = OpenSSHKeyWriter()
+    private let keyWriter = OpenSSHPublicKeyWriter()
     private let publicKeyFileStoreController = PublicKeyFileStoreController(homeDirectory: NSHomeDirectory().replacingOccurrences(of: Bundle.main.hostBundleID, with: Bundle.main.agentBundleID))
     
     var body: some View {
@@ -30,19 +30,9 @@ struct SecretDetailView<SecretType: Secret>: View {
         .frame(minHeight: 200, maxHeight: .infinity)
     }
 
-    var dashedKeyName: String {
-             secret.name.replacingOccurrences(of: " ", with: "-")
-    }
-    
-    var dashedHostName: String {
-        ["secretive", Host.current().localizedName, "local"]
-            .compactMap { $0 }
-            .joined(separator: ".")
-            .replacingOccurrences(of: " ", with: "-")
-    }
-    
+
     var keyString: String {
-        keyWriter.openSSHString(secret: secret, comment: "\(dashedKeyName)@\(dashedHostName)")
+        keyWriter.openSSHString(secret: secret)
     }
 
 }

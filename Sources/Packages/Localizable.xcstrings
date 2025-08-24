@@ -1,6 +1,9 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "Advanced" : {
+
+    },
     "agent_not_running_notice_title" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1083,6 +1086,16 @@
         }
       }
     },
+    "auth_context_request_signature_description_%@_%@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "auth_context_request_signature_description_%1$@_%2$@"
+          }
+        }
+      }
+    },
     "auth_context_request_verify_description" : {
       "comment" : "When the user performs a signature verification action using a secret, they are shown a prompt to approve the action. This is the description, showing which secret will be used. The placeholder is the name of the secret. NOTE: This is currently not exposed in UI.",
       "extractionState" : "manual",
@@ -1475,72 +1488,72 @@
         "ca" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Nom:"
+            "value" : "Nom"
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Name:"
+            "value" : "Name"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Name:"
+            "value" : "Name"
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Nimi:"
+            "value" : "Nimi"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Nom :"
+            "value" : "Nom"
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Nome:"
+            "value" : "Nome"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "名前:"
+            "value" : "名前"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "이름:"
+            "value" : "이름"
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Nazwa:"
+            "value" : "Nazwa"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Nome:"
+            "value" : "Nome"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Название:"
+            "value" : "Название"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "名称"
           }
         }
@@ -2008,6 +2021,9 @@
         }
       }
     },
+    "Current Biometrics" : {
+
+    },
     "delete_confirmation_cancel_button" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -2091,72 +2107,72 @@
         "ca" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Confirma el nom:"
+            "value" : "Confirma el nom"
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Name bestätigen:"
+            "value" : "Name bestätigen"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Confirm Name:"
+            "value" : "Confirm Name"
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Vahvista nimi:"
+            "value" : "Vahvista nimi"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Confirmer le nom :"
+            "value" : "Confirmer le nom"
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Conferma nome:"
+            "value" : "Conferma nome"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "名前の確認:"
+            "value" : "名前の確認"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "확인 이름:"
+            "value" : "확인 이름"
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Powtórz nazwę:"
+            "value" : "Powtórz nazwę"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Confirmar Nome:"
+            "value" : "Confirmar Nome"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Подтвердить название:"
+            "value" : "Подтвердить название"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "确认名称"
           }
         }
@@ -2778,6 +2794,15 @@
         }
       }
     },
+    "If you change your biometric settings in _any way_, including adding a new fingerprint, this key will no longer be accessible." : {
+
+    },
+    "Key Attribution" : {
+
+    },
+    "Key Type" : {
+
+    },
     "no_secure_storage_description" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -3378,6 +3403,9 @@
         }
       }
     },
+    "Require authentication with current set of biometrics." : {
+
+    },
     "secret_detail_md5_fingerprint_label" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -3733,72 +3761,72 @@
         }
       }
     },
-    "secret_list_rename_button" : {
+    "secret_list_edit_button" : {
       "extractionState" : "manual",
       "localizations" : {
         "ca" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Canvia el nom"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Umbenennen"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Rename"
+            "value" : "Edit"
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Renommer"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Rinomina"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "名前を変更"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "이름 변경"
           }
         },
         "pl" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Zmień nazwę"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Renomear"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Переименовать"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "重命名"
           }
         }
@@ -5172,6 +5200,12 @@
           }
         }
       }
+    },
+    "test@example.com" : {
+
+    },
+    "This shows at the end of your public key." : {
+
     },
     "unnamed_secret" : {
       "extractionState" : "manual",

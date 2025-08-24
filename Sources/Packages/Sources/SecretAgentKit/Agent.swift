@@ -9,7 +9,8 @@ public final class Agent: Sendable {
 
     private let storeList: SecretStoreList
     private let witness: SigningWitness?
-    private let writer = OpenSSHKeyWriter()
+    private let publicKeyWriter = OpenSSHPublicKeyWriter()
+    private let signatureWriter = OpenSSHSignatureWriter()
     private let requestTracer = SigningRequestTracer()
     private let certificateHandler = OpenSSHCertificateHandler()
     private let logger = Logger(subsystem: "com.maxgoedjen.secretive.secretagent", category: "Agent")
@@ -43,7 +44,7 @@ extension Agent {
         guard data.count > 4 else { return false}
         let requestTypeInt = data[4]
         guard let requestType = SSHAgent.RequestType(rawValue: requestTypeInt) else {
-            writer.write(OpenSSHKeyWriter().lengthAndData(of: SSHAgent.ResponseType.agentFailure.data))
+            writer.write(SSHAgent.ResponseType.agentFailure.data.lengthAndData)
             logger.debug("Agent returned \(SSHAgent.ResponseType.agentFailure.debugDescription)")
             return true
         }
@@ -75,8 +76,7 @@ extension Agent {
             response.append(SSHAgent.ResponseType.agentFailure.data)
             logger.debug("Agent returned \(SSHAgent.ResponseType.agentFailure.debugDescription)")
         }
-        let full = OpenSSHKeyWriter().lengthAndData(of: response)
-        return full
+        return response.lengthAndData
     }
 
 }
@@ -92,14 +92,14 @@ extension Agent {
         var keyData = Data()
 
         for secret in secrets {
-            let keyBlob = writer.data(secret: secret)
-            let curveData = writer.curveType(for: secret.algorithm, length: secret.keySize).data(using: .utf8)!
-            keyData.append(writer.lengthAndData(of: keyBlob))
-            keyData.append(writer.lengthAndData(of: curveData))
-            
+            let keyBlob = publicKeyWriter.data(secret: secret)
+            let curveData = publicKeyWriter.openSSHIdentifier(for: secret.keyType)
+            keyData.append(keyBlob.lengthAndData)
+            keyData.append(curveData.lengthAndData)
+
             if let (certificateData, name) = try? await certificateHandler.keyBlobAndName(for: secret) {
-                keyData.append(writer.lengthAndData(of: certificateData))
-                keyData.append(writer.lengthAndData(of: name))
+                keyData.append(certificateData.lengthAndData)
+                keyData.append(name.lengthAndData)
                 count += 1
             }
         }
@@ -135,46 +135,8 @@ extension Agent {
         }
 
         let dataToSign = reader.readNextChunk()
-        let signed = try await store.sign(data: dataToSign, with: secret, for: provenance)
-        let derSignature = signed
-
-        let curveData = writer.curveType(for: secret.algorithm, length: secret.keySize).data(using: .utf8)!
-
-        // Convert from DER formatted rep to raw (r||s)
-
-        let rawRepresentation: Data
-        switch (secret.algorithm, secret.keySize) {
-        case (.ellipticCurve, 256):
-            rawRepresentation = try CryptoKit.P256.Signing.ECDSASignature(derRepresentation: derSignature).rawRepresentation
-        case (.ellipticCurve, 384):
-            rawRepresentation = try CryptoKit.P384.Signing.ECDSASignature(derRepresentation: derSignature).rawRepresentation
-        default:
-            throw AgentError.unsupportedKeyType
-        }
-
-
-        let rawLength = rawRepresentation.count/2
-        // Check if we need to pad with 0x00 to prevent certain
-        // ssh servers from thinking r or s is negative
-        let paddingRange: ClosedRange<UInt8> = 0x80...0xFF
-        var r = Data(rawRepresentation[0..<rawLength])
-        if paddingRange ~= r.first! {
-            r.insert(0x00, at: 0)
-        }
-        var s = Data(rawRepresentation[rawLength...])
-        if paddingRange ~= s.first! {
-            s.insert(0x00, at: 0)
-        }
-
-        var signatureChunk = Data()
-        signatureChunk.append(writer.lengthAndData(of: r))
-        signatureChunk.append(writer.lengthAndData(of: s))
-
-        var signedData = Data()
-        var sub = Data()
-        sub.append(writer.lengthAndData(of: curveData))
-        sub.append(writer.lengthAndData(of: signatureChunk))
-        signedData.append(writer.lengthAndData(of: sub))
+        let rawRepresentation = try await store.sign(data: dataToSign, with: secret, for: provenance)
+        let signedData = signatureWriter.data(secret: secret, signature: rawRepresentation)
 
         if let witness = witness {
             try await witness.witness(accessTo: secret, from: store, by: provenance)
@@ -206,7 +168,7 @@ extension Agent {
     func secret(matching hash: Data) async -> (AnySecretStore, AnySecret)? {
         for store in await storeList.stores {
             let allMatching = await store.secrets.filter { secret in
-                hash == writer.data(secret: secret)
+                hash == publicKeyWriter.data(secret: secret)
             }
             if let matching = allMatching.first {
                 return (store, matching)

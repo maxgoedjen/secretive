@@ -30,7 +30,7 @@ struct ContentView: View {
         }
         .frame(minWidth: 640, minHeight: 320)
         .toolbar {
-//            toolbarItem(updateNoticeView, id: "update")
+            toolbarItem(updateNoticeView, id: "update")
             toolbarItem(runningOrRunSetupView, id: "setup")
             toolbarItem(appPathNoticeView, id: "appPath")
             toolbarItem(newItemView, id: "new")

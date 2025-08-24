@@ -3,7 +3,7 @@ import Foundation
 /// Type eraser for SecretStore.
 open class AnySecretStore: SecretStore, @unchecked Sendable {
 
-    let base: any Sendable
+    let base: any SecretStore
     private let _isAvailable: @MainActor @Sendable () -> Bool
     private let _id: @Sendable () -> UUID
     private let _name: @MainActor @Sendable () -> String
@@ -61,27 +61,33 @@ open class AnySecretStore: SecretStore, @unchecked Sendable {
 
 public final class AnySecretStoreModifiable: AnySecretStore, SecretStoreModifiable, @unchecked Sendable {
 
-    private let _create: @Sendable (String, Bool) async throws -> Void
+    private let _create: @Sendable (String, Attributes) async throws -> Void
     private let _delete: @Sendable (AnySecret) async throws -> Void
-    private let _update: @Sendable (AnySecret, String) async throws -> Void
+    private let _update: @Sendable (AnySecret, String, Attributes) async throws -> Void
+    private let _supportedKeyTypes: @Sendable () -> [KeyType]
 
-    public init<SecretStoreType>(modifiable secretStore: SecretStoreType) where SecretStoreType: SecretStoreModifiable {
-        _create = { try await secretStore.create(name: $0, requiresAuthentication: $1) }
+    public init<SecretStoreType>(_ secretStore: SecretStoreType) where SecretStoreType: SecretStoreModifiable {
+        _create = { try await secretStore.create(name: $0, attributes: $1) }
         _delete = { try await secretStore.delete(secret: $0.base as! SecretStoreType.SecretType) }
-        _update = { try await secretStore.update(secret: $0.base as! SecretStoreType.SecretType, name: $1) }
+        _update = { try await secretStore.update(secret: $0.base as! SecretStoreType.SecretType, name: $1, attributes: $2) }
+        _supportedKeyTypes = { secretStore.supportedKeyTypes }
         super.init(secretStore)
     }
 
-    public func create(name: String, requiresAuthentication: Bool) async throws {
-        try await _create(name, requiresAuthentication)
+    public func create(name: String, attributes: Attributes) async throws {
+        try await _create(name, attributes)
     }
 
     public func delete(secret: AnySecret) async throws {
         try await _delete(secret)
     }
 
-    public func update(secret: AnySecret, name: String) async throws {
-        try await _update(secret, name)
+    public func update(secret: AnySecret, name: String, attributes: Attributes) async throws {
+        try await _update(secret, name, attributes)
+    }
+
+    public var supportedKeyTypes: [KeyType] {
+        _supportedKeyTypes()
     }
 
 }

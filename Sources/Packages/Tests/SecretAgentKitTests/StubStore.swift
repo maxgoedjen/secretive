@@ -45,20 +45,15 @@ extension Stub {
             let privateData = (privateAttributes[kSecValueData] as! Data)
             let secret = Secret(keySize: size, publicKey: publicData, privateKey: privateData)
             print(secret)
-            print("Public Key OpenSSH: \(OpenSSHKeyWriter().openSSHString(secret: secret))")
+            print("Public Key OpenSSH: \(OpenSSHPublicKeyWriter().openSSHString(secret: secret))")
         }
 
         public func sign(data: Data, with secret: Secret, for provenance: SigningRequestProvenance) throws -> Data {
             guard !shouldThrow else {
                 throw NSError(domain: "test", code: 0, userInfo: nil)
             }
-            let privateKey = SecKeyCreateWithData(secret.privateKey as CFData, KeychainDictionary([
-                kSecAttrKeyType: kSecAttrKeyTypeECSECPrimeRandom,
-                kSecAttrKeySizeInBits: secret.keySize,
-                kSecAttrKeyClass: kSecAttrKeyClassPrivate
-                ])
-                , nil)!
-            return SecKeyCreateSignature(privateKey, signatureAlgorithm(for: secret), data as CFData, nil)! as Data
+            let privateKey = try CryptoKit.P256.Signing.PrivateKey(x963Representation: secret.privateKey)
+            return try privateKey.signature(for: data).rawRepresentation
         }
 
         public func existingPersistedAuthenticationContext(secret: Stub.Secret) -> PersistedAuthenticationContext? {
@@ -79,24 +74,22 @@ extension Stub {
 
     struct Secret: SecretKit.Secret, CustomDebugStringConvertible {
 
-        let id = UUID().uuidString.data(using: .utf8)!
+        let id = Data(UUID().uuidString.utf8)
         let name = UUID().uuidString
-        let algorithm = Algorithm.ellipticCurve
-
-        let keySize: Int
+        let attributes: Attributes
         let publicKey: Data
         let requiresAuthentication = false
         let privateKey: Data
 
         init(keySize: Int, publicKey: Data, privateKey: Data) {
-            self.keySize = keySize
+            self.attributes = Attributes(keyType: .init(algorithm: .ecdsa, size: keySize), authentication: .notRequired)
             self.publicKey = publicKey
             self.privateKey = privateKey
         }
 
         var debugDescription: String {
             """
-            Key Size \(keySize)
+            Key Size \(keyType.size)
             Private: \(privateKey.base64EncodedString())
             Public: \(publicKey.base64EncodedString())
             """
