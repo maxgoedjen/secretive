@@ -13,7 +13,9 @@ extension SecureEnclave {
 
         public init() {
         }
-
+        
+        /// Keys prior to 3.0 were created and stored directly using the keychain as kSecClassKey items. CryptoKit operates a little differently, in that it creates a key on your behalf which you can persist using an opaque data blob to a generic keychain item. Keychain created keys _also_ use this blob under the hood, but it's stored in the "toid" attribute. This migrates the old keys from kSecClassKey to generic items, copying the "toid" to be the main stored data. If the key is migrated successfully, the old key's identifier is renamed to indicate it's been migrated.
+        /// - Note: Migration is non-destructive – users can still see and use their keys in older versions of Secretive.
         @MainActor public func migrate(to store: Store) throws {
             let privateAttributes = KeychainDictionary([
                 kSecClass: kSecClassKey,
@@ -90,6 +92,7 @@ extension SecureEnclave.CryptoKitMigrator {
     enum Constants {
         public static let oldKeyType = kSecAttrKeyTypeECSECPrimeRandom as String
         public static let migrationMagicNumber = Data("_cryptokit_1".utf8)
+        // https://github.com/apple-opensource/Security/blob/5e9101b3bd1fb096bae4f40e79d50426ba1db8e9/OSX/sec/Security/SecItemConstants.c#L111
         public static nonisolated(unsafe) let tokenObjectID = "toid" as CFString
     }
 
