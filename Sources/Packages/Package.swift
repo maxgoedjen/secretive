@@ -36,47 +36,47 @@ let package = Package(
             name: "SecretKit",
             dependencies: [],
             resources: [localization],
-            swiftSettings: swiftSettings
+            swiftSettings: swiftSettings,
         ),
         .testTarget(
             name: "SecretKitTests",
             dependencies: ["SecretKit", "SecureEnclaveSecretKit", "SmartCardSecretKit"],
-            swiftSettings: swiftSettings
+            swiftSettings: swiftSettings,
         ),
         .target(
             name: "SecureEnclaveSecretKit",
             dependencies: ["SecretKit"],
             resources: [localization],
-            swiftSettings: swiftSettings
+            swiftSettings: swiftSettings,
         ),
         .target(
             name: "SmartCardSecretKit",
             dependencies: ["SecretKit"],
             resources: [localization],
-            swiftSettings: swiftSettings
+            swiftSettings: swiftSettings,
         ),
         .target(
             name: "SecretAgentKit",
             dependencies: ["SecretKit", "SecretAgentKitHeaders"],
             resources: [localization],
-            swiftSettings: swiftSettings
+            swiftSettings: swiftSettings,
         ),
         .systemLibrary(
-            name: "SecretAgentKitHeaders"
+            name: "SecretAgentKitHeaders",
         ),
         .testTarget(
             name: "SecretAgentKitTests",
-            dependencies: ["SecretAgentKit"])
-        ,
+            dependencies: ["SecretAgentKit"],
+        ),
         .target(
             name: "Brief",
             dependencies: [],
             resources: [localization],
-            swiftSettings: swiftSettings
+            swiftSettings: swiftSettings,
         ),
         .testTarget(
             name: "BriefTests",
-            dependencies: ["Brief"]
+            dependencies: ["Brief"],
         ),
     ]
 )

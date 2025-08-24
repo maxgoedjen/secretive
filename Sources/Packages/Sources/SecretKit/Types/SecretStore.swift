@@ -1,5 +1,4 @@
 import Foundation
-import Combine
 
 /// Manages access to Secrets, and performs signature operations on data using those Secrets.
 public protocol SecretStore: Identifiable, Sendable {
