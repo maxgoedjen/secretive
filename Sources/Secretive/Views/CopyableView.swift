@@ -8,9 +8,7 @@ struct CopyableView: View {
     var text: String
 
     @State private var interactionState: InteractionState = .normal
-    @State private var expanded = false
-    @State private var showExpand = false
-
+    
     var content: some View {
         VStack(alignment: .leading) {
             HStack {
@@ -33,48 +31,15 @@ struct CopyableView: View {
             }
             .padding(EdgeInsets(top: 20, leading: 20, bottom: 10, trailing: 20))
             Divider()
-            textView
-                .lineLimit(expanded ? nil : 5)
-                .overlay {
-                    ViewThatFits {
-                        textView
-                            .hidden()
-                            .onAppear {
-                                showExpand = false
-                            }
-                        Spacer()
-                            .onAppear {
-                                showExpand = true
-                            }
-                    }
-                }
-                .overlay(alignment: .bottomTrailing) {
-                    if showExpand {
-                        if #available(macOS 26.0, *) {
-                            Button("Test", systemImage: "rectangle.expand.vertical") {
-                                expanded = true
-                                showExpand = false
-                            }
-                            .labelStyle(.iconOnly)
-                            .buttonBorderShape(.circle)
-                            .buttonStyle(.glass)
-                            .padding()
-                        } else {
-                        }
-                    }
-                }
+            Text(text)
+                .fixedSize(horizontal: false, vertical: true)
+                .foregroundColor(primaryTextColor)
+                .padding(EdgeInsets(top: 10, leading: 20, bottom: 20, trailing: 20))
+                .multilineTextAlignment(.leading)
+                .font(.system(.body, design: .monospaced))
         }
         ._background(interactionState: interactionState)
         .frame(minWidth: 150, maxWidth: .infinity)
-    }
-
-    var textView: some View {
-        Text(text)
-            .fixedSize(horizontal: false, vertical: true)
-            .foregroundColor(primaryTextColor)
-            .padding(EdgeInsets(top: 10, leading: 20, bottom: 20, trailing: 20))
-            .multilineTextAlignment(.leading)
-            .font(.system(.body, design: .monospaced))
     }
 
     var body: some View {
@@ -84,10 +49,10 @@ struct CopyableView: View {
                 interactionState = hovering ? .hovering : .normal
             }
         }
-        .draggable(text, preview: {
-                content
-                .lineLimit(3)
-                .frame(maxWidth: 300)
+        .onDrag({
+            NSItemProvider(item: NSData(data: text.data(using: .utf8)!), typeIdentifier: UTType.utf8PlainText.identifier)
+        }, preview: {
+            content
                 ._background(interactionState: .dragging)
         })
         .onTapGesture {
@@ -205,7 +170,7 @@ struct CopyableView_Previews: PreviewProvider {
         Group {
             CopyableView(title: "secret_detail_sha256_fingerprint_label", image: Image(systemName: "figure.wave"), text: "Hello world.")
                 .padding()
-            CopyableView(title: "secret_detail_sha256_fingerprint_label", image: Image(systemName: "figure.wave"), text: "Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text.")
+            CopyableView(title: "secret_detail_sha256_fingerprint_label", image: Image(systemName: "figure.wave"), text: "Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. ")
                 .padding()
         }
     }
