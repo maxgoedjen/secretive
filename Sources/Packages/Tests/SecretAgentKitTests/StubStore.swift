@@ -45,7 +45,7 @@ extension Stub {
             let privateData = (privateAttributes[kSecValueData] as! Data)
             let secret = Secret(keySize: size, publicKey: publicData, privateKey: privateData)
             print(secret)
-            print("Public Key OpenSSH: \(OpenSSHKeyWriter().openSSHString(secret: secret))")
+            print("Public Key OpenSSH: \(OpenSSHPublicKeyWriter().openSSHString(secret: secret))")
         }
 
         public func sign(data: Data, with secret: Secret, for provenance: SigningRequestProvenance) throws -> Data {

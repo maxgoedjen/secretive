@@ -6,7 +6,7 @@ public actor OpenSSHCertificateHandler: Sendable {
 
     private let publicKeyFileStoreController = PublicKeyFileStoreController(homeDirectory: NSHomeDirectory())
     private let logger = Logger(subsystem: "com.maxgoedjen.secretive.secretagent", category: "OpenSSHCertificateHandler")
-    private let writer = OpenSSHKeyWriter()
+    private let writer = OpenSSHPublicKeyWriter()
     private var keyBlobsAndNames: [AnySecret: (Data, Data)] = [:]
 
     /// Initializes an OpenSSHCertificateHandler.
@@ -40,10 +40,10 @@ public actor OpenSSHCertificateHandler: Sendable {
             let curveIdentifier = reader.readNextChunk()
             let publicKey = reader.readNextChunk()
 
-            let curveType = Data(certType.replacingOccurrences(of: "-cert-v01@openssh.com", with: "").utf8)
-            return writer.lengthAndData(of: curveType) +
-                   writer.lengthAndData(of: curveIdentifier) +
-                   writer.lengthAndData(of: publicKey)
+            let openSSHIdentifier = certType.replacingOccurrences(of: "-cert-v01@openssh.com", with: "")
+            return openSSHIdentifier.lengthAndData +
+            curveIdentifier.lengthAndData +
+            publicKey.lengthAndData
         default:
             return nil
         }

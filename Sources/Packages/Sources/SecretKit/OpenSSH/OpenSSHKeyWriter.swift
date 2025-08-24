@@ -1,8 +1,8 @@
 import Foundation
 import CryptoKit
 
-/// Generates OpenSSH representations of Secrets.
-public struct OpenSSHKeyWriter: Sendable {
+/// Generates OpenSSH representations of the public key sof secrets.
+public struct OpenSSHPublicKeyWriter: Sendable {
 
     /// Initializes the writer.
     public init() {
@@ -13,15 +13,18 @@ public struct OpenSSHKeyWriter: Sendable {
     public func data<SecretType: Secret>(secret: SecretType) -> Data {
         switch secret.keyType.algorithm {
         case .ecdsa:
-            lengthAndData(of: Data(curveType(for: secret.keyType).utf8)) +
-            lengthAndData(of: Data(curveIdentifier(for: secret.keyType).utf8)) +
-            lengthAndData(of: secret.publicKey)
+            // https://datatracker.ietf.org/doc/html/rfc5656#section-3.1
+            openSSHIdentifier(for: secret.keyType).lengthAndData +
+            ("nistp" + String(describing: secret.keyType.size)).lengthAndData +
+            secret.publicKey.lengthAndData
         case .mldsa:
-            lengthAndData(of: Data(curveType(for: secret.keyType).utf8)) +
-            lengthAndData(of: secret.publicKey)
+            // https://www.ietf.org/archive/id/draft-sfluhrer-ssh-mldsa-04.txt
+            openSSHIdentifier(for: secret.keyType).lengthAndData +
+            secret.publicKey.lengthAndData
         case .rsa:
-            lengthAndData(of: Data(curveType(for: secret.keyType).utf8)) +
-            rsa(secret: secret)
+            // https://datatracker.ietf.org/doc/html/rfc4253#section-6.6
+            openSSHIdentifier(for: secret.keyType).lengthAndData +
+            rsaPublicKeyBlob(secret: secret)
         }
     }
 
@@ -39,7 +42,7 @@ public struct OpenSSHKeyWriter: Sendable {
                 .replacingOccurrences(of: " ", with: "-")
             resolvedComment = "\(dashedKeyName)@\(dashedHostName)"
         }
-        return [curveType(for: secret.keyType), data(secret: secret).base64EncodedString(), resolvedComment]
+        return [openSSHIdentifier(for: secret.keyType), data(secret: secret).base64EncodedString(), resolvedComment]
             .compactMap { $0 }
             .joined(separator: " ")
     }
@@ -64,63 +67,43 @@ public struct OpenSSHKeyWriter: Sendable {
 
 }
 
-extension OpenSSHKeyWriter {
-
-    /// Creates an OpenSSH protocol style data object, which has a length header, followed by the data payload.
-    /// - Parameter data: The data payload.
-    /// - Returns: OpenSSH data.
-    public func lengthAndData(of data: Data) -> Data {
-        let rawLength = UInt32(data.count)
-        var endian = rawLength.bigEndian
-        return Data(bytes: &endian, count: UInt32.bitWidth/8) + data
-    }
+extension OpenSSHPublicKeyWriter {
 
     /// The fully qualified OpenSSH identifier for the algorithm.
     /// - Parameters:
     ///   - algorithm: The algorithm to identify.
     ///   - length: The key length of the algorithm.
     /// - Returns: The OpenSSH identifier for the algorithm.
-    public func curveType(for keyType: KeyType) -> String {
+    public func openSSHIdentifier(for keyType: KeyType) -> String {
         switch (keyType.algorithm, keyType.size) {
         case (.ecdsa, 256), (.ecdsa, 384):
             "ecdsa-sha2-nistp" + String(describing: keyType.size)
         case (.mldsa, 65), (.mldsa, 87):
-            "ssh-mldsa" + String(describing: keyType.size)
+            "ssh-mldsa-" + String(describing: keyType.size)
         case (.rsa, _):
-             "ssh-rsa"
+            "ssh-rsa"
         default:
             "unknown"
         }
     }
 
-    /// The OpenSSH identifier for an algorithm.
-    /// - Parameters:
-    ///   - algorithm: The algorithm to identify.
-    ///   - length: The key length of the algorithm.
-    /// - Returns: The OpenSSH identifier for the algorithm.
-    private func curveIdentifier(for keyType: KeyType) -> String {
-        switch keyType.algorithm {
-        case .ecdsa:
-            "nistp" + String(describing: keyType.size)
-        case .mldsa:
-            "mldsa" + String(describing: keyType.size)
-        default:
-            fatalError()
-        }
-    }
+}
 
-    public func rsa<SecretType: Secret>(secret: SecretType) -> Data {
+extension OpenSSHPublicKeyWriter {
+
+    public func rsaPublicKeyBlob<SecretType: Secret>(secret: SecretType) -> Data {
         // Cheap way to pull out e and n as defined in https://datatracker.ietf.org/doc/html/rfc4253
         // Keychain stores it as a thin ASN.1 wrapper with this format:
         // [4 byte prefix][2 byte prefix][n][2 byte prefix][e]
-        // Rather than parse out the whole ASN.1 blob, we know how this should be formatted, so pull values directly.
+        // Rather than parse out the whole ASN.1 blob, we'll cheat and pull values directly since
+        // we only support one key type, and the keychain always gives it in a specific format.
         let keySize = secret.keyType.size
         guard secret.keyType.algorithm == .rsa && keySize == 2048 else { fatalError() }
         let length = secret.keyType.size/8
         let data = secret.publicKey
         let n = Data(data[8..<(9+length)])
         let e = Data(data[(2+9+length)...])
-        return lengthAndData(of: e) + lengthAndData(of: n)
+        return e.lengthAndData + n.lengthAndData
     }
 
 }

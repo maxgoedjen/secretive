@@ -9,7 +9,8 @@ public final class Agent: Sendable {
 
     private let storeList: SecretStoreList
     private let witness: SigningWitness?
-    private let writer = OpenSSHKeyWriter()
+    private let publicKeyWriter = OpenSSHPublicKeyWriter()
+    private let signatureWriter = OpenSSHSignatureWriter()
     private let requestTracer = SigningRequestTracer()
     private let certificateHandler = OpenSSHCertificateHandler()
     private let logger = Logger(subsystem: "com.maxgoedjen.secretive.secretagent", category: "Agent")
@@ -43,7 +44,7 @@ extension Agent {
         guard data.count > 4 else { return false}
         let requestTypeInt = data[4]
         guard let requestType = SSHAgent.RequestType(rawValue: requestTypeInt) else {
-            writer.write(OpenSSHKeyWriter().lengthAndData(of: SSHAgent.ResponseType.agentFailure.data))
+            writer.write(SSHAgent.ResponseType.agentFailure.data.lengthAndData)
             logger.debug("Agent returned \(SSHAgent.ResponseType.agentFailure.debugDescription)")
             return true
         }
@@ -75,8 +76,7 @@ extension Agent {
             response.append(SSHAgent.ResponseType.agentFailure.data)
             logger.debug("Agent returned \(SSHAgent.ResponseType.agentFailure.debugDescription)")
         }
-        let full = OpenSSHKeyWriter().lengthAndData(of: response)
-        return full
+        return response.lengthAndData
     }
 
 }
@@ -92,14 +92,14 @@ extension Agent {
         var keyData = Data()
 
         for secret in secrets {
-            let keyBlob = writer.data(secret: secret)
-            let curveData = Data(writer.curveType(for: secret.keyType).utf8)
-            keyData.append(writer.lengthAndData(of: keyBlob))
-            keyData.append(writer.lengthAndData(of: curveData))
-            
+            let keyBlob = publicKeyWriter.data(secret: secret)
+            let curveData = publicKeyWriter.openSSHIdentifier(for: secret.keyType)
+            keyData.append(keyBlob.lengthAndData)
+            keyData.append(curveData.lengthAndData)
+
             if let (certificateData, name) = try? await certificateHandler.keyBlobAndName(for: secret) {
-                keyData.append(writer.lengthAndData(of: certificateData))
-                keyData.append(writer.lengthAndData(of: name))
+                keyData.append(certificateData.lengthAndData)
+                keyData.append(name.lengthAndData)
                 count += 1
             }
         }
@@ -137,7 +137,7 @@ extension Agent {
         let dataToSign = reader.readNextChunk()
         let rawRepresentation = try await store.sign(data: dataToSign, with: secret, for: provenance)
 
-        let curveData = Data(writer.curveType(for: secret.keyType).utf8)
+        let curveData = publicKeyWriter.openSSHIdentifier(for: secret.keyType)
 
         let signedData: Data
         if secret.keyType.algorithm == .ecdsa {
@@ -155,20 +155,20 @@ extension Agent {
             }
 
             var signatureChunk = Data()
-            signatureChunk.append(writer.lengthAndData(of: r))
-            signatureChunk.append(writer.lengthAndData(of: s))
+            signatureChunk.append(r.lengthAndData)
+            signatureChunk.append(s.lengthAndData)
             var mutSignedData = Data()
             var sub = Data()
-            sub.append(writer.lengthAndData(of: curveData))
-            sub.append(writer.lengthAndData(of: signatureChunk))
-            mutSignedData.append(writer.lengthAndData(of: sub))
+            sub.append(curveData.lengthAndData)
+            sub.append(signatureChunk.lengthAndData)
+            mutSignedData.append(sub.lengthAndData)
             signedData = mutSignedData
         } else {
             var mutSignedData = Data()
             var sub = Data()
-            sub.append(writer.lengthAndData(of: Data("rsa-sha2-512".utf8)))
-            sub.append(writer.lengthAndData(of: rawRepresentation))
-            mutSignedData.append(writer.lengthAndData(of: sub))
+            sub.append("rsa-sha2-512".lengthAndData)
+            sub.append(rawRepresentation.lengthAndData)
+            mutSignedData.append(sub.lengthAndData)
 
             signedData = mutSignedData
         }
@@ -203,7 +203,7 @@ extension Agent {
     func secret(matching hash: Data) async -> (AnySecretStore, AnySecret)? {
         for store in await storeList.stores {
             let allMatching = await store.secrets.filter { secret in
-                hash == writer.data(secret: secret)
+                hash == publicKeyWriter.data(secret: secret)
             }
             if let matching = allMatching.first {
                 return (store, matching)

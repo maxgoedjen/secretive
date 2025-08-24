@@ -6,7 +6,7 @@ public final class PublicKeyFileStoreController: Sendable {
 
     private let logger = Logger(subsystem: "com.maxgoedjen.secretive.secretagent", category: "PublicKeyFileStoreController")
     private let directory: String
-    private let keyWriter = OpenSSHKeyWriter()
+    private let keyWriter = OpenSSHPublicKeyWriter()
 
     /// Initializes a PublicKeyFileStoreController.
     public init(homeDirectory: String) {

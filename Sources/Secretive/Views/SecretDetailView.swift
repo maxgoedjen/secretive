@@ -5,7 +5,7 @@ struct SecretDetailView<SecretType: Secret>: View {
     
     let secret: SecretType
 
-    private let keyWriter = OpenSSHKeyWriter()
+    private let keyWriter = OpenSSHPublicKeyWriter()
     private let publicKeyFileStoreController = PublicKeyFileStoreController(homeDirectory: NSHomeDirectory().replacingOccurrences(of: Bundle.main.hostBundleID, with: Bundle.main.agentBundleID))
     
     var body: some View {
