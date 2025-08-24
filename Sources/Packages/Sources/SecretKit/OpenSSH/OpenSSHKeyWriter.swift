@@ -115,7 +115,7 @@ extension OpenSSHKeyWriter {
         // [4 byte prefix][2 byte prefix][n][2 byte prefix][e]
         // Rather than parse out the whole ASN.1 blob, we know how this should be formatted, so pull values directly.
         let keySize = secret.keyType.size
-        guard secret.keyType.algorithm == .rsa && (keySize == 1024 || keySize == 2048) else { fatalError() }
+        guard secret.keyType.algorithm == .rsa && keySize == 2048 else { fatalError() }
         let length = secret.keyType.size/8
         let data = secret.publicKey
         let n = Data(data[8..<(9+length)])

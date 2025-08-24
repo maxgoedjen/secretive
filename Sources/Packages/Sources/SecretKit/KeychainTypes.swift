@@ -58,7 +58,7 @@ public extension SecretStore {
             return .ecdsaSignatureMessageX962SHA256
         case (.ecdsa, 384):
             return .ecdsaSignatureMessageX962SHA384
-        case (.rsa, 1024), (.rsa, 2048):
+        case (.rsa, 2048):
             return .rsaSignatureMessagePKCS1v15SHA512
         default:
             fatalError()
