@@ -40,7 +40,7 @@ public actor OpenSSHCertificateHandler: Sendable {
             let curveIdentifier = reader.readNextChunk()
             let publicKey = reader.readNextChunk()
 
-            let curveType = certType.replacingOccurrences(of: "-cert-v01@openssh.com", with: "").data(using: .utf8)!
+            let curveType = Data(certType.replacingOccurrences(of: "-cert-v01@openssh.com", with: "").utf8)
             return writer.lengthAndData(of: curveType) +
                    writer.lengthAndData(of: curveIdentifier) +
                    writer.lengthAndData(of: publicKey)
@@ -78,14 +78,13 @@ public actor OpenSSHCertificateHandler: Sendable {
             throw OpenSSHCertificateError.parsingFailed
         }
 
-        if certElements.count >= 3, let certName = certElements[2].data(using: .utf8) {
+        if certElements.count >= 3 {
+            let certName = Data(certElements[2].utf8)
             return (certDecoded, certName)
-        } else if let certName = secret.name.data(using: .utf8) {
-            logger.info("Certificate for \(secret.name) does not have a name tag, using secret name instead")
-            return (certDecoded, certName)
-        } else {
-            throw OpenSSHCertificateError.parsingFailed
         }
+        let certName = Data(secret.name.utf8)
+        logger.info("Certificate for \(secret.name) does not have a name tag, using secret name instead")
+        return (certDecoded, certName)
     }
 
 }

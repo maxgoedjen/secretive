@@ -18,7 +18,7 @@ import Testing
 
     @Test func ecdsa256PublicKey() {
         #expect(writer.openSSHString(secret:  Constants.ecdsa256Secret) ==
-        "ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBOVEjgAA5PHqRgwykjN5qM21uWCHFSY/Sqo5gkHAkn+e1MMQKHOLga7ucB9b3mif33MBid59GRK9GEPVlMiSQwo=")
+        "ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBOVEjgAA5PHqRgwykjN5qM21uWCHFSY/Sqo5gkHAkn+e1MMQKHOLga7ucB9b3mif33MBid59GRK9GEPVlMiSQwo= test@example.com")
     }
 
     @Test func ecdsa256Hash() {
@@ -35,7 +35,7 @@ import Testing
 
     @Test func ecdsa384PublicKey() {
         #expect(writer.openSSHString(secret:  Constants.ecdsa384Secret) ==
-                       "ecdsa-sha2-nistp384 AAAAE2VjZHNhLXNoYTItbmlzdHAzODQAAAAIbmlzdHAzODQAAABhBG2MNc/C5OTHFE2tBvbZCVcpOGa8vBMquiTLkH4lwkeqOPxhi+PyYUfQZMTRJNPiTyWPoMBqNiCIFRVv60yPN/AHufHaOgbdTP42EgMlMMImkAjYUEv9DESHTVIs2PW1yQ==")
+                       "ecdsa-sha2-nistp384 AAAAE2VjZHNhLXNoYTItbmlzdHAzODQAAAAIbmlzdHAzODQAAABhBG2MNc/C5OTHFE2tBvbZCVcpOGa8vBMquiTLkH4lwkeqOPxhi+PyYUfQZMTRJNPiTyWPoMBqNiCIFRVv60yPN/AHufHaOgbdTP42EgMlMMImkAjYUEv9DESHTVIs2PW1yQ== test@example.com")
     }
 
     @Test func ecdsa384Hash() {
@@ -47,8 +47,8 @@ import Testing
 extension OpenSSHWriterTests {
 
     enum Constants {
-        static let ecdsa256Secret =  SmartCard.Secret(id: Data(), name: "Test Key (ECDSA 256)", algorithm: .ellipticCurve, keySize: 256, publicKey: Data(base64Encoded: "BOVEjgAA5PHqRgwykjN5qM21uWCHFSY/Sqo5gkHAkn+e1MMQKHOLga7ucB9b3mif33MBid59GRK9GEPVlMiSQwo=")!)
-        static let ecdsa384Secret =  SmartCard.Secret(id: Data(), name: "Test Key (ECDSA 384)", algorithm: .ellipticCurve, keySize: 384, publicKey: Data(base64Encoded: "BG2MNc/C5OTHFE2tBvbZCVcpOGa8vBMquiTLkH4lwkeqOPxhi+PyYUfQZMTRJNPiTyWPoMBqNiCIFRVv60yPN/AHufHaOgbdTP42EgMlMMImkAjYUEv9DESHTVIs2PW1yQ==")!)
+        static let ecdsa256Secret =  SmartCard.Secret(id: Data(), name: "Test Key (ECDSA 256)", publicKey: Data(base64Encoded: "BOVEjgAA5PHqRgwykjN5qM21uWCHFSY/Sqo5gkHAkn+e1MMQKHOLga7ucB9b3mif33MBid59GRK9GEPVlMiSQwo=")!, attributes: Attributes(keyType: KeyType(algorithm: .ecdsa, size: 256), publicKeyAttribution: "test@example.com"))
+        static let ecdsa384Secret = SmartCard.Secret(id: Data(), name: "Test Key (ECDSA 384)", publicKey: Data(base64Encoded: "BG2MNc/C5OTHFE2tBvbZCVcpOGa8vBMquiTLkH4lwkeqOPxhi+PyYUfQZMTRJNPiTyWPoMBqNiCIFRVv60yPN/AHufHaOgbdTP42EgMlMMImkAjYUEv9DESHTVIs2PW1yQ==")!, attributes: Attributes(keyType: KeyType(algorithm: .ecdsa, size: 384), publicKeyAttribution: "test@example.com"))
 
     }
 

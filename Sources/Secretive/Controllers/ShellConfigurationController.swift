@@ -56,7 +56,7 @@ struct ShellConfigurationController {
         } catch {
             return false
         }
-        handle.write("\n# Secretive Config\n\(shellInstructions.text)\n".data(using: .utf8)!)
+        handle.write(Data("\n# Secretive Config\n\(shellInstructions.text)\n".utf8))
         return true
     }
     

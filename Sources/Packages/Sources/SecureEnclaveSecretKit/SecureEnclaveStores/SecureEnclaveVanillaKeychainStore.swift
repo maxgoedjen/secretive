@@ -8,22 +8,22 @@ import SecretKit
 extension SecureEnclave {
 
     /// An implementation of Store backed by the Secure Enclave.
-    @Observable public final class VanillaKeychainStore: SecretStoreModifiable {
+    @Observable final class VanillaKeychainStore: SecretStoreModifiable {
 
-        @MainActor public var secrets: [Secret] = []
-        public var isAvailable: Bool {
+        @MainActor var secrets: [Secret] = []
+        var isAvailable: Bool {
             CryptoKit.SecureEnclave.isAvailable
         }
-        public let id = UUID()
-        public let name = String(localized: .secureEnclave)
-        public var supportedKeyTypes: [KeyType] {
+        let id = UUID()
+        let name = String(localized: .secureEnclave)
+        var supportedKeyTypes: [KeyType] {
             [KeyType(algorithm: .ecdsa, size: 256)]
         }
 
         private let persistentAuthenticationHandler = PersistentAuthenticationHandler()
 
         /// Initializes a Store.
-        @MainActor public init() {
+        @MainActor init() {
             loadSecrets()
         }
 
@@ -31,7 +31,7 @@ extension SecureEnclave {
 
         // MARK: SecretStore
 
-        public func sign(data: Data, with secret: Secret, for provenance: SigningRequestProvenance) async throws -> Data {
+        func sign(data: Data, with secret: Secret, for provenance: SigningRequestProvenance) async throws -> Data {
             let context: LAContext
             if let existing = await persistentAuthenticationHandler.existingPersistedAuthenticationContext(secret: secret) {
                 context = existing.context
@@ -68,26 +68,26 @@ extension SecureEnclave {
             return signature as Data
         }
 
-        public func existingPersistedAuthenticationContext(secret: Secret) async -> PersistedAuthenticationContext? {
+        func existingPersistedAuthenticationContext(secret: Secret) async -> PersistedAuthenticationContext? {
             await persistentAuthenticationHandler.existingPersistedAuthenticationContext(secret: secret)
         }
 
-        public func persistAuthentication(secret: Secret, forDuration duration: TimeInterval) async throws {
+        func persistAuthentication(secret: Secret, forDuration duration: TimeInterval) async throws {
             try await persistentAuthenticationHandler.persistAuthentication(secret: secret, forDuration: duration)
         }
 
-        @MainActor public func reloadSecrets() {
+        @MainActor func reloadSecrets() {
             secrets.removeAll()
             loadSecrets()
         }
 
         // MARK: SecretStoreModifiable
 
-        public func create(name: String, attributes: Attributes) async throws {
+        func create(name: String, attributes: Attributes) async throws {
             throw DeprecatedCreationStore()
         }
 
-        public func delete(secret: Secret) async throws {
+        func delete(secret: Secret) async throws {
             let deleteAttributes = KeychainDictionary([
                 kSecClass: kSecClassKey,
                 kSecAttrApplicationLabel: secret.id as CFData
@@ -99,7 +99,7 @@ extension SecureEnclave {
             await reloadSecrets()
         }
 
-        public func update(secret: Secret, name: String, attributes: Attributes) async throws {
+        func update(secret: Secret, name: String, attributes: Attributes) async throws {
             let updateQuery = KeychainDictionary([
                 kSecClass: kSecClassKey,
                 kSecAttrApplicationLabel: secret.id as CFData

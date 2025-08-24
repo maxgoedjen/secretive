@@ -11,8 +11,8 @@ public struct OpenSSHKeyWriter: Sendable {
     /// Generates an OpenSSH data payload identifying the secret.
     /// - Returns: OpenSSH data payload identifying the secret.
     public func data<SecretType: Secret>(secret: SecretType) -> Data {
-        lengthAndData(of: curveType(for: secret.keyType).data(using: .utf8)!) +
-        lengthAndData(of: curveIdentifier(for: secret.keyType).data(using: .utf8)!) +
+        lengthAndData(of: Data(curveType(for: secret.keyType).utf8)) +
+        lengthAndData(of: Data(curveIdentifier(for: secret.keyType).utf8)) +
             lengthAndData(of: secret.publicKey)
     }
 

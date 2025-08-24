@@ -9,7 +9,7 @@ extension Preview {
 
         let id = UUID().uuidString
         let name: String
-        let publicKey = UUID().uuidString.data(using: .utf8)!
+        let publicKey = Data(UUID().uuidString.utf8)
         var attributes: Attributes {
             Attributes(
                 keyType: .init(algorithm: .ecdsa, size: 256),

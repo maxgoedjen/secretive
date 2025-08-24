@@ -93,7 +93,7 @@ extension Agent {
 
         for secret in secrets {
             let keyBlob = writer.data(secret: secret)
-            let curveData = writer.curveType(for: secret.keyType).data(using: .utf8)!
+            let curveData = Data(writer.curveType(for: secret.keyType).utf8)
             keyData.append(writer.lengthAndData(of: keyBlob))
             keyData.append(writer.lengthAndData(of: curveData))
             
@@ -138,7 +138,7 @@ extension Agent {
         let signed = try await store.sign(data: dataToSign, with: secret, for: provenance)
         let derSignature = signed
 
-        let curveData = writer.curveType(for: secret.keyType).data(using: .utf8)!
+        let curveData = Data(writer.curveType(for: secret.keyType).utf8)
 
         // Convert from DER formatted rep to raw (r||s)
 

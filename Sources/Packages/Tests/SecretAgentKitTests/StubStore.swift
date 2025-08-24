@@ -79,9 +79,9 @@ extension Stub {
 
     struct Secret: SecretKit.Secret, CustomDebugStringConvertible {
 
-        let id = UUID().uuidString.data(using: .utf8)!
+        let id = Data(UUID().uuidString.utf8)
         let name = UUID().uuidString
-        let algorithm = Algorithm.ellipticCurve
+        let algorithm = Algorithm.ecdsa
 
         let keySize: Int
         let publicKey: Data

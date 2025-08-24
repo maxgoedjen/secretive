@@ -3,7 +3,7 @@ import Foundation
 /// Type eraser for SecretStore.
 open class AnySecretStore: SecretStore, @unchecked Sendable {
 
-    let base: any Sendable
+    let base: any SecretStore
     private let _isAvailable: @MainActor @Sendable () -> Bool
     private let _id: @Sendable () -> UUID
     private let _name: @MainActor @Sendable () -> String

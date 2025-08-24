@@ -3,7 +3,7 @@ import Foundation
 /// Type eraser for Secret.
 public struct AnySecret: Secret, @unchecked Sendable {
 
-    public let base: Any
+    public let base: any Secret
     private let hashable: AnyHashable
     private let _id: () -> AnyHashable
     private let _name: () -> String
@@ -19,7 +19,7 @@ public struct AnySecret: Secret, @unchecked Sendable {
             _publicKey = secret._publicKey
             _attributes = secret._attributes
         } else {
-            base = secret as Any
+            base = secret
             self.hashable = secret
             _id = { secret.id as AnyHashable }
             _name = { secret.name }

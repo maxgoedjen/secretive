@@ -20,7 +20,7 @@ extension SecureEnclave {
         private let persistentAuthenticationHandler = PersistentAuthenticationHandler()
 
         /// Initializes a Store.
-        @MainActor public init() {
+        @MainActor init() {
             loadSecrets()
             Task {
                 for await _ in DistributedNotificationCenter.default().notifications(named: .secretStoreUpdated) {
@@ -33,7 +33,7 @@ extension SecureEnclave {
         
         // MARK: SecretStore
         
-        public func sign(data: Data, with secret: Secret, for provenance: SigningRequestProvenance) async throws -> Data {
+        func sign(data: Data, with secret: Secret, for provenance: SigningRequestProvenance) async throws -> Data {
             var context: LAContext
             if let existing = await persistentAuthenticationHandler.existingPersistedAuthenticationContext(secret: secret) {
                 context = existing.context
@@ -84,7 +84,7 @@ extension SecureEnclave {
 
         }
 
-        public func verify(signature: Data, for data: Data, with secret: Secret) throws -> Bool {
+        func verify(signature: Data, for data: Data, with secret: Secret) throws -> Bool {
             let context = LAContext()
             context.localizedReason = String(localized: "auth_context_request_verify_description_\(secret.name)")
             context.localizedCancelTitle = String(localized: "auth_context_request_deny_button")
@@ -119,22 +119,22 @@ extension SecureEnclave {
             return verified
         }
 
-        public func existingPersistedAuthenticationContext(secret: Secret) async -> PersistedAuthenticationContext? {
+        func existingPersistedAuthenticationContext(secret: Secret) async -> PersistedAuthenticationContext? {
             await persistentAuthenticationHandler.existingPersistedAuthenticationContext(secret: secret)
         }
 
-        public func persistAuthentication(secret: Secret, forDuration duration: TimeInterval) async throws {
+        func persistAuthentication(secret: Secret, forDuration duration: TimeInterval) async throws {
             try await persistentAuthenticationHandler.persistAuthentication(secret: secret, forDuration: duration)
         }
 
-        @MainActor public func reloadSecrets() {
+        @MainActor func reloadSecrets() {
             secrets.removeAll()
             loadSecrets()
         }
 
         // MARK: SecretStoreModifiable
         
-        public func create(name: String, attributes: Attributes) async throws {
+        func create(name: String, attributes: Attributes) async throws {
             var accessError: SecurityError?
             let flags: SecAccessControlCreateFlags = switch attributes.authentication {
             case .notRequired:
@@ -174,7 +174,7 @@ extension SecureEnclave {
             await reloadSecrets()
         }
 
-        public func delete(secret: Secret) async throws {
+        func delete(secret: Secret) async throws {
             let deleteAttributes = KeychainDictionary([
                 kSecClass: Constants.keyClass,
                 kSecAttrService: SecureEnclave.Constants.keyTag,
@@ -188,7 +188,7 @@ extension SecureEnclave {
             await reloadSecrets()
         }
 
-        public func update(secret: Secret, name: String, attributes: Attributes) async throws {
+        func update(secret: Secret, name: String, attributes: Attributes) async throws {
             let updateQuery = KeychainDictionary([
                 kSecClass: kSecClassKey,
                 kSecAttrApplicationLabel: secret.id as CFData
@@ -205,7 +205,7 @@ extension SecureEnclave {
             await reloadSecrets()
         }
         
-        public var supportedKeyTypes: [KeyType] {
+        var supportedKeyTypes: [KeyType] {
             [
                 .init(algorithm: .ecdsa, size: 256),
                 .init(algorithm: .mldsa, size: 65),
@@ -245,7 +245,7 @@ extension SecureEnclave.CryptoKitStore {
                 switch (attributes.keyType.algorithm, attributes.keyType.size) {
                 case (.ecdsa, 256):
                     let key = try CryptoKit.SecureEnclave.P256.Signing.PrivateKey(dataRepresentation: keyData)
-                    publicKey = key.publicKey.rawRepresentation
+                    publicKey = key.publicKey.x963Representation
                 case (.mldsa, 65):
                     guard #available(macOS 26.0, *)  else { throw UnsupportedAlgorithmError() }
                     let key = try CryptoKit.SecureEnclave.MLDSA65.PrivateKey(dataRepresentation: keyData)
