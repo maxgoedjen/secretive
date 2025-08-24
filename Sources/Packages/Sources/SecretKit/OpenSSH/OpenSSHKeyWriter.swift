@@ -11,9 +11,14 @@ public struct OpenSSHKeyWriter: Sendable {
     /// Generates an OpenSSH data payload identifying the secret.
     /// - Returns: OpenSSH data payload identifying the secret.
     public func data<SecretType: Secret>(secret: SecretType) -> Data {
-        lengthAndData(of: Data(curveType(for: secret.keyType).utf8)) +
-        lengthAndData(of: Data(curveIdentifier(for: secret.keyType).utf8)) +
+        if secret.keyType.algorithm == .ecdsa {
+            lengthAndData(of: Data(curveType(for: secret.keyType).utf8)) +
+            lengthAndData(of: Data(curveIdentifier(for: secret.keyType).utf8)) +
             lengthAndData(of: secret.publicKey)
+        } else {
+            lengthAndData(of: Data(curveType(for: secret.keyType).utf8)) +
+            lengthAndData(of: secret.publicKey)
+        }
     }
 
     /// Generates an OpenSSH string representation of the secret.
@@ -76,7 +81,7 @@ extension OpenSSHKeyWriter {
         case (.ecdsa, 256), (.ecdsa, 384):
             "ecdsa-sha2-nistp" + String(describing: keyType.size)
         case (.mldsa, 65), (.mldsa, 87):
-            "ssh-mldsa-" + String(describing: keyType.size)
+            "ssh-mldsa" + String(describing: keyType.size)
         case (.rsa, _):
             // All RSA keys use the same 512 bit hash function, per
             // https://security.stackexchange.com/questions/255074/why-are-rsa-sha2-512-and-rsa-sha2-256-supported-but-not-reported-by-ssh-q-key
@@ -96,7 +101,7 @@ extension OpenSSHKeyWriter {
         case .ecdsa:
             "nistp" + String(describing: keyType.size)
         case .mldsa:
-            "unknown"
+            "mldsa" + String(describing: keyType.size)
         case .rsa:
             // All RSA keys use the same 512 bit hash function
             "rsa-sha2-512"
