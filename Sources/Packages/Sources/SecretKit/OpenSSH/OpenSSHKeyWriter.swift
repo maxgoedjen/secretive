@@ -11,13 +11,17 @@ public struct OpenSSHKeyWriter: Sendable {
     /// Generates an OpenSSH data payload identifying the secret.
     /// - Returns: OpenSSH data payload identifying the secret.
     public func data<SecretType: Secret>(secret: SecretType) -> Data {
-        if secret.keyType.algorithm == .ecdsa {
+        switch secret.keyType.algorithm {
+        case .ecdsa:
             lengthAndData(of: Data(curveType(for: secret.keyType).utf8)) +
             lengthAndData(of: Data(curveIdentifier(for: secret.keyType).utf8)) +
             lengthAndData(of: secret.publicKey)
-        } else {
+        case .mldsa:
             lengthAndData(of: Data(curveType(for: secret.keyType).utf8)) +
             lengthAndData(of: secret.publicKey)
+        case .rsa:
+            lengthAndData(of: Data(curveType(for: secret.keyType).utf8)) +
+            rsa(secret: secret)
         }
     }
 
@@ -83,9 +87,7 @@ extension OpenSSHKeyWriter {
         case (.mldsa, 65), (.mldsa, 87):
             "ssh-mldsa" + String(describing: keyType.size)
         case (.rsa, _):
-            // All RSA keys use the same 512 bit hash function, per
-            // https://security.stackexchange.com/questions/255074/why-are-rsa-sha2-512-and-rsa-sha2-256-supported-but-not-reported-by-ssh-q-key
-             "rsa-sha2-512"
+             "ssh-rsa"
         default:
             "unknown"
         }
@@ -106,6 +108,20 @@ extension OpenSSHKeyWriter {
             // All RSA keys use the same 512 bit hash function
             "rsa-sha2-512"
         }
+    }
+
+    public func rsa<SecretType: Secret>(secret: SecretType) -> Data {
+        // Cheap way to pull out e and n as defined in https://datatracker.ietf.org/doc/html/rfc4253
+        // Keychain stores it as a thin ASN.1 wrapper with this format:
+        // [4 byte prefix][2 byte prefix][n][2 byte prefix][e]
+        // Rather than parse out the whole ASN.1 blob, we know how this should be formatted, so pull values directly.
+        let keySize = secret.keyType.size
+        guard secret.keyType.algorithm == .rsa && (keySize == 1024 || keySize == 2048) else { fatalError() }
+        let length = secret.keyType.size/8
+        let data = secret.publicKey
+        let n = Data(data[8..<(9+length)])
+        let e = Data(data[(2+9+length)...])
+        return lengthAndData(of: e) + lengthAndData(of: n)
     }
 
 }
