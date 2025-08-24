@@ -123,12 +123,13 @@ extension SmartCard.Store {
     /// Resets the token ID and reloads secrets.
     /// - Parameter tokenID: The ID of the token that was inserted.
     @MainActor private func smartcardInserted(for tokenID: String? = nil) {
-            guard let string = state.watcher.nonSecureEnclaveTokens.first else { return }
-            guard state.tokenID == nil else { return }
-            guard !string.contains("setoken") else { return }
-            state.tokenID = string
-            state.watcher.addRemovalHandler(self.smartcardRemoved, forTokenID: string)
-            state.tokenID = string
+        guard let string = state.watcher.nonSecureEnclaveTokens.first else { return }
+        guard state.tokenID == nil else { return }
+        guard !string.contains("setoken") else { return }
+        state.tokenID = string
+        state.watcher.addRemovalHandler(self.smartcardRemoved, forTokenID: string)
+        state.tokenID = string
+        reloadSecretsInternal()
     }
 
     /// Resets the token ID and reloads secrets.
