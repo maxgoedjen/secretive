@@ -69,7 +69,7 @@ final class Notifier: Sendable {
         notificationContent.userInfo[Constants.persistSecretIDKey] = secret.id.description
         notificationContent.userInfo[Constants.persistStoreIDKey] = store.id.description
         notificationContent.interruptionLevel = .timeSensitive
-        if await store.existingPersistedAuthenticationContext(secret: secret) == nil && secret.authenticationRequirement.required {
+        if await store.existingPersistedAuthenticationContext(secret: secret) == nil && secret.requiresAuthentication {
             notificationContent.categoryIdentifier = Constants.persistAuthenticationCategoryIdentitifier
         }
         if let iconURL = provenance.origin.iconURL, let attachment = try? UNNotificationAttachment(identifier: "icon", url: iconURL, options: nil) {
