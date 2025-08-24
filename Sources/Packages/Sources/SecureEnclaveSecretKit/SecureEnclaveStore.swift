@@ -248,9 +248,9 @@ extension SecureEnclave.Store {
 
 extension SecureEnclave {
 
-    enum Constants {
-        static let keyTag = Data("com.maxgoedjen.secretive.secureenclave.key".utf8)
-        static let keyType = kSecAttrKeyTypeECSECPrimeRandom as String
+    public enum Constants {
+        public static let keyTag = Data("com.maxgoedjen.secretive.secureenclave.key".utf8)
+        public static let keyType = kSecAttrKeyTypeECSECPrimeRandom as String
         static let unauthenticatedThreshold: TimeInterval = 0.05
     }
 
