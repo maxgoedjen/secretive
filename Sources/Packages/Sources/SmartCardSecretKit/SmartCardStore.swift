@@ -170,14 +170,7 @@ extension SmartCard.Store {
             let publicKeySecRef = SecKeyCopyPublicKey(publicKeyRef)!
             let publicKeyAttributes = SecKeyCopyAttributes(publicKeySecRef) as! [CFString: Any]
             let publicKey = publicKeyAttributes[kSecValueData] as! Data
-            var capabilities: Set<SmartCard.Secret.KeyCapabilities> = []
-            if ($0[kSecAttrCanSign] as? Bool) == true {
-                capabilities.insert(.signature)
-            }
-            if ($0[kSecAttrCanEncrypt] as? Bool) == true && ($0[kSecAttrCanDecrypt] as? Bool) == true {
-                capabilities.insert(.encryption)
-            }
-            return SmartCard.Secret(id: tokenID, name: name, algorithm: algorithm, keySize: keySize, publicKey: publicKey, capabilities: capabilities)
+            return SmartCard.Secret(id: tokenID, name: name, algorithm: algorithm, keySize: keySize, publicKey: publicKey)
         }
         state.secrets.append(contentsOf: wrapped)
     }

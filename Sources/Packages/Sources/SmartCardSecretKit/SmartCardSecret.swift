@@ -12,12 +12,6 @@ extension SmartCard {
         public let keySize: Int
         public let requiresAuthentication: Bool = false
         public let publicKey: Data
-        public let capabilities: Set<KeyCapabilities>
-
-        public enum KeyCapabilities: Sendable {
-            case signature
-            case encryption
-        }
 
     }
 
