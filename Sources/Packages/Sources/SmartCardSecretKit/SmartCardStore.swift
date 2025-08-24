@@ -1,7 +1,7 @@
 import Foundation
 import Observation
 import Security
-import CryptoTokenKit
+@preconcurrency import CryptoTokenKit
 import LocalAuthentication
 import SecretKit
 
@@ -37,17 +37,18 @@ extension SmartCard {
 
         /// Initializes a Store.
         public init() {
-            Task { @MainActor in
-                if let tokenID = smartcardTokenID{
-                    state.isAvailable = true
-                    state.watcher.addRemovalHandler(self.smartcardRemoved, forTokenID: tokenID)
+            Task {
+                await MainActor.run {
+                    if let tokenID = smartcardTokenID {
+                        state.isAvailable = true
+                        state.watcher.addRemovalHandler(self.smartcardRemoved, forTokenID: tokenID)
+                    }
+                    loadSecrets()
                 }
-                loadSecrets()
-                state.watcher.setInsertionHandler { id in
-                    // Setting insertion handler will cause it to be called immediately.
-                    // Make a thread jump so we don't hit a recursive lock attempt.
+                // Doing this inside a regular mainactor handler casues thread assertions in CryptoTokenKit to blow up when the handler executes.
+                await state.watcher.setInsertionHandler { id in
                     Task {
-                        self.smartcardInserted(for: id)
+                        await self.smartcardInserted(for: id)
                     }
                 }
             }
