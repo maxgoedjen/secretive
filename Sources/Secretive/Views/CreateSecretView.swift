@@ -38,7 +38,7 @@ struct CreateSecretView<StoreType: SecretStoreModifiable>: View {
                                         Text(.createSecretRequireAuthenticationTitle)
                                     case .biometryCurrent:
                                         Image(systemName: "lock.trianglebadge.exclamationmark.fill")
-                                        Text("Current Biometrics")
+                                        Text(.createSecretRequireAuthenticationBiometricCurrentTitle)
                                     case .unknown:
                                         EmptyView()
                                     }
@@ -53,7 +53,7 @@ struct CreateSecretView<StoreType: SecretStoreModifiable>: View {
                             case .presenceRequired:
                                 Text(.createSecretRequireAuthenticationDescription)
                             case .biometryCurrent:
-                                Text("Require authentication with current set of biometrics.")
+                                Text(.createSecretRequireAuthenticationBiometricCurrentDescription)
                             case .unknown:
                                 EmptyView()
                             }
@@ -61,7 +61,7 @@ struct CreateSecretView<StoreType: SecretStoreModifiable>: View {
                         .font(.subheadline)
                         .foregroundStyle(.secondary)
                         if authenticationRequirement == .biometryCurrent {
-                            Text("If you change your biometric settings in _any way_, including adding a new fingerprint, this key will no longer be accessible.")
+                            Text(.createSecretBiometryCurrentWarning)
                                 .padding(.horizontal, 10)
                                 .padding(.vertical, 3)
                                 .background(.red.opacity(0.5), in:  RoundedRectangle(cornerRadius: 5))
@@ -72,7 +72,7 @@ struct CreateSecretView<StoreType: SecretStoreModifiable>: View {
                 if advanced {
                     Section {
                         VStack {
-                            Picker("Key Type", selection: $keyType) {
+                            Picker(.createSecretKeyTypeLabel, selection: $keyType) {
                                 ForEach(store.supportedKeyTypes, id: \.self) { option in
                                     Text(String(describing: option))
                                         .tag(option)
@@ -81,8 +81,8 @@ struct CreateSecretView<StoreType: SecretStoreModifiable>: View {
                             }
                         }
                         VStack(alignment: .leading) {
-                            TextField("Key Attribution", text: $keyAttribution, prompt: Text("test@example.com"))
-                            Text("This shows at the end of your public key.")
+                            TextField(.createSecretKeyAttributionLabel, text: $keyAttribution, prompt: Text(verbatim: "test@example.com"))
+                            Text(.createSecretKeyAttributionDescription)
                                 .font(.subheadline)
                                 .foregroundStyle(.secondary)
                         }
@@ -90,7 +90,7 @@ struct CreateSecretView<StoreType: SecretStoreModifiable>: View {
                 }
             }
             HStack {
-                Toggle("Advanced", isOn: $advanced)
+                Toggle(.createSecretAdvancedLabel, isOn: $advanced)
                     .toggleStyle(.button)
                 Spacer()
                 Button(.createSecretCancelButton, role: .cancel) {
