@@ -15,9 +15,6 @@ public struct OpenSSHSignatureWriter: Sendable {
         case .ecdsa:
             // https://datatracker.ietf.org/doc/html/rfc5656#section-3.1
             ecdsaSignature(signature, keyType: secret.keyType)
-        case .mldsa:
-            // https://www.ietf.org/archive/id/draft-sfluhrer-ssh-mldsa-04.txt
-            fatalError()
         case .rsa:
             // https://datatracker.ietf.org/doc/html/rfc4253#section-6.6
             rsaSignature(signature)

@@ -17,10 +17,6 @@ public struct OpenSSHPublicKeyWriter: Sendable {
             openSSHIdentifier(for: secret.keyType).lengthAndData +
             ("nistp" + String(describing: secret.keyType.size)).lengthAndData +
             secret.publicKey.lengthAndData
-        case .mldsa:
-            // https://www.ietf.org/archive/id/draft-sfluhrer-ssh-mldsa-04.txt
-            openSSHIdentifier(for: secret.keyType).lengthAndData +
-            secret.publicKey.lengthAndData
         case .rsa:
             // https://datatracker.ietf.org/doc/html/rfc4253#section-6.6
             openSSHIdentifier(for: secret.keyType).lengthAndData +
@@ -78,8 +74,6 @@ extension OpenSSHPublicKeyWriter {
         switch (keyType.algorithm, keyType.size) {
         case (.ecdsa, 256), (.ecdsa, 384):
             "ecdsa-sha2-nistp" + String(describing: keyType.size)
-        case (.mldsa, 65), (.mldsa, 87):
-            "ssh-mldsa-" + String(describing: keyType.size)
         case (.rsa, _):
             "ssh-rsa"
         default:

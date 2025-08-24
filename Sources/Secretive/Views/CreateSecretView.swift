@@ -79,12 +79,6 @@ struct CreateSecretView<StoreType: SecretStoreModifiable>: View {
                                         .font(.caption)
                                 }
                             }
-                            if keyType?.algorithm == .mldsa {
-                                Text("Warning: ML-DSA keys are very new, and not supported by many servers yet. Please verify the server you'll be using this key for accepts ML-DSA keys.")
-                                    .padding(.horizontal, 10)
-                                    .padding(.vertical, 3)
-                                    .background(.red.opacity(0.5), in:  RoundedRectangle(cornerRadius: 5))
-                            }
                         }
                         VStack(alignment: .leading) {
                             TextField("Key Attribution", text: $keyAttribution, prompt: Text("test@example.com"))
