@@ -80,7 +80,7 @@ struct CreateSecretView<StoreType: SecretStoreModifiable>: View {
                                 }
                             }
                             if keyType?.algorithm == .mldsa {
-                                Text("Warning: ML-DSA keys are very new, and not supported by many servers yet. Please verify the server you'll be using this key for accepts ML-DSA keys.")
+                                Text(.createSecretMldsaWarning)
                                     .padding(.horizontal, 10)
                                     .padding(.vertical, 3)
                                     .background(.red.opacity(0.5), in:  RoundedRectangle(cornerRadius: 5))
