@@ -104,9 +104,9 @@ extension SecureEnclave {
             case .notRequired:
                 []
             case .presenceRequired:
-                    .userPresence
+                [.userPresence, .privateKeyUsage]
             case .biometryCurrent:
-                    .biometryCurrentSet
+                [.biometryCurrentSet, .privateKeyUsage]
             case .unknown:
                 fatalError()
             }
