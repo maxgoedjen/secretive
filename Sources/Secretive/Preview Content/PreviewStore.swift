@@ -63,6 +63,8 @@ extension Preview {
         var supportedKeyTypes: [KeyType] {
             [
                 .init(algorithm: .ecdsa, size: 256),
+                .init(algorithm: .mldsa, size: 65),
+                .init(algorithm: .mldsa, size: 87),
             ]
         }
 
