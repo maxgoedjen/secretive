@@ -1,6 +1,9 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "Add Automatically" : {
+
+    },
     "agent_not_running_notice_title" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -4324,6 +4327,9 @@
         }
       }
     },
+    "setup_ssh_add_to_config_button_%@" : {
+
+    },
     "setup_ssh_added_manually_button" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -5189,9 +5195,6 @@
           }
         }
       }
-    },
-    "Test" : {
-
     },
     "unnamed_secret" : {
       "extractionState" : "manual",

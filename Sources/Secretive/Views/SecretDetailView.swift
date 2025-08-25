@@ -6,8 +6,8 @@ struct SecretDetailView<SecretType: Secret>: View {
     let secret: SecretType
 
     private let keyWriter = OpenSSHPublicKeyWriter()
-    private let publicKeyFileStoreController = PublicKeyFileStoreController(homeDirectory: NSHomeDirectory().replacingOccurrences(of: Bundle.main.hostBundleID, with: Bundle.main.agentBundleID))
-    
+    private let publicKeyFileStoreController = PublicKeyFileStoreController(homeDirectory: URL.agentHomePath)
+
     var body: some View {
         ScrollView {
             Form {
@@ -33,6 +33,14 @@ struct SecretDetailView<SecretType: Secret>: View {
 
     var keyString: String {
         keyWriter.openSSHString(secret: secret)
+    }
+
+}
+
+extension URL {
+
+    static var agentHomePath: String {
+        URL.homeDirectory.path().replacingOccurrences(of: Bundle.hostBundleID, with: Bundle.agentBundleID)
     }
 
 }

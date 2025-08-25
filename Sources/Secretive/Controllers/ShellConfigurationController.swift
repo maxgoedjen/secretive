@@ -4,7 +4,7 @@ import SecretKit
 
 struct ShellConfigurationController {
     
-    let socketPath = (NSHomeDirectory().replacingOccurrences(of: Bundle.main.hostBundleID, with: Bundle.main.agentBundleID) as NSString).appendingPathComponent("socket.ssh") as String
+    let socketPath = (NSHomeDirectory().replacingOccurrences(of: Bundle.hostBundleID, with: Bundle.agentBundleID) as NSString).appendingPathComponent("socket.ssh") as String
     
     var shellInstructions: [ShellConfigInstruction] {
         [

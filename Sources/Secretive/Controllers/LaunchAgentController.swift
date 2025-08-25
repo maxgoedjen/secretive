@@ -36,7 +36,7 @@ struct LaunchAgentController {
     }
 
     private func setEnabled(_ enabled: Bool) -> Bool {
-        let service = SMAppService.loginItem(identifier: Bundle.main.agentBundleID)
+        let service = SMAppService.loginItem(identifier: Bundle.agentBundleID)
         do {
             if enabled {
                 try service.register()

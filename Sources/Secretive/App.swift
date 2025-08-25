@@ -71,7 +71,7 @@ struct Secretive: App {
                     NSWorkspace.shared.open(Constants.helpURL)
                 }
             }
-            CommandGroup(after: .help) {
+            CommandGroup(before: .help) {
                 Button(.appMenuSetupButton) {
                     showingSetup = true
                 }

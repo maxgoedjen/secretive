@@ -24,13 +24,14 @@ import Observation
     }
 
     // All processes, including ones from older versions, etc
-    var secretAgentProcesses: [NSRunningApplication] {
-        NSRunningApplication.runningApplications(withBundleIdentifier: Bundle.main.agentBundleID)
+    var allSecretAgentProcesses: [NSRunningApplication] {
+        NSRunningApplication.runningApplications(withBundleIdentifier: Bundle.agentBundleID)
     }
 
     // The process corresponding to this instance of Secretive
     var instanceSecretAgentProcess: NSRunningApplication? {
-        let agents = secretAgentProcesses
+        // FIXME: CHECK VERSION
+        let agents = allSecretAgentProcesses
         for agent in agents {
             guard let url = agent.bundleURL else { continue }
             if url.absoluteString.hasPrefix(Bundle.main.bundleURL.absoluteString) {
@@ -39,7 +40,6 @@ import Observation
         }
         return nil
     }
-
 
     // Whether Secretive is being run in an Xcode environment.
     var developmentBuild: Bool {
