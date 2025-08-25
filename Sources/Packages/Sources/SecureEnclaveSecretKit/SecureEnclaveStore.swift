@@ -48,9 +48,9 @@ extension SecureEnclave {
                 kSecClass: Constants.keyClass,
                 kSecAttrService: Constants.keyTag,
                 kSecUseDataProtectionKeychain: true,
-                kSecAttrAccount: String(decoding: secret.id, as: UTF8.self),
+                kSecAttrAccount: secret.id,
                 kSecReturnAttributes: true,
-                kSecReturnData: true
+                kSecReturnData: true,
             ])
             var untyped: CFTypeRef?
             let status = SecItemCopyMatching(queryAttributes, &untyped)
@@ -143,8 +143,7 @@ extension SecureEnclave {
                 kSecClass: Constants.keyClass,
                 kSecAttrService: Constants.keyTag,
                 kSecUseDataProtectionKeychain: true,
-                kSecAttrAccount: String(decoding: secret.id, as: UTF8.self),
-                kSecAttrCanSign: true,
+                kSecAttrAccount: secret.id,
             ])
             let status = SecItemDelete(deleteAttributes)
             if status != errSecSuccess {
@@ -155,12 +154,14 @@ extension SecureEnclave {
 
         public func update(secret: Secret, name: String, attributes: Attributes) async throws {
             let updateQuery = KeychainDictionary([
-                kSecClass: kSecClassKey,
-                kSecAttrApplicationLabel: secret.id as CFData
+                kSecClass: Constants.keyClass,
+                kSecAttrAccount: secret.id,
             ])
 
+            let attributes = try JSONEncoder().encode(attributes)
             let updatedAttributes = KeychainDictionary([
                 kSecAttrLabel: name,
+                kSecAttrGeneric: attributes,
             ])
 
             let status = SecItemUpdate(updateQuery, updatedAttributes)
@@ -213,10 +214,9 @@ extension SecureEnclave.Store {
             do {
                 let name = $0[kSecAttrLabel] as? String ?? String(localized: "unnamed_secret")
                 guard let attributesData = $0[kSecAttrGeneric] as? Data,
-                let idString = $0[kSecAttrAccount] as? String else {
+                let id = $0[kSecAttrAccount] as? String else {
                     throw MissingAttributesError()
                 }
-                let id = Data(idString.utf8)
                 let attributes = try JSONDecoder().decode(Attributes.self, from: attributesData)
                 let keyData = $0[kSecValueData] as! Data
                 let publicKey: Data

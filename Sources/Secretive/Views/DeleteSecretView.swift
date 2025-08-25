@@ -8,6 +8,7 @@ struct DeleteSecretView<StoreType: SecretStoreModifiable>: View {
     var dismissalBlock: (Bool) -> ()
 
     @State private var confirm = ""
+    @State var errorText: String?
 
     var body: some View {
         VStack {
@@ -31,6 +32,11 @@ struct DeleteSecretView<StoreType: SecretStoreModifiable>: View {
                     }
                 }
             }
+            if let errorText {
+                Text(verbatim: errorText)
+                    .foregroundStyle(.red)
+                    .font(.callout)
+            }
             HStack {
                 Spacer()
                 Button(.deleteConfirmationDeleteButton, action: delete)
@@ -50,8 +56,12 @@ struct DeleteSecretView<StoreType: SecretStoreModifiable>: View {
     
     func delete() {
         Task {
-            try! await store.delete(secret: secret)
-            dismissalBlock(true)
+            do {
+                try await store.delete(secret: secret)
+                dismissalBlock(true)
+            } catch {
+                errorText = error.localizedDescription
+            }
         }
     }
 

@@ -46,16 +46,16 @@ extension SecureEnclave {
                 let auth: AuthenticationRequirement = String(describing: accessControl)
                     .contains("DeviceOwnerAuthentication") ? .presenceRequired : .unknown
                 let parsed = try CryptoKit.SecureEnclave.P256.Signing.PrivateKey(dataRepresentation: tokenObjectID)
-                let secret = Secret(id: id, name: name, publicKey: parsed.publicKey.x963Representation, attributes: Attributes(keyType: .init(algorithm: .ecdsa, size: 256), authentication: auth))
+                let secret = Secret(id: UUID().uuidString, name: name, publicKey: parsed.publicKey.x963Representation, attributes: Attributes(keyType: .init(algorithm: .ecdsa, size: 256), authentication: auth))
                 guard !migratedPublicKeys.contains(parsed.publicKey.x963Representation) else {
                     logger.log("Skipping \(name), public key already present. Marking as migrated.")
-                    try markMigrated(secret: secret)
+                    try markMigrated(secret: secret, oldID: id)
                     continue
                 }
                 logger.log("Migrating \(name).")
                 try store.saveKey(tokenObjectID, name: name, attributes: secret.attributes)
                 logger.log("Migrated \(name).")
-                try markMigrated(secret: secret)
+                try markMigrated(secret: secret, oldID: id)
                 migrated = true
             }
             if migrated {
@@ -65,13 +65,13 @@ extension SecureEnclave {
 
 
 
-        public func markMigrated(secret: Secret) throws {
+        public func markMigrated(secret: Secret, oldID: Data) throws {
             let updateQuery = KeychainDictionary([
                 kSecClass: kSecClassKey,
-                kSecAttrApplicationLabel: secret.id as CFData
+                kSecAttrApplicationLabel: secret.id
             ])
 
-            let newID = secret.id + Constants.migrationMagicNumber
+            let newID = oldID + Constants.migrationMagicNumber
             let updatedAttributes = KeychainDictionary([
                 kSecAttrApplicationLabel: newID as CFData
             ])

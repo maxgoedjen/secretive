@@ -6,13 +6,13 @@ extension SecureEnclave {
     /// An implementation of Secret backed by the Secure Enclave.
     public struct Secret: SecretKit.Secret {
 
-        public let id: Data
+        public let id: String
         public let name: String
         public let publicKey: Data
         public let attributes: Attributes
 
         init(
-            id: Data,
+            id: String,
             name: String,
             publicKey: Data,
             attributes: Attributes
