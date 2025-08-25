@@ -76,10 +76,14 @@ extension OpenSSHPublicKeyWriter {
     /// - Returns: The OpenSSH identifier for the algorithm.
     public func openSSHIdentifier(for keyType: KeyType) -> String {
         switch (keyType.algorithm, keyType.size) {
-        case (.ecdsa, 256), (.ecdsa, 384):
-            "ecdsa-sha2-nistp" + String(describing: keyType.size)
-        case (.mldsa, 65), (.mldsa, 87):
-            "ssh-mldsa-" + String(describing: keyType.size)
+        case (.ecdsa, 256):
+            "ecdsa-sha2-nistp256"
+        case (.ecdsa, 384):
+            "ecdsa-sha2-nistp384"
+        case (.mldsa, 65):
+            "ssh-mldsa-65"
+        case (.mldsa, 87):
+            "ssh-mldsa-87"
         case (.rsa, _):
             "ssh-rsa"
         default:

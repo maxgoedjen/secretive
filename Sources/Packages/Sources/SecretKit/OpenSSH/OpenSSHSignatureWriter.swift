@@ -16,8 +16,8 @@ public struct OpenSSHSignatureWriter: Sendable {
             // https://datatracker.ietf.org/doc/html/rfc5656#section-3.1
             ecdsaSignature(signature, keyType: secret.keyType)
         case .mldsa:
-            // https://www.ietf.org/archive/id/draft-sfluhrer-ssh-mldsa-04.txt
-            fatalError()
+            // https://datatracker.ietf.org/doc/html/draft-sfluhrer-ssh-mldsa-00#name-public-key-algorithms
+            mldsaSignature(signature, keyType: secret.keyType)
         case .rsa:
             // https://datatracker.ietf.org/doc/html/rfc4253#section-6.6
             rsaSignature(signature)
@@ -50,6 +50,15 @@ extension OpenSSHSignatureWriter {
         var sub = Data()
         sub.append(OpenSSHPublicKeyWriter().openSSHIdentifier(for: keyType).lengthAndData)
         sub.append(signatureChunk.lengthAndData)
+        mutSignedData.append(sub.lengthAndData)
+        return mutSignedData
+    }
+
+    func mldsaSignature(_ rawRepresentation: Data, keyType: KeyType) -> Data {
+        var mutSignedData = Data()
+        var sub = Data()
+        sub.append(OpenSSHPublicKeyWriter().openSSHIdentifier(for: keyType).lengthAndData)
+        sub.append(rawRepresentation.lengthAndData)
         mutSignedData.append(sub.lengthAndData)
         return mutSignedData
     }

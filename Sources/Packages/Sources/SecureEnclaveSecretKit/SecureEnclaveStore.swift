@@ -39,10 +39,10 @@ extension SecureEnclave {
                 context = existing.context
             } else {
                 let newContext = LAContext()
-                newContext.localizedCancelTitle = String(localized: "auth_context_request_deny_button")
+                newContext.localizedReason = String(localized: .authContextRequestSignatureDescription(appName: provenance.origin.displayName, secretName: secret.name))
+                newContext.localizedCancelTitle = String(localized: .authContextRequestDenyButton)
                 context = newContext
             }
-            context.localizedReason = String(localized: "auth_context_request_signature_description_\(provenance.origin.displayName)_\(secret.name)")
 
             let queryAttributes = KeychainDictionary([
                 kSecClass: Constants.keyClass,
@@ -68,7 +68,7 @@ extension SecureEnclave {
 
             switch (attributes.keyType.algorithm, attributes.keyType.size) {
             case (.ecdsa, 256):
-                let key = try CryptoKit.SecureEnclave.P256.Signing.PrivateKey(dataRepresentation: keyData)
+                let key = try CryptoKit.SecureEnclave.P256.Signing.PrivateKey(dataRepresentation: keyData, authenticationContext: context)
                 return try key.signature(for: data).rawRepresentation
             case (.mldsa, 65):
                 guard #available(macOS 26.0, *)  else { throw UnsupportedAlgorithmError() }
@@ -143,7 +143,8 @@ extension SecureEnclave {
                 kSecClass: Constants.keyClass,
                 kSecAttrService: Constants.keyTag,
                 kSecUseDataProtectionKeychain: true,
-                kSecAttrAccount: String(decoding: secret.id, as: UTF8.self)
+                kSecAttrAccount: String(decoding: secret.id, as: UTF8.self),
+                kSecAttrCanSign: true,
             ])
             let status = SecItemDelete(deleteAttributes)
             if status != errSecSuccess {
