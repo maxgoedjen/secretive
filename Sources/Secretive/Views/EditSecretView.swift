@@ -9,6 +9,7 @@ struct EditSecretView<StoreType: SecretStoreModifiable>: View {
 
     @State private var name: String
     @State private var publicKeyAttribution: String
+    @State var errorText: String?
 
     init(store: StoreType, secret: StoreType.SecretType, dismissalBlock: @escaping (Bool) -> ()) {
         self.store = store
@@ -30,6 +31,11 @@ struct EditSecretView<StoreType: SecretStoreModifiable>: View {
                             .foregroundStyle(.secondary)
                     }
                 }
+                if let errorText {
+                    Text(verbatim: errorText)
+                        .foregroundStyle(.red)
+                        .font(.callout)
+                }
             }
             HStack {
                 Button(.editSaveButton, action: rename)
@@ -37,7 +43,8 @@ struct EditSecretView<StoreType: SecretStoreModifiable>: View {
                     .keyboardShortcut(.return)
                 Button(.editCancelButton) {
                     dismissalBlock(false)
-                }.keyboardShortcut(.cancelAction)
+                }
+                .keyboardShortcut(.cancelAction)
             }
             .padding()
         }
@@ -50,8 +57,12 @@ struct EditSecretView<StoreType: SecretStoreModifiable>: View {
             attributes.publicKeyAttribution = publicKeyAttribution
         }
         Task {
-            try? await store.update(secret: secret, name: name, attributes: attributes)
-            dismissalBlock(true)
+            do {
+                try await store.update(secret: secret, name: name, attributes: attributes)
+                dismissalBlock(true)
+            } catch {
+                errorText = error.localizedDescription
+            }
         }
     }
 }
