@@ -31,8 +31,7 @@ struct ToolbarButtonStyle: ButtonStyle {
             configuration
                 .label
                 .foregroundColor(.white)
-                .padding(.vertical, 6)
-                .padding(.horizontal, 9)
+                .padding(EdgeInsets(top: 6, leading: 8, bottom: 6, trailing: 8))
                 .glassEffect(.regular.tint(glassTint), in: .capsule)
                 .onHover { hovering in
                     self.hovering = hovering
@@ -42,8 +41,6 @@ struct ToolbarButtonStyle: ButtonStyle {
                 .label
                 .background(colorScheme == .light ? lightColor : darkColor)
                 .foregroundColor(.white)
-                .padding(.vertical, 6)
-                .padding(.horizontal, 8)
                 .clipShape(RoundedRectangle(cornerRadius: 5))
                 .overlay(
                     RoundedRectangle(cornerRadius: 5)
