@@ -1083,16 +1083,6 @@
         }
       }
     },
-    "auth_context_request_signature_description_%@_%@" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "auth_context_request_signature_description_%1$@_%2$@"
-          }
-        }
-      }
-    },
     "auth_context_request_verify_description" : {
       "comment" : "When the user performs a signature verification action using a secret, they are shown a prompt to approve the action. This is the description, showing which secret will be used. The placeholder is the name of the secret. NOTE: This is currently not exposed in UI.",
       "extractionState" : "manual",
@@ -1530,6 +1520,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Key Type"
+          }
+        }
+      }
+    },
+    "create_secret_mldsa_warning" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Warning: ML-DSA keys are very new, and not supported by many servers yet. Please verify the server you'll be using this key for accepts ML-DSA keys."
           }
         }
       }
@@ -5188,6 +5189,9 @@
           }
         }
       }
+    },
+    "Test" : {
+
     },
     "unnamed_secret" : {
       "extractionState" : "manual",

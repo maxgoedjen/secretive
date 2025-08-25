@@ -89,7 +89,7 @@ extension Stub {
 
         var debugDescription: String {
             """
-            Key Size \(keyType.size)
+            Key Size \(attributes.keyType.size)
             Private: \(privateKey.base64EncodedString())
             Public: \(publicKey.base64EncodedString())
             """

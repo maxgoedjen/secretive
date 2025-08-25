@@ -79,6 +79,12 @@ struct CreateSecretView<StoreType: SecretStoreModifiable>: View {
                                         .font(.caption)
                                 }
                             }
+                            if keyType?.algorithm == .mldsa {
+                                Text(.createSecretMldsaWarning)
+                                    .padding(.horizontal, 10)
+                                    .padding(.vertical, 3)
+                                    .background(.red.opacity(0.5), in:  RoundedRectangle(cornerRadius: 5))
+                            }
                         }
                         VStack(alignment: .leading) {
                             TextField(.createSecretKeyAttributionLabel, text: $keyAttribution, prompt: Text(verbatim: "test@example.com"))

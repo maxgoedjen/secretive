@@ -39,10 +39,10 @@ extension SecureEnclave {
                 context = existing.context
             } else {
                 let newContext = LAContext()
-                newContext.localizedCancelTitle = String(localized: "auth_context_request_deny_button")
+                newContext.localizedReason = String(localized: .authContextRequestSignatureDescription(appName: provenance.origin.displayName, secretName: secret.name))
+                newContext.localizedCancelTitle = String(localized: .authContextRequestDenyButton)
                 context = newContext
             }
-            context.localizedReason = String(localized: "auth_context_request_signature_description_\(provenance.origin.displayName)_\(secret.name)")
 
             let queryAttributes = KeychainDictionary([
                 kSecClass: Constants.keyClass,
@@ -68,8 +68,16 @@ extension SecureEnclave {
 
             switch (attributes.keyType.algorithm, attributes.keyType.size) {
             case (.ecdsa, 256):
-                let key = try CryptoKit.SecureEnclave.P256.Signing.PrivateKey(dataRepresentation: keyData)
+                let key = try CryptoKit.SecureEnclave.P256.Signing.PrivateKey(dataRepresentation: keyData, authenticationContext: context)
                 return try key.signature(for: data).rawRepresentation
+            case (.mldsa, 65):
+                guard #available(macOS 26.0, *)  else { throw UnsupportedAlgorithmError() }
+                let key = try CryptoKit.SecureEnclave.MLDSA65.PrivateKey(dataRepresentation: keyData)
+                return try key.signature(for: data)
+            case (.mldsa, 87):
+                guard #available(macOS 26.0, *)  else { throw UnsupportedAlgorithmError() }
+                let key = try CryptoKit.SecureEnclave.MLDSA87.PrivateKey(dataRepresentation: keyData)
+                return try key.signature(for: data)
             default:
                 throw UnsupportedAlgorithmError()
             }
@@ -115,6 +123,14 @@ extension SecureEnclave {
             case (.ecdsa, 256):
                 let created = try CryptoKit.SecureEnclave.P256.Signing.PrivateKey(accessControl: access!)
                 dataRep = created.dataRepresentation
+            case (.mldsa, 65):
+                guard #available(macOS 26.0, *) else { throw Attributes.UnsupportedOptionError() }
+                let created = try CryptoKit.SecureEnclave.MLDSA65.PrivateKey(accessControl: access!)
+                dataRep = created.dataRepresentation
+            case (.mldsa, 87):
+                guard #available(macOS 26.0, *) else { throw Attributes.UnsupportedOptionError() }
+                let created = try CryptoKit.SecureEnclave.MLDSA87.PrivateKey(accessControl: access!)
+                dataRep = created.dataRepresentation
             default:
                 throw Attributes.UnsupportedOptionError()
             }
@@ -158,6 +174,8 @@ extension SecureEnclave {
         public var supportedKeyTypes: [KeyType] {
             [
                 .init(algorithm: .ecdsa, size: 256),
+                .init(algorithm: .mldsa, size: 65),
+                .init(algorithm: .mldsa, size: 87),
             ]
         }
 
@@ -206,6 +224,14 @@ extension SecureEnclave.Store {
                 case (.ecdsa, 256):
                     let key = try CryptoKit.SecureEnclave.P256.Signing.PrivateKey(dataRepresentation: keyData)
                     publicKey = key.publicKey.x963Representation
+                case (.mldsa, 65):
+                    guard #available(macOS 26.0, *)  else { throw UnsupportedAlgorithmError() }
+                    let key = try CryptoKit.SecureEnclave.MLDSA65.PrivateKey(dataRepresentation: keyData)
+                    publicKey = key.publicKey.rawRepresentation
+                case (.mldsa, 87):
+                    guard #available(macOS 26.0, *)  else { throw UnsupportedAlgorithmError() }
+                    let key = try CryptoKit.SecureEnclave.MLDSA87.PrivateKey(dataRepresentation: keyData)
+                    publicKey = key.publicKey.rawRepresentation
                 default:
                     throw UnsupportedAlgorithmError()
                 }

@@ -35,6 +35,7 @@ public struct KeyType: Hashable, Sendable, Codable, CustomStringConvertible {
     
     public enum Algorithm: Hashable, Sendable, Codable {
         case ecdsa
+        case mldsa
         case rsa
     }
 
@@ -67,6 +68,8 @@ public struct KeyType: Hashable, Sendable, Codable, CustomStringConvertible {
             kSecAttrKeyTypeEC
         case .rsa:
             kSecAttrKeyTypeRSA
+        case .mldsa:
+            nil
         }
     }
     
