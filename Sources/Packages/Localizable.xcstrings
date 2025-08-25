@@ -5190,9 +5190,6 @@
         }
       }
     },
-    "Test" : {
-
-    },
     "unnamed_secret" : {
       "extractionState" : "manual",
       "localizations" : {
