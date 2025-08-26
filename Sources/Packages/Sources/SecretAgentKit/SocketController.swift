@@ -22,6 +22,7 @@ public struct Session: Sendable {
                 guard !data.isEmpty else {
                     logger.debug("Socket controller received empty data, ending continuation.")
                     continuation.finish()
+                    try fileHandle.close()
                     return
                 }
                 continuation.yield(data)
@@ -37,6 +38,7 @@ public struct Session: Sendable {
 
     public func close() throws {
         logger.debug("Session closed.")
+        continuation.finish()
         try fileHandle.close()
     }
 
