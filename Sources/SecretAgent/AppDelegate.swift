@@ -33,11 +33,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         logger.debug("SecretAgent finished launching")
-        Task { @MainActor in
-            socketController.handler = { [agent] reader, writer in
-                await agent.handle(reader: reader, writer: writer)
-            }
-        }
+        socketController.handler.withLock { [agent] in $0 = agent.handle }
+//        Task {
+//            for await (message, response) in socketController.messages {
+//                let handled = 
+//            }
+//        }
         Task {
             for await _ in NotificationCenter.default.notifications(named: .secretStoreReloaded) {
                 try? publicKeyFileStoreController.generatePublicKeys(for: storeList.allSecrets, clear: true)

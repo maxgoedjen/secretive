@@ -1,19 +1,21 @@
 import Foundation
 import OSLog
+import SecretKit
 
 /// A controller that manages socket configuration and request dispatching.
 public final class SocketController {
 
-    /// The active FileHandle.
-    private var fileHandle: FileHandle?
     /// The active SocketPort.
     private var port: SocketPort?
     /// A handler that will be notified when a new read/write handle is available.
     /// False if no data could be read
-    public var handler: (@Sendable (FileHandleReader, FileHandleWriter) async -> Bool)?
+    public var handler: OSAllocatedUnfairLock<(@Sendable (Data, SigningRequestProvenance) async throws -> Data)?> = .init(initialState: nil)
     /// Logger.
     private let logger = Logger(subsystem: "com.maxgoedjen.secretive.secretagent", category: "SocketController")
 
+    private let requestTracer = SigningRequestTracer()
+
+    // Async sequence of message?
 
     /// Initializes a socket controller with a specified path.
     /// - Parameter path: The path to use as a socket.
@@ -34,10 +36,43 @@ public final class SocketController {
     /// - Parameter path: The path to use as a socket.
     func configureSocket(at path: String) {
         guard let port = port else { return }
-        fileHandle = FileHandle(fileDescriptor: port.socket, closeOnDealloc: true)
-        NotificationCenter.default.addObserver(self, selector: #selector(handleConnectionAccept(notification:)), name: .NSFileHandleConnectionAccepted, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(handleConnectionDataAvailable(notification:)), name: .NSFileHandleDataAvailable, object: nil)
-        fileHandle?.acceptConnectionInBackgroundAndNotify(forModes: [RunLoop.Mode.common])
+        let fileHandle = FileHandle(fileDescriptor: port.socket, closeOnDealloc: true)
+        fileHandle.acceptConnectionInBackgroundAndNotify(forModes: [RunLoop.Mode.common])
+        Task { [handler, logger] in
+            for await notification in NotificationCenter.default.notifications(named: .NSFileHandleConnectionAccepted) {
+                logger.debug("Socket controller accepted connection")
+                guard let new = notification.userInfo?[NSFileHandleNotificationFileHandleItem] as? FileHandle else { continue }
+                let provenance = SigningRequestTracer().provenance(from: new)
+                guard let handler = handler.withLock({ $0 }) else {
+                    // FIXME: THIS
+                    fatalError()
+                }
+                let response = try await handler(Data(fileHandle.availableData), provenance)
+                try fileHandle.write(contentsOf: response)
+                await new.waitForDataInBackgroundAndNotifyOnMainActor()
+                await fileHandle.acceptConnectionInBackgroundAndNotifyOnMainActor()
+            }
+        }
+        Task { [logger, handler] in
+            for await notification in NotificationCenter.default.notifications(named: .NSFileHandleDataAvailable) {
+                logger.debug("Socket controller has new data available")
+                guard let new = notification.object as? FileHandle else { return }
+                logger.debug("Socket controller received new file handle")
+                guard let handler = handler.withLock({ $0 }) else {
+                    // FIXME: THIS
+                    fatalError()
+                }
+                do {
+                    let provenance = SigningRequestTracer().provenance(from: new)
+                    let response = try await handler(Data(fileHandle.availableData), provenance)
+                    try fileHandle.write(contentsOf: response)
+                    logger.debug("Socket controller handled data, wait for more data")
+                    await new.waitForDataInBackgroundAndNotifyOnMainActor()
+                } catch {
+                    logger.debug("Socket controller called with empty data, socked closed")
+                }
+            }
+        }
     }
 
     /// Creates a SocketPort for a path.
@@ -62,34 +97,6 @@ public final class SocketController {
         }
 
         return SocketPort(protocolFamily: AF_UNIX, socketType: SOCK_STREAM, protocol: 0, address: data)!
-    }
-
-    /// Handles a new connection being accepted, invokes the handler, and prepares to accept new connections.
-    /// - Parameter notification: A `Notification` that triggered the call.
-    @objc func handleConnectionAccept(notification: Notification) {
-        logger.debug("Socket controller accepted connection")
-        guard let new = notification.userInfo?[NSFileHandleNotificationFileHandleItem] as? FileHandle else { return }
-        Task { [handler, fileHandle] in
-            _ = await handler?(new, new)
-            await new.waitForDataInBackgroundAndNotifyOnMainActor()
-            await fileHandle?.acceptConnectionInBackgroundAndNotifyOnMainActor()
-        }
-    }
-
-    /// Handles a new connection providing data and invokes the handler callback.
-    /// - Parameter notification: A `Notification` that triggered the call.
-    @objc func handleConnectionDataAvailable(notification: Notification) {
-        logger.debug("Socket controller has new data available")
-        guard let new = notification.object as? FileHandle else { return }
-        logger.debug("Socket controller received new file handle")
-        Task { [handler, logger = logger] in
-            if((await handler?(new, new)) == true) {
-                logger.debug("Socket controller handled data, wait for more data")
-                await new.waitForDataInBackgroundAndNotifyOnMainActor()
-            } else {
-                logger.debug("Socket controller called with empty data, socked closed")
-            }
-        }
     }
 
 }
