@@ -96,7 +96,8 @@ extension Preview {
         }
 
 
-        func create(name: String, attributes: Attributes) throws {
+        func create(name: String, attributes: Attributes) throws -> Secret {
+            fatalError()
         }
 
         func delete(secret: Preview.Secret) throws {
