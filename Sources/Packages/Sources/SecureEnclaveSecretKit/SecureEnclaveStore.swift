@@ -121,21 +121,26 @@ extension SecureEnclave {
             let dataRep: Data
             switch (attributes.keyType.algorithm, attributes.keyType.size) {
             case (.ecdsa, 256):
+            let publicKey: Data
                 let created = try CryptoKit.SecureEnclave.P256.Signing.PrivateKey(accessControl: access!)
                 dataRep = created.dataRepresentation
             case (.mldsa, 65):
+                publicKey = created.publicKey.x963Representation
                 guard #available(macOS 26.0, *) else { throw Attributes.UnsupportedOptionError() }
                 let created = try CryptoKit.SecureEnclave.MLDSA65.PrivateKey(accessControl: access!)
                 dataRep = created.dataRepresentation
             case (.mldsa, 87):
+                publicKey = created.publicKey.rawRepresentation
                 guard #available(macOS 26.0, *) else { throw Attributes.UnsupportedOptionError() }
                 let created = try CryptoKit.SecureEnclave.MLDSA87.PrivateKey(accessControl: access!)
                 dataRep = created.dataRepresentation
+                publicKey = created.publicKey.rawRepresentation
             default:
                 throw Attributes.UnsupportedOptionError()
             }
-            try saveKey(dataRep, name: name, attributes: attributes)
+            let id = try saveKey(dataRep, name: name, attributes: attributes)
             await reloadSecrets()
+            return Secret(id: id, name: name, publicKey: publicKey, attributes: attributes)
         }
 
         public func delete(secret: Secret) async throws {
@@ -249,14 +254,16 @@ extension SecureEnclave.Store {
     ///   - name: A user-facing name for the key.
     ///   - attributes: Attributes of the key.
     /// - Note: Despite the name, the "Data" of the key is _not_ actual key material. This is an opaque data representation that the SEP can manipulate.
-    func saveKey(_ key: Data, name: String, attributes: Attributes) throws {
+    @discardableResult
+    func saveKey(_ key: Data, name: String, attributes: Attributes) throws -> String {
         let attributes = try JSONEncoder().encode(attributes)
+        let id = UUID().uuidString
         let keychainAttributes = KeychainDictionary([
             kSecClass: Constants.keyClass,
             kSecAttrService: Constants.keyTag,
             kSecUseDataProtectionKeychain: true,
             kSecAttrAccessible: kSecAttrAccessibleWhenUnlockedThisDeviceOnly,
-            kSecAttrAccount: UUID().uuidString,
+            kSecAttrAccount: id,
             kSecValueData: key,
             kSecAttrLabel: name,
             kSecAttrGeneric: attributes
@@ -265,6 +272,7 @@ extension SecureEnclave.Store {
         if status != errSecSuccess {
             throw KeychainError(statusCode: status)
         }
+        return id
     }
     
 }
