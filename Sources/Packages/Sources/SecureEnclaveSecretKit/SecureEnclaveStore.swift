@@ -23,7 +23,11 @@ extension SecureEnclave {
         @MainActor public init() {
             loadSecrets()
             Task {
-                for await _ in DistributedNotificationCenter.default().notifications(named: .secretStoreUpdated) {
+                for await note in DistributedNotificationCenter.default().notifications(named: .secretStoreUpdated) {
+                    guard Constants.notificationToken != (note.object as? String) else {
+                        // Don't reload if we're the ones triggering this by reloading.
+                        return
+                    }
                     reloadSecrets()
                 }
             }
@@ -93,7 +97,13 @@ extension SecureEnclave {
         }
 
         @MainActor public func reloadSecrets() {
-            reloadSecretsInternal(notifyAgent: false)
+            let before = secrets
+            secrets.removeAll()
+            loadSecrets()
+            if secrets != before {
+                NotificationCenter.default.post(name: .secretStoreReloaded, object: self)
+                DistributedNotificationCenter.default().postNotificationName(.secretStoreUpdated, object: Constants.notificationToken, deliverImmediately: true)
+            }
         }
 
         // MARK: SecretStoreModifiable
@@ -194,18 +204,6 @@ extension SecureEnclave {
 
 extension SecureEnclave.Store {
 
-    @MainActor private func reloadSecretsInternal(notifyAgent: Bool = true) {
-        let before = secrets
-        secrets.removeAll()
-        loadSecrets()
-        if secrets != before {
-            NotificationCenter.default.post(name: .secretStoreReloaded, object: self)
-            if notifyAgent {
-                DistributedNotificationCenter.default().postNotificationName(.secretStoreUpdated, object: nil, deliverImmediately: true)
-            }
-        }
-    }
-
     /// Loads all secrets from the store.
     @MainActor private func loadSecrets() {
         let queryAttributes = KeychainDictionary([
@@ -286,6 +284,7 @@ extension SecureEnclave.Store {
     enum Constants {
         static let keyClass = kSecClassGenericPassword as String
         static let keyTag = Data("com.maxgoedjen.secretive.secureenclave.key".utf8)
+        static let notificationToken = UUID().uuidString
     }
     
     struct UnsupportedAlgorithmError: Error {}
