@@ -33,7 +33,9 @@ extension Agent {
 
     /// Handles an incoming request.
     /// - Parameters:
-    /// // FIXME: UPDATE DOCS
+    ///   - data: The data to handle.
+    ///   - provenance: The origin of the request.
+    /// - Returns: A response data payload.
     public func handle(data: Data, provenance: SigningRequestProvenance) async throws -> Data {
         logger.debug("Agent handling new data")
         guard data.count > 4 else {
@@ -50,7 +52,7 @@ extension Agent {
         return response
     }
 
-    func handle(requestType: SSHAgent.RequestType, data: Data, provenance: SigningRequestProvenance) async -> Data {
+    private func handle(requestType: SSHAgent.RequestType, data: Data, provenance: SigningRequestProvenance) async -> Data {
         // Depending on the launch context (such as after macOS update), the agent may need to reload secrets before acting
         await reloadSecretsIfNeccessary()
         var response = Data()
