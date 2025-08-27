@@ -46,8 +46,9 @@ public protocol SecretStoreModifiable<SecretType>: SecretStore {
     /// Creates a new ``Secret`` in the store.
     /// - Parameters:
     ///   - name: The user-facing name for the ``Secret``.
-    ///   - attributes: A struct describing the options for creating the key.
-    func create(name: String, attributes: Attributes) async throws
+    ///   - attributes: A struct describing the options for creating the key.'
+    @discardableResult
+    func create(name: String, attributes: Attributes) async throws -> SecretType
 
     /// Deletes a Secret in the store.
     /// - Parameters:

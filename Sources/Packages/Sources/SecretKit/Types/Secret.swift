@@ -32,7 +32,13 @@ public extension Secret {
 
 /// The type of algorithm the Secret uses.
 public struct KeyType: Hashable, Sendable, Codable, CustomStringConvertible {
-    
+
+    public static let ecdsa256 = KeyType(algorithm: .ecdsa, size: 256)
+    public static let ecdsa384 = KeyType(algorithm: .ecdsa, size: 384)
+    public static let mldsa65 = KeyType(algorithm: .mldsa, size: 65)
+    public static let mldsa87 = KeyType(algorithm: .mldsa, size: 87)
+    public static let rsa2048 = KeyType(algorithm: .rsa, size: 2048)
+
     public enum Algorithm: Hashable, Sendable, Codable {
         case ecdsa
         case mldsa
@@ -41,7 +47,7 @@ public struct KeyType: Hashable, Sendable, Codable, CustomStringConvertible {
 
     public var algorithm: Algorithm
     public var size: Int
-    
+
     public init(algorithm: Algorithm, size: Int) {
         self.algorithm = algorithm
         self.size = size
