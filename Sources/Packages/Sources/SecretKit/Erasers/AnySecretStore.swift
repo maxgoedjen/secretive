@@ -61,13 +61,13 @@ open class AnySecretStore: SecretStore, @unchecked Sendable {
 
 public final class AnySecretStoreModifiable: AnySecretStore, SecretStoreModifiable, @unchecked Sendable {
 
-    private let _create: @Sendable (String, Attributes) async throws -> SecretType
+    private let _create: @Sendable (String, Attributes) async throws -> AnySecret
     private let _delete: @Sendable (AnySecret) async throws -> Void
     private let _update: @Sendable (AnySecret, String, Attributes) async throws -> Void
     private let _supportedKeyTypes: @Sendable () -> [KeyType]
 
     public init<SecretStoreType>(_ secretStore: SecretStoreType) where SecretStoreType: SecretStoreModifiable {
-        _create = { try await secretStore.create(name: $0, attributes: $1) as! SecretType }
+        _create = { AnySecret(try await secretStore.create(name: $0, attributes: $1)) }
         _delete = { try await secretStore.delete(secret: $0.base as! SecretStoreType.SecretType) }
         _update = { try await secretStore.update(secret: $0.base as! SecretStoreType.SecretType, name: $1, attributes: $2) }
         _supportedKeyTypes = { secretStore.supportedKeyTypes }
