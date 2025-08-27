@@ -53,12 +53,12 @@ public extension SecretStore {
     ///   - secret: The secret which will be used for signing.
     /// - Returns: The appropriate algorithm.
     func signatureAlgorithm(for secret: SecretType) -> SecKeyAlgorithm? {
-        switch (secret.keyType.algorithm, secret.keyType.size) {
-        case (.ecdsa, 256):
+        switch secret.keyType {
+        case .ecdsa256:
             .ecdsaSignatureMessageX962SHA256
-        case (.ecdsa, 384):
+        case .ecdsa384:
             .ecdsaSignatureMessageX962SHA384
-        case (.rsa, 2048):
+        case .rsa2048:
             .rsaSignatureMessagePKCS1v15SHA512
         default:
             nil

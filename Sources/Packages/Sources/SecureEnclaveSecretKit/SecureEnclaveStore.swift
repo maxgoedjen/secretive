@@ -66,15 +66,15 @@ extension SecureEnclave {
             }
             let attributes = try JSONDecoder().decode(Attributes.self, from: attributesData)
 
-            switch (attributes.keyType.algorithm, attributes.keyType.size) {
-            case (.ecdsa, 256):
+            switch attributes.keyType {
+            case .ecdsa256:
                 let key = try CryptoKit.SecureEnclave.P256.Signing.PrivateKey(dataRepresentation: keyData, authenticationContext: context)
                 return try key.signature(for: data).rawRepresentation
-            case (.mldsa, 65):
+            case .mldsa65:
                 guard #available(macOS 26.0, *)  else { throw UnsupportedAlgorithmError() }
                 let key = try CryptoKit.SecureEnclave.MLDSA65.PrivateKey(dataRepresentation: keyData)
                 return try key.signature(for: data)
-            case (.mldsa, 87):
+            case .mldsa87:
                 guard #available(macOS 26.0, *)  else { throw UnsupportedAlgorithmError() }
                 let key = try CryptoKit.SecureEnclave.MLDSA87.PrivateKey(dataRepresentation: keyData)
                 return try key.signature(for: data)
@@ -119,15 +119,15 @@ extension SecureEnclave {
                 throw error.takeRetainedValue() as Error
             }
             let dataRep: Data
-            switch (attributes.keyType.algorithm, attributes.keyType.size) {
-            case (.ecdsa, 256):
+            switch attributes.keyType {
+            case .ecdsa256:
                 let created = try CryptoKit.SecureEnclave.P256.Signing.PrivateKey(accessControl: access!)
                 dataRep = created.dataRepresentation
-            case (.mldsa, 65):
+            case .mldsa65:
                 guard #available(macOS 26.0, *) else { throw Attributes.UnsupportedOptionError() }
                 let created = try CryptoKit.SecureEnclave.MLDSA65.PrivateKey(accessControl: access!)
                 dataRep = created.dataRepresentation
-            case (.mldsa, 87):
+            case .mldsa87:
                 guard #available(macOS 26.0, *) else { throw Attributes.UnsupportedOptionError() }
                 let created = try CryptoKit.SecureEnclave.MLDSA87.PrivateKey(accessControl: access!)
                 dataRep = created.dataRepresentation
@@ -172,11 +172,15 @@ extension SecureEnclave {
         }
         
         public var supportedKeyTypes: [KeyType] {
-            [
-                .init(algorithm: .ecdsa, size: 256),
-                .init(algorithm: .mldsa, size: 65),
-                .init(algorithm: .mldsa, size: 87),
-            ]
+            if #available(macOS 26, *) {
+                [
+                    .ecdsa256,
+                    .mldsa65,
+                    .mldsa87,
+                ]
+            } else {
+                [.ecdsa256]
+            }
         }
 
     }
@@ -220,15 +224,15 @@ extension SecureEnclave.Store {
                 let attributes = try JSONDecoder().decode(Attributes.self, from: attributesData)
                 let keyData = $0[kSecValueData] as! Data
                 let publicKey: Data
-                switch (attributes.keyType.algorithm, attributes.keyType.size) {
-                case (.ecdsa, 256):
+                switch attributes.keyType {
+                case .ecdsa256:
                     let key = try CryptoKit.SecureEnclave.P256.Signing.PrivateKey(dataRepresentation: keyData)
                     publicKey = key.publicKey.x963Representation
-                case (.mldsa, 65):
+                case .mldsa65:
                     guard #available(macOS 26.0, *)  else { throw UnsupportedAlgorithmError() }
                     let key = try CryptoKit.SecureEnclave.MLDSA65.PrivateKey(dataRepresentation: keyData)
                     publicKey = key.publicKey.rawRepresentation
-                case (.mldsa, 87):
+                case .mldsa87:
                     guard #available(macOS 26.0, *)  else { throw UnsupportedAlgorithmError() }
                     let key = try CryptoKit.SecureEnclave.MLDSA87.PrivateKey(dataRepresentation: keyData)
                     publicKey = key.publicKey.rawRepresentation
