@@ -11,7 +11,6 @@ public final class Agent: Sendable {
     private let witness: SigningWitness?
     private let publicKeyWriter = OpenSSHPublicKeyWriter()
     private let signatureWriter = OpenSSHSignatureWriter()
-    private let requestTracer = SigningRequestTracer()
     private let certificateHandler = OpenSSHCertificateHandler()
     private let logger = Logger(subsystem: "com.maxgoedjen.secretive.secretagent", category: "Agent")
 
@@ -34,28 +33,26 @@ extension Agent {
 
     /// Handles an incoming request.
     /// - Parameters:
-    ///   - reader: A ``FileHandleReader`` to read the content of the request.
-    ///   - writer: A ``FileHandleWriter`` to write the response to.
-    /// - Return value: 
-    ///   - Boolean if data could be read
-    @discardableResult public func handle(reader: FileHandleReader, writer: FileHandleWriter) async -> Bool {
+    ///   - data: The data to handle.
+    ///   - provenance: The origin of the request.
+    /// - Returns: A response data payload.
+    public func handle(data: Data, provenance: SigningRequestProvenance) async throws -> Data {
         logger.debug("Agent handling new data")
-        let data = Data(reader.availableData)
-        guard data.count > 4 else { return false}
+        guard data.count > 4 else {
+            throw AgentError.couldNotRead
+        }
         let requestTypeInt = data[4]
         guard let requestType = SSHAgent.RequestType(rawValue: requestTypeInt) else {
-            writer.write(SSHAgent.ResponseType.agentFailure.data.lengthAndData)
             logger.debug("Agent returned \(SSHAgent.ResponseType.agentFailure.debugDescription)")
-            return true
+            return SSHAgent.ResponseType.agentFailure.data.lengthAndData
         }
         logger.debug("Agent handling request of type \(requestType.debugDescription)")
         let subData = Data(data[5...])
-        let response = await handle(requestType: requestType, data: subData, reader: reader)
-        writer.write(response)
-        return true
+        let response = await handle(requestType: requestType, data: subData, provenance: provenance)
+        return response
     }
 
-    func handle(requestType: SSHAgent.RequestType, data: Data, reader: FileHandleReader) async -> Data {
+    private func handle(requestType: SSHAgent.RequestType, data: Data, provenance: SigningRequestProvenance) async -> Data {
         // Depending on the launch context (such as after macOS update), the agent may need to reload secrets before acting
         await reloadSecretsIfNeccessary()
         var response = Data()
@@ -66,7 +63,6 @@ extension Agent {
                 response.append(await identities())
                 logger.debug("Agent returned \(SSHAgent.ResponseType.agentIdentitiesAnswer.debugDescription)")
             case .signRequest:
-                let provenance = requestTracer.provenance(from: reader)
                 response.append(SSHAgent.ResponseType.agentSignResponse.data)
                 response.append(try await sign(data: data, provenance: provenance))
                 logger.debug("Agent returned \(SSHAgent.ResponseType.agentSignResponse.debugDescription)")
@@ -184,6 +180,7 @@ extension Agent {
 
     /// An error involving agent operations..
     enum AgentError: Error {
+        case couldNotRead
         case unhandledType
         case noMatchingKey
         case unsupportedKeyType
