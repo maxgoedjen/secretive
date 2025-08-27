@@ -75,16 +75,16 @@ extension OpenSSHPublicKeyWriter {
     ///   - length: The key length of the algorithm.
     /// - Returns: The OpenSSH identifier for the algorithm.
     public func openSSHIdentifier(for keyType: KeyType) -> String {
-        switch (keyType.algorithm, keyType.size) {
-        case (.ecdsa, 256):
+        switch keyType {
+        case .ecdsa256:
             "ecdsa-sha2-nistp256"
-        case (.ecdsa, 384):
+        case .ecdsa384:
             "ecdsa-sha2-nistp384"
-        case (.mldsa, 65):
+        case .mldsa65:
             "ssh-mldsa-65"
-        case (.mldsa, 87):
+        case .mldsa87:
             "ssh-mldsa-87"
-        case (.rsa, _):
+        case .rsa2048:
             "ssh-rsa"
         default:
             "unknown"
@@ -101,8 +101,7 @@ extension OpenSSHPublicKeyWriter {
         // [4 byte prefix][2 byte prefix][n][2 byte prefix][e]
         // Rather than parse out the whole ASN.1 blob, we'll cheat and pull values directly since
         // we only support one key type, and the keychain always gives it in a specific format.
-        let keySize = secret.keyType.size
-        guard secret.keyType.algorithm == .rsa && keySize == 2048 else { fatalError() }
+        guard secret.keyType == .rsa2048 else { fatalError() }
         let length = secret.keyType.size/8
         let data = secret.publicKey
         let n = Data(data[8..<(9+length)])
