@@ -119,15 +119,15 @@ extension SecureEnclave {
                 throw error.takeRetainedValue() as Error
             }
             let dataRep: Data
-            switch (attributes.keyType.algorithm, attributes.keyType.size) {
-            case (.ecdsa, 256):
+            switch attributes.keyType {
+            case .ecdsa256:
                 let created = try CryptoKit.SecureEnclave.P256.Signing.PrivateKey(accessControl: access!)
                 dataRep = created.dataRepresentation
-            case (.mldsa, 65):
+            case .mldsa65:
                 guard #available(macOS 26.0, *) else { throw Attributes.UnsupportedOptionError() }
                 let created = try CryptoKit.SecureEnclave.MLDSA65.PrivateKey(accessControl: access!)
                 dataRep = created.dataRepresentation
-            case (.mldsa, 87):
+            case .mldsa87:
                 guard #available(macOS 26.0, *) else { throw Attributes.UnsupportedOptionError() }
                 let created = try CryptoKit.SecureEnclave.MLDSA87.PrivateKey(accessControl: access!)
                 dataRep = created.dataRepresentation
