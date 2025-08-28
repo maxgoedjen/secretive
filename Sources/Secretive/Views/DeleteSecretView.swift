@@ -1,63 +1,56 @@
 import SwiftUI
 import SecretKit
 
-struct DeleteSecretView<StoreType: SecretStoreModifiable>: View {
+extension View {
 
-    @State var store: StoreType
-    let secret: StoreType.SecretType
-    var dismissalBlock: (Bool) -> ()
-
-    @State private var confirm = ""
-    @State var errorText: String?
-
-    var body: some View {
-        VStack {
-            HStack {
-                Image(nsImage: NSApplication.shared.applicationIconImage)
-                    .resizable()
-                    .frame(width: 64, height: 64)
-                    .padding()
-                VStack {
-                    HStack {
-                        Text(.deleteConfirmationTitle(secretName: secret.name)).bold()
-                        Spacer()
-                    }
-                    HStack {
-                        Text(.deleteConfirmationDescription(secretName: secret.name, confirmSecretName: secret.name))
-                        Spacer()
-                    }
-                    HStack {
-                        Text(.deleteConfirmationConfirmNameLabel)
-                        TextField(secret.name, text: $confirm)
-                    }
-                }
-            }
-            if let errorText {
-                Text(verbatim: errorText)
-                    .foregroundStyle(.red)
-                    .font(.callout)
-            }
-            HStack {
-                Spacer()
-                Button(.deleteConfirmationDeleteButton, action: delete)
-                    .disabled(confirm != secret.name)
-                Button(.deleteConfirmationCancelButton) {
-                    dismissalBlock(false)
-                }
-                .keyboardShortcut(.cancelAction)
-            }
-        }
-        .padding()
-        .frame(minWidth: 400)
-        .onExitCommand {
-            dismissalBlock(false)
-        }
+    func showingDeleteConfirmation(isPresented: Binding<Bool>, _ secret: AnySecret,  _ store: AnySecretStoreModifiable?, dismissalBlock: @escaping (Bool) -> ()) -> some View {
+        modifier(DeleteSecretConfirmationModifier(isPresented: isPresented, secret: secret, store: store, dismissalBlock: dismissalBlock))
     }
-    
+
+}
+
+struct DeleteSecretConfirmationModifier: ViewModifier {
+
+    var isPresented: Binding<Bool>
+    var secret: AnySecret
+    var store: AnySecretStoreModifiable?
+    var dismissalBlock: (Bool) -> ()
+    @State var confirmedSecretName = ""
+    @State private var errorText: String?
+
+    func body(content: Content) -> some View {
+        content
+            .confirmationDialog(
+                .deleteConfirmationTitle(secretName: secret.name),
+                isPresented: isPresented,
+                titleVisibility: .visible,
+                actions: {
+                    TextField(secret.name, text: $confirmedSecretName)
+                    if let errorText {
+                        Text(verbatim: errorText)
+                            .foregroundStyle(.red)
+                            .font(.callout)
+                    }
+                    Button(.deleteConfirmationDeleteButton, action: delete)
+                        .disabled(confirmedSecretName != secret.name)
+                    Button(.deleteConfirmationCancelButton, role: .cancel) {
+                        dismissalBlock(false)
+                    }
+                },
+                message: {
+                    Text(.deleteConfirmationDescription(secretName: secret.name, confirmSecretName: secret.name))
+                }
+            )
+            .dialogIcon(Image(systemName: "lock.trianglebadge.exclamationmark.fill"))
+            .onExitCommand {
+                dismissalBlock(false)
+            }
+    }
+
     func delete() {
         Task {
             do {
-                try await store.delete(secret: secret)
+                try await store!.delete(secret: secret)
                 dismissalBlock(true)
             } catch {
                 errorText = error.localizedDescription

@@ -33,9 +33,18 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         logger.debug("SecretAgent finished launching")
-        Task { @MainActor in
-            socketController.handler = { [agent] reader, writer in
-                await agent.handle(reader: reader, writer: writer)
+        Task {
+            for await session in socketController.sessions {
+                Task {
+                    do {
+                        for await message in session.messages {
+                            let agentResponse = try await agent.handle(data: message, provenance: session.provenance)
+                            try await session.write(agentResponse)
+                        }
+                    } catch {
+                        try session.close()
+                    }
+                }
             }
         }
         Task {

@@ -53,6 +53,7 @@
 		50B8550D24138C4F009958AC /* DeleteSecretView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B8550C24138C4F009958AC /* DeleteSecretView.swift */; };
 		50BB046B2418AAAE00D6E079 /* EmptyStoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50BB046A2418AAAE00D6E079 /* EmptyStoreView.swift */; };
 		50C385A52407A76D00AF2719 /* SecretDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C385A42407A76D00AF2719 /* SecretDetailView.swift */; };
+		50CF4ABC2E601B0F005588DC /* ActionButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50CF4ABB2E601B0F005588DC /* ActionButtonStyle.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -142,6 +143,7 @@
 		50B8550C24138C4F009958AC /* DeleteSecretView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeleteSecretView.swift; sourceTree = "<group>"; };
 		50BB046A2418AAAE00D6E079 /* EmptyStoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStoreView.swift; sourceTree = "<group>"; };
 		50C385A42407A76D00AF2719 /* SecretDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecretDetailView.swift; sourceTree = "<group>"; };
+		50CF4ABB2E601B0F005588DC /* ActionButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionButtonStyle.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -243,6 +245,7 @@
 			children = (
 				50617D8423FCE48E0099B055 /* ContentView.swift */,
 				5065E312295517C500E16645 /* ToolbarButtonStyle.swift */,
+				50CF4ABB2E601B0F005588DC /* ActionButtonStyle.swift */,
 				5079BA0E250F29BF00EA86F4 /* StoreListView.swift */,
 				50153E21250DECA300525160 /* SecretListItemView.swift */,
 				50C385A42407A76D00AF2719 /* SecretDetailView.swift */,
@@ -438,6 +441,7 @@
 				5066A6C22516F303004B5A36 /* SetupView.swift in Sources */,
 				5065E313295517C500E16645 /* ToolbarButtonStyle.swift in Sources */,
 				50617D8523FCE48E0099B055 /* ContentView.swift in Sources */,
+				50CF4ABC2E601B0F005588DC /* ActionButtonStyle.swift in Sources */,
 				50571E0324393C2600F76F6C /* JustUpdatedChecker.swift in Sources */,
 				5079BA0F250F29BF00EA86F4 /* StoreListView.swift in Sources */,
 				50617DD223FCEFA90099B055 /* PreviewStore.swift in Sources */,
