@@ -76,11 +76,11 @@ extension SecureEnclave {
                 return try key.signature(for: data).rawRepresentation
             case .mldsa65:
                 guard #available(macOS 26.0, *)  else { throw UnsupportedAlgorithmError() }
-                let key = try CryptoKit.SecureEnclave.MLDSA65.PrivateKey(dataRepresentation: keyData)
+                let key = try CryptoKit.SecureEnclave.MLDSA65.PrivateKey(dataRepresentation: keyData, authenticationContext: context)
                 return try key.signature(for: data)
             case .mldsa87:
                 guard #available(macOS 26.0, *)  else { throw UnsupportedAlgorithmError() }
-                let key = try CryptoKit.SecureEnclave.MLDSA87.PrivateKey(dataRepresentation: keyData)
+                let key = try CryptoKit.SecureEnclave.MLDSA87.PrivateKey(dataRepresentation: keyData, authenticationContext: context)
                 return try key.signature(for: data)
             default:
                 throw UnsupportedAlgorithmError()
@@ -197,7 +197,6 @@ extension SecureEnclave {
                 [.ecdsa256]
             }
         }
-
     }
 
 }
