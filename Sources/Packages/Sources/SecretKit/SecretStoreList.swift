@@ -36,4 +36,12 @@ import Observation
         stores.flatMap(\.secrets)
     }
 
+    public var allSecretsWithStores: [(AnySecret, AnySecretStore)] {
+        stores.flatMap { store in
+            store.secrets.map { secret in
+                (secret, store)
+            }
+        }
+    }
+
 }

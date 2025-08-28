@@ -39,7 +39,7 @@ extension Agent {
     public func handle(data: Data, provenance: SigningRequestProvenance) async throws -> Data {
         logger.debug("Agent handling new data")
         guard data.count > 4 else {
-            throw AgentError.couldNotRead
+            throw InvalidDataProvidedError()
         }
         let requestTypeInt = data[4]
         guard let requestType = SSHAgent.RequestType(rawValue: requestTypeInt) else {
@@ -84,7 +84,7 @@ extension Agent {
     func identities() async -> Data {
         let secrets = await storeList.allSecrets
         await certificateHandler.reloadCertificates(for: secrets)
-        var count = secrets.count
+        var count = 0
         var keyData = Data()
 
         for secret in secrets {
@@ -92,6 +92,7 @@ extension Agent {
             let curveData = publicKeyWriter.openSSHIdentifier(for: secret.keyType)
             keyData.append(keyBlob.lengthAndData)
             keyData.append(curveData.lengthAndData)
+            count += 1
 
             if let (certificateData, name) = try? await certificateHandler.keyBlobAndName(for: secret) {
                 keyData.append(certificateData.lengthAndData)
@@ -114,6 +115,7 @@ extension Agent {
         let reader = OpenSSHReader(data: data)
         let payloadHash = reader.readNextChunk()
         let hash: Data
+
         // Check if hash is actually an openssh certificate and reconstruct the public key if it is
         if let certificatePublicKey = await certificateHandler.publicKeyHash(from: payloadHash) {
             hash = certificatePublicKey
@@ -121,22 +123,18 @@ extension Agent {
             hash = payloadHash
         }
         
-        guard let (store, secret) = await secret(matching: hash) else {
+        guard let (secret, store) = await secret(matching: hash) else {
             logger.debug("Agent did not have a key matching \(hash as NSData)")
-            throw AgentError.noMatchingKey
+            throw NoMatchingKeyError()
         }
 
-        if let witness = witness {
-            try await witness.speakNowOrForeverHoldYourPeace(forAccessTo: secret, from: store, by: provenance)
-        }
+        try await witness?.speakNowOrForeverHoldYourPeace(forAccessTo: secret, from: store, by: provenance)
 
         let dataToSign = reader.readNextChunk()
         let rawRepresentation = try await store.sign(data: dataToSign, with: secret, for: provenance)
         let signedData = signatureWriter.data(secret: secret, signature: rawRepresentation)
 
-        if let witness = witness {
-            try await witness.witness(accessTo: secret, from: store, by: provenance)
-        }
+        try await witness?.witness(accessTo: secret, from: store, by: provenance)
 
         logger.debug("Agent signed request")
 
@@ -161,16 +159,10 @@ extension Agent {
     /// Finds a ``Secret`` matching a specified hash whos signature was requested.
     /// - Parameter hash: The hash to match against.
     /// - Returns: A ``Secret`` and the ``SecretStore`` containing it, if a match is found.
-    func secret(matching hash: Data) async -> (AnySecretStore, AnySecret)? {
-        for store in await storeList.stores {
-            let allMatching = await store.secrets.filter { secret in
-                hash == publicKeyWriter.data(secret: secret)
-            }
-            if let matching = allMatching.first {
-                return (store, matching)
-            }
+    func secret(matching hash: Data) async -> (AnySecret, AnySecretStore)? {
+        await storeList.allSecretsWithStores.first {
+            hash == publicKeyWriter.data(secret: $0.0)
         }
-        return nil
     }
 
 }
@@ -178,14 +170,8 @@ extension Agent {
 
 extension Agent {
 
-    /// An error involving agent operations..
-    enum AgentError: Error {
-        case couldNotRead
-        case unhandledType
-        case noMatchingKey
-        case unsupportedKeyType
-        case notOpenSSHCertificate
-    }
+    struct InvalidDataProvidedError: Error {}
+    struct NoMatchingKeyError: Error {}
 
 }
 
