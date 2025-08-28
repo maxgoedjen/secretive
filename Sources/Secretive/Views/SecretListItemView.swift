@@ -12,18 +12,6 @@ struct SecretListItemView: View {
     var deletedSecret: (AnySecret) -> Void
     var renamedSecret: (AnySecret) -> Void
     
-    private var showingPopup: Binding<Bool> {
-        Binding(
-            get: { isDeleting || isRenaming },
-            set: {
-                if $0 == false {
-                    isDeleting = false
-                    isRenaming = false
-                }
-            }
-        )
-    }
-    
     var body: some View {
         NavigationLink(value: secret) {
             if secret.authenticationRequirement.required {
@@ -48,21 +36,17 @@ struct SecretListItemView: View {
                 }
             }
         }
-        .sheet(isPresented: showingPopup) {
+        .showingDeleteConfirmation(isPresented: $isDeleting, secret, store as? AnySecretStoreModifiable) { deleted in
+            if deleted {
+                deletedSecret(secret)
+            }
+        }
+        .sheet(isPresented: $isRenaming) {
             if let modifiable = store as? AnySecretStoreModifiable {
-                if isDeleting {
-                    DeleteSecretView(store: modifiable, secret: secret) { deleted in
-                        isDeleting = false
-                        if deleted {
-                            deletedSecret(secret)
-                        }
-                    }
-                } else if isRenaming {
-                    EditSecretView(store: modifiable, secret: secret) { renamed in
-                        isRenaming = false
-                        if renamed {
-                            renamedSecret(secret)
-                        }
+                EditSecretView(store: modifiable, secret: secret) { renamed in
+                    isRenaming = false
+                    if renamed {
+                        renamedSecret(secret)
                     }
                 }
             }
