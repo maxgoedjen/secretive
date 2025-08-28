@@ -31,7 +31,6 @@ public actor OpenSSHCertificateHandler: Sendable {
     public func publicKeyHash(from hash: Data) -> Data? {
         let reader = OpenSSHReader(data: hash)
         let certType = String(decoding: reader.readNextChunk(), as: UTF8.self)
-
         switch certType {
         case "ecdsa-sha2-nistp256-cert-v01@openssh.com",
             "ecdsa-sha2-nistp384-cert-v01@openssh.com",
