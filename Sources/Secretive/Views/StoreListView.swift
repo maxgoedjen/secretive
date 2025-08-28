@@ -12,6 +12,8 @@ struct StoreListView: View {
     }
 
     private func secretRenamed(secret: AnySecret) {
+        // Toggle so name updates in list.
+        activeSecret = nil
         activeSecret = secret
     }
 
@@ -56,7 +58,7 @@ struct StoreListView: View {
 extension StoreListView {
 
     private var nextDefaultSecret: AnySecret? {
-        return storeList.stores.first(where: { !$0.secrets.isEmpty })?.secrets.first
+        return storeList.allSecrets.first
     }
     
 }

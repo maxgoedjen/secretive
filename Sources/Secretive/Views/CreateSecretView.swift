@@ -103,6 +103,7 @@ struct CreateSecretView<StoreType: SecretStoreModifiable>: View {
                     showing = false
                 }
                 Button(.createSecretCreateButton, action: save)
+                    .primary()
                     .disabled(name.isEmpty)
             }
             .padding()
