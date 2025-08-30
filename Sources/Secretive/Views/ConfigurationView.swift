@@ -11,7 +11,11 @@ struct ConfigurationView: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            NewStepView(title: "setup_agent_title", description: "setup_agent_description") {
+            NewStepView(
+                title: "setup_agent_title",
+                description: "setup_agent_description",
+                systemImage: "network.badge.shield.half.filled",
+            ) {
                 OnboardingButton("setup_agent_install_button", running) {
                     Task {
                         _ = await LaunchAgentController().forceLaunch()
@@ -22,7 +26,11 @@ struct ConfigurationView: View {
             }
             Divider()
             Divider()
-            NewStepView(title: "setup_ssh_title", description: "setup_ssh_description") {
+            NewStepView(
+                title: "setup_ssh_title",
+                description: "setup_ssh_description",
+                systemImage: "network.badge.shield.half.filled",
+            ) {
                 HStack {
                     OnboardingButton("setup_ssh_added_manually_button", false) {
                         sshConfig = true

@@ -1,6 +1,9 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    ".zshrc" : {
+
+    },
     "Add Automatically" : {
 
     },
@@ -1164,6 +1167,9 @@
         }
       }
     },
+    "Configure" : {
+
+    },
     "copyable_click_to_copy_button" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1500,7 +1506,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "This shows at the end of your public key."
+            "value" : "This shows at the end of your public key. It’s usually an email address."
           }
         }
       }
@@ -2483,6 +2489,9 @@
           }
         }
       }
+    },
+    "Done" : {
+
     },
     "edit_cancel_button" : {
       "extractionState" : "manual",
@@ -5195,6 +5204,9 @@
           }
         }
       }
+    },
+    "TfileDialogMessageest" : {
+
     },
     "unnamed_secret" : {
       "extractionState" : "manual",

@@ -103,6 +103,7 @@ struct CreateSecretView<StoreType: SecretStoreModifiable>: View {
                     showing = false
                 }
                 Button(.createSecretCreateButton, action: save)
+                    .keyboardShortcut(.return)
                     .primary()
                     .disabled(name.isEmpty)
             }

@@ -38,13 +38,14 @@ struct EditSecretView<StoreType: SecretStoreModifiable>: View {
                 }
             }
             HStack {
-                Button(.editSaveButton, action: rename)
-                    .disabled(name.isEmpty)
-                    .keyboardShortcut(.return)
                 Button(.editCancelButton) {
                     dismissalBlock(false)
                 }
                 .keyboardShortcut(.cancelAction)
+                Button(.editSaveButton, action: rename)
+                    .disabled(name.isEmpty)
+                    .keyboardShortcut(.return)
+                    .primary()
             }
             .padding()
         }

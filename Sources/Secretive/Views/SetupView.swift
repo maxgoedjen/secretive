@@ -10,44 +10,73 @@ struct SetupView: View {
     @State var sshConfig = false
 
     var body: some View {
-        VStack(spacing: 0) {
-            NewStepView(title: "setup_agent_title", description: "setup_agent_description") {
-                OnboardingButton("setup_agent_install_button", installed) {
-                    Task {
-                        await LaunchAgentController().install()
-                        installed = true
+        VStack {
+            VStack(spacing: 0) {
+                NewStepView(
+                    title: "setup_agent_title",
+                    description: "setup_agent_description",
+                    systemImage: "lock.laptopcomputer",
+                ) {
+                    OnboardingButton("setup_agent_install_button", installed) {
+                        Task {
+                            await LaunchAgentController().install()
+                            installed = true
+                        }
+                    }
+                }
+                Divider()
+                NewStepView(
+                    title: "setup_updates_title",
+                    description: "setup_updates_description",
+                    systemImage: "network.badge.shield.half.filled",
+                ) {
+                    OnboardingButton("setup_updates_ok", false) {
+                        Task {
+                            updates = true
+                        }
+                    }
+                }
+                Divider()
+                NewStepView(
+                    title: "setup_ssh_title",
+                    description: "setup_ssh_description",
+                    systemImage: "network.badge.shield.half.filled",
+                ) {
+                    HStack {
+                        OnboardingButton("setup_ssh_added_manually_button", false) {
+                            sshConfig = true
+                        }
+                        OnboardingButton("Add Automatically", false) {
+                            //                        let controller = ShellConfigurationController()
+                            //                        if controller.addToShell(shellInstructions: selectedShellInstruction) {
+                            //                        }
+                            sshConfig = true
+                        }
+                        .fileImporter(isPresented: $sshConfig, allowedContentTypes: [.utf8PlainText, .symbolicLink, .data]) { result in
+                            print(result)
+                        }
+                        // FIXME:
+                        .fileDialogDefaultDirectory(URL(fileURLWithPath: "/Users/max/"))
+                        .fileDialogBrowserOptions([.displayFileExtensions, .includeHiddenFiles])
+                        .fileExporterFilenameLabel(Text(".zshrc"))
+                        .fileDialogMessage("TfileDialogMessageest")
+                        .fileDialogConfirmationLabel("Configure")
+                        .fileDialogURLEnabled(#Predicate {
+                            return $0.lastPathComponent == ".zshrc" || $0.hasDirectoryPath
+                        })
                     }
                 }
             }
-            Divider()
-            NewStepView(title: "setup_updates_title", description: "setup_updates_description") {
-                OnboardingButton("setup_updates_ok", false) {
-                    Task {
-                        updates = true
-                    }
-                }
-            }
-            Divider()
-            NewStepView(title: "setup_ssh_title", description: "setup_ssh_description") {
-                HStack {
-                    OnboardingButton("setup_ssh_added_manually_button", false) {
-                        sshConfig = true
-                    }
-                    OnboardingButton("Add Automatically", false) {
-//                        let controller = ShellConfigurationController()
-//                        if controller.addToShell(shellInstructions: selectedShellInstruction) {
-//                        }
-                        sshConfig = true
-                    }
-                }
+            .background(.white.opacity(0.1), in: RoundedRectangle(cornerRadius: 10))
+            .frame(minWidth: 700, maxWidth: .infinity)
+            HStack {
+                Spacer()
+                Button("Done") {}
+                    .styled
             }
         }
-        .background(.white.opacity(0.1), in: RoundedRectangle(cornerRadius: 10))
-            .frame(minWidth: 500, idealWidth: 500, minHeight: 500, idealHeight: 500)
-            .padding()
-
+        .padding()
     }
-    
 }
 
 struct OnboardingButton: View {
@@ -94,23 +123,28 @@ extension View {
 struct NewStepView<Content: View>: View {
     
     let title: LocalizedStringResource
+    let icon: Image
     let description: LocalizedStringResource
     let actions: Content
     
-    init(title: LocalizedStringResource, description: LocalizedStringResource, actions: () -> Content) {
+    init(title: LocalizedStringResource, description: LocalizedStringResource, systemImage: String, actions: () -> Content) {
         self.title = title
+        self.icon = Image(systemName: systemImage)
         self.description = description
         self.actions = actions()
     }
     
     var body: some View {
-        HStack {
+        HStack(spacing: 20) {
+            icon
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: 24)
             VStack(alignment: .leading, spacing: 6) {
                 Text(title)
                     .bold()
                 Text(description)
             }
-            Spacer(minLength: 20)
             actions
         }
         .padding(20)

@@ -94,7 +94,7 @@ extension ContentView {
                     .foregroundColor(.white)
             })
             .buttonStyle(ToolbarButtonStyle(color: color))
-            .popover(item: $selectedUpdate, attachmentAnchor: attachmentAnchor, arrowEdge: .bottom) { update in
+            .sheet(item: $selectedUpdate) { update in
                 UpdateDetailView(update: update)
             }
         }
