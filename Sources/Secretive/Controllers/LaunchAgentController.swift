@@ -15,17 +15,21 @@ struct LaunchAgentController {
         // Seems to more reliably hit if these are on separate runloops, otherwise it seems like it sometimes doesn't kill old
         // and start new?
         try? await Task.sleep(for: .seconds(1))
-        return await MainActor.run {
+        let result = await MainActor.run {
             setEnabled(true)
         }
+        try? await Task.sleep(for: .seconds(1))
+        return result
     }
 
     func uninstall() async -> Bool {
         logger.debug("Uninstalling agent")
         try? await Task.sleep(for: .seconds(1))
-        return await MainActor.run {
+        let result = await MainActor.run {
             setEnabled(false)
         }
+        try? await Task.sleep(for: .seconds(1))
+        return result
     }
 
     func forceLaunch() async -> Bool {
@@ -36,6 +40,7 @@ struct LaunchAgentController {
         do {
             try await NSWorkspace.shared.openApplication(at: url, configuration: config)
             logger.debug("Agent force launched")
+            try? await Task.sleep(for: .seconds(1))
             return true
         } catch {
             logger.error("Error force launching \(error.localizedDescription)")

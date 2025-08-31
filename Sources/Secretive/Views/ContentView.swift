@@ -110,11 +110,11 @@ extension ContentView {
             })
             .sheet(isPresented: $showingCreation) {
                 if let modifiable = storeList.modifiableStore {
-                    CreateSecretView(store: modifiable, showing: $showingCreation)
-                        .onDisappear {
-                            guard let newest = modifiable.secrets.last else { return }
-                            activeSecret = newest
+                    CreateSecretView(store: modifiable, showing: $showingCreation) { created in
+                        if let created {
+                            activeSecret = created
                         }
+                    }
                 }
             }
         }

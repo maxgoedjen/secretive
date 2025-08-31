@@ -30,11 +30,11 @@ struct EditSecretView<StoreType: SecretStoreModifiable>: View {
                             .font(.subheadline)
                             .foregroundStyle(.secondary)
                     }
-                }
-                if let errorText {
-                    Text(verbatim: errorText)
-                        .foregroundStyle(.red)
-                        .font(.callout)
+                } footer: {
+                    if let errorText {
+                        Text(verbatim: errorText)
+                            .errorStyle()
+                    }
                 }
             }
             HStack {
