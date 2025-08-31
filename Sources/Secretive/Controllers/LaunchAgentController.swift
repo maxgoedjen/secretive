@@ -8,15 +8,23 @@ struct LaunchAgentController {
     
     private let logger = Logger(subsystem: "com.maxgoedjen.secretive", category: "LaunchAgentController")
 
-    func install() async {
+    func install() async -> Bool {
         logger.debug("Installing agent")
         _ = setEnabled(false)
         // This is definitely a bit of a "seems to work better" thing but:
         // Seems to more reliably hit if these are on separate runloops, otherwise it seems like it sometimes doesn't kill old
         // and start new?
         try? await Task.sleep(for: .seconds(1))
-        await MainActor.run {
-            _  = setEnabled(true)
+        return await MainActor.run {
+            setEnabled(true)
+        }
+    }
+
+    func uninstall() async -> Bool {
+        logger.debug("Uninstalling agent")
+        try? await Task.sleep(for: .seconds(1))
+        return await MainActor.run {
+            setEnabled(false)
         }
     }
 

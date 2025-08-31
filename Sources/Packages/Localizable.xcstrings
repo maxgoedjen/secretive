@@ -1,11 +1,19 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
-    ".zshrc" : {
-
-    },
     "Add Automatically" : {
 
+    },
+    "agent_not_running_notice_detail_description" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "SecretAgent is a process that runs in the background to sign requests, so you don't need to keep Secretive open all the time.\n\n**Secretive will not be able to function properly unless the agent is installed and running.**"
+          }
+        }
+      }
     },
     "agent_not_running_notice_title" : {
       "extractionState" : "manual",
@@ -1168,6 +1176,9 @@
       }
     },
     "Configure" : {
+
+    },
+    "Copy" : {
 
     },
     "copyable_click_to_copy_button" : {
@@ -2490,6 +2501,9 @@
         }
       }
     },
+    "Disable Agent" : {
+
+    },
     "Done" : {
 
     },
@@ -3406,6 +3420,18 @@
           }
         }
       }
+    },
+    "Restart Agent" : {
+
+    },
+    "Reveal in Finder" : {
+
+    },
+    "Running Since" : {
+
+    },
+    "Secret Agent Location" : {
+
     },
     "secret_detail_md5_fingerprint_label" : {
       "extractionState" : "manual",
@@ -4336,9 +4362,6 @@
         }
       }
     },
-    "setup_ssh_add_to_config_button_%@" : {
-
-    },
     "setup_ssh_added_manually_button" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -5205,7 +5228,10 @@
         }
       }
     },
-    "TfileDialogMessageest" : {
+    "Socket Path" : {
+
+    },
+    "Start Agent" : {
 
     },
     "unnamed_secret" : {
@@ -6153,6 +6179,9 @@
           }
         }
       }
+    },
+    "Version" : {
+
     }
   },
   "version" : "1.0"

@@ -87,7 +87,7 @@ extension Secretive {
     private func reinstallAgent() {
         justUpdatedChecker.check()
         Task {
-            await LaunchAgentController().install()
+            _ = await LaunchAgentController().install()
             try? await Task.sleep(for: .seconds(1))
             agentStatusChecker.check()
             if !agentStatusChecker.running {

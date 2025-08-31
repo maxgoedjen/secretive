@@ -56,7 +56,7 @@ extension ContentView {
     }
     
     var needsSetup: Bool {
-        (runningSetup || !hasRunSetup || !agentStatusChecker.running) && !agentStatusChecker.developmentBuild
+        runningSetup || !hasRunSetup
     }
 
     /// Item either showing a "everything's good, here's more info" or "something's wrong, re-run setup" message
@@ -66,7 +66,7 @@ extension ContentView {
         if needsSetup {
             setupNoticeView
         } else {
-            runningNoticeView
+            agentStatusToolbarView
         }
     }
 
@@ -125,43 +125,44 @@ extension ContentView {
         Button(action: {
             runningSetup = true
         }, label: {
-            Group {
-                if hasRunSetup && !agentStatusChecker.running {
-                    Text(.agentNotRunningNoticeTitle)
-                } else {
-                    Text(.agentSetupNoticeTitle)
-                }
+            if !hasRunSetup {
+                Text(.agentSetupNoticeTitle)
+                    .font(.headline)
             }
-            .font(.headline)
-
         })
         .buttonStyle(ToolbarButtonStyle(color: .orange))
     }
 
     @ViewBuilder
-    var runningNoticeView: some View {
+    var agentStatusToolbarView: some View {
         Button(action: {
             showingAgentInfo = true
         }, label: {
             HStack {
-                Text(.agentRunningNoticeTitle)
-                    .font(.headline)
-                    .foregroundColor(colorScheme == .light ? Color(white: 0.3) : .white)
-                Circle()
-                    .frame(width: 10, height: 10)
-                    .foregroundColor(Color.green)
+                if agentStatusChecker.running {
+                    Text(.agentRunningNoticeTitle)
+                        .font(.headline)
+                        .foregroundColor(colorScheme == .light ? Color(white: 0.3) : .white)
+                    Circle()
+                        .frame(width: 10, height: 10)
+                        .foregroundColor(Color.green)
+                } else {
+                    Text(.agentNotRunningNoticeTitle)
+                        .font(.headline)
+                    Circle()
+                        .frame(width: 10, height: 10)
+                        .foregroundColor(Color.red)
+                }
             }
         })
-        .buttonStyle(ToolbarButtonStyle(lightColor: .black.opacity(0.05), darkColor: .white.opacity(0.05)))
+        .buttonStyle(
+            ToolbarButtonStyle(
+                lightColor: agentStatusChecker.running ? .black.opacity(0.05) : .red.opacity(0.75),
+                darkColor: agentStatusChecker.running ? .white.opacity(0.05) : .red.opacity(0.5),
+            )
+        )
         .popover(isPresented: $showingAgentInfo, attachmentAnchor: attachmentAnchor, arrowEdge: .bottom) {
-            VStack {
-                Text(.agentRunningNoticeDetailTitle)
-                    .font(.title)
-                    .padding(5)
-                Text(.agentRunningNoticeDetailDescription)
-                    .frame(width: 300)
-            }
-            .padding()
+            AgentStatusView()
         }
     }
 
@@ -193,7 +194,6 @@ extension ContentView {
     }
 
     var attachmentAnchor: PopoverAttachmentAnchor {
-        // Ideally .point(.bottom), but broken on Sonoma (FB12726503)
         .rect(.bounds)
     }
 
