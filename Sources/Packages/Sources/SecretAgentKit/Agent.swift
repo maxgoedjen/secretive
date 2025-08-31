@@ -90,7 +90,7 @@ extension Agent {
         for secret in secrets {
             let keyBlob = publicKeyWriter.data(secret: secret)
             keyData.append(keyBlob.lengthAndData)
-            keyData.append(secret.name.lengthAndData)
+            keyData.append(publicKeyWriter.comment(secret: secret).lengthAndData)
             count += 1
 
             if let (certificateData, name) = try? await certificateHandler.keyBlobAndName(for: secret) {
