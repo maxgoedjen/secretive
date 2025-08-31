@@ -89,9 +89,8 @@ extension Agent {
 
         for secret in secrets {
             let keyBlob = publicKeyWriter.data(secret: secret)
-            let curveData = publicKeyWriter.openSSHIdentifier(for: secret.keyType)
             keyData.append(keyBlob.lengthAndData)
-            keyData.append(curveData.lengthAndData)
+            keyData.append(secret.name.lengthAndData)
             count += 1
 
             if let (certificateData, name) = try? await certificateHandler.keyBlobAndName(for: secret) {
