@@ -21,22 +21,22 @@ struct AgentRunningView: View {
         Form {
             Section {
                 if let process = agentStatusChecker.process {
-                    AgentInformationView(
+                    ConfigurationItemView(
                         title: "Secret Agent Location",
                         value: process.bundleURL!.path(),
-                        actions: [.revealInFinder],
+                        action: .revealInFinder(process.bundleURL!.path()),
                     )
-                    AgentInformationView(
+                    ConfigurationItemView(
                         title: "Socket Path",
                         value: socketPath,
-                        actions: [.copy],
+                        action: .copy(socketPath),
                     )
-                    AgentInformationView(
+                    ConfigurationItemView(
                         title: "Version",
                         value: Bundle(url: process.bundleURL!)!.infoDictionary!["CFBundleShortVersionString"] as! String
                     )
                     if let launchDate = process.launchDate {
-                        AgentInformationView(
+                        ConfigurationItemView(
                             title: "Running Since",
                             value: launchDate.formatted()
                         )
@@ -142,50 +142,6 @@ struct AgentNotRunningView: View {
         .frame(width: 400)
     }
 
-}
-
-struct AgentInformationView: View {
-
-    enum Action {
-        case copy
-        case revealInFinder
-    }
-
-    let title: LocalizedStringResource
-    let value: String
-    let actions: Set<Action>
-    @State var tapping = false
-
-    init(title: LocalizedStringResource, value: String, actions: Set<Action> = []) {
-        self.title = title
-        self.value = value
-        self.actions = actions
-    }
-
-    var body: some View {
-        VStack(alignment: .leading) {
-            HStack {
-                Text(title)
-                Spacer()
-                if actions.contains(.revealInFinder) {
-                    Button("Reveal in Finder", systemImage: "folder") {
-                        NSWorkspace.shared.selectFile(value, inFileViewerRootedAtPath: value)
-                    }
-                    .labelStyle(.iconOnly)
-                    .buttonStyle(.borderless)
-                }
-                if actions.contains(.copy) {
-                    Button("Copy", systemImage: "document.on.document") {
-                    }
-                    .labelStyle(.iconOnly)
-                    .buttonStyle(.borderless)
-                }
-            }
-            Text(value)
-                .font(.subheadline)
-                .foregroundStyle(.secondary)
-        }
-    }
 }
 
 #Preview {

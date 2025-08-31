@@ -133,62 +133,6 @@ struct NewStepView<Content: View>: View {
     
 }
 
-//struct SSHAgentSetupView: View {
-//
-//    let buttonAction: () -> Void
-//
-//    @State private var selectedShellInstruction: ShellConfigInstruction?
-//
-//    private let socketPath = (NSHomeDirectory().replacingOccurrences(of: Bundle.hostBundleID, with: Bundle.agentBundleID) as NSString).appendingPathComponent("socket.ssh") as String
-//
-//    private var shellInstructions: [ShellConfigInstruction] {
-//        [
-//            ShellConfigInstruction(shell: "global",
-//                                   shellConfigDirectory: "~/.ssh/",
-//                                   shellConfigFilename: "config",
-//                                   text: "Host *\n\tIdentityAgent \(socketPath)"),
-//            ShellConfigInstruction(shell: "zsh",
-//                                   shellConfigDirectory: "~/",
-//                                   shellConfigFilename: ".zshrc",
-//                                   text: "export SSH_AUTH_SOCK=\(socketPath)"),
-//            ShellConfigInstruction(shell: "bash",
-//                                   shellConfigDirectory: "~/",
-//                                   shellConfigFilename: ".bashrc",
-//                                   text: "export SSH_AUTH_SOCK=\(socketPath)"),
-//            ShellConfigInstruction(shell: "fish",
-//                                   shellConfigDirectory: "~/.config/fish",
-//                                   shellConfigFilename: "config.fish",
-//                                   text: "set -x SSH_AUTH_SOCK \(socketPath)"),
-//        ]
-//
-//    }
-//
-//    var body: some View {
-//        SetupStepView(title: "setup_ssh_title",
-//                      image: Image(systemName: "terminal"),
-//                      bodyText: "setup_ssh_description",
-//                      buttonTitle: "setup_ssh_added_manually_button",
-//                      buttonAction: buttonAction) {
-//        Link("setup_third_party_faq_link", destination: URL(string: "https://github.com/maxgoedjen/secretive/blob/main/APP_CONFIG.md")!)
-//            Picker(selection: $selectedShellInstruction, label: EmptyView()) {
-//                ForEach(SSHAgentSetupView.controller.shellInstructions) { instruction in
-//                    Text(instruction.shell)
-//                        .tag(instruction)
-//                        .padding()
-//                }
-//            }.pickerStyle(SegmentedPickerStyle())
-//            CopyableView(title: "setup_ssh_add_to_config_button_\(selectedShellInstruction.shellConfigPath)", image: Image(systemName: "greaterthan.square"), text: selectedShellInstruction.text)
-//            Button("setup_ssh_add_for_me_button") {
-//                let controller = ShellConfigurationController()
-//                if controller.addToShell(shellInstructions: selectedShellInstruction) {
-//                    buttonAction()
-//                }
-//            }
-//        }
-//    }
-//
-//}
-
 extension SetupView {
 
     enum Constants {

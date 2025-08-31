@@ -103,11 +103,10 @@ extension ContentView {
     @ViewBuilder
     var newItemView: some View {
         if storeList.modifiableStore?.isAvailable ?? false {
-            Button(action: {
+            Button(.appMenuNewSecretButton, systemImage: "plus") {
                 showingCreation = true
-            }, label: {
-                Image(systemName: "plus")
-            })
+            }
+            .normal()
             .sheet(isPresented: $showingCreation) {
                 if let modifiable = storeList.modifiableStore {
                     CreateSecretView(store: modifiable, showing: $showingCreation) { created in

@@ -1,7 +1,10 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
-    "Add Automatically" : {
+    "" : {
+
+    },
+    "Add This:" : {
 
     },
     "agent_not_running_notice_detail_description" : {
@@ -1175,10 +1178,13 @@
         }
       }
     },
+    "Configuration File" : {
+
+    },
     "Configure" : {
 
     },
-    "Copy" : {
+    "Configuring" : {
 
     },
     "copyable_click_to_copy_button" : {
@@ -3859,6 +3865,9 @@
         }
       }
     },
+    "Secretive was unable to get SecretAgent to launch. Please try restarting your Mac, and if that doesn't work, file an issue on GitHub." : {
+
+    },
     "secure_enclave" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -5232,6 +5241,9 @@
 
     },
     "Start Agent" : {
+
+    },
+    "Starting Agent" : {
 
     },
     "unnamed_secret" : {

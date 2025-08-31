@@ -23,6 +23,28 @@ extension View {
 
 }
 
+struct NormalButtonModifier: ViewModifier {
+
+    func body(content: Content) -> some View {
+        if #available(macOS 26.0, *) {
+            content
+                .glassEffect(.regular.tint(.white.opacity(0.1)), in: .circle)
+        } else {
+            content
+                .buttonStyle(.borderless)
+        }
+    }
+
+}
+
+extension View {
+
+    func normal() -> some View {
+        modifier(NormalButtonModifier())
+    }
+
+}
+
 struct DangerButtonModifier: ViewModifier {
 
     @Environment(\.colorScheme) var colorScheme

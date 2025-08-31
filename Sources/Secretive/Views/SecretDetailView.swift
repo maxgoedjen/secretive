@@ -23,6 +23,12 @@ struct SecretDetailView<SecretType: Secret>: View {
                         .frame(height: 20)
                     CopyableView(title: .secretDetailPublicKeyPathLabel, image: Image(systemName: "lock.doc"), text: publicKeyFileStoreController.publicKeyPath(for: secret))
                     Spacer()
+                } header: {
+                    Text(verbatim: secret.name)
+                        .font(.system(size: 16, weight: .bold, design: .default))
+                        .foregroundStyle(.secondary)
+                        .padding(.leading)
+                        .padding(.bottom)
                 }
             }
             .padding()
@@ -45,12 +51,6 @@ extension URL {
 
 }
 
-#if DEBUG
-
-struct SecretDetailView_Previews: PreviewProvider {
-    static var previews: some View {
-        SecretDetailView(secret: Preview.Store(numberOfRandomSecrets: 1).secrets[0])
-    }
+#Preview {
+    SecretDetailView(secret: Preview.Secret(name: "Demonstration Secret"))
 }
-
-#endif
