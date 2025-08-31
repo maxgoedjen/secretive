@@ -43,7 +43,7 @@ extension Agent {
         }
         let requestTypeInt = data[4]
         guard let requestType = SSHAgent.RequestType(rawValue: requestTypeInt) else {
-            logger.debug("Agent returned \(SSHAgent.ResponseType.agentFailure.debugDescription)")
+            logger.debug("Agent returned \(SSHAgent.ResponseType.agentFailure.debugDescription) for unknown request type \(requestTypeInt)")
             return SSHAgent.ResponseType.agentFailure.data.lengthAndData
         }
         logger.debug("Agent handling request of type \(requestType.debugDescription)")
@@ -66,15 +66,52 @@ extension Agent {
                 response.append(SSHAgent.ResponseType.agentSignResponse.data)
                 response.append(try await sign(data: data, provenance: provenance))
                 logger.debug("Agent returned \(SSHAgent.ResponseType.agentSignResponse.debugDescription)")
+            case .protocolExtension:
+                response.append(SSHAgent.ResponseType.agentExtensionResponse.data)
+                try await handleExtension(data)
+            default:
+                let reader = OpenSSHReader(data: data)
+                while true {
+                    do {
+                        let payloadHash = try reader.readNextChunk()
+                        print(String(String(decoding: payloadHash, as: UTF8.self)))
+                        print(payloadHash)
+                    } catch {
+                        break
+                    }
+                }
+                logger.debug("Agent received valid request of type \(requestType.debugDescription), but not currently supported.")
+                response.append(SSHAgent.ResponseType.agentFailure.data)
             }
         } catch {
-            response.removeAll()
-            response.append(SSHAgent.ResponseType.agentFailure.data)
+            response = SSHAgent.ResponseType.agentFailure.data
             logger.debug("Agent returned \(SSHAgent.ResponseType.agentFailure.debugDescription)")
         }
         return response.lengthAndData
     }
 
+}
+
+// PROTOCOL EXTENSIONS
+extension Agent {
+
+    func handleExtension(_ data: Data) async throws {
+        let reader = OpenSSHReader(data: data)
+        guard try reader.readNextChunkAsString() == "session-bind@openssh.com" else { throw UnsupportedExtensionError() }
+        let hostKey = try reader.readNextChunk()
+        let khReader = OpenSSHReader(data: hostKey)
+        print(try khReader.readNextChunkAsString())
+        let keyData = try khReader.readNextChunk()
+        let sessionID = try reader.readNextChunk()
+        let signatureData = try reader.readNextChunk()
+        let forwarding = try reader.readNextBytes(count: 1, as: Bool.self)
+        print(forwarding)
+        let signatureReader = OpenSSHSignatureReader()
+        guard try signatureReader.verify(signatureData, for: sessionID, with: keyData) else { throw SignatureVerificationFailedError() }
+    }
+
+    struct UnsupportedExtensionError: Error {}
+    struct SignatureVerificationFailedError: Error {}
 }
 
 extension Agent {
@@ -112,7 +149,7 @@ extension Agent {
     /// - Returns: An OpenSSH formatted Data payload containing the signed data response.
     func sign(data: Data, provenance: SigningRequestProvenance) async throws -> Data {
         let reader = OpenSSHReader(data: data)
-        let payloadHash = reader.readNextChunk()
+        let payloadHash = try reader.readNextChunk()
         let hash: Data
 
         // Check if hash is actually an openssh certificate and reconstruct the public key if it is
@@ -129,7 +166,7 @@ extension Agent {
 
         try await witness?.speakNowOrForeverHoldYourPeace(forAccessTo: secret, from: store, by: provenance)
 
-        let dataToSign = reader.readNextChunk()
+        let dataToSign = try reader.readNextChunk()
         let rawRepresentation = try await store.sign(data: dataToSign, with: secret, for: provenance)
         let signedData = signatureWriter.data(secret: secret, signature: rawRepresentation)
 
