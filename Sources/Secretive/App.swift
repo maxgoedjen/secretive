@@ -37,6 +37,7 @@ struct Secretive: App {
     @Environment(\.agentStatusChecker) var agentStatusChecker
     @AppStorage("defaultsHasRunSetup") var hasRunSetup = false
     @State private var showingSetup = false
+    @State private var showingIntegrations = false
     @State private var showingCreation = false
 
     @SceneBuilder var body: some Scene {
@@ -58,8 +59,17 @@ struct Secretive: App {
                         forceLaunchAgent()
                     }
                 }
+                .sheet(isPresented: $showingIntegrations) {
+                    IntegrationsView()
+                        .frame(minHeight: 400)
+                }
         }
         .commands {
+            CommandGroup(before: CommandGroupPlacement.appSettings) {
+                Button("Integrations...", systemImage: "app.connected.to.app.below.fill") {
+                    showingIntegrations = true
+                }
+            }
             CommandGroup(after: CommandGroupPlacement.newItem) {
                 Button(.appMenuNewSecretButton) {
                     showingCreation = true
@@ -69,11 +79,6 @@ struct Secretive: App {
             CommandGroup(replacing: .help) {
                 Button(.appMenuHelpButton) {
                     NSWorkspace.shared.open(Constants.helpURL)
-                }
-            }
-            CommandGroup(before: .help) {
-                Button(.appMenuSetupButton) {
-                    showingSetup = true
                 }
             }
             SidebarCommands()

@@ -36,7 +36,7 @@ struct ContentView: View {
             toolbarItem(newItemView, id: "new")
         }
         .sheet(isPresented: $runningSetup) {
-            SetupView(visible: $runningSetup, setupComplete: $hasRunSetup)
+            SetupView(setupComplete: $hasRunSetup)
         }
     }
 
@@ -109,7 +109,7 @@ extension ContentView {
             .normal()
             .sheet(isPresented: $showingCreation) {
                 if let modifiable = storeList.modifiableStore {
-                    CreateSecretView(store: modifiable, showing: $showingCreation) { created in
+                    CreateSecretView(store: modifiable) { created in
                         if let created {
                             activeSecret = created
                         }

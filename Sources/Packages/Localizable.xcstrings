@@ -788,6 +788,9 @@
         }
       }
     },
+    "Apps" : {
+
+    },
     "auth_context_persist_for_duration" : {
       "comment" : "When the user clicks the notification to leave a secret unlocked, they are shown a prompt to approve the action. This is the description, showing which secret will used. The first placeholder is the name of the secret. The second placeholder is a localized description of the time period it will remain unlocked for (eg: \"five minutes\")",
       "extractionState" : "manual",
@@ -1184,7 +1187,7 @@
     "Configure" : {
 
     },
-    "Configuring" : {
+    "Copy" : {
 
     },
     "copyable_click_to_copy_button" : {
@@ -3040,6 +3043,15 @@
         }
       }
     },
+    "Getting Started" : {
+
+    },
+    "Integrations" : {
+
+    },
+    "Integrations..." : {
+
+    },
     "no_secure_storage_description" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -3270,6 +3282,12 @@
           }
         }
       }
+    },
+    "other" : {
+
+    },
+    "Other" : {
+
     },
     "persist_authentication_accept_button" : {
       "comment" : "When the user authorizes an action using a secret that requires unlock, they're shown a notification offering to leave the secret unlocked for a set period of time. This is the title for the notification.",
@@ -5010,6 +5028,9 @@
         }
       }
     },
+    "Shell" : {
+
+    },
     "signed_notification_description" : {
       "comment" : "When the user performs an action using a secret, they're shown a notification describing what happened. This is the description, showing which secret was used. The placeholder is the name of the secret.",
       "extractionState" : "manual",
@@ -5244,6 +5265,18 @@
 
     },
     "Starting Agent" : {
+
+    },
+    "System" : {
+
+    },
+    "TBD" : {
+
+    },
+    "There's a community-maintained list of instructions for apps on GitHub. If the app you're looking for isn't supported, create an issue and the community may be able to help." : {
+
+    },
+    "There's a community-maintained list of shell instructions on GitHub. If the shell you're looking for isn't supported, create an issue and the community may be able to help." : {
 
     },
     "unnamed_secret" : {
@@ -6193,6 +6226,12 @@
       }
     },
     "Version" : {
+
+    },
+    "View Documentation on Web" : {
+
+    },
+    "View on GitHub" : {
 
     }
   },

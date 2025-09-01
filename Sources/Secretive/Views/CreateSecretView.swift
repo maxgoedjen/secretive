@@ -4,7 +4,7 @@ import SecretKit
 struct CreateSecretView<StoreType: SecretStoreModifiable>: View {
 
     @State var store: StoreType
-    @Binding var showing: Bool
+    @Environment(\.dismiss) private var dismiss
     var createdSecret: (AnySecret?) -> Void
 
     @State private var name = ""
@@ -109,7 +109,7 @@ struct CreateSecretView<StoreType: SecretStoreModifiable>: View {
                     .toggleStyle(.button)
                 Spacer()
                 Button(.createSecretCancelButton, role: .cancel) {
-                    showing = false
+                    dismiss()
                 }
                 Button(.createSecretCreateButton, action: save)
                     .keyboardShortcut(.return)
@@ -137,7 +137,7 @@ struct CreateSecretView<StoreType: SecretStoreModifiable>: View {
                     )
                 )
                 createdSecret(AnySecret(new))
-                showing = false
+                dismiss()
             } catch {
                 errorText = error.localizedDescription
             }
@@ -147,5 +147,5 @@ struct CreateSecretView<StoreType: SecretStoreModifiable>: View {
 }
 
 #Preview {
-    CreateSecretView(store: Preview.StoreModifiable(), showing: .constant(true)) { _ in }
+    CreateSecretView(store: Preview.StoreModifiable()) { _ in }
 }

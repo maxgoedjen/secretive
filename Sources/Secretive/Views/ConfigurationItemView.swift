@@ -32,14 +32,19 @@ struct ConfigurationItemView<Content: View>: View {
                 Spacer()
                 switch action {
                 case .copy(let string):
-                    Button("Reveal in Finder", systemImage: "folder") {
-                        NSWorkspace.shared.selectFile(string, inFileViewerRootedAtPath: string)
+                    Button("Copy", systemImage: "document.on.document") {
+                        NSPasteboard.general.declareTypes([.string], owner: nil)
+                        NSPasteboard.general.setString(string, forType: .string)
                     }
                     .labelStyle(.iconOnly)
                     .buttonStyle(.borderless)
-                case .revealInFinder(let string):
+                case .revealInFinder(let rawPath):
                     Button("Reveal in Finder", systemImage: "folder") {
-                        NSWorkspace.shared.selectFile(string, inFileViewerRootedAtPath: string)
+                        // All foundation-based normalization methods replace this with the container directly.
+                        let processedPath = rawPath.replacingOccurrences(of: "~", with: "/Users/\(NSUserName())")
+                        let url = URL(filePath: processedPath)
+                        let folder = url.deletingLastPathComponent().path()
+                        NSWorkspace.shared.selectFile(processedPath, inFileViewerRootedAtPath: folder)
                     }
                     .labelStyle(.iconOnly)
                     .buttonStyle(.borderless)

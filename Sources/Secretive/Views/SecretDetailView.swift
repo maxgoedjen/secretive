@@ -23,12 +23,6 @@ struct SecretDetailView<SecretType: Secret>: View {
                         .frame(height: 20)
                     CopyableView(title: .secretDetailPublicKeyPathLabel, image: Image(systemName: "lock.doc"), text: publicKeyFileStoreController.publicKeyPath(for: secret))
                     Spacer()
-                } header: {
-                    Text(verbatim: secret.name)
-                        .font(.system(size: 16, weight: .bold, design: .default))
-                        .foregroundStyle(.secondary)
-                        .padding(.leading)
-                        .padding(.bottom)
                 }
             }
             .padding()

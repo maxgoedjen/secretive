@@ -2,7 +2,7 @@ import SwiftUI
 
 struct SetupView: View {
 
-    @Binding var visible: Bool
+    @Environment(\.dismiss) private var dismiss
     @Binding var setupComplete: Bool
     
     @State var installed = false
@@ -12,7 +12,7 @@ struct SetupView: View {
     var body: some View {
         VStack {
             VStack(spacing: 0) {
-                NewStepView(
+                StepView(
                     title: "setup_agent_title",
                     description: "setup_agent_description",
                     systemImage: "lock.laptopcomputer",
@@ -24,7 +24,7 @@ struct SetupView: View {
                     }
                 }
                 Divider()
-                NewStepView(
+                StepView(
                     title: "setup_updates_title",
                     description: "setup_updates_description",
                     systemImage: "network.badge.shield.half.filled",
@@ -36,7 +36,7 @@ struct SetupView: View {
                     }
                 }
                 Divider()
-                NewStepView(
+                StepView(
                     title: "setup_ssh_title",
                     description: "setup_ssh_description",
                     systemImage: "network.badge.shield.half.filled",
@@ -101,7 +101,7 @@ extension View {
     
 }
 
-struct NewStepView<Content: View>: View {
+struct StepView<Content: View>: View {
     
     let title: LocalizedStringResource
     let icon: Image
@@ -141,27 +141,7 @@ extension SetupView {
 
 }
 
-struct ShellConfigInstruction: Identifiable, Hashable {
-
-    var shell: String
-    var shellConfigDirectory: String
-    var shellConfigFilename: String
-    var text: String
-
-    var id: String {
-        shell
-    }
-
-    var shellConfigPath: String {
-        return (shellConfigDirectory as NSString).appendingPathComponent(shellConfigFilename)
-    }
-
-}
 
 #Preview {
-    SetupView(visible: .constant(true), setupComplete: .constant(false))
+    SetupView(setupComplete: .constant(false))
 }
-
-//#Preview {
-//    SSHAgentSetupView(buttonAction: {})
-//}
