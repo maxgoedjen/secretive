@@ -3049,7 +3049,7 @@
     "Getting Started" : {
 
     },
-    "If you don't known what shell you use and haven't changed it, you're probably using `zsh`." : {
+    "If you don't known what shell you use and haven't changed it, you're probably using `%@`." : {
 
     },
     "If you're trying to authenticate with an SSH server or authenticating with a service like GitHub over SSH, configure your SSH client." : {

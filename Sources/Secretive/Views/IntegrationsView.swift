@@ -5,13 +5,12 @@ struct IntegrationsView: View {
     @Environment(\.dismiss) private var dismiss
 
     @State private var selectedInstruction: ConfigurationFileInstructions?
-
-    private let socketPath = (NSHomeDirectory().replacingOccurrences(of: Bundle.hostBundleID, with: Bundle.agentBundleID) as NSString).appendingPathComponent("socket.ssh") as String
+    private let instructions = Instructions()
 
     var body: some View {
         NavigationSplitView {
             List(selection: $selectedInstruction) {
-                ForEach(instructions) { group in
+                ForEach(instructions.instructions) { group in
                     Section(group.name) {
                         ForEach(group.instructions) { instruction in
                             Text(instruction.tool)
@@ -22,104 +21,10 @@ struct IntegrationsView: View {
                 }
             }
         } detail: {
-            if let selectedInstruction {
-                switch selectedInstruction.id {
-                case .gettingStarted:
-                    Form {
-                        Section("Configuring Tools for Secretive") {
-                            Text("Most tools will try and look for SSH keys on disk in `~/.ssh`. To use Secretive, we need to configure those tools to talk to Secretive instead.")
-                        }
-                        Section {
-                            NavigationLink(value: ssh) {
-                                Text("If you're trying to authenticate with an SSH server or authenticating with a service like GitHub over SSH, configure your SSH client.")
-                            }
-                            NavigationLink(value: zsh) {
-                                VStack(alignment: .leading) {
-                                    Text("If you're trying to configure anything your command line runs to use Secretive, configure your shell.")
-                                    Text("If you don't known what shell you use and haven't changed it, you're probably using `zsh`.")
-                                        .font(.caption2)
-                                        .foregroundStyle(.secondary)
-                                }
-                            }
-                            NavigationLink(value: git) {
-                                Text("If you're trying to sign your git commits, set up Git Signing.")
-                            }
-                        } header: {
-                            Text("What Should I Configure?")
-                        }
-                        footer: {
-                            Text("You can configure more than one tool, they generally won't interfere with each other.")
-                        }
-                    }
-                    .formStyle(.grouped)
-                    case .tool:
-                        Form {
-                            ForEach(selectedInstruction.steps) { stepGroup in
-                                Section {
-                                    ConfigurationItemView(title: "Configuration File", value: stepGroup.path, action: .revealInFinder(stepGroup.path))
-                                    ForEach(stepGroup.steps, id: \.self) { step in
-                                        ConfigurationItemView(title: "Add This:", action: .copy(step)) {
-                                            HStack {
-                                                Text(step)
-                                                    .padding(8)
-                                                    .font(.system(.subheadline, design: .monospaced))
-                                                Spacer()
-                                            }
-                                            .frame(maxWidth: .infinity)
-                                            .background {
-                                                RoundedRectangle(cornerRadius: 6)
-                                                    .fill(.black.opacity(0.05))
-                                                    .stroke(.separator, lineWidth: 1)
-                                            }
-                                        }
-                                    }
-                                } footer: {
-                                    if let note = stepGroup.note {
-                                        Text(note)
-                                            .font(.caption)
-                                    }
-                                }
-                            }
-                            if let url = selectedInstruction.website {
-                                Section {
-                                    Link(destination: url) {
-                                        VStack(alignment: .leading, spacing: 5) {
-                                            Text("View Documentation on Web")
-                                                .font(.headline)
-                                            Text(url.absoluteString)
-                                                .font(.caption2)
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                        .formStyle(.grouped)
-                    case .otherShell:
-                        Form {
-                            Section {
-                                Link("View on GitHub", destination: URL(string: "https://github.com/maxgoedjen/secretive-config-instructions/tree/main/shells")!)
-                            } header: {
-                                Text("There's a community-maintained list of shell instructions on GitHub. If the shell you're looking for isn't supported, create an issue and the community may be able to help.")
-                                    .font(.body)
-                            }
-                        }
-                        .formStyle(.grouped)
-
-                    case .otherApp:
-                        Form {
-                            Section {
-                                Link("View on GitHub", destination: URL(string: "https://github.com/maxgoedjen/secretive-config-instructions/tree/main/apps")!)
-                            } header: {
-                                Text("There's a community-maintained list of instructions for apps on GitHub. If the app you're looking for isn't supported, create an issue and the community may be able to help.")
-                                    .font(.body)
-                            }
-                        }
-                        .formStyle(.grouped)
-                    }
-            }
+            IntegrationsDetailView(selectedInstruction: $selectedInstruction)
         }
         .onAppear {
-            selectedInstruction = instructions.first?.instructions.first
+            selectedInstruction = instructions.gettingStarted
         }
         .toolbar {
             ToolbarItem(placement: .primaryAction) {
@@ -133,9 +38,133 @@ struct IntegrationsView: View {
 
 }
 
-extension IntegrationsView {
+struct IntegrationsDetailView: View {
 
-    fileprivate var ssh: ConfigurationFileInstructions {
+    @Binding private var selectedInstruction: ConfigurationFileInstructions?
+    private let instructions = Instructions()
+
+    init(selectedInstruction: Binding<ConfigurationFileInstructions?>) {
+        _selectedInstruction = selectedInstruction
+    }
+
+    var body: some View {
+        if let selectedInstruction {
+            switch selectedInstruction.id {
+            case .gettingStarted:
+                Form {
+                    Section("Configuring Tools for Secretive") {
+                        Text("Most tools will try and look for SSH keys on disk in `~/.ssh`. To use Secretive, we need to configure those tools to talk to Secretive instead.")
+                    }
+                    Section {
+                        Group {
+                            Text("If you're trying to authenticate with an SSH server or authenticating with a service like GitHub over SSH, configure your SSH client.")
+                                .onTapGesture {
+                                    self.selectedInstruction = instructions.ssh
+                                }
+                            VStack(alignment: .leading, spacing: 5) {
+                                Text("If you're trying to configure anything your command line runs to use Secretive, configure your shell.")
+                                Text("If you don't known what shell you use and haven't changed it, you're probably using `\(instructions.defaultShell.tool)`.")
+                                    .font(.caption2)
+                            }
+                            .onTapGesture {
+                                self.selectedInstruction = instructions.defaultShell
+                            }
+                            Text("If you're trying to sign your git commits, set up Git Signing.")
+                                .onTapGesture {
+                                    self.selectedInstruction = instructions.git
+                                }
+                        }
+                        .foregroundStyle(.link)
+
+                    } header: {
+                        Text("What Should I Configure?")
+                    }
+                    footer: {
+                        Text("You can configure more than one tool, they generally won't interfere with each other.")
+                    }
+                }
+                .formStyle(.grouped)
+                case .tool:
+                    Form {
+                        ForEach(selectedInstruction.steps) { stepGroup in
+                            Section {
+                                ConfigurationItemView(title: "Configuration File", value: stepGroup.path, action: .revealInFinder(stepGroup.path))
+                                ForEach(stepGroup.steps, id: \.self) { step in
+                                    ConfigurationItemView(title: "Add This:", action: .copy(step)) {
+                                        HStack {
+                                            Text(step)
+                                                .padding(8)
+                                                .font(.system(.subheadline, design: .monospaced))
+                                            Spacer()
+                                        }
+                                        .frame(maxWidth: .infinity)
+                                        .background {
+                                            RoundedRectangle(cornerRadius: 6)
+                                                .fill(.black.opacity(0.05))
+                                                .stroke(.separator, lineWidth: 1)
+                                        }
+                                    }
+                                }
+                            } footer: {
+                                if let note = stepGroup.note {
+                                    Text(note)
+                                        .font(.caption)
+                                }
+                            }
+                        }
+                        if let url = selectedInstruction.website {
+                            Section {
+                                Link(destination: url) {
+                                    VStack(alignment: .leading, spacing: 5) {
+                                        Text("View Documentation on Web")
+                                            .font(.headline)
+                                        Text(url.absoluteString)
+                                            .font(.caption2)
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    .formStyle(.grouped)
+                case .otherShell:
+                    Form {
+                        Section {
+                            Link("View on GitHub", destination: URL(string: "https://github.com/maxgoedjen/secretive-config-instructions/tree/main/shells")!)
+                        } header: {
+                            Text("There's a community-maintained list of shell instructions on GitHub. If the shell you're looking for isn't supported, create an issue and the community may be able to help.")
+                                .font(.body)
+                        }
+                    }
+                    .formStyle(.grouped)
+
+                case .otherApp:
+                    Form {
+                        Section {
+                            Link("View on GitHub", destination: URL(string: "https://github.com/maxgoedjen/secretive-config-instructions/tree/main/apps")!)
+                        } header: {
+                            Text("There's a community-maintained list of instructions for apps on GitHub. If the app you're looking for isn't supported, create an issue and the community may be able to help.")
+                                .font(.body)
+                        }
+                    }
+                    .formStyle(.grouped)
+                }
+        }
+
+    }
+}
+
+private struct Instructions {
+
+    private let socketPath = (NSHomeDirectory().replacingOccurrences(of: Bundle.hostBundleID, with: Bundle.agentBundleID) as NSString).appendingPathComponent("socket.ssh") as String
+
+
+    var defaultShell: ConfigurationFileInstructions {
+        zsh
+    }
+
+    var gettingStarted: ConfigurationFileInstructions =                 ConfigurationFileInstructions("Getting Started", id: .gettingStarted)
+
+    var ssh: ConfigurationFileInstructions {
         ConfigurationFileInstructions(
             tool: "SSH",
             configPath: "~/.ssh/config",
@@ -145,7 +174,7 @@ extension IntegrationsView {
         )
     }
 
-    fileprivate var git: ConfigurationFileInstructions {
+    var git: ConfigurationFileInstructions {
         ConfigurationFileInstructions(
             tool: "Git Signing",
             steps: [
@@ -176,7 +205,7 @@ extension IntegrationsView {
         )
     }
 
-    fileprivate var zsh: ConfigurationFileInstructions {
+    var zsh: ConfigurationFileInstructions {
         ConfigurationFileInstructions(
             tool: "zsh",
             configPath: "~/.zshrc",
@@ -184,10 +213,10 @@ extension IntegrationsView {
         )
     }
 
-    fileprivate var instructions: [ConfigurationGroup] {
+    var instructions: [ConfigurationGroup] {
         [
             ConfigurationGroup(name:"Integrations", instructions: [
-                ConfigurationFileInstructions("Getting Started", id: .gettingStarted),
+                gettingStarted
             ]),
             ConfigurationGroup(
                 name: "System",
