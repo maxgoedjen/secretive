@@ -112,7 +112,7 @@ extension SecureEnclave {
             var accessError: SecurityError?
             let flags: SecAccessControlCreateFlags = switch attributes.authentication {
             case .notRequired:
-                []
+                [.privateKeyUsage]
             case .presenceRequired:
                 [.userPresence, .privateKeyUsage]
             case .biometryCurrent:
