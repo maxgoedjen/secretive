@@ -26,8 +26,8 @@ public final class OpenSSHReader {
         return ret
     }
 
-    public func readNextBytes<T>(count: Int = 0, as: T.Type) throws -> T {
-        let lengthRange = 0..<count
+    public func readNextBytes<T>(as: T.Type) throws -> T {
+        let lengthRange = 0..<MemoryLayout<T>.size
         let lengthChunk = remaining[lengthRange]
         remaining.removeSubrange(lengthRange)
         return lengthChunk.bytes.unsafeLoad(as: T.self)

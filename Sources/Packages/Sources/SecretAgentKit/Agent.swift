@@ -99,15 +99,15 @@ extension Agent {
         let reader = OpenSSHReader(data: data)
         guard try reader.readNextChunkAsString() == "session-bind@openssh.com" else { throw UnsupportedExtensionError() }
         let hostKey = try reader.readNextChunk()
-        let khReader = OpenSSHReader(data: hostKey)
-        print(try khReader.readNextChunkAsString())
-        let keyData = try khReader.readNextChunk()
+        let keyReader = OpenSSHReader(data: hostKey)
+        _ = try keyReader.readNextChunkAsString() // Key Type
+        let keyData = try keyReader.readNextChunk()
         let sessionID = try reader.readNextChunk()
         let signatureData = try reader.readNextChunk()
-        let forwarding = try reader.readNextBytes(count: 1, as: Bool.self)
-        print(forwarding)
+        let forwarding = try reader.readNextBytes(as: Bool.self)
         let signatureReader = OpenSSHSignatureReader()
         guard try signatureReader.verify(signatureData, for: sessionID, with: keyData) else { throw SignatureVerificationFailedError() }
+        print("Fowarding: \(forwarding)")
     }
 
     struct UnsupportedExtensionError: Error {}
