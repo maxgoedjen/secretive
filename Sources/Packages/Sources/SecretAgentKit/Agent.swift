@@ -69,19 +69,25 @@ extension Agent {
             case .protocolExtension:
                 response.append(SSHAgent.ResponseType.agentExtensionResponse.data)
                 try await handleExtension(data)
-            default:
+            case .addIDConstrained, .addIdentity:
                 let reader = OpenSSHReader(data: data)
+                let keyname = try reader.readNextChunkAsString()
+                print(keyname)
                 while true {
                     do {
-                        let payloadHash = try reader.readNextChunk()
-                        print(String(String(decoding: payloadHash, as: UTF8.self)))
+                        let payloadHash = try reader.readNextChunk(convertEndianness: true)
+                        print(String(decoding: payloadHash, as: UTF8.self))
                         print(payloadHash)
                     } catch {
                         break
                     }
                 }
+            case .addSmartcardKeyConstrained, .addSmartcardKey:
+                break
+            default:
                 logger.debug("Agent received valid request of type \(requestType.debugDescription), but not currently supported.")
                 response.append(SSHAgent.ResponseType.agentFailure.data)
+
             }
         } catch {
             response = SSHAgent.ResponseType.agentFailure.data
@@ -97,7 +103,9 @@ extension Agent {
 
     func handleExtension(_ data: Data) async throws {
         let reader = OpenSSHReader(data: data)
-        guard try reader.readNextChunkAsString() == "session-bind@openssh.com" else { throw UnsupportedExtensionError() }
+        guard try reader.readNextChunkAsString() == "session-bind@openssh.com" else {
+            throw UnsupportedExtensionError()
+        }
         let hostKey = try reader.readNextChunk()
         let keyReader = OpenSSHReader(data: hostKey)
         _ = try keyReader.readNextChunkAsString() // Key Type
@@ -138,7 +146,7 @@ extension Agent {
         }
         logger.log("Agent enumerated \(count) identities")
         var countBigEndian = UInt32(count).bigEndian
-        let countData = Data(bytes: &countBigEndian, count: UInt32.bitWidth/8)
+        let countData = Data(bytes: &countBigEndian, count: MemoryLayout<UInt32>.size)
         return countData + keyData
     }
 
