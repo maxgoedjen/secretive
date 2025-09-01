@@ -71,20 +71,24 @@ struct IntegrationsView: View {
                     case .gettingStarted:
                         Text("TBD")
                     case .tool:
-                        Section(selectedInstruction.tool) {
-                            ConfigurationItemView(title: "Configuration File", value: selectedInstruction.configPath, action: .revealInFinder( selectedInstruction.configPath))
-                            ConfigurationItemView(title: "Add This:", action: .copy(selectedInstruction.configText)) {
-                                HStack {
-                                    Text(selectedInstruction.configText)
-                                        .padding(8)
-                                        .font(.system(.subheadline, design: .monospaced))
-                                    Spacer()
-                                }
-                                .frame(maxWidth: .infinity)
-                                .background {
-                                    RoundedRectangle(cornerRadius: 6)
-                                        .fill(.black.opacity(0.05))
-                                        .stroke(.separator, lineWidth: 1)
+                        ForEach(selectedInstruction.steps) { stepGroup in
+                            Section {
+                                ConfigurationItemView(title: "Configuration File", value: stepGroup.path, action: .revealInFinder(stepGroup.path))
+                                ForEach(stepGroup.steps, id: \.self) { step in
+                                    ConfigurationItemView(title: "Add This:", action: .copy(step)) {
+                                        HStack {
+                                            Text(step)
+                                                .padding(8)
+                                                .font(.system(.subheadline, design: .monospaced))
+                                            Spacer()
+                                        }
+                                        .frame(maxWidth: .infinity)
+                                        .background {
+                                            RoundedRectangle(cornerRadius: 6)
+                                                .fill(.black.opacity(0.05))
+                                                .stroke(.separator, lineWidth: 1)
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -140,27 +144,39 @@ struct ConfigurationGroup: Identifiable {
     var instructions: [ConfigurationFileInstructions] = []
 }
 
-struct ConfigurationFileInstructions: Identifiable, Hashable {
+struct ConfigurationFileInstructions: Hashable, Identifiable {
+
+    struct StepGroup: Hashable, Identifiable {
+        let path: String
+        let steps: [String]
+        var id: String { path }
+    }
 
     var id: ID
     var tool: String
-    var configPath: String
-    var configText: String
+    var steps: [StepGroup]
     var website: URL?
+    var note: String?
 
-    init(tool: String, configPath: String, configText: String, website: URL? = nil) {
+    init(tool: String, configPath: String, configText: String, website: URL? = nil, note: String? = nil) {
         self.id = .tool(tool)
         self.tool = tool
-        self.configPath = configPath
-        self.configText = configText
+        self.steps = [StepGroup(path: configPath, steps: [configText])]
+        self.website = website
+        self.note = note
+    }
+
+    init(tool: String, steps: [StepGroup], website: URL? = nil, note: String? = nil) {
+        self.id = .tool(tool)
+        self.tool = tool
+        self.steps = steps
         self.website = website
     }
 
     init(_ name: LocalizedStringResource, id: ID) {
         self.id = id
         tool = String(localized: name)
-        configPath = ""
-        configText = ""
+        self.steps = []
     }
 
     enum ID: Identifiable, Hashable {

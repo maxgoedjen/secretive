@@ -6,7 +6,7 @@ struct SecretDetailView<SecretType: Secret>: View {
     let secret: SecretType
 
     private let keyWriter = OpenSSHPublicKeyWriter()
-    private let publicKeyFileStoreController = PublicKeyFileStoreController(homeDirectory: URL.agentHomePath)
+    private let publicKeyFileStoreController = PublicKeyFileStoreController(homeDirectory: URL.agentHomeURL)
 
     var body: some View {
         ScrollView {
@@ -39,8 +39,8 @@ struct SecretDetailView<SecretType: Secret>: View {
 
 extension URL {
 
-    static var agentHomePath: String {
-        URL.homeDirectory.path().replacingOccurrences(of: Bundle.hostBundleID, with: Bundle.agentBundleID)
+    static var agentHomeURL: URL {
+        URL(fileURLWithPath: URL.homeDirectory.path().replacingOccurrences(of: Bundle.hostBundleID, with: Bundle.agentBundleID))
     }
 
 }

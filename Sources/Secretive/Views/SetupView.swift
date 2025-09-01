@@ -141,7 +141,6 @@ extension SetupView {
 
 }
 
-
 #Preview {
     SetupView(setupComplete: .constant(false))
 }
