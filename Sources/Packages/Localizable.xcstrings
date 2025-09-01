@@ -1187,6 +1187,9 @@
     "Configure" : {
 
     },
+    "Configuring Tools for Secretive" : {
+
+    },
     "Copy" : {
 
     },
@@ -3046,10 +3049,25 @@
     "Getting Started" : {
 
     },
+    "If you don't known what shell you use and haven't changed it, you're probably using `zsh`." : {
+
+    },
+    "If you're trying to authenticate with an SSH server or authenticating with a service like GitHub over SSH, configure your SSH client." : {
+
+    },
+    "If you're trying to configure anything your command line runs to use Secretive, configure your shell." : {
+
+    },
+    "If you're trying to sign your git commits, set up Git Signing." : {
+
+    },
     "Integrations" : {
 
     },
     "Integrations..." : {
+
+    },
+    "Most tools will try and look for SSH keys on disk in `~/.ssh`. To use Secretive, we need to configure those tools to talk to Secretive instead." : {
 
     },
     "no_secure_storage_description" : {
@@ -5270,9 +5288,6 @@
     "System" : {
 
     },
-    "TBD" : {
-
-    },
     "There's a community-maintained list of instructions for apps on GitHub. If the app you're looking for isn't supported, create an issue and the community may be able to help." : {
 
     },
@@ -6232,6 +6247,12 @@
 
     },
     "View on GitHub" : {
+
+    },
+    "What Should I Configure?" : {
+
+    },
+    "You can configure more than one tool, they generally won't interfere with each other." : {
 
     }
   },

@@ -23,66 +23,99 @@ struct IntegrationsView: View {
             }
         } detail: {
             if let selectedInstruction {
-                Form {
-                    switch selectedInstruction.id {
-                    case .gettingStarted:
-                        Text("TBD")
-                    case .tool:
-                        ForEach(selectedInstruction.steps) { stepGroup in
-                            Section {
-                                ConfigurationItemView(title: "Configuration File", value: stepGroup.path, action: .revealInFinder(stepGroup.path))
-                                ForEach(stepGroup.steps, id: \.self) { step in
-                                    ConfigurationItemView(title: "Add This:", action: .copy(step)) {
-                                        HStack {
-                                            Text(step)
-                                                .padding(8)
-                                                .font(.system(.subheadline, design: .monospaced))
-                                            Spacer()
-                                        }
-                                        .frame(maxWidth: .infinity)
-                                        .background {
-                                            RoundedRectangle(cornerRadius: 6)
-                                                .fill(.black.opacity(0.05))
-                                                .stroke(.separator, lineWidth: 1)
-                                        }
-                                    }
-                                }
-                            } footer: {
-                                if let note = stepGroup.note {
-                                    Text(note)
-                                        .font(.caption)
+                switch selectedInstruction.id {
+                case .gettingStarted:
+                    Form {
+                        Section("Configuring Tools for Secretive") {
+                            Text("Most tools will try and look for SSH keys on disk in `~/.ssh`. To use Secretive, we need to configure those tools to talk to Secretive instead.")
+                        }
+                        Section {
+                            NavigationLink(value: ssh) {
+                                Text("If you're trying to authenticate with an SSH server or authenticating with a service like GitHub over SSH, configure your SSH client.")
+                            }
+                            NavigationLink(value: zsh) {
+                                VStack(alignment: .leading) {
+                                    Text("If you're trying to configure anything your command line runs to use Secretive, configure your shell.")
+                                    Text("If you don't known what shell you use and haven't changed it, you're probably using `zsh`.")
+                                        .font(.caption2)
+                                        .foregroundStyle(.secondary)
                                 }
                             }
-                        }
-                        if let url = selectedInstruction.website {
-                            Section {
-                                Link(destination: url) {
-                                    VStack(alignment: .leading, spacing: 5) {
-                                        Text("View Documentation on Web")
-                                            .font(.headline)
-                                        Text(url.absoluteString)
-                                            .font(.caption2)
-                                    }
-                                }
+                            NavigationLink(value: git) {
+                                Text("If you're trying to sign your git commits, set up Git Signing.")
                             }
-                        }
-                    case .otherShell:
-                        Section {
-                            Link("View on GitHub", destination: URL(string: "https://github.com/maxgoedjen/secretive-config-instructions/tree/main/shells")!)
                         } header: {
-                            Text("There's a community-maintained list of shell instructions on GitHub. If the shell you're looking for isn't supported, create an issue and the community may be able to help.")
-                                .font(.body)
+                            Text("What Should I Configure?")
                         }
-                    case .otherApp:
-                        Section {
-                            Link("View on GitHub", destination: URL(string: "https://github.com/maxgoedjen/secretive-config-instructions/tree/main/apps")!)
-                        } header: {
-                            Text("There's a community-maintained list of instructions for apps on GitHub. If the app you're looking for isn't supported, create an issue and the community may be able to help.")
-                                .font(.body)
+                        footer: {
+                            Text("You can configure more than one tool, they generally won't interfere with each other.")
                         }
                     }
-                }
-                .formStyle(.grouped)
+                    .formStyle(.grouped)
+                    case .tool:
+                        Form {
+                            ForEach(selectedInstruction.steps) { stepGroup in
+                                Section {
+                                    ConfigurationItemView(title: "Configuration File", value: stepGroup.path, action: .revealInFinder(stepGroup.path))
+                                    ForEach(stepGroup.steps, id: \.self) { step in
+                                        ConfigurationItemView(title: "Add This:", action: .copy(step)) {
+                                            HStack {
+                                                Text(step)
+                                                    .padding(8)
+                                                    .font(.system(.subheadline, design: .monospaced))
+                                                Spacer()
+                                            }
+                                            .frame(maxWidth: .infinity)
+                                            .background {
+                                                RoundedRectangle(cornerRadius: 6)
+                                                    .fill(.black.opacity(0.05))
+                                                    .stroke(.separator, lineWidth: 1)
+                                            }
+                                        }
+                                    }
+                                } footer: {
+                                    if let note = stepGroup.note {
+                                        Text(note)
+                                            .font(.caption)
+                                    }
+                                }
+                            }
+                            if let url = selectedInstruction.website {
+                                Section {
+                                    Link(destination: url) {
+                                        VStack(alignment: .leading, spacing: 5) {
+                                            Text("View Documentation on Web")
+                                                .font(.headline)
+                                            Text(url.absoluteString)
+                                                .font(.caption2)
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        .formStyle(.grouped)
+                    case .otherShell:
+                        Form {
+                            Section {
+                                Link("View on GitHub", destination: URL(string: "https://github.com/maxgoedjen/secretive-config-instructions/tree/main/shells")!)
+                            } header: {
+                                Text("There's a community-maintained list of shell instructions on GitHub. If the shell you're looking for isn't supported, create an issue and the community may be able to help.")
+                                    .font(.body)
+                            }
+                        }
+                        .formStyle(.grouped)
+
+                    case .otherApp:
+                        Form {
+                            Section {
+                                Link("View on GitHub", destination: URL(string: "https://github.com/maxgoedjen/secretive-config-instructions/tree/main/apps")!)
+                            } header: {
+                                Text("There's a community-maintained list of instructions for apps on GitHub. If the app you're looking for isn't supported, create an issue and the community may be able to help.")
+                                    .font(.body)
+                            }
+                        }
+                        .formStyle(.grouped)
+                    }
             }
         }
         .onAppear {
@@ -102,6 +135,55 @@ struct IntegrationsView: View {
 
 extension IntegrationsView {
 
+    fileprivate var ssh: ConfigurationFileInstructions {
+        ConfigurationFileInstructions(
+            tool: "SSH",
+            configPath: "~/.ssh/config",
+            configText: "Host *\n\tIdentityAgent \(socketPath)",
+            website: URL(string: "https://man.openbsd.org/ssh_config.5")!,
+            note: "You can tell SSH to use a specific key for a given host. See the web documentation for more details.",
+        )
+    }
+
+    fileprivate var git: ConfigurationFileInstructions {
+        ConfigurationFileInstructions(
+            tool: "Git Signing",
+            steps: [
+                .init(path: "~/.gitconfig", steps: [
+                    """
+                    [user]
+                        signingkey = YOUR_PUBLIC_KEY_PATH
+                    [commit]
+                        gpgsign = true
+                    [gpg]
+                        format = ssh
+                    [gpg "ssh"]
+                        allowedSignersFile = ~/.gitallowedsigners
+                    """
+                ],
+                      note: "If any section (like [user]) already exists, just add the entries in the existing section."
+
+                     ),
+                .init(
+                    path: "~/.gitallowedsigners",
+                    steps: [
+                        "YOUR_PUBLIC_KEY"
+                    ],
+                    note: "~/.gitallowedsigners probably does not exist. You'll need to create it."
+                ),
+            ],
+            website:  URL(string: "https://git-scm.com/docs/git-config")!,
+        )
+    }
+
+    fileprivate var zsh: ConfigurationFileInstructions {
+        ConfigurationFileInstructions(
+            tool: "zsh",
+            configPath: "~/.zshrc",
+            configText: "export SSH_AUTH_SOCK=\(socketPath)"
+        )
+    }
+
     fileprivate var instructions: [ConfigurationGroup] {
         [
             ConfigurationGroup(name:"Integrations", instructions: [
@@ -110,48 +192,12 @@ extension IntegrationsView {
             ConfigurationGroup(
                 name: "System",
                 instructions: [
-                    ConfigurationFileInstructions(
-                        tool: "SSH",
-                        configPath: "~/.ssh/config",
-                        configText: "Host *\n\tIdentityAgent \(socketPath)",
-                        website: URL(string: "https://man.openbsd.org/ssh_config.5")!,
-                    ),
-                    ConfigurationFileInstructions(
-                        tool: "Git Signing",
-                        steps: [
-                            .init(path: "~/.gitconfig", steps: [
-                                """
-                                [user]
-                                    signingkey = YOUR_PUBLIC_KEY_PATH
-                                [commit]
-                                    gpgsign = true
-                                [gpg]
-                                    format = ssh
-                                [gpg "ssh"]
-                                    allowedSignersFile = ~/.gitallowedsigners
-                                """
-                            ],
-                                  note: "If any section (like [user]) already exists, just add the entries in the existing section."
-
-                                 ),
-                            .init(
-                                path: "~/.gitallowedsigners",
-                                steps: [
-                                    "YOUR_PUBLIC_KEY"
-                                ],
-                                note: "~/.gitallowedsigners probably does not exist. You'll need to create it."
-                            ),
-                        ],
-                        website:  URL(string: "https://git-scm.com/docs/git-config")!,
-                    )
+                    ssh,
+                    git,
                 ]
             ),
             ConfigurationGroup(name: "Shell", instructions: [
-                ConfigurationFileInstructions(
-                    tool: "zsh",
-                    configPath: "~/.zshrc",
-                    configText: "export SSH_AUTH_SOCK=\(socketPath)"
-                ),
+                zsh,
                 ConfigurationFileInstructions(
                     tool: "bash",
                     configPath: "~/.bashrc",
@@ -164,8 +210,8 @@ extension IntegrationsView {
                 ),
                 ConfigurationFileInstructions("other", id: .otherShell),
             ]),
-            ConfigurationGroup(name:"Apps", instructions: [
-                ConfigurationFileInstructions("Other", id: .otherApp),
+            ConfigurationGroup(name: "Other", instructions: [
+                ConfigurationFileInstructions("Apps", id: .otherApp),
             ]),
         ]
     }
@@ -198,10 +244,10 @@ struct ConfigurationFileInstructions: Hashable, Identifiable {
     var steps: [StepGroup]
     var website: URL?
 
-    init(tool: String, configPath: String, configText: String, website: URL? = nil) {
+    init(tool: String, configPath: String, configText: String, website: URL? = nil, note: String? = nil) {
         self.id = .tool(tool)
         self.tool = tool
-        self.steps = [StepGroup(path: configPath, steps: [configText])]
+        self.steps = [StepGroup(path: configPath, steps: [configText], note: note)]
         self.website = website
     }
 
