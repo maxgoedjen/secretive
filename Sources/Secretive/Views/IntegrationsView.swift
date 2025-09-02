@@ -80,24 +80,24 @@ struct IntegrationsDetailView: View {
             switch selectedInstruction.id {
             case .gettingStarted:
                 Form {
-                    Section("Configuring Tools for Secretive") {
-                        Text("Most tools will try and look for SSH keys on disk in `~/.ssh`. To use Secretive, we need to configure those tools to talk to Secretive instead.")
+                    Section(.onboardingGettingStartedTitle) {
+                        Text(.onboardingGettingStartedTitleDescription)
                     }
                     Section {
                         Group {
-                            Text("If you're trying to authenticate with an SSH server or authenticating with a service like GitHub over SSH, configure your SSH client.")
+                            Text(.onboardingGettingStartedSuggestionSsh)
                                 .onTapGesture {
                                     self.selectedInstruction = instructions.ssh
                                 }
                             VStack(alignment: .leading, spacing: 5) {
-                                Text("If you're trying to configure anything your command line runs to use Secretive, configure your shell.")
-                                Text("If you don't known what shell you use and haven't changed it, you're probably using `\(instructions.defaultShell.tool)`.")
+                                Text(.onboardingGettingStartedSuggestionShell)
+                                Text(.onboardingGettingStartedSuggestionShellDefault(shellName: instructions.defaultShell.tool))
                                     .font(.caption2)
                             }
                             .onTapGesture {
                                 self.selectedInstruction = instructions.defaultShell
                             }
-                            Text("If you're trying to sign your git commits, set up Git Signing.")
+                            Text(.onboardingGettingStartedSuggestionGit)
                                 .onTapGesture {
                                     self.selectedInstruction = instructions.git
                                 }
@@ -105,10 +105,10 @@ struct IntegrationsDetailView: View {
                         .foregroundStyle(.link)
 
                     } header: {
-                        Text("What Should I Configure?")
+                        Text(.onboardingGettingStartedWhatShouldIConfigureTitle)
                     }
                     footer: {
-                        Text("You can configure more than one tool, they generally won't interfere with each other.")
+                        Text(.onboardingGettingStartedMultipleConfig)
                     }
                 }
                 .formStyle(.grouped)
@@ -116,9 +116,9 @@ struct IntegrationsDetailView: View {
                     Form {
                         ForEach(selectedInstruction.steps) { stepGroup in
                             Section {
-                                ConfigurationItemView(title: "Configuration File", value: stepGroup.path, action: .revealInFinder(stepGroup.path))
+                                ConfigurationItemView(title: LocalizedStringResource.integrationsPathTitle, value: stepGroup.path, action: .revealInFinder(stepGroup.path))
                                 ForEach(stepGroup.steps, id: \.self) { step in
-                                    ConfigurationItemView(title: "integrations_add_this_title", action: .copy(step)) {
+                                    ConfigurationItemView(title: LocalizedStringResource.integrationsAddThisTitle, action: .copy(step)) {
                                         HStack {
                                             Text(step)
                                                 .padding(8)
@@ -144,7 +144,7 @@ struct IntegrationsDetailView: View {
                             Section {
                                 Link(destination: url) {
                                     VStack(alignment: .leading, spacing: 5) {
-                                        Text("View Documentation on Web")
+                                        Text(.integrationsWebLink)
                                             .font(.headline)
                                         Text(url.absoluteString)
                                             .font(.caption2)
@@ -157,9 +157,9 @@ struct IntegrationsDetailView: View {
                 case .otherShell:
                     Form {
                         Section {
-                            Link("View on GitHub", destination: URL(string: "https://github.com/maxgoedjen/secretive-config-instructions/tree/main/shells")!)
+                            Link(.integrationsViewOtherGithubLink, destination: URL(string: "https://github.com/maxgoedjen/secretive-config-instructions/tree/main/shells")!)
                         } header: {
-                            Text("There's a community-maintained list of shell instructions on GitHub. If the shell you're looking for isn't supported, create an issue and the community may be able to help.")
+                            Text(.integrationsCommunityShellListDescription)
                                 .font(.body)
                         }
                     }
@@ -168,9 +168,9 @@ struct IntegrationsDetailView: View {
                 case .otherApp:
                     Form {
                         Section {
-                            Link("View on GitHub", destination: URL(string: "https://github.com/maxgoedjen/secretive-config-instructions/tree/main/apps")!)
+                            Link(.integrationsViewOtherGithubLink, destination: URL(string: "https://github.com/maxgoedjen/secretive-config-instructions/tree/main/apps")!)
                         } header: {
-                            Text("There's a community-maintained list of instructions for apps on GitHub. If the app you're looking for isn't supported, create an issue and the community may be able to help.")
+                            Text(.integrationsCommunityAppsListDescription)
                                 .font(.body)
                         }
                     }
@@ -243,7 +243,7 @@ private struct Instructions {
 
     var instructions: [ConfigurationGroup] {
         [
-            ConfigurationGroup(name:"Integrations", instructions: [
+            ConfigurationGroup(name: "Integrations", instructions: [
                 gettingStarted
             ]),
             ConfigurationGroup(
@@ -268,7 +268,7 @@ private struct Instructions {
                 ConfigurationFileInstructions("other", id: .otherShell),
             ]),
             ConfigurationGroup(name: "Other", instructions: [
-                ConfigurationFileInstructions("Apps", id: .otherApp),
+                ConfigurationFileInstructions(LocalizedStringResource.integrationsAppsRowTitle, id: .otherApp),
             ]),
         ]
     }

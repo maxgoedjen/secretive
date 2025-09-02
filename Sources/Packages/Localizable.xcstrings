@@ -4,6 +4,94 @@
     "" : {
 
     },
+    "agent_details_could_not_start_error" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Secretive was unable to get SecretAgent to launch. Please try restarting your Mac, and if that doesn't work, file an issue on GitHub."
+          }
+        }
+      }
+    },
+    "agent_details_disable_agent_button" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Disable Agent"
+          }
+        }
+      }
+    },
+    "agent_details_restart_agent_button" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Restart Agent"
+          }
+        }
+      }
+    },
+    "agent_details_running_since_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Running Since"
+          }
+        }
+      }
+    },
+    "agent_details_socket_path_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Socket Path"
+          }
+        }
+      }
+    },
+    "agent_details_start_agent_button" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Start Agent"
+          }
+        }
+      }
+    },
+    "agent_details_start_agent_button_starting" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Starting Agent"
+          }
+        }
+      }
+    },
+    "agent_details_version_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Version"
+          }
+        }
+      }
+    },
     "agent_not_running_notice_detail_description" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -400,6 +488,17 @@
         }
       }
     },
+    "agentDetailsLocationTitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Secret Agent Location"
+          }
+        }
+      }
+    },
     "app_menu_help_button" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -781,16 +880,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Secretive 不在系统应用文件夹中"
-          }
-        }
-      }
-    },
-    "Apps" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Apps"
           }
         }
       }
@@ -1181,46 +1270,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "使用密钥串 \"%1$(secretName)@\" 认证"
-          }
-        }
-      }
-    },
-    "Configuration File" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Configuration File"
-          }
-        }
-      }
-    },
-    "Configure" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Configure"
-          }
-        }
-      }
-    },
-    "Configure Integrations" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Configure Integrations"
-          }
-        }
-      }
-    },
-    "Configuring Tools for Secretive" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Configuring Tools for Secretive"
           }
         }
       }
@@ -2555,16 +2604,6 @@
         }
       }
     },
-    "Disable Agent" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Disable Agent"
-          }
-        }
-      }
-    },
     "Done" : {
       "localizations" : {
         "en" : {
@@ -3112,46 +3151,6 @@
         }
       }
     },
-    "If you don't known what shell you use and haven't changed it, you're probably using `%@`." : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "If you don't known what shell you use and haven't changed it, you're probably using `%@`."
-          }
-        }
-      }
-    },
-    "If you're trying to authenticate with an SSH server or authenticating with a service like GitHub over SSH, configure your SSH client." : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "If you're trying to authenticate with an SSH server or authenticating with a service like GitHub over SSH, configure your SSH client."
-          }
-        }
-      }
-    },
-    "If you're trying to configure anything your command line runs to use Secretive, configure your shell." : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "If you're trying to configure anything your command line runs to use Secretive, configure your shell."
-          }
-        }
-      }
-    },
-    "If you're trying to sign your git commits, set up Git Signing." : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "If you're trying to sign your git commits, set up Git Signing."
-          }
-        }
-      }
-    },
     "Integrations" : {
       "localizations" : {
         "en" : {
@@ -3163,11 +3162,78 @@
       }
     },
     "integrations_add_this_title" : {
+      "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Add This:"
+          }
+        }
+      }
+    },
+    "integrations_apps_row_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apps"
+          }
+        }
+      }
+    },
+    "integrations_community_apps_list_description" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "There's a community-maintained list of instructions for apps on GitHub. If the app you're looking for isn't supported, create an issue and the community may be able to help."
+          }
+        }
+      }
+    },
+    "integrations_community_shell_list_description" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "There's a community-maintained list of shell instructions on GitHub. If the shell you're looking for isn't supported, create an issue and the community may be able to help."
+          }
+        }
+      }
+    },
+    "integrations_path_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Configuration File"
+          }
+        }
+      }
+    },
+    "integrations_view_other_github_link" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "View on GitHub"
+          }
+        }
+      }
+    },
+    "integrations_web_link" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "View Documentation on Web"
           }
         }
       }
@@ -3177,17 +3243,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Add This:"
-          }
-        }
-      }
-    },
-    "Most tools will try and look for SSH keys on disk in `~/.ssh`. To use Secretive, we need to configure those tools to talk to Secretive instead." : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Most tools will try and look for SSH keys on disk in `~/.ssh`. To use Secretive, we need to configure those tools to talk to Secretive instead."
+            "value" : "Integrations…"
           }
         }
       }
@@ -3423,6 +3479,127 @@
         }
       }
     },
+    "onboarding_getting_started_multiple_config" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You can configure more than one tool, they generally won't interfere with each other."
+          }
+        }
+      }
+    },
+    "onboarding_getting_started_suggestion_git" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "If you're trying to sign your git commits, set up Git Signing."
+          }
+        }
+      }
+    },
+    "onboarding_getting_started_suggestion_shell" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "If you're trying to configure anything your command line runs to use Secretive, configure your shell."
+          }
+        }
+      }
+    },
+    "onboarding_getting_started_suggestion_shell_default" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "If you don't known what shell you use and haven't changed it, you're probably using `%(shellName)@`."
+          }
+        }
+      }
+    },
+    "onboarding_getting_started_suggestion_ssh" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "If you're trying to authenticate with an SSH server or authenticating with a service like GitHub over SSH, configure your SSH client."
+          }
+        }
+      }
+    },
+    "onboarding_getting_started_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Configuring Tools for Secretive"
+          }
+        }
+      }
+    },
+    "onboarding_getting_started_title_description" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Most tools will try and look for SSH keys on disk in `~/.ssh`. To use Secretive, we need to configure those tools to talk to Secretive instead."
+          }
+        }
+      }
+    },
+    "onboarding_getting_started_what_should_i_configure_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "What Should I Configure?"
+          }
+        }
+      }
+    },
+    "onboarding_integrations_button_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Configure"
+          }
+        }
+      }
+    },
+    "onboarding_integrations_description" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tell the tools you use how to talk to Secretive."
+          }
+        }
+      }
+    },
+    "onboarding_integrations_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Configure Integrations"
+          }
+        }
+      }
+    },
     "other" : {
 
     },
@@ -3585,42 +3762,12 @@
         }
       }
     },
-    "Restart Agent" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Restart Agent"
-          }
-        }
-      }
-    },
     "Reveal in Finder" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Reveal in Finder"
-          }
-        }
-      }
-    },
-    "Running Since" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Running Since"
-          }
-        }
-      }
-    },
-    "Secret Agent Location" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Secret Agent Location"
           }
         }
       }
@@ -4047,16 +4194,6 @@
           "stringUnit" : {
             "state" : "needs_review",
             "value" : "重命名"
-          }
-        }
-      }
-    },
-    "Secretive was unable to get SecretAgent to launch. Please try restarting your Mac, and if that doesn't work, file an issue on GitHub." : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Secretive was unable to get SecretAgent to launch. Please try restarting your Mac, and if that doesn't work, file an issue on GitHub."
           }
         }
       }
@@ -5450,72 +5587,12 @@
         }
       }
     },
-    "Socket Path" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Socket Path"
-          }
-        }
-      }
-    },
-    "Start Agent" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Start Agent"
-          }
-        }
-      }
-    },
-    "Starting Agent" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Starting Agent"
-          }
-        }
-      }
-    },
     "System" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "System"
-          }
-        }
-      }
-    },
-    "Tell the tools you use how to talk to Secretive." : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Tell the tools you use how to talk to Secretive."
-          }
-        }
-      }
-    },
-    "There's a community-maintained list of instructions for apps on GitHub. If the app you're looking for isn't supported, create an issue and the community may be able to help." : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "There's a community-maintained list of instructions for apps on GitHub. If the app you're looking for isn't supported, create an issue and the community may be able to help."
-          }
-        }
-      }
-    },
-    "There's a community-maintained list of shell instructions on GitHub. If the shell you're looking for isn't supported, create an issue and the community may be able to help." : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "There's a community-maintained list of shell instructions on GitHub. If the shell you're looking for isn't supported, create an issue and the community may be able to help."
           }
         }
       }
@@ -6462,56 +6539,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Secretive %1$(updateName)@"
-          }
-        }
-      }
-    },
-    "Version" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Version"
-          }
-        }
-      }
-    },
-    "View Documentation on Web" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "View Documentation on Web"
-          }
-        }
-      }
-    },
-    "View on GitHub" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "View on GitHub"
-          }
-        }
-      }
-    },
-    "What Should I Configure?" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "What Should I Configure?"
-          }
-        }
-      }
-    },
-    "You can configure more than one tool, they generally won't interfere with each other." : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "You can configure more than one tool, they generally won't interfere with each other."
           }
         }
       }

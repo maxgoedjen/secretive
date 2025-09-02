@@ -50,12 +50,12 @@ struct SetupView: View {
                 }
                 Divider()
                 StepView(
-                    title: "Configure Integrations",
-                    description: "Tell the tools you use how to talk to Secretive.",
+                    title: .onboardingIntegrationsTitle,
+                    description: LocalizedStringResource.onboardingIntegrationsDescription,
                     systemImage: "firewall",
                 ) {
                     OnboardingButton(
-                        "Configure",
+                        LocalizedStringResource.onboardingIntegrationsButtonTitle,
                         complete: integrations,
                         width: buttonWidth
                     ) {

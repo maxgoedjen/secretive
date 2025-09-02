@@ -22,22 +22,22 @@ struct AgentRunningView: View {
             Section {
                 if let process = agentStatusChecker.process {
                     ConfigurationItemView(
-                        title: "Secret Agent Location",
+                        title: LocalizedStringResource.agentDetailsLocationTitle,
                         value: process.bundleURL!.path(),
                         action: .revealInFinder(process.bundleURL!.path()),
                     )
                     ConfigurationItemView(
-                        title: "Socket Path",
+                        title: LocalizedStringResource.agentDetailsSocketPathTitle,
                         value: socketPath,
                         action: .copy(socketPath),
                     )
                     ConfigurationItemView(
-                        title: "Version",
+                        title: LocalizedStringResource.agentDetailsVersionTitle,
                         value: Bundle(url: process.bundleURL!)!.infoDictionary!["CFBundleShortVersionString"] as! String
                     )
                     if let launchDate = process.launchDate {
                         ConfigurationItemView(
-                            title: "Running Since",
+                            title: LocalizedStringResource.agentDetailsRunningSinceTitle,
                             value: launchDate.formatted()
                         )
                     }
@@ -51,8 +51,8 @@ struct AgentRunningView: View {
                     Text(.agentRunningNoticeDetailDescription)
                     HStack {
                         Spacer()
-                        Menu("Restart Agent") {
-                            Button("Disable Agent") {
+                        Menu(.agentDetailsRestartAgentButton) {
+                            Button(.agentDetailsDisableAgentButton) {
                                 Task {
                                     _ = await LaunchAgentController()
                                         .uninstall()
@@ -118,10 +118,10 @@ struct AgentNotRunningView: View {
                                 }
                             } label: {
                                 if !loading {
-                                    Text("Start Agent")
+                                    Text(.agentDetailsStartAgentButton)
                                 } else {
                                     HStack {
-                                        Text("Starting Agent")
+                                        Text(.agentDetailsStartAgentButtonStarting)
                                         ProgressView()
                                             .controlSize(.mini)
                                     }
@@ -129,7 +129,7 @@ struct AgentNotRunningView: View {
                             }
                             .primaryButton()
                         } else {
-                            Text("Secretive was unable to get SecretAgent to launch. Please try restarting your Mac, and if that doesn't work, file an issue on GitHub.")
+                            Text(.agentDetailsCouldNotStartError)
                                 .bold()
                                 .foregroundStyle(.red)
                         }
