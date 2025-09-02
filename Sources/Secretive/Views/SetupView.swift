@@ -23,9 +23,14 @@ struct SetupView: View {
                     description: "setup_agent_description",
                     systemImage: "lock.laptopcomputer",
                 ) {
-                    OnboardingButton("setup_agent_install_button", installed, width: buttonWidth) {
+                    OnboardingButton(
+                        "setup_agent_install_button",
+                        complete: installed,
+                        width: buttonWidth
+                    ) {
+                        installed = true
                         Task {
-                            installed = await LaunchAgentController().install()
+                            await LaunchAgentController().install()
                         }
                     }
                 }
@@ -35,7 +40,11 @@ struct SetupView: View {
                     description: "setup_updates_description",
                     systemImage: "network.badge.shield.half.filled",
                 ) {
-                    OnboardingButton("setup_updates_ok", updates, width: buttonWidth) {
+                    OnboardingButton(
+                        "setup_updates_ok",
+                        complete: updates,
+                        width: buttonWidth
+                    ) {
                         updates = true
                     }
                 }
@@ -45,7 +54,11 @@ struct SetupView: View {
                     description: "Tell the tools you use how to talk to Secretive.",
                     systemImage: "firewall",
                 ) {
-                    OnboardingButton("Configure", integrations, width: buttonWidth) {
+                    OnboardingButton(
+                        "Configure",
+                        complete: integrations,
+                        width: buttonWidth
+                    ) {
                         showingIntegrations = true
                     }
                 }
@@ -93,7 +106,7 @@ struct OnboardingButton: View {
     let width: CGFloat?
     @State var currentWidth: CGFloat?
 
-    init(_ label: LocalizedStringResource, _ complete: Bool, width: CGFloat? = nil, action: @escaping () -> Void) {
+    init(_ label: LocalizedStringResource, complete: Bool, width: CGFloat? = nil, action: @escaping () -> Void) {
         self.label = label
         self.complete = complete
         self.action = action
