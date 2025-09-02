@@ -37,12 +37,6 @@ struct SecretDetailView<SecretType: Secret>: View {
 
 }
 
-#if DEBUG
-
-struct SecretDetailView_Previews: PreviewProvider {
-    static var previews: some View {
-        SecretDetailView(secret: Preview.Store(numberOfRandomSecrets: 1).secrets[0])
-    }
+#Preview {
+//    SecretDetailView(secret: Preview.Store(numberOfRandomSecrets: 1).secrets[0])
 }
-
-#endif
