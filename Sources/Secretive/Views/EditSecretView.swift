@@ -45,7 +45,7 @@ struct EditSecretView<StoreType: SecretStoreModifiable>: View {
                 Button(.editSaveButton, action: rename)
                     .disabled(name.isEmpty)
                     .keyboardShortcut(.return)
-                    .primary()
+                    .primaryButton()
             }
             .padding()
         }

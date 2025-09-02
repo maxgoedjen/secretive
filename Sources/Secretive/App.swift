@@ -61,7 +61,6 @@ struct Secretive: App {
                 }
                 .sheet(isPresented: $showingIntegrations) {
                     IntegrationsView()
-                        .frame(minHeight: 400)
                 }
         }
         .commands {
@@ -79,6 +78,11 @@ struct Secretive: App {
             CommandGroup(replacing: .help) {
                 Button(.appMenuHelpButton) {
                     NSWorkspace.shared.open(Constants.helpURL)
+                }
+            }
+            CommandGroup(after: .help) {
+                Button("Setup") {
+                    showingSetup = true
                 }
             }
             SidebarCommands()

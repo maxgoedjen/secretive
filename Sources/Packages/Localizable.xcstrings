@@ -1187,6 +1187,9 @@
     "Configure" : {
 
     },
+    "Configure Integrations" : {
+
+    },
     "Configuring Tools for Secretive" : {
 
     },
@@ -3975,6 +3978,9 @@
         }
       }
     },
+    "Setup" : {
+
+    },
     "setup_agent_activity_monitor_description" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -5286,6 +5292,9 @@
 
     },
     "System" : {
+
+    },
+    "Tell the tools you use how to talk to Secretive." : {
 
     },
     "There's a community-maintained list of instructions for apps on GitHub. If the app you're looking for isn't supported, create an issue and the community may be able to help." : {

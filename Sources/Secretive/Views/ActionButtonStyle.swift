@@ -3,10 +3,11 @@ import SwiftUI
 struct PrimaryButtonModifier: ViewModifier {
 
     @Environment(\.colorScheme) var colorScheme
+    @Environment(\.isEnabled) var isEnabled
 
     func body(content: Content) -> some View {
         // Tinted glass prominent is really hard to read on 26.0.
-        if #available(macOS 26.0, *), colorScheme == .dark {
+        if #available(macOS 26.0, *), colorScheme == .dark, isEnabled {
             content.buttonStyle(.glassProminent)
         } else {
             content.buttonStyle(.borderedProminent)
@@ -17,13 +18,13 @@ struct PrimaryButtonModifier: ViewModifier {
 
 extension View {
 
-    func primary() -> some View {
+    func primaryButton() -> some View {
         modifier(PrimaryButtonModifier())
     }
 
 }
 
-struct NormalButtonModifier: ViewModifier {
+struct MenuButtonModifier: ViewModifier {
 
     func body(content: Content) -> some View {
         if #available(macOS 26.0, *) {
@@ -39,7 +40,27 @@ struct NormalButtonModifier: ViewModifier {
 
 extension View {
 
-    func normal() -> some View {
+    func menuButton() -> some View {
+        modifier(MenuButtonModifier())
+    }
+
+}
+
+struct NormalButtonModifier: ViewModifier {
+
+    func body(content: Content) -> some View {
+        if #available(macOS 26.0, *) {
+            content.buttonStyle(.glass)
+        } else {
+            content.buttonStyle(.bordered)
+        }
+    }
+
+}
+
+extension View {
+
+    func normalButton() -> some View {
         modifier(NormalButtonModifier())
     }
 

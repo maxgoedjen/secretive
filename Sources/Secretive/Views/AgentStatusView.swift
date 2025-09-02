@@ -127,7 +127,7 @@ struct AgentNotRunningView: View {
                                     }
                                 }
                             }
-                            .primary()
+                            .primaryButton()
                         } else {
                             Text("Secretive was unable to get SecretAgent to launch. Please try restarting your Mac, and if that doesn't work, file an issue on GitHub.")
                                 .bold()

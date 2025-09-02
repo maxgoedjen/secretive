@@ -21,19 +21,47 @@ struct IntegrationsView: View {
                 }
             }
         } detail: {
-            IntegrationsDetailView(selectedInstruction: $selectedInstruction)
+                IntegrationsDetailView(selectedInstruction: $selectedInstruction)
+                .fauxToolbar {
+                    Button("Done") {
+                        dismiss()
+                    }
+                    .normalButton()
+                }
         }
         .onAppear {
             selectedInstruction = instructions.gettingStarted
         }
-        .toolbar {
-            ToolbarItem(placement: .primaryAction) {
-                Button("Done") {
-                    dismiss()
-                }
-                .styled
+        .frame(minHeight: 500)
+    }
+
+}
+
+extension View {
+
+    func fauxToolbar<Content: View>(content: () -> Content) -> some View {
+        modifier(FauxToolbarModifier(toolbarContent: content()))
+    }
+
+}
+
+struct FauxToolbarModifier<ToolbarContent: View>: ViewModifier {
+
+    var toolbarContent: ToolbarContent
+
+    func body(content: Content) -> some View {
+        VStack(alignment: .leading) {
+            content
+            Divider()
+            HStack {
+                Spacer()
+                toolbarContent
+                .padding(.top, 8)
+                .padding(.trailing, 16)
+                .padding(.bottom, 16)
             }
         }
+
     }
 
 }

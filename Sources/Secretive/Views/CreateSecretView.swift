@@ -113,7 +113,7 @@ struct CreateSecretView<StoreType: SecretStoreModifiable>: View {
                 }
                 Button(.createSecretCreateButton, action: save)
                     .keyboardShortcut(.return)
-                    .primary()
+                    .primaryButton()
                     .disabled(name.isEmpty)
             }
             .padding()

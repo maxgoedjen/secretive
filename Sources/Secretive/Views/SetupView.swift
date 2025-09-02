@@ -4,20 +4,26 @@ struct SetupView: View {
 
     @Environment(\.dismiss) private var dismiss
     @Binding var setupComplete: Bool
-    
+
+    @State var showingIntegrations = false
+    @State var buttonWidth: CGFloat?
+
     @State var installed = false
     @State var updates = false
-    @State var sshConfig = false
+    @State var integrations = false
+    var allDone: Bool {
+        installed && updates && integrations
+    }
 
     var body: some View {
         VStack {
-            VStack(spacing: 0) {
+            VStack(alignment: .leading, spacing: 0) {
                 StepView(
                     title: "setup_agent_title",
                     description: "setup_agent_description",
                     systemImage: "lock.laptopcomputer",
                 ) {
-                    OnboardingButton("setup_agent_install_button", installed) {
+                    OnboardingButton("setup_agent_install_button", installed, width: buttonWidth) {
                         Task {
                             installed = await LaunchAgentController().install()
                         }
@@ -29,76 +35,95 @@ struct SetupView: View {
                     description: "setup_updates_description",
                     systemImage: "network.badge.shield.half.filled",
                 ) {
-                    OnboardingButton("setup_updates_ok", updates) {
-                        Task {
-                            updates = true
-                        }
+                    OnboardingButton("setup_updates_ok", updates, width: buttonWidth) {
+                        updates = true
                     }
                 }
                 Divider()
                 StepView(
-                    title: "setup_ssh_title",
-                    description: "setup_ssh_description",
-                    systemImage: "network.badge.shield.half.filled",
+                    title: "Configure Integrations",
+                    description: "Tell the tools you use how to talk to Secretive.",
+                    systemImage: "firewall",
                 ) {
-                    HStack {
-                        OnboardingButton("Configure", false) {
-//                            sshConfig = true
-                        }
+                    OnboardingButton("Configure", integrations, width: buttonWidth) {
+                        showingIntegrations = true
                     }
                 }
+            }
+            .onPreferenceChange(OnboardingButton.WidthKey.self) { width in
+                buttonWidth = width
             }
             .background(.white.opacity(0.1), in: RoundedRectangle(cornerRadius: 10))
             .frame(minWidth: 700, maxWidth: .infinity)
             HStack {
                 Spacer()
-                Button("Done") {}
-                    .styled
+                Button("Done") {
+                    setupComplete = true
+                    dismiss()
+                }
+                .disabled(!allDone)
+                .primaryButton()
             }
         }
+        .interactiveDismissDisabled()
         .padding()
+        .sheet(isPresented: $showingIntegrations, onDismiss: {
+            integrations = true
+        }, content: {
+            IntegrationsView()
+        })
     }
 }
 
 struct OnboardingButton: View {
 
+    struct WidthKey: @MainActor PreferenceKey {
+        @MainActor static var defaultValue: CGFloat? = nil
+        static func reduce(value: inout CGFloat?, nextValue: () -> CGFloat?) {
+            if let next = nextValue(), next > (value ?? -1) {
+                value = next
+            }
+        }
+
+    }
+
     let label: LocalizedStringResource
     let complete: Bool
     let action: () -> Void
-    
-    init(_ label: LocalizedStringResource, _ complete: Bool, action: @escaping () -> Void) {
+    let width: CGFloat?
+    @State var currentWidth: CGFloat?
+
+    init(_ label: LocalizedStringResource, _ complete: Bool, width: CGFloat? = nil, action: @escaping () -> Void) {
         self.label = label
         self.complete = complete
         self.action = action
+        self.width = width
     }
     
     var body: some View {
         Button(action: action) {
             HStack(spacing: 6) {
-                Text(label)
                 if complete {
+                    Text("Done")
                     Image(systemName: "checkmark.circle.fill")
+                } else {
+                    Text(label)
                 }
             }
+            .frame(width: width)
             .padding(.vertical, 2)
+            .onGeometryChange(for: CGFloat.self) { proxy in
+                proxy.size.width
+            } action: { newValue in
+                currentWidth = newValue
+            }
         }
+        .preference(key: WidthKey.self, value: currentWidth)
+        .primaryButton()
         .disabled(complete)
-        .styled
+        .tint(complete ? .green : nil)
     }
         
-}
-
-extension View {
-    
-    @ViewBuilder
-    var styled: some View {
-        if #available(macOS 26.0, *) {
-            buttonStyle(.glassProminent)
-        } else {
-            buttonStyle(.borderedProminent)
-        }
-    }
-    
 }
 
 struct StepView<Content: View>: View {
@@ -126,6 +151,7 @@ struct StepView<Content: View>: View {
                     .bold()
                 Text(description)
             }
+            Spacer()
             actions
         }
         .padding(20)
