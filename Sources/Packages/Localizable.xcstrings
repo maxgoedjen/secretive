@@ -4270,6 +4270,7 @@
       }
     },
     "Setup" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -5199,6 +5200,9 @@
           }
         }
       }
+    },
+    "Test" : {
+
     },
     "unnamed_secret" : {
       "extractionState" : "manual",

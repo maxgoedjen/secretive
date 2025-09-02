@@ -127,7 +127,7 @@ struct AgentNotRunningView: View {
                                     }
                                 }
                             }
-                            .primaryButton()
+//                            .primaryButton()
                         } else {
                             Text(.agentDetailsCouldNotStartError)
                                 .bold()
@@ -144,11 +144,11 @@ struct AgentNotRunningView: View {
 
 }
 
-#Preview {
-    AgentStatusView()
-        .environment(\.agentStatusChecker, PreviewAgentStatusChecker(running: false))
-}
-#Preview {
-    AgentStatusView()
-        .environment(\.agentStatusChecker, PreviewAgentStatusChecker(running: true, process: .current))
-}
+//#Preview {
+//    AgentStatusView()
+//        .environment(\.agentStatusChecker, PreviewAgentStatusChecker(running: false))
+//}
+//#Preview {
+//    AgentStatusView()
+//        .environment(\.agentStatusChecker, PreviewAgentStatusChecker(running: true, process: .current))
+//}
