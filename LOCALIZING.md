@@ -18,7 +18,7 @@ Open [Sources/Secretive.xcodeproj](Sources/Secretive.xcodeproj) in Xcode.
 
 ### Translate
 
-Navigate to [Secretive/Localizable](Sources/Secretive/Localizable.xcstrings). 
+Navigate to [Sources/Packages/Localizable.xcstrings](Sources/Packages/Localizable.xcstrings). 
 
 <img src="/.github/readme/localize_sidebar.png" alt="Screenshot of Xcode navigating to the Localizable file" width="300">
 
@@ -32,6 +32,12 @@ Start translating! You'll see a list of english phrases, and a space to add a tr
 
 Push your changes and open a pull request. 
 
+### Handling Updates
+
+When your translation is merged, I'll invite you to the [secretive-localizers](https://github.com/secretive-localizers) group. I'll tag this group anytime there's a new set of strings, in the hopes that you'll update the translation. If you don't want to be notified, feel free to decline the invitation or leave the organization at any time.
+
 ### Questions
 
 Please open an issue if you have a question about translating the app. I'm more than happy to clarify any terms that are ambiguous or confusing. Thanks for contributing!
+
+
