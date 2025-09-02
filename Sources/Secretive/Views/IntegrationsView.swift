@@ -118,7 +118,7 @@ struct IntegrationsDetailView: View {
                             Section {
                                 ConfigurationItemView(title: "Configuration File", value: stepGroup.path, action: .revealInFinder(stepGroup.path))
                                 ForEach(stepGroup.steps, id: \.self) { step in
-                                    ConfigurationItemView(title: "Add This:", action: .copy(step)) {
+                                    ConfigurationItemView(title: "integrations_add_this_title", action: .copy(step)) {
                                         HStack {
                                             Text(step)
                                                 .padding(8)

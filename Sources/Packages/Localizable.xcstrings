@@ -4,9 +4,6 @@
     "" : {
 
     },
-    "Add This:" : {
-
-    },
     "agent_not_running_notice_detail_description" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -789,7 +786,14 @@
       }
     },
     "Apps" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apps"
+          }
+        }
+      }
     },
     "auth_context_persist_for_duration" : {
       "comment" : "When the user clicks the notification to leave a secret unlocked, they are shown a prompt to approve the action. This is the description, showing which secret will used. The first placeholder is the name of the secret. The second placeholder is a localized description of the time period it will remain unlocked for (eg: \"five minutes\")",
@@ -1182,19 +1186,54 @@
       }
     },
     "Configuration File" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Configuration File"
+          }
+        }
+      }
     },
     "Configure" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Configure"
+          }
+        }
+      }
     },
     "Configure Integrations" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Configure Integrations"
+          }
+        }
+      }
     },
     "Configuring Tools for Secretive" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Configuring Tools for Secretive"
+          }
+        }
+      }
     },
     "Copy" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Copy"
+          }
+        }
+      }
     },
     "copyable_click_to_copy_button" : {
       "extractionState" : "manual",
@@ -2517,10 +2556,24 @@
       }
     },
     "Disable Agent" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Disable Agent"
+          }
+        }
+      }
     },
     "Done" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Done"
+          }
+        }
+      }
     },
     "edit_cancel_button" : {
       "extractionState" : "manual",
@@ -3050,28 +3103,94 @@
       }
     },
     "Getting Started" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Getting Started"
+          }
+        }
+      }
     },
     "If you don't known what shell you use and haven't changed it, you're probably using `%@`." : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "If you don't known what shell you use and haven't changed it, you're probably using `%@`."
+          }
+        }
+      }
     },
     "If you're trying to authenticate with an SSH server or authenticating with a service like GitHub over SSH, configure your SSH client." : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "If you're trying to authenticate with an SSH server or authenticating with a service like GitHub over SSH, configure your SSH client."
+          }
+        }
+      }
     },
     "If you're trying to configure anything your command line runs to use Secretive, configure your shell." : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "If you're trying to configure anything your command line runs to use Secretive, configure your shell."
+          }
+        }
+      }
     },
     "If you're trying to sign your git commits, set up Git Signing." : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "If you're trying to sign your git commits, set up Git Signing."
+          }
+        }
+      }
     },
     "Integrations" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Integrations"
+          }
+        }
+      }
+    },
+    "integrations_add_this_title" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add This:"
+          }
+        }
+      }
     },
     "Integrations..." : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add This:"
+          }
+        }
+      }
     },
     "Most tools will try and look for SSH keys on disk in `~/.ssh`. To use Secretive, we need to configure those tools to talk to Secretive instead." : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Most tools will try and look for SSH keys on disk in `~/.ssh`. To use Secretive, we need to configure those tools to talk to Secretive instead."
+          }
+        }
+      }
     },
     "no_secure_storage_description" : {
       "extractionState" : "manual",
@@ -3467,16 +3586,44 @@
       }
     },
     "Restart Agent" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Restart Agent"
+          }
+        }
+      }
     },
     "Reveal in Finder" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reveal in Finder"
+          }
+        }
+      }
     },
     "Running Since" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Running Since"
+          }
+        }
+      }
     },
     "Secret Agent Location" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Secret Agent Location"
+          }
+        }
+      }
     },
     "secret_detail_md5_fingerprint_label" : {
       "extractionState" : "manual",
@@ -3905,7 +4052,14 @@
       }
     },
     "Secretive was unable to get SecretAgent to launch. Please try restarting your Mac, and if that doesn't work, file an issue on GitHub." : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Secretive was unable to get SecretAgent to launch. Please try restarting your Mac, and if that doesn't work, file an issue on GitHub."
+          }
+        }
+      }
     },
     "secure_enclave" : {
       "extractionState" : "manual",
@@ -3979,7 +4133,14 @@
       }
     },
     "Setup" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Setup"
+          }
+        }
+      }
     },
     "setup_agent_activity_monitor_description" : {
       "extractionState" : "manual",
@@ -5053,7 +5214,14 @@
       }
     },
     "Shell" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Shell"
+          }
+        }
+      }
     },
     "signed_notification_description" : {
       "comment" : "When the user performs an action using a secret, they're shown a notification describing what happened. This is the description, showing which secret was used. The placeholder is the name of the secret.",
@@ -5283,25 +5451,74 @@
       }
     },
     "Socket Path" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Socket Path"
+          }
+        }
+      }
     },
     "Start Agent" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Start Agent"
+          }
+        }
+      }
     },
     "Starting Agent" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Starting Agent"
+          }
+        }
+      }
     },
     "System" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "System"
+          }
+        }
+      }
     },
     "Tell the tools you use how to talk to Secretive." : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tell the tools you use how to talk to Secretive."
+          }
+        }
+      }
     },
     "There's a community-maintained list of instructions for apps on GitHub. If the app you're looking for isn't supported, create an issue and the community may be able to help." : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "There's a community-maintained list of instructions for apps on GitHub. If the app you're looking for isn't supported, create an issue and the community may be able to help."
+          }
+        }
+      }
     },
     "There's a community-maintained list of shell instructions on GitHub. If the shell you're looking for isn't supported, create an issue and the community may be able to help." : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "There's a community-maintained list of shell instructions on GitHub. If the shell you're looking for isn't supported, create an issue and the community may be able to help."
+          }
+        }
+      }
     },
     "unnamed_secret" : {
       "extractionState" : "manual",
@@ -6250,19 +6467,54 @@
       }
     },
     "Version" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Version"
+          }
+        }
+      }
     },
     "View Documentation on Web" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "View Documentation on Web"
+          }
+        }
+      }
     },
     "View on GitHub" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "View on GitHub"
+          }
+        }
+      }
     },
     "What Should I Configure?" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "What Should I Configure?"
+          }
+        }
+      }
     },
     "You can configure more than one tool, they generally won't interfere with each other." : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You can configure more than one tool, they generally won't interfere with each other."
+          }
+        }
+      }
     }
   },
   "version" : "1.0"
