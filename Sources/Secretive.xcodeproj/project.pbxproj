@@ -36,7 +36,6 @@
 		5065E313295517C500E16645 /* ToolbarButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5065E312295517C500E16645 /* ToolbarButtonStyle.swift */; };
 		5066A6C22516F303004B5A36 /* SetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5066A6C12516F303004B5A36 /* SetupView.swift */; };
 		5066A6C82516FE6E004B5A36 /* CopyableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5066A6C72516FE6E004B5A36 /* CopyableView.swift */; };
-		5066A6F7251829B1004B5A36 /* ShellConfigurationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5066A6F6251829B1004B5A36 /* ShellConfigurationController.swift */; };
 		506772C72424784600034DED /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 506772C62424784600034DED /* Credits.rtf */; };
 		506772C92425BB8500034DED /* NoStoresView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506772C82425BB8500034DED /* NoStoresView.swift */; };
 		5079BA0F250F29BF00EA86F4 /* StoreListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5079BA0E250F29BF00EA86F4 /* StoreListView.swift */; };
@@ -49,8 +48,12 @@
 		5099A02423FD2AAA0062B6F2 /* CreateSecretView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5099A02323FD2AAA0062B6F2 /* CreateSecretView.swift */; };
 		50A3B79424026B7600D209EA /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 50A3B79324026B7600D209EA /* Preview Assets.xcassets */; };
 		50A3B79724026B7600D209EA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 50A3B79524026B7600D209EA /* Main.storyboard */; };
+		50AE97002E5C1A420018C710 /* IntegrationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50AE96FF2E5C1A420018C710 /* IntegrationsView.swift */; };
 		50B8550D24138C4F009958AC /* DeleteSecretView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B8550C24138C4F009958AC /* DeleteSecretView.swift */; };
 		50BB046B2418AAAE00D6E079 /* EmptyStoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50BB046A2418AAAE00D6E079 /* EmptyStoreView.swift */; };
+		50BDCB722E63BAF20072D2E7 /* AgentStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50BDCB712E63BAF20072D2E7 /* AgentStatusView.swift */; };
+		50BDCB742E6436CA0072D2E7 /* ErrorStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50BDCB732E6436C60072D2E7 /* ErrorStyle.swift */; };
+		50BDCB762E6450950072D2E7 /* ConfigurationItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50BDCB752E6450950072D2E7 /* ConfigurationItemView.swift */; };
 		50C385A52407A76D00AF2719 /* SecretDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C385A42407A76D00AF2719 /* SecretDetailView.swift */; };
 		50CF4ABC2E601B0F005588DC /* ActionButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50CF4ABB2E601B0F005588DC /* ActionButtonStyle.swift */; };
 /* End PBXBuildFile section */
@@ -120,7 +123,6 @@
 		5065E312295517C500E16645 /* ToolbarButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolbarButtonStyle.swift; sourceTree = "<group>"; };
 		5066A6C12516F303004B5A36 /* SetupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupView.swift; sourceTree = "<group>"; };
 		5066A6C72516FE6E004B5A36 /* CopyableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CopyableView.swift; sourceTree = "<group>"; };
-		5066A6F6251829B1004B5A36 /* ShellConfigurationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShellConfigurationController.swift; sourceTree = "<group>"; };
 		506772C62424784600034DED /* Credits.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = Credits.rtf; sourceTree = "<group>"; };
 		506772C82425BB8500034DED /* NoStoresView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoStoresView.swift; sourceTree = "<group>"; };
 		5079BA0E250F29BF00EA86F4 /* StoreListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreListView.swift; sourceTree = "<group>"; };
@@ -138,8 +140,12 @@
 		50A3B79624026B7600D209EA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		50A3B79824026B7600D209EA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		50A3B79924026B7600D209EA /* SecretAgent.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SecretAgent.entitlements; sourceTree = "<group>"; };
+		50AE96FF2E5C1A420018C710 /* IntegrationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntegrationsView.swift; sourceTree = "<group>"; };
 		50B8550C24138C4F009958AC /* DeleteSecretView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeleteSecretView.swift; sourceTree = "<group>"; };
 		50BB046A2418AAAE00D6E079 /* EmptyStoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStoreView.swift; sourceTree = "<group>"; };
+		50BDCB712E63BAF20072D2E7 /* AgentStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgentStatusView.swift; sourceTree = "<group>"; };
+		50BDCB732E6436C60072D2E7 /* ErrorStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorStyle.swift; sourceTree = "<group>"; };
+		50BDCB752E6450950072D2E7 /* ConfigurationItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationItemView.swift; sourceTree = "<group>"; };
 		50C385A42407A76D00AF2719 /* SecretDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecretDetailView.swift; sourceTree = "<group>"; };
 		50CF4ABB2E601B0F005588DC /* ActionButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionButtonStyle.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -254,7 +260,11 @@
 				506772C82425BB8500034DED /* NoStoresView.swift */,
 				50153E1F250AFCB200525160 /* UpdateView.swift */,
 				5066A6C12516F303004B5A36 /* SetupView.swift */,
+				50BDCB712E63BAF20072D2E7 /* AgentStatusView.swift */,
+				50AE96FF2E5C1A420018C710 /* IntegrationsView.swift */,
 				5066A6C72516FE6E004B5A36 /* CopyableView.swift */,
+				50BDCB732E6436C60072D2E7 /* ErrorStyle.swift */,
+				50BDCB752E6450950072D2E7 /* ConfigurationItemView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -266,7 +276,6 @@
 				5091D2BB25183B830049FD9B /* ApplicationDirectoryController.swift */,
 				50571E0224393C2600F76F6C /* JustUpdatedChecker.swift */,
 				50571E0424393D1500F76F6C /* LaunchAgentController.swift */,
-				5066A6F6251829B1004B5A36 /* ShellConfigurationController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -433,6 +442,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				50BDCB742E6436CA0072D2E7 /* ErrorStyle.swift in Sources */,
 				2C4A9D2F2636FFD3008CC8E2 /* EditSecretView.swift in Sources */,
 				5091D2BC25183B830049FD9B /* ApplicationDirectoryController.swift in Sources */,
 				5066A6C22516F303004B5A36 /* SetupView.swift in Sources */,
@@ -442,16 +452,18 @@
 				50571E0324393C2600F76F6C /* JustUpdatedChecker.swift in Sources */,
 				5079BA0F250F29BF00EA86F4 /* StoreListView.swift in Sources */,
 				50617DD223FCEFA90099B055 /* PreviewStore.swift in Sources */,
-				5066A6F7251829B1004B5A36 /* ShellConfigurationController.swift in Sources */,
 				50033AC327813F1700253856 /* BundleIDs.swift in Sources */,
+				50BDCB722E63BAF20072D2E7 /* AgentStatusView.swift in Sources */,
 				508A58B3241ED2180069DC07 /* AgentStatusChecker.swift in Sources */,
 				50C385A52407A76D00AF2719 /* SecretDetailView.swift in Sources */,
 				5099A02423FD2AAA0062B6F2 /* CreateSecretView.swift in Sources */,
+				50AE97002E5C1A420018C710 /* IntegrationsView.swift in Sources */,
 				50153E20250AFCB200525160 /* UpdateView.swift in Sources */,
 				50571E0524393D1500F76F6C /* LaunchAgentController.swift in Sources */,
 				5066A6C82516FE6E004B5A36 /* CopyableView.swift in Sources */,
 				50B8550D24138C4F009958AC /* DeleteSecretView.swift in Sources */,
 				50BB046B2418AAAE00D6E079 /* EmptyStoreView.swift in Sources */,
+				50BDCB762E6450950072D2E7 /* ConfigurationItemView.swift in Sources */,
 				50617D8323FCE48E0099B055 /* App.swift in Sources */,
 				506772C92425BB8500034DED /* NoStoresView.swift in Sources */,
 				50153E22250DECA300525160 /* SecretListItemView.swift in Sources */,
@@ -647,10 +659,18 @@
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_ENHANCED_SECURITY = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_INCOMING_NETWORK_CONNECTIONS = NO;
 				ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES;
 				ENABLE_POINTER_AUTHENTICATION = YES;
 				ENABLE_PREVIEWS = YES;
-				ENABLE_USER_SELECTED_FILES = readwrite;
+				ENABLE_RESOURCE_ACCESS_AUDIO_INPUT = NO;
+				ENABLE_RESOURCE_ACCESS_BLUETOOTH = NO;
+				ENABLE_RESOURCE_ACCESS_CALENDARS = NO;
+				ENABLE_RESOURCE_ACCESS_CAMERA = NO;
+				ENABLE_RESOURCE_ACCESS_CONTACTS = NO;
+				ENABLE_RESOURCE_ACCESS_LOCATION = NO;
+				ENABLE_RESOURCE_ACCESS_PRINTING = NO;
+				ENABLE_RESOURCE_ACCESS_USB = NO;
 				INFOPLIST_FILE = Secretive/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -679,10 +699,18 @@
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_ENHANCED_SECURITY = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_INCOMING_NETWORK_CONNECTIONS = NO;
 				ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES;
 				ENABLE_POINTER_AUTHENTICATION = YES;
 				ENABLE_PREVIEWS = YES;
-				ENABLE_USER_SELECTED_FILES = readwrite;
+				ENABLE_RESOURCE_ACCESS_AUDIO_INPUT = NO;
+				ENABLE_RESOURCE_ACCESS_BLUETOOTH = NO;
+				ENABLE_RESOURCE_ACCESS_CALENDARS = NO;
+				ENABLE_RESOURCE_ACCESS_CAMERA = NO;
+				ENABLE_RESOURCE_ACCESS_CONTACTS = NO;
+				ENABLE_RESOURCE_ACCESS_LOCATION = NO;
+				ENABLE_RESOURCE_ACCESS_PRINTING = NO;
+				ENABLE_RESOURCE_ACCESS_USB = NO;
 				INFOPLIST_FILE = Secretive/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -783,10 +811,18 @@
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_ENHANCED_SECURITY = YES;
 				ENABLE_HARDENED_RUNTIME = NO;
+				ENABLE_INCOMING_NETWORK_CONNECTIONS = NO;
 				ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES;
 				ENABLE_POINTER_AUTHENTICATION = YES;
 				ENABLE_PREVIEWS = YES;
-				ENABLE_USER_SELECTED_FILES = readwrite;
+				ENABLE_RESOURCE_ACCESS_AUDIO_INPUT = NO;
+				ENABLE_RESOURCE_ACCESS_BLUETOOTH = NO;
+				ENABLE_RESOURCE_ACCESS_CALENDARS = NO;
+				ENABLE_RESOURCE_ACCESS_CAMERA = NO;
+				ENABLE_RESOURCE_ACCESS_CONTACTS = NO;
+				ENABLE_RESOURCE_ACCESS_LOCATION = NO;
+				ENABLE_RESOURCE_ACCESS_PRINTING = NO;
+				ENABLE_RESOURCE_ACCESS_USB = NO;
 				INFOPLIST_FILE = Secretive/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -809,8 +845,17 @@
 				DEVELOPMENT_ASSET_PATHS = "\"SecretAgent/Preview Content\"";
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_INCOMING_NETWORK_CONNECTIONS = NO;
 				ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES;
 				ENABLE_PREVIEWS = YES;
+				ENABLE_RESOURCE_ACCESS_AUDIO_INPUT = NO;
+				ENABLE_RESOURCE_ACCESS_BLUETOOTH = NO;
+				ENABLE_RESOURCE_ACCESS_CALENDARS = NO;
+				ENABLE_RESOURCE_ACCESS_CAMERA = NO;
+				ENABLE_RESOURCE_ACCESS_CONTACTS = NO;
+				ENABLE_RESOURCE_ACCESS_LOCATION = NO;
+				ENABLE_RESOURCE_ACCESS_PRINTING = NO;
+				ENABLE_RESOURCE_ACCESS_USB = NO;
 				INFOPLIST_FILE = SecretAgent/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -835,8 +880,17 @@
 				DEVELOPMENT_TEAM = Z72PRUAWF6;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_INCOMING_NETWORK_CONNECTIONS = NO;
 				ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES;
 				ENABLE_PREVIEWS = YES;
+				ENABLE_RESOURCE_ACCESS_AUDIO_INPUT = NO;
+				ENABLE_RESOURCE_ACCESS_BLUETOOTH = NO;
+				ENABLE_RESOURCE_ACCESS_CALENDARS = NO;
+				ENABLE_RESOURCE_ACCESS_CAMERA = NO;
+				ENABLE_RESOURCE_ACCESS_CONTACTS = NO;
+				ENABLE_RESOURCE_ACCESS_LOCATION = NO;
+				ENABLE_RESOURCE_ACCESS_PRINTING = NO;
+				ENABLE_RESOURCE_ACCESS_USB = NO;
 				INFOPLIST_FILE = SecretAgent/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -862,8 +916,17 @@
 				DEVELOPMENT_TEAM = Z72PRUAWF6;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_INCOMING_NETWORK_CONNECTIONS = NO;
 				ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES;
 				ENABLE_PREVIEWS = YES;
+				ENABLE_RESOURCE_ACCESS_AUDIO_INPUT = NO;
+				ENABLE_RESOURCE_ACCESS_BLUETOOTH = NO;
+				ENABLE_RESOURCE_ACCESS_CALENDARS = NO;
+				ENABLE_RESOURCE_ACCESS_CAMERA = NO;
+				ENABLE_RESOURCE_ACCESS_CONTACTS = NO;
+				ENABLE_RESOURCE_ACCESS_LOCATION = NO;
+				ENABLE_RESOURCE_ACCESS_PRINTING = NO;
+				ENABLE_RESOURCE_ACCESS_USB = NO;
 				INFOPLIST_FILE = SecretAgent/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

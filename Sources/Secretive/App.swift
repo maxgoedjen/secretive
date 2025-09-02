@@ -37,6 +37,7 @@ struct Secretive: App {
     @Environment(\.agentStatusChecker) var agentStatusChecker
     @AppStorage("defaultsHasRunSetup") var hasRunSetup = false
     @State private var showingSetup = false
+    @State private var showingIntegrations = false
     @State private var showingCreation = false
 
     @SceneBuilder var body: some Scene {
@@ -58,8 +59,16 @@ struct Secretive: App {
                         forceLaunchAgent()
                     }
                 }
+                .sheet(isPresented: $showingIntegrations) {
+                    IntegrationsView()
+                }
         }
         .commands {
+            CommandGroup(before: CommandGroupPlacement.appSettings) {
+                Button(.integrationsMenuBarTitle, systemImage: "app.connected.to.app.below.fill") {
+                    showingIntegrations = true
+                }
+            }
             CommandGroup(after: CommandGroupPlacement.newItem) {
                 Button(.appMenuNewSecretButton) {
                     showingCreation = true
@@ -72,7 +81,7 @@ struct Secretive: App {
                 }
             }
             CommandGroup(after: .help) {
-                Button(.appMenuSetupButton) {
+                Button("Setup") {
                     showingSetup = true
                 }
             }
@@ -87,7 +96,7 @@ extension Secretive {
     private func reinstallAgent() {
         justUpdatedChecker.check()
         Task {
-            await LaunchAgentController().install()
+            _ = await LaunchAgentController().install()
             try? await Task.sleep(for: .seconds(1))
             agentStatusChecker.check()
             if !agentStatusChecker.running {

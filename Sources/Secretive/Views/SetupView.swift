@@ -2,229 +2,174 @@ import SwiftUI
 
 struct SetupView: View {
 
-    @State var stepIndex = 0
-    @Binding var visible: Bool
+    @Environment(\.dismiss) private var dismiss
     @Binding var setupComplete: Bool
 
-    var body: some View {
-        GeometryReader { proxy in
-            VStack {
-                StepView(numberOfSteps: 3, currentStep: stepIndex, width: proxy.size.width)
-                GeometryReader { _ in
-                    HStack(spacing: 0) {
-                        SecretAgentSetupView(buttonAction: advance)
-                            .frame(width: proxy.size.width)
-                        SSHAgentSetupView(buttonAction: advance)
-                            .frame(width: proxy.size.width)
-                        UpdaterExplainerView {
-                            visible = false
-                            setupComplete = true
-                        }
-                        .frame(width: proxy.size.width)
-                    }
-                    .offset(x: -proxy.size.width * Double(stepIndex), y: 0)
-                }
-            }
-        }
-        .frame(minWidth: 500, idealWidth: 500, minHeight: 500, idealHeight: 500)
-    }
+    @State var showingIntegrations = false
+    @State var buttonWidth: CGFloat?
 
-
-    func advance() {
-        withAnimation(.spring()) {
-            stepIndex += 1
-        }
-    }
-
-}
-
-struct StepView: View {
-
-    let numberOfSteps: Int
-    let currentStep: Int
-
-    // Ideally we'd have a geometry reader inside this view doing this for us, but that crashes on 11.0b7
-    let width: Double
-
-    var body: some View {
-        ZStack(alignment: .leading) {
-            Rectangle()
-                .foregroundColor(.blue)
-                .frame(height: 5)
-            Rectangle()
-                .foregroundColor(.green)
-                .frame(width: max(0, ((width - (Constants.padding * 2)) / Double(numberOfSteps - 1)) * Double(currentStep) - (Constants.circleWidth / 2)), height: 5)
-            HStack {
-                ForEach(Array(0..<numberOfSteps), id: \.self) { index in
-                    ZStack {
-                        if currentStep > index {
-                            Circle()
-                                .foregroundColor(.green)
-                                .frame(width: Constants.circleWidth, height: Constants.circleWidth)
-                            Text(.setupStepCompleteSymbol)
-                                .foregroundColor(.white)
-                                .bold()
-                        } else {
-                            Circle()
-                                .foregroundColor(.blue)
-                                .frame(width: Constants.circleWidth, height: Constants.circleWidth)
-                            if currentStep == index {
-                                Circle()
-                                    .strokeBorder(Color.white, lineWidth: 3)
-                                    .frame(width: Constants.circleWidth, height: Constants.circleWidth)
-                            }
-                            Text(String(describing: index + 1))
-                                .foregroundColor(.white)
-                                .bold()
-                        }
-                    }
-                    if index < numberOfSteps - 1 {
-                        Spacer(minLength: 30)
-                    }
-                }
-            }
-        }.padding(Constants.padding)
-    }
-
-}
-
-extension StepView {
-
-    enum Constants {
-
-        static let padding: Double = 15
-        static let circleWidth: Double = 30
-
-    }
-
-}
-
-struct SetupStepView<Content> : View where Content : View {
-
-    let title: LocalizedStringResource
-    let image: Image
-    let bodyText: LocalizedStringResource
-    let buttonTitle: LocalizedStringResource
-    let buttonAction: () -> Void
-    let content: Content
-
-    init(title: LocalizedStringResource, image: Image, bodyText: LocalizedStringResource, buttonTitle: LocalizedStringResource, buttonAction: @escaping () -> Void = {}, @ViewBuilder content: () -> Content) {
-        self.title = title
-        self.image = image
-        self.bodyText = bodyText
-        self.buttonTitle = buttonTitle
-        self.buttonAction = buttonAction
-        self.content = content()
+    @State var installed = false
+    @State var updates = false
+    @State var integrations = false
+    var allDone: Bool {
+        installed && updates && integrations
     }
 
     var body: some View {
         VStack {
-            Text(title)
-                .font(.title)
-            Spacer()
-            image
+            VStack(alignment: .leading, spacing: 0) {
+                StepView(
+                    title: .setupAgentTitle,
+                    description: .setupAgentDescription,
+                    systemImage: "lock.laptopcomputer",
+                ) {
+                    setupButton(
+                        .setupAgentInstallButton,
+                        complete: installed,
+                        width: buttonWidth
+                    ) {
+                        installed = true
+                        Task {
+                            await LaunchAgentController().install()
+                        }
+                    }
+                }
+                Divider()
+                StepView(
+                    title: .setupUpdatesTitle,
+                    description: .setupUpdatesDescription,
+                    systemImage: "network.badge.shield.half.filled",
+                ) {
+                    setupButton(
+                        .setupUpdatesOkButton,
+                        complete: updates,
+                        width: buttonWidth
+                    ) {
+                        updates = true
+                    }
+                }
+                Divider()
+                StepView(
+                    title: .setupIntegrationsTitle,
+                    description: .setupIntegrationsDescription,
+                    systemImage: "firewall",
+                ) {
+                    setupButton(
+                        .setupIntegrationsButton,
+                        complete: integrations,
+                        width: buttonWidth
+                    ) {
+                        showingIntegrations = true
+                    }
+                }
+            }
+            .onPreferenceChange(setupButton.WidthKey.self) { width in
+                buttonWidth = width
+            }
+            .background(.white.opacity(0.1), in: RoundedRectangle(cornerRadius: 10))
+            .frame(minWidth: 700, maxWidth: .infinity)
+            HStack {
+                Spacer()
+                Button(.setupDoneButton) {
+                    setupComplete = true
+                    dismiss()
+                }
+                .disabled(!allDone)
+                .primaryButton()
+            }
+        }
+        .interactiveDismissDisabled()
+        .padding()
+        .sheet(isPresented: $showingIntegrations, onDismiss: {
+            integrations = true
+        }, content: {
+            IntegrationsView()
+        })
+    }
+}
+
+struct setupButton: View {
+
+    struct WidthKey: @MainActor PreferenceKey {
+        @MainActor static var defaultValue: CGFloat? = nil
+        static func reduce(value: inout CGFloat?, nextValue: () -> CGFloat?) {
+            if let next = nextValue(), next > (value ?? -1) {
+                value = next
+            }
+        }
+
+    }
+
+    let label: LocalizedStringResource
+    let complete: Bool
+    let action: () -> Void
+    let width: CGFloat?
+    @State var currentWidth: CGFloat?
+
+    init(_ label: LocalizedStringResource, complete: Bool, width: CGFloat? = nil, action: @escaping () -> Void) {
+        self.label = label
+        self.complete = complete
+        self.action = action
+        self.width = width
+    }
+    
+    var body: some View {
+        Button(action: action) {
+            HStack(spacing: 6) {
+                if complete {
+                    Text(.setupStepCompleteButton)
+                    Image(systemName: "checkmark.circle.fill")
+                } else {
+                    Text(label)
+                }
+            }
+            .frame(width: width)
+            .padding(.vertical, 2)
+            .onGeometryChange(for: CGFloat.self) { proxy in
+                proxy.size.width
+            } action: { newValue in
+                currentWidth = newValue
+            }
+        }
+        .preference(key: WidthKey.self, value: currentWidth)
+        .primaryButton()
+        .disabled(complete)
+        .tint(complete ? .green : nil)
+    }
+        
+}
+
+struct StepView<Content: View>: View {
+    
+    let title: LocalizedStringResource
+    let icon: Image
+    let description: LocalizedStringResource
+    let actions: Content
+    
+    init(title: LocalizedStringResource, description: LocalizedStringResource, systemImage: String, actions: () -> Content) {
+        self.title = title
+        self.icon = Image(systemName: systemImage)
+        self.description = description
+        self.actions = actions()
+    }
+    
+    var body: some View {
+        HStack(spacing: 20) {
+            icon
                 .resizable()
                 .aspectRatio(contentMode: .fit)
-                .frame(width: 64)
-            Spacer()
-            Text(bodyText)
-                .multilineTextAlignment(.center)
-            Spacer()
-            content
-            Spacer()
-            Button(buttonTitle) {
-                buttonAction()
+                .frame(width: 24)
+            VStack(alignment: .leading, spacing: 6) {
+                Text(title)
+                    .bold()
+                Text(description)
             }
-        }.padding()
-    }
-
-}
-
-struct SecretAgentSetupView: View {
-
-    let buttonAction: () -> Void
-
-    var body: some View {
-        SetupStepView(title: .setupAgentTitle,
-                      image: Image(nsImage: NSApplication.shared.applicationIconImage),
-                      bodyText: .setupAgentDescription,
-                      buttonTitle: .setupAgentInstallButton,
-                      buttonAction: install) {
-            Text(.setupAgentActivityMonitorDescription)
-                .multilineTextAlignment(.center)
+            Spacer()
+            actions
         }
+        .padding(20)
     }
-
-    func install() {
-        Task {
-            await LaunchAgentController().install()
-            buttonAction()
-        }
-    }
-
-}
-
-struct SSHAgentSetupView: View {
-
-    let buttonAction: () -> Void
-
-    private static let controller = ShellConfigurationController()
-    @State private var selectedShellInstruction: ShellConfigInstruction = controller.shellInstructions.first!
-
-    var body: some View {
-        SetupStepView(title: .setupSshTitle,
-                      image: Image(systemName: "terminal"),
-                      bodyText: .setupSshDescription,
-                      buttonTitle: .setupSshAddedManuallyButton,
-                      buttonAction: buttonAction) {
-        Link(.setupThirdPartyFaqLink, destination: URL(string: "https://github.com/maxgoedjen/secretive/blob/main/APP_CONFIG.md")!)
-            Picker(selection: $selectedShellInstruction, label: EmptyView()) {
-                ForEach(SSHAgentSetupView.controller.shellInstructions) { instruction in
-                    Text(instruction.shell)
-                        .tag(instruction)
-                        .padding()
-                }
-            }.pickerStyle(SegmentedPickerStyle())
-            CopyableView(title: .setupSshAddToConfigButton(configPath: selectedShellInstruction.shellConfigPath), image: Image(systemName: "greaterthan.square"), text: selectedShellInstruction.text)
-            Button(.setupSshAddForMeButton) {
-                let controller = ShellConfigurationController()
-                if controller.addToShell(shellInstructions: selectedShellInstruction) {
-                    buttonAction()
-                }
-            }
-        }
-    }
-
-}
-
-class Delegate: NSObject, NSOpenSavePanelDelegate {
-
-    private let name: String
-
-    init(name: String) {
-        self.name = name
-    }
-
-    func panel(_ sender: Any, shouldEnable url: URL) -> Bool {
-        return url.lastPathComponent == name
-    }
-
-}
-
-struct UpdaterExplainerView: View {
-
-    let buttonAction: () -> Void
-
-    var body: some View {
-        SetupStepView(title: .setupUpdatesTitle,
-                      image: Image(systemName: "dot.radiowaves.left.and.right"),
-                      bodyText: .setupUpdatesDescription,
-                      buttonTitle: .setupUpdatesOk,
-                      buttonAction: buttonAction) {
-            Link(.setupUpdatesReadmore, destination: SetupView.Constants.updaterFAQURL)
-        }
-    }
-
+    
 }
 
 extension SetupView {
@@ -235,63 +180,6 @@ extension SetupView {
 
 }
 
-struct ShellConfigInstruction: Identifiable, Hashable {
-
-    var shell: String
-    var shellConfigDirectory: String
-    var shellConfigFilename: String
-    var text: String
-
-    var id: String {
-        shell
-    }
-
-    var shellConfigPath: String {
-        return (shellConfigDirectory as NSString).appendingPathComponent(shellConfigFilename)
-    }
-
+#Preview {
+    SetupView(setupComplete: .constant(false))
 }
-
-#if DEBUG
-
-struct SetupView_Previews: PreviewProvider {
-
-    static var previews: some View {
-        Group {
-            SetupView(visible: .constant(true), setupComplete: .constant(false))
-        }
-    }
-
-}
-
-struct SecretAgentSetupView_Previews: PreviewProvider {
-
-    static var previews: some View {
-        Group {
-            SecretAgentSetupView(buttonAction: {})
-        }
-    }
-
-}
-
-struct SSHAgentSetupView_Previews: PreviewProvider {
-
-    static var previews: some View {
-        Group {
-            SSHAgentSetupView(buttonAction: {})
-        }
-    }
-
-}
-
-struct UpdaterExplainerView_Previews: PreviewProvider {
-
-    static var previews: some View {
-        Group {
-            UpdaterExplainerView(buttonAction: {})
-        }
-    }
-    
-}
-
-#endif

@@ -12,7 +12,7 @@ struct UpdateDetailView: View {
             Text(.updateVersionName(updateName: update.name)).font(.title)
             GroupBox(label: Text(.updateReleaseNotesTitle)) {
                 ScrollView {
-                    attributedBody
+                    Text(attributedBody)
                 }
             }
             HStack {
@@ -35,29 +35,62 @@ struct UpdateDetailView: View {
         .frame(maxWidth: 500)
     }
 
-    var attributedBody: Text {
-        var text = Text(verbatim: "")
-        for line in update.body.split(whereSeparator: \.isNewline) {
-            let attributed: Text
-            let split = line.split(separator: " ")
-            let unprefixed = split.dropFirst().joined(separator: " ")
-            if let prefix = split.first {
-                switch prefix {
-                case "#":
-                    attributed = Text(unprefixed).font(.title) + Text(verbatim: "\n")
-                case "##":
-                    attributed = Text(unprefixed).font(.title2) + Text(verbatim: "\n")
-                case "###":
-                    attributed = Text(unprefixed).font(.title3) + Text(verbatim: "\n")
+    var attributedBody: AttributedString {
+        do {
+            var text = try AttributedString(
+                markdown: update.body,
+                options: .init(
+                    allowsExtendedAttributes: true,
+                    interpretedSyntax: .full,
+                ),
+                baseURL: URL(string: "https://github.com/maxgoedjen/secretive")!
+            )
+            .transformingAttributes(AttributeScopes.FoundationAttributes.PresentationIntentAttribute.self) { key in
+                let font: Font? = switch key.value?.components.first?.kind {
+                case .header(level: 1):
+                    Font.title
+                case .header(level: 2):
+                    Font.title2
+                case .header(level: 3):
+                    Font.title3
                 default:
-                    attributed = Text(line) + Text(verbatim: "\n\n")
+                    nil
                 }
-            } else {
-                attributed = Text(line) + Text(verbatim: "\n\n")
+                if let font {
+                    key.replace(with: AttributeScopes.SwiftUIAttributes.FontAttribute.self, value: font)
+                }
             }
-            text = text + attributed
+            let lineBreak = AttributedString("\n\n")
+            for run in text.runs.reversed() {
+                text.insert(lineBreak, at: run.range.lowerBound)
+            }
+            return text
+        } catch {
+            var text = AttributedString()
+            for line in update.body.split(whereSeparator: \.isNewline) {
+                let attributed: AttributedString
+                let split = line.split(separator: " ")
+                let unprefixed = split.dropFirst().joined(separator: " ")
+                if let prefix = split.first {
+                    var container = AttributeContainer()
+                    switch prefix {
+                    case "#":
+                        container.font = .title
+                    case "##":
+                        container.font = .title2
+                    case "###":
+                        container.font = .title3
+                    default:
+                        continue
+                    }
+                    attributed = AttributedString(unprefixed, attributes: container)
+                } else {
+                    attributed = AttributedString(line + "\n\n")
+                }
+                text = text + attributed
+            }
+            return text
         }
-        return text
     }
 
 }
