@@ -39,7 +39,7 @@ jobs:
       run: sudo xcrun xcode-select -s /Applications/Xcode_26.0.app
     - if: matrix.build-mode == 'manual'
       name: "Build"
-      run: xcrun xcodebuild -project Sources/Secretive.xcodeproj -scheme Secretive build CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
+      run: xcrun xcodebuild -project Sources/Secretive.xcodeproj -scheme Secretive -configuration Debug -archivePath Archive.xcarchive archive CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v3
       with:
