@@ -22,22 +22,22 @@ struct AgentRunningView: View {
             Section {
                 if let process = agentStatusChecker.process {
                     ConfigurationItemView(
-                        title: LocalizedStringResource.agentDetailsLocationTitle,
+                        title: .agentDetailsLocationTitle,
                         value: process.bundleURL!.path(),
                         action: .revealInFinder(process.bundleURL!.path()),
                     )
                     ConfigurationItemView(
-                        title: LocalizedStringResource.agentDetailsSocketPathTitle,
+                        title: .agentDetailsSocketPathTitle,
                         value: socketPath,
                         action: .copy(socketPath),
                     )
                     ConfigurationItemView(
-                        title: LocalizedStringResource.agentDetailsVersionTitle,
+                        title: .agentDetailsVersionTitle,
                         value: Bundle(url: process.bundleURL!)!.infoDictionary!["CFBundleShortVersionString"] as! String
                     )
                     if let launchDate = process.launchDate {
                         ConfigurationItemView(
-                            title: LocalizedStringResource.agentDetailsRunningSinceTitle,
+                            title: .agentDetailsRunningSinceTitle,
                             value: launchDate.formatted()
                         )
                     }

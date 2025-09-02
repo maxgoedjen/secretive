@@ -2605,9 +2605,6 @@
         }
       }
     },
-    "Done" : {
-
-    },
     "edit_cancel_button" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -3179,6 +3176,17 @@
         }
       }
     },
+    "integrations_getting_started_multiple_config" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You can configure more than one tool, they generally won't interfere with each other."
+          }
+        }
+      }
+    },
     "integrations_getting_started_row_title" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -3197,6 +3205,83 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Integrations"
+          }
+        }
+      }
+    },
+    "integrations_getting_started_suggestion_git" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "If you're trying to sign your git commits, set up Git Signing."
+          }
+        }
+      }
+    },
+    "integrations_getting_started_suggestion_shell" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "If you're trying to configure anything your command line runs to use Secretive, configure your shell."
+          }
+        }
+      }
+    },
+    "integrations_getting_started_suggestion_shell_default" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "If you don't known what shell you use and haven't changed it, you're probably using `%(shellName)@`."
+          }
+        }
+      }
+    },
+    "integrations_getting_started_suggestion_ssh" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "If you're trying to authenticate with an SSH server or authenticating with a service like GitHub over SSH, configure your SSH client."
+          }
+        }
+      }
+    },
+    "integrations_getting_started_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Configuring Tools for Secretive"
+          }
+        }
+      }
+    },
+    "integrations_getting_started_title_description" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Most tools will try and look for SSH keys on disk in `~/.ssh`. To use Secretive, we need to configure those tools to talk to Secretive instead."
+          }
+        }
+      }
+    },
+    "integrations_getting_started_what_should_i_configure_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "What Should I Configure?"
           }
         }
       }
@@ -3516,138 +3601,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "如果您想为您的Mac添加一个物理密钥， YubiKey 5 系列是一个不错的选择。"
-          }
-        }
-      }
-    },
-    "onboarding_done_button" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Done"
-          }
-        }
-      }
-    },
-    "onboarding_getting_started_multiple_config" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "You can configure more than one tool, they generally won't interfere with each other."
-          }
-        }
-      }
-    },
-    "onboarding_getting_started_suggestion_git" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "If you're trying to sign your git commits, set up Git Signing."
-          }
-        }
-      }
-    },
-    "onboarding_getting_started_suggestion_shell" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "If you're trying to configure anything your command line runs to use Secretive, configure your shell."
-          }
-        }
-      }
-    },
-    "onboarding_getting_started_suggestion_shell_default" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "If you don't known what shell you use and haven't changed it, you're probably using `%(shellName)@`."
-          }
-        }
-      }
-    },
-    "onboarding_getting_started_suggestion_ssh" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "If you're trying to authenticate with an SSH server or authenticating with a service like GitHub over SSH, configure your SSH client."
-          }
-        }
-      }
-    },
-    "onboarding_getting_started_title" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Configuring Tools for Secretive"
-          }
-        }
-      }
-    },
-    "onboarding_getting_started_title_description" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Most tools will try and look for SSH keys on disk in `~/.ssh`. To use Secretive, we need to configure those tools to talk to Secretive instead."
-          }
-        }
-      }
-    },
-    "onboarding_getting_started_what_should_i_configure_title" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "What Should I Configure?"
-          }
-        }
-      }
-    },
-    "onboarding_integrations_button" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Configure"
-          }
-        }
-      }
-    },
-    "onboarding_integrations_description" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Tell the tools you use how to talk to Secretive."
-          }
-        }
-      }
-    },
-    "onboarding_integrations_title" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Configure Integrations"
           }
         }
       }
@@ -4610,6 +4563,50 @@
         }
       }
     },
+    "setup_done_button" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Done"
+          }
+        }
+      }
+    },
+    "setup_integrations_button" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Configure"
+          }
+        }
+      }
+    },
+    "setup_integrations_description" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tell the tools you use how to talk to Secretive."
+          }
+        }
+      }
+    },
+    "setup_integrations_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Configure Integrations"
+          }
+        }
+      }
+    },
     "setup_ssh_add_for_me_button" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -5184,7 +5181,7 @@
         }
       }
     },
-    "setup_updates_ok" : {
+    "setup_updates_ok_button" : {
       "extractionState" : "manual",
       "localizations" : {
         "ca" : {
@@ -5393,6 +5390,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "更新"
+          }
+        }
+      }
+    },
+    "setupStepCompleteButton" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Done"
           }
         }
       }

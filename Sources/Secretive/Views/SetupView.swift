@@ -19,12 +19,12 @@ struct SetupView: View {
         VStack {
             VStack(alignment: .leading, spacing: 0) {
                 StepView(
-                    title: "setup_agent_title",
-                    description: "setup_agent_description",
+                    title: .setupAgentTitle,
+                    description: .setupAgentDescription,
                     systemImage: "lock.laptopcomputer",
                 ) {
-                    OnboardingButton(
-                        "setup_agent_install_button",
+                    setupButton(
+                        .setupAgentInstallButton,
                         complete: installed,
                         width: buttonWidth
                     ) {
@@ -36,12 +36,12 @@ struct SetupView: View {
                 }
                 Divider()
                 StepView(
-                    title: "setup_updates_title",
-                    description: "setup_updates_description",
+                    title: .setupUpdatesTitle,
+                    description: .setupUpdatesDescription,
                     systemImage: "network.badge.shield.half.filled",
                 ) {
-                    OnboardingButton(
-                        "setup_updates_ok",
+                    setupButton(
+                        .setupUpdatesOkButton,
                         complete: updates,
                         width: buttonWidth
                     ) {
@@ -50,12 +50,12 @@ struct SetupView: View {
                 }
                 Divider()
                 StepView(
-                    title: .onboardingIntegrationsTitle,
-                    description: LocalizedStringResource.onboardingIntegrationsDescription,
+                    title: .setupIntegrationsTitle,
+                    description: .setupIntegrationsDescription,
                     systemImage: "firewall",
                 ) {
-                    OnboardingButton(
-                        LocalizedStringResource.onboardingIntegrationsButton,
+                    setupButton(
+                        .setupIntegrationsButton,
                         complete: integrations,
                         width: buttonWidth
                     ) {
@@ -63,14 +63,14 @@ struct SetupView: View {
                     }
                 }
             }
-            .onPreferenceChange(OnboardingButton.WidthKey.self) { width in
+            .onPreferenceChange(setupButton.WidthKey.self) { width in
                 buttonWidth = width
             }
             .background(.white.opacity(0.1), in: RoundedRectangle(cornerRadius: 10))
             .frame(minWidth: 700, maxWidth: .infinity)
             HStack {
                 Spacer()
-                Button(.onboardingDoneButton) {
+                Button(.setupDoneButton) {
                     setupComplete = true
                     dismiss()
                 }
@@ -88,7 +88,7 @@ struct SetupView: View {
     }
 }
 
-struct OnboardingButton: View {
+struct setupButton: View {
 
     struct WidthKey: @MainActor PreferenceKey {
         @MainActor static var defaultValue: CGFloat? = nil
@@ -117,7 +117,7 @@ struct OnboardingButton: View {
         Button(action: action) {
             HStack(spacing: 6) {
                 if complete {
-                    Text("Done")
+                    Text(.setupStepCompleteButton)
                     Image(systemName: "checkmark.circle.fill")
                 } else {
                     Text(label)

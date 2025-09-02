@@ -23,7 +23,7 @@ struct IntegrationsView: View {
         } detail: {
                 IntegrationsDetailView(selectedInstruction: $selectedInstruction)
                 .fauxToolbar {
-                    Button(.onboardingDoneButton) {
+                    Button(.setupDoneButton) {
                         dismiss()
                     }
                     .normalButton()
@@ -80,24 +80,24 @@ struct IntegrationsDetailView: View {
             switch selectedInstruction.id {
             case .gettingStarted:
                 Form {
-                    Section(.onboardingGettingStartedTitle) {
-                        Text(.onboardingGettingStartedTitleDescription)
+                    Section(.integrationsGettingStartedTitle) {
+                        Text(.integrationsGettingStartedTitleDescription)
                     }
                     Section {
                         Group {
-                            Text(.onboardingGettingStartedSuggestionSsh)
+                            Text(.integrationsGettingStartedSuggestionSsh)
                                 .onTapGesture {
                                     self.selectedInstruction = instructions.ssh
                                 }
                             VStack(alignment: .leading, spacing: 5) {
-                                Text(.onboardingGettingStartedSuggestionShell)
-                                Text(.onboardingGettingStartedSuggestionShellDefault(shellName: instructions.defaultShell.tool))
+                                Text(.integrationsGettingStartedSuggestionShell)
+                                Text(.integrationsGettingStartedSuggestionShellDefault(shellName: instructions.defaultShell.tool))
                                     .font(.caption2)
                             }
                             .onTapGesture {
                                 self.selectedInstruction = instructions.defaultShell
                             }
-                            Text(.onboardingGettingStartedSuggestionGit)
+                            Text(.integrationsGettingStartedSuggestionGit)
                                 .onTapGesture {
                                     self.selectedInstruction = instructions.git
                                 }
@@ -105,10 +105,10 @@ struct IntegrationsDetailView: View {
                         .foregroundStyle(.link)
 
                     } header: {
-                        Text(.onboardingGettingStartedWhatShouldIConfigureTitle)
+                        Text(.integrationsGettingStartedWhatShouldIConfigureTitle)
                     }
                     footer: {
-                        Text(.onboardingGettingStartedMultipleConfig)
+                        Text(.integrationsGettingStartedMultipleConfig)
                     }
                 }
                 .formStyle(.grouped)
@@ -116,9 +116,9 @@ struct IntegrationsDetailView: View {
                     Form {
                         ForEach(selectedInstruction.steps) { stepGroup in
                             Section {
-                                ConfigurationItemView(title: LocalizedStringResource.integrationsPathTitle, value: stepGroup.path, action: .revealInFinder(stepGroup.path))
+                                ConfigurationItemView(title: .integrationsPathTitle, value: stepGroup.path, action: .revealInFinder(stepGroup.path))
                                 ForEach(stepGroup.steps, id: \.self) { step in
-                                    ConfigurationItemView(title: LocalizedStringResource.integrationsAddThisTitle, action: .copy(step)) {
+                                    ConfigurationItemView(title: .integrationsAddThisTitle, action: .copy(step)) {
                                         HStack {
                                             Text(step)
                                                 .padding(8)
@@ -190,7 +190,7 @@ private struct Instructions {
         zsh
     }
 
-    var gettingStarted: ConfigurationFileInstructions =                 ConfigurationFileInstructions(LocalizedStringResource.integrationsGettingStartedRowTitle, id: .gettingStarted)
+    var gettingStarted: ConfigurationFileInstructions =                 ConfigurationFileInstructions(.integrationsGettingStartedRowTitle, id: .gettingStarted)
 
     var ssh: ConfigurationFileInstructions {
         ConfigurationFileInstructions(
@@ -243,17 +243,17 @@ private struct Instructions {
 
     var instructions: [ConfigurationGroup] {
         [
-            ConfigurationGroup(name: LocalizedStringResource.integrationsGettingStartedSectionTitle, instructions: [
+            ConfigurationGroup(name: .integrationsGettingStartedSectionTitle, instructions: [
                 gettingStarted
             ]),
             ConfigurationGroup(
-                name: LocalizedStringResource.integrationsSystemSectionTitle,
+                name: .integrationsSystemSectionTitle,
                 instructions: [
                     ssh,
                     git,
                 ]
             ),
-            ConfigurationGroup(name: LocalizedStringResource.integrationsShellSectionTitle, instructions: [
+            ConfigurationGroup(name: .integrationsShellSectionTitle, instructions: [
                 zsh,
                 ConfigurationFileInstructions(
                     tool: "bash",
@@ -265,10 +265,10 @@ private struct Instructions {
                     configPath: "~/.config/fish/config.fish",
                     configText: "set -x SSH_AUTH_SOCK \(socketPath)"
                 ),
-                ConfigurationFileInstructions(LocalizedStringResource.integrationsOtherShellRowTitle, id: .otherShell),
+                ConfigurationFileInstructions(.integrationsOtherShellRowTitle, id: .otherShell),
             ]),
-            ConfigurationGroup(name: LocalizedStringResource.integrationsOtherSectionTitle, instructions: [
-                ConfigurationFileInstructions(LocalizedStringResource.integrationsAppsRowTitle, id: .otherApp),
+            ConfigurationGroup(name: .integrationsOtherSectionTitle, instructions: [
+                ConfigurationFileInstructions(.integrationsAppsRowTitle, id: .otherApp),
             ]),
         ]
     }
