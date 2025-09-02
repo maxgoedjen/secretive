@@ -1274,7 +1274,8 @@
         }
       }
     },
-    "Copy" : {
+    "copy_button" : {
+      "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -2605,14 +2606,7 @@
       }
     },
     "Done" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Done"
-          }
-        }
-      }
+
     },
     "edit_cancel_button" : {
       "extractionState" : "manual",
@@ -3141,26 +3135,6 @@
         }
       }
     },
-    "Getting Started" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Getting Started"
-          }
-        }
-      }
-    },
-    "Integrations" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Integrations"
-          }
-        }
-      }
-    },
     "integrations_add_this_title" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -3205,6 +3179,50 @@
         }
       }
     },
+    "integrations_getting_started_row_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Getting Started"
+          }
+        }
+      }
+    },
+    "integrations_getting_started_section_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Integrations"
+          }
+        }
+      }
+    },
+    "integrations_other_section_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Other"
+          }
+        }
+      }
+    },
+    "integrations_other_shell_row_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "other"
+          }
+        }
+      }
+    },
     "integrations_path_title" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -3212,6 +3230,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Configuration File"
+          }
+        }
+      }
+    },
+    "integrations_shell_section_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Shell"
+          }
+        }
+      }
+    },
+    "integrations_system_section_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "System"
           }
         }
       }
@@ -3238,7 +3278,8 @@
         }
       }
     },
-    "Integrations..." : {
+    "integrationsMenuBarTitle" : {
+      "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -3479,6 +3520,17 @@
         }
       }
     },
+    "onboarding_done_button" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Done"
+          }
+        }
+      }
+    },
     "onboarding_getting_started_multiple_config" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -3567,7 +3619,7 @@
         }
       }
     },
-    "onboarding_integrations_button_title" : {
+    "onboarding_integrations_button" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -3599,12 +3651,6 @@
           }
         }
       }
-    },
-    "other" : {
-
-    },
-    "Other" : {
-
     },
     "persist_authentication_accept_button" : {
       "comment" : "When the user authorizes an action using a secret that requires unlock, they're shown a notification offering to leave the secret unlocked for a set period of time. This is the title for the notification.",
@@ -3762,7 +3808,8 @@
         }
       }
     },
-    "Reveal in Finder" : {
+    "reveal_in_finder_button" : {
+      "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -5350,16 +5397,6 @@
         }
       }
     },
-    "Shell" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Shell"
-          }
-        }
-      }
-    },
     "signed_notification_description" : {
       "comment" : "When the user performs an action using a secret, they're shown a notification describing what happened. This is the description, showing which secret was used. The placeholder is the name of the secret.",
       "extractionState" : "manual",
@@ -5583,16 +5620,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "智能卡"
-          }
-        }
-      }
-    },
-    "System" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "System"
           }
         }
       }

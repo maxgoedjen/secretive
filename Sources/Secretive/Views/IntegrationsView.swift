@@ -23,7 +23,7 @@ struct IntegrationsView: View {
         } detail: {
                 IntegrationsDetailView(selectedInstruction: $selectedInstruction)
                 .fauxToolbar {
-                    Button("Done") {
+                    Button(.onboardingDoneButton) {
                         dismiss()
                     }
                     .normalButton()
@@ -190,7 +190,7 @@ private struct Instructions {
         zsh
     }
 
-    var gettingStarted: ConfigurationFileInstructions =                 ConfigurationFileInstructions("Getting Started", id: .gettingStarted)
+    var gettingStarted: ConfigurationFileInstructions =                 ConfigurationFileInstructions(LocalizedStringResource.integrationsGettingStartedRowTitle, id: .gettingStarted)
 
     var ssh: ConfigurationFileInstructions {
         ConfigurationFileInstructions(
@@ -243,17 +243,17 @@ private struct Instructions {
 
     var instructions: [ConfigurationGroup] {
         [
-            ConfigurationGroup(name: "Integrations", instructions: [
+            ConfigurationGroup(name: LocalizedStringResource.integrationsGettingStartedSectionTitle, instructions: [
                 gettingStarted
             ]),
             ConfigurationGroup(
-                name: "System",
+                name: LocalizedStringResource.integrationsSystemSectionTitle,
                 instructions: [
                     ssh,
                     git,
                 ]
             ),
-            ConfigurationGroup(name: "Shell", instructions: [
+            ConfigurationGroup(name: LocalizedStringResource.integrationsShellSectionTitle, instructions: [
                 zsh,
                 ConfigurationFileInstructions(
                     tool: "bash",
@@ -265,9 +265,9 @@ private struct Instructions {
                     configPath: "~/.config/fish/config.fish",
                     configText: "set -x SSH_AUTH_SOCK \(socketPath)"
                 ),
-                ConfigurationFileInstructions("other", id: .otherShell),
+                ConfigurationFileInstructions(LocalizedStringResource.integrationsOtherShellRowTitle, id: .otherShell),
             ]),
-            ConfigurationGroup(name: "Other", instructions: [
+            ConfigurationGroup(name: LocalizedStringResource.integrationsOtherSectionTitle, instructions: [
                 ConfigurationFileInstructions(LocalizedStringResource.integrationsAppsRowTitle, id: .otherApp),
             ]),
         ]

@@ -55,7 +55,7 @@ struct SetupView: View {
                     systemImage: "firewall",
                 ) {
                     OnboardingButton(
-                        LocalizedStringResource.onboardingIntegrationsButtonTitle,
+                        LocalizedStringResource.onboardingIntegrationsButton,
                         complete: integrations,
                         width: buttonWidth
                     ) {
@@ -70,7 +70,7 @@ struct SetupView: View {
             .frame(minWidth: 700, maxWidth: .infinity)
             HStack {
                 Spacer()
-                Button("Done") {
+                Button(.onboardingDoneButton) {
                     setupComplete = true
                     dismiss()
                 }

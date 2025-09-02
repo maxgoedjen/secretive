@@ -65,7 +65,7 @@ struct Secretive: App {
         }
         .commands {
             CommandGroup(before: CommandGroupPlacement.appSettings) {
-                Button("Integrations...", systemImage: "app.connected.to.app.below.fill") {
+                Button(.integrationsMenuBarTitle, systemImage: "app.connected.to.app.below.fill") {
                     showingIntegrations = true
                 }
             }
