@@ -26,7 +26,7 @@ extension SecureEnclave {
                 for await note in DistributedNotificationCenter.default().notifications(named: .secretStoreUpdated) {
                     guard Constants.notificationToken != (note.object as? String) else {
                         // Don't reload if we're the ones triggering this by reloading.
-                        return
+                        continue
                     }
                     reloadSecrets()
                 }
