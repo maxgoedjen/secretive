@@ -24,4 +24,4 @@ The latest version on the [Releases page](https://github.com/maxgoedjen/secretiv
 
 ## Reporting a Vulnerability
 
-If you discover any vulnerabilities in this project, please notify max.goedjen@gmail.com with the subject containing "SECRETIVE SECURITY."
+To report security issues, please use [GitHub's private reporting feature.](https://docs.github.com/en/code-security/security-advisories/guidance-on-reporting-and-writing-information-about-vulnerabilities/privately-reporting-a-security-vulnerability#privately-reporting-a-security-vulnerability)
