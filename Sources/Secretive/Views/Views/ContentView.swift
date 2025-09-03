@@ -199,16 +199,16 @@ extension ContentView {
 }
 
 
-#Preview {
-    // Empty on modifiable and nonmodifiable
-    ContentView(showingCreation: .constant(false), runningSetup: .constant(false), hasRunSetup: .constant(true))
-        .environment(Preview.storeList(stores: [Preview.Store(numberOfRandomSecrets: 0)], modifiableStores: [Preview.StoreModifiable(numberOfRandomSecrets: 0)]))
-        .environment(PreviewUpdater())
-}
-
-#Preview {
-    // 5 items on modifiable and nonmodifiable
-    ContentView(showingCreation: .constant(false), runningSetup: .constant(false), hasRunSetup: .constant(true))
-        .environment(Preview.storeList(stores: [Preview.Store()], modifiableStores: [Preview.StoreModifiable()]))
-        .environment(PreviewUpdater())
-}
+//#Preview {
+//    // Empty on modifiable and nonmodifiable
+//    ContentView(showingCreation: .constant(false), runningSetup: .constant(false), hasRunSetup: .constant(true))
+//        .environment(Preview.storeList(stores: [Preview.Store(numberOfRandomSecrets: 0)], modifiableStores: [Preview.StoreModifiable(numberOfRandomSecrets: 0)]))
+//        .environment(PreviewUpdater())
+//}
+//
+//#Preview {
+//    // 5 items on modifiable and nonmodifiable
+//    ContentView(showingCreation: .constant(false), runningSetup: .constant(false), hasRunSetup: .constant(true))
+//        .environment(Preview.storeList(stores: [Preview.Store()], modifiableStores: [Preview.StoreModifiable()]))
+//        .environment(PreviewUpdater())
+//}

@@ -37,6 +37,6 @@ struct SecretDetailView<SecretType: Secret>: View {
 
 }
 
-#Preview {
-    SecretDetailView(secret: Preview.Secret(name: "Demonstration Secret"))
-}
+//#Preview {
+//    SecretDetailView(secret: Preview.Secret(name: "Demonstration Secret"))
+//}
