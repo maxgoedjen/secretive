@@ -6,8 +6,8 @@
 
 "files": [
   {
-    "source": "Sources/Packages/Localizable.xcstrings",
-    "translation": "Sources/Packages/Localizable.xcstrings",
+    "source": "Sources/Packages/Resources/Localizable.xcstrings",
+    "translation": "Sources/Packages/Resources/Localizable.xcstrings",
     "multilingual": true
   }
 ]
