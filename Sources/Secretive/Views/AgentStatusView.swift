@@ -15,7 +15,6 @@ struct AgentStatusView: View {
 struct AgentRunningView: View {
 
     @Environment(\.agentStatusChecker) private var agentStatusChecker: any AgentStatusCheckerProtocol
-    private let socketPath = (NSHomeDirectory().replacingOccurrences(of: Bundle.hostBundleID, with: Bundle.agentBundleID) as NSString).appendingPathComponent("socket.ssh") as String
 
     var body: some View {
         Form {
@@ -28,8 +27,8 @@ struct AgentRunningView: View {
                     )
                     ConfigurationItemView(
                         title: .agentDetailsSocketPathTitle,
-                        value: socketPath,
-                        action: .copy(socketPath),
+                        value: URL.socketPath,
+                        action: .copy(URL.socketPath),
                     )
                     ConfigurationItemView(
                         title: .agentDetailsVersionTitle,

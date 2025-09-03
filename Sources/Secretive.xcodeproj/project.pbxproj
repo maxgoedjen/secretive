@@ -26,6 +26,7 @@
 		50153E20250AFCB200525160 /* UpdateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50153E1F250AFCB200525160 /* UpdateView.swift */; };
 		50153E22250DECA300525160 /* SecretListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50153E21250DECA300525160 /* SecretListItemView.swift */; };
 		5018F54F24064786002EB505 /* Notifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5018F54E24064786002EB505 /* Notifier.swift */; };
+		504788EC2E680DC800B4556F /* URLs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504788EB2E680DC400B4556F /* URLs.swift */; };
 		50571E0324393C2600F76F6C /* JustUpdatedChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50571E0224393C2600F76F6C /* JustUpdatedChecker.swift */; };
 		50571E0524393D1500F76F6C /* LaunchAgentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50571E0424393D1500F76F6C /* LaunchAgentController.swift */; };
 		50617D8323FCE48E0099B055 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50617D8223FCE48E0099B055 /* App.swift */; };
@@ -110,6 +111,7 @@
 		50153E1F250AFCB200525160 /* UpdateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateView.swift; sourceTree = "<group>"; };
 		50153E21250DECA300525160 /* SecretListItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecretListItemView.swift; sourceTree = "<group>"; };
 		5018F54E24064786002EB505 /* Notifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifier.swift; sourceTree = "<group>"; };
+		504788EB2E680DC400B4556F /* URLs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLs.swift; sourceTree = "<group>"; };
 		50571E0224393C2600F76F6C /* JustUpdatedChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JustUpdatedChecker.swift; sourceTree = "<group>"; };
 		50571E0424393D1500F76F6C /* LaunchAgentController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchAgentController.swift; sourceTree = "<group>"; };
 		50617D7F23FCE48E0099B055 /* Secretive.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Secretive.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -272,6 +274,7 @@
 		508A58B1241ED1EA0069DC07 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				504788EB2E680DC400B4556F /* URLs.swift */,
 				508A58B2241ED2180069DC07 /* AgentStatusChecker.swift */,
 				5091D2BB25183B830049FD9B /* ApplicationDirectoryController.swift */,
 				50571E0224393C2600F76F6C /* JustUpdatedChecker.swift */,
@@ -445,6 +448,7 @@
 				50BDCB742E6436CA0072D2E7 /* ErrorStyle.swift in Sources */,
 				2C4A9D2F2636FFD3008CC8E2 /* EditSecretView.swift in Sources */,
 				5091D2BC25183B830049FD9B /* ApplicationDirectoryController.swift in Sources */,
+				504788EC2E680DC800B4556F /* URLs.swift in Sources */,
 				5066A6C22516F303004B5A36 /* SetupView.swift in Sources */,
 				5065E313295517C500E16645 /* ToolbarButtonStyle.swift in Sources */,
 				50617D8523FCE48E0099B055 /* ContentView.swift in Sources */,

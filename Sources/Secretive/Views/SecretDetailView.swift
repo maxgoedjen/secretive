@@ -37,14 +37,6 @@ struct SecretDetailView<SecretType: Secret>: View {
 
 }
 
-extension URL {
-
-    static var agentHomeURL: URL {
-        URL(fileURLWithPath: URL.homeDirectory.path().replacingOccurrences(of: Bundle.hostBundleID, with: Bundle.agentBundleID))
-    }
-
-}
-
 #Preview {
     SecretDetailView(secret: Preview.Secret(name: "Demonstration Secret"))
 }

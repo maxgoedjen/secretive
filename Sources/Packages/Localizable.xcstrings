@@ -2983,73 +2983,73 @@
       "localizations" : {
         "ca" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Secretive suporta claus EC256, EC384, RSA1024 i RSA2048."
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Secretive unterstützt EC256, EC384, RSA1024 und RSA2048 Schlüssel."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Secretive supports EC256, EC384, RSA1024, and RSA2048 keys."
+            "value" : "Secretive supports EC256, EC384, and RSA2048 keys."
           }
         },
         "fi" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Secretive tukee EC256-, EC384-, RSA1024- ja RSA2048-avaimia."
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Secretive prend en charge les clés EC256, EC384, RSA1024 et RSA2048."
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Secretive supporta la cifratura EC256, EC384, RSA1024 e RSA2048."
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "SecretiveはEC256、EC384、RSA1024、またはRSA2048の鍵に対応しています。"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Secretive는 EC256, EC384, RSA1024 및 RSA2048 키를 지원합니다."
           }
         },
         "pl" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Secretive wspiera klucze EC256, EC384, RSA1024 i RSA2048."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Secretive suporta chaves EC256, EC384, RSA1024 e RSA2048."
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Secretive поддерживает ключи EC256, EC384, RSA1024, и RSA2048."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Secretive 支持 EC256, EC384, RSA1024, 和RSA2048."
           }
         }
@@ -3131,6 +3131,12 @@
           }
         }
       }
+    },
+    "export SSH_AUTH_SOCK=%@" : {
+      "shouldTranslate" : false
+    },
+    "Host *\n\tIdentityAgent %@" : {
+      "shouldTranslate" : false
     },
     "integrations_add_this_title" : {
       "extractionState" : "manual",
@@ -3286,6 +3292,40 @@
         }
       }
     },
+    "integrations_git_step_gitallowedsigners_description" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "~/.gitallowedsigners probably does not exist. You'll need to create it."
+          }
+        }
+      }
+    },
+    "integrations_git_step_gitconfig_description" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "[user]\n    signingkey = %1$(publicKeyPathPlaceholder)@\n[commit]\n    gpgsign = true\n[gpg]\n    format = ssh\n[gpg \"ssh\"]\n    allowedSignersFile = ~/.gitallowedsigners"
+          }
+        }
+      },
+      "shouldTranslate" : false
+    },
+    "integrations_menu_bar_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Integrations…"
+          }
+        }
+      }
+    },
     "integrations_other_section_title" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -3319,6 +3359,28 @@
         }
       }
     },
+    "integrations_public_key_path_placeholder" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "YOUR_PUBLIC_KEY_PATH"
+          }
+        }
+      }
+    },
+    "integrations_public_key_placeholder" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "YOUR_PUBLIC_KEY"
+          }
+        }
+      }
+    },
     "integrations_shell_section_title" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -3326,6 +3388,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Shell"
+          }
+        }
+      }
+    },
+    "integrations_ssh_specific_key_note" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You can tell SSH to use a specific key for a given host. See the web documentation for more details."
           }
         }
       }
@@ -3340,6 +3413,65 @@
           }
         }
       }
+    },
+    "integrations_tool_name_bash" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "bash"
+          }
+        }
+      },
+      "shouldTranslate" : false
+    },
+    "integrations_tool_name_fish" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "fish"
+          }
+        }
+      },
+      "shouldTranslate" : false
+    },
+    "integrations_tool_name_git_signing" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Git Signing"
+          }
+        }
+      }
+    },
+    "integrations_tool_name_ssh" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "SSH"
+          }
+        }
+      },
+      "shouldTranslate" : false
+    },
+    "integrations_tool_name_zsh" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "zsh"
+          }
+        }
+      },
+      "shouldTranslate" : false
     },
     "integrations_view_other_github_link" : {
       "extractionState" : "manual",
@@ -3363,13 +3495,13 @@
         }
       }
     },
-    "integrationsMenuBarTitle" : {
+    "integrationsGitStepGitconfigSectionNote" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Integrations…"
+            "value" : "If any section (like [user]) already exists, just add the entries in the existing section."
           }
         }
       }
@@ -4269,16 +4401,8 @@
         }
       }
     },
-    "Setup" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Setup"
-          }
-        }
-      }
+    "set -x SSH_AUTH_SOCK %@" : {
+      "shouldTranslate" : false
     },
     "setup_agent_activity_monitor_description" : {
       "extractionState" : "manual",

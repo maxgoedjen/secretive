@@ -1,4 +1,5 @@
 import SwiftUI
+import SecretKit
 
 struct IntegrationsView: View {
 
@@ -91,7 +92,7 @@ struct IntegrationsDetailView: View {
                                 }
                             VStack(alignment: .leading, spacing: 5) {
                                 Text(.integrationsGettingStartedSuggestionShell)
-                                Text(.integrationsGettingStartedSuggestionShellDefault(shellName: instructions.defaultShell.tool))
+                                Text(.integrationsGettingStartedSuggestionShellDefault(shellName: String(localized: instructions.defaultShell.tool)))
                                     .font(.caption2)
                             }
                             .onTapGesture {
@@ -117,8 +118,8 @@ struct IntegrationsDetailView: View {
                         ForEach(selectedInstruction.steps) { stepGroup in
                             Section {
                                 ConfigurationItemView(title: .integrationsPathTitle, value: stepGroup.path, action: .revealInFinder(stepGroup.path))
-                                ForEach(stepGroup.steps, id: \.self) { step in
-                                    ConfigurationItemView(title: .integrationsAddThisTitle, action: .copy(step)) {
+                                ForEach(stepGroup.steps, id: \.self.key) { step in
+                                    ConfigurationItemView(title: .integrationsAddThisTitle, action: .copy(String(localized: step))) {
                                         HStack {
                                             Text(step)
                                                 .padding(8)
@@ -183,50 +184,39 @@ struct IntegrationsDetailView: View {
 
 private struct Instructions {
 
-    private let socketPath = (NSHomeDirectory().replacingOccurrences(of: Bundle.hostBundleID, with: Bundle.agentBundleID) as NSString).appendingPathComponent("socket.ssh") as String
-
+    private let publicKeyPath = PublicKeyFileStoreController(homeDirectory: URL.agentHomeURL).publicKeyPath(for: String(localized: .integrationsPublicKeyPathPlaceholder))
 
     var defaultShell: ConfigurationFileInstructions {
         zsh
     }
 
-    var gettingStarted: ConfigurationFileInstructions =                 ConfigurationFileInstructions(.integrationsGettingStartedRowTitle, id: .gettingStarted)
+    var gettingStarted: ConfigurationFileInstructions = ConfigurationFileInstructions(.integrationsGettingStartedRowTitle, id: .gettingStarted)
 
     var ssh: ConfigurationFileInstructions {
         ConfigurationFileInstructions(
-            tool: "SSH",
+            tool: LocalizedStringResource.integrationsToolNameSsh,
             configPath: "~/.ssh/config",
-            configText: "Host *\n\tIdentityAgent \(socketPath)",
+            configText: "Host *\n\tIdentityAgent \(URL.socketPath)",
             website: URL(string: "https://man.openbsd.org/ssh_config.5")!,
-            note: "You can tell SSH to use a specific key for a given host. See the web documentation for more details.",
+            note: .integrationsSshSpecificKeyNote,
         )
     }
 
     var git: ConfigurationFileInstructions {
         ConfigurationFileInstructions(
-            tool: "Git Signing",
+            tool: .integrationsToolNameGitSigning,
             steps: [
                 .init(path: "~/.gitconfig", steps: [
-                    """
-                    [user]
-                        signingkey = YOUR_PUBLIC_KEY_PATH
-                    [commit]
-                        gpgsign = true
-                    [gpg]
-                        format = ssh
-                    [gpg "ssh"]
-                        allowedSignersFile = ~/.gitallowedsigners
-                    """
+                    .integrationsGitStepGitconfigDescription(publicKeyPathPlaceholder: publicKeyPath)
                 ],
-                      note: "If any section (like [user]) already exists, just add the entries in the existing section."
-
-                     ),
+                      note: .integrationsGitStepGitconfigSectionNote
+                ),
                 .init(
                     path: "~/.gitallowedsigners",
                     steps: [
-                        "YOUR_PUBLIC_KEY"
+                        .integrationsPublicKeyPlaceholder
                     ],
-                    note: "~/.gitallowedsigners probably does not exist. You'll need to create it."
+                    note: .integrationsGitStepGitallowedsignersDescription
                 ),
             ],
             website:  URL(string: "https://git-scm.com/docs/git-config")!,
@@ -235,9 +225,9 @@ private struct Instructions {
 
     var zsh: ConfigurationFileInstructions {
         ConfigurationFileInstructions(
-            tool: "zsh",
+            tool: .integrationsToolNameZsh,
             configPath: "~/.zshrc",
-            configText: "export SSH_AUTH_SOCK=\(socketPath)"
+            configText: "export SSH_AUTH_SOCK=\(URL.socketPath)"
         )
     }
 
@@ -256,14 +246,14 @@ private struct Instructions {
             ConfigurationGroup(name: .integrationsShellSectionTitle, instructions: [
                 zsh,
                 ConfigurationFileInstructions(
-                    tool: "bash",
+                    tool: .integrationsToolNameBash,
                     configPath: "~/.bashrc",
-                    configText: "export SSH_AUTH_SOCK=\(socketPath)"
+                    configText: "export SSH_AUTH_SOCK=\(URL.socketPath)"
                 ),
                 ConfigurationFileInstructions(
-                    tool: "fish",
+                    tool: .integrationsToolNameFish,
                     configPath: "~/.config/fish/config.fish",
-                    configText: "set -x SSH_AUTH_SOCK \(socketPath)"
+                    configText: "set -x SSH_AUTH_SOCK \(URL.socketPath)"
                 ),
                 ConfigurationFileInstructions(.integrationsOtherShellRowTitle, id: .otherShell),
             ]),
@@ -285,31 +275,35 @@ struct ConfigurationFileInstructions: Hashable, Identifiable {
 
     struct StepGroup: Hashable, Identifiable {
         let path: String
-        let steps: [String]
-        let note: String?
+        let steps: [LocalizedStringResource]
+        let note: LocalizedStringResource?
         var id: String { path }
 
-        init(path: String, steps: [String], note: String? = nil) {
+        init(path: String, steps: [LocalizedStringResource], note: LocalizedStringResource? = nil) {
             self.path = path
             self.steps = steps
             self.note = note
         }
+
+        func hash(into hasher: inout Hasher) {
+            id.hash(into: &hasher)
+        }
     }
 
     var id: ID
-    var tool: String
+    var tool: LocalizedStringResource
     var steps: [StepGroup]
     var website: URL?
 
-    init(tool: String, configPath: String, configText: String, website: URL? = nil, note: String? = nil) {
-        self.id = .tool(tool)
+    init(tool: LocalizedStringResource, configPath: String, configText: LocalizedStringResource, website: URL? = nil, note: LocalizedStringResource? = nil) {
+        self.id = .tool(String(localized: tool))
         self.tool = tool
         self.steps = [StepGroup(path: configPath, steps: [configText], note: note)]
         self.website = website
     }
 
-    init(tool: String, steps: [StepGroup], website: URL? = nil) {
-        self.id = .tool(tool)
+    init(tool: LocalizedStringResource, steps: [StepGroup], website: URL? = nil) {
+        self.id = .tool(String(localized: tool))
         self.tool = tool
         self.steps = steps
         self.website = website
@@ -317,8 +311,12 @@ struct ConfigurationFileInstructions: Hashable, Identifiable {
 
     init(_ name: LocalizedStringResource, id: ID) {
         self.id = id
-        tool = String(localized: name)
+        tool = name
         self.steps = []
+    }
+
+    func hash(into hasher: inout Hasher) {
+        id.hash(into: &hasher)
     }
 
     enum ID: Identifiable, Hashable {
