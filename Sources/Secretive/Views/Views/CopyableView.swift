@@ -76,10 +76,10 @@ struct CopyableView: View {
         switch interactionState {
         case .hovering:
             Image(systemName: "document.on.document")
-                .accessibilityLabel(String(localized: "copyable_click_to_copy_button"))
+                .accessibilityLabel(String(localized: .copyableClickToCopyButton))
         case .clicking:
             Image(systemName: "checkmark.circle.fill")
-                .accessibilityLabel(String(localized: "copyable_copied"))
+                .accessibilityLabel(String(localized: .copyableCopied))
         case .normal, .dragging:
             EmptyView()
         }
@@ -168,9 +168,9 @@ fileprivate struct BackgroundViewModifier: ViewModifier {
 struct CopyableView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            CopyableView(title: "secret_detail_sha256_fingerprint_label", image: Image(systemName: "figure.wave"), text: "Hello world.")
+            CopyableView(title: .secretDetailSha256FingerprintLabel, image: Image(systemName: "figure.wave"), text: "Hello world.")
                 .padding()
-            CopyableView(title: "secret_detail_sha256_fingerprint_label", image: Image(systemName: "figure.wave"), text: "Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. ")
+            CopyableView(title: .secretDetailSha256FingerprintLabel, image: Image(systemName: "figure.wave"), text: "Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. ")
                 .padding()
         }
     }
