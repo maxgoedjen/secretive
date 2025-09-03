@@ -9,6 +9,10 @@ jobs:
   build:
 #     runs-on: macOS-latest
     runs-on: macos-15
+    permissions:
+      id-token: write
+      contents: write
+      attestations: write
     timeout-minutes: 10
     steps:
     - uses: actions/checkout@v5
@@ -45,9 +49,14 @@ jobs:
       id: attest
       uses: actions/attest-build-provenance@v2
       with:
-        subject-path: 'Secretive.zip'
+        subject-path: 'Secretive.zip, Xcode_Archive.zip'
     - name: Upload App to Artifacts
       uses: actions/upload-artifact@v4
       with:
         name: Secretive.zip
         path: Secretive.zip
+    - name: Upload Archive to Artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: Xcode_Archive.zip
+        path: Xcode_Archive.zip
