@@ -39,7 +39,7 @@ jobs:
     - name: Create ZIPs
       run: |
             ditto -c -k --sequesterRsrc --keepParent Archive.xcarchive/Products/Applications/Secretive.app ./Secretive.zip
-            ditto -c -k --sequesterRsrc --keepParent Archive.xcarchive ./Archive.zip
+            ditto -c -k --sequesterRsrc --keepParent Archive.xcarchive ./Xcode_Archive.zip
     - name: Notarize
       env: 
         APPLE_API_KEY_ID: ${{ secrets.APPLE_API_KEY_ID }}
