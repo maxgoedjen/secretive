@@ -9,6 +9,10 @@ jobs:
   build:
 #     runs-on: macOS-latest
     runs-on: macos-15
+    permissions:
+      id-token: write
+      contents: write
+      attestations: write
     timeout-minutes: 10
     steps:
     - uses: actions/checkout@v5
