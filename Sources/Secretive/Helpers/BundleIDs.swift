@@ -1,7 +1,11 @@
 import Foundation
 
-
 extension Bundle {
-    public var agentBundleID: String {(self.bundleIdentifier?.replacingOccurrences(of: "Host", with: "SecretAgent"))!}
-    public var hostBundleID: String {(self.bundleIdentifier?.replacingOccurrences(of: "SecretAgent", with: "Host"))!}
+    public static var agentBundleID: String {
+        Bundle.main.bundleIdentifier!.replacingOccurrences(of: "Host", with: "SecretAgent")
+    }
+
+    public static var hostBundleID: String {
+        Bundle.main.bundleIdentifier!.replacingOccurrences(of: "SecretAgent", with: "Host")
+    }
 }

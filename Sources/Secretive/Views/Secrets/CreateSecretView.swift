@@ -4,13 +4,15 @@ import SecretKit
 struct CreateSecretView<StoreType: SecretStoreModifiable>: View {
 
     @State var store: StoreType
-    @Binding var showing: Bool
+    @Environment(\.dismiss) private var dismiss
+    var createdSecret: (AnySecret?) -> Void
 
     @State private var name = ""
     @State private var keyAttribution = ""
     @State private var authenticationRequirement: AuthenticationRequirement = .presenceRequired
     @State private var keyType: KeyType?
     @State var advanced = false
+    @State var errorText: String?
 
     private var authenticationOptions: [AuthenticationRequirement] {
         if advanced || authenticationRequirement == .biometryCurrent {
@@ -94,16 +96,24 @@ struct CreateSecretView<StoreType: SecretStoreModifiable>: View {
                         }
                     }
                 }
+                if let errorText {
+                    Section {
+                    } footer: {
+                        Text(verbatim: errorText)
+                            .errorStyle()
+                    }
+                }
             }
             HStack {
                 Toggle(.createSecretAdvancedLabel, isOn: $advanced)
                     .toggleStyle(.button)
                 Spacer()
                 Button(.createSecretCancelButton, role: .cancel) {
-                    showing = false
+                    dismiss()
                 }
                 Button(.createSecretCreateButton, action: save)
-                    .primary()
+                    .keyboardShortcut(.return)
+                    .primaryButton()
                     .disabled(name.isEmpty)
             }
             .padding()
@@ -117,20 +127,25 @@ struct CreateSecretView<StoreType: SecretStoreModifiable>: View {
     func save() {
         let attribution = keyAttribution.isEmpty ? nil : keyAttribution
         Task {
-            try! await store.create(
-                name: name,
-                attributes: .init(
-                    keyType: keyType!,
-                    authentication: authenticationRequirement,
-                    publicKeyAttribution: attribution
+            do {
+                let new = try await store.create(
+                    name: name,
+                    attributes: .init(
+                        keyType: keyType!,
+                        authentication: authenticationRequirement,
+                        publicKeyAttribution: attribution
+                    )
                 )
-            )
-            showing = false
+                createdSecret(AnySecret(new))
+                dismiss()
+            } catch {
+                errorText = error.localizedDescription
+            }
         }
     }
 
 }
 
 #Preview {
-//    CreateSecretView(store: Preview.StoreModifiable(), showing: .constant(true))
+    CreateSecretView(store: Preview.StoreModifiable()) { _ in }
 }

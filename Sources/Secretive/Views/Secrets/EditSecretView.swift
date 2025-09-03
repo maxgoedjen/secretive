@@ -30,21 +30,22 @@ struct EditSecretView<StoreType: SecretStoreModifiable>: View {
                             .font(.subheadline)
                             .foregroundStyle(.secondary)
                     }
-                }
-                if let errorText {
-                    Text(verbatim: errorText)
-                        .foregroundStyle(.red)
-                        .font(.callout)
+                } footer: {
+                    if let errorText {
+                        Text(verbatim: errorText)
+                            .errorStyle()
+                    }
                 }
             }
             HStack {
-                Button(.editSaveButton, action: rename)
-                    .disabled(name.isEmpty)
-                    .keyboardShortcut(.return)
                 Button(.editCancelButton) {
                     dismissalBlock(false)
                 }
                 .keyboardShortcut(.cancelAction)
+                Button(.editSaveButton, action: rename)
+                    .disabled(name.isEmpty)
+                    .keyboardShortcut(.return)
+                    .primaryButton()
             }
             .padding()
         }

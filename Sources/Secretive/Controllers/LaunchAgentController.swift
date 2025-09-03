@@ -8,16 +8,28 @@ struct LaunchAgentController {
     
     private let logger = Logger(subsystem: "com.maxgoedjen.secretive", category: "LaunchAgentController")
 
-    func install() async {
+    func install() async -> Bool {
         logger.debug("Installing agent")
         _ = setEnabled(false)
         // This is definitely a bit of a "seems to work better" thing but:
         // Seems to more reliably hit if these are on separate runloops, otherwise it seems like it sometimes doesn't kill old
         // and start new?
         try? await Task.sleep(for: .seconds(1))
-        await MainActor.run {
-            _  = setEnabled(true)
+        let result = await MainActor.run {
+            setEnabled(true)
         }
+        try? await Task.sleep(for: .seconds(1))
+        return result
+    }
+
+    func uninstall() async -> Bool {
+        logger.debug("Uninstalling agent")
+        try? await Task.sleep(for: .seconds(1))
+        let result = await MainActor.run {
+            setEnabled(false)
+        }
+        try? await Task.sleep(for: .seconds(1))
+        return result
     }
 
     func forceLaunch() async -> Bool {
@@ -28,6 +40,7 @@ struct LaunchAgentController {
         do {
             try await NSWorkspace.shared.openApplication(at: url, configuration: config)
             logger.debug("Agent force launched")
+            try? await Task.sleep(for: .seconds(1))
             return true
         } catch {
             logger.error("Error force launching \(error.localizedDescription)")
@@ -36,7 +49,7 @@ struct LaunchAgentController {
     }
 
     private func setEnabled(_ enabled: Bool) -> Bool {
-        let service = SMAppService.loginItem(identifier: Bundle.main.agentBundleID)
+        let service = SMAppService.loginItem(identifier: Bundle.agentBundleID)
         do {
             if enabled {
                 try service.register()

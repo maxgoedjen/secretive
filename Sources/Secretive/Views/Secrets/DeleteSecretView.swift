@@ -28,8 +28,7 @@ struct DeleteSecretConfirmationModifier: ViewModifier {
                     TextField(secret.name, text: $confirmedSecretName)
                     if let errorText {
                         Text(verbatim: errorText)
-                            .foregroundStyle(.red)
-                            .font(.callout)
+                            .errorStyle()
                     }
                     Button(.deleteConfirmationDeleteButton, action: delete)
                         .disabled(confirmedSecretName != secret.name)
