@@ -57,15 +57,10 @@ struct EmptyStoreModifiableView: View {
     }
 }
 
-#if DEBUG
 
-struct EmptyStoreModifiableView_Previews: PreviewProvider {
-    static var previews: some View {
-        Group {
-            EmptyStoreImmutableView()
-            EmptyStoreModifiableView()
-        }
-    }
+#Preview {
+    EmptyStoreImmutableView()
 }
-
-#endif
+#Preview {
+    EmptyStoreModifiableView()
+}
