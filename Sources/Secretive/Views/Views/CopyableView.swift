@@ -163,17 +163,12 @@ fileprivate struct BackgroundViewModifier: ViewModifier {
     
 }
 
-#if DEBUG
-
-struct CopyableView_Previews: PreviewProvider {
-    static var previews: some View {
-        Group {
-            CopyableView(title: .secretDetailSha256FingerprintLabel, image: Image(systemName: "figure.wave"), text: "Hello world.")
-                .padding()
-            CopyableView(title: .secretDetailSha256FingerprintLabel, image: Image(systemName: "figure.wave"), text: "Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. ")
-                .padding()
-        }
-    }
+#Preview {
+    CopyableView(title: .secretDetailSha256FingerprintLabel, image: Image(systemName: "figure.wave"), text: "Hello world.")
+        .padding()
 }
 
-#endif
+#Preview {
+    CopyableView(title: .secretDetailSha256FingerprintLabel, image: Image(systemName: "figure.wave"), text: "Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. Long text. ")
+        .padding()
+}
