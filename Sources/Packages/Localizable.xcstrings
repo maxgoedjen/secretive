@@ -3182,6 +3182,50 @@
         }
       }
     },
+    "integrations_configure_using_secret_empty_create" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You'll need to create a Secret before configuring this action."
+          }
+        }
+      }
+    },
+    "integrations_configure_using_secret_header" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Configure Using Secret"
+          }
+        }
+      }
+    },
+    "integrations_configure_using_secret_no_secret" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No Secret"
+          }
+        }
+      }
+    },
+    "integrations_configure_using_secret_secret_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Secret"
+          }
+        }
+      }
+    },
     "integrations_getting_started_multiple_config" : {
       "extractionState" : "manual",
       "localizations" : {

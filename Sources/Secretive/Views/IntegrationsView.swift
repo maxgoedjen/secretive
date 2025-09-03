@@ -51,7 +51,7 @@ struct FauxToolbarModifier<ToolbarContent: View>: ViewModifier {
     var toolbarContent: ToolbarContent
 
     func body(content: Content) -> some View {
-        VStack(alignment: .leading) {
+        VStack(alignment: .leading, spacing: 0) {
             content
             Divider()
             HStack {
@@ -69,6 +69,10 @@ struct FauxToolbarModifier<ToolbarContent: View>: ViewModifier {
 
 struct IntegrationsDetailView: View {
 
+    @Environment(\.secretStoreList) private var secretStoreList
+    @State var creating = false
+
+    @State var selectedSecret: AnySecret?
     @Binding private var selectedInstruction: ConfigurationFileInstructions?
     private let instructions = Instructions()
 
@@ -115,13 +119,51 @@ struct IntegrationsDetailView: View {
                 .formStyle(.grouped)
                 case .tool:
                     Form {
+                        if selectedInstruction.requiresSecret {
+                            if secretStoreList.allSecrets.isEmpty {
+                                Section {
+                                    Text(.integrationsConfigureUsingSecretEmptyCreate)
+                                    if let store = secretStoreList.modifiableStore {
+                                        HStack {
+                                            Spacer()
+                                            Button(.createSecretTitle) {
+                                                creating = true
+                                            }
+                                            .sheet(isPresented: $creating) {
+                                                CreateSecretView(store: store) { created in
+                                                    selectedSecret = created
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            } else {
+                                Section {
+                                    Picker(.integrationsConfigureUsingSecretSecretTitle, selection: $selectedSecret) {
+                                        if selectedSecret == nil {
+                                            Text(.integrationsConfigureUsingSecretNoSecret)
+                                                .tag(nil as (AnySecret?))
+                                        }
+                                        ForEach(secretStoreList.allSecrets) { secret in
+                                            Text(secret.name)
+                                                .tag(secret)
+                                        }
+                                    }
+                                } header: {
+                                    Text(.integrationsConfigureUsingSecretHeader)
+                                }
+                                .onAppear {
+                                    selectedSecret = secretStoreList.allSecrets.first
+                                }
+                            }
+                        }
                         ForEach(selectedInstruction.steps) { stepGroup in
                             Section {
                                 ConfigurationItemView(title: .integrationsPathTitle, value: stepGroup.path, action: .revealInFinder(stepGroup.path))
                                 ForEach(stepGroup.steps, id: \.self.key) { step in
                                     ConfigurationItemView(title: .integrationsAddThisTitle, action: .copy(String(localized: step))) {
                                         HStack {
-                                            Text(step)
+                                            Text(placeholdersReplaced(text: String(localized: step)))
                                                 .padding(8)
                                                 .font(.system(.subheadline, design: .monospaced))
                                             Spacer()
@@ -180,11 +222,23 @@ struct IntegrationsDetailView: View {
         }
 
     }
+
+    func placeholdersReplaced(text: String) -> String {
+        guard let selectedSecret else { return text }
+        let writer = OpenSSHPublicKeyWriter()
+        let fileController = PublicKeyFileStoreController(homeDirectory: URL.agentHomeURL)
+        return text
+            .replacingOccurrences(of: Instructions.Constants.publicKeyPlaceholder, with: writer.openSSHString(secret: selectedSecret))
+            .replacingOccurrences(of: Instructions.Constants.publicKeyPathPlaceholder, with: fileController.publicKeyPath(for: selectedSecret))
+    }
 }
 
 private struct Instructions {
 
-    private let publicKeyPath = PublicKeyFileStoreController(homeDirectory: URL.agentHomeURL).publicKeyPath(for: String(localized: .integrationsPublicKeyPathPlaceholder))
+    enum Constants {
+        static let publicKeyPathPlaceholder = "_PUBLIC_KEY_PATH_PLACEHOLDER_"
+        static let publicKeyPlaceholder = "_PUBLIC_KEY_PLACEHOLDER_"
+    }
 
     var defaultShell: ConfigurationFileInstructions {
         zsh
@@ -207,14 +261,14 @@ private struct Instructions {
             tool: .integrationsToolNameGitSigning,
             steps: [
                 .init(path: "~/.gitconfig", steps: [
-                    .integrationsGitStepGitconfigDescription(publicKeyPathPlaceholder: publicKeyPath)
+                    .integrationsGitStepGitconfigDescription(publicKeyPathPlaceholder: Constants.publicKeyPathPlaceholder)
                 ],
                       note: .integrationsGitStepGitconfigSectionNote
                 ),
                 .init(
                     path: "~/.gitallowedsigners",
                     steps: [
-                        .integrationsPublicKeyPlaceholder
+                        LocalizedStringResource(stringLiteral: Constants.publicKeyPlaceholder)
                     ],
                     note: .integrationsGitStepGitallowedsignersDescription
                 ),
@@ -293,26 +347,42 @@ struct ConfigurationFileInstructions: Hashable, Identifiable {
     var id: ID
     var tool: LocalizedStringResource
     var steps: [StepGroup]
+    var requiresSecret: Bool
     var website: URL?
 
-    init(tool: LocalizedStringResource, configPath: String, configText: LocalizedStringResource, website: URL? = nil, note: LocalizedStringResource? = nil) {
+    init(
+        tool: LocalizedStringResource,
+        configPath: String,
+        configText: LocalizedStringResource,
+        requiresSecret: Bool = false,
+        website: URL? = nil,
+        note: LocalizedStringResource? = nil
+    ) {
         self.id = .tool(String(localized: tool))
         self.tool = tool
         self.steps = [StepGroup(path: configPath, steps: [configText], note: note)]
+        self.requiresSecret = requiresSecret
         self.website = website
     }
 
-    init(tool: LocalizedStringResource, steps: [StepGroup], website: URL? = nil) {
+    init(
+        tool: LocalizedStringResource,
+        steps: [StepGroup],
+        requiresSecret: Bool = false,
+        website: URL? = nil
+    ) {
         self.id = .tool(String(localized: tool))
         self.tool = tool
         self.steps = steps
+        self.requiresSecret = true
         self.website = website
     }
 
     init(_ name: LocalizedStringResource, id: ID) {
         self.id = id
         tool = name
-        self.steps = []
+        steps = []
+        requiresSecret = false
     }
 
     func hash(into hasher: inout Hasher) {
@@ -340,7 +410,6 @@ struct ConfigurationFileInstructions: Hashable, Identifiable {
     }
 
 }
-
 
 #Preview {
     IntegrationsView()

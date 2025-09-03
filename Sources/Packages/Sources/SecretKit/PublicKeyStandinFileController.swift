@@ -47,10 +47,6 @@ public final class PublicKeyFileStoreController: Sendable {
         return directory.appending(component: "\(minimalHex).pub").path()
     }
 
-    public func publicKeyPath(for name: String) -> String {
-        return directory.appending(component: "\(name).pub").path()
-    }
-
     /// Short-circuit check to ship enumerating a bunch of paths if there's nothing in the cert directory.
     public var hasAnyCertificates: Bool {
         do {
