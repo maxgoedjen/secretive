@@ -80,11 +80,6 @@ struct Secretive: App {
                     NSWorkspace.shared.open(Constants.helpURL)
                 }
             }
-            CommandGroup(after: .help) {
-                Button("Setup") {
-                    showingSetup = true
-                }
-            }
             SidebarCommands()
         }
     }
