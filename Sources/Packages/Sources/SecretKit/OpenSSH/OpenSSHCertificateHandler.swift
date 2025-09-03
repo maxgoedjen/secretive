@@ -4,7 +4,7 @@ import OSLog
 /// Manages storage and lookup for OpenSSH certificates.
 public actor OpenSSHCertificateHandler: Sendable {
 
-    private let publicKeyFileStoreController = PublicKeyFileStoreController(homeDirectory: NSHomeDirectory())
+    private let publicKeyFileStoreController = PublicKeyFileStoreController(homeDirectory: URL.homeDirectory)
     private let logger = Logger(subsystem: "com.maxgoedjen.secretive.secretagent", category: "OpenSSHCertificateHandler")
     private let writer = OpenSSHPublicKeyWriter()
     private var keyBlobsAndNames: [AnySecret: (Data, Data)] = [:]

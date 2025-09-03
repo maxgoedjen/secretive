@@ -6,12 +6,14 @@ import Observation
 @MainActor protocol AgentStatusCheckerProtocol: Observable, Sendable {
     var running: Bool { get }
     var developmentBuild: Bool { get }
+    var process: NSRunningApplication? { get }
     func check()
 }
 
 @Observable @MainActor final class AgentStatusChecker: AgentStatusCheckerProtocol {
 
     var running: Bool = false
+    var process: NSRunningApplication? = nil
 
     nonisolated init() {
         Task { @MainActor in
@@ -20,32 +22,39 @@ import Observation
     }
 
     func check() {
-        running = instanceSecretAgentProcess != nil
+        process = instanceSecretAgentProcess
+        running = process != nil
     }
 
     // All processes, including ones from older versions, etc
-    var secretAgentProcesses: [NSRunningApplication] {
-        NSRunningApplication.runningApplications(withBundleIdentifier: Bundle.main.agentBundleID)
+    var allSecretAgentProcesses: [NSRunningApplication] {
+        NSRunningApplication.runningApplications(withBundleIdentifier: Bundle.agentBundleID)
     }
 
     // The process corresponding to this instance of Secretive
     var instanceSecretAgentProcess: NSRunningApplication? {
-        let agents = secretAgentProcesses
+        // FIXME: CHECK VERSION
+        let agents = allSecretAgentProcesses
         for agent in agents {
             guard let url = agent.bundleURL else { continue }
-            if url.absoluteString.hasPrefix(Bundle.main.bundleURL.absoluteString) {
+            if url.absoluteString.hasPrefix(Bundle.main.bundleURL.absoluteString) || (url.isXcodeURL && developmentBuild) {
                 return agent
             }
         }
         return nil
     }
 
-
     // Whether Secretive is being run in an Xcode environment.
     var developmentBuild: Bool {
-        Bundle.main.bundleURL.absoluteString.contains("/Library/Developer/Xcode")
+        Bundle.main.bundleURL.isXcodeURL
     }
 
 }
 
+extension URL {
 
+    var isXcodeURL: Bool {
+        absoluteString.contains("/Library/Developer/Xcode")
+    }
+
+}

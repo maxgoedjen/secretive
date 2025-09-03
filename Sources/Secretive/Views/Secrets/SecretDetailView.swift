@@ -6,8 +6,8 @@ struct SecretDetailView<SecretType: Secret>: View {
     let secret: SecretType
 
     private let keyWriter = OpenSSHPublicKeyWriter()
-    private let publicKeyFileStoreController = PublicKeyFileStoreController(homeDirectory: NSHomeDirectory().replacingOccurrences(of: Bundle.main.hostBundleID, with: Bundle.main.agentBundleID))
-    
+    private let publicKeyFileStoreController = PublicKeyFileStoreController(homeDirectory: URL.agentHomeURL)
+
     var body: some View {
         ScrollView {
             Form {
@@ -37,12 +37,6 @@ struct SecretDetailView<SecretType: Secret>: View {
 
 }
 
-#if DEBUG
-
-struct SecretDetailView_Previews: PreviewProvider {
-    static var previews: some View {
-        SecretDetailView(secret: Preview.Store(numberOfRandomSecrets: 1).secrets[0])
-    }
+#Preview {
+    SecretDetailView(secret: Preview.Secret(name: "Demonstration Secret"))
 }
-
-#endif

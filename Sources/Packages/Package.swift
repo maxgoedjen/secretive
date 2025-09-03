@@ -83,6 +83,7 @@ let package = Package(
 
 var localization: Resource {
     .process("../../Localizable.xcstrings")
+//    .process("../../Resources/Localizable.xcstrings")
 }
 
 var swiftSettings: [PackageDescription.SwiftSetting] {

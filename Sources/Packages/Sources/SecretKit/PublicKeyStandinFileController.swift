@@ -5,12 +5,12 @@ import OSLog
 public final class PublicKeyFileStoreController: Sendable {
 
     private let logger = Logger(subsystem: "com.maxgoedjen.secretive.secretagent", category: "PublicKeyFileStoreController")
-    private let directory: String
+    private let directory: URL
     private let keyWriter = OpenSSHPublicKeyWriter()
 
     /// Initializes a PublicKeyFileStoreController.
-    public init(homeDirectory: String) {
-        directory = homeDirectory.appending("/PublicKeys")
+    public init(homeDirectory: URL) {
+        directory = homeDirectory.appending(component: "PublicKeys")
     }
 
     /// Writes out the keys specified to disk.
@@ -20,7 +20,7 @@ public final class PublicKeyFileStoreController: Sendable {
         logger.log("Writing public keys to disk")
         if clear {
             let validPaths = Set(secrets.map { publicKeyPath(for: $0) }).union(Set(secrets.map { sshCertificatePath(for: $0) }))
-            let contentsOfDirectory = (try? FileManager.default.contentsOfDirectory(atPath: directory)) ?? []
+            let contentsOfDirectory = (try? FileManager.default.contentsOfDirectory(atPath: directory.path())) ?? []
             let fullPathContents = contentsOfDirectory.map { "\(directory)/\($0)" }
 
             let untracked = Set(fullPathContents)
@@ -30,7 +30,7 @@ public final class PublicKeyFileStoreController: Sendable {
                 try? FileManager.default.removeItem(at: URL(string: path)!)
             }
         }
-        try? FileManager.default.createDirectory(at: URL(fileURLWithPath: directory), withIntermediateDirectories: false, attributes: nil)
+        try? FileManager.default.createDirectory(at: directory, withIntermediateDirectories: false, attributes: nil)
         for secret in secrets {
             let path = publicKeyPath(for: secret)
             let data = Data(keyWriter.openSSHString(secret: secret).utf8)
@@ -45,14 +45,14 @@ public final class PublicKeyFileStoreController: Sendable {
     /// - Warning: This method returning a path does not imply that a key has been written to disk already. This method only describes where it will be written to.
     public func publicKeyPath<SecretType: Secret>(for secret: SecretType) -> String {
         let minimalHex = keyWriter.openSSHMD5Fingerprint(secret: secret).replacingOccurrences(of: ":", with: "")
-        return directory.appending("/").appending("\(minimalHex).pub")
+        return directory.appending(component: "\(minimalHex).pub").path()
     }
 
     /// Short-circuit check to ship enumerating a bunch of paths if there's nothing in the cert directory.
     public var hasAnyCertificates: Bool {
         do {
             return try FileManager.default
-                .contentsOfDirectory(atPath: directory)
+                .contentsOfDirectory(atPath: directory.path())
                 .filter { $0.hasSuffix("-cert.pub") }
                 .isEmpty == false
         } catch {
@@ -66,7 +66,7 @@ public final class PublicKeyFileStoreController: Sendable {
     /// - Warning: This method returning a path does not imply that a key has a SSH certificates. This method only describes where it will be.
     public func sshCertificatePath<SecretType: Secret>(for secret: SecretType) -> String {
         let minimalHex = keyWriter.openSSHMD5Fingerprint(secret: secret).replacingOccurrences(of: ":", with: "")
-        return directory.appending("/").appending("\(minimalHex)-cert.pub")
+        return directory.appending(component: "\(minimalHex)-cert.pub").path()
     }
 
 }
