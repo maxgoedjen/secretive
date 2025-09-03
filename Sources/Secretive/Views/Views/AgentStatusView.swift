@@ -143,11 +143,11 @@ struct AgentNotRunningView: View {
 
 }
 
-#Preview {
-    AgentStatusView()
-        .environment(\.agentStatusChecker, PreviewAgentStatusChecker(running: false))
-}
-#Preview {
-    AgentStatusView()
-        .environment(\.agentStatusChecker, PreviewAgentStatusChecker(running: true, process: .current))
-}
+//#Preview {
+//    AgentStatusView()
+//        .environment(\.agentStatusChecker, PreviewAgentStatusChecker(running: false))
+//}
+//#Preview {
+//    AgentStatusView()
+//        .environment(\.agentStatusChecker, PreviewAgentStatusChecker(running: true, process: .current))
+//}
