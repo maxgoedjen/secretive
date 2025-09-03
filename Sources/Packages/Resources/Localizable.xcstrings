@@ -5369,6 +5369,18 @@
         }
       }
     },
+    "translationCredits" : {
+      "comment" : "Translated Into Language By\nFirst Translator, Second Translator, Third Translator",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : " "
+          }
+        }
+      }
+    },
     "unnamed_secret" : {
       "extractionState" : "manual",
       "localizations" : {
