@@ -31,18 +31,7 @@ public struct OpenSSHPublicKeyWriter: Sendable {
     /// Generates an OpenSSH string representation of the secret.
     /// - Returns: OpenSSH string representation of the secret.
     public func openSSHString<SecretType: Secret>(secret: SecretType) -> String {
-        let resolvedComment: String
-        if let comment = secret.publicKeyAttribution {
-            resolvedComment = comment
-        } else {
-            let dashedKeyName = secret.name.replacingOccurrences(of: " ", with: "-")
-            let dashedHostName = ["secretive", Host.current().localizedName, "local"]
-                .compactMap { $0 }
-                .joined(separator: ".")
-                .replacingOccurrences(of: " ", with: "-")
-            resolvedComment = "\(dashedKeyName)@\(dashedHostName)"
-        }
-        return [openSSHIdentifier(for: secret.keyType), data(secret: secret).base64EncodedString(), resolvedComment]
+        return [openSSHIdentifier(for: secret.keyType), data(secret: secret).base64EncodedString(), comment(secret: secret)]
             .compactMap { $0 }
             .joined(separator: " ")
     }
@@ -65,6 +54,19 @@ public struct OpenSSHPublicKeyWriter: Sendable {
             .joined(separator: ":")
     }
 
+    public func comment<SecretType: Secret>(secret: SecretType) -> String {
+        if let comment = secret.publicKeyAttribution {
+            return comment
+        } else {
+            let dashedKeyName = secret.name.replacingOccurrences(of: " ", with: "-")
+            let dashedHostName = ["secretive", Host.current().localizedName, "local"]
+                .compactMap { $0 }
+                .joined(separator: ".")
+                .replacingOccurrences(of: " ", with: "-")
+            return "\(dashedKeyName)@\(dashedHostName)"
+        }
+
+    }
 }
 
 extension OpenSSHPublicKeyWriter {

@@ -26,7 +26,8 @@ public final class PublicKeyFileStoreController: Sendable {
             let untracked = Set(fullPathContents)
                 .subtracting(validPaths)
             for path in untracked {
-                try? FileManager.default.removeItem(at: URL(fileURLWithPath: path))
+                // string instead of fileURLWithPath since we're already using fileURL format.
+                try? FileManager.default.removeItem(at: URL(string: path)!)
             }
         }
         try? FileManager.default.createDirectory(at: directory, withIntermediateDirectories: false, attributes: nil)

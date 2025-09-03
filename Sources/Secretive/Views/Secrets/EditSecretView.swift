@@ -54,9 +54,7 @@ struct EditSecretView<StoreType: SecretStoreModifiable>: View {
 
     func rename() {
         var attributes = secret.attributes
-        if !publicKeyAttribution.isEmpty {
-            attributes.publicKeyAttribution = publicKeyAttribution
-        }
+        attributes.publicKeyAttribution = publicKeyAttribution.isEmpty ? nil : publicKeyAttribution
         Task {
             do {
                 try await store.update(secret: secret, name: name, attributes: attributes)

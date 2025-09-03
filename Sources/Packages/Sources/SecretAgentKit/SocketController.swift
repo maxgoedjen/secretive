@@ -78,7 +78,6 @@ extension SocketController {
             provenance = SigningRequestTracer().provenance(from: fileHandle)
             (messages, messagesContinuation) = AsyncStream.makeStream()
             Task { [messagesContinuation, logger] in
-                await fileHandle.waitForDataInBackgroundAndNotifyOnMainActor()
                 for await _ in NotificationCenter.default.notifications(named: .NSFileHandleDataAvailable, object: fileHandle) {
                     let data = fileHandle.availableData
                     guard !data.isEmpty else {
@@ -90,6 +89,9 @@ extension SocketController {
                     messagesContinuation.yield(data)
                     logger.debug("Socket controller yielded data.")
                 }
+            }
+            Task {
+                await fileHandle.waitForDataInBackgroundAndNotifyOnMainActor()
             }
         }
         
