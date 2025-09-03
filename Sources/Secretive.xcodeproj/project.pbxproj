@@ -27,6 +27,9 @@
 		50153E22250DECA300525160 /* SecretListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50153E21250DECA300525160 /* SecretListItemView.swift */; };
 		5018F54F24064786002EB505 /* Notifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5018F54E24064786002EB505 /* Notifier.swift */; };
 		504788EC2E680DC800B4556F /* URLs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504788EB2E680DC400B4556F /* URLs.swift */; };
+		504788F22E681F3A00B4556F /* Instructions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504788F12E681F3A00B4556F /* Instructions.swift */; };
+		504788F42E681F6900B4556F /* ToolConfigurationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504788F32E681F6900B4556F /* ToolConfigurationView.swift */; };
+		504788F62E68206F00B4556F /* GettingStartedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504788F52E68206F00B4556F /* GettingStartedView.swift */; };
 		50571E0324393C2600F76F6C /* JustUpdatedChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50571E0224393C2600F76F6C /* JustUpdatedChecker.swift */; };
 		50571E0524393D1500F76F6C /* LaunchAgentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50571E0424393D1500F76F6C /* LaunchAgentController.swift */; };
 		50617D8323FCE48E0099B055 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50617D8223FCE48E0099B055 /* App.swift */; };
@@ -112,6 +115,9 @@
 		50153E21250DECA300525160 /* SecretListItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecretListItemView.swift; sourceTree = "<group>"; };
 		5018F54E24064786002EB505 /* Notifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifier.swift; sourceTree = "<group>"; };
 		504788EB2E680DC400B4556F /* URLs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLs.swift; sourceTree = "<group>"; };
+		504788F12E681F3A00B4556F /* Instructions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Instructions.swift; sourceTree = "<group>"; };
+		504788F32E681F6900B4556F /* ToolConfigurationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolConfigurationView.swift; sourceTree = "<group>"; };
+		504788F52E68206F00B4556F /* GettingStartedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GettingStartedView.swift; sourceTree = "<group>"; };
 		50571E0224393C2600F76F6C /* JustUpdatedChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JustUpdatedChecker.swift; sourceTree = "<group>"; };
 		50571E0424393D1500F76F6C /* LaunchAgentController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchAgentController.swift; sourceTree = "<group>"; };
 		50617D7F23FCE48E0099B055 /* Secretive.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Secretive.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -187,6 +193,55 @@
 			path = Helpers;
 			sourceTree = "<group>";
 		};
+		504788ED2E681EB200B4556F /* Styles */ = {
+			isa = PBXGroup;
+			children = (
+				50CF4ABB2E601B0F005588DC /* ActionButtonStyle.swift */,
+				50BDCB732E6436C60072D2E7 /* ErrorStyle.swift */,
+				5065E312295517C500E16645 /* ToolbarButtonStyle.swift */,
+			);
+			path = Styles;
+			sourceTree = "<group>";
+		};
+		504788EE2E681EC300B4556F /* Secrets */ = {
+			isa = PBXGroup;
+			children = (
+				5099A02323FD2AAA0062B6F2 /* CreateSecretView.swift */,
+				50B8550C24138C4F009958AC /* DeleteSecretView.swift */,
+				2C4A9D2E2636FFD3008CC8E2 /* EditSecretView.swift */,
+				50BB046A2418AAAE00D6E079 /* EmptyStoreView.swift */,
+				506772C82425BB8500034DED /* NoStoresView.swift */,
+				50C385A42407A76D00AF2719 /* SecretDetailView.swift */,
+				50153E21250DECA300525160 /* SecretListItemView.swift */,
+				5079BA0E250F29BF00EA86F4 /* StoreListView.swift */,
+			);
+			path = Secrets;
+			sourceTree = "<group>";
+		};
+		504788EF2E681ED700B4556F /* Configuration */ = {
+			isa = PBXGroup;
+			children = (
+				50BDCB752E6450950072D2E7 /* ConfigurationItemView.swift */,
+				50AE96FF2E5C1A420018C710 /* IntegrationsView.swift */,
+				504788F12E681F3A00B4556F /* Instructions.swift */,
+				504788F32E681F6900B4556F /* ToolConfigurationView.swift */,
+				5066A6C12516F303004B5A36 /* SetupView.swift */,
+				504788F52E68206F00B4556F /* GettingStartedView.swift */,
+			);
+			path = Configuration;
+			sourceTree = "<group>";
+		};
+		504788F02E681F0100B4556F /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				50BDCB712E63BAF20072D2E7 /* AgentStatusView.swift */,
+				50617D8423FCE48E0099B055 /* ContentView.swift */,
+				5066A6C72516FE6E004B5A36 /* CopyableView.swift */,
+				50153E1F250AFCB200525160 /* UpdateView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		50617D7623FCE48D0099B055 = {
 			isa = PBXGroup;
 			children = (
@@ -249,24 +304,10 @@
 		508A58B0241ED1C40069DC07 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				50617D8423FCE48E0099B055 /* ContentView.swift */,
-				5065E312295517C500E16645 /* ToolbarButtonStyle.swift */,
-				50CF4ABB2E601B0F005588DC /* ActionButtonStyle.swift */,
-				5079BA0E250F29BF00EA86F4 /* StoreListView.swift */,
-				50153E21250DECA300525160 /* SecretListItemView.swift */,
-				50C385A42407A76D00AF2719 /* SecretDetailView.swift */,
-				5099A02323FD2AAA0062B6F2 /* CreateSecretView.swift */,
-				50B8550C24138C4F009958AC /* DeleteSecretView.swift */,
-				2C4A9D2E2636FFD3008CC8E2 /* EditSecretView.swift */,
-				50BB046A2418AAAE00D6E079 /* EmptyStoreView.swift */,
-				506772C82425BB8500034DED /* NoStoresView.swift */,
-				50153E1F250AFCB200525160 /* UpdateView.swift */,
-				5066A6C12516F303004B5A36 /* SetupView.swift */,
-				50BDCB712E63BAF20072D2E7 /* AgentStatusView.swift */,
-				50AE96FF2E5C1A420018C710 /* IntegrationsView.swift */,
-				5066A6C72516FE6E004B5A36 /* CopyableView.swift */,
-				50BDCB732E6436C60072D2E7 /* ErrorStyle.swift */,
-				50BDCB752E6450950072D2E7 /* ConfigurationItemView.swift */,
+				504788EF2E681ED700B4556F /* Configuration */,
+				504788EE2E681EC300B4556F /* Secrets */,
+				504788ED2E681EB200B4556F /* Styles */,
+				504788F02E681F0100B4556F /* Views */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -445,6 +486,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				504788F22E681F3A00B4556F /* Instructions.swift in Sources */,
 				50BDCB742E6436CA0072D2E7 /* ErrorStyle.swift in Sources */,
 				2C4A9D2F2636FFD3008CC8E2 /* EditSecretView.swift in Sources */,
 				5091D2BC25183B830049FD9B /* ApplicationDirectoryController.swift in Sources */,
@@ -452,6 +494,7 @@
 				5066A6C22516F303004B5A36 /* SetupView.swift in Sources */,
 				5065E313295517C500E16645 /* ToolbarButtonStyle.swift in Sources */,
 				50617D8523FCE48E0099B055 /* ContentView.swift in Sources */,
+				504788F62E68206F00B4556F /* GettingStartedView.swift in Sources */,
 				50CF4ABC2E601B0F005588DC /* ActionButtonStyle.swift in Sources */,
 				50571E0324393C2600F76F6C /* JustUpdatedChecker.swift in Sources */,
 				5079BA0F250F29BF00EA86F4 /* StoreListView.swift in Sources */,
@@ -469,6 +512,7 @@
 				50BB046B2418AAAE00D6E079 /* EmptyStoreView.swift in Sources */,
 				50BDCB762E6450950072D2E7 /* ConfigurationItemView.swift in Sources */,
 				50617D8323FCE48E0099B055 /* App.swift in Sources */,
+				504788F42E681F6900B4556F /* ToolConfigurationView.swift in Sources */,
 				506772C92425BB8500034DED /* NoStoresView.swift in Sources */,
 				50153E22250DECA300525160 /* SecretListItemView.swift in Sources */,
 				508A58B5241ED48F0069DC07 /* PreviewAgentStatusChecker.swift in Sources */,

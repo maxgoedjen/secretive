@@ -45,9 +45,9 @@ struct Secretive: App {
             ContentView(showingCreation: $showingCreation, runningSetup: $showingSetup, hasRunSetup: $hasRunSetup)
                 .environment(EnvironmentValues._secretStoreList)
                 .onAppear {
-                    if !hasRunSetup {
+//                    if !hasRunSetup {
                         showingSetup = true
-                    }
+//                    }
                 }
                 .onReceive(NotificationCenter.default.publisher(for: NSApplication.didBecomeActiveNotification)) { _ in
                     guard hasRunSetup else { return }

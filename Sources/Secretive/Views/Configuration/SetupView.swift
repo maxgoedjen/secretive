@@ -67,7 +67,7 @@ struct SetupView: View {
                 buttonWidth = width
             }
             .background(.white.opacity(0.1), in: RoundedRectangle(cornerRadius: 10))
-            .frame(minWidth: 700, maxWidth: .infinity)
+            .frame(minWidth: 600, maxWidth: .infinity)
             HStack {
                 Spacer()
                 Button(.setupDoneButton) {
@@ -154,17 +154,19 @@ struct StepView<Content: View>: View {
     }
     
     var body: some View {
-        HStack(spacing: 20) {
+        HStack(spacing: 0) {
             icon
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .frame(width: 24)
-            VStack(alignment: .leading, spacing: 6) {
+            Spacer()
+                .frame(width: 20)
+            VStack(alignment: .leading, spacing: 4) {
                 Text(title)
                     .bold()
                 Text(description)
             }
-            Spacer()
+            Spacer(minLength: 20)
             actions
         }
         .padding(20)
