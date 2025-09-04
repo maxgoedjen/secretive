@@ -3403,28 +3403,6 @@
         }
       }
     },
-    "integrations_public_key_path_placeholder" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "YOUR_PUBLIC_KEY_PATH"
-          }
-        }
-      }
-    },
-    "integrations_public_key_placeholder" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "YOUR_PUBLIC_KEY"
-          }
-        }
-      }
-    },
     "integrations_shell_section_title" : {
       "extractionState" : "manual",
       "localizations" : {
