@@ -7,7 +7,6 @@ on:
   
 jobs:
   build:
-#     runs-on: macOS-latest
     runs-on: macos-15
     permissions:
       id-token: write
