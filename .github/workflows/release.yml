@@ -6,7 +6,8 @@ on:
       - '*'
 jobs:
   test:
-#     runs-on: macOS-latest
+    permissions:
+        contents: read
     runs-on: macos-15
     timeout-minutes: 10
     steps:
@@ -25,12 +26,11 @@ jobs:
     - name: Test
       run: swift test --build-system swiftbuild --package-path Sources/Packages
   build:
-#     runs-on: macOS-latest
-    runs-on: macos-15
     permissions:
       id-token: write
       contents: write
       attestations: write
+    runs-on: macos-15
     timeout-minutes: 10
     steps:
     - uses: actions/checkout@v5
