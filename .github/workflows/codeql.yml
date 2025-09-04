@@ -34,7 +34,7 @@ jobs:
       with:
         languages: ${{ matrix.language }}
         build-mode: ${{ matrix.build-mode }}
-    # - if: matrix.build-mode == 'manual'
+    - if: matrix.build-mode == 'manual'
       # name: "Select Xcode"
       # run: sudo xcrun xcode-select -s /Applications/Xcode_26.0.app
     - if: matrix.build-mode == 'manual'
