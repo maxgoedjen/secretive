@@ -75,7 +75,7 @@ extension ContentView {
         if update.critical {
             return (.updateCriticalNoticeTitle, .red)
         } else {
-            if updater.testBuild {
+            if updater.currentVersion.isTestBuild {
                 return (.updateTestNoticeTitle, .blue)
             } else {
                 return (.updateNormalNoticeTitle, .orange)
@@ -95,7 +95,22 @@ extension ContentView {
             })
             .buttonStyle(ToolbarButtonStyle(color: color))
             .sheet(item: $selectedUpdate) { update in
-                UpdateDetailView(update: update)
+                VStack {
+                    if updater.currentVersion.isTestBuild {
+                        VStack {
+                            if let description = updater.currentVersion.previewDescription {
+                                Text(description)
+                            }
+                            Link(destination: URL(string: "https://github.com/maxgoedjen/secretive/actions/workflows/nightly.yml")!) {
+                                Button(.updaterDownloadLatestNightlyButton) {}
+                                    .frame(maxWidth: .infinity)
+                                    .primaryButton()
+                            }
+                        }
+                        .padding()
+                    }
+                    UpdateDetailView(update: update)
+                }
             }
         }
     }

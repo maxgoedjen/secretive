@@ -6314,6 +6314,17 @@
           }
         }
       }
+    },
+    "updater_download_latest_nightly_button" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Download Latest Nightly Build"
+          }
+        }
+      }
     }
   },
   "version" : "1.0"

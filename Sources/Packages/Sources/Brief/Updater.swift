@@ -13,12 +13,11 @@ import Observation
         state.update
     }
 
-    public let testBuild: Bool
+    /// The current version of the app that is running.
+    public let currentVersion: SemVer
 
     /// The current OS version.
     private let osVersion: SemVer
-    /// The current version of the app that is running.
-    private let currentVersion: SemVer
 
     /// Initializes an Updater.
     /// - Parameters:
@@ -34,7 +33,6 @@ import Observation
     ) {
         self.osVersion = osVersion
         self.currentVersion = currentVersion
-        testBuild = currentVersion == SemVer("0.0.0")
         if checkOnLaunch {
             // Don't do a launch check if the user hasn't seen the setup prompt explaining updater yet.
             Task {
