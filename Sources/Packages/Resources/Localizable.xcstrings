@@ -2901,6 +2901,28 @@
         }
       }
     },
+    "empty_store_modifiable_empty_os_warning_description" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "It looks like you may have recently updated macOS. Sometimes this puts the Secure Enclave into a weird state, and you might need to reboot your Mac before things start working again."
+          }
+        }
+      }
+    },
+    "empty_store_modifiable_empty_os_warning_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Missing Secrets?"
+          }
+        }
+      }
+    },
     "empty_store_nonmodifiable_description" : {
       "extractionState" : "manual",
       "localizations" : {

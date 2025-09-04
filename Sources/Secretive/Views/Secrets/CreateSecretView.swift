@@ -66,7 +66,7 @@ struct CreateSecretView<StoreType: SecretStoreModifiable>: View {
                             Text(.createSecretBiometryCurrentWarning)
                                 .padding(.horizontal, 10)
                                 .padding(.vertical, 3)
-                                .background(.red.opacity(0.5), in:  RoundedRectangle(cornerRadius: 5))
+                                .boxBackground(color: .red)
                         }
 
                     }
@@ -85,7 +85,7 @@ struct CreateSecretView<StoreType: SecretStoreModifiable>: View {
                                 Text(.createSecretMldsaWarning)
                                     .padding(.horizontal, 10)
                                     .padding(.vertical, 3)
-                                    .background(.red.opacity(0.5), in:  RoundedRectangle(cornerRadius: 5))
+                                    .boxBackground(color: .orange)
                             }
                         }
                         VStack(alignment: .leading) {
