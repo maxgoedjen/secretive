@@ -40,10 +40,7 @@ struct ConfigurationItemView<Content: View>: View {
                     .buttonStyle(.borderless)
                 case .revealInFinder(let rawPath):
                     Button(.revealInFinderButton, systemImage: "folder") {
-                        // All foundation-based normalization methods replace this with the container directly.
-                        let processedPath = rawPath.replacingOccurrences(of: "~", with: "/Users/\(NSUserName())")
-                        let url = URL(filePath: processedPath)
-                        let folder = url.deletingLastPathComponent().path()
+                        let (processedPath, folder) = rawPath.normalizedPathAndFolder
                         NSWorkspace.shared.selectFile(processedPath, inFileViewerRootedAtPath: folder)
                     }
                     .labelStyle(.iconOnly)

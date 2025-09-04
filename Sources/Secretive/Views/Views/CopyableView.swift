@@ -6,6 +6,7 @@ struct CopyableView: View {
     var title: LocalizedStringResource
     var image: Image
     var text: String
+    var showRevealInFinder = false
 
     @State private var interactionState: InteractionState = .normal
     
@@ -21,9 +22,12 @@ struct CopyableView: View {
                     .foregroundColor(primaryTextColor)
                 Spacer()
                 if interactionState != .normal {
-                    hoverIcon
-                        .bold()
-                        .textCase(.uppercase)
+                    HStack {
+                        if showRevealInFinder {
+                            revealInFinderButton
+                        }
+                        copyButton
+                    }
                         .foregroundColor(secondaryTextColor)
                         .transition(.opacity)
                 }
@@ -72,17 +76,33 @@ struct CopyableView: View {
     }
 
     @ViewBuilder
-    var hoverIcon: some View {
+    var copyButton: some View {
         switch interactionState {
         case .hovering:
-            Image(systemName: "document.on.document")
-                .accessibilityLabel(String(localized: .copyableClickToCopyButton))
+            Button(.copyableClickToCopyButton, systemImage: "document.on.document") {
+                withAnimation {
+                    // Button will eat the click, so we set interaction state manually.
+                    interactionState = .clicking
+                }
+                copy()
+            }
+            .labelStyle(.iconOnly)
+            .buttonStyle(.borderless)
         case .clicking:
             Image(systemName: "checkmark.circle.fill")
                 .accessibilityLabel(String(localized: .copyableCopied))
         case .normal, .dragging:
             EmptyView()
         }
+    }
+
+    var revealInFinderButton: some View {
+        Button(.revealInFinderButton, systemImage: "folder") {
+            let (processedPath, folder) = text.normalizedPathAndFolder
+            NSWorkspace.shared.selectFile(processedPath, inFileViewerRootedAtPath: folder)
+        }
+        .labelStyle(.iconOnly)
+        .buttonStyle(.borderless)
     }
 
     var primaryTextColor: Color {
