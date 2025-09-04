@@ -25,6 +25,9 @@ extension EnvironmentValues {
     }()
     @Entry var updater: any UpdaterProtocol = _updater
 
+    private static let _justUpdatedChecker = JustUpdatedChecker()
+    @Entry var justUpdatedChecker: any JustUpdatedCheckerProtocol = _justUpdatedChecker
+
     @MainActor var secretStoreList: SecretStoreList {
         EnvironmentValues._secretStoreList
     }
@@ -33,8 +36,8 @@ extension EnvironmentValues {
 @main
 struct Secretive: App {
     
-    private let justUpdatedChecker = JustUpdatedChecker()
     @Environment(\.agentStatusChecker) var agentStatusChecker
+    @Environment(\.justUpdatedChecker) var justUpdatedChecker
     @AppStorage("defaultsHasRunSetup") var hasRunSetup = false
     @State private var showingSetup = false
     @State private var showingIntegrations = false
@@ -52,7 +55,7 @@ struct Secretive: App {
                 .onReceive(NotificationCenter.default.publisher(for: NSApplication.didBecomeActiveNotification)) { _ in
                     guard hasRunSetup else { return }
                     agentStatusChecker.check()
-                    if agentStatusChecker.running && justUpdatedChecker.justUpdated {
+                    if agentStatusChecker.running && justUpdatedChecker.justUpdatedBuild {
                         // Relaunch the agent, since it'll be running from earlier update still
                         reinstallAgent()
                     } else if !agentStatusChecker.running && !agentStatusChecker.developmentBuild {
@@ -89,7 +92,6 @@ struct Secretive: App {
 extension Secretive {
 
     private func reinstallAgent() {
-        justUpdatedChecker.check()
         Task {
             _ = await LaunchAgentController().install()
             try? await Task.sleep(for: .seconds(1))
