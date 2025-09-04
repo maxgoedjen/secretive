@@ -6,7 +6,7 @@ import Brief
 
     var update: Release? = nil
 
-    let testBuild = false
+    let currentVersion = SemVer("0.0.0_preview")
 
     init(update: Update = .none) {
         switch update {

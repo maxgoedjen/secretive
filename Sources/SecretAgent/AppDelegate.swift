@@ -58,7 +58,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             updater.update
         } onChange: { [updater, notifier] in
             Task {
-                guard !updater.testBuild else { return }
+                guard !updater.currentVersion.isTestBuild else { return }
                 await notifier.notify(update: updater.update!) { release in
                     await updater.ignore(release: release)
                 }
