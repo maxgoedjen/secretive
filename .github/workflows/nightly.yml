@@ -39,7 +39,6 @@ jobs:
     - name: Create ZIPs
       run: |
             ditto -c -k --sequesterRsrc --keepParent Archive.xcarchive/Products/Applications/Secretive.app ./Secretive.zip
-            ditto -c -k --sequesterRsrc --keepParent Archive.xcarchive ./Xcode_Archive.zip
     - name: Notarize
       env: 
         APPLE_API_KEY_ID: ${{ secrets.APPLE_API_KEY_ID }}
@@ -49,14 +48,9 @@ jobs:
       id: attest
       uses: actions/attest-build-provenance@v2
       with:
-        subject-path: 'Secretive.zip, Xcode_Archive.zip'
+        subject-path: 'Secretive.zip'
     - name: Upload App to Artifacts
       uses: actions/upload-artifact@v4
       with:
         name: Secretive.zip
         path: Secretive.zip
-    - name: Upload Archive to Artifacts
-      uses: actions/upload-artifact@v4
-      with:
-        name: Xcode_Archive.zip
-        path: Xcode_Archive.zip
