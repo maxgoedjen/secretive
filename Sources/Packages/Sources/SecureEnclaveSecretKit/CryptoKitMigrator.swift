@@ -30,7 +30,7 @@ extension SecureEnclave {
             SecItemCopyMatching(privateAttributes, &privateUntyped)
             guard let privateTyped = privateUntyped as? [[CFString: Any]] else { return }
             let migratedPublicKeys = Set(store.secrets.map(\.publicKey))
-            var migrated = false
+            var migratedAny = false
             for key in privateTyped {
                 let name = key[kSecAttrLabel] as? String ?? String(localized: .unnamedSecret)
                 let id = key[kSecAttrApplicationLabel] as! Data
@@ -45,20 +45,24 @@ extension SecureEnclave {
                 // Best guess.
                 let auth: AuthenticationRequirement = String(describing: accessControl)
                     .contains("DeviceOwnerAuthentication") ? .presenceRequired : .unknown
-                let parsed = try CryptoKit.SecureEnclave.P256.Signing.PrivateKey(dataRepresentation: tokenObjectID)
-                let secret = Secret(id: UUID().uuidString, name: name, publicKey: parsed.publicKey.x963Representation, attributes: Attributes(keyType: .init(algorithm: .ecdsa, size: 256), authentication: auth))
-                guard !migratedPublicKeys.contains(parsed.publicKey.x963Representation) else {
-                    logger.log("Skipping \(name), public key already present. Marking as migrated.")
+                do {
+                    let parsed = try CryptoKit.SecureEnclave.P256.Signing.PrivateKey(dataRepresentation: tokenObjectID)
+                    let secret = Secret(id: UUID().uuidString, name: name, publicKey: parsed.publicKey.x963Representation, attributes: Attributes(keyType: .init(algorithm: .ecdsa, size: 256), authentication: auth))
+                    guard !migratedPublicKeys.contains(parsed.publicKey.x963Representation) else {
+                        logger.log("Skipping \(name), public key already present. Marking as migrated.")
+                        try markMigrated(secret: secret, oldID: id)
+                        continue
+                    }
+                    logger.log("Migrating \(name).")
+                    try store.saveKey(tokenObjectID, name: name, attributes: secret.attributes)
+                    logger.log("Migrated \(name).")
                     try markMigrated(secret: secret, oldID: id)
-                    continue
+                    migratedAny = true
+                } catch {
+                    logger.error("Failed to migrate \(name): \(error).")
                 }
-                logger.log("Migrating \(name).")
-                try store.saveKey(tokenObjectID, name: name, attributes: secret.attributes)
-                logger.log("Migrated \(name).")
-                try markMigrated(secret: secret, oldID: id)
-                migrated = true
             }
-            if migrated {
+            if migratedAny {
                 store.reloadSecrets()
             }
         }

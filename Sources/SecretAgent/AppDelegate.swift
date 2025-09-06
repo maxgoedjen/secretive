@@ -21,7 +21,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }()
     private let updater = Updater(checkOnLaunch: true)
     private let notifier = Notifier()
-    private let publicKeyFileStoreController = PublicKeyFileStoreController(homeDirectory: NSHomeDirectory())
+    private let publicKeyFileStoreController = PublicKeyFileStoreController(homeDirectory: URL.homeDirectory)
     private lazy var agent: Agent = {
         Agent(storeList: storeList, witness: notifier)
     }()
@@ -58,7 +58,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             updater.update
         } onChange: { [updater, notifier] in
             Task {
-                guard !updater.testBuild else { return }
+                guard !updater.currentVersion.isTestBuild else { return }
                 await notifier.notify(update: updater.update!) { release in
                     await updater.ignore(release: release)
                 }

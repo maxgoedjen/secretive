@@ -36,7 +36,7 @@ struct ContentView: View {
             toolbarItem(newItemView, id: "new")
         }
         .sheet(isPresented: $runningSetup) {
-            SetupView(visible: $runningSetup, setupComplete: $hasRunSetup)
+            SetupView(setupComplete: $hasRunSetup)
         }
     }
 
@@ -56,7 +56,7 @@ extension ContentView {
     }
     
     var needsSetup: Bool {
-        (runningSetup || !hasRunSetup || !agentStatusChecker.running) && !agentStatusChecker.developmentBuild
+        runningSetup || !hasRunSetup
     }
 
     /// Item either showing a "everything's good, here's more info" or "something's wrong, re-run setup" message
@@ -66,7 +66,7 @@ extension ContentView {
         if needsSetup {
             setupNoticeView
         } else {
-            runningNoticeView
+            agentStatusToolbarView
         }
     }
 
@@ -75,7 +75,7 @@ extension ContentView {
         if update.critical {
             return (.updateCriticalNoticeTitle, .red)
         } else {
-            if updater.testBuild {
+            if updater.currentVersion.isTestBuild {
                 return (.updateTestNoticeTitle, .blue)
             } else {
                 return (.updateNormalNoticeTitle, .orange)
@@ -94,8 +94,23 @@ extension ContentView {
                     .foregroundColor(.white)
             })
             .buttonStyle(ToolbarButtonStyle(color: color))
-            .popover(item: $selectedUpdate, attachmentAnchor: attachmentAnchor, arrowEdge: .bottom) { update in
-                UpdateDetailView(update: update)
+            .sheet(item: $selectedUpdate) { update in
+                VStack {
+                    if updater.currentVersion.isTestBuild {
+                        VStack {
+                            if let description = updater.currentVersion.previewDescription {
+                                Text(description)
+                            }
+                            Link(destination: URL(string: "https://github.com/maxgoedjen/secretive/actions/workflows/nightly.yml")!) {
+                                Button(.updaterDownloadLatestNightlyButton) {}
+                                    .frame(maxWidth: .infinity)
+                                    .primaryButton()
+                            }
+                        }
+                        .padding()
+                    }
+                    UpdateDetailView(update: update)
+                }
             }
         }
     }
@@ -103,18 +118,17 @@ extension ContentView {
     @ViewBuilder
     var newItemView: some View {
         if storeList.modifiableStore?.isAvailable ?? false {
-            Button(action: {
+            Button(.appMenuNewSecretButton, systemImage: "plus") {
                 showingCreation = true
-            }, label: {
-                Image(systemName: "plus")
-            })
+            }
+            .menuButton()
             .sheet(isPresented: $showingCreation) {
                 if let modifiable = storeList.modifiableStore {
-                    CreateSecretView(store: modifiable, showing: $showingCreation)
-                        .onDisappear {
-                            guard let newest = modifiable.secrets.last else { return }
-                            activeSecret = newest
+                    CreateSecretView(store: modifiable) { created in
+                        if let created {
+                            activeSecret = created
                         }
+                    }
                 }
             }
         }
@@ -125,43 +139,44 @@ extension ContentView {
         Button(action: {
             runningSetup = true
         }, label: {
-            Group {
-                if hasRunSetup && !agentStatusChecker.running {
-                    Text(.agentNotRunningNoticeTitle)
-                } else {
-                    Text(.agentSetupNoticeTitle)
-                }
+            if !hasRunSetup {
+                Text(.agentSetupNoticeTitle)
+                    .font(.headline)
             }
-            .font(.headline)
-
         })
         .buttonStyle(ToolbarButtonStyle(color: .orange))
     }
 
     @ViewBuilder
-    var runningNoticeView: some View {
+    var agentStatusToolbarView: some View {
         Button(action: {
             showingAgentInfo = true
         }, label: {
             HStack {
-                Text(.agentRunningNoticeTitle)
-                    .font(.headline)
-                    .foregroundColor(colorScheme == .light ? Color(white: 0.3) : .white)
-                Circle()
-                    .frame(width: 10, height: 10)
-                    .foregroundColor(Color.green)
+                if agentStatusChecker.running {
+                    Text(.agentRunningNoticeTitle)
+                        .font(.headline)
+                        .foregroundColor(colorScheme == .light ? Color(white: 0.3) : .white)
+                    Circle()
+                        .frame(width: 10, height: 10)
+                        .foregroundColor(Color.green)
+                } else {
+                    Text(.agentNotRunningNoticeTitle)
+                        .font(.headline)
+                    Circle()
+                        .frame(width: 10, height: 10)
+                        .foregroundColor(Color.red)
+                }
             }
         })
-        .buttonStyle(ToolbarButtonStyle(lightColor: .black.opacity(0.05), darkColor: .white.opacity(0.05)))
+        .buttonStyle(
+            ToolbarButtonStyle(
+                lightColor: agentStatusChecker.running ? .black.opacity(0.05) : .red.opacity(0.75),
+                darkColor: agentStatusChecker.running ? .white.opacity(0.05) : .red.opacity(0.5),
+            )
+        )
         .popover(isPresented: $showingAgentInfo, attachmentAnchor: attachmentAnchor, arrowEdge: .bottom) {
-            VStack {
-                Text(.agentRunningNoticeDetailTitle)
-                    .font(.title)
-                    .padding(5)
-                Text(.agentRunningNoticeDetailDescription)
-                    .frame(width: 300)
-            }
-            .padding()
+            AgentStatusView()
         }
     }
 
@@ -193,31 +208,22 @@ extension ContentView {
     }
 
     var attachmentAnchor: PopoverAttachmentAnchor {
-        // Ideally .point(.bottom), but broken on Sonoma (FB12726503)
         .rect(.bounds)
     }
 
 }
 
-#if DEBUG
 
-struct ContentView_Previews: PreviewProvider {
-
-    static var previews: some View {
-        Group {
-            // Empty on modifiable and nonmodifiable
-            ContentView(showingCreation: .constant(false), runningSetup: .constant(false), hasRunSetup: .constant(true))
-                .environment(Preview.storeList(stores: [Preview.Store(numberOfRandomSecrets: 0)], modifiableStores: [Preview.StoreModifiable(numberOfRandomSecrets: 0)]))
-                .environment(PreviewUpdater())
-
-            // 5 items on modifiable and nonmodifiable
-            ContentView(showingCreation: .constant(false), runningSetup: .constant(false), hasRunSetup: .constant(true))
-                .environment(Preview.storeList(stores: [Preview.Store()], modifiableStores: [Preview.StoreModifiable()]))
-                .environment(PreviewUpdater())
-        }
-
-    }
-}
-
-#endif
-
+//#Preview {
+//    // Empty on modifiable and nonmodifiable
+//    ContentView(showingCreation: .constant(false), runningSetup: .constant(false), hasRunSetup: .constant(true))
+//        .environment(Preview.storeList(stores: [Preview.Store(numberOfRandomSecrets: 0)], modifiableStores: [Preview.StoreModifiable(numberOfRandomSecrets: 0)]))
+//        .environment(PreviewUpdater())
+//}
+//
+//#Preview {
+//    // 5 items on modifiable and nonmodifiable
+//    ContentView(showingCreation: .constant(false), runningSetup: .constant(false), hasRunSetup: .constant(true))
+//        .environment(Preview.storeList(stores: [Preview.Store()], modifiableStores: [Preview.StoreModifiable()]))
+//        .environment(PreviewUpdater())
+//}

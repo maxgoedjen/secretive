@@ -1,6 +1,108 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "" : {
+
+    },
+    "agent_details_could_not_start_error" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Secretive was unable to get SecretAgent to launch. Please try restarting your Mac, and if that doesn't work, file an issue on GitHub."
+          }
+        }
+      }
+    },
+    "agent_details_disable_agent_button" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Disable Agent"
+          }
+        }
+      }
+    },
+    "agent_details_restart_agent_button" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Restart Agent"
+          }
+        }
+      }
+    },
+    "agent_details_running_since_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Running Since"
+          }
+        }
+      }
+    },
+    "agent_details_socket_path_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Socket Path"
+          }
+        }
+      }
+    },
+    "agent_details_start_agent_button" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Start Agent"
+          }
+        }
+      }
+    },
+    "agent_details_start_agent_button_starting" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Starting Agent"
+          }
+        }
+      }
+    },
+    "agent_details_version_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Version"
+          }
+        }
+      }
+    },
+    "agent_not_running_notice_detail_description" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "SecretAgent is a process that runs in the background to sign requests, so you don't need to keep Secretive open all the time.\n\n**Secretive will not be able to function properly unless the agent is installed and running.**"
+          }
+        }
+      }
+    },
     "agent_not_running_notice_title" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -382,6 +484,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "设置 Secretive"
+          }
+        }
+      }
+    },
+    "agentDetailsLocationTitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Secret Agent Location"
           }
         }
       }
@@ -1161,6 +1274,17 @@
         }
       }
     },
+    "copy_button" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Copy"
+          }
+        }
+      }
+    },
     "copyable_click_to_copy_button" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1497,7 +1621,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "This shows at the end of your public key."
+            "value" : "This shows at the end of your public key. It’s usually an email address."
           }
         }
       }
@@ -2777,6 +2901,28 @@
         }
       }
     },
+    "empty_store_modifiable_empty_os_warning_description" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "It looks like you may have recently updated macOS. Sometimes this puts the Secure Enclave into a weird state, and you might need to reboot your Mac before things start working again."
+          }
+        }
+      }
+    },
+    "empty_store_modifiable_empty_os_warning_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Missing Secrets?"
+          }
+        }
+      }
+    },
     "empty_store_nonmodifiable_description" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -2859,73 +3005,73 @@
       "localizations" : {
         "ca" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Secretive suporta claus EC256, EC384, RSA1024 i RSA2048."
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Secretive unterstützt EC256, EC384, RSA1024 und RSA2048 Schlüssel."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Secretive supports EC256, EC384, RSA1024, and RSA2048 keys."
+            "value" : "Secretive supports EC256, EC384, and RSA2048 keys."
           }
         },
         "fi" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Secretive tukee EC256-, EC384-, RSA1024- ja RSA2048-avaimia."
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Secretive prend en charge les clés EC256, EC384, RSA1024 et RSA2048."
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Secretive supporta la cifratura EC256, EC384, RSA1024 e RSA2048."
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "SecretiveはEC256、EC384、RSA1024、またはRSA2048の鍵に対応しています。"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Secretive는 EC256, EC384, RSA1024 및 RSA2048 키를 지원합니다."
           }
         },
         "pl" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Secretive wspiera klucze EC256, EC384, RSA1024 i RSA2048."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Secretive suporta chaves EC256, EC384, RSA1024 e RSA2048."
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Secretive поддерживает ключи EC256, EC384, RSA1024, и RSA2048."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Secretive 支持 EC256, EC384, RSA1024, 和RSA2048."
           }
         }
@@ -3004,6 +3150,402 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "没有密钥串"
+          }
+        }
+      }
+    },
+    "export SSH_AUTH_SOCK=%@" : {
+      "shouldTranslate" : false
+    },
+    "Host *\n\tIdentityAgent %@" : {
+      "shouldTranslate" : false
+    },
+    "integrations_add_this_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add This:"
+          }
+        }
+      }
+    },
+    "integrations_apps_row_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apps"
+          }
+        }
+      }
+    },
+    "integrations_community_apps_list_description" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "There's a community-maintained list of instructions for apps on GitHub. If the app you're looking for isn't supported, create an issue and the community may be able to help."
+          }
+        }
+      }
+    },
+    "integrations_community_shell_list_description" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "There's a community-maintained list of shell instructions on GitHub. If the shell you're looking for isn't supported, create an issue and the community may be able to help."
+          }
+        }
+      }
+    },
+    "integrations_configure_using_secret_empty_create" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You'll need to create a Secret before configuring this action."
+          }
+        }
+      }
+    },
+    "integrations_configure_using_secret_header" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Configure Using Secret"
+          }
+        }
+      }
+    },
+    "integrations_configure_using_secret_no_secret" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No Secret"
+          }
+        }
+      }
+    },
+    "integrations_configure_using_secret_secret_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Secret"
+          }
+        }
+      }
+    },
+    "integrations_getting_started_multiple_config" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You can configure more than one tool, they generally won't interfere with each other."
+          }
+        }
+      }
+    },
+    "integrations_getting_started_row_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Getting Started"
+          }
+        }
+      }
+    },
+    "integrations_getting_started_section_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Integrations"
+          }
+        }
+      }
+    },
+    "integrations_getting_started_suggestion_git" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "If you're trying to sign your git commits, set up Git Signing."
+          }
+        }
+      }
+    },
+    "integrations_getting_started_suggestion_shell" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "If you're trying to configure anything your command line runs to use Secretive, configure your shell."
+          }
+        }
+      }
+    },
+    "integrations_getting_started_suggestion_shell_default" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "If you don't known what shell you use and haven't changed it, you're probably using `%(shellName)@`."
+          }
+        }
+      }
+    },
+    "integrations_getting_started_suggestion_ssh" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "If you're trying to authenticate with an SSH server or authenticating with a service like GitHub over SSH, configure your SSH client."
+          }
+        }
+      }
+    },
+    "integrations_getting_started_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Configuring Tools for Secretive"
+          }
+        }
+      }
+    },
+    "integrations_getting_started_title_description" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Most tools will try and look for SSH keys on disk in `~/.ssh`. To use Secretive, we need to configure those tools to talk to Secretive instead."
+          }
+        }
+      }
+    },
+    "integrations_getting_started_what_should_i_configure_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "What Should I Configure?"
+          }
+        }
+      }
+    },
+    "integrations_git_step_gitallowedsigners_description" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "~/.gitallowedsigners probably does not exist. You'll need to create it."
+          }
+        }
+      }
+    },
+    "integrations_git_step_gitconfig_description" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "[user]\n    signingkey = %1$(publicKeyPathPlaceholder)@\n[commit]\n    gpgsign = true\n[gpg]\n    format = ssh\n[gpg \"ssh\"]\n    allowedSignersFile = ~/.gitallowedsigners"
+          }
+        }
+      },
+      "shouldTranslate" : false
+    },
+    "integrations_menu_bar_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Integrations…"
+          }
+        }
+      }
+    },
+    "integrations_other_section_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Other"
+          }
+        }
+      }
+    },
+    "integrations_other_shell_row_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "other"
+          }
+        }
+      }
+    },
+    "integrations_path_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Configuration File"
+          }
+        }
+      }
+    },
+    "integrations_shell_section_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Shell"
+          }
+        }
+      }
+    },
+    "integrations_ssh_specific_key_note" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You can tell SSH to use a specific key for a given host. See the web documentation for more details."
+          }
+        }
+      }
+    },
+    "integrations_system_section_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "System"
+          }
+        }
+      }
+    },
+    "integrations_tool_name_bash" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "bash"
+          }
+        }
+      },
+      "shouldTranslate" : false
+    },
+    "integrations_tool_name_fish" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "fish"
+          }
+        }
+      },
+      "shouldTranslate" : false
+    },
+    "integrations_tool_name_git_signing" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Git Signing"
+          }
+        }
+      }
+    },
+    "integrations_tool_name_ssh" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "SSH"
+          }
+        }
+      },
+      "shouldTranslate" : false
+    },
+    "integrations_tool_name_zsh" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "zsh"
+          }
+        }
+      },
+      "shouldTranslate" : false
+    },
+    "integrations_view_other_github_link" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "View on GitHub"
+          }
+        }
+      }
+    },
+    "integrations_web_link" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "View Documentation on Web"
+          }
+        }
+      }
+    },
+    "integrationsGitStepGitconfigSectionNote" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "If any section (like [user]) already exists, just add the entries in the existing section."
           }
         }
       }
@@ -3391,6 +3933,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "不要自动验证"
+          }
+        }
+      }
+    },
+    "reveal_in_finder_button" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reveal in Finder"
           }
         }
       }
@@ -3892,6 +4445,9 @@
         }
       }
     },
+    "set -x SSH_AUTH_SOCK %@" : {
+      "shouldTranslate" : false
+    },
     "setup_agent_activity_monitor_description" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -4176,150 +4732,46 @@
         }
       }
     },
-    "setup_ssh_add_for_me_button" : {
+    "setup_done_button" : {
       "extractionState" : "manual",
       "localizations" : {
-        "ca" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Afegeix-ho per mi"
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Für Mich Einfügen"
-          }
-        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Add it For Me"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ajoutez-le pour moi"
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Aggiungila per me"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "自動で追加する"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "나를 위해 추가해주세요"
-          }
-        },
-        "pl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Dodaj za mnie"
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Adicionar para mim"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Добавить для меня"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "为我添加"
+            "value" : "Done"
           }
         }
       }
     },
-    "setup_ssh_add_to_config_button" : {
+    "setup_integrations_button" : {
       "extractionState" : "manual",
       "localizations" : {
-        "ca" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Afegeix a %1$(configPath)@"
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "In %1$(configPath)@ einfügen"
-          }
-        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Add to %1$(configPath)@"
+            "value" : "Configure"
           }
-        },
-        "fi" : {
+        }
+      }
+    },
+    "setup_integrations_description" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Add to %1$(configPath)@"
+            "value" : "Tell the tools you use how to talk to Secretive."
           }
-        },
-        "fr" : {
+        }
+      }
+    },
+    "setup_integrations_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ajouter à %1$(configPath)@"
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Aggiungi a %1$(configPath)@"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%1$(configPath)@に追加"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%1$(configPath)@에 추가"
-          }
-        },
-        "pl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Dodaj do %1$(configPath)@"
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Adicionar para %1$(configPath)@"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Добавить к %1$(configPath)@"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "添加到 %1$(configPath)@"
+            "value" : "Configure Integrations"
           }
         }
       }
@@ -4395,290 +4847,6 @@
         }
       }
     },
-    "setup_ssh_description" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "ca" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Afegeix aquesta línia a la teua configuració del shell per que SSH es comunique amb Secretive quan vulga autenticar. Secretive pot fer aquest procediment automàticament, o pots copiar i pegar açò al teu fitxer de configuració."
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Füge diese Zeile in deine Shell-Konfiguration ein, damit SSH zur Authentifizierung mit dem Secret Agent kommuniziert. Secretive kann dies automatisch tun, oder du kopierst diese Zeile in deine Konfigurationsdatei."
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Add this line to your shell config telling SSH to talk to Secret Agent when it wants to authenticate. Secretive can either do this for you automatically, or you can copy and paste this into your config file."
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ajoutez cette ligne à votre configuration shell pour indiquer à SSH de communiquer à Secret Agent quand il veut s'authentifier. Secretive peut le faire automatiquement pour vous, ou vous pouvez copier et coller cette ligne dans votre fichier de configuration."
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Aggiungi questa riga alla configurazione del Terminale per dire a SSH di parlare con Secret Agent quando vuole autenticarsi. Secretive può farlo automaticamente per te, oppure puoi copiare e incollare questa riga nel file di configurazione."
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "以下の行をシェルの設定に追加してSSHが認証の際にSecretAgentを利用できるようにしてください。Secretiveが自動で追加するか、手動でコピーして設定に追加することもできます。"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "SSH가 인증을 원할 때 Secret Agent와 통신하도록 지시하는 이 줄을 쉘 구성에 추가하세요. Secretive는 이 작업을 자동으로 수행하거나 사용자가 이를 복사하여 구성 파일에 붙여넣을 수 있습니다."
-          }
-        },
-        "pl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Dodaj tą linijkę to pliku konfiguracyjnego SSH, aby nawiązać połączenie z Secret Agent kiedy potrzebna jest autoryzacja. Secretive może ustawić to automatycznie lub możesz to zrobić samodzielnie kopiując to do pliku konfiguracyjnego."
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Adicione esta linha nas configurações do seu shell para dizer ao SSH para falar com o Secret Agent quando ele necessitar de autenticação. Secretive pode fazer isto para você automaticamente ou você pode copiar e colar isso no seu arquivo de configuração."
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Добавьте эту строчку к вашему конфигу shell, так SSH будет использовать SecretAgent в процессе аутентификации. Secretive может сделать это за Вас, либо Вы можете это скопировать сами."
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "将以下文本添加到您的SSH 配置中以使用Secret Agent. Secretive 无法自动帮您完成该过程，或者您可以选择拷贝并粘贴该文本到您的配置文件中"
-          }
-        }
-      }
-    },
-    "setup_ssh_title" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "ca" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Configura el teu agent SSH"
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Konfiguriere deinen SSH Agent"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Configure your SSH Agent"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Configurer votre Agent SSH"
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Configura il tuo Agente SSH"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "SSHエージェントを設定"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "SSH Agent 설정"
-          }
-        },
-        "pl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Skonfiguruj twojego klienta SSH"
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Configurar seu agente SSH"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Настройте Ваш SSH Agent"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "设置您的SSH 代理"
-          }
-        }
-      }
-    },
-    "setup_step_complete_symbol" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "ca" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "✓"
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "✓"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "✓"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "✓"
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "✓"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "✓"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "✓"
-          }
-        },
-        "pl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "✓"
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "✓"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "✓"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "✓"
-          }
-        }
-      }
-    },
-    "setup_third_party_faq_link" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "ca" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Si tractes de configurar una aplicació de tercers, comprova el FAQ."
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Schaue dir die FAQs an, um eine Drittanbieter-App einzurichten."
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "If you're trying to set up a third party app, check out the FAQ."
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Si vous essayez de configurer une application tierce, consultez la FAQ."
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Se stai cercando di impostare un’app di terze parti, dai un'occhiata alla FAQ."
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "その他のアプリから使う場合はよくある質問をご覧ください。"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "타사 앱을 설정하려는 경우 FAQ를 확인하세요."
-          }
-        },
-        "pl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Jeżeli próbujesz ustawić aplikacje stron trzecich, sprawdź FAQ."
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Se você estiver tentando configurar um aplicativo de terceiros, verifique o FAQ."
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Если Вы пытаетесь настроить сторонее приложение, ознакомьтесь с FAQ."
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "如果您想设置第三方APP，请阅读 FAQ。"
-          }
-        }
-      }
-    },
     "setup_updates_description" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -4750,7 +4918,7 @@
         }
       }
     },
-    "setup_updates_ok" : {
+    "setup_updates_ok_button" : {
       "extractionState" : "manual",
       "localizations" : {
         "ca" : {
@@ -4959,6 +5127,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "更新"
+          }
+        }
+      }
+    },
+    "setupStepCompleteButton" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Done"
           }
         }
       }
@@ -6132,6 +6311,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Secretive %1$(updateName)@"
+          }
+        }
+      }
+    },
+    "updater_download_latest_nightly_button" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Download Latest Nightly Build"
           }
         }
       }

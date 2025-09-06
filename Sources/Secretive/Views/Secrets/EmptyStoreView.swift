@@ -27,7 +27,9 @@ struct EmptyStoreImmutableView: View {
 }
 
 struct EmptyStoreModifiableView: View {
-    
+
+    @Environment(\.justUpdatedChecker) var justUpdatedChecker
+
     var body: some View {
         GeometryReader { windowGeometry in
             VStack {
@@ -51,21 +53,35 @@ struct EmptyStoreModifiableView: View {
                 }.frame(height: (windowGeometry.size.height/2) - 20).padding()
                 Text(.emptyStoreModifiableClickHereTitle).bold()
                 Text(.emptyStoreModifiableClickHereDescription)
+                if justUpdatedChecker.justUpdatedOS {
+                    Spacer()
+                        .frame(height: 20)
+                    VStack(spacing: 10) {
+                        Text(.emptyStoreModifiableEmptyOsWarningTitle)
+                            .font(.title2)
+                            .bold()
+                        Text(.emptyStoreModifiableEmptyOsWarningDescription)
+                            .fixedSize(horizontal: false, vertical: true)
+                            .bold()
+                    }
+                    .padding()
+                    .boxBackground(color: .orange)
+                    .padding()
+                }
                 Spacer()
             }.frame(maxWidth: .infinity, maxHeight: .infinity)
         }
     }
 }
 
-#if DEBUG
 
-struct EmptyStoreModifiableView_Previews: PreviewProvider {
-    static var previews: some View {
-        Group {
-            EmptyStoreImmutableView()
-            EmptyStoreModifiableView()
-        }
-    }
+#Preview {
+    EmptyStoreImmutableView()
 }
-
-#endif
+#Preview {
+    EmptyStoreImmutableView()
+//        .environment(\.justUpdatedChecker, <#T##value: V##V#>)
+}
+#Preview {
+    EmptyStoreModifiableView()
+}
