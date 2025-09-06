@@ -30,20 +30,24 @@ public actor OpenSSHCertificateHandler: Sendable {
     /// - Returns: A ``Data`` object containing the public key in OpenSSH wire format if the ``Data`` is an OpenSSH certificate hash, otherwise nil.
     public func publicKeyHash(from hash: Data) -> Data? {
         let reader = OpenSSHReader(data: hash)
-        let certType = String(decoding: reader.readNextChunk(), as: UTF8.self)
-        switch certType {
-        case "ecdsa-sha2-nistp256-cert-v01@openssh.com",
-            "ecdsa-sha2-nistp384-cert-v01@openssh.com",
-            "ecdsa-sha2-nistp521-cert-v01@openssh.com":
-            _ = reader.readNextChunk() // nonce
-            let curveIdentifier = reader.readNextChunk()
-            let publicKey = reader.readNextChunk()
+        do {
+            let certType = String(decoding: try reader.readNextChunk(), as: UTF8.self)
+            switch certType {
+            case "ecdsa-sha2-nistp256-cert-v01@openssh.com",
+                "ecdsa-sha2-nistp384-cert-v01@openssh.com",
+                "ecdsa-sha2-nistp521-cert-v01@openssh.com":
+                _ = try reader.readNextChunk() // nonce
+                let curveIdentifier = try reader.readNextChunk()
+                let publicKey = try reader.readNextChunk()
 
-            let openSSHIdentifier = certType.replacingOccurrences(of: "-cert-v01@openssh.com", with: "")
-            return openSSHIdentifier.lengthAndData +
-            curveIdentifier.lengthAndData +
-            publicKey.lengthAndData
-        default:
+                let openSSHIdentifier = certType.replacingOccurrences(of: "-cert-v01@openssh.com", with: "")
+                return openSSHIdentifier.lengthAndData +
+                curveIdentifier.lengthAndData +
+                publicKey.lengthAndData
+            default:
+                return nil
+            }
+        } catch {
             return nil
         }
     }

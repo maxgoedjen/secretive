@@ -10,13 +10,32 @@ extension SSHAgent {
 
         case requestIdentities = 11
         case signRequest = 13
+        case addIdentity = 17
+        case removeIdentity = 18
+        case removeAllIdentities = 19
+        case addIDConstrained = 25
+        case addSmartcardKey = 20
+        case removeSmartcardKey = 21
+        case lock = 22
+        case unlock = 23
+        case addSmartcardKeyConstrained = 26
+        case protocolExtension = 27
+
 
         public var debugDescription: String {
             switch self {
-            case .requestIdentities:
-                return "RequestIdentities"
-            case .signRequest:
-                return "SignRequest"
+            case .requestIdentities: "SSH_AGENTC_REQUEST_IDENTITIES"
+            case .signRequest: "SSH_AGENTC_SIGN_REQUEST"
+            case .addIdentity: "SSH_AGENTC_ADD_IDENTITY"
+            case .removeIdentity: "SSH_AGENTC_REMOVE_IDENTITY"
+            case .removeAllIdentities: "SSH_AGENTC_REMOVE_ALL_IDENTITIES"
+            case .addIDConstrained: "SSH_AGENTC_ADD_ID_CONSTRAINED"
+            case .addSmartcardKey: "SSH_AGENTC_ADD_SMARTCARD_KEY"
+            case .removeSmartcardKey: "SSH_AGENTC_REMOVE_SMARTCARD_KEY"
+            case .lock: "SSH_AGENTC_LOCK"
+            case .unlock: "SSH_AGENTC_UNLOCK"
+            case .addSmartcardKeyConstrained: "SSH_AGENTC_ADD_SMARTCARD_KEY_CONSTRAINED"
+            case .protocolExtension: "SSH_AGENTC_EXTENSION"
             }
         }
     }
@@ -28,17 +47,17 @@ extension SSHAgent {
         case agentSuccess = 6
         case agentIdentitiesAnswer = 12
         case agentSignResponse = 14
+        case agentExtensionFailure = 28
+        case agentExtensionResponse = 29
 
         public var debugDescription: String {
             switch self {
-            case .agentFailure:
-                return "AgentFailure"
-            case .agentSuccess:
-                return "AgentSuccess"
-            case .agentIdentitiesAnswer:
-                return "AgentIdentitiesAnswer"
-            case .agentSignResponse:
-                return "AgentSignResponse"
+            case .agentFailure: "SSH_AGENT_FAILURE"
+            case .agentSuccess: "SSH_AGENT_SUCCESS"
+            case .agentIdentitiesAnswer: "SSH_AGENT_IDENTITIES_ANSWER"
+            case .agentSignResponse: "SSH_AGENT_SIGN_RESPONSE"
+            case .agentExtensionFailure: "SSH_AGENT_EXTENSION_FAILURE"
+            case .agentExtensionResponse: "SSH_AGENT_EXTENSION_RESPONSE"
             }
         }
     }
