@@ -97,7 +97,7 @@ extension OpenSSHPublicKeyWriter {
 
 extension OpenSSHPublicKeyWriter {
 
-    public func rsaPublicKeyBlob<SecretType: Secret>(secret: SecretType) -> Data {
+    func rsaPublicKeyBlob<SecretType: Secret>(secret: SecretType) -> Data {
         // Cheap way to pull out e and n as defined in https://datatracker.ietf.org/doc/html/rfc4253
         // Keychain stores it as a thin ASN.1 wrapper with this format:
         // [4 byte prefix][2 byte prefix][n][2 byte prefix][e]

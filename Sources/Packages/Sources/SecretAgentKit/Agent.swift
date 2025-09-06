@@ -43,7 +43,7 @@ extension Agent {
         }
         let requestTypeInt = data[4]
         guard let requestType = SSHAgent.RequestType(rawValue: requestTypeInt) else {
-            logger.debug("Agent returned \(SSHAgent.ResponseType.agentFailure.debugDescription)")
+            logger.debug("Agent returned \(SSHAgent.ResponseType.agentFailure.debugDescription) for unknown request type \(requestTypeInt)")
             return SSHAgent.ResponseType.agentFailure.data.lengthAndData
         }
         logger.debug("Agent handling request of type \(requestType.debugDescription)")
@@ -66,10 +66,13 @@ extension Agent {
                 response.append(SSHAgent.ResponseType.agentSignResponse.data)
                 response.append(try await sign(data: data, provenance: provenance))
                 logger.debug("Agent returned \(SSHAgent.ResponseType.agentSignResponse.debugDescription)")
+            default:
+                logger.debug("Agent received valid request of type \(requestType.debugDescription), but not currently supported.")
+                response.append(SSHAgent.ResponseType.agentFailure.data)
+
             }
         } catch {
-            response.removeAll()
-            response.append(SSHAgent.ResponseType.agentFailure.data)
+            response = SSHAgent.ResponseType.agentFailure.data
             logger.debug("Agent returned \(SSHAgent.ResponseType.agentFailure.debugDescription)")
         }
         return response.lengthAndData
@@ -101,7 +104,7 @@ extension Agent {
         }
         logger.log("Agent enumerated \(count) identities")
         var countBigEndian = UInt32(count).bigEndian
-        let countData = Data(bytes: &countBigEndian, count: UInt32.bitWidth/8)
+        let countData = Data(bytes: &countBigEndian, count: MemoryLayout<UInt32>.size)
         return countData + keyData
     }
 
@@ -112,7 +115,7 @@ extension Agent {
     /// - Returns: An OpenSSH formatted Data payload containing the signed data response.
     func sign(data: Data, provenance: SigningRequestProvenance) async throws -> Data {
         let reader = OpenSSHReader(data: data)
-        let payloadHash = reader.readNextChunk()
+        let payloadHash = try reader.readNextChunk()
         let hash: Data
 
         // Check if hash is actually an openssh certificate and reconstruct the public key if it is
@@ -129,7 +132,7 @@ extension Agent {
 
         try await witness?.speakNowOrForeverHoldYourPeace(forAccessTo: secret, from: store, by: provenance)
 
-        let dataToSign = reader.readNextChunk()
+        let dataToSign = try reader.readNextChunk()
         let rawRepresentation = try await store.sign(data: dataToSign, with: secret, for: provenance)
         let signedData = signatureWriter.data(secret: secret, signature: rawRepresentation)
 
