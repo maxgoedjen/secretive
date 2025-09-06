@@ -10,10 +10,10 @@ struct SigningRequestTracer {
 
 extension SigningRequestTracer {
 
-    /// Generates a ``SecretKit.SigningRequestProvenance`` from a ``FileHandleReader``.
-    /// - Parameter fileHandleReader: The reader involved in processing the request.
+    /// Generates a ``SecretKit.SigningRequestProvenance`` from a ``FileHandle``.
+    /// - Parameter fileHandle: The reader involved in processing the request.
     /// - Returns: A ``SecretKit.SigningRequestProvenance`` describing the origin of the request.
-    func provenance(from fileHandleReader: FileHandleReader) -> SigningRequestProvenance {
+    func provenance(from fileHandleReader: FileHandle) -> SigningRequestProvenance {
         let firstInfo = process(from: fileHandleReader.pidOfConnectedProcess)
 
         var provenance = SigningRequestProvenance(root: firstInfo)
