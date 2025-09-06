@@ -21,7 +21,7 @@ public struct SSHAgentInputParser: SSHAgentInputParserProtocol {
         }
         let specifiedLength = (data[0..<4].bytes.unsafeLoad(as: UInt32.self).bigEndian) + 4
         let rawRequestInt = data[4]
-        let remainingDataRange = 4..<min(Int(specifiedLength), data.count)
+        let remainingDataRange = 5..<min(Int(specifiedLength), data.count)
         lazy var body: Data = { Data(data[remainingDataRange]) }()
         switch rawRequestInt {
         case SSHAgent.Request.requestIdentities.protocolID:
