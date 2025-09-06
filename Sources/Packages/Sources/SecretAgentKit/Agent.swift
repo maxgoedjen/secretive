@@ -66,24 +66,6 @@ extension Agent {
                 response.append(SSHAgent.ResponseType.agentSignResponse.data)
                 response.append(try await sign(data: data, provenance: provenance))
                 logger.debug("Agent returned \(SSHAgent.ResponseType.agentSignResponse.debugDescription)")
-            case .protocolExtension:
-                response.append(SSHAgent.ResponseType.agentExtensionResponse.data)
-                try await handleExtension(data)
-            case .addIDConstrained, .addIdentity:
-                let reader = OpenSSHReader(data: data)
-                let keyname = try reader.readNextChunkAsString()
-                print(keyname)
-                while true {
-                    do {
-                        let payloadHash = try reader.readNextChunk(convertEndianness: true)
-                        print(String(decoding: payloadHash, as: UTF8.self))
-                        print(payloadHash)
-                    } catch {
-                        break
-                    }
-                }
-            case .addSmartcardKeyConstrained, .addSmartcardKey:
-                break
             default:
                 logger.debug("Agent received valid request of type \(requestType.debugDescription), but not currently supported.")
                 response.append(SSHAgent.ResponseType.agentFailure.data)
@@ -96,30 +78,6 @@ extension Agent {
         return response.lengthAndData
     }
 
-}
-
-// PROTOCOL EXTENSIONS
-extension Agent {
-
-    func handleExtension(_ data: Data) async throws {
-        let reader = OpenSSHReader(data: data)
-        guard try reader.readNextChunkAsString() == "session-bind@openssh.com" else {
-            throw UnsupportedExtensionError()
-        }
-        let hostKey = try reader.readNextChunk()
-        let keyReader = OpenSSHReader(data: hostKey)
-        _ = try keyReader.readNextChunkAsString() // Key Type
-        let keyData = try keyReader.readNextChunk()
-        let sessionID = try reader.readNextChunk()
-        let signatureData = try reader.readNextChunk()
-        let forwarding = try reader.readNextBytes(as: Bool.self)
-        let signatureReader = OpenSSHSignatureReader()
-        guard try signatureReader.verify(signatureData, for: sessionID, with: keyData) else { throw SignatureVerificationFailedError() }
-        print("Fowarding: \(forwarding)")
-    }
-
-    struct UnsupportedExtensionError: Error {}
-    struct SignatureVerificationFailedError: Error {}
 }
 
 extension Agent {
