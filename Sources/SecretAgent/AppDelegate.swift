@@ -36,9 +36,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         Task {
             for await session in socketController.sessions {
                 Task {
+                    let inputParser = SSHAgentInputParser()
                     do {
                         for await message in session.messages {
-                            let agentResponse = try await agent.handle(data: message, provenance: session.provenance)
+                            let request = try await inputParser.parse(data: message)
+                            let agentResponse = await agent.handle(request: request, provenance: session.provenance)
                             try await session.write(agentResponse)
                         }
                     } catch {

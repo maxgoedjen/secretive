@@ -31,49 +31,27 @@ public final class Agent: Sendable {
 
 extension Agent {
 
-    /// Handles an incoming request.
-    /// - Parameters:
-    ///   - data: The data to handle.
-    ///   - provenance: The origin of the request.
-    /// - Returns: A response data payload.
-    public func handle(data: Data, provenance: SigningRequestProvenance) async throws -> Data {
-        logger.debug("Agent handling new data")
-        guard data.count > 4 else {
-            throw InvalidDataProvidedError()
-        }
-        let requestTypeInt = data[4]
-        guard let requestType = SSHAgent.RequestType(rawValue: requestTypeInt) else {
-            logger.debug("Agent returned \(SSHAgent.ResponseType.agentFailure.debugDescription) for unknown request type \(requestTypeInt)")
-            return SSHAgent.ResponseType.agentFailure.data.lengthAndData
-        }
-        logger.debug("Agent handling request of type \(requestType.debugDescription)")
-        let subData = Data(data[5...])
-        let response = await handle(requestType: requestType, data: subData, provenance: provenance)
-        return response
-    }
-
-    private func handle(requestType: SSHAgent.RequestType, data: Data, provenance: SigningRequestProvenance) async -> Data {
+    public func handle(request: SSHAgent.Request, provenance: SigningRequestProvenance) async -> Data {
         // Depending on the launch context (such as after macOS update), the agent may need to reload secrets before acting
         await reloadSecretsIfNeccessary()
         var response = Data()
         do {
-            switch requestType {
+            switch request {
             case .requestIdentities:
-                response.append(SSHAgent.ResponseType.agentIdentitiesAnswer.data)
+                response.append(SSHAgent.Response.agentIdentitiesAnswer.data)
                 response.append(await identities())
-                logger.debug("Agent returned \(SSHAgent.ResponseType.agentIdentitiesAnswer.debugDescription)")
-            case .signRequest:
-                response.append(SSHAgent.ResponseType.agentSignResponse.data)
-                response.append(try await sign(data: data, provenance: provenance))
-                logger.debug("Agent returned \(SSHAgent.ResponseType.agentSignResponse.debugDescription)")
+                logger.debug("Agent returned \(SSHAgent.Response.agentIdentitiesAnswer.debugDescription)")
+            case .signRequest(let context):
+                response.append(SSHAgent.Response.agentSignResponse.data)
+                response.append(try await sign(data: context.dataToSign, keyBlob: context.keyBlob, provenance: provenance))
+                logger.debug("Agent returned \(SSHAgent.Response.agentSignResponse.debugDescription)")
             default:
-                logger.debug("Agent received valid request of type \(requestType.debugDescription), but not currently supported.")
-                response.append(SSHAgent.ResponseType.agentFailure.data)
-
+                logger.debug("Agent received valid request of type \(request.debugDescription), but not currently supported.")
+                throw UnhandledRequestError()
             }
         } catch {
-            response = SSHAgent.ResponseType.agentFailure.data
-            logger.debug("Agent returned \(SSHAgent.ResponseType.agentFailure.debugDescription)")
+            response = SSHAgent.Response.agentFailure.data
+            logger.debug("Agent returned \(SSHAgent.Response.agentFailure.debugDescription)")
         }
         return response.lengthAndData
     }
@@ -113,27 +91,23 @@ extension Agent {
     ///   - data: The data to sign.
     ///   - provenance: A ``SecretKit.SigningRequestProvenance`` object describing the origin of the request.
     /// - Returns: An OpenSSH formatted Data payload containing the signed data response.
-    func sign(data: Data, provenance: SigningRequestProvenance) async throws -> Data {
-        let reader = OpenSSHReader(data: data)
-        let payloadHash = try reader.readNextChunk()
-        let hash: Data
-
+    func sign(data: Data, keyBlob: Data, provenance: SigningRequestProvenance) async throws -> Data {
         // Check if hash is actually an openssh certificate and reconstruct the public key if it is
-        if let certificatePublicKey = await certificateHandler.publicKeyHash(from: payloadHash) {
-            hash = certificatePublicKey
+        let resolvedBlob: Data
+        if let certificatePublicKey = await certificateHandler.publicKeyHash(from: keyBlob) {
+            resolvedBlob = certificatePublicKey
         } else {
-            hash = payloadHash
+            resolvedBlob = keyBlob
         }
         
-        guard let (secret, store) = await secret(matching: hash) else {
-            logger.debug("Agent did not have a key matching \(hash as NSData)")
+        guard let (secret, store) = await secret(matching: resolvedBlob) else {
+            logger.debug("Agent did not have a key matching \(resolvedBlob as NSData)")
             throw NoMatchingKeyError()
         }
 
         try await witness?.speakNowOrForeverHoldYourPeace(forAccessTo: secret, from: store, by: provenance)
 
-        let dataToSign = try reader.readNextChunk()
-        let rawRepresentation = try await store.sign(data: dataToSign, with: secret, for: provenance)
+        let rawRepresentation = try await store.sign(data: data, with: secret, for: provenance)
         let signedData = signatureWriter.data(secret: secret, signature: rawRepresentation)
 
         try await witness?.witness(accessTo: secret, from: store, by: provenance)
@@ -172,16 +146,16 @@ extension Agent {
 
 extension Agent {
 
-    struct InvalidDataProvidedError: Error {}
     struct NoMatchingKeyError: Error {}
+    struct UnhandledRequestError: Error {}
 
 }
 
-extension SSHAgent.ResponseType {
+extension SSHAgent.Response {
 
     var data: Data {
         var raw = self.rawValue
-        return  Data(bytes: &raw, count: UInt8.bitWidth/8)
+        return  Data(bytes: &raw, count: MemoryLayout<UInt8>.size)
     }
 
 }

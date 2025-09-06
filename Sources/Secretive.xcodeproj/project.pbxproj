@@ -30,6 +30,11 @@
 		501577DA2E6BC5F3004A37D0 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501577D62E6BC5F3004A37D0 /* main.swift */; };
 		501577DB2E6BC5F3004A37D0 /* ReleasesDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501577D72E6BC5F3004A37D0 /* ReleasesDownloader.swift */; };
 		501577DF2E6BC647004A37D0 /* Brief in Frameworks */ = {isa = PBXBuildFile; productRef = 501577DE2E6BC647004A37D0 /* Brief */; };
+		501578032E6C019F004A37D0 /* AgentRequestParser.xpc in Embed XPC Services */ = {isa = PBXBuildFile; fileRef = 501577F82E6C019F004A37D0 /* AgentRequestParser.xpc */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		5015780F2E6C01F1004A37D0 /* AgentRequestParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501578092E6C01F1004A37D0 /* AgentRequestParser.swift */; };
+		501578112E6C01F1004A37D0 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5015780C2E6C01F1004A37D0 /* main.swift */; };
+		501578132E6C0479004A37D0 /* XPCInputParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501578122E6C0479004A37D0 /* XPCInputParser.swift */; };
+		501578152E6C0558004A37D0 /* SecretAgentKit in Frameworks */ = {isa = PBXBuildFile; productRef = 501578142E6C0558004A37D0 /* SecretAgentKit */; };
 		5018F54F24064786002EB505 /* Notifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5018F54E24064786002EB505 /* Notifier.swift */; };
 		504788EC2E680DC800B4556F /* URLs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504788EB2E680DC400B4556F /* URLs.swift */; };
 		504788F22E681F3A00B4556F /* Instructions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504788F12E681F3A00B4556F /* Instructions.swift */; };
@@ -97,6 +102,13 @@
 			remoteGlobalIDString = 501577BC2E6BC5B4004A37D0;
 			remoteInfo = ReleasesDownloader;
 		};
+		501578012E6C019F004A37D0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 50617D7723FCE48D0099B055 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 501577F72E6C019F004A37D0;
+			remoteInfo = AgentRequestParser;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -106,6 +118,7 @@
 			dstPath = "$(CONTENTS_FOLDER_PATH)/XPCServices";
 			dstSubfolderSpec = 16;
 			files = (
+				501578032E6C019F004A37D0 /* AgentRequestParser.xpc in Embed XPC Services */,
 				501577C82E6BC5B4004A37D0 /* ReleasesDownloader.xpc in Embed XPC Services */,
 			);
 			name = "Embed XPC Services";
@@ -166,6 +179,11 @@
 		501577D52E6BC5F3004A37D0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		501577D62E6BC5F3004A37D0 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		501577D72E6BC5F3004A37D0 /* ReleasesDownloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReleasesDownloader.swift; sourceTree = "<group>"; };
+		501577F82E6C019F004A37D0 /* AgentRequestParser.xpc */ = {isa = PBXFileReference; explicitFileType = "wrapper.xpc-service"; includeInIndex = 0; path = AgentRequestParser.xpc; sourceTree = BUILT_PRODUCTS_DIR; };
+		501578092E6C01F1004A37D0 /* AgentRequestParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgentRequestParser.swift; sourceTree = "<group>"; };
+		5015780B2E6C01F1004A37D0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5015780C2E6C01F1004A37D0 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		501578122E6C0479004A37D0 /* XPCInputParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XPCInputParser.swift; sourceTree = "<group>"; };
 		5018F54E24064786002EB505 /* Notifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifier.swift; sourceTree = "<group>"; };
 		504788EB2E680DC400B4556F /* URLs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLs.swift; sourceTree = "<group>"; };
 		504788F12E681F3A00B4556F /* Instructions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Instructions.swift; sourceTree = "<group>"; };
@@ -221,6 +239,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		501577F52E6C019F004A37D0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				501578152E6C0558004A37D0 /* SecretAgentKit in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		50617D7C23FCE48D0099B055 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -263,6 +289,16 @@
 				501577D72E6BC5F3004A37D0 /* ReleasesDownloader.swift */,
 			);
 			path = ReleasesDownloader;
+			sourceTree = "<group>";
+		};
+		5015780D2E6C01F1004A37D0 /* AgentRequestParser */ = {
+			isa = PBXGroup;
+			children = (
+				501578092E6C01F1004A37D0 /* AgentRequestParser.swift */,
+				5015780B2E6C01F1004A37D0 /* Info.plist */,
+				5015780C2E6C01F1004A37D0 /* main.swift */,
+			);
+			path = AgentRequestParser;
 			sourceTree = "<group>";
 		};
 		504788ED2E681EB200B4556F /* Styles */ = {
@@ -321,6 +357,7 @@
 				5003EF39278005C800DF2006 /* Packages */,
 				50617D8123FCE48E0099B055 /* Secretive */,
 				50A3B78B24026B7500D209EA /* SecretAgent */,
+				5015780D2E6C01F1004A37D0 /* AgentRequestParser */,
 				501577D92E6BC5F3004A37D0 /* ReleasesDownloader */,
 				508A58AF241E144C0069DC07 /* Config */,
 				50617D8023FCE48E0099B055 /* Products */,
@@ -334,6 +371,7 @@
 				50617D7F23FCE48E0099B055 /* Secretive.app */,
 				50A3B78A24026B7500D209EA /* SecretAgent.app */,
 				501577BD2E6BC5B4004A37D0 /* ReleasesDownloader.xpc */,
+				501577F82E6C019F004A37D0 /* AgentRequestParser.xpc */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -411,6 +449,7 @@
 			children = (
 				50020BAF24064869003D4025 /* AppDelegate.swift */,
 				5018F54E24064786002EB505 /* Notifier.swift */,
+				501578122E6C0479004A37D0 /* XPCInputParser.swift */,
 				50A3B79524026B7600D209EA /* Main.storyboard */,
 				50A3B79824026B7600D209EA /* Info.plist */,
 				508BF29425B4F140009EFB7E /* InternetAccessPolicy.plist */,
@@ -451,6 +490,26 @@
 			productReference = 501577BD2E6BC5B4004A37D0 /* ReleasesDownloader.xpc */;
 			productType = "com.apple.product-type.xpc-service";
 		};
+		501577F72E6C019F004A37D0 /* AgentRequestParser */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 501578052E6C019F004A37D0 /* Build configuration list for PBXNativeTarget "AgentRequestParser" */;
+			buildPhases = (
+				501577F42E6C019F004A37D0 /* Sources */,
+				501577F52E6C019F004A37D0 /* Frameworks */,
+				501577F62E6C019F004A37D0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = AgentRequestParser;
+			packageProductDependencies = (
+				501578142E6C0558004A37D0 /* SecretAgentKit */,
+			);
+			productName = AgentRequestParser;
+			productReference = 501577F82E6C019F004A37D0 /* AgentRequestParser.xpc */;
+			productType = "com.apple.product-type.xpc-service";
+		};
 		50617D7E23FCE48D0099B055 /* Secretive */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 50617D9D23FCE48E0099B055 /* Build configuration list for PBXNativeTarget "Secretive" */;
@@ -467,6 +526,7 @@
 			dependencies = (
 				50142167278126B500BBAA70 /* PBXTargetDependency */,
 				501577C72E6BC5B4004A37D0 /* PBXTargetDependency */,
+				501578022E6C019F004A37D0 /* PBXTargetDependency */,
 			);
 			name = Secretive;
 			packageProductDependencies = (
@@ -521,6 +581,9 @@
 					501577BC2E6BC5B4004A37D0 = {
 						CreatedOnToolsVersion = 26.0;
 					};
+					501577F72E6C019F004A37D0 = {
+						CreatedOnToolsVersion = 26.0;
+					};
 					50617D7E23FCE48D0099B055 = {
 						CreatedOnToolsVersion = 11.3;
 					};
@@ -554,12 +617,20 @@
 				50617D7E23FCE48D0099B055 /* Secretive */,
 				50A3B78924026B7500D209EA /* SecretAgent */,
 				501577BC2E6BC5B4004A37D0 /* ReleasesDownloader */,
+				501577F72E6C019F004A37D0 /* AgentRequestParser */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		501577BB2E6BC5B4004A37D0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		501577F62E6C019F004A37D0 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -599,6 +670,15 @@
 			files = (
 				501577DA2E6BC5F3004A37D0 /* main.swift in Sources */,
 				501577DB2E6BC5F3004A37D0 /* ReleasesDownloader.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		501577F42E6C019F004A37D0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5015780F2E6C01F1004A37D0 /* AgentRequestParser.swift in Sources */,
+				501578112E6C01F1004A37D0 /* main.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -647,6 +727,7 @@
 			files = (
 				50020BB024064869003D4025 /* AppDelegate.swift in Sources */,
 				5018F54F24064786002EB505 /* Notifier.swift in Sources */,
+				501578132E6C0479004A37D0 /* XPCInputParser.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -672,6 +753,11 @@
 			isa = PBXTargetDependency;
 			target = 501577BC2E6BC5B4004A37D0 /* ReleasesDownloader */;
 			targetProxy = 501577D32E6BC5DD004A37D0 /* PBXContainerItemProxy */;
+		};
+		501578022E6C019F004A37D0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 501577F72E6C019F004A37D0 /* AgentRequestParser */;
+			targetProxy = 501578012E6C019F004A37D0 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -714,7 +800,7 @@
 				INFOPLIST_KEY_CFBundleDisplayName = ReleasesDownloader;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2025 Max Goedjen. All rights reserved.";
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MACOSX_DEPLOYMENT_TARGET = 26.0;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.maxgoedjen.Secretive.ReleasesDownloader;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -756,7 +842,7 @@
 				INFOPLIST_KEY_CFBundleDisplayName = ReleasesDownloader;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2025 Max Goedjen. All rights reserved.";
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MACOSX_DEPLOYMENT_TARGET = 26.0;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.maxgoedjen.Secretive.ReleasesDownloader;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -798,9 +884,101 @@
 				INFOPLIST_KEY_CFBundleDisplayName = ReleasesDownloader;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2025 Max Goedjen. All rights reserved.";
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MACOSX_DEPLOYMENT_TARGET = 26.0;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.maxgoedjen.Secretive.ReleasesDownloader;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				REGISTER_APP_GROUPS = YES;
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		501578062E6C019F004A37D0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = Z72PRUAWF6;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = AgentRequestParser/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = AgentRequestParser;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2025 Max Goedjen. All rights reserved.";
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.maxgoedjen.Secretive.AgentRequestParser;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				REGISTER_APP_GROUPS = YES;
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		501578072E6C019F004A37D0 /* Test */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = AgentRequestParser/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = AgentRequestParser;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2025 Max Goedjen. All rights reserved.";
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.maxgoedjen.Secretive.AgentRequestParser;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				REGISTER_APP_GROUPS = YES;
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Test;
+		};
+		501578082E6C019F004A37D0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_IDENTITY = "Developer ID Application";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = Z72PRUAWF6;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = AgentRequestParser/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = AgentRequestParser;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2025 Max Goedjen. All rights reserved.";
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.maxgoedjen.Secretive.AgentRequestParser;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				REGISTER_APP_GROUPS = YES;
 				SKIP_INSTALL = YES;
@@ -1262,6 +1440,16 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		501578052E6C019F004A37D0 /* Build configuration list for PBXNativeTarget "AgentRequestParser" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				501578062E6C019F004A37D0 /* Debug */,
+				501578072E6C019F004A37D0 /* Test */,
+				501578082E6C019F004A37D0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		50617D7A23FCE48D0099B055 /* Build configuration list for PBXProject "Secretive" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -1334,6 +1522,10 @@
 		501577DE2E6BC647004A37D0 /* Brief */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = Brief;
+		};
+		501578142E6C0558004A37D0 /* SecretAgentKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = SecretAgentKit;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
