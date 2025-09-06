@@ -34,9 +34,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         logger.debug("SecretAgent finished launching")
         Task {
+            let inputParser = try XPCAgentInputParser()
             for await session in socketController.sessions {
                 Task {
-                    let inputParser = SSHAgentInputParser()
                     do {
                         for await message in session.messages {
                             let request = try await inputParser.parse(data: message)

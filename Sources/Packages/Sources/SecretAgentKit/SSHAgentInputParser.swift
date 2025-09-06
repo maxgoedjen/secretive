@@ -3,7 +3,9 @@ import OSLog
 import SecretKit
 
 public protocol SSHAgentInputParserProtocol: Sendable {
+
     func parse(data: Data) async throws -> SSHAgent.Request
+    
 }
 
 public struct SSHAgentInputParser: SSHAgentInputParserProtocol {
@@ -14,7 +16,7 @@ public struct SSHAgentInputParser: SSHAgentInputParserProtocol {
         
     }
 
-    public func parse(data: Data) async throws -> SSHAgent.Request {
+    public func parse(data: Data) throws -> SSHAgent.Request {
         logger.debug("Parsing new data")
         guard data.count > 4 else {
             throw InvalidDataProvidedError()

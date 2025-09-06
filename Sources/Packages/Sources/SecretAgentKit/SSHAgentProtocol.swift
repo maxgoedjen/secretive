@@ -6,7 +6,7 @@ public enum SSHAgent {}
 extension SSHAgent {
 
     /// The type of the SSH Agent Request, as described in https://datatracker.ietf.org/doc/html/draft-miller-ssh-agent#section-5.1
-    public enum Request: CustomDebugStringConvertible, Codable {
+    public enum Request: CustomDebugStringConvertible, Codable, Sendable {
 
         case requestIdentities
         case signRequest(SignatureRequestContext)
