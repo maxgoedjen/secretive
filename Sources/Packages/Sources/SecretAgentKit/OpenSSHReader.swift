@@ -1,7 +1,7 @@
 import Foundation
 
 /// Reads OpenSSH protocol data.
-public final class OpenSSHReader {
+final class OpenSSHReader {
 
     var remaining: Data
 

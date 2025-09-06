@@ -92,16 +92,8 @@ extension Agent {
     ///   - provenance: A ``SecretKit.SigningRequestProvenance`` object describing the origin of the request.
     /// - Returns: An OpenSSH formatted Data payload containing the signed data response.
     func sign(data: Data, keyBlob: Data, provenance: SigningRequestProvenance) async throws -> Data {
-        // Check if hash is actually an openssh certificate and reconstruct the public key if it is
-        let resolvedBlob: Data
-        if let certificatePublicKey = await certificateHandler.publicKeyHash(from: keyBlob) {
-            resolvedBlob = certificatePublicKey
-        } else {
-            resolvedBlob = keyBlob
-        }
-        
-        guard let (secret, store) = await secret(matching: resolvedBlob) else {
-            logger.debug("Agent did not have a key matching \(resolvedBlob as NSData)")
+        guard let (secret, store) = await secret(matching: keyBlob) else {
+            logger.debug("Agent did not have a key matching \(keyBlob as NSData)")
             throw NoMatchingKeyError()
         }
 

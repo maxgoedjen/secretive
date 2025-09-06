@@ -59,9 +59,33 @@ extension SSHAgentInputParser {
 
     func signatureRequestContext(from data: Data) throws -> SSHAgent.Request.SignatureRequestContext {
         let reader = OpenSSHReader(data: data)
-        let keyBlob = try reader.readNextChunk()
+        let rawKeyBlob = try reader.readNextChunk()
+        let keyBlob = certificatePublicKeyBlob(from: rawKeyBlob) ?? rawKeyBlob
         let dataToSign = try reader.readNextChunk()
         return SSHAgent.Request.SignatureRequestContext(keyBlob: keyBlob, dataToSign: dataToSign)
+    }
+
+    func certificatePublicKeyBlob(from hash: Data) -> Data? {
+        let reader = OpenSSHReader(data: hash)
+        do {
+            let certType = String(decoding: try reader.readNextChunk(), as: UTF8.self)
+            switch certType {
+            case "ecdsa-sha2-nistp256-cert-v01@openssh.com",
+                "ecdsa-sha2-nistp384-cert-v01@openssh.com",
+                "ecdsa-sha2-nistp521-cert-v01@openssh.com":
+                _ = try reader.readNextChunk() // nonce
+                let curveIdentifier = try reader.readNextChunk()
+                let publicKey = try reader.readNextChunk()
+                let openSSHIdentifier = certType.replacingOccurrences(of: "-cert-v01@openssh.com", with: "")
+                return openSSHIdentifier.lengthAndData +
+                curveIdentifier.lengthAndData +
+                publicKey.lengthAndData
+            default:
+                return nil
+            }
+        } catch {
+            return nil
+        }
     }
 
 }
