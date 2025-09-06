@@ -33,25 +33,34 @@ import Observation
     ) {
         self.osVersion = osVersion
         self.currentVersion = currentVersion
-        if checkOnLaunch {
-            // Don't do a launch check if the user hasn't seen the setup prompt explaining updater yet.
-            Task {
-                await checkForUpdates()
-            }
-        }
         Task {
+            if checkOnLaunch {
+                try await checkForUpdates()
+            }
             while !Task.isCancelled {
                 try? await Task.sleep(for: .seconds(Int(checkFrequency)))
-                await checkForUpdates()
+                try await checkForUpdates()
             }
         }
     }
 
     /// Manually trigger an update check.
-    public func checkForUpdates() async {
-        guard let (data, _) = try? await URLSession.shared.data(from: Constants.updateURL) else { return }
-        guard let releases = try? JSONDecoder().decode([Release].self, from: data) else { return }
+    public func checkForUpdates() async throws {
+        let releaseData = try await withXPCCall(to: "com.maxgoedjen.Secretive.ReleasesDownloader", ReleasesDownloaderProtocol.self) {
+            try await $0.downloadReleases()
+        }
+        let releases = try JSONDecoder().decode([Release].self, from: releaseData)
         await evaluate(releases: releases)
+    }
+
+    func withXPCCall<ServiceProtocol, Result>(to service: String, _: ServiceProtocol.Type, closure: (ServiceProtocol) async throws -> Result) async rethrows -> Result {
+        let connectionToService = NSXPCConnection(serviceName: "com.maxgoedjen.Secretive.ReleasesDownloader")
+        connectionToService.remoteObjectInterface = NSXPCInterface(with: (any ReleasesDownloaderProtocol).self)// fixme
+        connectionToService.resume()
+        let service = connectionToService.remoteObjectProxy as! ServiceProtocol
+        let result = try await closure(service)
+        connectionToService.invalidate()
+        return result
     }
 
     /// Ignores a specified release. `update` will be nil if the user has ignored the latest available release.
@@ -101,10 +110,3 @@ extension Updater {
 
 }
 
-extension Updater {
-
-    enum Constants {
-        static let updateURL = URL(string: "https://api.github.com/repos/maxgoedjen/secretive/releases")!
-    }
-
-}

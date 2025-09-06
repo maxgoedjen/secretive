@@ -1,5 +1,9 @@
 import Foundation
 
+@objc public protocol ReleaseProtocol: Sendable {
+
+}
+
 /// A release is a representation of a downloadable update.
 public struct Release: Codable, Sendable {
 
