@@ -4,13 +4,15 @@ import SecretAgentKit
 public final class XPCAgentInputParser: SSHAgentInputParserProtocol {
 
     private let session: XPCSession
+    private let queue = DispatchQueue(label: "com.maxgoedjen.Secretive.AgentRequestParser", qos: .userInteractive)
 
     public init() throws {
         if #available(macOS 26.0, *) {
-            session = try XPCSession(xpcService: "com.maxgoedjen.Secretive.AgentRequestParser", requirement: .isFromSameTeam())
+            session = try XPCSession(xpcService: "com.maxgoedjen.Secretive.AgentRequestParser", targetQueue: queue, options: .inactive, requirement: .isFromSameTeam())
         } else {
-            session = try XPCSession(xpcService: "com.maxgoedjen.Secretive.AgentRequestParser")
+            session = try XPCSession(xpcService: "com.maxgoedjen.Secretive.AgentRequestParser", targetQueue: queue, options: .inactive)
         }
+        try session.activate()
     }
 
     public func parse(data: Data) async throws -> SSHAgent.Request {

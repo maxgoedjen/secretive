@@ -93,7 +93,8 @@ extension Agent {
     /// - Returns: An OpenSSH formatted Data payload containing the signed data response.
     func sign(data: Data, keyBlob: Data, provenance: SigningRequestProvenance) async throws -> Data {
         guard let (secret, store) = await secret(matching: keyBlob) else {
-            logger.debug("Agent did not have a key matching \(keyBlob as NSData)")
+            let keyBlobHex = keyBlob.compactMap { ("0" + String($0, radix: 16, uppercase: false)).suffix(2) }.joined()
+            logger.debug("Agent did not have a key matching \(keyBlobHex)")
             throw NoMatchingKeyError()
         }
 

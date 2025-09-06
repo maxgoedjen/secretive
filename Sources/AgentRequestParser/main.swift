@@ -1,9 +1,21 @@
 import XPC
 import SecretAgentKit
+import OSLog
+
+private let logger = Logger(subsystem: "com.maxgoedjen.secretive.secretagent.AgentRequestParser", category: "Parser")
 
 func handleRequest(_ request: XPCListener.IncomingSessionRequest) -> XPCListener.IncomingSessionRequest.Decision {
-    request.accept { message in
-        return try? SSHAgentInputParser().parse(data: message)
+    logger.log("Parser received inbound request")
+    return request.accept { message in
+        logger.log("Parser accepted inbound request")
+        do {
+            let result = try SSHAgentInputParser().parse(data: message)
+            logger.log("Parser parsed message as type \(result.debugDescription)")
+            return result
+        } catch {
+            logger.error("Parser failed with error \(error)")
+            return nil
+        }
     }
 }
 
@@ -17,7 +29,8 @@ do {
     } else {
         _ = try XPCListener(service: "com.maxgoedjen.Secretive.AgentRequestParser", incomingSessionHandler: handleRequest(_:))
     }
+    logger.log("Parser initialized")
     dispatchMain()
 } catch {
-    print("Failed to create listener, error: \(error)")
+    logger.error("Failed to create parser, error: \(error)")
 }
