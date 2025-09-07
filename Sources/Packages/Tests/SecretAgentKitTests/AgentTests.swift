@@ -21,11 +21,6 @@ import CryptoKit
         let request = try SSHAgentInputParser().parse(data: Constants.Requests.requestIdentities)
         let response = await agent.handle(request: request, provenance: .test)
 
-        let actualHex = response.compactMap { ("0" + String($0, radix: 16, uppercase: false)).suffix(2) }.joined()
-        let expectedHex = Constants.Responses.requestIdentitiesMultiple.compactMap { ("0" + String($0, radix: 16, uppercase: false)).suffix(2) }.joined()
-        print(actualHex)
-        print(expectedHex)
-
         let actual = OpenSSHReader(data: response)
         let expected = OpenSSHReader(data: Constants.Responses.requestIdentitiesMultiple)
         print(actual, expected)
@@ -42,13 +37,21 @@ import CryptoKit
         #expect(response == Constants.Responses.requestFailure)
     }
 
-    @Test(.disabled()) func ecdsaSignature() async throws {
+    @Test func ecdsaSignature() async throws {
         let request = try SSHAgentInputParser().parse(data: Constants.Requests.requestSignature)
         guard case SSHAgent.Request.signRequest(let context) = request else { return }
         let list = await storeList(with: [Constants.Secrets.ecdsa256Secret, Constants.Secrets.ecdsa384Secret])
         let agent = Agent(storeList: list)
-        let signedData = await agent.handle(request: request, provenance: .test)
-        let rsData = OpenSSHReader(data: signedData)
+        let response = await agent.handle(request: request, provenance: .test)
+        let responseReader = OpenSSHReader(data: response)
+        let length = try responseReader.readNextBytes(as: UInt32.self).bigEndian
+        let type = try responseReader.readNextBytes(as: UInt8.self).bigEndian
+        #expect(length == response.count - MemoryLayout<UInt32>.size)
+        #expect(type == SSHAgent.Response.agentSignResponse.rawValue)
+        let outer = OpenSSHReader(data: responseReader.remaining)
+        let inner = try outer.readNextChunkAsSubReader()
+        _ = try inner.readNextChunk()
+        let rsData = try inner.readNextChunkAsSubReader()
         var r = try rsData.readNextChunk()
         var s = try rsData.readNextChunk()
         // This is fine IRL, but it freaks out CryptoKit

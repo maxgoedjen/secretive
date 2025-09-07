@@ -33,8 +33,12 @@ final class OpenSSHReader {
     }
 
 
-    func readNextChunkAsString() throws -> String {
-        try String(decoding: readNextChunk(), as: UTF8.self)
+    func readNextChunkAsString(convertEndianness: Bool = true) throws(OpenSSHReaderError) -> String {
+        try String(decoding: readNextChunk(convertEndianness: convertEndianness), as: UTF8.self)
+    }
+
+    func readNextChunkAsSubReader(convertEndianness: Bool = true) throws(OpenSSHReaderError) -> OpenSSHReader {
+        OpenSSHReader(data: try readNextChunk(convertEndianness: convertEndianness))
     }
 
 }
