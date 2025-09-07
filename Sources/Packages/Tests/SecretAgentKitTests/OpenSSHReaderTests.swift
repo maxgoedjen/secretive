@@ -1,6 +1,6 @@
 import Foundation
 import Testing
-@testable import SecretKit
+@testable import SecretAgentKit
 @testable import SecureEnclaveSecretKit
 @testable import SmartCardSecretKit
 

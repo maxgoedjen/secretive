@@ -21,10 +21,18 @@
 		5008C23E2E525D8900507AC2 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 5008C23D2E525D8200507AC2 /* Localizable.xcstrings */; };
 		5008C2402E52792400507AC2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 50617D8623FCE48E0099B055 /* Assets.xcassets */; };
 		5008C2412E52D18700507AC2 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 5008C23D2E525D8200507AC2 /* Localizable.xcstrings */; };
+		500F04EB2E6CDEB0001CF06E /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500F04E82E6CDEB0001CF06E /* main.swift */; };
+		500F04EF2E6CDEF4001CF06E /* SecretAgentKit in Frameworks */ = {isa = PBXBuildFile; productRef = 500F04EE2E6CDEF4001CF06E /* SecretAgentKit */; };
+		500F04F02E6CDF20001CF06E /* AgentRequestParser.xpc in Embed XPC Services */ = {isa = PBXBuildFile; fileRef = 500F04D72E6CDEAB001CF06E /* AgentRequestParser.xpc */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		501421622781262300BBAA70 /* Brief in Frameworks */ = {isa = PBXBuildFile; productRef = 501421612781262300BBAA70 /* Brief */; };
 		501421652781268000BBAA70 /* SecretAgent.app in CopyFiles */ = {isa = PBXBuildFile; fileRef = 50A3B78A24026B7500D209EA /* SecretAgent.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		50153E20250AFCB200525160 /* UpdateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50153E1F250AFCB200525160 /* UpdateView.swift */; };
 		50153E22250DECA300525160 /* SecretListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50153E21250DECA300525160 /* SecretListItemView.swift */; };
+		501577C82E6BC5B4004A37D0 /* ReleasesDownloader.xpc in Embed XPC Services */ = {isa = PBXBuildFile; fileRef = 501577BD2E6BC5B4004A37D0 /* ReleasesDownloader.xpc */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		501577CF2E6BC5D4004A37D0 /* ReleasesDownloader.xpc in Embed XPC Services */ = {isa = PBXBuildFile; fileRef = 501577BD2E6BC5B4004A37D0 /* ReleasesDownloader.xpc */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		501577DA2E6BC5F3004A37D0 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501577D62E6BC5F3004A37D0 /* main.swift */; };
+		501577DF2E6BC647004A37D0 /* Brief in Frameworks */ = {isa = PBXBuildFile; productRef = 501577DE2E6BC647004A37D0 /* Brief */; };
+		501578132E6C0479004A37D0 /* XPCInputParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501578122E6C0479004A37D0 /* XPCInputParser.swift */; };
 		5018F54F24064786002EB505 /* Notifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5018F54E24064786002EB505 /* Notifier.swift */; };
 		504788EC2E680DC800B4556F /* URLs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504788EB2E680DC400B4556F /* URLs.swift */; };
 		504788F22E681F3A00B4556F /* Instructions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504788F12E681F3A00B4556F /* Instructions.swift */; };
@@ -64,6 +72,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		500F04F12E6CDF20001CF06E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 50617D7723FCE48D0099B055 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 500F04D62E6CDEAB001CF06E;
+			remoteInfo = AgentRequestParser;
+		};
 		50142166278126B500BBAA70 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 50617D7723FCE48D0099B055 /* Project object */;
@@ -71,9 +86,53 @@
 			remoteGlobalIDString = 50A3B78924026B7500D209EA;
 			remoteInfo = SecretAgent;
 		};
+		501577C62E6BC5B4004A37D0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 50617D7723FCE48D0099B055 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 501577BC2E6BC5B4004A37D0;
+			remoteInfo = ReleasesDownloader;
+		};
+		501577D02E6BC5D4004A37D0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 50617D7723FCE48D0099B055 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 501577BC2E6BC5B4004A37D0;
+			remoteInfo = ReleasesDownloader;
+		};
+		501577D32E6BC5DD004A37D0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 50617D7723FCE48D0099B055 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 501577BC2E6BC5B4004A37D0;
+			remoteInfo = ReleasesDownloader;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		501577C92E6BC5B4004A37D0 /* Embed XPC Services */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/XPCServices";
+			dstSubfolderSpec = 16;
+			files = (
+				501577C82E6BC5B4004A37D0 /* ReleasesDownloader.xpc in Embed XPC Services */,
+			);
+			name = "Embed XPC Services";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		501577D22E6BC5D4004A37D0 /* Embed XPC Services */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/XPCServices";
+			dstSubfolderSpec = 16;
+			files = (
+				500F04F02E6CDF20001CF06E /* AgentRequestParser.xpc in Embed XPC Services */,
+				501577CF2E6BC5D4004A37D0 /* ReleasesDownloader.xpc in Embed XPC Services */,
+			);
+			name = "Embed XPC Services";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		50617DBF23FCE4AB0099B055 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -112,8 +171,15 @@
 		50033AC227813F1700253856 /* BundleIDs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BundleIDs.swift; sourceTree = "<group>"; };
 		5003EF39278005C800DF2006 /* Packages */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Packages; sourceTree = "<group>"; };
 		5008C23D2E525D8200507AC2 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; name = Localizable.xcstrings; path = Packages/Resources/Localizable.xcstrings; sourceTree = SOURCE_ROOT; };
+		500F04D72E6CDEAB001CF06E /* AgentRequestParser.xpc */ = {isa = PBXFileReference; explicitFileType = "wrapper.xpc-service"; includeInIndex = 0; path = AgentRequestParser.xpc; sourceTree = BUILT_PRODUCTS_DIR; };
+		500F04E72E6CDEB0001CF06E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		500F04E82E6CDEB0001CF06E /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		50153E1F250AFCB200525160 /* UpdateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateView.swift; sourceTree = "<group>"; };
 		50153E21250DECA300525160 /* SecretListItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecretListItemView.swift; sourceTree = "<group>"; };
+		501577BD2E6BC5B4004A37D0 /* ReleasesDownloader.xpc */ = {isa = PBXFileReference; explicitFileType = "wrapper.xpc-service"; includeInIndex = 0; path = ReleasesDownloader.xpc; sourceTree = BUILT_PRODUCTS_DIR; };
+		501577D52E6BC5F3004A37D0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		501577D62E6BC5F3004A37D0 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		501578122E6C0479004A37D0 /* XPCInputParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XPCInputParser.swift; sourceTree = "<group>"; };
 		5018F54E24064786002EB505 /* Notifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifier.swift; sourceTree = "<group>"; };
 		504788EB2E680DC400B4556F /* URLs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLs.swift; sourceTree = "<group>"; };
 		504788F12E681F3A00B4556F /* Instructions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Instructions.swift; sourceTree = "<group>"; };
@@ -161,6 +227,22 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		500F04D42E6CDEAB001CF06E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				500F04EF2E6CDEF4001CF06E /* SecretAgentKit in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		501577BA2E6BC5B4004A37D0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				501577DF2E6BC647004A37D0 /* Brief in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		50617D7C23FCE48D0099B055 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -193,6 +275,24 @@
 				50033AC227813F1700253856 /* BundleIDs.swift */,
 			);
 			path = Helpers;
+			sourceTree = "<group>";
+		};
+		500F04E92E6CDEB0001CF06E /* AgentRequestParser */ = {
+			isa = PBXGroup;
+			children = (
+				500F04E72E6CDEB0001CF06E /* Info.plist */,
+				500F04E82E6CDEB0001CF06E /* main.swift */,
+			);
+			path = AgentRequestParser;
+			sourceTree = "<group>";
+		};
+		501577D92E6BC5F3004A37D0 /* ReleasesDownloader */ = {
+			isa = PBXGroup;
+			children = (
+				501577D52E6BC5F3004A37D0 /* Info.plist */,
+				501577D62E6BC5F3004A37D0 /* main.swift */,
+			);
+			path = ReleasesDownloader;
 			sourceTree = "<group>";
 		};
 		504788ED2E681EB200B4556F /* Styles */ = {
@@ -251,6 +351,8 @@
 				5003EF39278005C800DF2006 /* Packages */,
 				50617D8123FCE48E0099B055 /* Secretive */,
 				50A3B78B24026B7500D209EA /* SecretAgent */,
+				501577D92E6BC5F3004A37D0 /* ReleasesDownloader */,
+				500F04E92E6CDEB0001CF06E /* AgentRequestParser */,
 				508A58AF241E144C0069DC07 /* Config */,
 				50617D8023FCE48E0099B055 /* Products */,
 				5099A08B240243730062B6F2 /* Frameworks */,
@@ -262,6 +364,8 @@
 			children = (
 				50617D7F23FCE48E0099B055 /* Secretive.app */,
 				50A3B78A24026B7500D209EA /* SecretAgent.app */,
+				501577BD2E6BC5B4004A37D0 /* ReleasesDownloader.xpc */,
+				500F04D72E6CDEAB001CF06E /* AgentRequestParser.xpc */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -339,6 +443,7 @@
 			children = (
 				50020BAF24064869003D4025 /* AppDelegate.swift */,
 				5018F54E24064786002EB505 /* Notifier.swift */,
+				501578122E6C0479004A37D0 /* XPCInputParser.swift */,
 				50A3B79524026B7600D209EA /* Main.storyboard */,
 				50A3B79824026B7600D209EA /* Info.plist */,
 				508BF29425B4F140009EFB7E /* InternetAccessPolicy.plist */,
@@ -359,6 +464,46 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		500F04D62E6CDEAB001CF06E /* AgentRequestParser */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 500F04E22E6CDEAB001CF06E /* Build configuration list for PBXNativeTarget "AgentRequestParser" */;
+			buildPhases = (
+				500F04D32E6CDEAB001CF06E /* Sources */,
+				500F04D42E6CDEAB001CF06E /* Frameworks */,
+				500F04D52E6CDEAB001CF06E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = AgentRequestParser;
+			packageProductDependencies = (
+				500F04EE2E6CDEF4001CF06E /* SecretAgentKit */,
+			);
+			productName = AgentRequestParser;
+			productReference = 500F04D72E6CDEAB001CF06E /* AgentRequestParser.xpc */;
+			productType = "com.apple.product-type.xpc-service";
+		};
+		501577BC2E6BC5B4004A37D0 /* ReleasesDownloader */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 501577CE2E6BC5B4004A37D0 /* Build configuration list for PBXNativeTarget "ReleasesDownloader" */;
+			buildPhases = (
+				501577B92E6BC5B4004A37D0 /* Sources */,
+				501577BA2E6BC5B4004A37D0 /* Frameworks */,
+				501577BB2E6BC5B4004A37D0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ReleasesDownloader;
+			packageProductDependencies = (
+				501577DE2E6BC647004A37D0 /* Brief */,
+			);
+			productName = ReleasesDownloader;
+			productReference = 501577BD2E6BC5B4004A37D0 /* ReleasesDownloader.xpc */;
+			productType = "com.apple.product-type.xpc-service";
+		};
 		50617D7E23FCE48D0099B055 /* Secretive */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 50617D9D23FCE48E0099B055 /* Build configuration list for PBXNativeTarget "Secretive" */;
@@ -368,11 +513,13 @@
 				50617D7D23FCE48D0099B055 /* Resources */,
 				50617DBF23FCE4AB0099B055 /* Embed Frameworks */,
 				50C385AF240E438B00AF2719 /* CopyFiles */,
+				501577C92E6BC5B4004A37D0 /* Embed XPC Services */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				50142167278126B500BBAA70 /* PBXTargetDependency */,
+				501577C72E6BC5B4004A37D0 /* PBXTargetDependency */,
 			);
 			name = Secretive;
 			packageProductDependencies = (
@@ -393,10 +540,14 @@
 				50A3B78724026B7500D209EA /* Frameworks */,
 				50A3B78824026B7500D209EA /* Resources */,
 				50A5C18E240E4B4B00E2996C /* Embed Frameworks */,
+				501577D22E6BC5D4004A37D0 /* Embed XPC Services */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				501577D12E6BC5D4004A37D0 /* PBXTargetDependency */,
+				501577D42E6BC5DD004A37D0 /* PBXTargetDependency */,
+				500F04F22E6CDF20001CF06E /* PBXTargetDependency */,
 			);
 			name = SecretAgent;
 			packageProductDependencies = (
@@ -417,10 +568,16 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
-				LastSwiftUpdateCheck = 1220;
+				LastSwiftUpdateCheck = 2600;
 				LastUpgradeCheck = 2600;
 				ORGANIZATIONNAME = "Max Goedjen";
 				TargetAttributes = {
+					500F04D62E6CDEAB001CF06E = {
+						CreatedOnToolsVersion = 26.0;
+					};
+					501577BC2E6BC5B4004A37D0 = {
+						CreatedOnToolsVersion = 26.0;
+					};
 					50617D7E23FCE48D0099B055 = {
 						CreatedOnToolsVersion = 11.3;
 					};
@@ -453,11 +610,27 @@
 			targets = (
 				50617D7E23FCE48D0099B055 /* Secretive */,
 				50A3B78924026B7500D209EA /* SecretAgent */,
+				501577BC2E6BC5B4004A37D0 /* ReleasesDownloader */,
+				500F04D62E6CDEAB001CF06E /* AgentRequestParser */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		500F04D52E6CDEAB001CF06E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		501577BB2E6BC5B4004A37D0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		50617D7D23FCE48D0099B055 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -485,6 +658,22 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		500F04D32E6CDEAB001CF06E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				500F04EB2E6CDEB0001CF06E /* main.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		501577B92E6BC5B4004A37D0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				501577DA2E6BC5F3004A37D0 /* main.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		50617D7B23FCE48D0099B055 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -530,16 +719,37 @@
 			files = (
 				50020BB024064869003D4025 /* AppDelegate.swift in Sources */,
 				5018F54F24064786002EB505 /* Notifier.swift in Sources */,
+				501578132E6C0479004A37D0 /* XPCInputParser.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		500F04F22E6CDF20001CF06E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 500F04D62E6CDEAB001CF06E /* AgentRequestParser */;
+			targetProxy = 500F04F12E6CDF20001CF06E /* PBXContainerItemProxy */;
+		};
 		50142167278126B500BBAA70 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 50A3B78924026B7500D209EA /* SecretAgent */;
 			targetProxy = 50142166278126B500BBAA70 /* PBXContainerItemProxy */;
+		};
+		501577C72E6BC5B4004A37D0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 501577BC2E6BC5B4004A37D0 /* ReleasesDownloader */;
+			targetProxy = 501577C62E6BC5B4004A37D0 /* PBXContainerItemProxy */;
+		};
+		501577D12E6BC5D4004A37D0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 501577BC2E6BC5B4004A37D0 /* ReleasesDownloader */;
+			targetProxy = 501577D02E6BC5D4004A37D0 /* PBXContainerItemProxy */;
+		};
+		501577D42E6BC5DD004A37D0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 501577BC2E6BC5B4004A37D0 /* ReleasesDownloader */;
+			targetProxy = 501577D32E6BC5DD004A37D0 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -555,6 +765,223 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		500F04E32E6CDEAB001CF06E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = Z72PRUAWF6;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = AgentRequestParser/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = AgentRequestParser;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2025 Max Goedjen. All rights reserved.";
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.maxgoedjen.Secretive.AgentRequestParser;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				REGISTER_APP_GROUPS = YES;
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		500F04E42E6CDEAB001CF06E /* Test */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = AgentRequestParser/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = AgentRequestParser;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2025 Max Goedjen. All rights reserved.";
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.maxgoedjen.Secretive.AgentRequestParser;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				REGISTER_APP_GROUPS = YES;
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Test;
+		};
+		500F04E52E6CDEAB001CF06E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_IDENTITY = "Developer ID Application";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = Z72PRUAWF6;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = AgentRequestParser/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = AgentRequestParser;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2025 Max Goedjen. All rights reserved.";
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.maxgoedjen.Secretive.AgentRequestParser;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				REGISTER_APP_GROUPS = YES;
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		501577CA2E6BC5B4004A37D0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = Z72PRUAWF6;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_INCOMING_NETWORK_CONNECTIONS = NO;
+				ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES;
+				ENABLE_RESOURCE_ACCESS_AUDIO_INPUT = NO;
+				ENABLE_RESOURCE_ACCESS_BLUETOOTH = NO;
+				ENABLE_RESOURCE_ACCESS_CALENDARS = NO;
+				ENABLE_RESOURCE_ACCESS_CAMERA = NO;
+				ENABLE_RESOURCE_ACCESS_CONTACTS = NO;
+				ENABLE_RESOURCE_ACCESS_LOCATION = NO;
+				ENABLE_RESOURCE_ACCESS_PRINTING = NO;
+				ENABLE_RESOURCE_ACCESS_USB = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ReleasesDownloader/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = ReleasesDownloader;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2025 Max Goedjen. All rights reserved.";
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.maxgoedjen.Secretive.ReleasesDownloader;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				REGISTER_APP_GROUPS = YES;
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		501577CB2E6BC5B4004A37D0 /* Test */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = Z72PRUAWF6;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_INCOMING_NETWORK_CONNECTIONS = NO;
+				ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES;
+				ENABLE_RESOURCE_ACCESS_AUDIO_INPUT = NO;
+				ENABLE_RESOURCE_ACCESS_BLUETOOTH = NO;
+				ENABLE_RESOURCE_ACCESS_CALENDARS = NO;
+				ENABLE_RESOURCE_ACCESS_CAMERA = NO;
+				ENABLE_RESOURCE_ACCESS_CONTACTS = NO;
+				ENABLE_RESOURCE_ACCESS_LOCATION = NO;
+				ENABLE_RESOURCE_ACCESS_PRINTING = NO;
+				ENABLE_RESOURCE_ACCESS_USB = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ReleasesDownloader/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = ReleasesDownloader;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2025 Max Goedjen. All rights reserved.";
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.maxgoedjen.Secretive.ReleasesDownloader;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				REGISTER_APP_GROUPS = YES;
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Test;
+		};
+		501577CC2E6BC5B4004A37D0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_IDENTITY = "Developer ID Application";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = Z72PRUAWF6;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_INCOMING_NETWORK_CONNECTIONS = NO;
+				ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES;
+				ENABLE_RESOURCE_ACCESS_AUDIO_INPUT = NO;
+				ENABLE_RESOURCE_ACCESS_BLUETOOTH = NO;
+				ENABLE_RESOURCE_ACCESS_CALENDARS = NO;
+				ENABLE_RESOURCE_ACCESS_CAMERA = NO;
+				ENABLE_RESOURCE_ACCESS_CONTACTS = NO;
+				ENABLE_RESOURCE_ACCESS_LOCATION = NO;
+				ENABLE_RESOURCE_ACCESS_PRINTING = NO;
+				ENABLE_RESOURCE_ACCESS_USB = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ReleasesDownloader/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = ReleasesDownloader;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2025 Max Goedjen. All rights reserved.";
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.maxgoedjen.Secretive.ReleasesDownloader;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				REGISTER_APP_GROUPS = YES;
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
 		50617D9B23FCE48E0099B055 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 508A58AB241E121B0069DC07 /* Config.xcconfig */;
@@ -712,7 +1139,7 @@
 				ENABLE_ENHANCED_SECURITY = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_INCOMING_NETWORK_CONNECTIONS = NO;
-				ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES;
+				ENABLE_OUTGOING_NETWORK_CONNECTIONS = NO;
 				ENABLE_POINTER_AUTHENTICATION = YES;
 				ENABLE_PREVIEWS = YES;
 				ENABLE_RESOURCE_ACCESS_AUDIO_INPUT = NO;
@@ -752,7 +1179,7 @@
 				ENABLE_ENHANCED_SECURITY = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_INCOMING_NETWORK_CONNECTIONS = NO;
-				ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES;
+				ENABLE_OUTGOING_NETWORK_CONNECTIONS = NO;
 				ENABLE_POINTER_AUTHENTICATION = YES;
 				ENABLE_PREVIEWS = YES;
 				ENABLE_RESOURCE_ACCESS_AUDIO_INPUT = NO;
@@ -864,7 +1291,7 @@
 				ENABLE_ENHANCED_SECURITY = YES;
 				ENABLE_HARDENED_RUNTIME = NO;
 				ENABLE_INCOMING_NETWORK_CONNECTIONS = NO;
-				ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES;
+				ENABLE_OUTGOING_NETWORK_CONNECTIONS = NO;
 				ENABLE_POINTER_AUTHENTICATION = YES;
 				ENABLE_PREVIEWS = YES;
 				ENABLE_RESOURCE_ACCESS_AUDIO_INPUT = NO;
@@ -898,7 +1325,7 @@
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_INCOMING_NETWORK_CONNECTIONS = NO;
-				ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES;
+				ENABLE_OUTGOING_NETWORK_CONNECTIONS = NO;
 				ENABLE_PREVIEWS = YES;
 				ENABLE_RESOURCE_ACCESS_AUDIO_INPUT = NO;
 				ENABLE_RESOURCE_ACCESS_BLUETOOTH = NO;
@@ -933,7 +1360,7 @@
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_INCOMING_NETWORK_CONNECTIONS = NO;
-				ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES;
+				ENABLE_OUTGOING_NETWORK_CONNECTIONS = NO;
 				ENABLE_PREVIEWS = YES;
 				ENABLE_RESOURCE_ACCESS_AUDIO_INPUT = NO;
 				ENABLE_RESOURCE_ACCESS_BLUETOOTH = NO;
@@ -969,7 +1396,7 @@
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_INCOMING_NETWORK_CONNECTIONS = NO;
-				ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES;
+				ENABLE_OUTGOING_NETWORK_CONNECTIONS = NO;
 				ENABLE_PREVIEWS = YES;
 				ENABLE_RESOURCE_ACCESS_AUDIO_INPUT = NO;
 				ENABLE_RESOURCE_ACCESS_BLUETOOTH = NO;
@@ -995,6 +1422,26 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		500F04E22E6CDEAB001CF06E /* Build configuration list for PBXNativeTarget "AgentRequestParser" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				500F04E32E6CDEAB001CF06E /* Debug */,
+				500F04E42E6CDEAB001CF06E /* Test */,
+				500F04E52E6CDEAB001CF06E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		501577CE2E6BC5B4004A37D0 /* Build configuration list for PBXNativeTarget "ReleasesDownloader" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				501577CA2E6BC5B4004A37D0 /* Debug */,
+				501577CB2E6BC5B4004A37D0 /* Test */,
+				501577CC2E6BC5B4004A37D0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		50617D7A23FCE48D0099B055 /* Build configuration list for PBXProject "Secretive" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -1060,7 +1507,15 @@
 			isa = XCSwiftPackageProductDependency;
 			productName = SmartCardSecretKit;
 		};
+		500F04EE2E6CDEF4001CF06E /* SecretAgentKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = SecretAgentKit;
+		};
 		501421612781262300BBAA70 /* Brief */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Brief;
+		};
+		501577DE2E6BC647004A37D0 /* Brief */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = Brief;
 		};

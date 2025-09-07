@@ -1,5 +1,6 @@
 import Foundation
 import OSLog
+import SecretKit
 
 /// Manages storage and lookup for OpenSSH certificates.
 public actor OpenSSHCertificateHandler: Sendable {
@@ -22,33 +23,6 @@ public actor OpenSSHCertificateHandler: Sendable {
         }
         keyBlobsAndNames = secrets.reduce(into: [:]) { partialResult, next in
             partialResult[next] = try? loadKeyblobAndName(for: next)
-        }
-    }
-
-    /// Reconstructs a public key from a ``Data``, if that ``Data`` contains an OpenSSH certificate hash. Currently only ecdsa certificates are supported
-    /// - Parameter certBlock: The openssh certificate to extract the public key from
-    /// - Returns: A ``Data`` object containing the public key in OpenSSH wire format if the ``Data`` is an OpenSSH certificate hash, otherwise nil.
-    public func publicKeyHash(from hash: Data) -> Data? {
-        let reader = OpenSSHReader(data: hash)
-        do {
-            let certType = String(decoding: try reader.readNextChunk(), as: UTF8.self)
-            switch certType {
-            case "ecdsa-sha2-nistp256-cert-v01@openssh.com",
-                "ecdsa-sha2-nistp384-cert-v01@openssh.com",
-                "ecdsa-sha2-nistp521-cert-v01@openssh.com":
-                _ = try reader.readNextChunk() // nonce
-                let curveIdentifier = try reader.readNextChunk()
-                let publicKey = try reader.readNextChunk()
-
-                let openSSHIdentifier = certType.replacingOccurrences(of: "-cert-v01@openssh.com", with: "")
-                return openSSHIdentifier.lengthAndData +
-                curveIdentifier.lengthAndData +
-                publicKey.lengthAndData
-            default:
-                return nil
-            }
-        } catch {
-            return nil
         }
     }
 

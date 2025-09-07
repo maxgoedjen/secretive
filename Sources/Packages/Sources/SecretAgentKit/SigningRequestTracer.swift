@@ -13,9 +13,8 @@ extension SigningRequestTracer {
     /// Generates a ``SecretKit.SigningRequestProvenance`` from a ``FileHandle``.
     /// - Parameter fileHandle: The reader involved in processing the request.
     /// - Returns: A ``SecretKit.SigningRequestProvenance`` describing the origin of the request.
-    func provenance(from fileHandleReader: FileHandle) -> SigningRequestProvenance {
-        let firstInfo = process(from: fileHandleReader.pidOfConnectedProcess)
-
+    func provenance(from fileHandle: FileHandle) -> SigningRequestProvenance {
+        let firstInfo = process(from: fileHandle.pidOfConnectedProcess)
         var provenance = SigningRequestProvenance(root: firstInfo)
         while NSRunningApplication(processIdentifier: provenance.origin.pid) == nil && provenance.origin.parentPID != nil {
             provenance.chain.append(process(from: provenance.origin.parentPID!))

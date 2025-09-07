@@ -1,5 +1,6 @@
 import Foundation
 import Observation
+import XPCWrappers
 
 /// A concrete implementation of ``UpdaterProtocol`` which considers the current release and OS version.
 @Observable public final class Updater: UpdaterProtocol, Sendable {
@@ -33,26 +34,24 @@ import Observation
     ) {
         self.osVersion = osVersion
         self.currentVersion = currentVersion
-        if checkOnLaunch {
-            // Don't do a launch check if the user hasn't seen the setup prompt explaining updater yet.
-            Task {
-                await checkForUpdates()
-            }
-        }
         Task {
+            if checkOnLaunch {
+                try await checkForUpdates()
+            }
             while !Task.isCancelled {
                 try? await Task.sleep(for: .seconds(Int(checkFrequency)))
-                await checkForUpdates()
+                try await checkForUpdates()
             }
         }
     }
 
     /// Manually trigger an update check.
-    public func checkForUpdates() async {
-        guard let (data, _) = try? await URLSession.shared.data(from: Constants.updateURL) else { return }
-        guard let releases = try? JSONDecoder().decode([Release].self, from: data) else { return }
-        await evaluate(releases: releases)
+    public func checkForUpdates() async throws {
+        let session = try XPCTypedSession<[Release], Never>(serviceName: "com.maxgoedjen.Secretive.ReleasesDownloader")
+        await evaluate(releases: try await session.send())
+        session.complete()
     }
+
 
     /// Ignores a specified release. `update` will be nil if the user has ignored the latest available release.
     /// - Parameter release: The release to ignore.
@@ -97,14 +96,6 @@ extension Updater {
     /// The user defaults used to store user ignore state.
     var defaults: UserDefaults {
         UserDefaults(suiteName: "com.maxgoedjen.Secretive.updater.ignorelist")!
-    }
-
-}
-
-extension Updater {
-
-    enum Constants {
-        static let updateURL = URL(string: "https://api.github.com/repos/maxgoedjen/secretive/releases")!
     }
 
 }
