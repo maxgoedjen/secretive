@@ -16,10 +16,10 @@ public struct SSHAgentInputParser: SSHAgentInputParserProtocol {
         
     }
 
-    public func parse(data: Data) throws -> SSHAgent.Request {
+    public func parse(data: Data) throws(AgentParsingError) -> SSHAgent.Request {
         logger.debug("Parsing new data")
         guard data.count > 4 else {
-            throw InvalidDataProvidedError()
+            throw .invalidData
         }
         let specifiedLength = (data[0..<4].bytes.unsafeLoad(as: UInt32.self).bigEndian) + 4
         let rawRequestInt = data[4]
@@ -29,7 +29,11 @@ public struct SSHAgentInputParser: SSHAgentInputParserProtocol {
         case SSHAgent.Request.requestIdentities.protocolID:
             return .requestIdentities
         case SSHAgent.Request.signRequest(.empty).protocolID:
-            return .signRequest(try signatureRequestContext(from: body))
+            do {
+                return .signRequest(try signatureRequestContext(from: body))
+            } catch {
+                throw .openSSHReader(error)
+            }
         case SSHAgent.Request.addIdentity.protocolID:
             return .addIdentity
         case SSHAgent.Request.removeIdentity.protocolID:
@@ -59,7 +63,7 @@ public struct SSHAgentInputParser: SSHAgentInputParserProtocol {
 
 extension SSHAgentInputParser {
 
-    func signatureRequestContext(from data: Data) throws -> SSHAgent.Request.SignatureRequestContext {
+    func signatureRequestContext(from data: Data) throws(OpenSSHReaderError) -> SSHAgent.Request.SignatureRequestContext {
         let reader = OpenSSHReader(data: data)
         let rawKeyBlob = try reader.readNextChunk()
         let keyBlob = certificatePublicKeyBlob(from: rawKeyBlob) ?? rawKeyBlob
@@ -95,8 +99,11 @@ extension SSHAgentInputParser {
 
 extension SSHAgentInputParser {
 
-    struct AgentUnknownRequestError: Error {}
-    struct AgentUnhandledRequestError: Error {}
-    struct InvalidDataProvidedError: Error {}
+    public enum AgentParsingError: Error, Codable {
+        case unknownRequest
+        case unhandledRequest
+        case invalidData
+        case openSSHReader(OpenSSHReaderError)
+    }
 
 }

@@ -35,13 +35,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         logger.debug("SecretAgent finished launching")
         Task {
             let inputParser = try XPCAgentInputParser()
-            Task {
-                try? await Task.sleep(for: .seconds(1))
-                var len = (5 as UInt32).littleEndian
-                var raw = SSHAgent.Request.requestIdentities.protocolID
-                let data = Data(bytes: &len, count: MemoryLayout<UInt32>.size) + Data(bytes: &raw, count: MemoryLayout<UInt8>.size)
-                print(try? await inputParser.parse(data: data))
-            }
             for await session in socketController.sessions {
                 Task {
                     do {

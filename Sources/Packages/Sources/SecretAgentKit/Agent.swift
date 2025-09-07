@@ -45,6 +45,8 @@ extension Agent {
                 response.append(SSHAgent.Response.agentSignResponse.data)
                 response.append(try await sign(data: context.dataToSign, keyBlob: context.keyBlob, provenance: provenance))
                 logger.debug("Agent returned \(SSHAgent.Response.agentSignResponse.debugDescription)")
+            case .unknown(let value):
+                logger.error("Agent received unknown request of type \(value).")
             default:
                 logger.debug("Agent received valid request of type \(request.debugDescription), but not currently supported.")
                 throw UnhandledRequestError()
