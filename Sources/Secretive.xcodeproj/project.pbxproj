@@ -31,7 +31,6 @@
 		501577C82E6BC5B4004A37D0 /* ReleasesDownloader.xpc in Embed XPC Services */ = {isa = PBXBuildFile; fileRef = 501577BD2E6BC5B4004A37D0 /* ReleasesDownloader.xpc */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		501577CF2E6BC5D4004A37D0 /* ReleasesDownloader.xpc in Embed XPC Services */ = {isa = PBXBuildFile; fileRef = 501577BD2E6BC5B4004A37D0 /* ReleasesDownloader.xpc */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		501577DA2E6BC5F3004A37D0 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501577D62E6BC5F3004A37D0 /* main.swift */; };
-		501577DB2E6BC5F3004A37D0 /* ReleasesDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501577D72E6BC5F3004A37D0 /* ReleasesDownloader.swift */; };
 		501577DF2E6BC647004A37D0 /* Brief in Frameworks */ = {isa = PBXBuildFile; productRef = 501577DE2E6BC647004A37D0 /* Brief */; };
 		501578132E6C0479004A37D0 /* XPCInputParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501578122E6C0479004A37D0 /* XPCInputParser.swift */; };
 		5018F54F24064786002EB505 /* Notifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5018F54E24064786002EB505 /* Notifier.swift */; };
@@ -180,7 +179,6 @@
 		501577BD2E6BC5B4004A37D0 /* ReleasesDownloader.xpc */ = {isa = PBXFileReference; explicitFileType = "wrapper.xpc-service"; includeInIndex = 0; path = ReleasesDownloader.xpc; sourceTree = BUILT_PRODUCTS_DIR; };
 		501577D52E6BC5F3004A37D0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		501577D62E6BC5F3004A37D0 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
-		501577D72E6BC5F3004A37D0 /* ReleasesDownloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReleasesDownloader.swift; sourceTree = "<group>"; };
 		501578122E6C0479004A37D0 /* XPCInputParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XPCInputParser.swift; sourceTree = "<group>"; };
 		5018F54E24064786002EB505 /* Notifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifier.swift; sourceTree = "<group>"; };
 		504788EB2E680DC400B4556F /* URLs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLs.swift; sourceTree = "<group>"; };
@@ -293,7 +291,6 @@
 			children = (
 				501577D52E6BC5F3004A37D0 /* Info.plist */,
 				501577D62E6BC5F3004A37D0 /* main.swift */,
-				501577D72E6BC5F3004A37D0 /* ReleasesDownloader.swift */,
 			);
 			path = ReleasesDownloader;
 			sourceTree = "<group>";
@@ -674,7 +671,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				501577DA2E6BC5F3004A37D0 /* main.swift in Sources */,
-				501577DB2E6BC5F3004A37D0 /* ReleasesDownloader.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -46,22 +46,16 @@ import Observation
 
     /// Manually trigger an update check.
     public func checkForUpdates() async throws {
-        let releaseData = try await withXPCCall(to: "com.maxgoedjen.Secretive.ReleasesDownloader", ReleasesDownloaderProtocol.self) {
-            try await $0.downloadReleases()
+        let session: XPCSession
+        if #available(macOS 26.0, *) {
+            session = try XPCSession(xpcService: "com.maxgoedjen.Secretive.ReleasesDownloader", requirement: .isFromSameTeam())
+        } else {
+            session = try XPCSession(xpcService: "com.maxgoedjen.Secretive.ReleasesDownloader")
         }
-        let releases = try JSONDecoder().decode([Release].self, from: releaseData)
-        await evaluate(releases: releases)
+        await evaluate(releases: try await session.send())
+        session.cancel(reason: "Done")
     }
 
-    func withXPCCall<ServiceProtocol, Result>(to service: String, _: ServiceProtocol.Type, closure: (ServiceProtocol) async throws -> Result) async rethrows -> Result {
-        let connectionToService = NSXPCConnection(serviceName: "com.maxgoedjen.Secretive.ReleasesDownloader")
-        connectionToService.remoteObjectInterface = NSXPCInterface(with: (any ReleasesDownloaderProtocol).self)// fixme
-        connectionToService.resume()
-        let service = connectionToService.remoteObjectProxy as! ServiceProtocol
-        let result = try await closure(service)
-        connectionToService.invalidate()
-        return result
-    }
 
     /// Ignores a specified release. `update` will be nil if the user has ignored the latest available release.
     /// - Parameter release: The release to ignore.
@@ -110,3 +104,32 @@ extension Updater {
 
 }
 
+private extension XPCSession {
+
+    func send<Response: Decodable & Sendable>(_ message: some Encodable = XPCSession.emptyMessage) async throws -> Response {
+        try await withCheckedThrowingContinuation { continuation in
+            do {
+                try send(message) { result in
+                    switch result {
+                    case .success(let message):
+                        do {
+                            let decoded = try message.decode(as: Response.self)
+                            continuation.resume(returning: decoded)
+                        } catch {
+                            continuation.resume(throwing: error)
+                        }
+                    case .failure(let error):
+                        continuation.resume(throwing: error)
+                    }
+                }
+            } catch {
+                continuation.resume(throwing: error)
+            }
+        }
+    }
+
+    static var emptyMessage: some Encodable {
+        Data()
+    }
+
+}

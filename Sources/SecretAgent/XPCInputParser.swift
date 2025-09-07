@@ -1,5 +1,6 @@
 import Foundation
 import SecretAgentKit
+import Brief
 
 /// Delegates all agent input parsing to an XPC service which wraps OpenSSH
 public final class XPCAgentInputParser: SSHAgentInputParserProtocol {
@@ -16,7 +17,6 @@ public final class XPCAgentInputParser: SSHAgentInputParserProtocol {
         Task {
             // Warm up the XPC endpoint.
             _ = try? await parse(data: Data())
-
         }
     }
 
