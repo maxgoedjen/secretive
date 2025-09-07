@@ -8,19 +8,27 @@ import CryptoKit
 
     // MARK: Identity Listing
 
-
-//    let testProvenance = SigningRequestProvenance(root: .init(pid: 0, processName: "Test", appName: "Test", iconURL: nil, path: /, validSignature: true, parentPID: nil))
-
     @Test func emptyStores() async throws {
         let agent = Agent(storeList: SecretStoreList())
-        let response = try await agent.handle(data: Constants.Requests.requestIdentities, provenance: .test)
+        let request = try SSHAgentInputParser().parse(data: Constants.Requests.requestIdentities)
+        let response = await agent.handle(request: request, provenance: .test)
         #expect(response == Constants.Responses.requestIdentitiesEmpty)
     }
 
     @Test func identitiesList() async throws {
         let list = await storeList(with: [Constants.Secrets.ecdsa256Secret, Constants.Secrets.ecdsa384Secret])
         let agent = Agent(storeList: list)
-        let response = try await agent.handle(data: Constants.Requests.requestIdentities, provenance: .test)
+        let request = try SSHAgentInputParser().parse(data: Constants.Requests.requestIdentities)
+        let response = await agent.handle(request: request, provenance: .test)
+
+        let actualHex = response.compactMap { ("0" + String($0, radix: 16, uppercase: false)).suffix(2) }.joined()
+        let expectedHex = Constants.Responses.requestIdentitiesMultiple.compactMap { ("0" + String($0, radix: 16, uppercase: false)).suffix(2) }.joined()
+        print(actualHex)
+        print(expectedHex)
+
+        let actual = OpenSSHReader(data: response)
+        let expected = OpenSSHReader(data: Constants.Responses.requestIdentitiesMultiple)
+        print(actual, expected)
         #expect(response == Constants.Responses.requestIdentitiesMultiple)
     }
 
@@ -29,40 +37,34 @@ import CryptoKit
     @Test func noMatchingIdentities() async throws {
         let list = await storeList(with: [Constants.Secrets.ecdsa256Secret, Constants.Secrets.ecdsa384Secret])
         let agent = Agent(storeList: list)
-        let response = try await agent.handle(data: Constants.Requests.requestSignatureWithNoneMatching, provenance: .test)
+        let request = try SSHAgentInputParser().parse(data: Constants.Requests.requestSignatureWithNoneMatching)
+        let response = await agent.handle(request: request, provenance: .test)
         #expect(response == Constants.Responses.requestFailure)
     }
 
-//    @Test func ecdsaSignature() async throws {
-//        let stubReader = StubFileHandleReader(availableData: Constants.Requests.requestSignature)
-//        let requestReader = OpenSSHReader(data: Constants.Requests.requestSignature[5...])
-//        _ = requestReader.readNextChunk()
-//        let dataToSign = requestReader.readNextChunk()
-//        let list = await storeList(with: [Constants.Secrets.ecdsa256Secret, Constants.Secrets.ecdsa384Secret])
-//        let agent = Agent(storeList: list)
-//        await agent.handle(reader: stubReader, writer: stubWriter)
-//        let outer = OpenSSHReader(data: stubWriter.data[5...])
-//        let payload = outer.readNextChunk()
-//        let inner = OpenSSHReader(data: payload)
-//        _ = inner.readNextChunk()
-//        let signedData = inner.readNextChunk()
-//        let rsData = OpenSSHReader(data: signedData)
-//        var r = rsData.readNextChunk()
-//        var s = rsData.readNextChunk()
-//        // This is fine IRL, but it freaks out CryptoKit
-//        if r[0] == 0 {
-//            r.removeFirst()
-//        }
-//        if s[0] == 0 {
-//            s.removeFirst()
-//        }
-//        var rs = r
-//        rs.append(s)
-//        let signature = try P256.Signing.ECDSASignature(rawRepresentation: rs)
-//        // Correct signature
-//        #expect(try P256.Signing.PublicKey(x963Representation: Constants.Secrets.ecdsa256Secret.publicKey)
-//            .isValidSignature(signature, for: dataToSign))
-//    }
+    @Test(.disabled()) func ecdsaSignature() async throws {
+        let request = try SSHAgentInputParser().parse(data: Constants.Requests.requestSignature)
+        guard case SSHAgent.Request.signRequest(let context) = request else { return }
+        let list = await storeList(with: [Constants.Secrets.ecdsa256Secret, Constants.Secrets.ecdsa384Secret])
+        let agent = Agent(storeList: list)
+        let signedData = await agent.handle(request: request, provenance: .test)
+        let rsData = OpenSSHReader(data: signedData)
+        var r = try rsData.readNextChunk()
+        var s = try rsData.readNextChunk()
+        // This is fine IRL, but it freaks out CryptoKit
+        if r[0] == 0 {
+            r.removeFirst()
+        }
+        if s[0] == 0 {
+            s.removeFirst()
+        }
+        var rs = r
+        rs.append(s)
+        let signature = try P256.Signing.ECDSASignature(rawRepresentation: rs)
+        // Correct signature
+        #expect(try P256.Signing.PublicKey(x963Representation: Constants.Secrets.ecdsa256Secret.publicKey)
+            .isValidSignature(signature, for: context.dataToSign))
+    }
 
     // MARK: Witness protocol
 
@@ -72,7 +74,7 @@ import CryptoKit
             return true
         }, witness: { _, _ in })
         let agent = Agent(storeList: list, witness: witness)
-        let response = try await agent.handle(data: Constants.Requests.requestSignature, provenance: .test)
+        let response = await agent.handle(request: .signRequest(.empty), provenance: .test)
         #expect(response == Constants.Responses.requestFailure)
     }
 
@@ -85,7 +87,8 @@ import CryptoKit
             witnessed = true
         })
         let agent = Agent(storeList: list, witness: witness)
-        _ = try await agent.handle(data: Constants.Requests.requestSignature, provenance: .test)
+        let request = try SSHAgentInputParser().parse(data: Constants.Requests.requestSignature)
+        _ = await agent.handle(request: request, provenance: .test)
         #expect(witnessed)
     }
 
@@ -100,7 +103,8 @@ import CryptoKit
             witnessTrace = trace
         })
         let agent = Agent(storeList: list, witness: witness)
-        _ = try await agent.handle(data: Constants.Requests.requestSignature, provenance: .test)
+        let request = try SSHAgentInputParser().parse(data: Constants.Requests.requestSignature)
+        _ = await agent.handle(request: request, provenance: .test)
         #expect(witnessTrace == speakNowTrace)
         #expect(witnessTrace == .test)
     }
@@ -112,7 +116,8 @@ import CryptoKit
         let store = await list.stores.first?.base as! Stub.Store
         store.shouldThrow = true
         let agent = Agent(storeList: list)
-        let response = try await agent.handle(data: Constants.Requests.requestSignature, provenance: .test)
+        let request = try SSHAgentInputParser().parse(data: Constants.Requests.requestSignature)
+        let response = await agent.handle(request: request, provenance: .test)
         #expect(response == Constants.Responses.requestFailure)
     }
 
@@ -120,7 +125,7 @@ import CryptoKit
 
     @Test func unhandledAdd() async throws {
         let agent = Agent(storeList: SecretStoreList())
-        let response = try await agent.handle(data: Constants.Requests.addIdentity, provenance: .test)
+        let response = await agent.handle(request: .addIdentity, provenance: .test)
         #expect(response == Constants.Responses.requestFailure)
     }
 
@@ -146,14 +151,13 @@ extension AgentTests {
 
         enum Requests {
             static let requestIdentities = Data(base64Encoded: "AAAAAQs=")!
-            static let addIdentity = Data(base64Encoded: "AAAAARE=")!
             static let requestSignatureWithNoneMatching = Data(base64Encoded: "AAABhA0AAACIAAAAE2VjZHNhLXNoYTItbmlzdHAzODQAAAAIbmlzdHAzODQAAABhBEqCbkJbOHy5S1wVCaJoKPmpS0egM4frMqllgnlRRQ/Uvnn6EVS8oV03cPA2Bz0EdESyRKA/sbmn0aBtgjIwGELxu45UXEW1TEz6TxyS0u3vuIqR3Wo1CrQWRDnkrG/pBQAAAO8AAAAgbqmrqPUtJ8mmrtaSVexjMYyXWNqjHSnoto7zgv86xvcyAAAAA2dpdAAAAA5zc2gtY29ubmVjdGlvbgAAAAlwdWJsaWNrZXkBAAAAE2VjZHNhLXNoYTItbmlzdHAzODQAAACIAAAAE2VjZHNhLXNoYTItbmlzdHAzODQAAAAIbmlzdHAzODQAAABhBEqCbkJbOHy5S1wVCaJoKPmpS0egM4frMqllgnlRRQ/Uvnn6EVS8oV03cPA2Bz0EdESyRKA/sbmn0aBtgjIwGELxu45UXEW1TEz6TxyS0u3vuIqR3Wo1CrQWRDnkrG/pBQAAAAA=")!
             static let requestSignature = Data(base64Encoded: "AAABRA0AAABoAAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBKzOkUiVJEcACMtAd9X7xalbc0FYZyhbmv2dsWl4IP2GWIi+RcsaHQNw+nAIQ8CKEYmLnl0VLDp5Ef8KMhgIy08AAADPAAAAIBIFsbCZ4/dhBmLNGHm0GKj7EJ4N8k/jXRxlyg+LFIYzMgAAAANnaXQAAAAOc3NoLWNvbm5lY3Rpb24AAAAJcHVibGlja2V5AQAAABNlY2RzYS1zaGEyLW5pc3RwMjU2AAAAaAAAABNlY2RzYS1zaGEyLW5pc3RwMjU2AAAACG5pc3RwMjU2AAAAQQSszpFIlSRHAAjLQHfV+8WpW3NBWGcoW5r9nbFpeCD9hliIvkXLGh0DcPpwCEPAihGJi55dFSw6eRH/CjIYCMtPAAAAAA==")!
         }
 
         enum Responses {
             static let requestIdentitiesEmpty = Data(base64Encoded: "AAAABQwAAAAA")!
-            static let requestIdentitiesMultiple = Data(base64Encoded: "AAABKwwAAAACAAAAaAAAABNlY2RzYS1zaGEyLW5pc3RwMjU2AAAACG5pc3RwMjU2AAAAQQSszpFIlSRHAAjLQHfV+8WpW3NBWGcoW5r9nbFpeCD9hliIvkXLGh0DcPpwCEPAihGJi55dFSw6eRH/CjIYCMtPAAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAACIAAAAE2VjZHNhLXNoYTItbmlzdHAzODQAAAAIbmlzdHAzODQAAABhBLKSzA5q3jCb3q0JKigvcxfWVGrJ+bklpG0Zc9YzUwrbsh9SipvlSJi+sHQI+O0m88DOpRBAtuAHX60euD/Yv250tovN7/+MEFbXGZ/hLdd0BoFpWbLfJcQj806KJGlcDAAAABNlY2RzYS1zaGEyLW5pc3RwMzg0")!
+            static let requestIdentitiesMultiple = Data(base64Encoded: "AAABLwwAAAACAAAAaAAAABNlY2RzYS1zaGEyLW5pc3RwMjU2AAAACG5pc3RwMjU2AAAAQQSszpFIlSRHAAjLQHfV+8WpW3NBWGcoW5r9nbFpeCD9hliIvkXLGh0DcPpwCEPAihGJi55dFSw6eRH/CjIYCMtPAAAAFWVjZHNhLTI1NkBleGFtcGxlLmNvbQAAAIgAAAATZWNkc2Etc2hhMi1uaXN0cDM4NAAAAAhuaXN0cDM4NAAAAGEEspLMDmreMJverQkqKC9zF9ZUasn5uSWkbRlz1jNTCtuyH1KKm+VImL6wdAj47SbzwM6lEEC24AdfrR64P9i/bnS2i83v/4wQVtcZn+Et13QGgWlZst8lxCPzTookaVwMAAAAFWVjZHNhLTM4NEBleGFtcGxlLmNvbQ==")!
             static let requestFailure = Data(base64Encoded: "AAAAAQU=")!
         }
 

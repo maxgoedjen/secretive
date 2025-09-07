@@ -150,7 +150,7 @@ extension SSHAgent.Response {
 
     var data: Data {
         var raw = self.rawValue
-        return  Data(bytes: &raw, count: MemoryLayout<UInt8>.size)
+        return Data(bytes: &raw, count: MemoryLayout<UInt8>.size)
     }
 
 }
