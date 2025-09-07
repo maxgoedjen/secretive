@@ -21,13 +21,16 @@ let package = Package(
             targets: ["SmartCardSecretKit"]),
         .library(
             name: "SecretAgentKit",
-            targets: ["SecretAgentKit"]),
+            targets: ["SecretAgentKit", "XPCWrappers"]),
         .library(
             name: "SecretAgentKitHeaders",
             targets: ["SecretAgentKitHeaders"]),
         .library(
             name: "Brief",
             targets: ["Brief"]),
+        .library(
+            name: "XPCWrappers",
+            targets: ["XPCWrappers"]),
     ],
     dependencies: [
     ],
@@ -70,13 +73,17 @@ let package = Package(
         ),
         .target(
             name: "Brief",
-            dependencies: [],
+            dependencies: ["XPCWrappers"],
             resources: [localization],
             swiftSettings: swiftSettings,
         ),
         .testTarget(
             name: "BriefTests",
             dependencies: ["Brief"],
+        ),
+        .target(
+            name: "XPCWrappers",
+            swiftSettings: swiftSettings,
         ),
     ]
 )

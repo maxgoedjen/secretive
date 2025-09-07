@@ -1,5 +1,6 @@
 import Foundation
 import Observation
+import XPCWrappers
 
 /// A concrete implementation of ``UpdaterProtocol`` which considers the current release and OS version.
 @Observable public final class Updater: UpdaterProtocol, Sendable {
@@ -46,14 +47,9 @@ import Observation
 
     /// Manually trigger an update check.
     public func checkForUpdates() async throws {
-        let session: XPCSession
-        if #available(macOS 26.0, *) {
-            session = try XPCSession(xpcService: "com.maxgoedjen.Secretive.ReleasesDownloader", requirement: .isFromSameTeam())
-        } else {
-            session = try XPCSession(xpcService: "com.maxgoedjen.Secretive.ReleasesDownloader")
-        }
+        let session = try XPCTypedSession<[Release], Never>(serviceName: "com.maxgoedjen.Secretive.ReleasesDownloader")
         await evaluate(releases: try await session.send())
-        session.cancel(reason: "Done")
+        session.complete()
     }
 
 
@@ -100,36 +96,6 @@ extension Updater {
     /// The user defaults used to store user ignore state.
     var defaults: UserDefaults {
         UserDefaults(suiteName: "com.maxgoedjen.Secretive.updater.ignorelist")!
-    }
-
-}
-
-private extension XPCSession {
-
-    func send<Response: Decodable & Sendable>(_ message: some Encodable = XPCSession.emptyMessage) async throws -> Response {
-        try await withCheckedThrowingContinuation { continuation in
-            do {
-                try send(message) { result in
-                    switch result {
-                    case .success(let message):
-                        do {
-                            let decoded = try message.decode(as: Response.self)
-                            continuation.resume(returning: decoded)
-                        } catch {
-                            continuation.resume(throwing: error)
-                        }
-                    case .failure(let error):
-                        continuation.resume(throwing: error)
-                    }
-                }
-            } catch {
-                continuation.resume(throwing: error)
-            }
-        }
-    }
-
-    static var emptyMessage: some Encodable {
-        Data()
     }
 
 }
