@@ -6,35 +6,34 @@ private let logger = Logger(subsystem: "com.maxgoedjen.secretive.secretagent.Age
 
 func handleRequest(_ request: XPCListener.IncomingSessionRequest) -> XPCListener.IncomingSessionRequest.Decision {
     logger.log("Parser received inbound request")
-    return request.accept { xpcDictionary in
-        xpcDictionary.handoffReply(to: .global(qos: .userInteractive)) {
+    return request.accept { xpcMessage in
+        xpcMessage.handoffReply(to: .global(qos: .userInteractive)) {
             logger.log("Parser accepted inbound request")
-            do {
-                let parser = SSHAgentInputParser()
-                let result = try parser.parse(data: xpcDictionary.decode(as: Data.self))
-                logger.log("Parser parsed message as type \(result.debugDescription)")
-                xpcDictionary.reply(result)
-            } catch let error as SSHAgentInputParser.AgentParsingError {
-                logger.error("Parser failed with error \(error)")
-                xpcDictionary.reply(error)
-            } catch {
-                // This should never actually happen because SSHAgentInputParser is a typed thrower, but the type system doesn't seem to know that across framework boundaries?
-                logger.error("Parser failed with unknown error \(error)")
-            }
+            handle(with: xpcMessage)
         }
     }
 }
 
-public struct WrappedError<Wrapped: Codable & Error>: Codable {
-
-    public struct DescriptionOnlyError: Error, Codable {
-        let localizedDescription: String
+func handle(with xpcMessage: XPCReceivedMessage) {
+    do {
+        let parser = SSHAgentInputParser()
+        let result = try parser.parse(data: xpcMessage.wrappedDecode())
+        logger.log("Parser parsed message as type \(result.debugDescription)")
+        xpcMessage.reply(result)
+    } catch {
+        logger.error("Parser failed with error \(error)")
+        xpcMessage.reply(error)
     }
+}
 
-    public let wrapped: Wrapped
+extension XPCReceivedMessage {
 
-    public init(_ error: Wrapped) {
-       wrapped = error
+    func wrappedDecode() throws(SSHAgentInputParser.AgentParsingError) -> Data {
+        do {
+            return try decode(as: Data.self)
+        } catch {
+            throw SSHAgentInputParser.AgentParsingError.invalidData
+        }
     }
 
 }
