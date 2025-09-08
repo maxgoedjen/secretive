@@ -23,9 +23,6 @@ let package = Package(
             name: "SecretAgentKit",
             targets: ["SecretAgentKit", "XPCWrappers"]),
         .library(
-            name: "SecretAgentKitHeaders",
-            targets: ["SecretAgentKitHeaders"]),
-        .library(
             name: "Brief",
             targets: ["Brief"]),
         .library(
@@ -60,12 +57,9 @@ let package = Package(
         ),
         .target(
             name: "SecretAgentKit",
-            dependencies: ["SecretKit", "SecretAgentKitHeaders"],
+            dependencies: ["SecretKit"],
             resources: [localization],
             swiftSettings: swiftSettings,
-        ),
-        .systemLibrary(
-            name: "SecretAgentKitHeaders",
         ),
         .testTarget(
             name: "SecretAgentKitTests",
@@ -83,7 +77,7 @@ let package = Package(
         ),
         .target(
             name: "XPCWrappers",
-            swiftSettings: swiftSettings,
+            swiftSettings: swiftSettings + [.treatWarning("DeprecatedDeclaration", as: .warning)],
         ),
     ]
 )
