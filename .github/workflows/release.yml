@@ -26,7 +26,7 @@ jobs:
     - name: Test
       run: xcrun xcodebuild -project Sources/Secretive.xcodeproj -scheme PackageTests test
       # SPM doesn't seem to pick up on the tests currently?
-      run: swift test --build-system swiftbuild --package-path Sources/Packages
+      # run: swift test --build-system swiftbuild --package-path Sources/Packages
   build:
     permissions:
       id-token: write
