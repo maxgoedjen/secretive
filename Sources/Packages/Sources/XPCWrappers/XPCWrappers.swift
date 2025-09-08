@@ -1,32 +1,16 @@
 import Foundation
 import XPC
 
-@_silgen_name("xpc_session_set_peer_code_signing_requirement")
-func xpc_session_set_peer_code_signing_requirement(_ session: Any, _ requirement: UnsafePointer<CChar>) -> Int32
-
 public struct XPCTypedSession<ResponseType: Codable & Sendable, ErrorType: Error & Codable>: Sendable {
 
     private let session: XPCSession
 
     public init(serviceName: String, warmup: Bool = false) throws {
-//        if #available(macOS 26.0, *) {
-//            session = try XPCSession(xpcService: serviceName, requirement: .isFromSameTeam())
-//        } else {
-        session = try XPCSession(xpcService: serviceName, options: .inactive)
-        let test = Mirror(reflecting: session)
-        for case let (label?, value) in test.children {
-            if label == "_session" {
-                print("HIT")
-                "anchor apple".utf8CString.withUnsafeBufferPointer { x in
-                    _ = xpc_session_set_peer_code_signing_requirement(
-                        value,
-                        x.baseAddress!
-                    )
-                }
-            }
+        if #available(macOS 26.0, *) {
+            session = try XPCSession(xpcService: serviceName, requirement: .isFromSameTeam())
+        } else {
+            session = try XPCSession(xpcService: serviceName)
         }
-//        try session.activate()
-        //        }
         if warmup {
             Task { [self] in
                 _ = try? await send()
