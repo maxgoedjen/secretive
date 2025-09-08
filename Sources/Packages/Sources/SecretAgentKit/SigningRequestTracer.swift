@@ -2,15 +2,7 @@ import Foundation
 import AppKit
 import Security
 import SecretKit
-//import SecretAgentKitHeaders
-
-// from libproc.h
-@_silgen_name("proc_pidpath")
-@discardableResult func proc_pidpath(_ pid: Int32, _ buffer: UnsafeMutableRawPointer!, _ buffersize: UInt32) -> Int32
-
-//// from SecTask.h
-@_silgen_name("SecCodeCreateWithPID")
-@discardableResult func SecCodeCreateWithPID(_: Int32, _: SecCSFlags, _: UnsafeMutablePointer<Unmanaged<SecCode>?>!) -> OSStatus
+import SecretAgentKitHeaders
 
 /// An object responsible for generating ``SecretKit.SigningRequestProvenance`` objects.
 struct SigningRequestTracer {
