@@ -1,5 +1,4 @@
 import Foundation
-import XPC
 
 public struct XPCTypedSession<ResponseType: Codable & Sendable, ErrorType: Error & Codable>: Sendable {
 
