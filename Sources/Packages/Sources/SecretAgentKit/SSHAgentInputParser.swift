@@ -2,7 +2,7 @@ import Foundation
 import OSLog
 import SecretKit
 
-public protocol SSHAgentInputParserProtocol: Sendable {
+public protocol SSHAgentInputParserProtocol {
 
     func parse(data: Data) async throws -> SSHAgent.Request
     
