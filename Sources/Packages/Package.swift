@@ -77,7 +77,7 @@ let package = Package(
         ),
         .target(
             name: "XPCWrappers",
-            swiftSettings: swiftSettings + [.treatWarning("DeprecatedDeclaration", as: .warning)],
+            swiftSettings: swiftSettings,
         ),
     ]
 )
