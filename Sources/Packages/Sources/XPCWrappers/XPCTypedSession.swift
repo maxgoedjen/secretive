@@ -32,10 +32,12 @@ public struct XPCTypedSession<ResponseType: Codable & Sendable, ErrorType: Error
                     }
                     let decoded = try JSONDecoder().decode(ResponseType.self, from: data)
                     continuation.resume(returning: decoded)
-                } catch let error as ErrorType {
-                    continuation.resume(throwing: error)
                 } catch {
-                    continuation.resume(throwing: error)
+                    if let typed = (error as NSError).underlying(as: ErrorType.self) {
+                        continuation.resume(throwing: typed)
+                    } else {
+                        continuation.resume(throwing: error)
+                    }
                 }
             }
         }

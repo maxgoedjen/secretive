@@ -31,7 +31,11 @@ public final class XPCServiceDelegate: NSObject, NSXPCListenerDelegate {
                     let encoded = try JSONEncoder().encode(result)
                     reply(encoded, nil)
                 } catch {
-                    reply(nil, error)
+                    if let error = error as? Codable & Error {
+                        reply(nil, NSError(error))
+                    } else {
+                        reply(nil, error)
+                    }
                 }
             }
         }
@@ -43,3 +47,24 @@ public final class XPCServiceDelegate: NSObject, NSXPCListenerDelegate {
 
 
 }
+
+extension NSError {
+
+    private enum Constants {
+        static let domain = "com.maxgoedjen.secretive.xpcwrappers"
+        static let code = -1
+        static let dataKey = "underlying"
+    }
+
+    @nonobjc convenience init<ErrorType: Codable & Error>(_ error: ErrorType) {
+        let encoded = try? JSONEncoder().encode(error)
+        self.init(domain: Constants.domain, code: Constants.code, userInfo: [Constants.dataKey: encoded as Any])
+    }
+
+    @nonobjc public func underlying<ErrorType: Codable & Error>(as errorType: ErrorType.Type) -> ErrorType? {
+        guard domain == Constants.domain && code == Constants.code, let data = userInfo[Constants.dataKey] as? Data else { return nil }
+        return try? JSONDecoder().decode(ErrorType.self, from: data)
+    }
+
+}
+
