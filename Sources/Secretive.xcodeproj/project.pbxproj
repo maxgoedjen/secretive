@@ -51,7 +51,6 @@
 		5066A6C82516FE6E004B5A36 /* CopyableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5066A6C72516FE6E004B5A36 /* CopyableView.swift */; };
 		506772C72424784600034DED /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 506772C62424784600034DED /* Credits.rtf */; };
 		506772C92425BB8500034DED /* NoStoresView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506772C82425BB8500034DED /* NoStoresView.swift */; };
-		50692C5B2E6EB8D40043C7BB /* LaunchConstraints.coderequirement in Resources */ = {isa = PBXBuildFile; fileRef = 50692C5A2E6EB8D40043C7BB /* LaunchConstraints.coderequirement */; };
 		50692BA62E6D5CC90043C7BB /* InternetAccessPolicy.plist in Resources */ = {isa = PBXBuildFile; fileRef = 50692BA52E6D5CC90043C7BB /* InternetAccessPolicy.plist */; };
 		5079BA0F250F29BF00EA86F4 /* StoreListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5079BA0E250F29BF00EA86F4 /* StoreListView.swift */; };
 		508A58AA241E06B40069DC07 /* PreviewUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508A58A9241E06B40069DC07 /* PreviewUpdater.swift */; };
@@ -203,7 +202,6 @@
 		5066A6C72516FE6E004B5A36 /* CopyableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CopyableView.swift; sourceTree = "<group>"; };
 		506772C62424784600034DED /* Credits.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = Credits.rtf; sourceTree = "<group>"; };
 		506772C82425BB8500034DED /* NoStoresView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoStoresView.swift; sourceTree = "<group>"; };
-		50692C5A2E6EB8D40043C7BB /* LaunchConstraints.coderequirement */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = LaunchConstraints.coderequirement; sourceTree = "<group>"; };
 		50692BA52E6D5CC90043C7BB /* InternetAccessPolicy.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = InternetAccessPolicy.plist; sourceTree = "<group>"; };
 		5079BA0E250F29BF00EA86F4 /* StoreListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreListView.swift; sourceTree = "<group>"; };
 		508A58A9241E06B40069DC07 /* PreviewUpdater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewUpdater.swift; sourceTree = "<group>"; };
@@ -386,7 +384,6 @@
 				50617D8E23FCE48E0099B055 /* Info.plist */,
 				508BF28D25B4F005009EFB7E /* InternetAccessPolicy.plist */,
 				50617D8F23FCE48E0099B055 /* Secretive.entitlements */,
-				50692C5A2E6EB8D40043C7BB /* LaunchConstraints.coderequirement */,
 				506772C62424784600034DED /* Credits.rtf */,
 				5008C23D2E525D8200507AC2 /* Localizable.xcstrings */,
 				50617D8823FCE48E0099B055 /* Preview Content */,
@@ -646,7 +643,6 @@
 				5008C23E2E525D8900507AC2 /* Localizable.xcstrings in Resources */,
 				50617D8723FCE48E0099B055 /* Assets.xcassets in Resources */,
 				506772C72424784600034DED /* Credits.rtf in Resources */,
-				50692C5B2E6EB8D40043C7BB /* LaunchConstraints.coderequirement in Resources */,
 				508BF28E25B4F005009EFB7E /* InternetAccessPolicy.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1164,7 +1160,6 @@
 				ENABLE_RESOURCE_ACCESS_PRINTING = NO;
 				ENABLE_RESOURCE_ACCESS_USB = NO;
 				INFOPLIST_FILE = Secretive/Info.plist;
-				LAUNCH_CONSTRAINT_RESPONSIBLE = "$(SRCROOT)/Secretive/LaunchConstraints.coderequirement";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -1205,7 +1200,6 @@
 				ENABLE_RESOURCE_ACCESS_PRINTING = NO;
 				ENABLE_RESOURCE_ACCESS_USB = NO;
 				INFOPLIST_FILE = Secretive/Info.plist;
-				LAUNCH_CONSTRAINT_RESPONSIBLE = "$(SRCROOT)/Secretive/LaunchConstraints.coderequirement";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -1318,7 +1312,6 @@
 				ENABLE_RESOURCE_ACCESS_PRINTING = NO;
 				ENABLE_RESOURCE_ACCESS_USB = NO;
 				INFOPLIST_FILE = Secretive/Info.plist;
-				LAUNCH_CONSTRAINT_RESPONSIBLE = "$(SRCROOT)/Secretive/LaunchConstraints.coderequirement";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -1352,7 +1345,6 @@
 				ENABLE_RESOURCE_ACCESS_PRINTING = NO;
 				ENABLE_RESOURCE_ACCESS_USB = NO;
 				INFOPLIST_FILE = SecretAgent/Info.plist;
-				LAUNCH_CONSTRAINT_RESPONSIBLE = "$(SRCROOT)/Secretive/LaunchConstraints.coderequirement";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -1388,7 +1380,6 @@
 				ENABLE_RESOURCE_ACCESS_PRINTING = NO;
 				ENABLE_RESOURCE_ACCESS_USB = NO;
 				INFOPLIST_FILE = SecretAgent/Info.plist;
-				LAUNCH_CONSTRAINT_RESPONSIBLE = "$(SRCROOT)/Secretive/LaunchConstraints.coderequirement";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -1425,7 +1416,6 @@
 				ENABLE_RESOURCE_ACCESS_PRINTING = NO;
 				ENABLE_RESOURCE_ACCESS_USB = NO;
 				INFOPLIST_FILE = SecretAgent/Info.plist;
-				LAUNCH_CONSTRAINT_RESPONSIBLE = "$(SRCROOT)/Secretive/LaunchConstraints.coderequirement";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
