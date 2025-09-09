@@ -16,4 +16,8 @@ public final class XPCAgentInputParser: SSHAgentInputParserProtocol {
         try await session.send(data)
     }
 
+    deinit {
+        session.complete()
+    }
+
 }
