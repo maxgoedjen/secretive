@@ -27,7 +27,7 @@ extension SecureEnclave {
                 kSecReturnAttributes: true
             ])
             var privateUntyped: CFTypeRef?
-            SecItemCopyMatching(privateAttributes, &privateUntyped)
+            unsafe SecItemCopyMatching(privateAttributes, &privateUntyped)
             guard let privateTyped = privateUntyped as? [[CFString: Any]] else { return }
             let migratedPublicKeys = Set(store.secrets.map(\.publicKey))
             var migratedAny = false
@@ -40,7 +40,7 @@ extension SecureEnclave {
                 }
                 let ref = key[kSecValueRef] as! SecKey
                 let attributes = SecKeyCopyAttributes(ref) as! [CFString: Any]
-                let tokenObjectID = attributes[Constants.tokenObjectID] as! Data
+                let tokenObjectID = unsafe attributes[Constants.tokenObjectID] as! Data
                 let accessControl = attributes[kSecAttrAccessControl] as! SecAccessControl
                 // Best guess.
                 let auth: AuthenticationRequirement = String(describing: accessControl)

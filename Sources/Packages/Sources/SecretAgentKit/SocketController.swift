@@ -134,10 +134,10 @@ private extension SocketPort {
     convenience init(path: String) {
         var addr = sockaddr_un()
 
-        let length = withUnsafeMutablePointer(to: &addr.sun_path.0) { pointer in
-            path.withCString { cstring in
-                let len = strlen(cstring)
-                strncpy(pointer, cstring, len)
+        let length = unsafe withUnsafeMutablePointer(to: &addr.sun_path.0) { pointer in
+            unsafe path.withCString { cstring in
+                let len = unsafe strlen(cstring)
+                unsafe strncpy(pointer, cstring, len)
                 return len
             }
         }
@@ -147,10 +147,7 @@ private extension SocketPort {
         // This mirrors the SUN_LEN macro format.
         addr.sun_len = UInt8(MemoryLayout<sockaddr_un>.size - MemoryLayout.size(ofValue: addr.sun_path) + length)
 
-        let data = withUnsafePointer(to: &addr) { pointer in
-            Data(bytes: pointer, count: MemoryLayout<sockaddr_un>.size)
-        }
-
+        let data = unsafe Data(bytes: &addr, count: MemoryLayout<sockaddr_un>.size)
         self.init(protocolFamily: AF_UNIX, socketType: SOCK_STREAM, protocol: 0, address: data)!
     }
 

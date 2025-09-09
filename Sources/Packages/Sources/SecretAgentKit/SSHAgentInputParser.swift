@@ -21,7 +21,7 @@ public struct SSHAgentInputParser: SSHAgentInputParserProtocol {
         guard data.count > 4 else {
             throw .invalidData
         }
-        let specifiedLength = (data[0..<4].bytes.unsafeLoad(as: UInt32.self).bigEndian) + 4
+        let specifiedLength = unsafe (data[0..<4].bytes.unsafeLoad(as: UInt32.self).bigEndian) + 4
         let rawRequestInt = data[4]
         let remainingDataRange = 5..<min(Int(specifiedLength), data.count)
         lazy var body: Data = { Data(data[remainingDataRange]) }()

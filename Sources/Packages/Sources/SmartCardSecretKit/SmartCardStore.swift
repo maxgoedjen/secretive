@@ -1,7 +1,7 @@
 import Foundation
 import Observation
 import Security
-@preconcurrency import CryptoTokenKit
+@unsafe @preconcurrency import CryptoTokenKit
 import LocalAuthentication
 import SecretKit
 
@@ -70,7 +70,7 @@ extension SmartCard {
                 kSecReturnRef: true
             ])
             var untyped: CFTypeRef?
-            let status = SecItemCopyMatching(attributes, &untyped)
+            let status = unsafe SecItemCopyMatching(attributes, &untyped)
             if status != errSecSuccess {
                 throw KeychainError(statusCode: status)
             }
@@ -80,8 +80,8 @@ extension SmartCard {
             let key = untypedSafe as! SecKey
             var signError: SecurityError?
             guard let algorithm = signatureAlgorithm(for: secret) else { throw UnsupportKeyType() }
-            guard let signature = SecKeyCreateSignature(key, algorithm, data as CFData, &signError) else {
-                throw SigningError(error: signError)
+            guard let signature = unsafe SecKeyCreateSignature(key, algorithm, data as CFData, &signError) else {
+                throw unsafe SigningError(error: signError)
             }
             return signature as Data
         }
@@ -152,7 +152,7 @@ extension SmartCard.Store {
             kSecReturnAttributes: true
         ])
         var untyped: CFTypeRef?
-        SecItemCopyMatching(attributes, &untyped)
+        unsafe SecItemCopyMatching(attributes, &untyped)
         guard let typed = untyped as? [[CFString: Any]] else { return }
         let wrapped: [SecretType] = typed.compactMap {
             let name = $0[kSecAttrLabel] as? String ?? String(localized: .unnamedSecret)

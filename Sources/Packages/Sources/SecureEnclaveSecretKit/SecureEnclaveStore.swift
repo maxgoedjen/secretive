@@ -2,7 +2,7 @@ import Foundation
 import Observation
 import Security
 import CryptoKit
-@preconcurrency import LocalAuthentication
+import LocalAuthentication
 import SecretKit
 import os
 
@@ -40,7 +40,7 @@ extension SecureEnclave {
         public func sign(data: Data, with secret: Secret, for provenance: SigningRequestProvenance) async throws -> Data {
             var context: LAContext
             if let existing = await persistentAuthenticationHandler.existingPersistedAuthenticationContext(secret: secret) {
-                context = existing.context
+                context = unsafe existing.context
             } else {
                 let newContext = LAContext()
                 newContext.localizedReason = String(localized: .authContextRequestSignatureDescription(appName: provenance.origin.displayName, secretName: secret.name))
@@ -57,7 +57,7 @@ extension SecureEnclave {
                 kSecReturnData: true,
             ])
             var untyped: CFTypeRef?
-            let status = SecItemCopyMatching(queryAttributes, &untyped)
+            let status = unsafe SecItemCopyMatching(queryAttributes, &untyped)
             if status != errSecSuccess {
                 throw KeychainError(statusCode: status)
             }
@@ -121,12 +121,12 @@ extension SecureEnclave {
                 fatalError()
             }
             let access =
-                SecAccessControlCreateWithFlags(kCFAllocatorDefault,
+            unsafe SecAccessControlCreateWithFlags(kCFAllocatorDefault,
                                                 kSecAttrAccessibleWhenUnlockedThisDeviceOnly,
                                                 flags,
                                                 &accessError)
-            if let error = accessError {
-                throw error.takeRetainedValue() as Error
+            if let error = unsafe accessError {
+                throw unsafe error.takeRetainedValue() as Error
             }
             let dataRep: Data
             let publicKey: Data
@@ -214,7 +214,7 @@ extension SecureEnclave.Store {
             kSecReturnAttributes: true
             ])
         var untyped: CFTypeRef?
-        SecItemCopyMatching(queryAttributes, &untyped)
+        unsafe SecItemCopyMatching(queryAttributes, &untyped)
         guard let typed = untyped as? [[CFString: Any]] else { return }
         let wrapped: [SecureEnclave.Secret] = typed.compactMap {
             do {
