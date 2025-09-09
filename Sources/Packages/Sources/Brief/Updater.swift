@@ -47,7 +47,7 @@ import XPCWrappers
 
     /// Manually trigger an update check.
     public func checkForUpdates() async throws {
-        let session = try XPCTypedSession<[Release], Never>(serviceName: "com.maxgoedjen.Secretive.ReleasesDownloader")
+        let session = try XPCTypedSession<[Release], Never>(serviceName: "com.maxgoedjen.Secretive.SecretiveUpdater")
         await evaluate(releases: try await session.send())
         session.complete()
     }

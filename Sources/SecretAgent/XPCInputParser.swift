@@ -9,7 +9,7 @@ public final class XPCAgentInputParser: SSHAgentInputParserProtocol {
     private let session: XPCTypedSession<SSHAgent.Request, SSHAgentInputParser.AgentParsingError>
 
     public init() throws {
-        session = try XPCTypedSession(serviceName: "com.maxgoedjen.Secretive.AgentRequestParser", warmup: true)
+        session = try XPCTypedSession(serviceName: "com.maxgoedjen.Secretive.SecretAgentInputParser", warmup: true)
     }
 
     public func parse(data: Data) async throws -> SSHAgent.Request {
