@@ -5,12 +5,12 @@ import SecretKit
 import AppKit
 
 /// The `Agent` is an implementation of an SSH agent. It manages coordination and access between a socket, traces requests, notifies witnesses and passes requests to stores.
-public final class Agent {
+public final class Agent: Sendable {
 
     private let storeList: SecretStoreList
     private let witness: SigningWitness?
-    private let writer = OpenSSHKeyWriter()
-    private let requestTracer = SigningRequestTracer()
+    private let publicKeyWriter = OpenSSHPublicKeyWriter()
+    private let signatureWriter = OpenSSHSignatureWriter()
     private let certificateHandler = OpenSSHCertificateHandler()
     private let logger = Logger(subsystem: "com.maxgoedjen.secretive.secretagent", category: "Agent")
 
@@ -22,59 +22,40 @@ public final class Agent {
         logger.debug("Agent is running")
         self.storeList = storeList
         self.witness = witness
-        certificateHandler.reloadCertificates(for: storeList.allSecrets)
+        Task { @MainActor in
+            await certificateHandler.reloadCertificates(for: storeList.allSecrets)
+        }
     }
     
 }
 
 extension Agent {
 
-    /// Handles an incoming request.
-    /// - Parameters:
-    ///   - reader: A ``FileHandleReader`` to read the content of the request.
-    ///   - writer: A ``FileHandleWriter`` to write the response to.
-    /// - Return value: 
-    ///   - Boolean if data could be read
-    @discardableResult public func handle(reader: FileHandleReader, writer: FileHandleWriter) async -> Bool {
-        logger.debug("Agent handling new data")
-        let data = Data(reader.availableData)
-        guard data.count > 4 else { return false}
-        let requestTypeInt = data[4]
-        guard let requestType = SSHAgent.RequestType(rawValue: requestTypeInt) else {
-            writer.write(OpenSSHKeyWriter().lengthAndData(of: SSHAgent.ResponseType.agentFailure.data))
-            logger.debug("Agent returned \(SSHAgent.ResponseType.agentFailure.debugDescription)")
-            return true
-        }
-        logger.debug("Agent handling request of type \(requestType.debugDescription)")
-        let subData = Data(data[5...])
-        let response = await handle(requestType: requestType, data: subData, reader: reader)
-        writer.write(response)
-        return true
-    }
-
-    func handle(requestType: SSHAgent.RequestType, data: Data, reader: FileHandleReader) async -> Data {
+    public func handle(request: SSHAgent.Request, provenance: SigningRequestProvenance) async -> Data {
         // Depending on the launch context (such as after macOS update), the agent may need to reload secrets before acting
-        reloadSecretsIfNeccessary()
+        await reloadSecretsIfNeccessary()
         var response = Data()
         do {
-            switch requestType {
+            switch request {
             case .requestIdentities:
-                response.append(SSHAgent.ResponseType.agentIdentitiesAnswer.data)
-                response.append(identities())
-                logger.debug("Agent returned \(SSHAgent.ResponseType.agentIdentitiesAnswer.debugDescription)")
-            case .signRequest:
-                let provenance = requestTracer.provenance(from: reader)
-                response.append(SSHAgent.ResponseType.agentSignResponse.data)
-                response.append(try sign(data: data, provenance: provenance))
-                logger.debug("Agent returned \(SSHAgent.ResponseType.agentSignResponse.debugDescription)")
+                response.append(SSHAgent.Response.agentIdentitiesAnswer.data)
+                response.append(await identities())
+                logger.debug("Agent returned \(SSHAgent.Response.agentIdentitiesAnswer.debugDescription)")
+            case .signRequest(let context):
+                response.append(SSHAgent.Response.agentSignResponse.data)
+                response.append(try await sign(data: context.dataToSign, keyBlob: context.keyBlob, provenance: provenance))
+                logger.debug("Agent returned \(SSHAgent.Response.agentSignResponse.debugDescription)")
+            case .unknown(let value):
+                logger.error("Agent received unknown request of type \(value).")
+            default:
+                logger.debug("Agent received valid request of type \(request.debugDescription), but not currently supported.")
+                throw UnhandledRequestError()
             }
         } catch {
-            response.removeAll()
-            response.append(SSHAgent.ResponseType.agentFailure.data)
-            logger.debug("Agent returned \(SSHAgent.ResponseType.agentFailure.debugDescription)")
+            response = SSHAgent.Response.agentFailure.data
+            logger.debug("Agent returned \(SSHAgent.Response.agentFailure.debugDescription)")
         }
-        let full = OpenSSHKeyWriter().lengthAndData(of: response)
-        return full
+        return response.lengthAndData
     }
 
 }
@@ -83,27 +64,27 @@ extension Agent {
 
     /// Lists the identities available for signing operations
     /// - Returns: An OpenSSH formatted Data payload listing the identities available for signing operations.
-    func identities() -> Data {
-        let secrets = storeList.allSecrets
-        certificateHandler.reloadCertificates(for: secrets)
-        var count = secrets.count
+    func identities() async -> Data {
+        let secrets = await storeList.allSecrets
+        await certificateHandler.reloadCertificates(for: secrets)
+        var count = 0
         var keyData = Data()
 
         for secret in secrets {
-            let keyBlob = writer.data(secret: secret)
-            let curveData = writer.curveType(for: secret.algorithm, length: secret.keySize).data(using: .utf8)!
-            keyData.append(writer.lengthAndData(of: keyBlob))
-            keyData.append(writer.lengthAndData(of: curveData))
-            
-            if let (certificateData, name) = try? certificateHandler.keyBlobAndName(for: secret) {
-                keyData.append(writer.lengthAndData(of: certificateData))
-                keyData.append(writer.lengthAndData(of: name))
+            let keyBlob = publicKeyWriter.data(secret: secret)
+            keyData.append(keyBlob.lengthAndData)
+            keyData.append(publicKeyWriter.comment(secret: secret).lengthAndData)
+            count += 1
+
+            if let (certificateData, name) = try? await certificateHandler.keyBlobAndName(for: secret) {
+                keyData.append(certificateData.lengthAndData)
+                keyData.append(name.lengthAndData)
                 count += 1
             }
         }
         logger.log("Agent enumerated \(count) identities")
         var countBigEndian = UInt32(count).bigEndian
-        let countData = Data(bytes: &countBigEndian, count: UInt32.bitWidth/8)
+        let countData = unsafe Data(bytes: &countBigEndian, count: MemoryLayout<UInt32>.size)
         return countData + keyData
     }
 
@@ -112,71 +93,19 @@ extension Agent {
     ///   - data: The data to sign.
     ///   - provenance: A ``SecretKit.SigningRequestProvenance`` object describing the origin of the request.
     /// - Returns: An OpenSSH formatted Data payload containing the signed data response.
-    func sign(data: Data, provenance: SigningRequestProvenance) throws -> Data {
-        let reader = OpenSSHReader(data: data)
-        let payloadHash = reader.readNextChunk()
-        let hash: Data
-        // Check if hash is actually an openssh certificate and reconstruct the public key if it is
-        if let certificatePublicKey = certificateHandler.publicKeyHash(from: payloadHash) {
-            hash = certificatePublicKey
-        } else {
-            hash = payloadHash
-        }
-        
-        guard let (store, secret) = secret(matching: hash) else {
-            logger.debug("Agent did not have a key matching \(hash as NSData)")
-            throw AgentError.noMatchingKey
+    func sign(data: Data, keyBlob: Data, provenance: SigningRequestProvenance) async throws -> Data {
+        guard let (secret, store) = await secret(matching: keyBlob) else {
+            let keyBlobHex = keyBlob.compactMap { ("0" + String($0, radix: 16, uppercase: false)).suffix(2) }.joined()
+            logger.debug("Agent did not have a key matching \(keyBlobHex)")
+            throw NoMatchingKeyError()
         }
 
-        if let witness = witness {
-            try witness.speakNowOrForeverHoldYourPeace(forAccessTo: secret, from: store, by: provenance)
-        }
+        try await witness?.speakNowOrForeverHoldYourPeace(forAccessTo: secret, from: store, by: provenance)
 
-        let dataToSign = reader.readNextChunk()
-        let signed = try store.sign(data: dataToSign, with: secret, for: provenance)
-        let derSignature = signed
+        let rawRepresentation = try await store.sign(data: data, with: secret, for: provenance)
+        let signedData = signatureWriter.data(secret: secret, signature: rawRepresentation)
 
-        let curveData = writer.curveType(for: secret.algorithm, length: secret.keySize).data(using: .utf8)!
-
-        // Convert from DER formatted rep to raw (r||s)
-
-        let rawRepresentation: Data
-        switch (secret.algorithm, secret.keySize) {
-        case (.ellipticCurve, 256):
-            rawRepresentation = try CryptoKit.P256.Signing.ECDSASignature(derRepresentation: derSignature).rawRepresentation
-        case (.ellipticCurve, 384):
-            rawRepresentation = try CryptoKit.P384.Signing.ECDSASignature(derRepresentation: derSignature).rawRepresentation
-        default:
-            throw AgentError.unsupportedKeyType
-        }
-
-
-        let rawLength = rawRepresentation.count/2
-        // Check if we need to pad with 0x00 to prevent certain
-        // ssh servers from thinking r or s is negative
-        let paddingRange: ClosedRange<UInt8> = 0x80...0xFF
-        var r = Data(rawRepresentation[0..<rawLength])
-        if paddingRange ~= r.first! {
-            r.insert(0x00, at: 0)
-        }
-        var s = Data(rawRepresentation[rawLength...])
-        if paddingRange ~= s.first! {
-            s.insert(0x00, at: 0)
-        }
-
-        var signatureChunk = Data()
-        signatureChunk.append(writer.lengthAndData(of: r))
-        signatureChunk.append(writer.lengthAndData(of: s))
-
-        var signedData = Data()
-        var sub = Data()
-        sub.append(writer.lengthAndData(of: curveData))
-        sub.append(writer.lengthAndData(of: signatureChunk))
-        signedData.append(writer.lengthAndData(of: sub))
-
-        if let witness = witness {
-            try witness.witness(accessTo: secret, from: store, by: provenance)
-        }
+        try await witness?.witness(accessTo: secret, from: store, by: provenance)
 
         logger.debug("Agent signed request")
 
@@ -188,11 +117,12 @@ extension Agent {
 extension Agent {
 
     /// Gives any store with no loaded secrets a chance to reload.
-    func reloadSecretsIfNeccessary() {
-        for store in storeList.stores {
-            if store.secrets.isEmpty {
-                logger.debug("Store \(store.name, privacy: .public) has no loaded secrets. Reloading.")
-                store.reloadSecrets()
+    func reloadSecretsIfNeccessary() async {
+        for store in await storeList.stores {
+            if await store.secrets.isEmpty {
+                let name = await store.name
+                logger.debug("Store \(name, privacy: .public) has no loaded secrets. Reloading.")
+                await store.reloadSecrets()
             }
         }
     }
@@ -200,16 +130,10 @@ extension Agent {
     /// Finds a ``Secret`` matching a specified hash whos signature was requested.
     /// - Parameter hash: The hash to match against.
     /// - Returns: A ``Secret`` and the ``SecretStore`` containing it, if a match is found.
-    func secret(matching hash: Data) -> (AnySecretStore, AnySecret)? {
-        storeList.stores.compactMap { store -> (AnySecretStore, AnySecret)? in
-            let allMatching = store.secrets.filter { secret in
-                hash == writer.data(secret: secret)
-            }
-            if let matching = allMatching.first {
-                return (store, matching)
-            }
-            return nil
-        }.first
+    func secret(matching hash: Data) async -> (AnySecret, AnySecretStore)? {
+        await storeList.allSecretsWithStores.first {
+            hash == publicKeyWriter.data(secret: $0.0)
+        }
     }
 
 }
@@ -217,21 +141,16 @@ extension Agent {
 
 extension Agent {
 
-    /// An error involving agent operations..
-    enum AgentError: Error {
-        case unhandledType
-        case noMatchingKey
-        case unsupportedKeyType
-        case notOpenSSHCertificate
-    }
+    struct NoMatchingKeyError: Error {}
+    struct UnhandledRequestError: Error {}
 
 }
 
-extension SSHAgent.ResponseType {
+extension SSHAgent.Response {
 
     var data: Data {
         var raw = self.rawValue
-        return  Data(bytes: &raw, count: UInt8.bitWidth/8)
+        return unsafe Data(bytes: &raw, count: MemoryLayout<UInt8>.size)
     }
 
 }

@@ -1,19 +1,20 @@
 import Foundation
-import XCTest
+import Testing
 @testable import SecretKit
 @testable import SecureEnclaveSecretKit
 @testable import SmartCardSecretKit
 
-class AnySecretTests: XCTestCase {
 
-    func testEraser() {
-        let secret = SmartCard.Secret(id: UUID().uuidString.data(using: .utf8)!, name: "Name", algorithm: .ellipticCurve, keySize: 256, publicKey: UUID().uuidString.data(using: .utf8)!)
+@Suite struct AnySecretTests {
+
+    @Test func eraser() {
+        let data = Data(UUID().uuidString.utf8)
+        let secret = SmartCard.Secret(id: data, name: "Name", publicKey: data, attributes: Attributes(keyType: KeyType(algorithm: .ecdsa, size: 256), authentication: .notRequired))
         let erased = AnySecret(secret)
-        XCTAssert(erased.id == secret.id as AnyHashable)
-        XCTAssert(erased.name == secret.name)
-        XCTAssert(erased.algorithm == secret.algorithm)
-        XCTAssert(erased.keySize == secret.keySize)
-        XCTAssert(erased.publicKey == secret.publicKey)
+        #expect(erased.id == secret.id as AnyHashable)
+        #expect(erased.name == secret.name)
+        #expect(erased.keyType == secret.keyType)
+        #expect(erased.publicKey == secret.publicKey)
     }
 
 }

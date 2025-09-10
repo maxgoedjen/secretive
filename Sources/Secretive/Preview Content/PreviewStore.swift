@@ -9,39 +9,37 @@ extension Preview {
 
         let id = UUID().uuidString
         let name: String
-        let algorithm = Algorithm.ellipticCurve
-        let keySize = 256
-        let requiresAuthentication: Bool = false
-        let publicKey = UUID().uuidString.data(using: .utf8)!
-
+        let publicKey = Data(UUID().uuidString.utf8)
+        var attributes: Attributes {
+            Attributes(
+                keyType: .init(algorithm: .ecdsa, size: 256),
+                authentication: .presenceRequired,
+            )
+        }
     }
 
 }
 
 extension Preview {
 
-    class Store: SecretStore, ObservableObject {
+    @Observable final class Store: SecretStore {
 
         let isAvailable = true
         let id = UUID()
         var name: String { "Preview Store" }
-        @Published var secrets: [Secret] = []
+        let secrets: [Secret]
 
         init(secrets: [Secret]) {
-            self.secrets.append(contentsOf: secrets)
+            self.secrets = secrets
         }
 
-        init(numberOfRandomSecrets: Int = 5) {
+        convenience init(numberOfRandomSecrets: Int = 5) {
             let new = (0..<numberOfRandomSecrets).map { Secret(name: String(describing: $0)) }
-            self.secrets.append(contentsOf: new)
+            self.init(secrets: new)
         }
 
         func sign(data: Data, with secret: Preview.Secret, for provenance: SigningRequestProvenance) throws -> Data {
             return data
-        }
-
-        func verify(signature data: Data, for signature: Data, with secret: Preview.Secret) throws -> Bool {
-            true
         }
 
         func existingPersistedAuthenticationContext(secret: Preview.Secret) -> PersistedAuthenticationContext? {
@@ -56,23 +54,63 @@ extension Preview {
 
     }
 
-    class StoreModifiable: Store, SecretStoreModifiable {
-        override var name: String { "Modifiable Preview Store" }
+    final class StoreModifiable: SecretStoreModifiable {
+        
+        let isAvailable = true
+        let id = UUID()
+        var name: String { "Modifiable Preview Store" }
+        let secrets: [Secret]
+        var supportedKeyTypes: [KeyType] {
+            if #available(macOS 26, *) {
+                [
+                    .ecdsa256,
+                    .mldsa65,
+                    .mldsa87,
+                ]
+            } else {
+                [.ecdsa256]
+            }
+        }
+        
+        init(secrets: [Secret]) {
+            self.secrets = secrets
+        }
 
-        func create(name: String, requiresAuthentication: Bool) throws {
+        convenience init(numberOfRandomSecrets: Int = 5) {
+            let new = (0..<numberOfRandomSecrets).map { Secret(name: String(describing: $0)) }
+            self.init(secrets: new)
+        }
+
+        func sign(data: Data, with secret: Preview.Secret, for provenance: SigningRequestProvenance) throws -> Data {
+            return data
+        }
+
+        func existingPersistedAuthenticationContext(secret: Preview.Secret) -> PersistedAuthenticationContext? {
+            nil
+        }
+
+        func persistAuthentication(secret: Preview.Secret, forDuration duration: TimeInterval) throws {
+        }
+
+        func reloadSecrets() {
+        }
+
+
+        func create(name: String, attributes: Attributes) throws -> Secret {
+            fatalError()
         }
 
         func delete(secret: Preview.Secret) throws {
         }
 
-        func update(secret: Preview.Secret, name: String) throws {
+        func update(secret: Preview.Secret, name: String, attributes: Attributes) throws {
         }
     }
 }
 
 extension Preview {
 
-    static func storeList(stores: [Store] = [], modifiableStores: [StoreModifiable] = []) -> SecretStoreList {
+    @MainActor static func storeList(stores: [Store] = [], modifiableStores: [StoreModifiable] = []) -> SecretStoreList {
         let list = SecretStoreList()
         for store in stores {
             list.add(store: store)

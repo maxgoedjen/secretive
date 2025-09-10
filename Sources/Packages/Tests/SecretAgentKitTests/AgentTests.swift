@@ -1,56 +1,59 @@
 import Foundation
-import XCTest
+import Testing
 import CryptoKit
 @testable import SecretKit
 @testable import SecretAgentKit
 
-class AgentTests: XCTestCase {
-
-    let stubWriter = StubFileHandleWriter()
+@Suite struct AgentTests {
 
     // MARK: Identity Listing
 
-    func testEmptyStores() async {
-        let stubReader = StubFileHandleReader(availableData: Constants.Requests.requestIdentities)
+    @Test func emptyStores() async throws {
         let agent = Agent(storeList: SecretStoreList())
-        await agent.handle(reader: stubReader, writer: stubWriter)
-        XCTAssertEqual(stubWriter.data, Constants.Responses.requestIdentitiesEmpty)
+        let request = try SSHAgentInputParser().parse(data: Constants.Requests.requestIdentities)
+        let response = await agent.handle(request: request, provenance: .test)
+        #expect(response == Constants.Responses.requestIdentitiesEmpty)
     }
 
-    func testIdentitiesList() async {
-        let stubReader = StubFileHandleReader(availableData: Constants.Requests.requestIdentities)
-        let list = storeList(with: [Constants.Secrets.ecdsa256Secret, Constants.Secrets.ecdsa384Secret])
+    @Test func identitiesList() async throws {
+        let list = await storeList(with: [Constants.Secrets.ecdsa256Secret, Constants.Secrets.ecdsa384Secret])
         let agent = Agent(storeList: list)
-        await agent.handle(reader: stubReader, writer: stubWriter)
-        XCTAssertEqual(stubWriter.data, Constants.Responses.requestIdentitiesMultiple)
+        let request = try SSHAgentInputParser().parse(data: Constants.Requests.requestIdentities)
+        let response = await agent.handle(request: request, provenance: .test)
+
+        let actual = OpenSSHReader(data: response)
+        let expected = OpenSSHReader(data: Constants.Responses.requestIdentitiesMultiple)
+        print(actual, expected)
+        #expect(response == Constants.Responses.requestIdentitiesMultiple)
     }
 
     // MARK: Signatures
 
-    func testNoMatchingIdentities() async {
-        let stubReader = StubFileHandleReader(availableData: Constants.Requests.requestSignatureWithNoneMatching)
-        let list = storeList(with: [Constants.Secrets.ecdsa256Secret, Constants.Secrets.ecdsa384Secret])
+    @Test func noMatchingIdentities() async throws {
+        let list = await storeList(with: [Constants.Secrets.ecdsa256Secret, Constants.Secrets.ecdsa384Secret])
         let agent = Agent(storeList: list)
-        await agent.handle(reader: stubReader, writer: stubWriter)
-//        XCTAssertEqual(stubWriter.data, Constants.Responses.requestFailure)
+        let request = try SSHAgentInputParser().parse(data: Constants.Requests.requestSignatureWithNoneMatching)
+        let response = await agent.handle(request: request, provenance: .test)
+        #expect(response == Constants.Responses.requestFailure)
     }
 
-    func testSignature() async {
-        let stubReader = StubFileHandleReader(availableData: Constants.Requests.requestSignature)
-        let requestReader = OpenSSHReader(data: Constants.Requests.requestSignature[5...])
-        _ = requestReader.readNextChunk()
-        let dataToSign = requestReader.readNextChunk()
-        let list = storeList(with: [Constants.Secrets.ecdsa256Secret, Constants.Secrets.ecdsa384Secret])
+    @Test func ecdsaSignature() async throws {
+        let request = try SSHAgentInputParser().parse(data: Constants.Requests.requestSignature)
+        guard case SSHAgent.Request.signRequest(let context) = request else { return }
+        let list = await storeList(with: [Constants.Secrets.ecdsa256Secret, Constants.Secrets.ecdsa384Secret])
         let agent = Agent(storeList: list)
-        await agent.handle(reader: stubReader, writer: stubWriter)
-        let outer = OpenSSHReader(data: stubWriter.data[5...])
-        let payload = outer.readNextChunk()
-        let inner = OpenSSHReader(data: payload)
-        _ = inner.readNextChunk()
-        let signedData = inner.readNextChunk()
-        let rsData = OpenSSHReader(data: signedData)
-        var r = rsData.readNextChunk()
-        var s = rsData.readNextChunk()
+        let response = await agent.handle(request: request, provenance: .test)
+        let responseReader = OpenSSHReader(data: response)
+        let length = try responseReader.readNextBytes(as: UInt32.self).bigEndian
+        let type = try responseReader.readNextBytes(as: UInt8.self).bigEndian
+        #expect(length == response.count - MemoryLayout<UInt32>.size)
+        #expect(type == SSHAgent.Response.agentSignResponse.rawValue)
+        let outer = OpenSSHReader(data: responseReader.remaining)
+        let inner = try outer.readNextChunkAsSubReader()
+        _ = try inner.readNextChunk()
+        let rsData = try inner.readNextChunkAsSubReader()
+        var r = try rsData.readNextChunk()
+        var s = try rsData.readNextChunk()
         // This is fine IRL, but it freaks out CryptoKit
         if r[0] == 0 {
             r.removeFirst()
@@ -60,52 +63,42 @@ class AgentTests: XCTestCase {
         }
         var rs = r
         rs.append(s)
-        let signature = try! P256.Signing.ECDSASignature(rawRepresentation: rs)
-        let referenceValid = try! P256.Signing.PublicKey(x963Representation: Constants.Secrets.ecdsa256Secret.publicKey).isValidSignature(signature, for: dataToSign)
-        let store = list.stores.first!
-        let derVerifies = try! store.verify(signature: signature.derRepresentation, for: dataToSign, with: AnySecret(Constants.Secrets.ecdsa256Secret))
-        let invalidRandomSignature = try? store.verify(signature: "invalid".data(using: .utf8)!, for: dataToSign, with: AnySecret(Constants.Secrets.ecdsa256Secret))
-        let invalidRandomData = try? store.verify(signature: signature.derRepresentation, for: "invalid".data(using: .utf8)!, with: AnySecret(Constants.Secrets.ecdsa256Secret))
-        let invalidWrongKey = try? store.verify(signature: signature.derRepresentation, for: dataToSign, with: AnySecret(Constants.Secrets.ecdsa384Secret))
-        XCTAssertTrue(referenceValid)
-        XCTAssertTrue(derVerifies)
-        XCTAssert(invalidRandomSignature == false)
-        XCTAssert(invalidRandomData == false)
-        XCTAssert(invalidWrongKey == false)
+        let signature = try P256.Signing.ECDSASignature(rawRepresentation: rs)
+        // Correct signature
+        #expect(try P256.Signing.PublicKey(x963Representation: Constants.Secrets.ecdsa256Secret.publicKey)
+            .isValidSignature(signature, for: context.dataToSign))
     }
 
     // MARK: Witness protocol
 
-    func testWitnessObjectionStopsRequest() async {
-        let stubReader = StubFileHandleReader(availableData: Constants.Requests.requestSignature)
-        let list = storeList(with: [Constants.Secrets.ecdsa256Secret])
+    @Test func witnessObjectionStopsRequest() async throws {
+        let list = await storeList(with: [Constants.Secrets.ecdsa256Secret])
         let witness = StubWitness(speakNow: { _,_  in
             return true
         }, witness: { _, _ in })
         let agent = Agent(storeList: list, witness: witness)
-        await agent.handle(reader: stubReader, writer: stubWriter)
-        XCTAssertEqual(stubWriter.data, Constants.Responses.requestFailure)
+        let response = await agent.handle(request: .signRequest(.empty), provenance: .test)
+        #expect(response == Constants.Responses.requestFailure)
     }
 
-    func testWitnessSignature() async {
-        let stubReader = StubFileHandleReader(availableData: Constants.Requests.requestSignature)
-        let list = storeList(with: [Constants.Secrets.ecdsa256Secret])
-        var witnessed = false
+    @Test func witnessSignature() async throws {
+        let list = await storeList(with: [Constants.Secrets.ecdsa256Secret])
+        nonisolated(unsafe) var witnessed = false
         let witness = StubWitness(speakNow: { _, trace  in
             return false
         }, witness: { _, trace in
             witnessed = true
         })
         let agent = Agent(storeList: list, witness: witness)
-        await agent.handle(reader: stubReader, writer: stubWriter)
-        XCTAssertTrue(witnessed)
+        let request = try SSHAgentInputParser().parse(data: Constants.Requests.requestSignature)
+        _ = await agent.handle(request: request, provenance: .test)
+        #expect(witnessed)
     }
 
-    func testRequestTracing() async {
-        let stubReader = StubFileHandleReader(availableData: Constants.Requests.requestSignature)
-        let list = storeList(with: [Constants.Secrets.ecdsa256Secret])
-        var speakNowTrace: SigningRequestProvenance! = nil
-        var witnessTrace: SigningRequestProvenance! = nil
+    @Test func requestTracing() async throws {
+        let list = await storeList(with: [Constants.Secrets.ecdsa256Secret])
+        nonisolated(unsafe) var speakNowTrace: SigningRequestProvenance?
+        nonisolated(unsafe) var witnessTrace: SigningRequestProvenance?
         let witness = StubWitness(speakNow: { _, trace  in
             speakNowTrace = trace
             return false
@@ -113,39 +106,43 @@ class AgentTests: XCTestCase {
             witnessTrace = trace
         })
         let agent = Agent(storeList: list, witness: witness)
-        await agent.handle(reader: stubReader, writer: stubWriter)
-        XCTAssertEqual(witnessTrace, speakNowTrace)
-        XCTAssertEqual(witnessTrace.origin.displayName, "Finder")
-        XCTAssertEqual(witnessTrace.origin.validSignature, true)
-        XCTAssertEqual(witnessTrace.origin.parentPID, 1)
+        let request = try SSHAgentInputParser().parse(data: Constants.Requests.requestSignature)
+        _ = await agent.handle(request: request, provenance: .test)
+        #expect(witnessTrace == speakNowTrace)
+        #expect(witnessTrace == .test)
     }
 
     // MARK: Exception Handling
 
-    func testSignatureException() async {
-        let stubReader = StubFileHandleReader(availableData: Constants.Requests.requestSignature)
-        let list = storeList(with: [Constants.Secrets.ecdsa256Secret, Constants.Secrets.ecdsa384Secret])
-        let store = list.stores.first?.base as! Stub.Store
+    @Test func signatureException() async throws {
+        let list = await storeList(with: [Constants.Secrets.ecdsa256Secret, Constants.Secrets.ecdsa384Secret])
+        let store = await list.stores.first?.base as! Stub.Store
         store.shouldThrow = true
         let agent = Agent(storeList: list)
-        await agent.handle(reader: stubReader, writer: stubWriter)
-        XCTAssertEqual(stubWriter.data, Constants.Responses.requestFailure)
+        let request = try SSHAgentInputParser().parse(data: Constants.Requests.requestSignature)
+        let response = await agent.handle(request: request, provenance: .test)
+        #expect(response == Constants.Responses.requestFailure)
     }
 
     // MARK: Unsupported
 
-    func testUnhandledAdd() async {
-        let stubReader = StubFileHandleReader(availableData: Constants.Requests.addIdentity)
+    @Test func unhandledAdd() async throws {
         let agent = Agent(storeList: SecretStoreList())
-        await agent.handle(reader: stubReader, writer: stubWriter)
-        XCTAssertEqual(stubWriter.data, Constants.Responses.requestFailure)
+        let response = await agent.handle(request: .addIdentity, provenance: .test)
+        #expect(response == Constants.Responses.requestFailure)
     }
+
+}
+
+extension SigningRequestProvenance {
+
+    static let test = SigningRequestProvenance(root: .init(pid: 0, processName: "test", appName: nil, iconURL: nil, path: "/", validSignature: true, parentPID: 0))
 
 }
 
 extension AgentTests {
 
-    func storeList(with secrets: [Stub.Secret]) -> SecretStoreList {
+    @MainActor func storeList(with secrets: [Stub.Secret]) async -> SecretStoreList {
         let store = Stub.Store()
         store.secrets.append(contentsOf: secrets)
         let storeList = SecretStoreList()
@@ -157,14 +154,13 @@ extension AgentTests {
 
         enum Requests {
             static let requestIdentities = Data(base64Encoded: "AAAAAQs=")!
-            static let addIdentity = Data(base64Encoded: "AAAAARE=")!
             static let requestSignatureWithNoneMatching = Data(base64Encoded: "AAABhA0AAACIAAAAE2VjZHNhLXNoYTItbmlzdHAzODQAAAAIbmlzdHAzODQAAABhBEqCbkJbOHy5S1wVCaJoKPmpS0egM4frMqllgnlRRQ/Uvnn6EVS8oV03cPA2Bz0EdESyRKA/sbmn0aBtgjIwGELxu45UXEW1TEz6TxyS0u3vuIqR3Wo1CrQWRDnkrG/pBQAAAO8AAAAgbqmrqPUtJ8mmrtaSVexjMYyXWNqjHSnoto7zgv86xvcyAAAAA2dpdAAAAA5zc2gtY29ubmVjdGlvbgAAAAlwdWJsaWNrZXkBAAAAE2VjZHNhLXNoYTItbmlzdHAzODQAAACIAAAAE2VjZHNhLXNoYTItbmlzdHAzODQAAAAIbmlzdHAzODQAAABhBEqCbkJbOHy5S1wVCaJoKPmpS0egM4frMqllgnlRRQ/Uvnn6EVS8oV03cPA2Bz0EdESyRKA/sbmn0aBtgjIwGELxu45UXEW1TEz6TxyS0u3vuIqR3Wo1CrQWRDnkrG/pBQAAAAA=")!
             static let requestSignature = Data(base64Encoded: "AAABRA0AAABoAAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBKzOkUiVJEcACMtAd9X7xalbc0FYZyhbmv2dsWl4IP2GWIi+RcsaHQNw+nAIQ8CKEYmLnl0VLDp5Ef8KMhgIy08AAADPAAAAIBIFsbCZ4/dhBmLNGHm0GKj7EJ4N8k/jXRxlyg+LFIYzMgAAAANnaXQAAAAOc3NoLWNvbm5lY3Rpb24AAAAJcHVibGlja2V5AQAAABNlY2RzYS1zaGEyLW5pc3RwMjU2AAAAaAAAABNlY2RzYS1zaGEyLW5pc3RwMjU2AAAACG5pc3RwMjU2AAAAQQSszpFIlSRHAAjLQHfV+8WpW3NBWGcoW5r9nbFpeCD9hliIvkXLGh0DcPpwCEPAihGJi55dFSw6eRH/CjIYCMtPAAAAAA==")!
         }
 
         enum Responses {
             static let requestIdentitiesEmpty = Data(base64Encoded: "AAAABQwAAAAA")!
-            static let requestIdentitiesMultiple = Data(base64Encoded: "AAABKwwAAAACAAAAaAAAABNlY2RzYS1zaGEyLW5pc3RwMjU2AAAACG5pc3RwMjU2AAAAQQSszpFIlSRHAAjLQHfV+8WpW3NBWGcoW5r9nbFpeCD9hliIvkXLGh0DcPpwCEPAihGJi55dFSw6eRH/CjIYCMtPAAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAACIAAAAE2VjZHNhLXNoYTItbmlzdHAzODQAAAAIbmlzdHAzODQAAABhBLKSzA5q3jCb3q0JKigvcxfWVGrJ+bklpG0Zc9YzUwrbsh9SipvlSJi+sHQI+O0m88DOpRBAtuAHX60euD/Yv250tovN7/+MEFbXGZ/hLdd0BoFpWbLfJcQj806KJGlcDAAAABNlY2RzYS1zaGEyLW5pc3RwMzg0")!
+            static let requestIdentitiesMultiple = Data(base64Encoded: "AAABLwwAAAACAAAAaAAAABNlY2RzYS1zaGEyLW5pc3RwMjU2AAAACG5pc3RwMjU2AAAAQQSszpFIlSRHAAjLQHfV+8WpW3NBWGcoW5r9nbFpeCD9hliIvkXLGh0DcPpwCEPAihGJi55dFSw6eRH/CjIYCMtPAAAAFWVjZHNhLTI1NkBleGFtcGxlLmNvbQAAAIgAAAATZWNkc2Etc2hhMi1uaXN0cDM4NAAAAAhuaXN0cDM4NAAAAGEEspLMDmreMJverQkqKC9zF9ZUasn5uSWkbRlz1jNTCtuyH1KKm+VImL6wdAj47SbzwM6lEEC24AdfrR64P9i/bnS2i83v/4wQVtcZn+Et13QGgWlZst8lxCPzTookaVwMAAAAFWVjZHNhLTM4NEBleGFtcGxlLmNvbQ==")!
             static let requestFailure = Data(base64Encoded: "AAAAAQU=")!
         }
 

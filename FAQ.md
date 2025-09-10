@@ -6,7 +6,7 @@ The secure enclave doesn't allow import or export of private keys. For any new c
 
 ### Secretive doesn't work with my git client/app
 
-Secretive relies on the `SSH_AUTH_SOCK` environment variable being respected. The `git` and `ssh` command line tools natively respect this, but third party apps may require some configuration to work. A non-exhaustive list of setup steps is provided in the [App Config FAQ](APP_CONFIG.md).
+Secretive relies on the `SSH_AUTH_SOCK` environment variable being respected. The `git` and `ssh` command line tools natively respect this, but third party apps may require some configuration to work. A non-exhaustive list of setup steps is provided in the [secretive-config-instructions](https://github.com/maxgoedjen/secretive-config-instructions) repo.
 
 ### Secretive isn't working for me
 

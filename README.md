@@ -1,4 +1,4 @@
-# Secretive ![Test](https://github.com/maxgoedjen/secretive/workflows/Test/badge.svg) ![Release](https://github.com/maxgoedjen/secretive/workflows/Release/badge.svg)
+# Secretive [![Test](https://github.com/maxgoedjen/secretive/actions/workflows/test.yml/badge.svg?branch=main)](https://github.com/maxgoedjen/secretive/actions/workflows/test.yml) ![Release](https://github.com/maxgoedjen/secretive/workflows/Release/badge.svg)
 
 
 Secretive is an app for storing and managing SSH keys in the Secure Enclave. It is inspired by the [sekey project](https://github.com/sekey/sekey), but rewritten in Swift with no external dependencies and with a handy native management app.
@@ -49,7 +49,7 @@ There's a [FAQ here](FAQ.md).
 
 ### Auditable Build Process
 
-Builds are produced by GitHub Actions with an auditable build and release generation process. Each build has a "Document SHAs" step, which will output SHA checksums for the build produced by the GitHub Action, so you can verify that the source code for a given build corresponds to any given release.
+Builds are produced by GitHub Actions with an auditable build and release generation process. Starting with Secretive 3.0, builds are attested using [GitHub Artifact Attestation](https://docs.github.com/en/actions/concepts/security/artifact-attestations). Attestations are viewable in the build log for a build, and also on the [main attestation page](https://github.com/maxgoedjen/secretive/attestations).
 
 ### A Note Around Code Signing and Keychains
 
@@ -61,4 +61,4 @@ Because secrets in the Secure Enclave are not exportable, they are not able to b
 
 ## Security
 
-If you discover any vulnerabilities in this project, please notify [max.goedjen@gmail.com](mailto:max.goedjen@gmail.com) with the subject containing "SECRETIVE SECURITY."
+Secretive's security policy is detailed in [SECURITY.md](SECURITY.md). To report security issues, please use [GitHub's private reporting feature.](https://docs.github.com/en/code-security/security-advisories/guidance-on-reporting-and-writing-information-about-vulnerabilities/privately-reporting-a-security-vulnerability#privately-reporting-a-security-vulnerability)

@@ -2,15 +2,15 @@ import Foundation
 import OSLog
 
 /// Controller responsible for writing public keys to disk, so that they're easily accessible by scripts.
-public final class PublicKeyFileStoreController {
+public final class PublicKeyFileStoreController: Sendable {
 
     private let logger = Logger(subsystem: "com.maxgoedjen.secretive.secretagent", category: "PublicKeyFileStoreController")
-    private let directory: String
-    private let keyWriter = OpenSSHKeyWriter()
+    private let directory: URL
+    private let keyWriter = OpenSSHPublicKeyWriter()
 
     /// Initializes a PublicKeyFileStoreController.
-    public init(homeDirectory: String) {
-        directory = homeDirectory.appending("/PublicKeys")
+    public init(homeDirectory: URL) {
+        directory = homeDirectory.appending(component: "PublicKeys")
     }
 
     /// Writes out the keys specified to disk.
@@ -20,19 +20,20 @@ public final class PublicKeyFileStoreController {
         logger.log("Writing public keys to disk")
         if clear {
             let validPaths = Set(secrets.map { publicKeyPath(for: $0) }).union(Set(secrets.map { sshCertificatePath(for: $0) }))
-            let contentsOfDirectory = (try? FileManager.default.contentsOfDirectory(atPath: directory)) ?? []
+            let contentsOfDirectory = (try? FileManager.default.contentsOfDirectory(atPath: directory.path())) ?? []
             let fullPathContents = contentsOfDirectory.map { "\(directory)/\($0)" }
 
             let untracked = Set(fullPathContents)
                 .subtracting(validPaths)
             for path in untracked {
-                try? FileManager.default.removeItem(at: URL(fileURLWithPath: path))
+                // string instead of fileURLWithPath since we're already using fileURL format.
+                try? FileManager.default.removeItem(at: URL(string: path)!)
             }
         }
-        try? FileManager.default.createDirectory(at: URL(fileURLWithPath: directory), withIntermediateDirectories: false, attributes: nil)
+        try? FileManager.default.createDirectory(at: directory, withIntermediateDirectories: false, attributes: nil)
         for secret in secrets {
             let path = publicKeyPath(for: secret)
-            guard let data = keyWriter.openSSHString(secret: secret).data(using: .utf8) else { continue }
+            let data = Data(keyWriter.openSSHString(secret: secret).utf8)
             FileManager.default.createFile(atPath: path, contents: data, attributes: nil)
         }
         logger.log("Finished writing public keys")
@@ -44,14 +45,14 @@ public final class PublicKeyFileStoreController {
     /// - Warning: This method returning a path does not imply that a key has been written to disk already. This method only describes where it will be written to.
     public func publicKeyPath<SecretType: Secret>(for secret: SecretType) -> String {
         let minimalHex = keyWriter.openSSHMD5Fingerprint(secret: secret).replacingOccurrences(of: ":", with: "")
-        return directory.appending("/").appending("\(minimalHex).pub")
+        return directory.appending(component: "\(minimalHex).pub").path()
     }
 
     /// Short-circuit check to ship enumerating a bunch of paths if there's nothing in the cert directory.
     public var hasAnyCertificates: Bool {
         do {
             return try FileManager.default
-                .contentsOfDirectory(atPath: directory)
+                .contentsOfDirectory(atPath: directory.path())
                 .filter { $0.hasSuffix("-cert.pub") }
                 .isEmpty == false
         } catch {
@@ -65,7 +66,7 @@ public final class PublicKeyFileStoreController {
     /// - Warning: This method returning a path does not imply that a key has a SSH certificates. This method only describes where it will be.
     public func sshCertificatePath<SecretType: Secret>(for secret: SecretType) -> String {
         let minimalHex = keyWriter.openSSHMD5Fingerprint(secret: secret).replacingOccurrences(of: ":", with: "")
-        return directory.appending("/").appending("\(minimalHex)-cert.pub")
+        return directory.appending(component: "\(minimalHex)-cert.pub").path()
     }
 
 }

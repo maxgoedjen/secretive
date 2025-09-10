@@ -1,24 +1,27 @@
 import Cocoa
 import OSLog
-import Combine
 import SecretKit
 import SecureEnclaveSecretKit
 import SmartCardSecretKit
 import SecretAgentKit
 import Brief
+import Observation
 
-@NSApplicationMain
+@main
 class AppDelegate: NSObject, NSApplicationDelegate {
 
-    private let storeList: SecretStoreList = {
+    @MainActor private let storeList: SecretStoreList = {
         let list = SecretStoreList()
-        list.add(store: SecureEnclave.Store())
+        let cryptoKit = SecureEnclave.Store()
+        let migrator = SecureEnclave.CryptoKitMigrator()
+        try? migrator.migrate(to: cryptoKit)
+        list.add(store: cryptoKit)
         list.add(store: SmartCard.Store())
         return list
     }()
-    private let updater = Updater(checkOnLaunch: false)
+    private let updater = Updater(checkOnLaunch: true)
     private let notifier = Notifier()
-    private let publicKeyFileStoreController = PublicKeyFileStoreController(homeDirectory: NSHomeDirectory())
+    private let publicKeyFileStoreController = PublicKeyFileStoreController(homeDirectory: URL.homeDirectory)
     private lazy var agent: Agent = {
         Agent(storeList: storeList, witness: notifier)
     }()
@@ -26,22 +29,42 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let path = (NSHomeDirectory() as NSString).appendingPathComponent("socket.ssh") as String
         return SocketController(path: path)
     }()
-    private var updateSink: AnyCancellable?
     private let logger = Logger(subsystem: "com.maxgoedjen.secretive.secretagent", category: "AppDelegate")
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         logger.debug("SecretAgent finished launching")
-        DispatchQueue.main.async {
-            self.socketController.handler = self.agent.handle(reader:writer:)
+        Task {
+            let inputParser = try await XPCAgentInputParser()
+            for await session in socketController.sessions {
+                Task {
+                    do {
+                        for await message in session.messages {
+                            let request = try await inputParser.parse(data: message)
+                            let agentResponse = await agent.handle(request: request, provenance: session.provenance)
+                            try await session.write(agentResponse)
+                        }
+                    } catch {
+                        try session.close()
+                    }
+                }
+            }
         }
-        NotificationCenter.default.addObserver(forName: .secretStoreReloaded, object: nil, queue: .main) { [self] _ in
-            try? publicKeyFileStoreController.generatePublicKeys(for: storeList.allSecrets, clear: true)
+        Task {
+            for await _ in NotificationCenter.default.notifications(named: .secretStoreReloaded) {
+                try? publicKeyFileStoreController.generatePublicKeys(for: storeList.allSecrets, clear: true)
+            }
         }
         try? publicKeyFileStoreController.generatePublicKeys(for: storeList.allSecrets, clear: true)
         notifier.prompt()
-        updateSink = updater.$update.sink { update in
-            guard let update = update else { return }
-            self.notifier.notify(update: update, ignore: self.updater.ignore(release:))
+        _ = withObservationTracking {
+            updater.update
+        } onChange: { [updater, notifier] in
+            Task {
+                guard !updater.currentVersion.isTestBuild else { return }
+                await notifier.notify(update: updater.update!) { release in
+                    await updater.ignore(release: release)
+                }
+            }
         }
     }
 

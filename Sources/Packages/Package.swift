@@ -1,12 +1,13 @@
-// swift-tools-version:5.9
+// swift-tools-version:6.2
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
 
 let package = Package(
     name: "SecretivePackages",
+    defaultLocalization: "en",
     platforms: [
-        .macOS(.v12)
+        .macOS(.v14)
     ],
     products: [
         .library(
@@ -20,13 +21,13 @@ let package = Package(
             targets: ["SmartCardSecretKit"]),
         .library(
             name: "SecretAgentKit",
-            targets: ["SecretAgentKit"]),
-        .library(
-            name: "SecretAgentKitHeaders",
-            targets: ["SecretAgentKitHeaders"]),
+            targets: ["SecretAgentKit", "XPCWrappers"]),
         .library(
             name: "Brief",
             targets: ["Brief"]),
+        .library(
+            name: "XPCWrappers",
+            targets: ["XPCWrappers"]),
     ],
     dependencies: [
     ],
@@ -34,42 +35,61 @@ let package = Package(
         .target(
             name: "SecretKit",
             dependencies: [],
-            swiftSettings: [.unsafeFlags(["-warnings-as-errors"])]
+            resources: [localization],
+            swiftSettings: swiftSettings,
         ),
         .testTarget(
             name: "SecretKitTests",
             dependencies: ["SecretKit", "SecureEnclaveSecretKit", "SmartCardSecretKit"],
-            swiftSettings: [.unsafeFlags(["-warnings-as-errors"])]
+            swiftSettings: swiftSettings,
         ),
         .target(
             name: "SecureEnclaveSecretKit",
             dependencies: ["SecretKit"],
-            swiftSettings: [.unsafeFlags(["-warnings-as-errors"])]
+            resources: [localization],
+            swiftSettings: swiftSettings,
         ),
         .target(
             name: "SmartCardSecretKit",
             dependencies: ["SecretKit"],
-            swiftSettings: [.unsafeFlags(["-warnings-as-errors"])]
+            resources: [localization],
+            swiftSettings: swiftSettings,
         ),
         .target(
             name: "SecretAgentKit",
-            dependencies: ["SecretKit", "SecretAgentKitHeaders"],
-            swiftSettings: [.unsafeFlags(["-warnings-as-errors"])]
-        ),
-        .systemLibrary(
-            name: "SecretAgentKitHeaders"
+            dependencies: ["SecretKit"],
+            resources: [localization],
+            swiftSettings: swiftSettings,
         ),
         .testTarget(
             name: "SecretAgentKitTests",
-            dependencies: ["SecretAgentKit"])
-        ,
+            dependencies: ["SecretAgentKit"],
+        ),
         .target(
             name: "Brief",
-            dependencies: []
+            dependencies: ["XPCWrappers"],
+            resources: [localization],
+            swiftSettings: swiftSettings,
         ),
         .testTarget(
             name: "BriefTests",
-            dependencies: ["Brief"]
+            dependencies: ["Brief"],
+        ),
+        .target(
+            name: "XPCWrappers",
+            swiftSettings: swiftSettings,
         ),
     ]
 )
+
+var localization: Resource {
+    .process("../../Resources/Localizable.xcstrings")
+}
+
+var swiftSettings: [PackageDescription.SwiftSetting] {
+    [
+        .swiftLanguageMode(.v6),
+        .treatAllWarnings(as: .error),
+        .strictMemorySafety()
+    ]
+}

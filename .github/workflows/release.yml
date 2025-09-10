@@ -6,11 +6,12 @@ on:
       - '*'
 jobs:
   test:
-#     runs-on: macOS-latest
+    permissions:
+        contents: read
     runs-on: macos-15
     timeout-minutes: 10
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v5
     - name: Setup Signing
       env: 
         SIGNING_DATA: ${{ secrets.SIGNING_DATA }}
@@ -21,18 +22,20 @@ jobs:
         APPLE_API_KEY_ID: ${{ secrets.APPLE_API_KEY_ID }}
       run: ./.github/scripts/signing.sh
     - name: Set Environment
-      run: sudo xcrun xcode-select -s /Applications/Xcode_16.4.app
+      run: sudo xcrun xcode-select -s /Applications/Xcode_26.0.app
     - name: Test
-      run: |
-            pushd Sources/Packages
-            swift test
-            popd
+      run: xcrun xcodebuild -project Sources/Secretive.xcodeproj -scheme PackageTests test
+      # SPM doesn't seem to pick up on the tests currently?
+      # run: swift test --build-system swiftbuild --package-path Sources/Packages
   build:
-#     runs-on: macOS-latest
+    permissions:
+      id-token: write
+      contents: write
+      attestations: write
     runs-on: macos-15
     timeout-minutes: 10
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v5
     - name: Setup Signing
       env: 
         SIGNING_DATA: ${{ secrets.SIGNING_DATA }}
@@ -43,7 +46,7 @@ jobs:
         APPLE_API_KEY_ID: ${{ secrets.APPLE_API_KEY_ID }}
       run: ./.github/scripts/signing.sh
     - name: Set Environment
-      run: sudo xcrun xcode-select -s /Applications/Xcode_16.4.app
+      run: sudo xcrun xcode-select -s /Applications/Xcode_26.0.app
     - name: Update Build Number
       env:
         TAG_NAME: ${{ github.ref }}
@@ -55,64 +58,34 @@ jobs:
             sed -i '' -e "s/GITHUB_BUILD_URL/https:\/\/github.com\/maxgoedjen\/secretive\/actions\/runs\/$RUN_ID/g" Sources/Secretive/Credits.rtf
     - name: Build
       run: xcrun xcodebuild -project Sources/Secretive.xcodeproj -scheme Secretive -configuration Release -archivePath Archive.xcarchive archive
-    - name: Create ZIPs
+    - name: Create ZIP
       run: |
             ditto -c -k --sequesterRsrc --keepParent Archive.xcarchive/Products/Applications/Secretive.app ./Secretive.zip
-            ditto -c -k --sequesterRsrc --keepParent Archive.xcarchive ./Archive.zip
     - name: Notarize
       env: 
         APPLE_API_KEY_ID: ${{ secrets.APPLE_API_KEY_ID }}
         APPLE_API_ISSUER: ${{ secrets.APPLE_API_ISSUER }}
       run: xcrun notarytool submit --key ~/.private_keys/AuthKey_$APPLE_API_KEY_ID.p8 --key-id $APPLE_API_KEY_ID --issuer $APPLE_API_ISSUER Secretive.zip
-    - name: Document SHAs
-      run: |
-            echo "sha-512:"
-            shasum -a 512 Secretive.zip
-            shasum -a 512 Archive.zip
-            echo "sha-256:"
-            shasum -a 256 Secretive.zip
-            shasum -a 256 Archive.zip
-    - name: Create Release
-      id: create_release
-      uses: actions/create-release@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        tag_name: ${{ github.ref }}
-        release_name: ${{ github.ref }}
-        body: |
-          Update description
-
-          ## Features
-
-
-          ## Fixes
-
-
-          ## Minimum macOS Version
-
-
-          ## Build
-          https://github.com/maxgoedjen/secretive/actions/runs/${{ github.run_id }}
-        draft: true
-        prerelease: false
-    - name: Upload App to Release
-      id: upload-release-asset-app
-      uses: actions/upload-release-asset@v1.0.1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./Secretive.zip
-        asset_name: Secretive.zip
-        asset_content_type: application/zip
     - name: Upload App to Artifacts
+      id: upload
       uses: actions/upload-artifact@v4
       with:
         name: Secretive.zip
         path: Secretive.zip
-    - name: Upload Archive to Artifacts
-      uses: actions/upload-artifact@v4
+    - name: Attest
+      id: attest
+      uses: actions/attest-build-provenance@v2
       with:
-        name: Xcode_Archive.zip
-        path: Archive.zip
+        subject-name: "Secretive.zip"
+        subject-digest: ${{ steps.upload.outputs.artifact-digest }}
+    - name: Create Release
+      run: |
+            sed -i.tmp "s/RUN_ID/$RUN_ID/g" .github/templates/release.md
+            sed -i.tmp "s/ATTESTATION_ID/$ATTESTATION_ID/g" .github/templates/release.md
+            gh release create $TAG_NAME -d -F .github/templates/release.md
+            gh release upload Secretive.zip
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        TAG_NAME: ${{ github.ref }}
+        RUN_ID: ${{ github.run_id }}
+        ATTESTATION_ID: ${{ steps.attest.outputs.attestation-id }}

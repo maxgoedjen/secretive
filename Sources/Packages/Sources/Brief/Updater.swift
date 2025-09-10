@@ -1,16 +1,24 @@
 import Foundation
-import Combine
+import Observation
+import XPCWrappers
 
 /// A concrete implementation of ``UpdaterProtocol`` which considers the current release and OS version.
-public final class Updater: ObservableObject, UpdaterProtocol {
+@Observable public final class Updater: UpdaterProtocol, Sendable {
 
-    @Published public var update: Release?
-    public let testBuild: Bool
+    private let state = State()
+    @MainActor @Observable public final class State {
+        var update: Release? = nil
+        nonisolated init() {}
+    }
+    public var update: Release? {
+        state.update
+    }
+
+    /// The current version of the app that is running.
+    public let currentVersion: SemVer
 
     /// The current OS version.
     private let osVersion: SemVer
-    /// The current version of the app that is running.
-    private let currentVersion: SemVer
 
     /// Initializes an Updater.
     /// - Parameters:
@@ -18,36 +26,40 @@ public final class Updater: ObservableObject, UpdaterProtocol {
     ///   - checkFrequency: The interval at which the Updater should check for updates. Subject to a tolerance of 1 hour.
     ///   - osVersion: The current OS version.
     ///   - currentVersion: The current version of the app that is running.
-    public init(checkOnLaunch: Bool, checkFrequency: TimeInterval = Measurement(value: 24, unit: UnitDuration.hours).converted(to: .seconds).value, osVersion: SemVer = SemVer(ProcessInfo.processInfo.operatingSystemVersion), currentVersion: SemVer = SemVer(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "0.0.0")) {
+    public init(
+        checkOnLaunch: Bool,
+        checkFrequency: TimeInterval = Measurement(value: 24, unit: UnitDuration.hours).converted(to: .seconds).value,
+        osVersion: SemVer = SemVer(ProcessInfo.processInfo.operatingSystemVersion),
+        currentVersion: SemVer = SemVer(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "0.0.0")
+    ) {
         self.osVersion = osVersion
         self.currentVersion = currentVersion
-        testBuild = currentVersion == SemVer("0.0.0")
-        if checkOnLaunch {
-            // Don't do a launch check if the user hasn't seen the setup prompt explaining updater yet.
-            checkForUpdates()
+        Task {
+            if checkOnLaunch {
+                try await checkForUpdates()
+            }
+            while !Task.isCancelled {
+                try? await Task.sleep(for: .seconds(Int(checkFrequency)))
+                try await checkForUpdates()
+            }
         }
-        let timer = Timer.scheduledTimer(withTimeInterval: checkFrequency, repeats: true) { _ in
-            self.checkForUpdates()
-        }
-        timer.tolerance = 60*60
     }
 
     /// Manually trigger an update check.
-    public func checkForUpdates() {
-        URLSession.shared.dataTask(with: Constants.updateURL) { data, _, _ in
-            guard let data = data else { return }
-            guard let releases = try? JSONDecoder().decode([Release].self, from: data) else { return }
-            self.evaluate(releases: releases)
-        }.resume()
+    public func checkForUpdates() async throws {
+        let session = try await XPCTypedSession<[Release], Never>(serviceName: "com.maxgoedjen.Secretive.SecretiveUpdater")
+        await evaluate(releases: try await session.send())
+        session.complete()
     }
+
 
     /// Ignores a specified release. `update` will be nil if the user has ignored the latest available release.
     /// - Parameter release: The release to ignore.
-    public func ignore(release: Release) {
+    public func ignore(release: Release) async {
         guard !release.critical else { return }
         defaults.set(true, forKey: release.name)
-        DispatchQueue.main.async {
-            self.update = nil
+        await MainActor.run {
+            state.update = nil
         }
     }
 
@@ -57,7 +69,7 @@ extension Updater {
 
     /// Evaluates the available downloadable releases, and selects the newest non-prerelease release that the user is able to run.
     /// - Parameter releases: An array of ``Release`` objects.
-    func evaluate(releases: [Release]) {
+    func evaluate(releases: [Release]) async {
         guard let release = releases
                 .sorted()
                 .reversed()
@@ -67,8 +79,8 @@ extension Updater {
         guard !release.prerelease else { return }
         let latestVersion = SemVer(release.name)
         if latestVersion > currentVersion {
-            DispatchQueue.main.async {
-                self.update = release
+            await MainActor.run {
+                state.update = release
             }
         }
     }
@@ -84,14 +96,6 @@ extension Updater {
     /// The user defaults used to store user ignore state.
     var defaults: UserDefaults {
         UserDefaults(suiteName: "com.maxgoedjen.Secretive.updater.ignorelist")!
-    }
-
-}
-
-extension Updater {
-
-    enum Constants {
-        static let updateURL = URL(string: "https://api.github.com/repos/maxgoedjen/secretive/releases")!
     }
 
 }

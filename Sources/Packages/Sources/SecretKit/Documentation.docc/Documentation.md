@@ -22,7 +22,7 @@ SecretKit is a collection of protocols describing secrets and stores.
 
 ### OpenSSH 
 
-- ``OpenSSHKeyWriter``
+- ``OpenSSHPublicKeyWriter``
 - ``OpenSSHReader``
 
 ### Signing Process

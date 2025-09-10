@@ -6,7 +6,7 @@ struct Stub {}
 
 extension Stub {
 
-    public final class Store: SecretStore {
+    public final class Store: SecretStore, @unchecked Sendable {
 
         public let isAvailable = true
         public let id = UUID()
@@ -45,43 +45,15 @@ extension Stub {
             let privateData = (privateAttributes[kSecValueData] as! Data)
             let secret = Secret(keySize: size, publicKey: publicData, privateKey: privateData)
             print(secret)
-            print("Public Key OpenSSH: \(OpenSSHKeyWriter().openSSHString(secret: secret))")
+            print("Public Key OpenSSH: \(OpenSSHPublicKeyWriter().openSSHString(secret: secret))")
         }
 
         public func sign(data: Data, with secret: Secret, for provenance: SigningRequestProvenance) throws -> Data {
             guard !shouldThrow else {
                 throw NSError(domain: "test", code: 0, userInfo: nil)
             }
-            let privateKey = SecKeyCreateWithData(secret.privateKey as CFData, KeychainDictionary([
-                kSecAttrKeyType: kSecAttrKeyTypeECSECPrimeRandom,
-                kSecAttrKeySizeInBits: secret.keySize,
-                kSecAttrKeyClass: kSecAttrKeyClassPrivate
-                ])
-                , nil)!
-            return SecKeyCreateSignature(privateKey, signatureAlgorithm(for: secret), data as CFData, nil)! as Data
-        }
-
-        public func verify(signature: Data, for data: Data, with secret: Stub.Secret) throws -> Bool {
-            let attributes = KeychainDictionary([
-                kSecAttrKeyType: secret.algorithm.secAttrKeyType,
-                kSecAttrKeySizeInBits: secret.keySize,
-                kSecAttrKeyClass: kSecAttrKeyClassPublic
-            ])
-            var verifyError: Unmanaged<CFError>?
-            let untyped: CFTypeRef? = SecKeyCreateWithData(secret.publicKey as CFData, attributes, &verifyError)
-            guard let untypedSafe = untyped else {
-                throw NSError(domain: "test", code: 0, userInfo: nil)
-            }
-            let key = untypedSafe as! SecKey
-            let verified = SecKeyVerifySignature(key, signatureAlgorithm(for: secret), data as CFData, signature as CFData, &verifyError)
-            if let verifyError {
-                if verifyError.takeUnretainedValue() ~= .verifyError {
-                    return false
-                } else {
-                    throw NSError(domain: "test", code: 0, userInfo: nil)
-                }
-            }
-            return verified
+            let privateKey = try CryptoKit.P256.Signing.PrivateKey(x963Representation: secret.privateKey)
+            return try privateKey.signature(for: data).rawRepresentation
         }
 
         public func existingPersistedAuthenticationContext(secret: Stub.Secret) -> PersistedAuthenticationContext? {
@@ -102,24 +74,22 @@ extension Stub {
 
     struct Secret: SecretKit.Secret, CustomDebugStringConvertible {
 
-        let id = UUID().uuidString.data(using: .utf8)!
+        let id = Data(UUID().uuidString.utf8)
         let name = UUID().uuidString
-        let algorithm = Algorithm.ellipticCurve
-
-        let keySize: Int
+        let attributes: Attributes
         let publicKey: Data
         let requiresAuthentication = false
         let privateKey: Data
 
         init(keySize: Int, publicKey: Data, privateKey: Data) {
-            self.keySize = keySize
+            self.attributes = Attributes(keyType: .init(algorithm: .ecdsa, size: keySize), authentication: .notRequired, publicKeyAttribution: "ecdsa-\(keySize)@example.com")
             self.publicKey = publicKey
             self.privateKey = privateKey
         }
 
         var debugDescription: String {
             """
-            Key Size \(keySize)
+            Key Size \(attributes.keyType.size)
             Private: \(privateKey.base64EncodedString())
             Public: \(publicKey.base64EncodedString())
             """
