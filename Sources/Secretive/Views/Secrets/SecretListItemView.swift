@@ -41,15 +41,12 @@ struct SecretListItemView: View {
                 deletedSecret(secret)
             }
         }
-        .sheet(isPresented: $isRenaming) {
+        .sheet(isPresented: $isRenaming, onDismiss: {
+            renamedSecret(secret)
+        }, content: {
             if let modifiable = store as? AnySecretStoreModifiable {
-                EditSecretView(store: modifiable, secret: secret) { renamed in
-                    isRenaming = false
-                    if renamed {
-                        renamedSecret(secret)
-                    }
-                }
+                EditSecretView(store: modifiable, secret: secret)
             }
-        }
+        })
     }
 }
