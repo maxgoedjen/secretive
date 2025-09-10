@@ -12,9 +12,9 @@ struct StoreListView: View {
     }
 
     private func secretRenamed(secret: AnySecret) {
-        // Toggle so name updates in list.
+        // Pull new version from store, so we get all updated attributes
         activeSecret = nil
-        activeSecret = secret
+        activeSecret = storeList.allSecrets.first(where: { $0.id == secret.id })
     }
 
     var body: some View {
@@ -28,7 +28,7 @@ struct StoreListView: View {
                                     store: store,
                                     secret: secret,
                                     deletedSecret: secretDeleted,
-                                    renamedSecret: secretRenamed
+                                    renamedSecret: secretRenamed,
                                 )
                             }
                         }
