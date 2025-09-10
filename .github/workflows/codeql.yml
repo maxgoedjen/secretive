@@ -25,8 +25,8 @@ jobs:
         - language: actions
           build-mode: none
         # Disable this until CodeQL supports Xcode 26 builds.
-        # - language: swift
-        #   build-mode: manual
+        - language: swift
+          build-mode: manual
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
