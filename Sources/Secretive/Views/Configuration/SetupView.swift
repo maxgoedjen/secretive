@@ -21,9 +21,10 @@ struct SetupView: View {
                 StepView(
                     title: .setupAgentTitle,
                     description: .setupAgentDescription,
+                    detail: .setupAgentActivityMonitorDescription,
                     systemImage: "lock.laptopcomputer",
                 ) {
-                    setupButton(
+                    SetupButton(
                         .setupAgentInstallButton,
                         complete: installed,
                         width: buttonWidth
@@ -40,7 +41,7 @@ struct SetupView: View {
                     description: .setupUpdatesDescription,
                     systemImage: "network.badge.shield.half.filled",
                 ) {
-                    setupButton(
+                    SetupButton(
                         .setupUpdatesOkButton,
                         complete: updates,
                         width: buttonWidth
@@ -54,7 +55,7 @@ struct SetupView: View {
                     description: .setupIntegrationsDescription,
                     systemImage: "firewall",
                 ) {
-                    setupButton(
+                    SetupButton(
                         .setupIntegrationsButton,
                         complete: integrations,
                         width: buttonWidth
@@ -63,7 +64,7 @@ struct SetupView: View {
                     }
                 }
             }
-            .onPreferenceChange(setupButton.WidthKey.self) { width in
+            .onPreferenceChange(SetupButton.WidthKey.self) { width in
                 buttonWidth = width
             }
             .background(.white.opacity(0.1), in: RoundedRectangle(cornerRadius: 10))
@@ -88,7 +89,7 @@ struct SetupView: View {
     }
 }
 
-struct setupButton: View {
+struct SetupButton: View {
 
     struct WidthKey: @MainActor PreferenceKey {
         @MainActor static var defaultValue: CGFloat? = nil
@@ -144,12 +145,20 @@ struct StepView<Content: View>: View {
     let title: LocalizedStringResource
     let icon: Image
     let description: LocalizedStringResource
+    let detail: LocalizedStringResource?
     let actions: Content
     
-    init(title: LocalizedStringResource, description: LocalizedStringResource, systemImage: String, actions: () -> Content) {
+    init(
+        title: LocalizedStringResource,
+        description: LocalizedStringResource,
+        detail: LocalizedStringResource? = nil,
+        systemImage: String,
+        actions: () -> Content
+    ) {
         self.title = title
         self.icon = Image(systemName: systemImage)
         self.description = description
+        self.detail = detail
         self.actions = actions()
     }
     
@@ -165,6 +174,11 @@ struct StepView<Content: View>: View {
                 Text(title)
                     .bold()
                 Text(description)
+                if let detail {
+                    Text(detail)
+                        .font(.callout)
+                        .italic()
+                }
             }
             Spacer(minLength: 20)
             actions
