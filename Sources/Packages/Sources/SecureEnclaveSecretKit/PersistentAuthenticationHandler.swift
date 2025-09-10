@@ -56,11 +56,9 @@ extension SecureEnclave {
             formatter.unitsStyle = .spellOut
             formatter.allowedUnits = [.hour, .minute, .day]
 
-            if let durationString = formatter.string(from: duration) {
-                newContext.localizedReason = String(localized: .authContextPersistForDuration(secretName: secret.name, duration: durationString))
-            } else {
-                newContext.localizedReason = String(localized: .authContextPersistForDurationUnknown(secretName: secret.name))
-            }
+            
+            let durationString = formatter.string(from: duration)!
+            newContext.localizedReason = String(localized: .authContextPersistForDuration(secretName: secret.name, duration: durationString))
             let success = try await newContext.evaluatePolicy(.deviceOwnerAuthentication, localizedReason: newContext.localizedReason)
             guard success else { return }
             let context = PersistentAuthenticationContext(secret: secret, context: newContext, duration: duration)
