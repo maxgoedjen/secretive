@@ -411,83 +411,6 @@
         }
       }
     },
-    "agent_setup_notice_title" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "ca" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Inicialitza Secretive"
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Secretive Einrichten"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Setup Secretive"
-          }
-        },
-        "fi" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Asenna Secretive"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Configurer Secretive"
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Imposta Secretive"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Secretiveをセットアップ"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Secretive 설치"
-          }
-        },
-        "pl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Konfiguracja Secretive"
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Configurar Secretive"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Настроить Secretive"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "设置 Secretive"
-          }
-        }
-      }
-    },
     "agentDetailsLocationTitle" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -649,83 +572,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "新密钥串"
-          }
-        }
-      }
-    },
-    "app_menu_setup_button" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "ca" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Inicialitza Secretive"
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Secretive Einrichten"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Setup Secretive"
-          }
-        },
-        "fi" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Asenna Secretive"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Configurer Secretive"
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Imposta Secretive"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "セットアップ"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Secretive 설치"
-          }
-        },
-        "pl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Skonfiguruj Scretive"
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Configurar Secretive"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Настроить Secretive"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "设置 Secretive"
           }
         }
       }
@@ -1192,84 +1038,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "使用密钥串 \"%2$(secretName)@\" 认证 \"%1$(appName)@\" "
-          }
-        }
-      }
-    },
-    "auth_context_request_verify_description" : {
-      "comment" : "When the user performs a signature verification action using a secret, they are shown a prompt to approve the action. This is the description, showing which secret will be used. The placeholder is the name of the secret. NOTE: This is currently not exposed in UI.",
-      "extractionState" : "manual",
-      "localizations" : {
-        "ca" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "verifica una signatura usant el secret \"%1$(secretName)@\""
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "eine Signatur mit dem Secret \"%1$(secretName)@\" verifizieren"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "verify a signature using secret \"%1$(secretName)@“"
-          }
-        },
-        "fi" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "varmista allekirjoitus käyttäen salaisuutta \"%1$(secretName)@\""
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "vérifier une signature en utilisant le secret \"%1$(secretName)@\""
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "verifica una firma usando il segreto \"%1$(secretName)@\""
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "シークレット“%1$(secretName)@”を使って署名を検証します"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "비밀 \"%1$(secretName)@\"를 사용하여 서명 검증"
-          }
-        },
-        "pl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "zweryfikuj sygnaturę za pomocą sekretu “%1$(secretName)@”"
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "verificar a assinatura utilizando o segredo \"%1$(secretName)@\""
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "верифицировать подпись используя секрет \"%1$(secretName)@\""
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "使用密钥串 \"%1$(secretName)@\" 认证"
           }
         }
       }
@@ -1963,6 +1731,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "通知"
+          }
+        }
+      }
+    },
+    "create_secret_protection_level_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Protection Level"
           }
         }
       }

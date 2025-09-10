@@ -28,7 +28,7 @@ struct CreateSecretView<StoreType: SecretStoreModifiable>: View {
                 Section {
                     TextField(String(localized: .createSecretNameLabel), text: $name, prompt: Text(.createSecretNamePlaceholder))
                     VStack(alignment: .leading, spacing: 10) {
-                        Picker(.createSecretRequireAuthenticationTitle, selection: $authenticationRequirement) {
+                        Picker(.createSecretProtectionLevelTitle, selection: $authenticationRequirement) {
                             ForEach(authenticationOptions) { option in
                                 HStack {
                                     switch option {
