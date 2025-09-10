@@ -43,7 +43,11 @@ struct StoreListView: View {
                 // Do this to avoid a blip.
                 SecretDetailView(secret: nextDefaultSecret)
             } else {
-                EmptyStoreView(store: storeList.modifiableStore ?? storeList.stores.first)
+                if let modifiable = storeList.modifiableStore, modifiable.isAvailable {
+                    EmptyStoreView(store: modifiable)
+                } else {
+                    EmptyStoreView(store: storeList.stores.first(where: \.isAvailable))
+                }
             }
         }
         .navigationSplitViewStyle(.balanced)
