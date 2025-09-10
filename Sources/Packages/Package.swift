@@ -90,5 +90,6 @@ var swiftSettings: [PackageDescription.SwiftSetting] {
     [
         .swiftLanguageMode(.v6),
         .treatAllWarnings(as: .error),
+        .strictMemorySafety()
     ]
 }

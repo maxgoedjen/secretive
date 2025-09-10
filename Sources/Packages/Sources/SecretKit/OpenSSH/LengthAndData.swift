@@ -7,7 +7,7 @@ extension Data {
     package var lengthAndData: Data {
         let rawLength = UInt32(count)
         var endian = rawLength.bigEndian
-        return Data(bytes: &endian, count: MemoryLayout<UInt32>.size) + self
+        return unsafe Data(bytes: &endian, count: MemoryLayout<UInt32>.size) + self
     }
 
 }

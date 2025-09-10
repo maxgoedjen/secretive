@@ -29,7 +29,7 @@ final class OpenSSHReader {
         let lengthRange = 0..<size
         let lengthChunk = remaining[lengthRange]
         remaining.removeSubrange(lengthRange)
-        return lengthChunk.bytes.unsafeLoad(as: T.self)
+        return unsafe lengthChunk.bytes.unsafeLoad(as: T.self)
     }
 
     func readNextChunkAsString(convertEndianness: Bool = true) throws(OpenSSHReaderError) -> String {

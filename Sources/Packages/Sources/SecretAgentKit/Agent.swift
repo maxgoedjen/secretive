@@ -84,7 +84,7 @@ extension Agent {
         }
         logger.log("Agent enumerated \(count) identities")
         var countBigEndian = UInt32(count).bigEndian
-        let countData = Data(bytes: &countBigEndian, count: MemoryLayout<UInt32>.size)
+        let countData = unsafe Data(bytes: &countBigEndian, count: MemoryLayout<UInt32>.size)
         return countData + keyData
     }
 
@@ -150,7 +150,7 @@ extension SSHAgent.Response {
 
     var data: Data {
         var raw = self.rawValue
-        return Data(bytes: &raw, count: MemoryLayout<UInt8>.size)
+        return unsafe Data(bytes: &raw, count: MemoryLayout<UInt8>.size)
     }
 
 }

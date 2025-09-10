@@ -36,12 +36,12 @@ public struct KeychainError: Error {
 /// A signing-related error.
 public struct SigningError: Error {
     /// The underlying error reported by the API, if one was returned.
-    public let error: SecurityError?
+    public let error: CFError?
 
     /// Initializes a SigningError with an optional SecurityError.
     /// - Parameter statusCode: The SecurityError, if one is applicable.
     public init(error: SecurityError?) {
-        self.error = error
+        self.error = unsafe error?.takeRetainedValue()
     }
 
 }

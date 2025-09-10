@@ -1,21 +1,20 @@
 import Foundation
 
-public struct XPCTypedSession<ResponseType: Codable & Sendable, ErrorType: Error & Codable>: Sendable {
+public struct XPCTypedSession<ResponseType: Codable & Sendable, ErrorType: Error & Codable>: ~Copyable {
 
-    private nonisolated(unsafe) let connection: NSXPCConnection
-    private var proxy: _XPCProtocol
+    private let connection: NSXPCConnection
+    private let proxy: _XPCProtocol
 
-    public init(serviceName: String, warmup: Bool = false) throws {
-        connection = NSXPCConnection(serviceName: serviceName)
+    public init(serviceName: String, warmup: Bool = false) async throws {
+        let connection = NSXPCConnection(serviceName: serviceName)
         connection.remoteObjectInterface = NSXPCInterface(with: (any _XPCProtocol).self)
         connection.setCodeSigningRequirement("anchor apple generic and certificate leaf[subject.OU] = Z72PRUAWF6")
         connection.resume()
         guard let proxy = connection.remoteObjectProxy as? _XPCProtocol else { fatalError() }
+        self.connection = connection
         self.proxy = proxy
         if warmup {
-            Task { [self] in
-                _ = try? await send()
-            }
+            _ = try? await send()
         }
     }
 

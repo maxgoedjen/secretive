@@ -21,7 +21,7 @@ extension SecureEnclave {
         ///   - duration: The duration of the authorization context, in seconds.
         init(secret: Secret, context: LAContext, duration: TimeInterval) {
             self.secret = secret
-            self.context = context
+            unsafe self.context = context
             let durationInNanoSeconds = Measurement(value: duration, unit: UnitDuration.seconds).converted(to: .nanoseconds).value
             self.monotonicExpiration = clock_gettime_nsec_np(CLOCK_MONOTONIC) + UInt64(durationInNanoSeconds)
         }
