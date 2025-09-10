@@ -2,36 +2,20 @@
 
 If you speak another language, and would like to help translate Secretive to support that language, we'd love your help!
 
-## Getting Started
+## Crowdin
 
-### Download Xcode
+[Secretive uses Crowdin for localization](https://crowdin.com/project/secretive/). Open the link and select your language to translate!
 
-Download the latest version of Xcode (at minimum, Xcode 15) from [Apple](http://developer.apple.com/download/applications/).
+### Manual Translation
 
-### Clone Secretive
-
-Clone Secretive using [these instructions from GitHub](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository).
-
-### Open Secretive
-
-Open [Sources/Secretive.xcodeproj](Sources/Secretive.xcodeproj) in Xcode.
-
-### Translate
-
-Navigate to [Secretive/Localizable](Sources/Secretive/Localizable.xcstrings). 
-
-<img src="/.github/readme/localize_sidebar.png" alt="Screenshot of Xcode navigating to the Localizable file" width="300">
-
-If your language already has an in-progress localization, select it from the list. If it isn't there, hit the "+" button and choose your language from the list.
-
-<img src="/.github/readme/localize_add.png" alt="Screenshot of Xcode adding a new language" width="600">
-
-Start translating! You'll see a list of english phrases, and a space to add a translation of your language.
-
-### Create a Pull Request
-
-Push your changes and open a pull request. 
+Crowdin is the easiest way to translate Secretive, but I'm happy to accept Pull Requests directly as well.
 
 ### Questions
 
 Please open an issue if you have a question about translating the app. I'm more than happy to clarify any terms that are ambiguous or confusing. Thanks for contributing!
+
+### Thank You
+
+Thanks to all the folks who have contributed translations so far!
+
+A special thanks to [Crowdin](https://crowdin.com) for their [generous support of open source projects](https://crowdin.com/page/open-source-project-setup-request).
