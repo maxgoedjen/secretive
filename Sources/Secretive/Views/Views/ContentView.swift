@@ -54,20 +54,12 @@ extension ContentView {
             ToolbarItem(id: id) { view }
         }
     }
-    
-    var needsSetup: Bool {
-        runningSetup || !hasRunSetup
-    }
 
     /// Item either showing a "everything's good, here's more info" or "something's wrong, re-run setup" message
     /// These two are mutually exclusive
     @ViewBuilder
     var runningOrRunSetupView: some View {
-        if needsSetup {
-            setupNoticeView
-        } else {
-            agentStatusToolbarView
-        }
+        agentStatusToolbarView
     }
 
     var updateNoticeContent: (LocalizedStringResource, Color)? {
@@ -132,19 +124,6 @@ extension ContentView {
                 }
             }
         }
-    }
-
-    @ViewBuilder
-    var setupNoticeView: some View {
-        Button(action: {
-            runningSetup = true
-        }, label: {
-            if !hasRunSetup {
-                Text(.agentSetupNoticeTitle)
-                    .font(.headline)
-            }
-        })
-        .buttonStyle(ToolbarButtonStyle(color: .orange))
     }
 
     @ViewBuilder
