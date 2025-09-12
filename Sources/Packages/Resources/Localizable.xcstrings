@@ -197,7 +197,7 @@
         "ca" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Secretive no ha aconseguit arrancar l'agent segur (SecretAgent). Prova de reiniciar el teu Mac, i si açò no funciona, obri una \"issue\" al GitHub."
+            "value" : "Secretive no ha aconseguit arrancar l'agent segur (SecretAgent). Prova de reiniciar el teu Mac, i si açò no funciona, obri una “issue” al GitHub."
           }
         },
         "cs" : {
@@ -3510,91 +3510,91 @@
       }
     },
     "auth_context_persist_for_duration" : {
-      "comment" : "When the user clicks the notification to leave a secret unlocked, they are shown a prompt to approve the action. This is the description, showing which secret will used. The first placeholder is the name of the secret. The second placeholder is a localized description of the time period it will remain unlocked for (eg: “five minutes“)",
+      "comment" : "When the user clicks the notification to leave a secret unlocked, they are shown a prompt to approve the action. This is the description, showing which secret will used. The first placeholder is the name of the secret. The second placeholder is a localized description of the time period it will remain unlocked for (eg: “five minutes”)",
       "extractionState" : "manual",
       "localizations" : {
         "af" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "unlock secret “%1$(secretName)@“ for %2$(duration)@"
+            "value" : "unlock secret “%1$(secretName)@” for %2$(duration)@"
           }
         },
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "unlock secret “%1$(secretName)@“ for %2$(duration)@"
+            "value" : "unlock secret “%1$(secretName)@” for %2$(duration)@"
           }
         },
         "ca" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "desbloqueja el secret “%1$(secretName)@“ per a %2$(duration)@"
+            "value" : "desbloqueja el secret “%1$(secretName)@” per a %2$(duration)@"
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "unlock secret “%1$(secretName)@“ for %2$(duration)@"
+            "value" : "unlock secret “%1$(secretName)@” for %2$(duration)@"
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "unlock secret “%1$(secretName)@“ for %2$(duration)@"
+            "value" : "unlock secret “%1$(secretName)@” for %2$(duration)@"
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Secret “%1$(secretName)@“ für %2$(duration)@ entsperren"
+            "value" : "Secret “%1$(secretName)@” für %2$(duration)@ entsperren"
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "unlock secret “%1$(secretName)@“ for %2$(duration)@"
+            "value" : "unlock secret “%1$(secretName)@” for %2$(duration)@"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "unlock secret “%1$(secretName)@“ for %2$(duration)@"
+            "value" : "unlock secret “%1$(secretName)@” for %2$(duration)@"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "unlock secret “%1$(secretName)@“ for %2$(duration)@"
+            "value" : "unlock secret “%1$(secretName)@” for %2$(duration)@"
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "avaa salaisuuden “%1$(secretName)@“ lukitus ajaksi %2$(duration)@"
+            "value" : "avaa salaisuuden “%1$(secretName)@” lukitus ajaksi %2$(duration)@"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "déverrouiller le secret “%1$(secretName)@“ pendant %2$(duration)@"
+            "value" : "déverrouiller le secret “%1$(secretName)@” pendant %2$(duration)@"
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "unlock secret “%1$(secretName)@“ for %2$(duration)@"
+            "value" : "unlock secret “%1$(secretName)@” for %2$(duration)@"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "unlock secret “%1$(secretName)@“ for %2$(duration)@"
+            "value" : "unlock secret “%1$(secretName)@” for %2$(duration)@"
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "sblocca il Segreto “%1$(secretName)@“ per %2$(duration)@"
+            "value" : "sblocca il Segreto “%1$(secretName)@” per %2$(duration)@"
           }
         },
         "ja" : {
@@ -3606,19 +3606,19 @@
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "비밀 “%1$(secretName)@“를 %2$(duration)@ 동안 잠금 해제"
+            "value" : "비밀 “%1$(secretName)@”를 %2$(duration)@ 동안 잠금 해제"
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "unlock secret “%1$(secretName)@“ for %2$(duration)@"
+            "value" : "unlock secret “%1$(secretName)@” for %2$(duration)@"
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "unlock secret “%1$(secretName)@“ for %2$(duration)@"
+            "value" : "unlock secret “%1$(secretName)@” for %2$(duration)@"
           }
         },
         "pl" : {
@@ -3630,67 +3630,67 @@
         "pt" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "unlock secret “%1$(secretName)@“ for %2$(duration)@"
+            "value" : "unlock secret “%1$(secretName)@” for %2$(duration)@"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "destravar segredo “%1$(secretName)@“ for %2$(duration)@"
+            "value" : "destravar segredo “%1$(secretName)@” for %2$(duration)@"
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "unlock secret “%1$(secretName)@“ for %2$(duration)@"
+            "value" : "unlock secret “%1$(secretName)@” for %2$(duration)@"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "разблокировать секрет “%1$(secretName)@“ на %2$(duration)@"
+            "value" : "разблокировать секрет “%1$(secretName)@” на %2$(duration)@"
           }
         },
         "sr" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "unlock secret “%1$(secretName)@“ for %2$(duration)@"
+            "value" : "unlock secret “%1$(secretName)@” for %2$(duration)@"
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "unlock secret “%1$(secretName)@“ for %2$(duration)@"
+            "value" : "unlock secret “%1$(secretName)@” for %2$(duration)@"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "unlock secret “%1$(secretName)@“ for %2$(duration)@"
+            "value" : "unlock secret “%1$(secretName)@” for %2$(duration)@"
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "unlock secret “%1$(secretName)@“ for %2$(duration)@"
+            "value" : "unlock secret “%1$(secretName)@” for %2$(duration)@"
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "unlock secret “%1$(secretName)@“ for %2$(duration)@"
+            "value" : "unlock secret “%1$(secretName)@” for %2$(duration)@"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "解锁密钥串 “%1$(secretName)@“ 给 %2$(duration)@"
+            "value" : "解锁密钥串 “%1$(secretName)@” 给 %2$(duration)@"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "unlock secret “%1$(secretName)@“ for %2$(duration)@"
+            "value" : "unlock secret “%1$(secretName)@” for %2$(duration)@"
           }
         }
       }
@@ -3888,43 +3888,43 @@
         "af" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "sign a request from “%1$(appName)@“ using secret “%2$(secretName)@“"
+            "value" : "sign a request from “%1$(appName)@” using secret “%2$(secretName)@”"
           }
         },
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "sign a request from “%1$(appName)@“ using secret “%2$(secretName)@“"
+            "value" : "sign a request from “%1$(appName)@” using secret “%2$(secretName)@”"
           }
         },
         "ca" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "signa una petición de “%1$(appName)@“ usant el secret “%2$(secretName)@“"
+            "value" : "signa una petición de “%1$(appName)@” usant el secret “%2$(secretName)@”"
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "sign a request from “%1$(appName)@“ using secret “%2$(secretName)@“"
+            "value" : "sign a request from “%1$(appName)@” using secret “%2$(secretName)@”"
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "sign a request from “%1$(appName)@“ using secret “%2$(secretName)@“"
+            "value" : "sign a request from “%1$(appName)@” using secret “%2$(secretName)@”"
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "eine Anfrage von “%1$(appName)@“ mit dem Secret “%2$(secretName)@“ signieren"
+            "value" : "eine Anfrage von “%1$(appName)@” mit dem Secret “%2$(secretName)@” signieren"
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "sign a request from “%1$(appName)@“ using secret “%2$(secretName)@“"
+            "value" : "sign a request from “%1$(appName)@” using secret “%2$(secretName)@”"
           }
         },
         "en" : {
@@ -3936,37 +3936,37 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "sign a request from “%1$(appName)@“ using secret “%2$(secretName)@“"
+            "value" : "sign a request from “%1$(appName)@” using secret “%2$(secretName)@”"
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "allekirjoita pyyntö lähteestä “%1$(appName)@“ käyttäen salaisuutta “%2$(secretName)@“"
+            "value" : "allekirjoita pyyntö lähteestä “%1$(appName)@” käyttäen salaisuutta “%2$(secretName)@”"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "signer une requête de “%1$(appName)@“ en utilisant le secret “%2$(secretName)@“"
+            "value" : "signer une requête de “%1$(appName)@” en utilisant le secret “%2$(secretName)@”"
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "sign a request from “%1$(appName)@“ using secret “%2$(secretName)@“"
+            "value" : "sign a request from “%1$(appName)@” using secret “%2$(secretName)@”"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "sign a request from “%1$(appName)@“ using secret “%2$(secretName)@“"
+            "value" : "sign a request from “%1$(appName)@” using secret “%2$(secretName)@”"
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "firma la richiesta di “%1$(appName)@“ usando il Segreto “%2$(secretName)@“"
+            "value" : "firma la richiesta di “%1$(appName)@” usando il Segreto “%2$(secretName)@”"
           }
         },
         "ja" : {
@@ -3978,91 +3978,91 @@
         "ko" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "비밀 “%2$(secretName)@“를 사용해서 “%1$(appName)@“의 요청에 서명"
+            "value" : "비밀 “%2$(secretName)@”를 사용해서 “%1$(appName)@”의 요청에 서명"
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "sign a request from “%1$(appName)@“ using secret “%2$(secretName)@“"
+            "value" : "sign a request from “%1$(appName)@” using secret “%2$(secretName)@”"
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "sign a request from “%1$(appName)@“ using secret “%2$(secretName)@“"
+            "value" : "sign a request from “%1$(appName)@” using secret “%2$(secretName)@”"
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "podpisz zapytanie od “%1$(appName)@“ za pomocą sekretu “%2$(secretName)@”"
+            "value" : "podpisz zapytanie od “%1$(appName)@” za pomocą sekretu “%2$(secretName)@”"
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "sign a request from “%1$(appName)@“ using secret “%2$(secretName)@“"
+            "value" : "sign a request from “%1$(appName)@” using secret “%2$(secretName)@”"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "assinar requisição a partir do “%1$(appName)@“ utilizando o segredo “%2$(secretName)@“"
+            "value" : "assinar requisição a partir do “%1$(appName)@” utilizando o segredo “%2$(secretName)@”"
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "sign a request from “%1$(appName)@“ using secret “%2$(secretName)@“"
+            "value" : "sign a request from “%1$(appName)@” using secret “%2$(secretName)@”"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "подписать запрос от “%1$(appName)@“ используя секрет “%2$(secretName)@“"
+            "value" : "подписать запрос от “%1$(appName)@” используя секрет “%2$(secretName)@”"
           }
         },
         "sr" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "sign a request from “%1$(appName)@“ using secret “%2$(secretName)@“"
+            "value" : "sign a request from “%1$(appName)@” using secret “%2$(secretName)@”"
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "sign a request from “%1$(appName)@“ using secret “%2$(secretName)@“"
+            "value" : "sign a request from “%1$(appName)@” using secret “%2$(secretName)@”"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "sign a request from “%1$(appName)@“ using secret “%2$(secretName)@“"
+            "value" : "sign a request from “%1$(appName)@” using secret “%2$(secretName)@”"
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "sign a request from “%1$(appName)@“ using secret “%2$(secretName)@“"
+            "value" : "sign a request from “%1$(appName)@” using secret “%2$(secretName)@”"
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "sign a request from “%1$(appName)@“ using secret “%2$(secretName)@“"
+            "value" : "sign a request from “%1$(appName)@” using secret “%2$(secretName)@”"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "使用密钥串 “%2$(secretName)@“ 认证 “%1$(appName)@“ "
+            "value" : "使用密钥串 “%2$(secretName)@” 认证 “%1$(appName)@” "
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "sign a request from “%1$(appName)@“ using secret “%2$(secretName)@“"
+            "value" : "sign a request from “%1$(appName)@” using secret “%2$(secretName)@”"
           }
         }
       }
@@ -8143,79 +8143,79 @@
         "af" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "If you delete %1$(secretName)@, you will not be able to recover it. Type “%2$(confirmSecretName)@“ to confirm."
+            "value" : "If you delete %1$(secretName)@, you will not be able to recover it. Type “%2$(confirmSecretName)@” to confirm."
           }
         },
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "If you delete %1$(secretName)@, you will not be able to recover it. Type “%2$(confirmSecretName)@“ to confirm."
+            "value" : "If you delete %1$(secretName)@, you will not be able to recover it. Type “%2$(confirmSecretName)@” to confirm."
           }
         },
         "ca" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Si esborres %1$(secretName)@, no podràs recuperar-la. Escriu “%2$(confirmSecretName)@“ per a confirmar."
+            "value" : "Si esborres %1$(secretName)@, no podràs recuperar-la. Escriu “%2$(confirmSecretName)@” per a confirmar."
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "If you delete %1$(secretName)@, you will not be able to recover it. Type “%2$(confirmSecretName)@“ to confirm."
+            "value" : "If you delete %1$(secretName)@, you will not be able to recover it. Type “%2$(confirmSecretName)@” to confirm."
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "If you delete %1$(secretName)@, you will not be able to recover it. Type “%2$(confirmSecretName)@“ to confirm."
+            "value" : "If you delete %1$(secretName)@, you will not be able to recover it. Type “%2$(confirmSecretName)@” to confirm."
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Wenn du %1$(secretName)@ löschst, kannst du es nicht wiederherstellen. Gib zur Bestätigung “%2$(confirmSecretName)@“ ein."
+            "value" : "Wenn du %1$(secretName)@ löschst, kannst du es nicht wiederherstellen. Gib zur Bestätigung “%2$(confirmSecretName)@” ein."
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "If you delete %1$(secretName)@, you will not be able to recover it. Type “%2$(confirmSecretName)@“ to confirm."
+            "value" : "If you delete %1$(secretName)@, you will not be able to recover it. Type “%2$(confirmSecretName)@” to confirm."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "If you delete %1$(secretName)@, you will not be able to recover it. Type “%2$(confirmSecretName)@“ to confirm."
+            "value" : "If you delete %1$(secretName)@, you will not be able to recover it. Type “%2$(confirmSecretName)@” to confirm."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "If you delete %1$(secretName)@, you will not be able to recover it. Type “%2$(confirmSecretName)@“ to confirm."
+            "value" : "If you delete %1$(secretName)@, you will not be able to recover it. Type “%2$(confirmSecretName)@” to confirm."
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Jos poistat kohteen %1$(secretName)@, sitä ei pysty palauttamaan. Kirjoita “%2$(confirmSecretName)@“ vahvistaaksesi poiston."
+            "value" : "Jos poistat kohteen %1$(secretName)@, sitä ei pysty palauttamaan. Kirjoita “%2$(confirmSecretName)@” vahvistaaksesi poiston."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Si vous effacez %1$(secretName)@, vous ne pourrez pas le récupérer. Tapez “%2$(confirmSecretName)@“ pour confirmer."
+            "value" : "Si vous effacez %1$(secretName)@, vous ne pourrez pas le récupérer. Tapez “%2$(confirmSecretName)@” pour confirmer."
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "If you delete %1$(secretName)@, you will not be able to recover it. Type “%2$(confirmSecretName)@“ to confirm."
+            "value" : "If you delete %1$(secretName)@, you will not be able to recover it. Type “%2$(confirmSecretName)@” to confirm."
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "If you delete %1$(secretName)@, you will not be able to recover it. Type “%2$(confirmSecretName)@“ to confirm."
+            "value" : "If you delete %1$(secretName)@, you will not be able to recover it. Type “%2$(confirmSecretName)@” to confirm."
           }
         },
         "it" : {
@@ -8233,19 +8233,19 @@
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$(secretName)@를 삭제하면 복구할 수 없습니다. 확인하려면 “%2$(confirmSecretName)@“를 입력하세요."
+            "value" : "%1$(secretName)@를 삭제하면 복구할 수 없습니다. 확인하려면 “%2$(confirmSecretName)@”를 입력하세요."
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "If you delete %1$(secretName)@, you will not be able to recover it. Type “%2$(confirmSecretName)@“ to confirm."
+            "value" : "If you delete %1$(secretName)@, you will not be able to recover it. Type “%2$(confirmSecretName)@” to confirm."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "If you delete %1$(secretName)@, you will not be able to recover it. Type “%2$(confirmSecretName)@“ to confirm."
+            "value" : "If you delete %1$(secretName)@, you will not be able to recover it. Type “%2$(confirmSecretName)@” to confirm."
           }
         },
         "pl" : {
@@ -8257,67 +8257,67 @@
         "pt" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "If you delete %1$(secretName)@, you will not be able to recover it. Type “%2$(confirmSecretName)@“ to confirm."
+            "value" : "If you delete %1$(secretName)@, you will not be able to recover it. Type “%2$(confirmSecretName)@” to confirm."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Se você deletar %1$(secretName)@, você não será permitido recuperá-lo. Digite “%2$(confirmSecretName)@“ para confirmar."
+            "value" : "Se você deletar %1$(secretName)@, você não será permitido recuperá-lo. Digite “%2$(confirmSecretName)@” para confirmar."
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "If you delete %1$(secretName)@, you will not be able to recover it. Type “%2$(confirmSecretName)@“ to confirm."
+            "value" : "If you delete %1$(secretName)@, you will not be able to recover it. Type “%2$(confirmSecretName)@” to confirm."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Если Вы удалите %1$(secretName)@, вы не сможете его восстановить. Введите “%2$(confirmSecretName)@“ для подтверждения."
+            "value" : "Если Вы удалите %1$(secretName)@, вы не сможете его восстановить. Введите “%2$(confirmSecretName)@” для подтверждения."
           }
         },
         "sr" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "If you delete %1$(secretName)@, you will not be able to recover it. Type “%2$(confirmSecretName)@“ to confirm."
+            "value" : "If you delete %1$(secretName)@, you will not be able to recover it. Type “%2$(confirmSecretName)@” to confirm."
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "If you delete %1$(secretName)@, you will not be able to recover it. Type “%2$(confirmSecretName)@“ to confirm."
+            "value" : "If you delete %1$(secretName)@, you will not be able to recover it. Type “%2$(confirmSecretName)@” to confirm."
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "If you delete %1$(secretName)@, you will not be able to recover it. Type “%2$(confirmSecretName)@“ to confirm."
+            "value" : "If you delete %1$(secretName)@, you will not be able to recover it. Type “%2$(confirmSecretName)@” to confirm."
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "If you delete %1$(secretName)@, you will not be able to recover it. Type “%2$(confirmSecretName)@“ to confirm."
+            "value" : "If you delete %1$(secretName)@, you will not be able to recover it. Type “%2$(confirmSecretName)@” to confirm."
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "If you delete %1$(secretName)@, you will not be able to recover it. Type “%2$(confirmSecretName)@“ to confirm."
+            "value" : "If you delete %1$(secretName)@, you will not be able to recover it. Type “%2$(confirmSecretName)@” to confirm."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "如果您删除 %1$(secretName)@ ，您将没有任何方式恢复它。输入 “%2$(confirmSecretName)@“ 以确认。"
+            "value" : "如果您删除 %1$(secretName)@ ，您将没有任何方式恢复它。输入 “%2$(confirmSecretName)@” 以确认。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "If you delete %1$(secretName)@, you will not be able to recover it. Type “%2$(confirmSecretName)@“ to confirm."
+            "value" : "If you delete %1$(secretName)@, you will not be able to recover it. Type “%2$(confirmSecretName)@” to confirm."
           }
         }
       }
@@ -10918,7 +10918,7 @@
         "ca" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Existeix una llista d'instruccions per a aplicacions (en anglès) mantinguda per la comunitat a GitHub. Si l'aplicació que cerques no està suportada, crea una “issue“ i la comunitat podria ajudar-te."
+            "value" : "Existeix una llista d'instruccions per a aplicacions (en anglès) mantinguda per la comunitat a GitHub. Si l'aplicació que cerques no està suportada, crea una “issue” i la comunitat podria ajudar-te."
           }
         },
         "cs" : {
@@ -11103,7 +11103,7 @@
         "ca" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Existeix una llista d'instruccions per a shells (en anglès) mantinguda per la comunitat a GitHub. Si l'aplicació que cerques no està suportada, crea una “issue“ i la comunitat podria ajudar-te."
+            "value" : "Existeix una llista d'instruccions per a shells (en anglès) mantinguda per la comunitat a GitHub. Si l'aplicació que cerques no està suportada, crea una “issue” i la comunitat podria ajudar-te."
           }
         },
         "cs" : {
