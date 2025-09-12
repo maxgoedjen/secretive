@@ -39,6 +39,7 @@ struct ToolbarButtonStyle: ButtonStyle {
         } else {
             configuration
                 .label
+                .padding(EdgeInsets(top: 6, leading: 8, bottom: 6, trailing: 8))
                 .background(colorScheme == .light ? lightColor : darkColor)
                 .foregroundColor(.white)
                 .clipShape(RoundedRectangle(cornerRadius: 5))

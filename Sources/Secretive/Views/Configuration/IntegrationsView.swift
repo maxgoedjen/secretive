@@ -32,7 +32,6 @@ struct IntegrationsView: View {
         .onAppear {
             selectedInstruction = instructions.gettingStarted
         }
-        .frame(minHeight: 500)
     }
 
 }
@@ -62,6 +61,7 @@ struct FauxToolbarModifier<ToolbarContent: View>: ViewModifier {
             }
         }
 
+        .frame(minWidth: 400, minHeight: 400)
     }
 
 }

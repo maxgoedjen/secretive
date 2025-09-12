@@ -172,10 +172,13 @@ struct StepView<Content: View>: View {
                 .frame(width: 20)
             VStack(alignment: .leading, spacing: 4) {
                 Text(title)
+                    .fixedSize(horizontal: false, vertical: true)
                     .bold()
                 Text(description)
+                    .fixedSize(horizontal: false, vertical: true)
                 if let detail {
                     Text(detail)
+                        .fixedSize(horizontal: false, vertical: true)
                         .font(.callout)
                         .italic()
                 }
