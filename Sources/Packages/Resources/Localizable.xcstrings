@@ -93,13 +93,13 @@
             "value" : ""
           }
         },
-        "nl" : {
+        "nb" : {
           "stringUnit" : {
             "state" : "new",
             "value" : ""
           }
         },
-        "no" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : ""
@@ -197,7 +197,7 @@
         "ca" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Secretive no ha aconseguit arrancar l'agent segur (SecretAgent). Prova de reiniciar el teu Mac, i si açò no funciona, obri una \"issue\" al GitHub."
+            "value" : "Secretive no ha aconseguit arrancar l'agent segur (SecretAgent). Prova de reiniciar el teu Mac, i si açò no funciona, obri una “issue” al GitHub."
           }
         },
         "cs" : {
@@ -278,13 +278,13 @@
             "value" : "Secretive에서 SecretAgent를 실행할 수 없습니다. Mac을 재시작해 보시고, 그래도 문제가 해결되지 않으면 GitHub에 문제를 제출해 주세요."
           }
         },
-        "nl" : {
+        "nb" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Secretive was unable to get SecretAgent to launch. Please try restarting your Mac, and if that doesn't work, file an issue on GitHub."
           }
         },
-        "no" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Secretive was unable to get SecretAgent to launch. Please try restarting your Mac, and if that doesn't work, file an issue on GitHub."
@@ -463,13 +463,13 @@
             "value" : "에이전트 비활성화"
           }
         },
-        "nl" : {
+        "nb" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Disable Agent"
           }
         },
-        "no" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Disable Agent"
@@ -648,13 +648,13 @@
             "value" : "에이전트 재시작"
           }
         },
-        "nl" : {
+        "nb" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Restart Agent"
           }
         },
-        "no" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Restart Agent"
@@ -833,13 +833,13 @@
             "value" : "실행 시각"
           }
         },
-        "nl" : {
+        "nb" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Running Since"
           }
         },
-        "no" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Running Since"
@@ -1018,13 +1018,13 @@
             "value" : "소켓 경로"
           }
         },
-        "nl" : {
+        "nb" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Socket Path"
           }
         },
-        "no" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Socket Path"
@@ -1203,13 +1203,13 @@
             "value" : "에이전트 시작"
           }
         },
-        "nl" : {
+        "nb" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Start Agent"
           }
         },
-        "no" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Start Agent"
@@ -1388,13 +1388,13 @@
             "value" : "에이전트 시작중"
           }
         },
-        "nl" : {
+        "nb" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Starting Agent"
           }
         },
-        "no" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Starting Agent"
@@ -1573,13 +1573,13 @@
             "value" : "버전"
           }
         },
-        "nl" : {
+        "nb" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Version"
           }
         },
-        "no" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Version"
@@ -1758,13 +1758,13 @@
             "value" : "SecretAgent는 백그라운드에서 실행되어 요청에 서명하는 프로세스이므로 Secretive를 항상 열어 둘 필요는 없습니다.\n\n**Secretive 에이전트가 설치되어 실행 중이어야 Secretive가 제대로 작동합니다.**"
           }
         },
-        "nl" : {
+        "nb" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "SecretAgent is a process that runs in the background to sign requests, so you don't need to keep Secretive open all the time.\n\n**Secretive will not be able to function properly unless the agent is installed and running.**"
           }
         },
-        "no" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "SecretAgent is a process that runs in the background to sign requests, so you don't need to keep Secretive open all the time.\n\n**Secretive will not be able to function properly unless the agent is installed and running.**"
@@ -1943,13 +1943,13 @@
             "value" : "Agent가 실행되고 있지 않음"
           }
         },
-        "nl" : {
+        "nb" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Agent Is Not Running"
           }
         },
-        "no" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Agent Is Not Running"
@@ -2089,7 +2089,7 @@
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "SecretAgent on taustaprosessi joka allekirjoittaa pyyntöjä, joten Secretiveä ei tarvitse pitää käynnissä koko aikaa.\u2028\u2028**Voit sulkea Secretiven, ja kaikki toimii yhä.**"
+            "value" : "SecretAgent on taustaprosessi joka allekirjoittaa pyyntöjä, joten Secretiveä ei tarvitse pitää käynnissä koko aikaa.  **Voit sulkea Secretiven, ja kaikki toimii yhä.**"
           }
         },
         "fr" : {
@@ -2128,13 +2128,13 @@
             "value" : "SecretAgent는 요청에 서명하기 위해 백그라운드에서 실행되는 프로세스이므로 Secretive를 항상 열어 둘 필요가 없습니다.\n\n**Secretive를 닫아도 모든 것이 계속 작동합니다.**"
           }
         },
-        "nl" : {
+        "nb" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "SecretAgent is a process that runs in the background to sign requests, so you don't need to keep Secretive open all the time.\n\n**You can close Secretive, and everything will still keep working.**"
           }
         },
-        "no" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "SecretAgent is a process that runs in the background to sign requests, so you don't need to keep Secretive open all the time.\n\n**You can close Secretive, and everything will still keep working.**"
@@ -2313,13 +2313,13 @@
             "value" : "Secret Agent가 실행 중입니다."
           }
         },
-        "nl" : {
+        "nb" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Secret Agent is Running"
           }
         },
-        "no" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Secret Agent is Running"
@@ -2498,13 +2498,13 @@
             "value" : "Agent가 실행중"
           }
         },
-        "nl" : {
+        "nb" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Agent is Running"
           }
         },
-        "no" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Agent is Running"
@@ -2683,13 +2683,13 @@
             "value" : "Secret Agent 경로"
           }
         },
-        "nl" : {
+        "nb" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Secret Agent Location"
           }
         },
-        "no" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Secret Agent Location"
@@ -2868,13 +2868,13 @@
             "value" : "도움말"
           }
         },
-        "nl" : {
+        "nb" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Help"
           }
         },
-        "no" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Help"
@@ -3053,13 +3053,13 @@
             "value" : "새 비밀"
           }
         },
-        "nl" : {
+        "nb" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "New Secret"
           }
         },
-        "no" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "New Secret"
@@ -3238,13 +3238,13 @@
             "value" : "Secretive가 제대로 작동하려면 Applications 폴더에 있어야 합니다. 이동한 후 다시 실행해 주세요."
           }
         },
-        "nl" : {
+        "nb" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Secretive needs to be in your Applications folder to work properly. Please move it and relaunch."
           }
         },
-        "no" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Secretive needs to be in your Applications folder to work properly. Please move it and relaunch."
@@ -3423,13 +3423,13 @@
             "value" : "Secretive가 Applications 폴더에 없음"
           }
         },
-        "nl" : {
+        "nb" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Secretive Is Not in Applications Folder"
           }
         },
-        "no" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Secretive Is Not in Applications Folder"
@@ -3510,91 +3510,91 @@
       }
     },
     "auth_context_persist_for_duration" : {
-      "comment" : "When the user clicks the notification to leave a secret unlocked, they are shown a prompt to approve the action. This is the description, showing which secret will used. The first placeholder is the name of the secret. The second placeholder is a localized description of the time period it will remain unlocked for (eg: \"five minutes\")",
+      "comment" : "When the user clicks the notification to leave a secret unlocked, they are shown a prompt to approve the action. This is the description, showing which secret will used. The first placeholder is the name of the secret. The second placeholder is a localized description of the time period it will remain unlocked for (eg: “five minutes”)",
       "extractionState" : "manual",
       "localizations" : {
         "af" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "unlock secret \"%1$(secretName)@“ for %2$(duration)@"
+            "value" : "unlock secret “%1$(secretName)@” for %2$(duration)@"
           }
         },
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "unlock secret \"%1$(secretName)@“ for %2$(duration)@"
+            "value" : "unlock secret “%1$(secretName)@” for %2$(duration)@"
           }
         },
         "ca" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "desbloqueja el secret \"%1$(secretName)@\" per a %2$(duration)@"
+            "value" : "desbloqueja el secret “%1$(secretName)@” per a %2$(duration)@"
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "unlock secret \"%1$(secretName)@“ for %2$(duration)@"
+            "value" : "unlock secret “%1$(secretName)@” for %2$(duration)@"
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "unlock secret \"%1$(secretName)@“ for %2$(duration)@"
+            "value" : "unlock secret “%1$(secretName)@” for %2$(duration)@"
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Secret \"%1$(secretName)@\" für %2$(duration)@ entsperren"
+            "value" : "Secret “%1$(secretName)@” für %2$(duration)@ entsperren"
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "unlock secret \"%1$(secretName)@“ for %2$(duration)@"
+            "value" : "unlock secret “%1$(secretName)@” for %2$(duration)@"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "unlock secret \"%1$(secretName)@“ for %2$(duration)@"
+            "value" : "unlock secret “%1$(secretName)@” for %2$(duration)@"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "unlock secret \"%1$(secretName)@“ for %2$(duration)@"
+            "value" : "unlock secret “%1$(secretName)@” for %2$(duration)@"
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "avaa salaisuuden \"%1$(secretName)@\" lukitus ajaksi %2$(duration)@"
+            "value" : "avaa salaisuuden “%1$(secretName)@” lukitus ajaksi %2$(duration)@"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "déverrouiller le secret \"%1$(secretName)@\" pendant %2$(duration)@"
+            "value" : "déverrouiller le secret “%1$(secretName)@” pendant %2$(duration)@"
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "unlock secret \"%1$(secretName)@“ for %2$(duration)@"
+            "value" : "unlock secret “%1$(secretName)@” for %2$(duration)@"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "unlock secret \"%1$(secretName)@“ for %2$(duration)@"
+            "value" : "unlock secret “%1$(secretName)@” for %2$(duration)@"
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "sblocca il Segreto \"%1$(secretName)@\" per %2$(duration)@"
+            "value" : "sblocca il Segreto “%1$(secretName)@” per %2$(duration)@"
           }
         },
         "ja" : {
@@ -3606,19 +3606,19 @@
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "비밀 \"%1$(secretName)@\"를 %2$(duration)@ 동안 잠금 해제"
+            "value" : "비밀 “%1$(secretName)@”를 %2$(duration)@ 동안 잠금 해제"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "unlock secret “%1$(secretName)@” for %2$(duration)@"
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "unlock secret \"%1$(secretName)@“ for %2$(duration)@"
-          }
-        },
-        "no" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "unlock secret \"%1$(secretName)@“ for %2$(duration)@"
+            "value" : "unlock secret “%1$(secretName)@” for %2$(duration)@"
           }
         },
         "pl" : {
@@ -3630,67 +3630,67 @@
         "pt" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "unlock secret \"%1$(secretName)@“ for %2$(duration)@"
+            "value" : "unlock secret “%1$(secretName)@” for %2$(duration)@"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "destravar segredo \"%1$(secretName)@\" for %2$(duration)@"
+            "value" : "destravar segredo “%1$(secretName)@” for %2$(duration)@"
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "unlock secret \"%1$(secretName)@“ for %2$(duration)@"
+            "value" : "unlock secret “%1$(secretName)@” for %2$(duration)@"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "разблокировать секрет \"%1$(secretName)@\" на %2$(duration)@"
+            "value" : "разблокировать секрет “%1$(secretName)@” на %2$(duration)@"
           }
         },
         "sr" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "unlock secret \"%1$(secretName)@“ for %2$(duration)@"
+            "value" : "unlock secret “%1$(secretName)@” for %2$(duration)@"
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "unlock secret \"%1$(secretName)@“ for %2$(duration)@"
+            "value" : "unlock secret “%1$(secretName)@” for %2$(duration)@"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "unlock secret \"%1$(secretName)@“ for %2$(duration)@"
+            "value" : "unlock secret “%1$(secretName)@” for %2$(duration)@"
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "unlock secret \"%1$(secretName)@“ for %2$(duration)@"
+            "value" : "unlock secret “%1$(secretName)@” for %2$(duration)@"
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "unlock secret \"%1$(secretName)@“ for %2$(duration)@"
+            "value" : "unlock secret “%1$(secretName)@” for %2$(duration)@"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "解锁密钥串 \"%1$(secretName)@\" 给 %2$(duration)@"
+            "value" : "解锁密钥串 “%1$(secretName)@” 给 %2$(duration)@"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "unlock secret \"%1$(secretName)@“ for %2$(duration)@"
+            "value" : "unlock secret “%1$(secretName)@” for %2$(duration)@"
           }
         }
       }
@@ -3795,13 +3795,13 @@
             "value" : "거부"
           }
         },
-        "nl" : {
+        "nb" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Deny"
           }
         },
-        "no" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Deny"
@@ -3888,181 +3888,181 @@
         "af" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "sign a request from \"%1$(appName)@“ using secret \"%2$(secretName)@“"
+            "value" : "sign a request from “%1$(appName)@” using secret “%2$(secretName)@”"
           }
         },
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "sign a request from \"%1$(appName)@“ using secret \"%2$(secretName)@“"
+            "value" : "sign a request from “%1$(appName)@” using secret “%2$(secretName)@”"
           }
         },
         "ca" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "signa una petición de \"%1$(appName)@\" usant el secret \"%2$(secretName)@\""
+            "state" : "needs_review",
+            "value" : "signa una petición de “%1$(appName)@” usant el secret “%2$(secretName)@”"
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "sign a request from \"%1$(appName)@“ using secret \"%2$(secretName)@“"
+            "value" : "sign a request from “%1$(appName)@” using secret “%2$(secretName)@”"
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "sign a request from \"%1$(appName)@“ using secret \"%2$(secretName)@“"
+            "value" : "sign a request from “%1$(appName)@” using secret “%2$(secretName)@”"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "eine Anfrage von \"%1$(appName)@\" mit dem Secret \"%2$(secretName)@\" signieren"
+            "state" : "needs_review",
+            "value" : "eine Anfrage von “%1$(appName)@” mit dem Secret “%2$(secretName)@” signieren"
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "sign a request from \"%1$(appName)@“ using secret \"%2$(secretName)@“"
+            "value" : "sign a request from “%1$(appName)@” using secret “%2$(secretName)@”"
           }
         },
         "en" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "sign a request from \"%1$(appName)@“ using secret \"%2$(secretName)@“"
+            "state" : "translated",
+            "value" : "sign a request from “%1$(appName)@” using secret “%2$(secretName)@”"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "sign a request from \"%1$(appName)@“ using secret \"%2$(secretName)@“"
+            "value" : "sign a request from “%1$(appName)@” using secret “%2$(secretName)@”"
           }
         },
         "fi" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "allekirjoita pyyntö lähteestä \"%1$(appName)@\" käyttäen salaisuutta \"%2$(secretName)@\""
+            "state" : "needs_review",
+            "value" : "allekirjoita pyyntö lähteestä “%1$(appName)@” käyttäen salaisuutta “%2$(secretName)@”"
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "signer une requête de \"%1$(appName)@\" en utilisant le secret \"%2$(secretName)@\""
+            "state" : "needs_review",
+            "value" : "signer une requête de “%1$(appName)@” en utilisant le secret “%2$(secretName)@”"
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "sign a request from \"%1$(appName)@“ using secret \"%2$(secretName)@“"
+            "value" : "sign a request from “%1$(appName)@” using secret “%2$(secretName)@”"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "sign a request from \"%1$(appName)@“ using secret \"%2$(secretName)@“"
+            "value" : "sign a request from “%1$(appName)@” using secret “%2$(secretName)@”"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "firma la richiesta di \"%1$(appName)@\" usando il Segreto \"%2$(secretName)@\""
+            "state" : "needs_review",
+            "value" : "firma la richiesta di “%1$(appName)@” usando il Segreto “%2$(secretName)@”"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "シークレット“%2$(secretName)@”を使って“%1$(appName)@”の要求に署名します"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "비밀 \"%2$(secretName)@\"를 사용해서 \"%1$(appName)@\"의 요청에 서명"
+            "state" : "needs_review",
+            "value" : "비밀 “%2$(secretName)@”를 사용해서 “%1$(appName)@”의 요청에 서명"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "sign a request from “%1$(appName)@” using secret “%2$(secretName)@”"
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "sign a request from \"%1$(appName)@“ using secret \"%2$(secretName)@“"
-          }
-        },
-        "no" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "sign a request from \"%1$(appName)@“ using secret \"%2$(secretName)@“"
+            "value" : "sign a request from “%1$(appName)@” using secret “%2$(secretName)@”"
           }
         },
         "pl" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "podpisz zapytanie od “%1$(appName)@\" za pomocą sekretu “%2$(secretName)@”"
+            "state" : "needs_review",
+            "value" : "podpisz zapytanie od “%1$(appName)@” za pomocą sekretu “%2$(secretName)@”"
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "sign a request from \"%1$(appName)@“ using secret \"%2$(secretName)@“"
+            "value" : "sign a request from “%1$(appName)@” using secret “%2$(secretName)@”"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "assinar requisição a partir do \"%1$(appName)@\" utilizando o segredo \"%2$(secretName)@\""
+            "state" : "needs_review",
+            "value" : "assinar requisição a partir do “%1$(appName)@” utilizando o segredo “%2$(secretName)@”"
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "sign a request from \"%1$(appName)@“ using secret \"%2$(secretName)@“"
+            "value" : "sign a request from “%1$(appName)@” using secret “%2$(secretName)@”"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "подписать запрос от \"%1$(appName)@\" используя секрет \"%2$(secretName)@\""
+            "state" : "needs_review",
+            "value" : "подписать запрос от “%1$(appName)@” используя секрет “%2$(secretName)@”"
           }
         },
         "sr" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "sign a request from \"%1$(appName)@“ using secret \"%2$(secretName)@“"
+            "value" : "sign a request from “%1$(appName)@” using secret “%2$(secretName)@”"
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "sign a request from \"%1$(appName)@“ using secret \"%2$(secretName)@“"
+            "value" : "sign a request from “%1$(appName)@” using secret “%2$(secretName)@”"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "sign a request from \"%1$(appName)@“ using secret \"%2$(secretName)@“"
+            "value" : "sign a request from “%1$(appName)@” using secret “%2$(secretName)@”"
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "sign a request from \"%1$(appName)@“ using secret \"%2$(secretName)@“"
+            "value" : "sign a request from “%1$(appName)@” using secret “%2$(secretName)@”"
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "sign a request from \"%1$(appName)@“ using secret \"%2$(secretName)@“"
+            "value" : "sign a request from “%1$(appName)@” using secret “%2$(secretName)@”"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "使用密钥串 \"%2$(secretName)@\" 认证 \"%1$(appName)@\" "
+            "state" : "needs_review",
+            "value" : "使用密钥串 “%2$(secretName)@” 认证 “%1$(appName)@” "
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "sign a request from \"%1$(appName)@“ using secret \"%2$(secretName)@“"
+            "value" : "sign a request from “%1$(appName)@” using secret “%2$(secretName)@”"
           }
         }
       }
@@ -4166,13 +4166,13 @@
             "value" : "복사하기"
           }
         },
-        "nl" : {
+        "nb" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Click to Copy"
           }
         },
-        "no" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Click to Copy"
@@ -4351,13 +4351,13 @@
             "value" : "복사됨"
           }
         },
-        "nl" : {
+        "nb" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Copied"
           }
         },
-        "no" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Copied"
@@ -4536,13 +4536,13 @@
             "value" : "고급"
           }
         },
-        "nl" : {
+        "nb" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Advanced"
           }
         },
-        "no" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Advanced"
@@ -4721,13 +4721,13 @@
             "value" : "새로운 지문을 추가하는 등 생체 인식 설정을 _어떤 식으로든_ 변경하면 이 키에 더 이상 접근할 수 없습니다."
           }
         },
-        "nl" : {
+        "nb" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "If you change your biometric settings in _any way_, including adding a new fingerprint, this key will no longer be accessible."
           }
         },
-        "no" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "If you change your biometric settings in _any way_, including adding a new fingerprint, this key will no longer be accessible."
@@ -4906,13 +4906,13 @@
             "value" : "취소"
           }
         },
-        "nl" : {
+        "nb" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Cancel"
           }
         },
-        "no" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Cancel"
@@ -5091,13 +5091,13 @@
             "value" : "생성"
           }
         },
-        "nl" : {
+        "nb" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Create"
           }
         },
-        "no" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Create"
@@ -5276,13 +5276,13 @@
             "value" : "공개 키 끝에 표시되는 정보입니다. 보통 이메일 주소입니다."
           }
         },
-        "nl" : {
+        "nb" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "This shows at the end of your public key. It’s usually an email address."
           }
         },
-        "no" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "This shows at the end of your public key. It’s usually an email address."
@@ -5461,13 +5461,13 @@
             "value" : "키 속성"
           }
         },
-        "nl" : {
+        "nb" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Key Attribution"
           }
         },
-        "no" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Key Attribution"
@@ -5646,13 +5646,13 @@
             "value" : "키 유형"
           }
         },
-        "nl" : {
+        "nb" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Key Type"
           }
         },
-        "no" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Key Type"
@@ -5831,13 +5831,13 @@
             "value" : "경고: ML-DSA 키는 매우 최신 버전이므로 아직 많은 서버에서 지원되지 않습니다. 이 키를 사용할 서버가 ML-DSA 키를 허용하는지 확인하세요."
           }
         },
-        "nl" : {
+        "nb" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Warning: ML-DSA keys are very new, and not supported by many servers yet. Please verify the server you'll be using this key for accepts ML-DSA keys."
           }
         },
-        "no" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Warning: ML-DSA keys are very new, and not supported by many servers yet. Please verify the server you'll be using this key for accepts ML-DSA keys."
@@ -6016,13 +6016,13 @@
             "value" : "이름"
           }
         },
-        "nl" : {
+        "nb" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Name"
           }
         },
-        "no" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Name"
@@ -6201,13 +6201,13 @@
             "value" : "쉿"
           }
         },
-        "nl" : {
+        "nb" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Shhhhh"
           }
         },
-        "no" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Shhhhh"
@@ -6386,13 +6386,13 @@
             "value" : "Mac이 잠금 해제되어 있는 동안에는 인증이 필요하지 않지만 비밀이 사용되면 알림을 받게 됩니다."
           }
         },
-        "nl" : {
+        "nb" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "No authentication is required while your Mac is unlocked, but you will be notified when a secret is used."
           }
         },
-        "no" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "No authentication is required while your Mac is unlocked, but you will be notified when a secret is used."
@@ -6571,13 +6571,13 @@
             "value" : "알림"
           }
         },
-        "nl" : {
+        "nb" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Notify"
           }
         },
-        "no" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Notify"
@@ -6756,13 +6756,13 @@
             "value" : "보호 수준"
           }
         },
-        "nl" : {
+        "nb" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Protection Level"
           }
         },
-        "no" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Protection Level"
@@ -6941,13 +6941,13 @@
             "value" : "현재의 생체 인식 정보들를 사용하여 인증을 요구합니다."
           }
         },
-        "nl" : {
+        "nb" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Require authentication with current set of biometrics."
           }
         },
-        "no" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Require authentication with current set of biometrics."
@@ -7126,13 +7126,13 @@
             "value" : "현재 생체 인식들"
           }
         },
-        "nl" : {
+        "nb" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Current Biometrics"
           }
         },
-        "no" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Current Biometrics"
@@ -7311,13 +7311,13 @@
             "value" : "매번 사용하기 전에 Touch ID, Apple Watch 또는 비밀번호를 사용하여 인증해야 합니다."
           }
         },
-        "nl" : {
+        "nb" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "You will be required to authenticate using Touch ID, Apple Watch, or password before each use."
           }
         },
-        "no" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "You will be required to authenticate using Touch ID, Apple Watch, or password before each use."
@@ -7496,13 +7496,13 @@
             "value" : "인증 요구"
           }
         },
-        "nl" : {
+        "nb" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Require Authentication"
           }
         },
-        "no" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Require Authentication"
@@ -7681,13 +7681,13 @@
             "value" : "새 비밀 생성"
           }
         },
-        "nl" : {
+        "nb" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Create a New Secret"
           }
         },
-        "no" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Create a New Secret"
@@ -7866,13 +7866,13 @@
             "value" : "삭제하지 않기"
           }
         },
-        "nl" : {
+        "nb" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Don't Delete"
           }
         },
-        "no" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Don't Delete"
@@ -8051,13 +8051,13 @@
             "value" : "삭제"
           }
         },
-        "nl" : {
+        "nb" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Delete"
           }
         },
-        "no" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Delete"
@@ -8143,79 +8143,79 @@
         "af" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "If you delete %1$(secretName)@, you will not be able to recover it. Type “%2$(confirmSecretName)@“ to confirm."
+            "value" : "If you delete %1$(secretName)@, you will not be able to recover it. Type “%2$(confirmSecretName)@” to confirm."
           }
         },
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "If you delete %1$(secretName)@, you will not be able to recover it. Type “%2$(confirmSecretName)@“ to confirm."
+            "value" : "If you delete %1$(secretName)@, you will not be able to recover it. Type “%2$(confirmSecretName)@” to confirm."
           }
         },
         "ca" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Si esborres %1$(secretName)@, no podràs recuperar-la. Escriu \"%2$(confirmSecretName)@\" per a confirmar."
+            "value" : "Si esborres %1$(secretName)@, no podràs recuperar-la. Escriu “%2$(confirmSecretName)@” per a confirmar."
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "If you delete %1$(secretName)@, you will not be able to recover it. Type “%2$(confirmSecretName)@“ to confirm."
+            "value" : "If you delete %1$(secretName)@, you will not be able to recover it. Type “%2$(confirmSecretName)@” to confirm."
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "If you delete %1$(secretName)@, you will not be able to recover it. Type “%2$(confirmSecretName)@“ to confirm."
+            "value" : "If you delete %1$(secretName)@, you will not be able to recover it. Type “%2$(confirmSecretName)@” to confirm."
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Wenn du %1$(secretName)@ löschst, kannst du es nicht wiederherstellen. Gib zur Bestätigung \"%2$(confirmSecretName)@\" ein."
+            "value" : "Wenn du %1$(secretName)@ löschst, kannst du es nicht wiederherstellen. Gib zur Bestätigung “%2$(confirmSecretName)@” ein."
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "If you delete %1$(secretName)@, you will not be able to recover it. Type “%2$(confirmSecretName)@“ to confirm."
+            "value" : "If you delete %1$(secretName)@, you will not be able to recover it. Type “%2$(confirmSecretName)@” to confirm."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "If you delete %1$(secretName)@, you will not be able to recover it. Type “%2$(confirmSecretName)@“ to confirm."
+            "value" : "If you delete %1$(secretName)@, you will not be able to recover it. Type “%2$(confirmSecretName)@” to confirm."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "If you delete %1$(secretName)@, you will not be able to recover it. Type “%2$(confirmSecretName)@“ to confirm."
+            "value" : "If you delete %1$(secretName)@, you will not be able to recover it. Type “%2$(confirmSecretName)@” to confirm."
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Jos poistat kohteen %1$(secretName)@, sitä ei pysty palauttamaan. Kirjoita \"%2$(confirmSecretName)@\" vahvistaaksesi poiston."
+            "value" : "Jos poistat kohteen %1$(secretName)@, sitä ei pysty palauttamaan. Kirjoita “%2$(confirmSecretName)@” vahvistaaksesi poiston."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Si vous effacez %1$(secretName)@, vous ne pourrez pas le récupérer. Tapez \"%2$(confirmSecretName)@\" pour confirmer."
+            "value" : "Si vous effacez %1$(secretName)@, vous ne pourrez pas le récupérer. Tapez “%2$(confirmSecretName)@” pour confirmer."
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "If you delete %1$(secretName)@, you will not be able to recover it. Type “%2$(confirmSecretName)@“ to confirm."
+            "value" : "If you delete %1$(secretName)@, you will not be able to recover it. Type “%2$(confirmSecretName)@” to confirm."
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "If you delete %1$(secretName)@, you will not be able to recover it. Type “%2$(confirmSecretName)@“ to confirm."
+            "value" : "If you delete %1$(secretName)@, you will not be able to recover it. Type “%2$(confirmSecretName)@” to confirm."
           }
         },
         "it" : {
@@ -8233,19 +8233,19 @@
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$(secretName)@를 삭제하면 복구할 수 없습니다. 확인하려면 \"%2$(confirmSecretName)@\"를 입력하세요."
+            "value" : "%1$(secretName)@를 삭제하면 복구할 수 없습니다. 확인하려면 “%2$(confirmSecretName)@”를 입력하세요."
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "If you delete %1$(secretName)@, you will not be able to recover it. Type “%2$(confirmSecretName)@” to confirm."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "If you delete %1$(secretName)@, you will not be able to recover it. Type “%2$(confirmSecretName)@“ to confirm."
-          }
-        },
-        "no" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "If you delete %1$(secretName)@, you will not be able to recover it. Type “%2$(confirmSecretName)@“ to confirm."
+            "value" : "If you delete %1$(secretName)@, you will not be able to recover it. Type “%2$(confirmSecretName)@” to confirm."
           }
         },
         "pl" : {
@@ -8257,67 +8257,67 @@
         "pt" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "If you delete %1$(secretName)@, you will not be able to recover it. Type “%2$(confirmSecretName)@“ to confirm."
+            "value" : "If you delete %1$(secretName)@, you will not be able to recover it. Type “%2$(confirmSecretName)@” to confirm."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Se você deletar %1$(secretName)@, você não será permitido recuperá-lo. Digite \"%2$(confirmSecretName)@\" para confirmar."
+            "value" : "Se você deletar %1$(secretName)@, você não será permitido recuperá-lo. Digite “%2$(confirmSecretName)@” para confirmar."
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "If you delete %1$(secretName)@, you will not be able to recover it. Type “%2$(confirmSecretName)@“ to confirm."
+            "value" : "If you delete %1$(secretName)@, you will not be able to recover it. Type “%2$(confirmSecretName)@” to confirm."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Если Вы удалите %1$(secretName)@, вы не сможете его восстановить. Введите \"%2$(confirmSecretName)@\" для подтверждения."
+            "value" : "Если Вы удалите %1$(secretName)@, вы не сможете его восстановить. Введите “%2$(confirmSecretName)@” для подтверждения."
           }
         },
         "sr" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "If you delete %1$(secretName)@, you will not be able to recover it. Type “%2$(confirmSecretName)@“ to confirm."
+            "value" : "If you delete %1$(secretName)@, you will not be able to recover it. Type “%2$(confirmSecretName)@” to confirm."
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "If you delete %1$(secretName)@, you will not be able to recover it. Type “%2$(confirmSecretName)@“ to confirm."
+            "value" : "If you delete %1$(secretName)@, you will not be able to recover it. Type “%2$(confirmSecretName)@” to confirm."
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "If you delete %1$(secretName)@, you will not be able to recover it. Type “%2$(confirmSecretName)@“ to confirm."
+            "value" : "If you delete %1$(secretName)@, you will not be able to recover it. Type “%2$(confirmSecretName)@” to confirm."
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "If you delete %1$(secretName)@, you will not be able to recover it. Type “%2$(confirmSecretName)@“ to confirm."
+            "value" : "If you delete %1$(secretName)@, you will not be able to recover it. Type “%2$(confirmSecretName)@” to confirm."
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "If you delete %1$(secretName)@, you will not be able to recover it. Type “%2$(confirmSecretName)@“ to confirm."
+            "value" : "If you delete %1$(secretName)@, you will not be able to recover it. Type “%2$(confirmSecretName)@” to confirm."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "如果您删除 %1$(secretName)@ ，您将没有任何方式恢复它。输入 \"%2$(confirmSecretName)@\" 以确认。"
+            "value" : "如果您删除 %1$(secretName)@ ，您将没有任何方式恢复它。输入 “%2$(confirmSecretName)@” 以确认。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "If you delete %1$(secretName)@, you will not be able to recover it. Type “%2$(confirmSecretName)@“ to confirm."
+            "value" : "If you delete %1$(secretName)@, you will not be able to recover it. Type “%2$(confirmSecretName)@” to confirm."
           }
         }
       }
@@ -8421,13 +8421,13 @@
             "value" : "%1$(secretName)@를 지우겠습니까?"
           }
         },
-        "nl" : {
+        "nb" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Delete %1$(secretName)@?"
           }
         },
-        "no" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Delete %1$(secretName)@?"
@@ -8606,13 +8606,13 @@
             "value" : "취소"
           }
         },
-        "nl" : {
+        "nb" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Cancel"
           }
         },
-        "no" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Cancel"
@@ -8791,13 +8791,13 @@
             "value" : "이름 변경"
           }
         },
-        "nl" : {
+        "nb" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Save"
           }
         },
-        "no" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Save"
@@ -8976,13 +8976,13 @@
             "value" : "여기를 클릭해서 새로운 비밀 만들기."
           }
         },
-        "nl" : {
+        "nb" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Create a new one by clicking here."
           }
         },
-        "no" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Create a new one by clicking here."
@@ -9161,13 +9161,13 @@
             "value" : "비밀이 없음"
           }
         },
-        "nl" : {
+        "nb" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "No Secrets"
           }
         },
-        "no" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "No Secrets"
@@ -9346,13 +9346,13 @@
             "value" : "최근에 macOS를 업데이트하신 것 같습니다. 업데이트 후 Secure Enclave가 이상한 상태로 전환되는 경우가 있는데, Mac을 재부팅해야 다시 작동할 수 있습니다."
           }
         },
-        "nl" : {
+        "nb" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "It looks like you may have recently updated macOS. Sometimes this puts the Secure Enclave into a weird state, and you might need to reboot your Mac before things start working again."
           }
         },
-        "no" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "It looks like you may have recently updated macOS. Sometimes this puts the Secure Enclave into a weird state, and you might need to reboot your Mac before things start working again."
@@ -9531,13 +9531,13 @@
             "value" : "Secret이 사라졌나요?"
           }
         },
-        "nl" : {
+        "nb" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Missing Secrets?"
           }
         },
-        "no" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Missing Secrets?"
@@ -9716,13 +9716,13 @@
             "value" : "스마트 카드의 관리 도구를 사용하여 비밀을 생성하세요."
           }
         },
-        "nl" : {
+        "nb" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Use your Smart Card's management tool to create a secret."
           }
         },
-        "no" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Use your Smart Card's management tool to create a secret."
@@ -9901,13 +9901,13 @@
             "value" : "Secretive는 EC256, EC384, RSA1024 및 RSA2048 키를 지원합니다."
           }
         },
-        "nl" : {
+        "nb" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Secretive supports EC256, EC384, and RSA2048 keys."
           }
         },
-        "no" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Secretive supports EC256, EC384, and RSA2048 keys."
@@ -10086,13 +10086,13 @@
             "value" : "비밀이 없음"
           }
         },
-        "nl" : {
+        "nb" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "No Secrets"
           }
         },
-        "no" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "No Secrets"
@@ -10264,13 +10264,13 @@
             "value" : "export SSH_AUTH_SOCK=%@"
           }
         },
-        "nl" : {
+        "nb" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "export SSH_AUTH_SOCK=%@"
           }
         },
-        "no" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "export SSH_AUTH_SOCK=%@"
@@ -10443,13 +10443,13 @@
             "value" : "Host *\n\tIdentityAgent %@"
           }
         },
-        "nl" : {
+        "nb" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Host *\n\tIdentityAgent %@"
           }
         },
-        "no" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Host *\n\tIdentityAgent %@"
@@ -10629,13 +10629,13 @@
             "value" : "이것을 추가하세요:"
           }
         },
-        "nl" : {
+        "nb" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Add This:"
           }
         },
-        "no" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Add This:"
@@ -10814,13 +10814,13 @@
             "value" : "앱들"
           }
         },
-        "nl" : {
+        "nb" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Apps"
           }
         },
-        "no" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Apps"
@@ -10918,7 +10918,7 @@
         "ca" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Existeix una llista d'instruccions per a aplicacions (en anglès) mantinguda per la comunitat a GitHub. Si l'aplicació que cerques no està suportada, crea una \"issue\" i la comunitat podria ajudar-te."
+            "value" : "Existeix una llista d'instruccions per a aplicacions (en anglès) mantinguda per la comunitat a GitHub. Si l'aplicació que cerques no està suportada, crea una “issue” i la comunitat podria ajudar-te."
           }
         },
         "cs" : {
@@ -10999,13 +10999,13 @@
             "value" : "GitHub에는 커뮤니티에서 관리하는 앱 관련 지침 목록이 있습니다. 찾고 있는 앱이 지원되지 않는 경우, 이슈를 생성하시면 커뮤니티에서 도움을 드릴 수 있습니다."
           }
         },
-        "nl" : {
+        "nb" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "There's a community-maintained list of instructions for apps on GitHub. If the app you're looking for isn't supported, create an issue and the community may be able to help."
           }
         },
-        "no" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "There's a community-maintained list of instructions for apps on GitHub. If the app you're looking for isn't supported, create an issue and the community may be able to help."
@@ -11103,7 +11103,7 @@
         "ca" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Existeix una llista d'instruccions per a shells (en anglès) mantinguda per la comunitat a GitHub. Si l'aplicació que cerques no està suportada, crea una \"issue\" i la comunitat podria ajudar-te."
+            "value" : "Existeix una llista d'instruccions per a shells (en anglès) mantinguda per la comunitat a GitHub. Si l'aplicació que cerques no està suportada, crea una “issue” i la comunitat podria ajudar-te."
           }
         },
         "cs" : {
@@ -11184,13 +11184,13 @@
             "value" : "GitHub에는 커뮤니티에서 관리하는 셸 지침 목록이 있습니다. 찾고 있는 셸이 지원되지 않는 경우, 이슈를 생성하면 커뮤니티에서 도움을 드릴 수 있습니다."
           }
         },
-        "nl" : {
+        "nb" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "There's a community-maintained list of shell instructions on GitHub. If the shell you're looking for isn't supported, create an issue and the community may be able to help."
           }
         },
-        "no" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "There's a community-maintained list of shell instructions on GitHub. If the shell you're looking for isn't supported, create an issue and the community may be able to help."
@@ -11369,13 +11369,13 @@
             "value" : "이 작업을 구성하기 전에 Secret을 만들어야 합니다."
           }
         },
-        "nl" : {
+        "nb" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "You'll need to create a Secret before configuring this action."
           }
         },
-        "no" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "You'll need to create a Secret before configuring this action."
@@ -11554,13 +11554,13 @@
             "value" : "Secret을 사용하여 구성"
           }
         },
-        "nl" : {
+        "nb" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Configure Using Secret"
           }
         },
-        "no" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Configure Using Secret"
@@ -11739,13 +11739,13 @@
             "value" : "비밀이 없음"
           }
         },
-        "nl" : {
+        "nb" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "No Secret"
           }
         },
-        "no" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "No Secret"
@@ -11924,13 +11924,13 @@
             "value" : "비밀"
           }
         },
-        "nl" : {
+        "nb" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Secret"
           }
         },
-        "no" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Secret"
@@ -12109,13 +12109,13 @@
             "value" : "여러 도구를 구성할 수 있으며, 일반적으로 서로 간섭하지 않습니다."
           }
         },
-        "nl" : {
+        "nb" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "You can configure more than one tool, they generally won't interfere with each other."
           }
         },
-        "no" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "You can configure more than one tool, they generally won't interfere with each other."
@@ -12294,13 +12294,13 @@
             "value" : "처음 시작하기"
           }
         },
-        "nl" : {
+        "nb" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Getting Started"
           }
         },
-        "no" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Getting Started"
@@ -12479,13 +12479,13 @@
             "value" : "통합"
           }
         },
-        "nl" : {
+        "nb" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Integrations"
           }
         },
-        "no" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Integrations"
@@ -12664,13 +12664,13 @@
             "value" : "Git 커밋에 서명하려면 Git 서명을 설정하세요."
           }
         },
-        "nl" : {
+        "nb" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "If you're trying to sign your git commits, set up Git Signing."
           }
         },
-        "no" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "If you're trying to sign your git commits, set up Git Signing."
@@ -12849,13 +12849,13 @@
             "value" : "Secretive를 사용하기 위해 명령줄에서 실행되는 모든 것을 구성하려는 경우 셸을 구성하세요."
           }
         },
-        "nl" : {
+        "nb" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "If you're trying to configure anything your command line runs to use Secretive, configure your shell."
           }
         },
-        "no" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "If you're trying to configure anything your command line runs to use Secretive, configure your shell."
@@ -13034,13 +13034,13 @@
             "value" : "어떤 셸을 사용하는지 모르고 변경하지 않은 경우, 아마도 `%(shellName)@`를 사용하고 있을 것입니다."
           }
         },
-        "nl" : {
+        "nb" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "If you don't known what shell you use and haven't changed it, you're probably using `%(shellName)@`."
           }
         },
-        "no" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "If you don't known what shell you use and haven't changed it, you're probably using `%(shellName)@`."
@@ -13219,13 +13219,13 @@
             "value" : "SSH 서버로 인증하거나 SSH를 통해 GitHub와 같은 서비스로 인증하려는 경우 SSH 클라이언트를 구성하세요."
           }
         },
-        "nl" : {
+        "nb" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "If you're trying to authenticate with an SSH server or authenticating with a service like GitHub over SSH, configure your SSH client."
           }
         },
-        "no" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "If you're trying to authenticate with an SSH server or authenticating with a service like GitHub over SSH, configure your SSH client."
@@ -13404,13 +13404,13 @@
             "value" : "Secretive를 위한 도구 구성"
           }
         },
-        "nl" : {
+        "nb" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Configuring Tools for Secretive"
           }
         },
-        "no" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Configuring Tools for Secretive"
@@ -13589,13 +13589,13 @@
             "value" : "대부분의 도구는 디스크의 `~/.ssh`에서 SSH 키를 찾으려고 합니다. Secretive를 사용하려면 해당 도구가 Secretive와 통신하도록 설정해야 합니다."
           }
         },
-        "nl" : {
+        "nb" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Most tools will try and look for SSH keys on disk in `~/.ssh`. To use Secretive, we need to configure those tools to talk to Secretive instead."
           }
         },
-        "no" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Most tools will try and look for SSH keys on disk in `~/.ssh`. To use Secretive, we need to configure those tools to talk to Secretive instead."
@@ -13774,13 +13774,13 @@
             "value" : "무엇을 구성해야 할까요?"
           }
         },
-        "nl" : {
+        "nb" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "What Should I Configure?"
           }
         },
-        "no" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "What Should I Configure?"
@@ -13959,13 +13959,13 @@
             "value" : "~/.gitallowedsigners가 존재하지 않을 수 있습니다. 직접 만들어야 합니다."
           }
         },
-        "nl" : {
+        "nb" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "~/.gitallowedsigners probably does not exist. You'll need to create it."
           }
         },
-        "no" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "~/.gitallowedsigners probably does not exist. You'll need to create it."
@@ -14144,13 +14144,13 @@
             "value" : "[user]\n    signingkey = %1$(publicKeyPathPlaceholder)@\n[commit]\n    gpgsign = true\n[gpg]\n    format = ssh\n[gpg \"ssh\"]\n    allowedSignersFile = ~/.gitallowedsigners"
           }
         },
-        "nl" : {
+        "nb" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "[user]\n    signingkey = %1$(publicKeyPathPlaceholder)@\n[commit]\n    gpgsign = true\n[gpg]\n    format = ssh\n[gpg \"ssh\"]\n    allowedSignersFile = ~/.gitallowedsigners"
           }
         },
-        "no" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "[user]\n    signingkey = %1$(publicKeyPathPlaceholder)@\n[commit]\n    gpgsign = true\n[gpg]\n    format = ssh\n[gpg \"ssh\"]\n    allowedSignersFile = ~/.gitallowedsigners"
@@ -14330,13 +14330,13 @@
             "value" : "통합…"
           }
         },
-        "nl" : {
+        "nb" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Integrations…"
           }
         },
-        "no" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Integrations…"
@@ -14515,13 +14515,13 @@
             "value" : "기타"
           }
         },
-        "nl" : {
+        "nb" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Other"
           }
         },
-        "no" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Other"
@@ -14700,13 +14700,13 @@
             "value" : "이외의 셸"
           }
         },
-        "nl" : {
+        "nb" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "other"
           }
         },
-        "no" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "other"
@@ -14885,13 +14885,13 @@
             "value" : "설정 파일"
           }
         },
-        "nl" : {
+        "nb" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Configuration File"
           }
         },
-        "no" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Configuration File"
@@ -15070,13 +15070,13 @@
             "value" : "Shell"
           }
         },
-        "nl" : {
+        "nb" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Shell"
           }
         },
-        "no" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Shell"
@@ -15255,13 +15255,13 @@
             "value" : "SSH가 특정 호스트에 대해 특정 키를 사용하도록 설정할 수 있습니다. 자세한 내용은 웹 문서를 참조하세요."
           }
         },
-        "nl" : {
+        "nb" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "You can tell SSH to use a specific key for a given host. See the web documentation for more details."
           }
         },
-        "no" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "You can tell SSH to use a specific key for a given host. See the web documentation for more details."
@@ -15440,13 +15440,13 @@
             "value" : "시스템"
           }
         },
-        "nl" : {
+        "nb" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "System"
           }
         },
-        "no" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "System"
@@ -15625,13 +15625,13 @@
             "value" : "bash"
           }
         },
-        "nl" : {
+        "nb" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "bash"
           }
         },
-        "no" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "bash"
@@ -15811,13 +15811,13 @@
             "value" : "fish"
           }
         },
-        "nl" : {
+        "nb" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "fish"
           }
         },
-        "no" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "fish"
@@ -15997,13 +15997,13 @@
             "value" : "Git 서명"
           }
         },
-        "nl" : {
+        "nb" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Git Signing"
           }
         },
-        "no" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Git Signing"
@@ -16182,13 +16182,13 @@
             "value" : "SSH"
           }
         },
-        "nl" : {
+        "nb" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "SSH"
           }
         },
-        "no" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "SSH"
@@ -16368,13 +16368,13 @@
             "value" : "zsh"
           }
         },
-        "nl" : {
+        "nb" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "zsh"
           }
         },
-        "no" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "zsh"
@@ -16554,13 +16554,13 @@
             "value" : "GitHub에서 보기"
           }
         },
-        "nl" : {
+        "nb" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "View on GitHub"
           }
         },
-        "no" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "View on GitHub"
@@ -16739,13 +16739,13 @@
             "value" : "웹에서 문서 보기"
           }
         },
-        "nl" : {
+        "nb" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "View Documentation on Web"
           }
         },
-        "no" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "View Documentation on Web"
@@ -16924,13 +16924,13 @@
             "value" : "섹션(예: [user])이 이미 있는 경우 기존 섹션에 항목을 추가하기만 하면 됩니다."
           }
         },
-        "nl" : {
+        "nb" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "If any section (like [user]) already exists, just add the entries in the existing section."
           }
         },
-        "no" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "If any section (like [user]) already exists, just add the entries in the existing section."
@@ -17109,13 +17109,13 @@
             "value" : "Mac에 Secure Enclave가 없고 호환되는 스마트 카드가 삽입되어 있지 않습니다."
           }
         },
-        "nl" : {
+        "nb" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Your Mac doesn't have a Secure Enclave, and there's not a compatible Smart Card inserted."
           }
         },
-        "no" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Your Mac doesn't have a Secure Enclave, and there's not a compatible Smart Card inserted."
@@ -17294,13 +17294,13 @@
             "value" : "보안 저장소를 사용할 수 없음"
           }
         },
-        "nl" : {
+        "nb" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "No Secure Storage Available"
           }
         },
-        "no" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "No Secure Storage Available"
@@ -17479,13 +17479,13 @@
             "value" : "Mac에 하나를 추가하고 싶다면 YubiKey 5 시리즈가 좋습니다."
           }
         },
-        "nl" : {
+        "nb" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "If you're looking to add one to your Mac, the YubiKey 5 Series are great."
           }
         },
-        "no" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "If you're looking to add one to your Mac, the YubiKey 5 Series are great."
@@ -17665,13 +17665,13 @@
             "value" : "잠금 해제 상태로 유지"
           }
         },
-        "nl" : {
+        "nb" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Leave Unlocked"
           }
         },
-        "no" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Leave Unlocked"
@@ -17851,13 +17851,13 @@
             "value" : "잠금 해제하지 않음"
           }
         },
-        "nl" : {
+        "nb" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Do Not Unlock"
           }
         },
-        "no" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Do Not Unlock"
@@ -18036,13 +18036,13 @@
             "value" : "Finder에서 보기"
           }
         },
-        "nl" : {
+        "nb" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Reveal in Finder"
           }
         },
-        "no" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Reveal in Finder"
@@ -18221,13 +18221,13 @@
             "value" : "MD5 지문"
           }
         },
-        "nl" : {
+        "nb" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "MD5 Fingerprint"
           }
         },
-        "no" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "MD5 Fingerprint"
@@ -18406,13 +18406,13 @@
             "value" : "공개 키"
           }
         },
-        "nl" : {
+        "nb" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Public Key"
           }
         },
-        "no" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Public Key"
@@ -18591,13 +18591,13 @@
             "value" : "공개 키 경로"
           }
         },
-        "nl" : {
+        "nb" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Public Key Path"
           }
         },
-        "no" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Public Key Path"
@@ -18776,13 +18776,13 @@
             "value" : "SHA256 지문"
           }
         },
-        "nl" : {
+        "nb" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "SHA256 Fingerprint"
           }
         },
-        "no" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "SHA256 Fingerprint"
@@ -18961,13 +18961,13 @@
             "value" : "삭제"
           }
         },
-        "nl" : {
+        "nb" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Delete"
           }
         },
-        "no" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Delete"
@@ -19146,13 +19146,13 @@
             "value" : "이름 변경"
           }
         },
-        "nl" : {
+        "nb" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Edit"
           }
         },
-        "no" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Edit"
@@ -19331,13 +19331,13 @@
             "value" : "Secure Enclave"
           }
         },
-        "nl" : {
+        "nb" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Secure Enclave"
           }
         },
-        "no" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Secure Enclave"
@@ -19509,13 +19509,13 @@
             "value" : "set -x SSH_AUTH_SOCK %@"
           }
         },
-        "nl" : {
+        "nb" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "set -x SSH_AUTH_SOCK %@"
           }
         },
-        "no" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "set -x SSH_AUTH_SOCK %@"
@@ -19695,13 +19695,13 @@
             "value" : "이 도우미 앱은 **Secret Agent**이라고 하며 활성 상태 보기에서 수시로 볼 수 있습니다."
           }
         },
-        "nl" : {
+        "nb" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "This helper app is called **Secret Agent** and you may see it in Activity Manager from time to time."
           }
         },
-        "no" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "This helper app is called **Secret Agent** and you may see it in Activity Manager from time to time."
@@ -19880,13 +19880,13 @@
             "value" : "Secretive가 제대로 작동하려면 도우미 앱을 설치해야 합니다. 백그라운드에서 SSH 클라이언트의 요청에 서명하므로 기본 Secretive 앱을 열어 둘 필요가 없습니다."
           }
         },
-        "nl" : {
+        "nb" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Secretive needs to set up a helper app to work properly. It will sign requests from SSH clients in the background, so you don't need to keep the main Secretive app open."
           }
         },
-        "no" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Secretive needs to set up a helper app to work properly. It will sign requests from SSH clients in the background, so you don't need to keep the main Secretive app open."
@@ -20065,13 +20065,13 @@
             "value" : "설치"
           }
         },
-        "nl" : {
+        "nb" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Install"
           }
         },
-        "no" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Install"
@@ -20250,13 +20250,13 @@
             "value" : "Agent 설치"
           }
         },
-        "nl" : {
+        "nb" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Setup Agent"
           }
         },
-        "no" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Setup Agent"
@@ -20435,13 +20435,13 @@
             "value" : "완료"
           }
         },
-        "nl" : {
+        "nb" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Done"
           }
         },
-        "no" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Done"
@@ -20620,13 +20620,13 @@
             "value" : "설정"
           }
         },
-        "nl" : {
+        "nb" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Configure"
           }
         },
-        "no" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Configure"
@@ -20805,13 +20805,13 @@
             "value" : "Secretive와 대화하는 방법을 사용하는 도구를 알려주세요."
           }
         },
-        "nl" : {
+        "nb" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Tell the tools you use how to talk to Secretive."
           }
         },
-        "no" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Tell the tools you use how to talk to Secretive."
@@ -20990,13 +20990,13 @@
             "value" : "통합 설정"
           }
         },
-        "nl" : {
+        "nb" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Configure Integrations"
           }
         },
-        "no" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Configure Integrations"
@@ -21175,13 +21175,13 @@
             "value" : "Secretive는 주기적으로 GitHub를 확인하여 새 릴리스가 있는지 확인합니다. GitHub에 대한 네트워크 요청이 표시되는 이유입니다. "
           }
         },
-        "nl" : {
+        "nb" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Secretive will periodically check with GitHub to see if there's a new release. If you see any network requests to GitHub, that's why."
           }
         },
-        "no" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Secretive will periodically check with GitHub to see if there's a new release. If you see any network requests to GitHub, that's why."
@@ -21360,13 +21360,13 @@
             "value" : "확인"
           }
         },
-        "nl" : {
+        "nb" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "OK"
           }
         },
-        "no" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "OK"
@@ -21545,13 +21545,13 @@
             "value" : "업데이트"
           }
         },
-        "nl" : {
+        "nb" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Updates"
           }
         },
-        "no" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Updates"
@@ -21730,13 +21730,13 @@
             "value" : "완료됨"
           }
         },
-        "nl" : {
+        "nb" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Done"
           }
         },
-        "no" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Done"
@@ -21916,13 +21916,13 @@
             "value" : "비밀 %1$(secretName)@ 사용됨"
           }
         },
-        "nl" : {
+        "nb" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Using secret %1$(secretName)@"
           }
         },
-        "no" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Using secret %1$(secretName)@"
@@ -22102,13 +22102,13 @@
             "value" : "%1$(appName)@에서 서명 요청"
           }
         },
-        "nl" : {
+        "nb" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Signed Request from %1$(appName)@"
           }
         },
-        "no" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Signed Request from %1$(appName)@"
@@ -22287,13 +22287,13 @@
             "value" : "스마트 카드"
           }
         },
-        "nl" : {
+        "nb" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Smart Card"
           }
         },
-        "no" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Smart Card"
@@ -22472,13 +22472,13 @@
             "value" : "무명"
           }
         },
-        "nl" : {
+        "nb" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Unnamed"
           }
         },
-        "no" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Unnamed"
@@ -22657,13 +22657,13 @@
             "value" : "치명적 보안 업데이트 필요"
           }
         },
-        "nl" : {
+        "nb" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Critical Security Update Required"
           }
         },
-        "no" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Critical Security Update Required"
@@ -22842,13 +22842,13 @@
             "value" : "무시하기"
           }
         },
-        "nl" : {
+        "nb" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Ignore"
           }
         },
-        "no" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Ignore"
@@ -23027,13 +23027,13 @@
             "value" : "사용가능한 업데이트"
           }
         },
-        "nl" : {
+        "nb" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Update Available"
           }
         },
-        "no" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Update Available"
@@ -23213,13 +23213,13 @@
             "value" : "무시"
           }
         },
-        "nl" : {
+        "nb" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Ignore"
           }
         },
-        "no" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Ignore"
@@ -23399,13 +23399,13 @@
             "value" : "업데이트"
           }
         },
-        "nl" : {
+        "nb" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Update"
           }
         },
-        "no" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Update"
@@ -23585,13 +23585,13 @@
             "value" : "치명적 보안 업데이트 - %1$(updateName)@"
           }
         },
-        "nl" : {
+        "nb" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Critical Security Update - %1$(updateName)@"
           }
         },
-        "no" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Critical Security Update - %1$(updateName)@"
@@ -23771,13 +23771,13 @@
             "value" : "클릭해서 업데이트 하기"
           }
         },
-        "nl" : {
+        "nb" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Click to Update"
           }
         },
-        "no" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Click to Update"
@@ -23957,13 +23957,13 @@
             "value" : "사용 가능한 업데이트 - %1$(updateName)@"
           }
         },
-        "nl" : {
+        "nb" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Update Available - %1$(updateName)@"
           }
         },
-        "no" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Update Available - %1$(updateName)@"
@@ -24142,13 +24142,13 @@
             "value" : "릴리즈 노트"
           }
         },
-        "nl" : {
+        "nb" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Release Notes"
           }
         },
-        "no" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Release Notes"
@@ -24327,13 +24327,13 @@
             "value" : "테스트 빌드"
           }
         },
-        "nl" : {
+        "nb" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Test Build"
           }
         },
-        "no" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Test Build"
@@ -24512,13 +24512,13 @@
             "value" : "업데이트"
           }
         },
-        "nl" : {
+        "nb" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Update"
           }
         },
-        "no" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Update"
@@ -24697,13 +24697,13 @@
             "value" : "Secretive %1$(updateName)@"
           }
         },
-        "nl" : {
+        "nb" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Secretive %1$(updateName)@"
           }
         },
-        "no" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Secretive %1$(updateName)@"
@@ -24882,13 +24882,13 @@
             "value" : "최신 Nightly Build 다운로드"
           }
         },
-        "nl" : {
+        "nb" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Download Latest Nightly Build"
           }
         },
-        "no" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Download Latest Nightly Build"
