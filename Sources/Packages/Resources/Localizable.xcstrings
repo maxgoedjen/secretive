@@ -3510,7 +3510,7 @@
       }
     },
     "auth_context_persist_for_duration" : {
-      "comment" : "When the user clicks the notification to leave a secret unlocked, they are shown a prompt to approve the action. This is the description, showing which secret will used. The first placeholder is the name of the secret. The second placeholder is a localized description of the time period it will remain unlocked for (eg: \"five minutes\")",
+      "comment" : "When the user clicks the notification to leave a secret unlocked, they are shown a prompt to approve the action. This is the description, showing which secret will used. The first placeholder is the name of the secret. The second placeholder is a localized description of the time period it will remain unlocked for (eg: “five minutes“)",
       "extractionState" : "manual",
       "localizations" : {
         "af" : {
@@ -10918,7 +10918,7 @@
         "ca" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Existeix una llista d'instruccions per a aplicacions (en anglès) mantinguda per la comunitat a GitHub. Si l'aplicació que cerques no està suportada, crea una \"issue\" i la comunitat podria ajudar-te."
+            "value" : "Existeix una llista d'instruccions per a aplicacions (en anglès) mantinguda per la comunitat a GitHub. Si l'aplicació que cerques no està suportada, crea una “issue“ i la comunitat podria ajudar-te."
           }
         },
         "cs" : {
@@ -11103,7 +11103,7 @@
         "ca" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Existeix una llista d'instruccions per a shells (en anglès) mantinguda per la comunitat a GitHub. Si l'aplicació que cerques no està suportada, crea una \"issue\" i la comunitat podria ajudar-te."
+            "value" : "Existeix una llista d'instruccions per a shells (en anglès) mantinguda per la comunitat a GitHub. Si l'aplicació que cerques no està suportada, crea una “issue“ i la comunitat podria ajudar-te."
           }
         },
         "cs" : {
