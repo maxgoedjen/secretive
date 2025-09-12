@@ -3899,7 +3899,7 @@
         },
         "ca" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "signa una petición de “%1$(appName)@” usant el secret “%2$(secretName)@”"
           }
         },
@@ -3917,7 +3917,7 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "eine Anfrage von “%1$(appName)@” mit dem Secret “%2$(secretName)@” signieren"
           }
         },
@@ -3941,13 +3941,13 @@
         },
         "fi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "allekirjoita pyyntö lähteestä “%1$(appName)@” käyttäen salaisuutta “%2$(secretName)@”"
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "signer une requête de “%1$(appName)@” en utilisant le secret “%2$(secretName)@”"
           }
         },
@@ -3965,19 +3965,19 @@
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "firma la richiesta di “%1$(appName)@” usando il Segreto “%2$(secretName)@”"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "シークレット“%2$(secretName)@”を使って“%1$(appName)@”の要求に署名します"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "비밀 “%2$(secretName)@”를 사용해서 “%1$(appName)@”의 요청에 서명"
           }
         },
@@ -3995,7 +3995,7 @@
         },
         "pl" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "podpisz zapytanie od “%1$(appName)@” za pomocą sekretu “%2$(secretName)@”"
           }
         },
@@ -4007,7 +4007,7 @@
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "assinar requisição a partir do “%1$(appName)@” utilizando o segredo “%2$(secretName)@”"
           }
         },
@@ -4019,7 +4019,7 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "подписать запрос от “%1$(appName)@” используя секрет “%2$(secretName)@”"
           }
         },
@@ -4055,7 +4055,7 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "使用密钥串 “%2$(secretName)@” 认证 “%1$(appName)@” "
           }
         },
