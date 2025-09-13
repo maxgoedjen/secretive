@@ -295,7 +295,7 @@
 			path = Helpers;
 			sourceTree = "<group>";
 		};
-		504788ED2E681EB200B4556F /* Styles */ = {
+		504788ED2E681EB200B4556F /* Modifiers */ = {
 			isa = PBXGroup;
 			children = (
 				50E4C4522E73C78900C73783 /* WindowBackgroundStyle.swift */,
@@ -304,7 +304,7 @@
 				504789222E697DD300B4556F /* BoxBackgroundStyle.swift */,
 				5065E312295517C500E16645 /* ToolbarButtonStyle.swift */,
 			);
-			path = Styles;
+			path = Modifiers;
 			sourceTree = "<group>";
 		};
 		504788EE2E681EC300B4556F /* Secrets */ = {
@@ -435,7 +435,7 @@
 			children = (
 				504788EF2E681ED700B4556F /* Configuration */,
 				504788EE2E681EC300B4556F /* Secrets */,
-				504788ED2E681EB200B4556F /* Styles */,
+				504788ED2E681EB200B4556F /* Modifiers */,
 				504788F02E681F0100B4556F /* Views */,
 			);
 			path = Views;
