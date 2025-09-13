@@ -1,8 +1,7 @@
 # Secretive [![Test](https://github.com/maxgoedjen/secretive/actions/workflows/test.yml/badge.svg?branch=main)](https://github.com/maxgoedjen/secretive/actions/workflows/test.yml) ![Release](https://github.com/maxgoedjen/secretive/workflows/Release/badge.svg)
 
 
-Secretive is an app for storing and managing SSH keys in the Secure Enclave. It is inspired by the [sekey project](https://github.com/sekey/sekey), but rewritten in Swift with no external dependencies and with a handy native management app.
-
+Secretive is an app for protecting and managing SSH keys with the Secure Enclave.
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="/.github/readme/app-dark.png">
   <img src="/.github/readme/app-light.png" alt="Screenshot of Secretive" width="600">
@@ -62,3 +61,11 @@ Because secrets in the Secure Enclave are not exportable, they are not able to b
 ## Security
 
 Secretive's security policy is detailed in [SECURITY.md](SECURITY.md). To report security issues, please use [GitHub's private reporting feature.](https://docs.github.com/en/code-security/security-advisories/guidance-on-reporting-and-writing-information-about-vulnerabilities/privately-reporting-a-security-vulnerability#privately-reporting-a-security-vulnerability)
+
+## Acknowledgements
+
+### sekey
+Secretive was inspired by the [sekey project](https://github.com/sekey/sekey).
+
+### Localization
+Secretive is localized to many languages by a generous team of volunteers. To learn more, see [LOCALIZING.md](LOCALIZING.md). Secretive's localization workflow is generously provided by [Crowdin](https://crowdin.com).
