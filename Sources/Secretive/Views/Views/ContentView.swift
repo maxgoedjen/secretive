@@ -6,9 +6,9 @@ import Brief
 
 struct ContentView: View {
 
-    @Binding var showingCreation: Bool
-    @Binding var runningSetup: Bool
-    @Binding var hasRunSetup: Bool
+    @AppStorage("defaultsHasRunSetup") var hasRunSetup = false
+    @State var showingCreation = false
+    @State var runningSetup = true
     @State var showingAgentInfo = false
     @State var activeSecret: AnySecret?
     @Environment(\.colorScheme) var colorScheme
@@ -34,6 +34,23 @@ struct ContentView: View {
             toolbarItem(runningOrRunSetupView, id: "setup")
             toolbarItem(appPathNoticeView, id: "appPath")
             toolbarItem(newItemView, id: "new")
+        }
+        .onAppear {
+            if !hasRunSetup {
+                runningSetup = true
+            }
+        }
+        .focusedSceneValue(\.showCreateSecret,  .init(isEnabled: !runningSetup) {
+            showingCreation = true
+        })
+        .sheet(isPresented: $showingCreation) {
+            if let modifiable = storeList.modifiableStore {
+                CreateSecretView(store: modifiable) { created in
+                    if let created {
+                        activeSecret = created
+                    }
+                }
+            }
         }
         .sheet(isPresented: $runningSetup) {
             SetupView(setupComplete: $hasRunSetup)
@@ -114,15 +131,6 @@ extension ContentView {
                 showingCreation = true
             }
             .menuButton()
-            .sheet(isPresented: $showingCreation) {
-                if let modifiable = storeList.modifiableStore {
-                    CreateSecretView(store: modifiable) { created in
-                        if let created {
-                            activeSecret = created
-                        }
-                    }
-                }
-            }
         }
     }
 

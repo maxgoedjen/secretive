@@ -73,6 +73,7 @@
 		50BDCB762E6450950072D2E7 /* ConfigurationItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50BDCB752E6450950072D2E7 /* ConfigurationItemView.swift */; };
 		50C385A52407A76D00AF2719 /* SecretDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C385A42407A76D00AF2719 /* SecretDetailView.swift */; };
 		50CF4ABC2E601B0F005588DC /* ActionButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50CF4ABB2E601B0F005588DC /* ActionButtonStyle.swift */; };
+		50E4C4532E73C78C00C73783 /* WindowBackgroundStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E4C4522E73C78900C73783 /* WindowBackgroundStyle.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -239,6 +240,7 @@
 		50BDCB752E6450950072D2E7 /* ConfigurationItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationItemView.swift; sourceTree = "<group>"; };
 		50C385A42407A76D00AF2719 /* SecretDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecretDetailView.swift; sourceTree = "<group>"; };
 		50CF4ABB2E601B0F005588DC /* ActionButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionButtonStyle.swift; sourceTree = "<group>"; };
+		50E4C4522E73C78900C73783 /* WindowBackgroundStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowBackgroundStyle.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -293,15 +295,16 @@
 			path = Helpers;
 			sourceTree = "<group>";
 		};
-		504788ED2E681EB200B4556F /* Styles */ = {
+		504788ED2E681EB200B4556F /* Modifiers */ = {
 			isa = PBXGroup;
 			children = (
+				50E4C4522E73C78900C73783 /* WindowBackgroundStyle.swift */,
 				50CF4ABB2E601B0F005588DC /* ActionButtonStyle.swift */,
 				50BDCB732E6436C60072D2E7 /* ErrorStyle.swift */,
 				504789222E697DD300B4556F /* BoxBackgroundStyle.swift */,
 				5065E312295517C500E16645 /* ToolbarButtonStyle.swift */,
 			);
-			path = Styles;
+			path = Modifiers;
 			sourceTree = "<group>";
 		};
 		504788EE2E681EC300B4556F /* Secrets */ = {
@@ -432,7 +435,7 @@
 			children = (
 				504788EF2E681ED700B4556F /* Configuration */,
 				504788EE2E681EC300B4556F /* Secrets */,
-				504788ED2E681EB200B4556F /* Styles */,
+				504788ED2E681EB200B4556F /* Modifiers */,
 				504788F02E681F0100B4556F /* Views */,
 			);
 			path = Views;
@@ -686,6 +689,7 @@
 				504788F22E681F3A00B4556F /* Instructions.swift in Sources */,
 				50BDCB742E6436CA0072D2E7 /* ErrorStyle.swift in Sources */,
 				2C4A9D2F2636FFD3008CC8E2 /* EditSecretView.swift in Sources */,
+				50E4C4532E73C78C00C73783 /* WindowBackgroundStyle.swift in Sources */,
 				5091D2BC25183B830049FD9B /* ApplicationDirectoryController.swift in Sources */,
 				504788EC2E680DC800B4556F /* URLs.swift in Sources */,
 				504789232E697DD300B4556F /* BoxBackgroundStyle.swift in Sources */,

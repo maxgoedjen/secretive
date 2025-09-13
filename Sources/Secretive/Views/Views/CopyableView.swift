@@ -79,7 +79,7 @@ struct CopyableView: View {
     var copyButton: some View {
         switch interactionState {
         case .hovering:
-            Button(.copyableClickToCopyButton, systemImage: "document.on.document") {
+            Button(.copyableClickToCopyButton, systemImage: "doc.on.doc") {
                 withAnimation {
                     // Button will eat the click, so we set interaction state manually.
                     interactionState = .clicking
