@@ -316,8 +316,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Secretive was unable to get SecretAgent to launch. Please try restarting your Mac, and if that doesn't work, file an issue on GitHub."
+            "state" : "translated",
+            "value" : "Secretive не получлось запустить SecretAgent. Пожалуйста, попробуйте перезапустить Ваш Mac, и если это не поможет – создайте issue на GitHub."
           }
         },
         "sr" : {
@@ -501,8 +501,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Disable Agent"
+            "state" : "translated",
+            "value" : "Отключить агент"
           }
         },
         "sr" : {
@@ -686,8 +686,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Restart Agent"
+            "state" : "translated",
+            "value" : "Перезапустить агент"
           }
         },
         "sr" : {
@@ -871,8 +871,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Running Since"
+            "state" : "translated",
+            "value" : "Запущено с"
           }
         },
         "sr" : {
@@ -1056,8 +1056,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Socket Path"
+            "state" : "translated",
+            "value" : "Путь к сокету"
           }
         },
         "sr" : {
@@ -1241,8 +1241,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Start Agent"
+            "state" : "translated",
+            "value" : "Запустить агент"
           }
         },
         "sr" : {
@@ -1426,8 +1426,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Starting Agent"
+            "state" : "translated",
+            "value" : "Агент запускается"
           }
         },
         "sr" : {
@@ -1611,8 +1611,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Version"
+            "state" : "translated",
+            "value" : "Версия"
           }
         },
         "sr" : {
@@ -1796,8 +1796,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "SecretAgent is a process that runs in the background to sign requests, so you don't need to keep Secretive open all the time.\n\n**Secretive will not be able to function properly unless the agent is installed and running.**"
+            "state" : "translated",
+            "value" : "SecretAgent это процесс, который работает в фоне чтобы подписывать запросы. Так Вам не придется все время держать Secretive открытым.\n\n**Secretive не сможет нормально функционировать, пока агент не установлен и не запущен.**"
           }
         },
         "sr" : {
@@ -2721,8 +2721,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Secret Agent Location"
+            "state" : "translated",
+            "value" : "Расположение Secret Agent"
           }
         },
         "sr" : {
@@ -3147,6 +3147,12 @@
             "state" : "translated",
             "value" : "Later"
           }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Позже"
+          }
         }
       }
     },
@@ -3342,6 +3348,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Quit"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Выйти"
           }
         }
       }
@@ -4596,8 +4608,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Advanced"
+            "state" : "translated",
+            "value" : "Расширенное"
           }
         },
         "sr" : {
@@ -4781,8 +4793,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "If you change your biometric settings in _any way_, including adding a new fingerprint, this key will no longer be accessible."
+            "state" : "translated",
+            "value" : "Если Вы сделаете _любые_ изменения в Ваших настройках биометрии, включая добавление нового отпечатка пальца, этот ключ перестанет быть доступным."
           }
         },
         "sr" : {
@@ -5336,8 +5348,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "This shows at the end of your public key. It’s usually an email address."
+            "state" : "translated",
+            "value" : "Это отображается в конце Вашего публичного ключа. Как правило, это email адрес."
           }
         },
         "sr" : {
@@ -5521,8 +5533,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Key Attribution"
+            "state" : "translated",
+            "value" : "Принадлежность ключа"
           }
         },
         "sr" : {
@@ -5706,8 +5718,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Key Type"
+            "state" : "translated",
+            "value" : "Тип ключа"
           }
         },
         "sr" : {
@@ -5902,8 +5914,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Warning: ML-DSA keys are very new, and not supported by many servers yet. Please verify the server you'll be using this key for accepts ML-DSA keys."
+            "state" : "translated",
+            "value" : "Внимание: Ключи ML-DSA совсем новые, и не пока поддерживаются многими серверами. Пожалуйста удостоверьтесь, что используемый с этим ключом сервер поддерживает ключи ML-DSA."
           }
         },
         "sr" : {
@@ -6458,7 +6470,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Аутентификация не потребуется пока Ваш Mac разблокирован, но Вы получите уведомление, если секрет был использован."
+            "value" : "Аутентификация не потребуется пока Ваш Mac разблокирован, но Вы получите уведомление, если секрет будет использован."
           }
         },
         "sr" : {
@@ -6827,8 +6839,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Protection Level"
+            "state" : "translated",
+            "value" : "Уровень защиты"
           }
         },
         "sr" : {
@@ -7012,8 +7024,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Require authentication with current set of biometrics."
+            "state" : "translated",
+            "value" : "Требовать аутентификацию с текущим набором биометрии."
           }
         },
         "sr" : {
@@ -7197,8 +7209,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Current Biometrics"
+            "state" : "translated",
+            "value" : "Текущая биометрия"
           }
         },
         "sr" : {
@@ -9417,8 +9429,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like you may have recently updated macOS. Sometimes this puts the Secure Enclave into a weird state, and you might need to reboot your Mac before things start working again."
+            "state" : "translated",
+            "value" : "Похоже, что Вы могли недавно обновить MacOS. Иногда из-за этого возникают проблемы с Secure Enclave, и возможно Вам потребуется перезапустить Ваш Mac, чтобы их исправить."
           }
         },
         "sr" : {
@@ -9602,8 +9614,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Missing Secrets?"
+            "state" : "translated",
+            "value" : "Не хватает секретов?"
           }
         },
         "sr" : {
@@ -10700,8 +10712,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Add This:"
+            "state" : "translated",
+            "value" : "Добавить следующее:"
           }
         },
         "sr" : {
@@ -10885,8 +10897,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Apps"
+            "state" : "translated",
+            "value" : "Приложения"
           }
         },
         "sr" : {
@@ -11070,8 +11082,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "There's a community-maintained list of instructions for apps on GitHub. If the app you're looking for isn't supported, create an issue and the community may be able to help."
+            "state" : "translated",
+            "value" : "Существует список инструкций, поддерживаемый сообществом, к приложениям на GitHub. Если нужное Вам приложение не поддерживается, создайте issue, возможно сообщество сможет помочь Вам."
           }
         },
         "sr" : {
@@ -11255,8 +11267,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "There's a community-maintained list of shell instructions on GitHub. If the shell you're looking for isn't supported, create an issue and the community may be able to help."
+            "state" : "translated",
+            "value" : "Существует список shell-скриптов, поддерживаемый сообществом на GitHub. Если нужный Вам shell-скрипт не поддерживается, создайте issue, возможно сообщество сможет помочь Вам."
           }
         },
         "sr" : {
@@ -11440,8 +11452,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "You'll need to create a Secret before configuring this action."
+            "state" : "translated",
+            "value" : "Вам потребуется создать секрет перед настройкой этого действия."
           }
         },
         "sr" : {
@@ -11625,8 +11637,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Configure Using Secret"
+            "state" : "translated",
+            "value" : "Настроить используя секрет"
           }
         },
         "sr" : {
@@ -11810,8 +11822,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "No Secret"
+            "state" : "translated",
+            "value" : "Без секрета"
           }
         },
         "sr" : {
@@ -11995,8 +12007,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Secret"
+            "state" : "translated",
+            "value" : "С секретом"
           }
         },
         "sr" : {
@@ -12180,8 +12192,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "You can configure more than one tool, they generally won't interfere with each other."
+            "state" : "translated",
+            "value" : "Вы можете настроить более чем один инструмент. Обычно это не вызывает конфликтов при работе."
           }
         },
         "sr" : {
@@ -12365,8 +12377,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Getting Started"
+            "state" : "translated",
+            "value" : "Начало работы"
           }
         },
         "sr" : {
@@ -12550,8 +12562,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Integrations"
+            "state" : "translated",
+            "value" : "Интеграции"
           }
         },
         "sr" : {
@@ -12735,8 +12747,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "If you're trying to sign your git commits, set up Git Signing."
+            "state" : "translated",
+            "value" : "Если Вы хотите подписывать ваши git коммиты, настройте подпись Git."
           }
         },
         "sr" : {
@@ -12920,8 +12932,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "If you're trying to configure anything your command line runs to use Secretive, configure your shell."
+            "state" : "translated",
+            "value" : "Если Вы хотите наладить работу Secretive с Вашими скриптами в Терминале, настройте Ваш Терминал."
           }
         },
         "sr" : {
@@ -13105,8 +13117,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "If you don't known what shell you use and haven't changed it, you're probably using `%(shellName)@`."
+            "state" : "translated",
+            "value" : "Если Вы не знаете, какой Терминал используете и не меняли его раннее, то скорее всего Вы используете `%(shellName)@`."
           }
         },
         "sr" : {
@@ -13290,8 +13302,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "If you're trying to authenticate with an SSH server or authenticating with a service like GitHub over SSH, configure your SSH client."
+            "state" : "translated",
+            "value" : "Если Вы хотите аутентифицироваться с SSH сервером, или с сервисом как GitHub через SSH, настройте Ваш SSH клиент."
           }
         },
         "sr" : {
@@ -13475,8 +13487,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Configuring Tools for Secretive"
+            "state" : "translated",
+            "value" : "Настройка инструментов для Secretive"
           }
         },
         "sr" : {
@@ -13660,8 +13672,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Most tools will try and look for SSH keys on disk in `~/.ssh`. To use Secretive, we need to configure those tools to talk to Secretive instead."
+            "state" : "translated",
+            "value" : "Большинство инструментов попробуют найти SSH ключи в `~/.ssh`. Для того, чтобы использовать Secretive, нам потребуется настроить эти инструменты, чтобы они работали с Secretive."
           }
         },
         "sr" : {
@@ -13845,8 +13857,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "What Should I Configure?"
+            "state" : "translated",
+            "value" : "Что мне следует настроить?"
           }
         },
         "sr" : {
@@ -14030,8 +14042,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "~/.gitallowedsigners probably does not exist. You'll need to create it."
+            "state" : "translated",
+            "value" : "Возможно, директория ~/.gitallowedsigners не существует. Вам потребуется создать ее."
           }
         },
         "sr" : {
@@ -14401,8 +14413,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Integrations…"
+            "state" : "translated",
+            "value" : "Интеграции…"
           }
         },
         "sr" : {
@@ -14586,8 +14598,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Other"
+            "state" : "translated",
+            "value" : "Другое"
           }
         },
         "sr" : {
@@ -14771,8 +14783,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "other"
+            "state" : "translated",
+            "value" : "другое"
           }
         },
         "sr" : {
@@ -14956,8 +14968,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Configuration File"
+            "state" : "translated",
+            "value" : "Файл конфигурации"
           }
         },
         "sr" : {
@@ -15141,7 +15153,7 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
+            "state" : "translated",
             "value" : "Shell"
           }
         },
@@ -15326,8 +15338,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "You can tell SSH to use a specific key for a given host. See the web documentation for more details."
+            "state" : "translated",
+            "value" : "Вы можете настроить SSH так, чтобы использовался конкретный ключ для выбранного хоста. Посмотрите документацию в интернете, чтобы узнать подробности."
           }
         },
         "sr" : {
@@ -15511,8 +15523,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "System"
+            "state" : "translated",
+            "value" : "Система"
           }
         },
         "sr" : {
@@ -16068,8 +16080,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Git Signing"
+            "state" : "translated",
+            "value" : "Подпись Git"
           }
         },
         "sr" : {
@@ -16625,8 +16637,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "View on GitHub"
+            "state" : "translated",
+            "value" : "Посмотреть на GitHub"
           }
         },
         "sr" : {
@@ -16810,8 +16822,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "View Documentation on Web"
+            "state" : "translated",
+            "value" : "Найти документацию в интернете"
           }
         },
         "sr" : {
@@ -16995,8 +17007,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "If any section (like [user]) already exists, just add the entries in the existing section."
+            "state" : "translated",
+            "value" : "Если любой раздел (как [user]) уже существует, просто добавьте новые записи в него."
           }
         },
         "sr" : {
@@ -17923,7 +17935,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Не разблокировывать"
+            "value" : "Не разблокировать"
           }
         },
         "sr" : {
@@ -18107,8 +18119,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Reveal in Finder"
+            "state" : "translated",
+            "value" : "Открыть в Finder"
           }
         },
         "sr" : {
@@ -19402,7 +19414,7 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
+            "state" : "translated",
             "value" : "Secure Enclave"
           }
         },
@@ -19767,7 +19779,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Это вспомогательное приложение назвается **Secret Agent**, Вы можете наблюдать его в Activity Monitor время от времени."
+            "value" : "Это вспомогательное приложение назвается **Secret Agent**, Вы можете видеть его в Activity Monitor время от времени."
           }
         },
         "sr" : {
@@ -20322,7 +20334,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Настроить агента"
+            "value" : "Настроить агент"
           }
         },
         "sr" : {
@@ -20506,8 +20518,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Done"
+            "state" : "translated",
+            "value" : "Готово"
           }
         },
         "sr" : {
@@ -20691,8 +20703,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Configure"
+            "state" : "translated",
+            "value" : "Настроить"
           }
         },
         "sr" : {
@@ -20876,8 +20888,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Tell the tools you use how to talk to Secretive."
+            "state" : "translated",
+            "value" : "Настройте Ваши инструменты для работы с Secretive"
           }
         },
         "sr" : {
@@ -21061,8 +21073,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Configure Integrations"
+            "state" : "translated",
+            "value" : "Настроить интеграции"
           }
         },
         "sr" : {
@@ -21801,8 +21813,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Done"
+            "state" : "translated",
+            "value" : "Готово"
           }
         },
         "sr" : {
@@ -24768,7 +24780,7 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
+            "state" : "translated",
             "value" : "Secretive %1$(updateName)@"
           }
         },
@@ -24953,8 +24965,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Download Latest Nightly Build"
+            "state" : "translated",
+            "value" : "Скачать последнюю ночную сборку"
           }
         },
         "sr" : {
