@@ -6,19 +6,21 @@ import Brief
 
 struct ContentView: View {
 
-    @AppStorage("defaultsHasRunSetup") var hasRunSetup = false
-    @State var showingCreation = false
-    @State var runningSetup = false
-    @State var showingAgentInfo = false
     @State var activeSecret: AnySecret?
-    @Environment(\.colorScheme) var colorScheme
-
-    @Environment(\.secretStoreList) private var storeList
-    @Environment(\.updater) private var updater: any UpdaterProtocol
-    @Environment(\.agentStatusChecker) private var agentStatusChecker: any AgentStatusCheckerProtocol
 
     @State private var selectedUpdate: Release?
+
+    @Environment(\.colorScheme) private var colorScheme
+    @Environment(\.openWindow) private var openWindow
+    @Environment(\.secretStoreList) private var storeList
+    @Environment(\.updater) private var updater
+    @Environment(\.agentStatusChecker) private var agentStatusChecker
+
+    @AppStorage("defaultsHasRunSetup") private var hasRunSetup = false
+    @State private var showingCreation = false
     @State private var showingAppPathNotice = false
+    @State private var runningSetup = false
+    @State private var showingAgentInfo = false
 
     var body: some View {
         VStack {
@@ -102,24 +104,9 @@ extension ContentView {
                     .font(.headline)
                     .foregroundColor(.white)
             })
-            .buttonStyle(ToolbarButtonStyle(color: color))
+            .buttonStyle(ToolbarStatusButtonStyle(color: color))
             .sheet(item: $selectedUpdate) { update in
-                VStack {
-                    if updater.currentVersion.isTestBuild {
-                        VStack {
-                            if let description = updater.currentVersion.previewDescription {
-                                Text(description)
-                            }
-                            Link(destination: URL(string: "https://github.com/maxgoedjen/secretive/actions/workflows/nightly.yml")!) {
-                                Button(.updaterDownloadLatestNightlyButton) {}
-                                    .frame(maxWidth: .infinity)
-                                    .primaryButton()
-                            }
-                        }
-                        .padding()
-                    }
-                    UpdateDetailView(update: update)
-                }
+                UpdateDetailView(update: update)
             }
         }
     }
@@ -130,7 +117,7 @@ extension ContentView {
             Button(.appMenuNewSecretButton, systemImage: "plus") {
                 showingCreation = true
             }
-            .menuButton()
+            .toolbarCircleButton()
         }
     }
 
@@ -157,7 +144,7 @@ extension ContentView {
             }
         })
         .buttonStyle(
-            ToolbarButtonStyle(
+            ToolbarStatusButtonStyle(
                 lightColor: agentStatusChecker.running ? .black.opacity(0.05) : .red.opacity(0.75),
                 darkColor: agentStatusChecker.running ? .white.opacity(0.05) : .red.opacity(0.5),
             )
@@ -179,7 +166,7 @@ extension ContentView {
                 .font(.headline)
                 .foregroundColor(.white)
             })
-            .buttonStyle(ToolbarButtonStyle(color: .orange))
+            .buttonStyle(ToolbarStatusButtonStyle(color: .orange))
             .popover(isPresented: $showingAppPathNotice, attachmentAnchor: attachmentAnchor, arrowEdge: .bottom) {
                 VStack {
                     Image(systemName: "exclamationmark.triangle")
