@@ -2,7 +2,7 @@ import Foundation
 import SwiftUI
 
 /// A release is a representation of a downloadable update.
-public struct Release: Codable, Sendable {
+public struct Release: Codable, Sendable, Hashable {
 
     /// The user-facing name of the release. Typically "Secretive 1.2.3"
     public let name: String
@@ -62,9 +62,9 @@ fileprivate extension AttributedString {
                 return AttributedString("\n") + string
                     .transformingAttributes(\.font) { font in
                         font.value = switch level {
-                        case 2: .title3.bold()
-                        case 3: .title3
-                        default: .body
+                        case 2: .headline.bold()
+                        case 3: .headline
+                        default: .subheadline
                         }
                     }
                     .transformingAttributes(\.underlineStyle) { underline in

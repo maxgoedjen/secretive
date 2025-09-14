@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct ToolbarButtonStyle: ButtonStyle {
+struct ToolbarStatusButtonStyle: ButtonStyle {
 
     private let lightColor: Color
     private let darkColor: Color
@@ -56,3 +56,24 @@ struct ToolbarButtonStyle: ButtonStyle {
         }
     }
 }
+
+struct ToolbarButtonStyle: ButtonStyle {
+
+    var tint: Color = .white.opacity(0.1)
+
+    func makeBody(configuration: Configuration) -> some View {
+        if #available(macOS 26.0, *) {
+            configuration
+                .label
+                .padding(10)
+                .glassEffect(.regular.interactive().tint(tint))
+        } else {
+            configuration
+                .label
+                .padding(EdgeInsets(top: 6, leading: 8, bottom: 6, trailing: 8))
+                .foregroundColor(.white)
+                .clipShape(RoundedRectangle(cornerRadius: 5))
+        }
+    }
+}
+

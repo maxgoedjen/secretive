@@ -3,61 +3,50 @@ import Brief
 
 struct UpdateDetailView: View {
 
-    @Environment(\.updater) var updater: any UpdaterProtocol
+    @Environment(\.updater) var updater
+    @Environment(\.openURL) var openURL
 
     let update: Release
 
     var body: some View {
-        VStack {
-            Text(.updateVersionName(updateName: update.name)).font(.title)
-            GroupBox(label: Text(.updateReleaseNotesTitle)) {
-                ScrollView {
-                    attributedBody
-                }
-            }
-            HStack {
-                if !update.critical {
-                    Button(.updateIgnoreButton) {
-                        Task {
-                            await updater.ignore(release: update)
+            VStack(spacing: 0) {
+                HStack {
+                    if !update.critical {
+                        Button(.updateIgnoreButton) {
+                            Task {
+                                await updater.ignore(release: update)
+                            }
                         }
+                        .buttonStyle(ToolbarButtonStyle())
                     }
                     Spacer()
+                    if updater.currentVersion.isTestBuild {
+                        Button(.updaterDownloadLatestNightlyButton) {
+                            openURL(URL(string: "https://github.com/maxgoedjen/secretive/actions/workflows/nightly.yml")!)
+                        }
+                        .buttonStyle(ToolbarButtonStyle(tint: .accentColor))
+                    }
+                    Button(.updateUpdateButton) {
+                        openURL(update.html_url)
+                    }
+                    .buttonStyle(ToolbarButtonStyle(tint: .accentColor))
+                    .keyboardShortcut(.defaultAction)
                 }
-                Button(.updateUpdateButton) {
-                    NSWorkspace.shared.open(update.html_url)
+                .padding()
+                Divider()
+                Form {
+                    Section {
+                        Text(update.attributedBody)
+                    } header: {
+                        Text(.updateVersionName(updateName: update.name))                    .headerProminence(.increased)
+                    }
                 }
-                .keyboardShortcut(.defaultAction)
-            }
-            
+                .formStyle(.grouped)
         }
-        .padding()
-        .frame(maxWidth: 500)
     }
 
-    var attributedBody: Text {
-        var text = Text(verbatim: "")
-        for line in update.body.split(whereSeparator: \.isNewline) {
-            let attributed: Text
-            let split = line.split(separator: " ")
-            let unprefixed = split.dropFirst().joined(separator: " ")
-            if let prefix = split.first {
-                switch prefix {
-                case "#":
-                    attributed = Text(unprefixed).font(.title) + Text(verbatim: "\n")
-                case "##":
-                    attributed = Text(unprefixed).font(.title2) + Text(verbatim: "\n")
-                case "###":
-                    attributed = Text(unprefixed).font(.title3) + Text(verbatim: "\n")
-                default:
-                    attributed = Text(line) + Text(verbatim: "\n\n")
-                }
-            } else {
-                attributed = Text(line) + Text(verbatim: "\n\n")
-            }
-            text = text + attributed
-        }
-        return text
-    }
+}
 
+#Preview {
+    UpdateDetailView(update: .init(name: "3.0.0", prerelease: false, html_url: URL(string: "https://example.com")!, body: "Hello"))
 }
