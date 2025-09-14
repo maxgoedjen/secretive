@@ -16,7 +16,7 @@ struct ContentView: View {
     @Environment(\.updater) private var updater
     @Environment(\.agentStatusChecker) private var agentStatusChecker
 
-    @State private var hasRunSetup = false
+    @AppStorage("defaultsHasRunSetup") private var hasRunSetup = false
     @State private var showingCreation = false
     @State private var showingAppPathNotice = false
     @State private var runningSetup = false
