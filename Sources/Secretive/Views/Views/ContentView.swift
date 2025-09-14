@@ -8,7 +8,7 @@ struct ContentView: View {
 
     @AppStorage("defaultsHasRunSetup") var hasRunSetup = false
     @State var showingCreation = false
-    @State var runningSetup = true
+    @State var runningSetup = false
     @State var showingAgentInfo = false
     @State var activeSecret: AnySecret?
     @Environment(\.colorScheme) var colorScheme
