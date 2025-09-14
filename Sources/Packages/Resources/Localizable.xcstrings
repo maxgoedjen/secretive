@@ -17032,6 +17032,9 @@
         }
       }
     },
+    "macOS Tahoe or Later Required" : {
+
+    },
     "no_secure_storage_description" : {
       "extractionState" : "manual",
       "localizations" : {

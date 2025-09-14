@@ -62,9 +62,32 @@ public protocol SecretStoreModifiable<SecretType>: SecretStore {
     ///   - attributes: The new attributes for the secret.
     func update(secret: SecretType, name: String, attributes: Attributes) async throws
 
-    var supportedKeyTypes: [KeyType] { get }
+    var supportedKeyTypes: KeyAvailability { get }
 
 }
+
+public struct KeyAvailability: Sendable {
+
+    public let available: [KeyType]
+    public let unavailable: [UnavailableKeyType]
+
+    public init(available: [KeyType], unavailable: [UnavailableKeyType]) {
+        self.available = available
+        self.unavailable = unavailable
+    }
+
+    public struct UnavailableKeyType: Sendable {
+        public let keyType: KeyType
+        public let reason: LocalizedStringResource
+
+        public init(keyType: KeyType, reason: LocalizedStringResource) {
+            self.keyType = keyType
+            self.reason = reason
+        }
+    }
+
+}
+
 
 extension NSNotification.Name {
 

@@ -75,10 +75,20 @@ struct CreateSecretView<StoreType: SecretStoreModifiable>: View {
                     Section {
                         VStack {
                             Picker(.createSecretKeyTypeLabel, selection: $keyType) {
-                                ForEach(store.supportedKeyTypes, id: \.self) { option in
+                                ForEach(store.supportedKeyTypes.available, id: \.self) { option in
                                     Text(String(describing: option))
                                         .tag(option)
                                         .font(.caption)
+                                }
+                                Divider()
+                                ForEach(store.supportedKeyTypes.unavailable, id: \.keyType) { option in
+                                    VStack {
+                                        Text(String(describing: option.keyType))
+                                            .font(.caption)
+                                        Text(option.reason)
+                                            .font(.caption)
+                                    }
+                                    .disabled(true)
                                 }
                             }
                             if keyType?.algorithm == .mldsa {
@@ -119,7 +129,7 @@ struct CreateSecretView<StoreType: SecretStoreModifiable>: View {
             .padding()
         }
         .onAppear {
-            keyType = store.supportedKeyTypes.first
+            keyType = store.supportedKeyTypes.available.first
         }
         .formStyle(.grouped)
     }
@@ -146,6 +156,6 @@ struct CreateSecretView<StoreType: SecretStoreModifiable>: View {
 
 }
 
-//#Preview {
-//    CreateSecretView(store: Preview.StoreModifiable()) { _ in }
-//}
+#Preview {
+    CreateSecretView(store: Preview.StoreModifiable()) { _ in }
+}
