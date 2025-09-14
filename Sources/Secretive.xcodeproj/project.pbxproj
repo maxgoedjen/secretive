@@ -19,7 +19,6 @@
 		5003EF632780081B00DF2006 /* SecureEnclaveSecretKit in Frameworks */ = {isa = PBXBuildFile; productRef = 5003EF622780081B00DF2006 /* SecureEnclaveSecretKit */; };
 		5003EF652780081B00DF2006 /* SmartCardSecretKit in Frameworks */ = {isa = PBXBuildFile; productRef = 5003EF642780081B00DF2006 /* SmartCardSecretKit */; };
 		5008C23E2E525D8900507AC2 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 5008C23D2E525D8200507AC2 /* Localizable.xcstrings */; };
-		5008C2402E52792400507AC2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 50617D8623FCE48E0099B055 /* Assets.xcassets */; };
 		5008C2412E52D18700507AC2 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 5008C23D2E525D8200507AC2 /* Localizable.xcstrings */; };
 		501421622781262300BBAA70 /* Brief in Frameworks */ = {isa = PBXBuildFile; productRef = 501421612781262300BBAA70 /* Brief */; };
 		501421652781268000BBAA70 /* SecretAgent.app in CopyFiles */ = {isa = PBXBuildFile; fileRef = 50A3B78A24026B7500D209EA /* SecretAgent.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -36,7 +35,6 @@
 		50571E0524393D1500F76F6C /* LaunchAgentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50571E0424393D1500F76F6C /* LaunchAgentController.swift */; };
 		50617D8323FCE48E0099B055 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50617D8223FCE48E0099B055 /* App.swift */; };
 		50617D8523FCE48E0099B055 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50617D8423FCE48E0099B055 /* ContentView.swift */; };
-		50617D8723FCE48E0099B055 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 50617D8623FCE48E0099B055 /* Assets.xcassets */; };
 		50617D8A23FCE48E0099B055 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 50617D8923FCE48E0099B055 /* Preview Assets.xcassets */; };
 		50617DD223FCEFA90099B055 /* PreviewStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50617DD123FCEFA90099B055 /* PreviewStore.swift */; };
 		5065E313295517C500E16645 /* ToolbarButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5065E312295517C500E16645 /* ToolbarButtonStyle.swift */; };
@@ -74,6 +72,8 @@
 		50CF4ABC2E601B0F005588DC /* ActionButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50CF4ABB2E601B0F005588DC /* ActionButtonStyle.swift */; };
 		50E4C4532E73C78C00C73783 /* WindowBackgroundStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E4C4522E73C78900C73783 /* WindowBackgroundStyle.swift */; };
 		50E4C4C32E7765DF00C73783 /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E4C4C22E7765DF00C73783 /* AboutView.swift */; };
+		50E4C4C82E777E4200C73783 /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = 50E4C4C72E777E4200C73783 /* AppIcon.icon */; };
+		50E4C4C92E777E4200C73783 /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = 50E4C4C72E777E4200C73783 /* AppIcon.icon */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -198,7 +198,6 @@
 		50617D7F23FCE48E0099B055 /* Secretive.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Secretive.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		50617D8223FCE48E0099B055 /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		50617D8423FCE48E0099B055 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		50617D8623FCE48E0099B055 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		50617D8923FCE48E0099B055 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		50617D8E23FCE48E0099B055 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		50617D8F23FCE48E0099B055 /* Secretive.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Secretive.entitlements; sourceTree = "<group>"; };
@@ -241,6 +240,7 @@
 		50CF4ABB2E601B0F005588DC /* ActionButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionButtonStyle.swift; sourceTree = "<group>"; };
 		50E4C4522E73C78900C73783 /* WindowBackgroundStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowBackgroundStyle.swift; sourceTree = "<group>"; };
 		50E4C4C22E7765DF00C73783 /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
+		50E4C4C72E777E4200C73783 /* AppIcon.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = AppIcon.icon; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -379,9 +379,9 @@
 				508A58B0241ED1C40069DC07 /* Views */,
 				508A58B1241ED1EA0069DC07 /* Controllers */,
 				50033AC427813F1C00253856 /* Helpers */,
-				50617D8623FCE48E0099B055 /* Assets.xcassets */,
 				50617D8E23FCE48E0099B055 /* Info.plist */,
 				508BF28D25B4F005009EFB7E /* InternetAccessPolicy.plist */,
+				50E4C4C72E777E4200C73783 /* AppIcon.icon */,
 				50617D8F23FCE48E0099B055 /* Secretive.entitlements */,
 				5008C23D2E525D8200507AC2 /* Localizable.xcstrings */,
 				50617D8823FCE48E0099B055 /* Preview Content */,
@@ -646,8 +646,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				50617D8A23FCE48E0099B055 /* Preview Assets.xcassets in Resources */,
+				50E4C4C82E777E4200C73783 /* AppIcon.icon in Resources */,
 				5008C23E2E525D8900507AC2 /* Localizable.xcstrings in Resources */,
-				50617D8723FCE48E0099B055 /* Assets.xcassets in Resources */,
 				508BF28E25B4F005009EFB7E /* InternetAccessPolicy.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -673,8 +673,8 @@
 				50A3B79724026B7600D209EA /* Main.storyboard in Resources */,
 				5008C2412E52D18700507AC2 /* Localizable.xcstrings in Resources */,
 				50A3B79424026B7600D209EA /* Preview Assets.xcassets in Resources */,
+				50E4C4C92E777E4200C73783 /* AppIcon.icon in Resources */,
 				508BF2AA25B4F1CB009EFB7E /* InternetAccessPolicy.plist in Resources */,
-				5008C2402E52792400507AC2 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

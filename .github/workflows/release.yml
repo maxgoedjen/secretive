@@ -77,7 +77,7 @@ jobs:
       uses: actions/attest-build-provenance@v2
       with:
         subject-name: "Secretive.zip"
-        subject-digest: ${{ steps.upload.outputs.artifact-digest }}
+        subject-digest: sha256:${{ steps.upload.outputs.artifact-digest }}
     - name: Create Release
       run: |
             sed -i.tmp "s/RUN_ID/$RUN_ID/g" .github/templates/release.md
