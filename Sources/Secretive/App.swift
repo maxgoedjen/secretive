@@ -32,6 +32,10 @@ struct Secretive: App {
         WindowGroup(id: String(describing: IntegrationsView.self)) {
             IntegrationsView()
         }
+        WindowGroup(id: String(describing: AboutView.self)) {
+            AboutView()
+        }
+        .windowStyle(.hiddenTitleBar)
     }
 
 }
@@ -45,6 +49,11 @@ extension Secretive {
         @FocusedValue(\.showCreateSecret) var showCreateSecret
 
         var body: some Commands {
+            CommandGroup(replacing: .appInfo) {
+                Button(.aboutMenuBarTitle, systemImage: "info.circle") {
+                    openWindow(id: String(describing: AboutView.self))
+                }
+            }
             CommandGroup(before: CommandGroupPlacement.appSettings) {
                 Button(.integrationsMenuBarTitle, systemImage: "app.connected.to.app.below.fill") {
                     openWindow(id: String(describing: IntegrationsView.self))
