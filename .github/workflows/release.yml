@@ -83,7 +83,7 @@ jobs:
             sed -i.tmp "s/RUN_ID/$RUN_ID/g" .github/templates/release.md
             sed -i.tmp "s/ATTESTATION_ID/$ATTESTATION_ID/g" .github/templates/release.md
             gh release create $TAG_NAME -d -F .github/templates/release.md
-            gh release upload Secretive.zip
+            gh release upload $TAG_NAME Secretive.zip
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         TAG_NAME: ${{ github.ref }}
