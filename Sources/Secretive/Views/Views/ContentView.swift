@@ -167,17 +167,17 @@ extension ContentView {
                 .foregroundColor(.white)
             })
             .buttonStyle(ToolbarStatusButtonStyle(color: .orange))
-            .popover(isPresented: $showingAppPathNotice, attachmentAnchor: attachmentAnchor, arrowEdge: .bottom) {
-                VStack {
-                    Image(systemName: "exclamationmark.triangle")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 64)
-                    Text(.appNotInApplicationsNoticeDetailDescription)
-                        .frame(maxWidth: 300)
+            .confirmationDialog(.appNotInApplicationsNoticeTitle, isPresented: $showingAppPathNotice) {
+                Button(.appNotInApplicationsNoticeCancelButton, role:  .cancel) {
                 }
-                .padding()
+                Button(.appNotInApplicationsNoticeQuitButton) {
+                    NSWorkspace.shared.selectFile(Bundle.main.bundlePath, inFileViewerRootedAtPath: Bundle.main.bundlePath)
+                    NSApplication.shared.terminate(nil)
+                }
+            } message: {
+                Text(.appNotInApplicationsNoticeDetailDescription)
             }
+            .dialogIcon(Image(systemName: "folder.fill.badge.questionmark"))
         }
     }
 

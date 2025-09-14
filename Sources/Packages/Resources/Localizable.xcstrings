@@ -3139,6 +3139,17 @@
         }
       }
     },
+    "app_not_in_applications_notice_cancel_button" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cancel"
+          }
+        }
+      }
+    },
     "app_not_in_applications_notice_detail_description" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -3320,6 +3331,17 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "Secretive needs to be in your Applications folder to work properly. Please move it and relaunch."
+          }
+        }
+      }
+    },
+    "app_not_in_applications_notice_quit_button" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Quit"
           }
         }
       }
