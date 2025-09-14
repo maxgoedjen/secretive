@@ -177,6 +177,73 @@
             "value" : ""
           }
         }
+      },
+      "shouldTranslate" : false
+    },
+    "**%@** (%@)" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "**%1$@** (%2$@)"
+          }
+        }
+      },
+      "shouldTranslate" : false
+    },
+    "about_build_log_button" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Build Log"
+          }
+        }
+      }
+    },
+    "about_menu_bar_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "About Secretive"
+          }
+        }
+      }
+    },
+    "about_open_source_notice" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Secretive is Open Source and MIT Licensed"
+          }
+        }
+      }
+    },
+    "about_thanks" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Special thanks our [Contributors](%1$(contributorsLink)@) and [Sponsors](%2$(sponsorsLink)@)"
+          }
+        }
+      }
+    },
+    "about_view_on_github_button" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "View on GitHub"
+          }
+        }
       }
     },
     "agent_details_could_not_start_error" : {
