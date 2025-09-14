@@ -32,6 +32,7 @@ struct ToolConfigurationView: View {
                                         selectedSecret = created
                                     }
                                 }
+                                .fixedSize()
                             }
                         }
                     }

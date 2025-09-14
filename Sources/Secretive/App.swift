@@ -9,13 +9,13 @@ struct Secretive: App {
     
     @Environment(\.agentStatusChecker) var agentStatusChecker
     @Environment(\.justUpdatedChecker) var justUpdatedChecker
-    @AppStorage("defaultsHasRunSetup") var hasRunSetup = false
 
     @SceneBuilder var body: some Scene {
         WindowGroup {
             ContentView()
                 .environment(EnvironmentValues._secretStoreList)
                 .onReceive(NotificationCenter.default.publisher(for: NSApplication.didBecomeActiveNotification)) { _ in
+                    @AppStorage("defaultsHasRunSetup") var hasRunSetup = false
                     guard hasRunSetup else { return }
                     agentStatusChecker.check()
                     if agentStatusChecker.running && justUpdatedChecker.justUpdatedBuild {
@@ -32,10 +32,12 @@ struct Secretive: App {
         WindowGroup(id: String(describing: IntegrationsView.self)) {
             IntegrationsView()
         }
+        .windowResizability(.contentMinSize)
         WindowGroup(id: String(describing: AboutView.self)) {
             AboutView()
         }
         .windowStyle(.hiddenTitleBar)
+        .windowResizability(.contentSize)
     }
 
 }

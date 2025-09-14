@@ -33,7 +33,7 @@ struct AboutViewContent: View {
                         Button(.aboutBuildLogButton) {
                             openURL(Bundle.main.buildLog)
                         }
-                            .normalButton()
+                        .normalButton()
                     }
                 }
             }
