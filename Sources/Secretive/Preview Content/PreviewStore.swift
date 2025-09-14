@@ -61,19 +61,15 @@ extension Preview {
         var name: String { "Modifiable Preview Store" }
         let secrets: [Secret]
         var supportedKeyTypes: KeyAvailability {
-            let macOS26Keys: [KeyType] = [.mldsa65, .mldsa87]
-            let isAtLeastMacOS26 = if #available(macOS 26, *) {
-                true
-            } else {
-                false
-            }
             return KeyAvailability(
                 available: [
                     .ecdsa256,
-                ] + (isAtLeastMacOS26 ? macOS26Keys : []),
-                unavailable: (isAtLeastMacOS26 ? [] : macOS26Keys).map {
-                    KeyAvailability.UnavailableKeyType(keyType: $0, reason: "macOS Tahoe or Later Required")
-                }
+                    .mldsa65,
+                    .mldsa87
+                ],
+                unavailable: [
+                    .init(keyType: .ecdsa384, reason: .macOSUpdateRequired)
+                ]
             )
         }
         

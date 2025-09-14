@@ -5754,6 +5754,17 @@
         }
       }
     },
+    "create_secret_key_type_macOS_update_required_label" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unavailable on this version of macOS"
+          }
+        }
+      }
+    },
     "create_secret_mldsa_warning" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -17031,9 +17042,6 @@
           }
         }
       }
-    },
-    "macOS Tahoe or Later Required" : {
-
     },
     "no_secure_storage_description" : {
       "extractionState" : "manual",

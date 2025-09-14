@@ -78,11 +78,15 @@ public struct KeyAvailability: Sendable {
 
     public struct UnavailableKeyType: Sendable {
         public let keyType: KeyType
-        public let reason: LocalizedStringResource
+        public let reason: Reason
 
-        public init(keyType: KeyType, reason: LocalizedStringResource) {
+        public init(keyType: KeyType, reason: Reason) {
             self.keyType = keyType
             self.reason = reason
+        }
+
+        public enum Reason: Sendable {
+            case macOSUpdateRequired
         }
     }
 

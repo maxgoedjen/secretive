@@ -198,7 +198,7 @@ extension SecureEnclave {
                     .ecdsa256,
                 ] + (isAtLeastMacOS26 ? macOS26Keys : []),
                 unavailable: (isAtLeastMacOS26 ? [] : macOS26Keys).map {
-                    KeyAvailability.UnavailableKeyType(keyType: $0, reason: "macOS Tahoe or Later Required")
+                    KeyAvailability.UnavailableKeyType(keyType: $0, reason: .macOSUpdateRequired)
                 }
             )
         }()
