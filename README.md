@@ -12,7 +12,7 @@ Secretive is an app for protecting and managing SSH keys with the Secure Enclave
 
 ### Safer Storage
 
-The most common setup for SSH keys is just keeping them on disk, guarded by proper permissions. This is fine in most cases, but it's not super hard for malicious users or malware to copy your private key. If you store your keys in the Secure Enclave, it's impossible to export them, by design.
+The most common setup for SSH keys is just keeping them on disk, guarded by proper permissions. This is fine in most cases, but it's not super hard for malicious users or malware to copy your private key. If you protect your keys with the Secure Enclave, it's impossible to export them, by design.
 
 ### Access Control
 
