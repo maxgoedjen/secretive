@@ -195,6 +195,7 @@
 		504789222E697DD300B4556F /* BoxBackgroundStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxBackgroundStyle.swift; sourceTree = "<group>"; };
 		50571E0224393C2600F76F6C /* JustUpdatedChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JustUpdatedChecker.swift; sourceTree = "<group>"; };
 		50571E0424393D1500F76F6C /* LaunchAgentController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchAgentController.swift; sourceTree = "<group>"; };
+		5059933F2E7A3B5B0092CFFA /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/Main.storyboard; sourceTree = "<group>"; };
 		50617D7F23FCE48E0099B055 /* Secretive.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Secretive.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		50617D8223FCE48E0099B055 /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		50617D8423FCE48E0099B055 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -227,7 +228,6 @@
 		5099A02323FD2AAA0062B6F2 /* CreateSecretView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateSecretView.swift; sourceTree = "<group>"; };
 		50A3B78A24026B7500D209EA /* SecretAgent.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SecretAgent.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		50A3B79324026B7600D209EA /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		50A3B79624026B7600D209EA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		50A3B79824026B7600D209EA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		50A3B79924026B7600D209EA /* SecretAgent.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SecretAgent.entitlements; sourceTree = "<group>"; };
 		50AE96FF2E5C1A420018C710 /* IntegrationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntegrationsView.swift; sourceTree = "<group>"; };
@@ -616,7 +616,6 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
-				Base,
 				it,
 				fr,
 				de,
@@ -788,7 +787,7 @@
 		50A3B79524026B7600D209EA /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				50A3B79624026B7600D209EA /* Base */,
+				5059933F2E7A3B5B0092CFFA /* en */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
