@@ -93,13 +93,13 @@
             "value" : ""
           }
         },
-        "nb" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : ""
           }
         },
-        "nl" : {
+        "no" : {
           "stringUnit" : {
             "state" : "new",
             "value" : ""
@@ -182,7 +182,181 @@
     },
     "**%@** (%@)" : {
       "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "**%1$@** (%2$@)"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "**%1$@** (%2$@)"
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "**%1$@** (%2$@)"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "**%1$@** (%2$@)"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "**%1$@** (%2$@)"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "**%1$@** (%2$@)"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "**%1$@** (%2$@)"
+          }
+        },
         "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "**%1$@** (%2$@)"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "**%1$@** (%2$@)"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "**%1$@** (%2$@)"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "**%1$@** (%2$@)"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "**%1$@** (%2$@)"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "**%1$@** (%2$@)"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "**%1$@** (%2$@)"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "**%1$@** (%2$@)"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "**%1$@** (%2$@)"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "**%1$@** (%2$@)"
+          }
+        },
+        "no" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "**%1$@** (%2$@)"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "**%1$@** (%2$@)"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "**%1$@** (%2$@)"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "**%1$@** (%2$@)"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "**%1$@** (%2$@)"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "**%1$@** (%2$@)"
+          }
+        },
+        "sr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "**%1$@** (%2$@)"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "**%1$@** (%2$@)"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "**%1$@** (%2$@)"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "**%1$@** (%2$@)"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "**%1$@** (%2$@)"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "**%1$@** (%2$@)"
+          }
+        },
+        "zh-Hant" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "**%1$@** (%2$@)"
@@ -194,9 +368,183 @@
     "about_build_log_button" : {
       "extractionState" : "manual",
       "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Build Log"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Build Log"
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Build Log"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Build Log"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Build Log"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Build Log"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Build Log"
+          }
+        },
         "en" : {
           "stringUnit" : {
+            "state" : "new",
+            "value" : "Build Log"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Build Log"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Build Log"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Build Log"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Build Log"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Build Log"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Build Log"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
             "state" : "translated",
+            "value" : "ビルドログ"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "빌드 로그"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Build Log"
+          }
+        },
+        "no" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Build Log"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Build Log"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Build Log"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Build Log"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Build Log"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Build Log"
+          }
+        },
+        "sr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Build Log"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Build Log"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Build Log"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Build Log"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Build Log"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Build Log"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "new",
             "value" : "Build Log"
           }
         }
@@ -205,9 +553,183 @@
     "about_menu_bar_title" : {
       "extractionState" : "manual",
       "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "About Secretive"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "About Secretive"
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "About Secretive"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "About Secretive"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "About Secretive"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "About Secretive"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "About Secretive"
+          }
+        },
         "en" : {
           "stringUnit" : {
+            "state" : "new",
+            "value" : "About Secretive"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "About Secretive"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "About Secretive"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "About Secretive"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "About Secretive"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "About Secretive"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "About Secretive"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
             "state" : "translated",
+            "value" : "Secretiveについて"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Secretive에 대해서"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "About Secretive"
+          }
+        },
+        "no" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "About Secretive"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "About Secretive"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "About Secretive"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "About Secretive"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "About Secretive"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "About Secretive"
+          }
+        },
+        "sr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "About Secretive"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "About Secretive"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "About Secretive"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "About Secretive"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "About Secretive"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "关于 Secretive"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "new",
             "value" : "About Secretive"
           }
         }
@@ -216,9 +738,183 @@
     "about_open_source_notice" : {
       "extractionState" : "manual",
       "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Secretive is Open Source and MIT Licensed"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Secretive is Open Source and MIT Licensed"
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Secretive is Open Source and MIT Licensed"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Secretive is Open Source and MIT Licensed"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Secretive is Open Source and MIT Licensed"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Secretive is Open Source and MIT Licensed"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Secretive is Open Source and MIT Licensed"
+          }
+        },
         "en" : {
           "stringUnit" : {
+            "state" : "new",
+            "value" : "Secretive is Open Source and MIT Licensed"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Secretive is Open Source and MIT Licensed"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Secretive is Open Source and MIT Licensed"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Secretive is Open Source and MIT Licensed"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Secretive is Open Source and MIT Licensed"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Secretive is Open Source and MIT Licensed"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Secretive is Open Source and MIT Licensed"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
             "state" : "translated",
+            "value" : "Secretiveはオープンソースです。MITライセンスで提供されています。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Secretive는 오픈 소스이며 MIT 라이선스입니다"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Secretive is Open Source and MIT Licensed"
+          }
+        },
+        "no" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Secretive is Open Source and MIT Licensed"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Secretive is Open Source and MIT Licensed"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Secretive is Open Source and MIT Licensed"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Secretive is Open Source and MIT Licensed"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Secretive is Open Source and MIT Licensed"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Secretive is Open Source and MIT Licensed"
+          }
+        },
+        "sr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Secretive is Open Source and MIT Licensed"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Secretive is Open Source and MIT Licensed"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Secretive is Open Source and MIT Licensed"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Secretive is Open Source and MIT Licensed"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Secretive is Open Source and MIT Licensed"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Secretive is Open Source and MIT Licensed"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "new",
             "value" : "Secretive is Open Source and MIT Licensed"
           }
         }
@@ -227,9 +923,183 @@
     "about_thanks" : {
       "extractionState" : "manual",
       "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Special thanks our [Contributors](%1$(contributorsLink)@) and [Sponsors](%2$(sponsorsLink)@)"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Special thanks our [Contributors](%1$(contributorsLink)@) and [Sponsors](%2$(sponsorsLink)@)"
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Special thanks our [Contributors](%1$(contributorsLink)@) and [Sponsors](%2$(sponsorsLink)@)"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Special thanks our [Contributors](%1$(contributorsLink)@) and [Sponsors](%2$(sponsorsLink)@)"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Special thanks our [Contributors](%1$(contributorsLink)@) and [Sponsors](%2$(sponsorsLink)@)"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Special thanks our [Contributors](%1$(contributorsLink)@) and [Sponsors](%2$(sponsorsLink)@)"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Special thanks our [Contributors](%1$(contributorsLink)@) and [Sponsors](%2$(sponsorsLink)@)"
+          }
+        },
         "en" : {
           "stringUnit" : {
+            "state" : "new",
+            "value" : "Special thanks our [Contributors](%1$(contributorsLink)@) and [Sponsors](%2$(sponsorsLink)@)"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Special thanks our [Contributors](%1$(contributorsLink)@) and [Sponsors](%2$(sponsorsLink)@)"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Special thanks our [Contributors](%1$(contributorsLink)@) and [Sponsors](%2$(sponsorsLink)@)"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Special thanks our [Contributors](%1$(contributorsLink)@) and [Sponsors](%2$(sponsorsLink)@)"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Special thanks our [Contributors](%1$(contributorsLink)@) and [Sponsors](%2$(sponsorsLink)@)"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Special thanks our [Contributors](%1$(contributorsLink)@) and [Sponsors](%2$(sponsorsLink)@)"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Special thanks our [Contributors](%1$(contributorsLink)@) and [Sponsors](%2$(sponsorsLink)@)"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
             "state" : "translated",
+            "value" : "[コントリビューター](%1$(contributorsLink)@)と[スポンサー](%2$(sponsorsLink)@)に感謝します"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "[기여자](%1$(contributorsLink)@)와 [후원자](%2$(sponsorsLink)@)에게 특별히 감사드립니다"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Special thanks our [Contributors](%1$(contributorsLink)@) and [Sponsors](%2$(sponsorsLink)@)"
+          }
+        },
+        "no" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Special thanks our [Contributors](%1$(contributorsLink)@) and [Sponsors](%2$(sponsorsLink)@)"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Special thanks our [Contributors](%1$(contributorsLink)@) and [Sponsors](%2$(sponsorsLink)@)"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Special thanks our [Contributors](%1$(contributorsLink)@) and [Sponsors](%2$(sponsorsLink)@)"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Special thanks our [Contributors](%1$(contributorsLink)@) and [Sponsors](%2$(sponsorsLink)@)"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Special thanks our [Contributors](%1$(contributorsLink)@) and [Sponsors](%2$(sponsorsLink)@)"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Special thanks our [Contributors](%1$(contributorsLink)@) and [Sponsors](%2$(sponsorsLink)@)"
+          }
+        },
+        "sr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Special thanks our [Contributors](%1$(contributorsLink)@) and [Sponsors](%2$(sponsorsLink)@)"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Special thanks our [Contributors](%1$(contributorsLink)@) and [Sponsors](%2$(sponsorsLink)@)"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Special thanks our [Contributors](%1$(contributorsLink)@) and [Sponsors](%2$(sponsorsLink)@)"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Special thanks our [Contributors](%1$(contributorsLink)@) and [Sponsors](%2$(sponsorsLink)@)"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Special thanks our [Contributors](%1$(contributorsLink)@) and [Sponsors](%2$(sponsorsLink)@)"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Special thanks our [Contributors](%1$(contributorsLink)@) and [Sponsors](%2$(sponsorsLink)@)"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "new",
             "value" : "Special thanks our [Contributors](%1$(contributorsLink)@) and [Sponsors](%2$(sponsorsLink)@)"
           }
         }
@@ -238,9 +1108,183 @@
     "about_view_on_github_button" : {
       "extractionState" : "manual",
       "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "View on GitHub"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "View on GitHub"
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "View on GitHub"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "View on GitHub"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "View on GitHub"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "View on GitHub"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "View on GitHub"
+          }
+        },
         "en" : {
           "stringUnit" : {
+            "state" : "new",
+            "value" : "View on GitHub"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "View on GitHub"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "View on GitHub"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "View on GitHub"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "View on GitHub"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "View on GitHub"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "View on GitHub"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
             "state" : "translated",
+            "value" : "GitHub"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "GitHub에서 보기"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "View on GitHub"
+          }
+        },
+        "no" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "View on GitHub"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "View on GitHub"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "View on GitHub"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "View on GitHub"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "View on GitHub"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "View on GitHub"
+          }
+        },
+        "sr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "View on GitHub"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "View on GitHub"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "View on GitHub"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "View on GitHub"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "View on GitHub"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "View on GitHub"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "new",
             "value" : "View on GitHub"
           }
         }
@@ -281,14 +1325,14 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Secretive was unable to get SecretAgent to launch. Please try restarting your Mac, and if that doesn't work, file an issue on GitHub."
+            "state" : "translated",
+            "value" : "Secretive konnte den SecretAgent nicht starten. Bitte versuche Deinen Mac neu zu starten und wenn das nicht funktioniert, ein Issue auf GitHub zu erstellen."
           }
         },
         "el" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Secretive was unable to get SecretAgent to launch. Please try restarting your Mac, and if that doesn't work, file an issue on GitHub."
+            "state" : "translated",
+            "value" : "Το Secretive δεν μπόρεσε να εκκινήσει τον SecretAgent. Παρακαλώ δοκιμάστε να επανεκκινήσετε τον Mac σας, και αν αυτό δεν λειτουργήσει, ανοίξτε ένα issue στο GitHub."
           }
         },
         "en" : {
@@ -345,13 +1389,13 @@
             "value" : "Secretive에서 SecretAgent를 실행할 수 없습니다. Mac을 재시작해 보시고, 그래도 문제가 해결되지 않으면 GitHub에 문제를 제출해 주세요."
           }
         },
-        "nb" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Secretive was unable to get SecretAgent to launch. Please try restarting your Mac, and if that doesn't work, file an issue on GitHub."
           }
         },
-        "nl" : {
+        "no" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Secretive was unable to get SecretAgent to launch. Please try restarting your Mac, and if that doesn't work, file an issue on GitHub."
@@ -466,14 +1510,14 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Disable Agent"
+            "state" : "translated",
+            "value" : "Agent deaktivieren"
           }
         },
         "el" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Disable Agent"
+            "state" : "translated",
+            "value" : "Απενεργοποίηση Πράκτορα"
           }
         },
         "en" : {
@@ -530,13 +1574,13 @@
             "value" : "에이전트 비활성화"
           }
         },
-        "nb" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Disable Agent"
           }
         },
-        "nl" : {
+        "no" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Disable Agent"
@@ -651,14 +1695,14 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Restart Agent"
+            "state" : "translated",
+            "value" : "Agent neu starten"
           }
         },
         "el" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Restart Agent"
+            "state" : "translated",
+            "value" : "Επανεκκίνηση Πράκτορα"
           }
         },
         "en" : {
@@ -715,13 +1759,13 @@
             "value" : "에이전트 재시작"
           }
         },
-        "nb" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Restart Agent"
           }
         },
-        "nl" : {
+        "no" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Restart Agent"
@@ -836,14 +1880,14 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Running Since"
+            "state" : "translated",
+            "value" : "Läuft seit"
           }
         },
         "el" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Running Since"
+            "state" : "translated",
+            "value" : "Εκτελείται Από"
           }
         },
         "en" : {
@@ -900,13 +1944,13 @@
             "value" : "실행 시각"
           }
         },
-        "nb" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Running Since"
           }
         },
-        "nl" : {
+        "no" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Running Since"
@@ -1021,13 +2065,13 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Socket Path"
+            "state" : "translated",
+            "value" : "Socket-Pfad"
           }
         },
         "el" : {
           "stringUnit" : {
-            "state" : "new",
+            "state" : "translated",
             "value" : "Socket Path"
           }
         },
@@ -1085,13 +2129,13 @@
             "value" : "소켓 경로"
           }
         },
-        "nb" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Socket Path"
           }
         },
-        "nl" : {
+        "no" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Socket Path"
@@ -1206,14 +2250,14 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Start Agent"
+            "state" : "translated",
+            "value" : "Agent starten"
           }
         },
         "el" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Start Agent"
+            "state" : "translated",
+            "value" : "Έναρξη SecretAgent"
           }
         },
         "en" : {
@@ -1270,13 +2314,13 @@
             "value" : "에이전트 시작"
           }
         },
-        "nb" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Start Agent"
           }
         },
-        "nl" : {
+        "no" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Start Agent"
@@ -1391,14 +2435,14 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Starting Agent"
+            "state" : "translated",
+            "value" : "Agent wird gestartet"
           }
         },
         "el" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Starting Agent"
+            "state" : "translated",
+            "value" : "Έναρξη Πράκτορα"
           }
         },
         "en" : {
@@ -1455,13 +2499,13 @@
             "value" : "에이전트 시작중"
           }
         },
-        "nb" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Starting Agent"
           }
         },
-        "nl" : {
+        "no" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Starting Agent"
@@ -1576,14 +2620,14 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
+            "state" : "translated",
             "value" : "Version"
           }
         },
         "el" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Version"
+            "state" : "translated",
+            "value" : "Έκδοση"
           }
         },
         "en" : {
@@ -1640,13 +2684,13 @@
             "value" : "버전"
           }
         },
-        "nb" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Version"
           }
         },
-        "nl" : {
+        "no" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Version"
@@ -1761,14 +2805,14 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "SecretAgent is a process that runs in the background to sign requests, so you don't need to keep Secretive open all the time.\n\n**Secretive will not be able to function properly unless the agent is installed and running.**"
+            "state" : "translated",
+            "value" : "SecretAgent ist ein Hintergrund-Prozess, der Anfragen signiert, sodass Du Secretive nicht durchgehend geöffnet haben musst.\n\n**Secretive wird nicht richtig funktionieren, wenn der Agent nicht installiert und ausgeführt wird.**"
           }
         },
         "el" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "SecretAgent is a process that runs in the background to sign requests, so you don't need to keep Secretive open all the time.\n\n**Secretive will not be able to function properly unless the agent is installed and running.**"
+            "state" : "translated",
+            "value" : "Το SecretAgent είναι μια διεργασία που εκτελείται στο παρασκήνιο για να υπογράφει αιτήματα. Δεν χρειάζεται να κρατάτε παράθυρο του Secretive ανοιχτό συνεχώς.\n\n**Το Secretive δεν θα μπορεί να λειτουργήσει σωστά εκτός και αν o Agent είναι εγκατεστημένος και εκτελείται.**"
           }
         },
         "en" : {
@@ -1825,13 +2869,13 @@
             "value" : "SecretAgent는 백그라운드에서 실행되어 요청에 서명하는 프로세스이므로 Secretive를 항상 열어 둘 필요는 없습니다.\n\n**Secretive 에이전트가 설치되어 실행 중이어야 Secretive가 제대로 작동합니다.**"
           }
         },
-        "nb" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "SecretAgent is a process that runs in the background to sign requests, so you don't need to keep Secretive open all the time.\n\n**Secretive will not be able to function properly unless the agent is installed and running.**"
           }
         },
-        "nl" : {
+        "no" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "SecretAgent is a process that runs in the background to sign requests, so you don't need to keep Secretive open all the time.\n\n**Secretive will not be able to function properly unless the agent is installed and running.**"
@@ -1952,8 +2996,8 @@
         },
         "el" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Agent Is Not Running"
+            "state" : "translated",
+            "value" : "Ο Agent Δεν Εκτελείται"
           }
         },
         "en" : {
@@ -2010,13 +3054,13 @@
             "value" : "Agent가 실행되고 있지 않음"
           }
         },
-        "nb" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Agent Is Not Running"
           }
         },
-        "nl" : {
+        "no" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Agent Is Not Running"
@@ -2137,8 +3181,8 @@
         },
         "el" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "SecretAgent is a process that runs in the background to sign requests, so you don't need to keep Secretive open all the time.\n\n**You can close Secretive, and everything will still keep working.**"
+            "state" : "translated",
+            "value" : "Το SecretAgent είναι μια διεργασία που εκτελείται στο παρασκήνιο για να υπογράφει αιτήματα. Δεν χρειάζεται να κρατάτε παράθυρο του Secretive ανοιχτό συνεχώς.\n\n**Το Secretive δεν θα μπορεί να λειτουργήσει σωστά εκτός και αν o Agent είναι εγκατεστημένος και εκτελείται.**"
           }
         },
         "en" : {
@@ -2156,7 +3200,7 @@
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "SecretAgent on taustaprosessi joka allekirjoittaa pyyntöjä, joten Secretiveä ei tarvitse pitää käynnissä koko aikaa.  **Voit sulkea Secretiven, ja kaikki toimii yhä.**"
+            "value" : "SecretAgent on taustaprosessi joka allekirjoittaa pyyntöjä, joten Secretiveä ei tarvitse pitää käynnissä koko aikaa.\u2028\u2028**Voit sulkea Secretiven, ja kaikki toimii yhä.**"
           }
         },
         "fr" : {
@@ -2195,13 +3239,13 @@
             "value" : "SecretAgent는 요청에 서명하기 위해 백그라운드에서 실행되는 프로세스이므로 Secretive를 항상 열어 둘 필요가 없습니다.\n\n**Secretive를 닫아도 모든 것이 계속 작동합니다.**"
           }
         },
-        "nb" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "SecretAgent is a process that runs in the background to sign requests, so you don't need to keep Secretive open all the time.\n\n**You can close Secretive, and everything will still keep working.**"
           }
         },
-        "nl" : {
+        "no" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "SecretAgent is a process that runs in the background to sign requests, so you don't need to keep Secretive open all the time.\n\n**You can close Secretive, and everything will still keep working.**"
@@ -2234,7 +3278,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "SecretAgent это процесс, который работает в фоне чтобы подписывать запросы – так Вам не нужно держать Secretive открытым все время.\n\n**Вы можете закрыть Secretive, и все продолжит работать штатно.**"
+            "value" : "SecretAgent это процесс, который работает в фоне, чтобы подписывать запросы – так Вам не нужно держать Secretive открытым все время.\n\n**Вы можете закрыть Secretive, и все продолжит работать штатно.**"
           }
         },
         "sr" : {
@@ -2322,8 +3366,8 @@
         },
         "el" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Secret Agent is Running"
+            "state" : "translated",
+            "value" : "Ο Πράκτορας εκτελείται"
           }
         },
         "en" : {
@@ -2380,13 +3424,13 @@
             "value" : "Secret Agent가 실행 중입니다."
           }
         },
-        "nb" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Secret Agent is Running"
           }
         },
-        "nl" : {
+        "no" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Secret Agent is Running"
@@ -2565,13 +3609,13 @@
             "value" : "Agent가 실행중"
           }
         },
-        "nb" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Agent is Running"
           }
         },
-        "nl" : {
+        "no" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Agent is Running"
@@ -2686,14 +3730,14 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Secret Agent Location"
+            "state" : "translated",
+            "value" : "SecretAgent-Pfad"
           }
         },
         "el" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Secret Agent Location"
+            "state" : "translated",
+            "value" : "Τοποθεσία Secret Agent"
           }
         },
         "en" : {
@@ -2750,13 +3794,13 @@
             "value" : "Secret Agent 경로"
           }
         },
-        "nb" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Secret Agent Location"
           }
         },
-        "nl" : {
+        "no" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Secret Agent Location"
@@ -2935,13 +3979,13 @@
             "value" : "도움말"
           }
         },
-        "nb" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Help"
           }
         },
-        "nl" : {
+        "no" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Help"
@@ -3120,13 +4164,13 @@
             "value" : "새 비밀"
           }
         },
-        "nb" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "New Secret"
           }
         },
-        "nl" : {
+        "no" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "New Secret"
@@ -3209,9 +4253,135 @@
     "app_not_in_applications_notice_cancel_button" : {
       "extractionState" : "manual",
       "localizations" : {
-        "en" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Later"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Later"
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Later"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Later"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Later"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Later"
+          }
+        },
+        "el" : {
           "stringUnit" : {
             "state" : "translated",
+            "value" : "Εφαρμογή αργότερα"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Later"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Later"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Later"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Later"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Later"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Later"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Later"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "後にする"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "나중에"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Later"
+          }
+        },
+        "no" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Later"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Later"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Later"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Later"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "new",
             "value" : "Later"
           }
         },
@@ -3219,6 +4389,48 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Позже"
+          }
+        },
+        "sr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Later"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Later"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Later"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Later"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Later"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Later"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Later"
           }
         }
       }
@@ -3322,13 +4534,13 @@
             "value" : "Secretive가 제대로 작동하려면 Applications 폴더에 있어야 합니다. 이동한 후 다시 실행해 주세요."
           }
         },
-        "nb" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Secretive needs to be in your Applications folder to work properly. Please move it and relaunch."
           }
         },
-        "nl" : {
+        "no" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Secretive needs to be in your Applications folder to work properly. Please move it and relaunch."
@@ -3411,9 +4623,135 @@
     "app_not_in_applications_notice_quit_button" : {
       "extractionState" : "manual",
       "localizations" : {
-        "en" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Quit"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Quit"
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Quit"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Quit"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Quit"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Quit"
+          }
+        },
+        "el" : {
           "stringUnit" : {
             "state" : "translated",
+            "value" : "Έξοδος"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Quit"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Quit"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Quit"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Quit"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Quit"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Quit"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Quit"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "終了"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "종료"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Quit"
+          }
+        },
+        "no" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Quit"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Quit"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Quit"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Quit"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "new",
             "value" : "Quit"
           }
         },
@@ -3421,6 +4759,48 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Выйти"
+          }
+        },
+        "sr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Quit"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Quit"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Quit"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Quit"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Quit"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Quit"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Quit"
           }
         }
       }
@@ -3524,13 +4904,13 @@
             "value" : "Secretive가 Applications 폴더에 없음"
           }
         },
-        "nb" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Secretive Is Not in Applications Folder"
           }
         },
-        "nl" : {
+        "no" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Secretive Is Not in Applications Folder"
@@ -3710,13 +5090,13 @@
             "value" : "비밀 “%1$(secretName)@”를 %2$(duration)@ 동안 잠금 해제"
           }
         },
-        "nb" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "unlock secret “%1$(secretName)@” for %2$(duration)@"
           }
         },
-        "nl" : {
+        "no" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "unlock secret “%1$(secretName)@” for %2$(duration)@"
@@ -3896,13 +5276,13 @@
             "value" : "거부"
           }
         },
-        "nb" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Deny"
           }
         },
-        "nl" : {
+        "no" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Deny"
@@ -4030,7 +5410,7 @@
         },
         "en" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "new",
             "value" : "sign a request from “%1$(appName)@” using secret “%2$(secretName)@”"
           }
         },
@@ -4082,13 +5462,13 @@
             "value" : "비밀 “%2$(secretName)@”를 사용해서 “%1$(appName)@”의 요청에 서명"
           }
         },
-        "nb" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "sign a request from “%1$(appName)@” using secret “%2$(secretName)@”"
           }
         },
-        "nl" : {
+        "no" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "sign a request from “%1$(appName)@” using secret “%2$(secretName)@”"
@@ -4267,13 +5647,13 @@
             "value" : "복사하기"
           }
         },
-        "nb" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Click to Copy"
           }
         },
-        "nl" : {
+        "no" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Click to Copy"
@@ -4452,13 +5832,13 @@
             "value" : "복사됨"
           }
         },
-        "nb" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Copied"
           }
         },
-        "nl" : {
+        "no" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Copied"
@@ -4573,8 +5953,8 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Advanced"
+            "state" : "translated",
+            "value" : "Erweitert"
           }
         },
         "el" : {
@@ -4637,13 +6017,13 @@
             "value" : "고급"
           }
         },
-        "nb" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Advanced"
           }
         },
-        "nl" : {
+        "no" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Advanced"
@@ -4758,8 +6138,8 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "If you change your biometric settings in _any way_, including adding a new fingerprint, this key will no longer be accessible."
+            "state" : "translated",
+            "value" : "Wenn Du Deine Biometrie-Einstellungen _irgendwie_, einschließlich des Hinzufügens eines neuen Fingerabdrucks, änderst, wird dieser Schlüssel nicht mehr zugänglich sein."
           }
         },
         "el" : {
@@ -4822,13 +6202,13 @@
             "value" : "새로운 지문을 추가하는 등 생체 인식 설정을 _어떤 식으로든_ 변경하면 이 키에 더 이상 접근할 수 없습니다."
           }
         },
-        "nb" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "If you change your biometric settings in _any way_, including adding a new fingerprint, this key will no longer be accessible."
           }
         },
-        "nl" : {
+        "no" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "If you change your biometric settings in _any way_, including adding a new fingerprint, this key will no longer be accessible."
@@ -4949,8 +6329,8 @@
         },
         "el" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Cancel"
+            "state" : "translated",
+            "value" : "Άκυρο"
           }
         },
         "en" : {
@@ -5007,13 +6387,13 @@
             "value" : "취소"
           }
         },
-        "nb" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Cancel"
           }
         },
-        "nl" : {
+        "no" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Cancel"
@@ -5192,13 +6572,13 @@
             "value" : "생성"
           }
         },
-        "nb" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Create"
           }
         },
-        "nl" : {
+        "no" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Create"
@@ -5313,14 +6693,14 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "This shows at the end of your public key. It’s usually an email address."
+            "state" : "translated",
+            "value" : "Sie wird am Ende Deines öffentlichen Schlüssels angezeigt und ist üblicherweise eine E-Mail-Adresse."
           }
         },
         "el" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "This shows at the end of your public key. It’s usually an email address."
+            "state" : "translated",
+            "value" : "Αυτό εμφανίζεται στο τέλος του δημόσιου κλειδιού σας. Είναι συνήθως μια διεύθυνση ηλεκτρονικού ταχυδρομείου."
           }
         },
         "en" : {
@@ -5377,13 +6757,13 @@
             "value" : "공개 키 끝에 표시되는 정보입니다. 보통 이메일 주소입니다."
           }
         },
-        "nb" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "This shows at the end of your public key. It’s usually an email address."
           }
         },
-        "nl" : {
+        "no" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "This shows at the end of your public key. It’s usually an email address."
@@ -5451,8 +6831,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "This shows at the end of your public key. It’s usually an email address."
+            "state" : "translated",
+            "value" : "会显示在公钥末尾。通常为电子邮箱地址。"
           }
         },
         "zh-Hant" : {
@@ -5498,14 +6878,14 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Key Attribution"
+            "state" : "translated",
+            "value" : "Schlüssel-Zuordnung"
           }
         },
         "el" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Key Attribution"
+            "state" : "translated",
+            "value" : "Απόδοση Κλειδιού"
           }
         },
         "en" : {
@@ -5562,13 +6942,13 @@
             "value" : "키 속성"
           }
         },
-        "nb" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Key Attribution"
           }
         },
-        "nl" : {
+        "no" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Key Attribution"
@@ -5636,8 +7016,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Key Attribution"
+            "state" : "translated",
+            "value" : "密钥归属"
           }
         },
         "zh-Hant" : {
@@ -5683,8 +7063,8 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Key Type"
+            "state" : "translated",
+            "value" : "Schlüsseltyp"
           }
         },
         "el" : {
@@ -5747,13 +7127,13 @@
             "value" : "키 유형"
           }
         },
-        "nb" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Key Type"
           }
         },
-        "nl" : {
+        "no" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Key Type"
@@ -5836,9 +7216,183 @@
     "create_secret_key_type_macOS_update_required_label" : {
       "extractionState" : "manual",
       "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Unavailable on this version of macOS"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Unavailable on this version of macOS"
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Unavailable on this version of macOS"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Unavailable on this version of macOS"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Unavailable on this version of macOS"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Unavailable on this version of macOS"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Unavailable on this version of macOS"
+          }
+        },
         "en" : {
           "stringUnit" : {
+            "state" : "new",
+            "value" : "Unavailable on this version of macOS"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Unavailable on this version of macOS"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Unavailable on this version of macOS"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Unavailable on this version of macOS"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Unavailable on this version of macOS"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Unavailable on this version of macOS"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Unavailable on this version of macOS"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
             "state" : "translated",
+            "value" : "このバージョンのmacOSには対応していません"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "이 버전의 macOS에서는 사용할 수 없습니다"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Unavailable on this version of macOS"
+          }
+        },
+        "no" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Unavailable on this version of macOS"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Unavailable on this version of macOS"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Unavailable on this version of macOS"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Unavailable on this version of macOS"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Unavailable on this version of macOS"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Unavailable on this version of macOS"
+          }
+        },
+        "sr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Unavailable on this version of macOS"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Unavailable on this version of macOS"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Unavailable on this version of macOS"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Unavailable on this version of macOS"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Unavailable on this version of macOS"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Unavailable on this version of macOS"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "new",
             "value" : "Unavailable on this version of macOS"
           }
         }
@@ -5943,13 +7497,13 @@
             "value" : "경고: ML-DSA 키는 매우 최신 버전이므로 아직 많은 서버에서 지원되지 않습니다. 이 키를 사용할 서버가 ML-DSA 키를 허용하는지 확인하세요."
           }
         },
-        "nb" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Warning: ML-DSA keys are very new, and not supported by many servers yet. Please verify the server you'll be using this key for accepts ML-DSA keys."
           }
         },
-        "nl" : {
+        "no" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Warning: ML-DSA keys are very new, and not supported by many servers yet. Please verify the server you'll be using this key for accepts ML-DSA keys."
@@ -6064,14 +7618,14 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
+            "state" : "translated",
             "value" : "Name"
           }
         },
         "el" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Name"
+            "state" : "translated",
+            "value" : "Τίτλος"
           }
         },
         "en" : {
@@ -6128,13 +7682,13 @@
             "value" : "이름"
           }
         },
-        "nb" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Name"
           }
         },
-        "nl" : {
+        "no" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Name"
@@ -6313,13 +7867,13 @@
             "value" : "쉿"
           }
         },
-        "nb" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Shhhhh"
           }
         },
-        "nl" : {
+        "no" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Shhhhh"
@@ -6498,13 +8052,13 @@
             "value" : "Mac이 잠금 해제되어 있는 동안에는 인증이 필요하지 않지만 비밀이 사용되면 알림을 받게 됩니다."
           }
         },
-        "nb" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "No authentication is required while your Mac is unlocked, but you will be notified when a secret is used."
           }
         },
-        "nl" : {
+        "no" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "No authentication is required while your Mac is unlocked, but you will be notified when a secret is used."
@@ -6683,13 +8237,13 @@
             "value" : "알림"
           }
         },
-        "nb" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Notify"
           }
         },
-        "nl" : {
+        "no" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Notify"
@@ -6868,13 +8422,13 @@
             "value" : "보호 수준"
           }
         },
-        "nb" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Protection Level"
           }
         },
-        "nl" : {
+        "no" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Protection Level"
@@ -7053,13 +8607,13 @@
             "value" : "현재의 생체 인식 정보들를 사용하여 인증을 요구합니다."
           }
         },
-        "nb" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Require authentication with current set of biometrics."
           }
         },
-        "nl" : {
+        "no" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Require authentication with current set of biometrics."
@@ -7174,8 +8728,8 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Current Biometrics"
+            "state" : "translated",
+            "value" : "Aktuelle Biometrie"
           }
         },
         "el" : {
@@ -7238,13 +8792,13 @@
             "value" : "현재 생체 인식들"
           }
         },
-        "nb" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Current Biometrics"
           }
         },
-        "nl" : {
+        "no" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Current Biometrics"
@@ -7423,13 +8977,13 @@
             "value" : "매번 사용하기 전에 Touch ID, Apple Watch 또는 비밀번호를 사용하여 인증해야 합니다."
           }
         },
-        "nb" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "You will be required to authenticate using Touch ID, Apple Watch, or password before each use."
           }
         },
-        "nl" : {
+        "no" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "You will be required to authenticate using Touch ID, Apple Watch, or password before each use."
@@ -7608,13 +9162,13 @@
             "value" : "인증 요구"
           }
         },
-        "nb" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Require Authentication"
           }
         },
-        "nl" : {
+        "no" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Require Authentication"
@@ -7793,13 +9347,13 @@
             "value" : "새 비밀 생성"
           }
         },
-        "nb" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Create a New Secret"
           }
         },
-        "nl" : {
+        "no" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Create a New Secret"
@@ -7978,13 +9532,13 @@
             "value" : "삭제하지 않기"
           }
         },
-        "nb" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Don't Delete"
           }
         },
-        "nl" : {
+        "no" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Don't Delete"
@@ -8163,13 +9717,13 @@
             "value" : "삭제"
           }
         },
-        "nb" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Delete"
           }
         },
-        "nl" : {
+        "no" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Delete"
@@ -8348,13 +9902,13 @@
             "value" : "%1$(secretName)@를 삭제하면 복구할 수 없습니다. 확인하려면 “%2$(confirmSecretName)@”를 입력하세요."
           }
         },
-        "nb" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "If you delete %1$(secretName)@, you will not be able to recover it. Type “%2$(confirmSecretName)@” to confirm."
           }
         },
-        "nl" : {
+        "no" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "If you delete %1$(secretName)@, you will not be able to recover it. Type “%2$(confirmSecretName)@” to confirm."
@@ -8533,13 +10087,13 @@
             "value" : "%1$(secretName)@를 지우겠습니까?"
           }
         },
-        "nb" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Delete %1$(secretName)@?"
           }
         },
-        "nl" : {
+        "no" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Delete %1$(secretName)@?"
@@ -8660,8 +10214,8 @@
         },
         "el" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Cancel"
+            "state" : "translated",
+            "value" : "Άκυρο"
           }
         },
         "en" : {
@@ -8718,13 +10272,13 @@
             "value" : "취소"
           }
         },
-        "nb" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Cancel"
           }
         },
-        "nl" : {
+        "no" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Cancel"
@@ -8793,7 +10347,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "返回"
+            "value" : "取消"
           }
         },
         "zh-Hant" : {
@@ -8845,8 +10399,8 @@
         },
         "el" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Save"
+            "state" : "translated",
+            "value" : "Αποθήκευση"
           }
         },
         "en" : {
@@ -8903,13 +10457,13 @@
             "value" : "이름 변경"
           }
         },
-        "nb" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Save"
           }
         },
-        "nl" : {
+        "no" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Save"
@@ -9088,13 +10642,13 @@
             "value" : "여기를 클릭해서 새로운 비밀 만들기."
           }
         },
-        "nb" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Create a new one by clicking here."
           }
         },
-        "nl" : {
+        "no" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Create a new one by clicking here."
@@ -9273,13 +10827,13 @@
             "value" : "비밀이 없음"
           }
         },
-        "nb" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "No Secrets"
           }
         },
-        "nl" : {
+        "no" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "No Secrets"
@@ -9458,13 +11012,13 @@
             "value" : "최근에 macOS를 업데이트하신 것 같습니다. 업데이트 후 Secure Enclave가 이상한 상태로 전환되는 경우가 있는데, Mac을 재부팅해야 다시 작동할 수 있습니다."
           }
         },
-        "nb" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "It looks like you may have recently updated macOS. Sometimes this puts the Secure Enclave into a weird state, and you might need to reboot your Mac before things start working again."
           }
         },
-        "nl" : {
+        "no" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "It looks like you may have recently updated macOS. Sometimes this puts the Secure Enclave into a weird state, and you might need to reboot your Mac before things start working again."
@@ -9579,8 +11133,8 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Missing Secrets?"
+            "state" : "translated",
+            "value" : "Fehlende Secrets?"
           }
         },
         "el" : {
@@ -9643,13 +11197,13 @@
             "value" : "Secret이 사라졌나요?"
           }
         },
-        "nb" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Missing Secrets?"
           }
         },
-        "nl" : {
+        "no" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Missing Secrets?"
@@ -9828,13 +11382,13 @@
             "value" : "스마트 카드의 관리 도구를 사용하여 비밀을 생성하세요."
           }
         },
-        "nb" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Use your Smart Card's management tool to create a secret."
           }
         },
-        "nl" : {
+        "no" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Use your Smart Card's management tool to create a secret."
@@ -10013,13 +11567,13 @@
             "value" : "Secretive는 EC256, EC384, RSA1024 및 RSA2048 키를 지원합니다."
           }
         },
-        "nb" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Secretive supports EC256, EC384, and RSA2048 keys."
           }
         },
-        "nl" : {
+        "no" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Secretive supports EC256, EC384, and RSA2048 keys."
@@ -10198,13 +11752,13 @@
             "value" : "비밀이 없음"
           }
         },
-        "nb" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "No Secrets"
           }
         },
-        "nl" : {
+        "no" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "No Secrets"
@@ -10376,13 +11930,13 @@
             "value" : "export SSH_AUTH_SOCK=%@"
           }
         },
-        "nb" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "export SSH_AUTH_SOCK=%@"
           }
         },
-        "nl" : {
+        "no" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "export SSH_AUTH_SOCK=%@"
@@ -10555,13 +12109,13 @@
             "value" : "Host *\n\tIdentityAgent %@"
           }
         },
-        "nb" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Host *\n\tIdentityAgent %@"
           }
         },
-        "nl" : {
+        "no" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Host *\n\tIdentityAgent %@"
@@ -10677,8 +12231,8 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Add This:"
+            "state" : "translated",
+            "value" : "Folgendes hinzufügen:"
           }
         },
         "el" : {
@@ -10741,13 +12295,13 @@
             "value" : "이것을 추가하세요:"
           }
         },
-        "nb" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Add This:"
           }
         },
-        "nl" : {
+        "no" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Add This:"
@@ -10815,8 +12369,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Add This:"
+            "state" : "translated",
+            "value" : "添加这些内容："
           }
         },
         "zh-Hant" : {
@@ -10862,7 +12416,7 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
+            "state" : "translated",
             "value" : "Apps"
           }
         },
@@ -10926,13 +12480,13 @@
             "value" : "앱들"
           }
         },
-        "nb" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Apps"
           }
         },
-        "nl" : {
+        "no" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Apps"
@@ -11000,8 +12554,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Apps"
+            "state" : "translated",
+            "value" : "应用"
           }
         },
         "zh-Hant" : {
@@ -11111,13 +12665,13 @@
             "value" : "GitHub에는 커뮤니티에서 관리하는 앱 관련 지침 목록이 있습니다. 찾고 있는 앱이 지원되지 않는 경우, 이슈를 생성하시면 커뮤니티에서 도움을 드릴 수 있습니다."
           }
         },
-        "nb" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "There's a community-maintained list of instructions for apps on GitHub. If the app you're looking for isn't supported, create an issue and the community may be able to help."
           }
         },
-        "nl" : {
+        "no" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "There's a community-maintained list of instructions for apps on GitHub. If the app you're looking for isn't supported, create an issue and the community may be able to help."
@@ -11185,8 +12739,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "There's a community-maintained list of instructions for apps on GitHub. If the app you're looking for isn't supported, create an issue and the community may be able to help."
+            "state" : "translated",
+            "value" : "GitHub 上有份由社区维护的清单介绍如何配置应用。若尚不支持你要找的应用，请创建一个 issue，社区或许能提供帮助。"
           }
         },
         "zh-Hant" : {
@@ -11296,13 +12850,13 @@
             "value" : "GitHub에는 커뮤니티에서 관리하는 셸 지침 목록이 있습니다. 찾고 있는 셸이 지원되지 않는 경우, 이슈를 생성하면 커뮤니티에서 도움을 드릴 수 있습니다."
           }
         },
-        "nb" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "There's a community-maintained list of shell instructions on GitHub. If the shell you're looking for isn't supported, create an issue and the community may be able to help."
           }
         },
-        "nl" : {
+        "no" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "There's a community-maintained list of shell instructions on GitHub. If the shell you're looking for isn't supported, create an issue and the community may be able to help."
@@ -11370,8 +12924,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "There's a community-maintained list of shell instructions on GitHub. If the shell you're looking for isn't supported, create an issue and the community may be able to help."
+            "state" : "translated",
+            "value" : "GitHub 上有份由社区维护的清单介绍如何配置 shell。若尚不支持你要找的 shell，请创建一个 issue，社区或许能提供帮助。"
           }
         },
         "zh-Hant" : {
@@ -11481,13 +13035,13 @@
             "value" : "이 작업을 구성하기 전에 Secret을 만들어야 합니다."
           }
         },
-        "nb" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "You'll need to create a Secret before configuring this action."
           }
         },
-        "nl" : {
+        "no" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "You'll need to create a Secret before configuring this action."
@@ -11602,8 +13156,8 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Configure Using Secret"
+            "state" : "translated",
+            "value" : "Mit Secret konfigurieren"
           }
         },
         "el" : {
@@ -11666,13 +13220,13 @@
             "value" : "Secret을 사용하여 구성"
           }
         },
-        "nb" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Configure Using Secret"
           }
         },
-        "nl" : {
+        "no" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Configure Using Secret"
@@ -11787,8 +13341,8 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "No Secret"
+            "state" : "translated",
+            "value" : "Kein Secret"
           }
         },
         "el" : {
@@ -11851,13 +13405,13 @@
             "value" : "비밀이 없음"
           }
         },
-        "nb" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "No Secret"
           }
         },
-        "nl" : {
+        "no" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "No Secret"
@@ -11972,7 +13526,7 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
+            "state" : "translated",
             "value" : "Secret"
           }
         },
@@ -12036,13 +13590,13 @@
             "value" : "비밀"
           }
         },
-        "nb" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Secret"
           }
         },
-        "nl" : {
+        "no" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Secret"
@@ -12221,13 +13775,13 @@
             "value" : "여러 도구를 구성할 수 있으며, 일반적으로 서로 간섭하지 않습니다."
           }
         },
-        "nb" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "You can configure more than one tool, they generally won't interfere with each other."
           }
         },
-        "nl" : {
+        "no" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "You can configure more than one tool, they generally won't interfere with each other."
@@ -12342,8 +13896,8 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Getting Started"
+            "state" : "translated",
+            "value" : "Erste Schritte"
           }
         },
         "el" : {
@@ -12406,13 +13960,13 @@
             "value" : "처음 시작하기"
           }
         },
-        "nb" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Getting Started"
           }
         },
-        "nl" : {
+        "no" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Getting Started"
@@ -12527,8 +14081,8 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Integrations"
+            "state" : "translated",
+            "value" : "Integrationen"
           }
         },
         "el" : {
@@ -12591,13 +14145,13 @@
             "value" : "통합"
           }
         },
-        "nb" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Integrations"
           }
         },
-        "nl" : {
+        "no" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Integrations"
@@ -12776,13 +14330,13 @@
             "value" : "Git 커밋에 서명하려면 Git 서명을 설정하세요."
           }
         },
-        "nb" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "If you're trying to sign your git commits, set up Git Signing."
           }
         },
-        "nl" : {
+        "no" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "If you're trying to sign your git commits, set up Git Signing."
@@ -12961,13 +14515,13 @@
             "value" : "Secretive를 사용하기 위해 명령줄에서 실행되는 모든 것을 구성하려는 경우 셸을 구성하세요."
           }
         },
-        "nb" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "If you're trying to configure anything your command line runs to use Secretive, configure your shell."
           }
         },
-        "nl" : {
+        "no" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "If you're trying to configure anything your command line runs to use Secretive, configure your shell."
@@ -13146,13 +14700,13 @@
             "value" : "어떤 셸을 사용하는지 모르고 변경하지 않은 경우, 아마도 `%(shellName)@`를 사용하고 있을 것입니다."
           }
         },
-        "nb" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "If you don't known what shell you use and haven't changed it, you're probably using `%(shellName)@`."
           }
         },
-        "nl" : {
+        "no" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "If you don't known what shell you use and haven't changed it, you're probably using `%(shellName)@`."
@@ -13331,13 +14885,13 @@
             "value" : "SSH 서버로 인증하거나 SSH를 통해 GitHub와 같은 서비스로 인증하려는 경우 SSH 클라이언트를 구성하세요."
           }
         },
-        "nb" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "If you're trying to authenticate with an SSH server or authenticating with a service like GitHub over SSH, configure your SSH client."
           }
         },
-        "nl" : {
+        "no" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "If you're trying to authenticate with an SSH server or authenticating with a service like GitHub over SSH, configure your SSH client."
@@ -13516,13 +15070,13 @@
             "value" : "Secretive를 위한 도구 구성"
           }
         },
-        "nb" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Configuring Tools for Secretive"
           }
         },
-        "nl" : {
+        "no" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Configuring Tools for Secretive"
@@ -13701,13 +15255,13 @@
             "value" : "대부분의 도구는 디스크의 `~/.ssh`에서 SSH 키를 찾으려고 합니다. Secretive를 사용하려면 해당 도구가 Secretive와 통신하도록 설정해야 합니다."
           }
         },
-        "nb" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Most tools will try and look for SSH keys on disk in `~/.ssh`. To use Secretive, we need to configure those tools to talk to Secretive instead."
           }
         },
-        "nl" : {
+        "no" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Most tools will try and look for SSH keys on disk in `~/.ssh`. To use Secretive, we need to configure those tools to talk to Secretive instead."
@@ -13775,8 +15329,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Most tools will try and look for SSH keys on disk in `~/.ssh`. To use Secretive, we need to configure those tools to talk to Secretive instead."
+            "state" : "translated",
+            "value" : "多数工具会在 `~/.ssh` 中尝试并查找磁盘上的 SSH 密钥。要使用 Secretive，我们需要配置这些工具来与 Secretive 通信。"
           }
         },
         "zh-Hant" : {
@@ -13886,13 +15440,13 @@
             "value" : "무엇을 구성해야 할까요?"
           }
         },
-        "nb" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "What Should I Configure?"
           }
         },
-        "nl" : {
+        "no" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "What Should I Configure?"
@@ -13960,8 +15514,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "What Should I Configure?"
+            "state" : "translated",
+            "value" : "我应该配置什么？"
           }
         },
         "zh-Hant" : {
@@ -14071,13 +15625,13 @@
             "value" : "~/.gitallowedsigners가 존재하지 않을 수 있습니다. 직접 만들어야 합니다."
           }
         },
-        "nb" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "~/.gitallowedsigners probably does not exist. You'll need to create it."
           }
         },
-        "nl" : {
+        "no" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "~/.gitallowedsigners probably does not exist. You'll need to create it."
@@ -14145,8 +15699,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "~/.gitallowedsigners probably does not exist. You'll need to create it."
+            "state" : "translated",
+            "value" : "~/.gitallowedsigners 可能不存在。你需要创建它。"
           }
         },
         "zh-Hant" : {
@@ -14256,13 +15810,13 @@
             "value" : "[user]\n    signingkey = %1$(publicKeyPathPlaceholder)@\n[commit]\n    gpgsign = true\n[gpg]\n    format = ssh\n[gpg \"ssh\"]\n    allowedSignersFile = ~/.gitallowedsigners"
           }
         },
-        "nb" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "[user]\n    signingkey = %1$(publicKeyPathPlaceholder)@\n[commit]\n    gpgsign = true\n[gpg]\n    format = ssh\n[gpg \"ssh\"]\n    allowedSignersFile = ~/.gitallowedsigners"
           }
         },
-        "nl" : {
+        "no" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "[user]\n    signingkey = %1$(publicKeyPathPlaceholder)@\n[commit]\n    gpgsign = true\n[gpg]\n    format = ssh\n[gpg \"ssh\"]\n    allowedSignersFile = ~/.gitallowedsigners"
@@ -14378,8 +15932,8 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Integrations…"
+            "state" : "translated",
+            "value" : "Integrationen…"
           }
         },
         "el" : {
@@ -14442,13 +15996,13 @@
             "value" : "통합…"
           }
         },
-        "nb" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Integrations…"
           }
         },
-        "nl" : {
+        "no" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Integrations…"
@@ -14516,8 +16070,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Integrations…"
+            "state" : "translated",
+            "value" : "第三方集成…"
           }
         },
         "zh-Hant" : {
@@ -14563,8 +16117,8 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Other"
+            "state" : "translated",
+            "value" : "Sonstige"
           }
         },
         "el" : {
@@ -14627,13 +16181,13 @@
             "value" : "기타"
           }
         },
-        "nb" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Other"
           }
         },
-        "nl" : {
+        "no" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Other"
@@ -14701,8 +16255,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Other"
+            "state" : "translated",
+            "value" : "其他"
           }
         },
         "zh-Hant" : {
@@ -14748,8 +16302,8 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "other"
+            "state" : "translated",
+            "value" : "sonstige"
           }
         },
         "el" : {
@@ -14812,13 +16366,13 @@
             "value" : "이외의 셸"
           }
         },
-        "nb" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "other"
           }
         },
-        "nl" : {
+        "no" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "other"
@@ -14886,8 +16440,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "other"
+            "state" : "translated",
+            "value" : "其他"
           }
         },
         "zh-Hant" : {
@@ -14933,8 +16487,8 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Configuration File"
+            "state" : "translated",
+            "value" : "Konfigurationsdatei"
           }
         },
         "el" : {
@@ -14997,13 +16551,13 @@
             "value" : "설정 파일"
           }
         },
-        "nb" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Configuration File"
           }
         },
-        "nl" : {
+        "no" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Configuration File"
@@ -15071,8 +16625,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Configuration File"
+            "state" : "translated",
+            "value" : "配置文件"
           }
         },
         "zh-Hant" : {
@@ -15118,7 +16672,7 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
+            "state" : "translated",
             "value" : "Shell"
           }
         },
@@ -15182,13 +16736,13 @@
             "value" : "Shell"
           }
         },
-        "nb" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Shell"
           }
         },
-        "nl" : {
+        "no" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Shell"
@@ -15220,7 +16774,7 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "new",
             "value" : "Shell"
           }
         },
@@ -15256,7 +16810,7 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
+            "state" : "translated",
             "value" : "Shell"
           }
         },
@@ -15367,13 +16921,13 @@
             "value" : "SSH가 특정 호스트에 대해 특정 키를 사용하도록 설정할 수 있습니다. 자세한 내용은 웹 문서를 참조하세요."
           }
         },
-        "nb" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "You can tell SSH to use a specific key for a given host. See the web documentation for more details."
           }
         },
-        "nl" : {
+        "no" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "You can tell SSH to use a specific key for a given host. See the web documentation for more details."
@@ -15441,8 +16995,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "You can tell SSH to use a specific key for a given host. See the web documentation for more details."
+            "state" : "translated",
+            "value" : "你可以让 SSH 为指定的主机使用特定密钥。详情请参阅在线文档。"
           }
         },
         "zh-Hant" : {
@@ -15488,7 +17042,7 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
+            "state" : "translated",
             "value" : "System"
           }
         },
@@ -15552,13 +17106,13 @@
             "value" : "시스템"
           }
         },
-        "nb" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "System"
           }
         },
-        "nl" : {
+        "no" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "System"
@@ -15626,8 +17180,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "System"
+            "state" : "translated",
+            "value" : "系统"
           }
         },
         "zh-Hant" : {
@@ -15737,13 +17291,13 @@
             "value" : "bash"
           }
         },
-        "nb" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "bash"
           }
         },
-        "nl" : {
+        "no" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "bash"
@@ -15923,13 +17477,13 @@
             "value" : "fish"
           }
         },
-        "nb" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "fish"
           }
         },
-        "nl" : {
+        "no" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "fish"
@@ -16109,13 +17663,13 @@
             "value" : "Git 서명"
           }
         },
-        "nb" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Git Signing"
           }
         },
-        "nl" : {
+        "no" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Git Signing"
@@ -16183,8 +17737,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Git Signing"
+            "state" : "translated",
+            "value" : "Git 签名"
           }
         },
         "zh-Hant" : {
@@ -16294,13 +17848,13 @@
             "value" : "SSH"
           }
         },
-        "nb" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "SSH"
           }
         },
-        "nl" : {
+        "no" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "SSH"
@@ -16480,13 +18034,13 @@
             "value" : "zsh"
           }
         },
-        "nb" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "zsh"
           }
         },
-        "nl" : {
+        "no" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "zsh"
@@ -16602,8 +18156,8 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "View on GitHub"
+            "state" : "translated",
+            "value" : "Auf GitHub anzeigen"
           }
         },
         "el" : {
@@ -16666,13 +18220,13 @@
             "value" : "GitHub에서 보기"
           }
         },
-        "nb" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "View on GitHub"
           }
         },
-        "nl" : {
+        "no" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "View on GitHub"
@@ -16740,8 +18294,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "View on GitHub"
+            "state" : "translated",
+            "value" : "在 GitHub 上查看"
           }
         },
         "zh-Hant" : {
@@ -16787,8 +18341,8 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "View Documentation on Web"
+            "state" : "translated",
+            "value" : "Dokumentation im Web ansehen"
           }
         },
         "el" : {
@@ -16851,13 +18405,13 @@
             "value" : "웹에서 문서 보기"
           }
         },
-        "nb" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "View Documentation on Web"
           }
         },
-        "nl" : {
+        "no" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "View Documentation on Web"
@@ -16925,8 +18479,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "View Documentation on Web"
+            "state" : "translated",
+            "value" : "查看在线文档"
           }
         },
         "zh-Hant" : {
@@ -16972,8 +18526,8 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "If any section (like [user]) already exists, just add the entries in the existing section."
+            "state" : "translated",
+            "value" : "Wenn ein Abschnitt (wie [user]) bereits existiert, füge die Einträge einfach in dem vorhandenen Abschnitt hinzu."
           }
         },
         "el" : {
@@ -17036,13 +18590,13 @@
             "value" : "섹션(예: [user])이 이미 있는 경우 기존 섹션에 항목을 추가하기만 하면 됩니다."
           }
         },
-        "nb" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "If any section (like [user]) already exists, just add the entries in the existing section."
           }
         },
-        "nl" : {
+        "no" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "If any section (like [user]) already exists, just add the entries in the existing section."
@@ -17110,8 +18664,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "If any section (like [user]) already exists, just add the entries in the existing section."
+            "state" : "translated",
+            "value" : "若某小节（比如 [user]）已存在，只需在现有小节中添加条目。"
           }
         },
         "zh-Hant" : {
@@ -17221,13 +18775,13 @@
             "value" : "Mac에 Secure Enclave가 없고 호환되는 스마트 카드가 삽입되어 있지 않습니다."
           }
         },
-        "nb" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Your Mac doesn't have a Secure Enclave, and there's not a compatible Smart Card inserted."
           }
         },
-        "nl" : {
+        "no" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Your Mac doesn't have a Secure Enclave, and there's not a compatible Smart Card inserted."
@@ -17406,13 +18960,13 @@
             "value" : "보안 저장소를 사용할 수 없음"
           }
         },
-        "nb" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "No Secure Storage Available"
           }
         },
-        "nl" : {
+        "no" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "No Secure Storage Available"
@@ -17591,13 +19145,13 @@
             "value" : "Mac에 하나를 추가하고 싶다면 YubiKey 5 시리즈가 좋습니다."
           }
         },
-        "nb" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "If you're looking to add one to your Mac, the YubiKey 5 Series are great."
           }
         },
-        "nl" : {
+        "no" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "If you're looking to add one to your Mac, the YubiKey 5 Series are great."
@@ -17777,13 +19331,13 @@
             "value" : "잠금 해제 상태로 유지"
           }
         },
-        "nb" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Leave Unlocked"
           }
         },
-        "nl" : {
+        "no" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Leave Unlocked"
@@ -17963,13 +19517,13 @@
             "value" : "잠금 해제하지 않음"
           }
         },
-        "nb" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Do Not Unlock"
           }
         },
-        "nl" : {
+        "no" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Do Not Unlock"
@@ -18084,8 +19638,8 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Reveal in Finder"
+            "state" : "translated",
+            "value" : "In Finder anzeigen"
           }
         },
         "el" : {
@@ -18148,13 +19702,13 @@
             "value" : "Finder에서 보기"
           }
         },
-        "nb" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Reveal in Finder"
           }
         },
-        "nl" : {
+        "no" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Reveal in Finder"
@@ -18222,8 +19776,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Reveal in Finder"
+            "state" : "translated",
+            "value" : "在“访达”中查看"
           }
         },
         "zh-Hant" : {
@@ -18333,13 +19887,13 @@
             "value" : "MD5 지문"
           }
         },
-        "nb" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "MD5 Fingerprint"
           }
         },
-        "nl" : {
+        "no" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "MD5 Fingerprint"
@@ -18518,13 +20072,13 @@
             "value" : "공개 키"
           }
         },
-        "nb" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Public Key"
           }
         },
-        "nl" : {
+        "no" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Public Key"
@@ -18703,13 +20257,13 @@
             "value" : "공개 키 경로"
           }
         },
-        "nb" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Public Key Path"
           }
         },
-        "nl" : {
+        "no" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Public Key Path"
@@ -18888,13 +20442,13 @@
             "value" : "SHA256 지문"
           }
         },
-        "nb" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "SHA256 Fingerprint"
           }
         },
-        "nl" : {
+        "no" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "SHA256 Fingerprint"
@@ -19073,13 +20627,13 @@
             "value" : "삭제"
           }
         },
-        "nb" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Delete"
           }
         },
-        "nl" : {
+        "no" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Delete"
@@ -19258,13 +20812,13 @@
             "value" : "이름 변경"
           }
         },
-        "nb" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Edit"
           }
         },
-        "nl" : {
+        "no" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Edit"
@@ -19379,7 +20933,7 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
+            "state" : "translated",
             "value" : "Secure Enclave"
           }
         },
@@ -19443,13 +20997,13 @@
             "value" : "Secure Enclave"
           }
         },
-        "nb" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Secure Enclave"
           }
         },
-        "nl" : {
+        "no" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Secure Enclave"
@@ -19481,7 +21035,7 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "new",
             "value" : "Secure Enclave"
           }
         },
@@ -19621,13 +21175,13 @@
             "value" : "set -x SSH_AUTH_SOCK %@"
           }
         },
-        "nb" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "set -x SSH_AUTH_SOCK %@"
           }
         },
-        "nl" : {
+        "no" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "set -x SSH_AUTH_SOCK %@"
@@ -19807,13 +21361,13 @@
             "value" : "이 도우미 앱은 **Secret Agent**이라고 하며 활성 상태 보기에서 수시로 볼 수 있습니다."
           }
         },
-        "nb" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "This helper app is called **Secret Agent** and you may see it in Activity Manager from time to time."
           }
         },
-        "nl" : {
+        "no" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "This helper app is called **Secret Agent** and you may see it in Activity Manager from time to time."
@@ -19992,13 +21546,13 @@
             "value" : "Secretive가 제대로 작동하려면 도우미 앱을 설치해야 합니다. 백그라운드에서 SSH 클라이언트의 요청에 서명하므로 기본 Secretive 앱을 열어 둘 필요가 없습니다."
           }
         },
-        "nb" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Secretive needs to set up a helper app to work properly. It will sign requests from SSH clients in the background, so you don't need to keep the main Secretive app open."
           }
         },
-        "nl" : {
+        "no" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Secretive needs to set up a helper app to work properly. It will sign requests from SSH clients in the background, so you don't need to keep the main Secretive app open."
@@ -20177,13 +21731,13 @@
             "value" : "설치"
           }
         },
-        "nb" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Install"
           }
         },
-        "nl" : {
+        "no" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Install"
@@ -20362,13 +21916,13 @@
             "value" : "Agent 설치"
           }
         },
-        "nb" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Setup Agent"
           }
         },
-        "nl" : {
+        "no" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Setup Agent"
@@ -20547,13 +22101,13 @@
             "value" : "완료"
           }
         },
-        "nb" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Done"
           }
         },
-        "nl" : {
+        "no" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Done"
@@ -20621,8 +22175,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Done"
+            "state" : "translated",
+            "value" : "完成"
           }
         },
         "zh-Hant" : {
@@ -20668,8 +22222,8 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Configure"
+            "state" : "translated",
+            "value" : "Konfigurieren"
           }
         },
         "el" : {
@@ -20732,13 +22286,13 @@
             "value" : "설정"
           }
         },
-        "nb" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Configure"
           }
         },
-        "nl" : {
+        "no" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Configure"
@@ -20806,8 +22360,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Configure"
+            "state" : "translated",
+            "value" : "配置"
           }
         },
         "zh-Hant" : {
@@ -20853,8 +22407,8 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Tell the tools you use how to talk to Secretive."
+            "state" : "translated",
+            "value" : "Sag den Tools, die Du benutzt, wie sie mit Secretive kommunizieren können."
           }
         },
         "el" : {
@@ -20917,13 +22471,13 @@
             "value" : "Secretive와 대화하는 방법을 사용하는 도구를 알려주세요."
           }
         },
-        "nb" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Tell the tools you use how to talk to Secretive."
           }
         },
-        "nl" : {
+        "no" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Tell the tools you use how to talk to Secretive."
@@ -20991,8 +22545,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Tell the tools you use how to talk to Secretive."
+            "state" : "translated",
+            "value" : "让你用的工具知晓如何与 Secretive 通信。"
           }
         },
         "zh-Hant" : {
@@ -21038,8 +22592,8 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Configure Integrations"
+            "state" : "translated",
+            "value" : "Integration konfigurieren"
           }
         },
         "el" : {
@@ -21102,13 +22656,13 @@
             "value" : "통합 설정"
           }
         },
-        "nb" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Configure Integrations"
           }
         },
-        "nl" : {
+        "no" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Configure Integrations"
@@ -21176,8 +22730,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Configure Integrations"
+            "state" : "translated",
+            "value" : "配置第三方集成"
           }
         },
         "zh-Hant" : {
@@ -21287,13 +22841,13 @@
             "value" : "Secretive는 주기적으로 GitHub를 확인하여 새 릴리스가 있는지 확인합니다. GitHub에 대한 네트워크 요청이 표시되는 이유입니다. "
           }
         },
-        "nb" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Secretive will periodically check with GitHub to see if there's a new release. If you see any network requests to GitHub, that's why."
           }
         },
-        "nl" : {
+        "no" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Secretive will periodically check with GitHub to see if there's a new release. If you see any network requests to GitHub, that's why."
@@ -21408,7 +22962,7 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
+            "state" : "translated",
             "value" : "OK"
           }
         },
@@ -21472,13 +23026,13 @@
             "value" : "확인"
           }
         },
-        "nb" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "OK"
           }
         },
-        "nl" : {
+        "no" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "OK"
@@ -21593,7 +23147,7 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
+            "state" : "translated",
             "value" : "Updates"
           }
         },
@@ -21657,13 +23211,13 @@
             "value" : "업데이트"
           }
         },
-        "nb" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Updates"
           }
         },
-        "nl" : {
+        "no" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Updates"
@@ -21778,8 +23332,8 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Done"
+            "state" : "translated",
+            "value" : "Fertig"
           }
         },
         "el" : {
@@ -21842,13 +23396,13 @@
             "value" : "완료됨"
           }
         },
-        "nb" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Done"
           }
         },
-        "nl" : {
+        "no" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Done"
@@ -22028,13 +23582,13 @@
             "value" : "비밀 %1$(secretName)@ 사용됨"
           }
         },
-        "nb" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Using secret %1$(secretName)@"
           }
         },
-        "nl" : {
+        "no" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Using secret %1$(secretName)@"
@@ -22214,13 +23768,13 @@
             "value" : "%1$(appName)@에서 서명 요청"
           }
         },
-        "nb" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Signed Request from %1$(appName)@"
           }
         },
-        "nl" : {
+        "no" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Signed Request from %1$(appName)@"
@@ -22399,13 +23953,13 @@
             "value" : "스마트 카드"
           }
         },
-        "nb" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Smart Card"
           }
         },
-        "nl" : {
+        "no" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Smart Card"
@@ -22584,13 +24138,13 @@
             "value" : "무명"
           }
         },
-        "nb" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Unnamed"
           }
         },
-        "nl" : {
+        "no" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Unnamed"
@@ -22769,13 +24323,13 @@
             "value" : "치명적 보안 업데이트 필요"
           }
         },
-        "nb" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Critical Security Update Required"
           }
         },
-        "nl" : {
+        "no" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Critical Security Update Required"
@@ -22954,13 +24508,13 @@
             "value" : "무시하기"
           }
         },
-        "nb" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Ignore"
           }
         },
-        "nl" : {
+        "no" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Ignore"
@@ -22993,7 +24547,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Пропустить"
+            "value" : "Игнорировать"
           }
         },
         "sr" : {
@@ -23139,13 +24693,13 @@
             "value" : "사용가능한 업데이트"
           }
         },
-        "nb" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Update Available"
           }
         },
-        "nl" : {
+        "no" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Update Available"
@@ -23325,13 +24879,13 @@
             "value" : "무시"
           }
         },
-        "nb" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Ignore"
           }
         },
-        "nl" : {
+        "no" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Ignore"
@@ -23511,13 +25065,13 @@
             "value" : "업데이트"
           }
         },
-        "nb" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Update"
           }
         },
-        "nl" : {
+        "no" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Update"
@@ -23697,13 +25251,13 @@
             "value" : "치명적 보안 업데이트 - %1$(updateName)@"
           }
         },
-        "nb" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Critical Security Update - %1$(updateName)@"
           }
         },
-        "nl" : {
+        "no" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Critical Security Update - %1$(updateName)@"
@@ -23883,13 +25437,13 @@
             "value" : "클릭해서 업데이트 하기"
           }
         },
-        "nb" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Click to Update"
           }
         },
-        "nl" : {
+        "no" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Click to Update"
@@ -23922,7 +25476,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Кликните чтобы обновить"
+            "value" : "Кликните, чтобы обновить"
           }
         },
         "sr" : {
@@ -24069,13 +25623,13 @@
             "value" : "사용 가능한 업데이트 - %1$(updateName)@"
           }
         },
-        "nb" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Update Available - %1$(updateName)@"
           }
         },
-        "nl" : {
+        "no" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Update Available - %1$(updateName)@"
@@ -24254,13 +25808,13 @@
             "value" : "릴리즈 노트"
           }
         },
-        "nb" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Release Notes"
           }
         },
-        "nl" : {
+        "no" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Release Notes"
@@ -24375,8 +25929,8 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Test Build"
+            "state" : "translated",
+            "value" : "Testversion"
           }
         },
         "el" : {
@@ -24439,13 +25993,13 @@
             "value" : "테스트 빌드"
           }
         },
-        "nb" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Test Build"
           }
         },
-        "nl" : {
+        "no" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Test Build"
@@ -24624,13 +26178,13 @@
             "value" : "업데이트"
           }
         },
-        "nb" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Update"
           }
         },
-        "nl" : {
+        "no" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Update"
@@ -24745,7 +26299,7 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
+            "state" : "translated",
             "value" : "Secretive %1$(updateName)@"
           }
         },
@@ -24809,13 +26363,13 @@
             "value" : "Secretive %1$(updateName)@"
           }
         },
-        "nb" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Secretive %1$(updateName)@"
           }
         },
-        "nl" : {
+        "no" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Secretive %1$(updateName)@"
@@ -24848,7 +26402,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Secretive %1$(updateName)@"
+            "value" : "Секретный %1$(updateName)@"
           }
         },
         "sr" : {
@@ -24930,8 +26484,8 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Download Latest Nightly Build"
+            "state" : "translated",
+            "value" : "Letzte Nightly-Version herunterladen"
           }
         },
         "el" : {
@@ -24994,13 +26548,13 @@
             "value" : "최신 Nightly Build 다운로드"
           }
         },
-        "nb" : {
+        "nl" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Download Latest Nightly Build"
           }
         },
-        "nl" : {
+        "no" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Download Latest Nightly Build"
