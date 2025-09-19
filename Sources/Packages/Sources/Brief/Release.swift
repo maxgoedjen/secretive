@@ -1,7 +1,8 @@
 import Foundation
+import SwiftUI
 
 /// A release is a representation of a downloadable update.
-public struct Release: Codable, Sendable {
+public struct Release: Codable, Sendable, Hashable {
 
     /// The user-facing name of the release. Typically "Secretive 1.2.3"
     public let name: String
@@ -15,6 +16,8 @@ public struct Release: Codable, Sendable {
     /// A user-facing description of the contents of the update.
     public let body: String
 
+    public let attributedBody: AttributedString
+
     /// Initializes a Release.
     /// - Parameters:
     ///   - name: The user-facing name of the release.
@@ -26,6 +29,56 @@ public struct Release: Codable, Sendable {
         self.prerelease = prerelease
         self.html_url = html_url
         self.body = body
+        self.attributedBody = AttributedString(_markdown: body)
+    }
+
+    public init(_ release: GitHubRelease) {
+        self.name = release.name
+        self.prerelease = release.prerelease
+        self.html_url = release.html_url
+        self.body = release.body
+        self.attributedBody = AttributedString(_markdown: release.body)
+    }
+
+}
+
+public struct GitHubRelease: Codable, Sendable {
+    let name: String
+    let prerelease: Bool
+    let html_url: URL
+    let body: String
+}
+
+fileprivate extension AttributedString {
+
+    init(_markdown markdown: String) {
+        let split = markdown.split(whereSeparator: \.isNewline)
+        let lines = split
+            .compactMap {
+                try? AttributedString(markdown: String($0), options: .init(allowsExtendedAttributes: true, interpretedSyntax: .full))
+            }
+            .map { (string: AttributedString) in
+                guard case let .header(level) = string.runs.first?.presentationIntent?.components.first?.kind else { return string }
+                return AttributedString("\n") + string
+                    .transformingAttributes(\.font) { font in
+                        font.value = switch level {
+                        case 2: .headline.bold()
+                        case 3: .headline
+                        default: .subheadline
+                        }
+                    }
+                    .transformingAttributes(\.underlineStyle) { underline in
+                        underline.value = switch level {
+                        case 2: .single
+                        default: .none
+                        }
+                    }
+                + AttributedString("\n")
+            }
+        self = lines.reduce(into: AttributedString()) { partialResult, next in
+            partialResult.append(next)
+            partialResult.append(AttributedString("\n"))
+        }
     }
 
 }

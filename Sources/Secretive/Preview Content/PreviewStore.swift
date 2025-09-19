@@ -60,16 +60,17 @@ extension Preview {
         let id = UUID()
         var name: String { "Modifiable Preview Store" }
         let secrets: [Secret]
-        var supportedKeyTypes: [KeyType] {
-            if #available(macOS 26, *) {
-                [
+        var supportedKeyTypes: KeyAvailability {
+            return KeyAvailability(
+                available: [
                     .ecdsa256,
                     .mldsa65,
-                    .mldsa87,
+                    .mldsa87
+                ],
+                unavailable: [
+                    .init(keyType: .ecdsa384, reason: .macOSUpdateRequired)
                 ]
-            } else {
-                [.ecdsa256]
-            }
+            )
         }
         
         init(secrets: [Secret]) {

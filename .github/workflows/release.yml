@@ -55,7 +55,7 @@ jobs:
             export CLEAN_TAG=$(echo $TAG_NAME | sed -e 's/refs\/tags\/v//')
             sed -i '' -e "s/GITHUB_CI_VERSION/$CLEAN_TAG/g" Sources/Config/Config.xcconfig
             sed -i '' -e "s/GITHUB_BUILD_NUMBER/1.$RUN_ID/g" Sources/Config/Config.xcconfig
-            sed -i '' -e "s/GITHUB_BUILD_URL/https:\/\/github.com\/maxgoedjen\/secretive\/actions\/runs\/$RUN_ID/g" Sources/Secretive/Credits.rtf
+            sed -i '' -e "s/GITHUB_BUILD_URL/github.com\/maxgoedjen\/secretive\/actions\/runs\/$RUN_ID/g" Sources/Config/Config.xcconfig
     - name: Build
       run: xcrun xcodebuild -project Sources/Secretive.xcodeproj -scheme Secretive -configuration Release -archivePath Archive.xcarchive archive
     - name: Create ZIP
@@ -77,13 +77,13 @@ jobs:
       uses: actions/attest-build-provenance@v2
       with:
         subject-name: "Secretive.zip"
-        subject-digest: ${{ steps.upload.outputs.artifact-digest }}
+        subject-digest: sha256:${{ steps.upload.outputs.artifact-digest }}
     - name: Create Release
       run: |
             sed -i.tmp "s/RUN_ID/$RUN_ID/g" .github/templates/release.md
             sed -i.tmp "s/ATTESTATION_ID/$ATTESTATION_ID/g" .github/templates/release.md
             gh release create $TAG_NAME -d -F .github/templates/release.md
-            gh release upload Secretive.zip
+            gh release upload $TAG_NAME Secretive.zip
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         TAG_NAME: ${{ github.ref }}

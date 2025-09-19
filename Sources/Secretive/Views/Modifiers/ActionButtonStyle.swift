@@ -24,7 +24,7 @@ extension View {
 
 }
 
-struct MenuButtonModifier: ViewModifier {
+struct ToolbarCircleButtonModifier: ViewModifier {
 
     func body(content: Content) -> some View {
         if #available(macOS 26.0, *) {
@@ -40,8 +40,8 @@ struct MenuButtonModifier: ViewModifier {
 
 extension View {
 
-    func menuButton() -> some View {
-        modifier(MenuButtonModifier())
+    func toolbarCircleButton() -> some View {
+        modifier(ToolbarCircleButtonModifier())
     }
 
 }

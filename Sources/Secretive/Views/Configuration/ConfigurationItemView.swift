@@ -32,7 +32,7 @@ struct ConfigurationItemView<Content: View>: View {
                 Spacer()
                 switch action {
                 case .copy(let string):
-                    Button(.copyableClickToCopyButton, systemImage: "document.on.document") {
+                    Button(.copyableClickToCopyButton, systemImage: "doc.on.doc") {
                         NSPasteboard.general.declareTypes([.string], owner: nil)
                         NSPasteboard.general.setString(string, forType: .string)
                     }

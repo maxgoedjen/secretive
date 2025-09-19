@@ -34,7 +34,9 @@ public final class XPCServiceDelegate: NSObject, NSXPCListenerDelegate {
                     if let error = error as? Codable & Error {
                         reply(nil, NSError(error))
                     } else {
-                        reply(nil, error)
+                        // Sending cast directly tries to serialize it and crashes XPCEncoder.
+                        let cast = error as NSError
+                        reply(nil, NSError(domain: cast.domain, code: cast.code, userInfo: [NSLocalizedDescriptionKey: error.localizedDescription]))
                     }
                 }
             }

@@ -50,16 +50,16 @@ extension SecureEnclave {
                     let secret = Secret(id: UUID().uuidString, name: name, publicKey: parsed.publicKey.x963Representation, attributes: Attributes(keyType: .init(algorithm: .ecdsa, size: 256), authentication: auth))
                     guard !migratedPublicKeys.contains(parsed.publicKey.x963Representation) else {
                         logger.log("Skipping \(name), public key already present. Marking as migrated.")
-                        try markMigrated(secret: secret, oldID: id)
+                        markMigrated(secret: secret, oldID: id)
                         continue
                     }
                     logger.log("Migrating \(name).")
                     try store.saveKey(tokenObjectID, name: name, attributes: secret.attributes)
                     logger.log("Migrated \(name).")
-                    try markMigrated(secret: secret, oldID: id)
+                    markMigrated(secret: secret, oldID: id)
                     migratedAny = true
                 } catch {
-                    logger.error("Failed to migrate \(name): \(error).")
+                    logger.error("Failed to migrate \(name): \(error.localizedDescription).")
                 }
             }
             if migratedAny {
@@ -69,10 +69,10 @@ extension SecureEnclave {
 
 
 
-        public func markMigrated(secret: Secret, oldID: Data) throws {
+        public func markMigrated(secret: Secret, oldID: Data) {
             let updateQuery = KeychainDictionary([
                 kSecClass: kSecClassKey,
-                kSecAttrApplicationLabel: secret.id
+                kSecAttrApplicationLabel: oldID
             ])
 
             let newID = oldID + Constants.migrationMagicNumber
@@ -82,7 +82,7 @@ extension SecureEnclave {
 
             let status = SecItemUpdate(updateQuery, updatedAttributes)
             if status != errSecSuccess {
-                throw KeychainError(statusCode: status)
+                logger.warning("Failed to mark \(secret.name) as migrated: \(status).")
             }
         }
 

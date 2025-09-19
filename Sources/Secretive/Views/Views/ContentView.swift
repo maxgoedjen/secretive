@@ -6,19 +6,21 @@ import Brief
 
 struct ContentView: View {
 
-    @Binding var showingCreation: Bool
-    @Binding var runningSetup: Bool
-    @Binding var hasRunSetup: Bool
-    @State var showingAgentInfo = false
     @State var activeSecret: AnySecret?
-    @Environment(\.colorScheme) var colorScheme
-
-    @Environment(\.secretStoreList) private var storeList
-    @Environment(\.updater) private var updater: any UpdaterProtocol
-    @Environment(\.agentStatusChecker) private var agentStatusChecker: any AgentStatusCheckerProtocol
 
     @State private var selectedUpdate: Release?
+
+    @Environment(\.colorScheme) private var colorScheme
+    @Environment(\.openWindow) private var openWindow
+    @Environment(\.secretStoreList) private var storeList
+    @Environment(\.updater) private var updater
+    @Environment(\.agentStatusChecker) private var agentStatusChecker
+
+    @AppStorage("defaultsHasRunSetup") private var hasRunSetup = false
+    @State private var showingCreation = false
     @State private var showingAppPathNotice = false
+    @State private var runningSetup = false
+    @State private var showingAgentInfo = false
 
     var body: some View {
         VStack {
@@ -34,6 +36,23 @@ struct ContentView: View {
             toolbarItem(runningOrRunSetupView, id: "setup")
             toolbarItem(appPathNoticeView, id: "appPath")
             toolbarItem(newItemView, id: "new")
+        }
+        .onAppear {
+            if !hasRunSetup {
+                runningSetup = true
+            }
+        }
+        .focusedSceneValue(\.showCreateSecret,  .init(isEnabled: !runningSetup) {
+            showingCreation = true
+        })
+        .sheet(isPresented: $showingCreation) {
+            if let modifiable = storeList.modifiableStore {
+                CreateSecretView(store: modifiable) { created in
+                    if let created {
+                        activeSecret = created
+                    }
+                }
+            }
         }
         .sheet(isPresented: $runningSetup) {
             SetupView(setupComplete: $hasRunSetup)
@@ -85,24 +104,9 @@ extension ContentView {
                     .font(.headline)
                     .foregroundColor(.white)
             })
-            .buttonStyle(ToolbarButtonStyle(color: color))
+            .buttonStyle(ToolbarStatusButtonStyle(color: color))
             .sheet(item: $selectedUpdate) { update in
-                VStack {
-                    if updater.currentVersion.isTestBuild {
-                        VStack {
-                            if let description = updater.currentVersion.previewDescription {
-                                Text(description)
-                            }
-                            Link(destination: URL(string: "https://github.com/maxgoedjen/secretive/actions/workflows/nightly.yml")!) {
-                                Button(.updaterDownloadLatestNightlyButton) {}
-                                    .frame(maxWidth: .infinity)
-                                    .primaryButton()
-                            }
-                        }
-                        .padding()
-                    }
-                    UpdateDetailView(update: update)
-                }
+                UpdateDetailView(update: update)
             }
         }
     }
@@ -113,16 +117,7 @@ extension ContentView {
             Button(.appMenuNewSecretButton, systemImage: "plus") {
                 showingCreation = true
             }
-            .menuButton()
-            .sheet(isPresented: $showingCreation) {
-                if let modifiable = storeList.modifiableStore {
-                    CreateSecretView(store: modifiable) { created in
-                        if let created {
-                            activeSecret = created
-                        }
-                    }
-                }
-            }
+            .toolbarCircleButton()
         }
     }
 
@@ -149,7 +144,7 @@ extension ContentView {
             }
         })
         .buttonStyle(
-            ToolbarButtonStyle(
+            ToolbarStatusButtonStyle(
                 lightColor: agentStatusChecker.running ? .black.opacity(0.05) : .red.opacity(0.75),
                 darkColor: agentStatusChecker.running ? .white.opacity(0.05) : .red.opacity(0.5),
             )
@@ -171,18 +166,18 @@ extension ContentView {
                 .font(.headline)
                 .foregroundColor(.white)
             })
-            .buttonStyle(ToolbarButtonStyle(color: .orange))
-            .popover(isPresented: $showingAppPathNotice, attachmentAnchor: attachmentAnchor, arrowEdge: .bottom) {
-                VStack {
-                    Image(systemName: "exclamationmark.triangle")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 64)
-                    Text(.appNotInApplicationsNoticeDetailDescription)
-                        .frame(maxWidth: 300)
+            .buttonStyle(ToolbarStatusButtonStyle(color: .orange))
+            .confirmationDialog(.appNotInApplicationsNoticeTitle, isPresented: $showingAppPathNotice) {
+                Button(.appNotInApplicationsNoticeCancelButton, role:  .cancel) {
                 }
-                .padding()
+                Button(.appNotInApplicationsNoticeQuitButton) {
+                    NSWorkspace.shared.selectFile(Bundle.main.bundlePath, inFileViewerRootedAtPath: Bundle.main.bundlePath)
+                    NSApplication.shared.terminate(nil)
+                }
+            } message: {
+                Text(.appNotInApplicationsNoticeDetailDescription)
             }
+            .dialogIcon(Image(systemName: "folder.fill.badge.questionmark"))
         }
     }
 
