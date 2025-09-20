@@ -1,5 +1,6 @@
 import SwiftUI
 import SecretKit
+import SSHProtocolKit
 
 struct SecretDetailView<SecretType: Secret>: View {
     

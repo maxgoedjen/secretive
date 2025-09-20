@@ -1,5 +1,6 @@
 import Foundation
 import CryptoKit
+import SecretKit
 
 /// Generates OpenSSH representations of Secrets.
 public struct OpenSSHSignatureWriter: Sendable {

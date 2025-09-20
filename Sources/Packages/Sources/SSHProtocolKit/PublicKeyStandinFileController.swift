@@ -1,5 +1,6 @@
 import Foundation
 import OSLog
+import SecretKit
 
 /// Controller responsible for writing public keys to disk, so that they're easily accessible by scripts.
 public final class PublicKeyFileStoreController: Sendable {

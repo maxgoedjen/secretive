@@ -6,6 +6,7 @@ import SmartCardSecretKit
 import SecretAgentKit
 import Brief
 import Observation
+import SSHProtocolKit
 
 @main
 class AppDelegate: NSObject, NSApplicationDelegate {

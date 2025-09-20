@@ -3,6 +3,7 @@ import SecretKit
 import SecureEnclaveSecretKit
 import SmartCardSecretKit
 import Brief
+import SSHProtocolKit
 
 struct ContentView: View {
 
@@ -42,6 +43,16 @@ struct ContentView: View {
                 runningSetup = true
             }
         }
+        .dropDestination(for: URL.self) { items, location in
+                guard let url = items.first, url.pathExtension == "pub" else { return false }
+            Task {
+                let data = try! Data(contentsOf: url)
+                let parser = try! await XPCCertificateParser()
+                let cert = try! await parser.parse(data: data)
+                print(cert)
+            }
+            return true
+        } isTargeted: { _ in }
         .focusedSceneValue(\.showCreateSecret,  .init(isEnabled: !runningSetup) {
             showingCreation = true
         })

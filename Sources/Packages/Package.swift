@@ -28,6 +28,9 @@ let package = Package(
         .library(
             name: "XPCWrappers",
             targets: ["XPCWrappers"]),
+        .library(
+            name: "SSHProtocolKit",
+            targets: ["SSHProtocolKit"]),
     ],
     dependencies: [
     ],
@@ -57,7 +60,7 @@ let package = Package(
         ),
         .target(
             name: "SecretAgentKit",
-            dependencies: ["SecretKit"],
+            dependencies: ["SecretKit", "SSHProtocolKit"],
             resources: [localization],
             swiftSettings: swiftSettings,
         ),
@@ -66,8 +69,18 @@ let package = Package(
             dependencies: ["SecretAgentKit"],
         ),
         .target(
+            name: "SSHProtocolKit",
+            dependencies: ["SecretKit"],
+            resources: [localization],
+            swiftSettings: swiftSettings,
+        ),
+        .testTarget(
+            name: "SSHProtocolKitTests",
+            dependencies: ["SSHProtocolKit"],
+        ),
+        .target(
             name: "Brief",
-            dependencies: ["XPCWrappers"],
+            dependencies: ["XPCWrappers", "SSHProtocolKit"],
             resources: [localization],
             swiftSettings: swiftSettings,
         ),
