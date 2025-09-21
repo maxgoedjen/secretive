@@ -1,5 +1,6 @@
 import Foundation
 import OSLog
+import CryptoKit
 
 public struct OpenSSHCertificate: Sendable, Codable, Equatable, Hashable, Identifiable, CustomDebugStringConvertible {
 
@@ -7,6 +8,12 @@ public struct OpenSSHCertificate: Sendable, Codable, Equatable, Hashable, Identi
     public var type: CertificateType
     public let name: String?
     public let data: Data
+
+    public var publicKey: Data
+    public var principals: [String]
+    public var keyID: String
+    public var serial: UInt64
+    public var validityRange: Range<Date>?
 
     public var debugDescription: String {
         "OpenSSH Certificate \(name, default: "Unnamed"): \(data.formatted(.hex()))"
@@ -54,7 +61,53 @@ public struct OpenSSHCertificateParser: OpenSSHCertificateParserProtocol, Sendab
             throw OpenSSHCertificateError.parsingFailed
         }
         let name = elements.first
-        return OpenSSHCertificate(type: type, name: name, data: decoded)
+        do {
+            let dataParser = OpenSSHReader(data: decoded)
+            _ = try dataParser.readNextChunkAsString() // Redundant key type
+            _ = try dataParser.readNextChunk() // Nonce
+            _ = try dataParser.readNextChunkAsString() // curve
+            let publicKey = try dataParser.readNextChunk()
+            let serialNumber = try dataParser.readNextBytes(as: UInt64.self, convertEndianness: true)
+            let role = try dataParser.readNextBytes(as: UInt32.self, convertEndianness: true)
+            let keyIdentifier = try dataParser.readNextChunkAsString()
+            let principalsReader = try dataParser.readNextChunkAsSubReader()
+            var principals: [String] = []
+            while !principalsReader.done {
+                try principals.append(principalsReader.readNextChunkAsString())
+            }
+            let validAfter = try dataParser.readNextBytes(as: UInt64.self, convertEndianness: true)
+            let validBefore = try dataParser.readNextBytes(as: UInt64.self, convertEndianness: true)
+            let validityRange = Date(timeIntervalSince1970: TimeInterval(validAfter))..<Date(timeIntervalSince1970: TimeInterval(validBefore
+                                                                                                                                ))
+            let criticalOptionsReader = try dataParser.readNextChunkAsSubReader()
+            let extensionsReader = try dataParser.readNextChunkAsSubReader()
+            _ = try dataParser.readNextChunk() // reserved
+            let signatureKey = try dataParser.readNextChunk()
+            let signature = try dataParser.readNextChunk()
+
+            print(pkw(data: signatureKey), pkw(data: publicKey), pkw(data: signature))
+
+
+            return OpenSSHCertificate(
+                type: type,
+                name: name,
+                data: data,
+                publicKey: publicKey,
+                principals: principals,
+                keyID: keyIdentifier,
+                serial: serialNumber,
+                validityRange: validityRange
+            )
+        } catch {
+            throw .parsingFailed
+        }
+    }
+
+    func pkw(data: Data) -> String {
+        let base64 = Data(SHA256.hash(data: data)).base64EncodedString()
+        let paddingRange = base64.index(base64.endIndex, offsetBy: -2)..<base64.endIndex
+        let cleaned = base64.replacingOccurrences(of: "=", with: "", range: paddingRange)
+        return "SHA256:\(cleaned)"
     }
 
 }

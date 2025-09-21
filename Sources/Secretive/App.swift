@@ -3,6 +3,7 @@ import SecretKit
 import SecureEnclaveSecretKit
 import SmartCardSecretKit
 import Brief
+import CertificateKit
 
 @main
 struct Secretive: App {
@@ -14,6 +15,7 @@ struct Secretive: App {
         WindowGroup {
             ContentView()
                 .environment(EnvironmentValues._secretStoreList)
+                .environment(EnvironmentValues._certificateStore)
                 .onReceive(NotificationCenter.default.publisher(for: NSApplication.didBecomeActiveNotification)) { _ in
                     @AppStorage("defaultsHasRunSetup") var hasRunSetup = false
                     guard hasRunSetup else { return }
@@ -121,6 +123,8 @@ extension EnvironmentValues {
         return list
     }()
 
+    @MainActor fileprivate static let _certificateStore: CertificateStore = CertificateStore()
+
     private static let _agentStatusChecker = AgentStatusChecker()
     @Entry var agentStatusChecker: any AgentStatusCheckerProtocol = _agentStatusChecker
     private static let _updater: any UpdaterProtocol = {
@@ -134,6 +138,10 @@ extension EnvironmentValues {
 
     @MainActor var secretStoreList: SecretStoreList {
         EnvironmentValues._secretStoreList
+    }
+
+    @MainActor var certificateStore: CertificateStore {
+        EnvironmentValues._certificateStore
     }
 }
 

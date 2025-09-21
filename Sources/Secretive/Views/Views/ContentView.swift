@@ -14,6 +14,7 @@ struct ContentView: View {
     @Environment(\.colorScheme) private var colorScheme
     @Environment(\.openWindow) private var openWindow
     @Environment(\.secretStoreList) private var storeList
+    @Environment(\.certificateStore) private var certificateStore
     @Environment(\.updater) private var updater
     @Environment(\.agentStatusChecker) private var agentStatusChecker
 
@@ -49,6 +50,12 @@ struct ContentView: View {
                 let data = try! Data(contentsOf: url)
                 let parser = try! await XPCCertificateParser()
                 let cert = try! await parser.parse(data: data)
+                let secret = storeList.allSecrets.first { secret in
+                    secret.name == cert.name
+                }
+                guard let secret = secret ?? storeList.allSecrets.first else { return }
+                print(cert.data.formatted(.hex()))
+                certificateStore.saveCertificate(cert.data, for: secret)
                 print(cert)
             }
             return true

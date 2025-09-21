@@ -34,6 +34,7 @@
 		50571E0324393C2600F76F6C /* JustUpdatedChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50571E0224393C2600F76F6C /* JustUpdatedChecker.swift */; };
 		50571E0524393D1500F76F6C /* LaunchAgentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50571E0424393D1500F76F6C /* LaunchAgentController.swift */; };
 		505993512E7E59FB0092CFFA /* XPCCertificateParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505993502E7E59F70092CFFA /* XPCCertificateParser.swift */; };
+		505993532E7E70C90092CFFA /* CertificateKit in Frameworks */ = {isa = PBXBuildFile; productRef = 505993522E7E70C90092CFFA /* CertificateKit */; };
 		50617D8323FCE48E0099B055 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50617D8223FCE48E0099B055 /* App.swift */; };
 		50617D8523FCE48E0099B055 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50617D8423FCE48E0099B055 /* ContentView.swift */; };
 		50617D8A23FCE48E0099B055 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 50617D8923FCE48E0099B055 /* Preview Assets.xcassets */; };
@@ -273,6 +274,7 @@
 			files = (
 				5003EF3B278005E800DF2006 /* SecretKit in Frameworks */,
 				501421622781262300BBAA70 /* Brief in Frameworks */,
+				505993532E7E70C90092CFFA /* CertificateKit in Frameworks */,
 				5003EF5F2780081600DF2006 /* SecureEnclaveSecretKit in Frameworks */,
 				5003EF612780081600DF2006 /* SmartCardSecretKit in Frameworks */,
 			);
@@ -560,6 +562,7 @@
 				5003EF5E2780081600DF2006 /* SecureEnclaveSecretKit */,
 				5003EF602780081600DF2006 /* SmartCardSecretKit */,
 				501421612781262300BBAA70 /* Brief */,
+				505993522E7E70C90092CFFA /* CertificateKit */,
 			);
 			productName = Secretive;
 			productReference = 50617D7F23FCE48E0099B055 /* Secretive.app */;
@@ -1784,6 +1787,10 @@
 		501421612781262300BBAA70 /* Brief */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = Brief;
+		};
+		505993522E7E70C90092CFFA /* CertificateKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = CertificateKit;
 		};
 		50692D2C2E6FDC000043C7BB /* XPCWrappers */ = {
 			isa = XCSwiftPackageProductDependency;
