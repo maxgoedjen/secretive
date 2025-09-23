@@ -68,6 +68,9 @@ struct ToolbarButtonStyle: PrimitiveButtonStyle {
                 .padding(.vertical, 10)
                 .padding(.horizontal, 12)
                 .glassEffect(.regular.interactive().tint(tint))
+                .onTapGesture {
+                    configuration.trigger()
+                }
         } else {
             BorderedButtonStyle().makeBody(configuration: configuration)
                 .padding(EdgeInsets(top: 6, leading: 8, bottom: 6, trailing: 8))
