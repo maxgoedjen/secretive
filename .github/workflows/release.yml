@@ -58,26 +58,28 @@ jobs:
             sed -i '' -e "s/GITHUB_BUILD_URL/github.com\/maxgoedjen\/secretive\/actions\/runs\/$RUN_ID/g" Sources/Config/Config.xcconfig
     - name: Build
       run: xcrun xcodebuild -project Sources/Secretive.xcodeproj -scheme Secretive -configuration Release -archivePath Archive.xcarchive archive
-    - name: Create ZIP
-      run: |
-            ditto -c -k --sequesterRsrc --keepParent Archive.xcarchive/Products/Applications/Secretive.app ./Secretive.zip
-    - name: Notarize
-      env: 
-        APPLE_API_KEY_ID: ${{ secrets.APPLE_API_KEY_ID }}
-        APPLE_API_ISSUER: ${{ secrets.APPLE_API_ISSUER }}
-      run: xcrun notarytool submit --key ~/.private_keys/AuthKey_$APPLE_API_KEY_ID.p8 --key-id $APPLE_API_KEY_ID --issuer $APPLE_API_ISSUER Secretive.zip
     - name: Upload App to Artifacts
       id: upload
       uses: actions/upload-artifact@v4
       with:
         name: Secretive.zip
         path: Secretive.zip
+    - name: Download Zipped Artifact
+      id: download
+      uses: actions/download-artifact@v5
+      with:
+        artifact-ids: {{ steps.upload.outputs.artifact-id }}
     - name: Attest
       id: attest
       uses: actions/attest-build-provenance@v2
       with:
         subject-name: "Secretive.zip"
         subject-digest: sha256:${{ steps.upload.outputs.artifact-digest }}
+    - name: Notarize
+      env: 
+        APPLE_API_KEY_ID: ${{ secrets.APPLE_API_KEY_ID }}
+        APPLE_API_ISSUER: ${{ secrets.APPLE_API_ISSUER }}
+      run: xcrun notarytool submit --key ~/.private_keys/AuthKey_$APPLE_API_KEY_ID.p8 --key-id $APPLE_API_KEY_ID --issuer $APPLE_API_ISSUER Secretive.zip
     - name: Create Release
       run: |
             sed -i.tmp "s/RUN_ID/$RUN_ID/g" .github/templates/release.md
