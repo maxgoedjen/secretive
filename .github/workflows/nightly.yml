@@ -44,12 +44,14 @@ jobs:
         APPLE_API_KEY_ID: ${{ secrets.APPLE_API_KEY_ID }}
         APPLE_API_ISSUER: ${{ secrets.APPLE_API_ISSUER }}
       run: xcrun notarytool submit --key ~/.private_keys/AuthKey_$APPLE_API_KEY_ID.p8 --key-id $APPLE_API_KEY_ID --issuer $APPLE_API_ISSUER Secretive.zip
+    - name: Remove SecretAgent artifact
+      run: rm -r Archive.xcarchive/Products/Applications/SecretAgent.app
     - name: Upload App to Artifacts
       id: upload
       uses: actions/upload-artifact@v4
       with:
         name: Secretive.zip
-        path: Archive.xcarchive/Products/Applications/Secretive.app
+        path: Archive.xcarchive/Products/Applications
     - name: Attest
       id: attest
       uses: actions/attest-build-provenance@v2
