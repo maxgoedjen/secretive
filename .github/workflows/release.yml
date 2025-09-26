@@ -59,7 +59,7 @@ jobs:
     - name: Build
       run: xcrun xcodebuild -project Sources/Secretive.xcodeproj -scheme Secretive -configuration Release -archivePath Archive.xcarchive archive
     - name: Move to Artifact Folder
-      run: mkdir Artifact; cp Archive.xcarchive/Products/Applications/Secretive.app
+      run: mkdir Artifact; cp Archive.xcarchive/Products/Applications/Secretive.app Artifact
     - name: Upload App to Artifacts
       id: upload
       uses: actions/upload-artifact@v4
