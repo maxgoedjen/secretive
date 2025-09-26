@@ -7,6 +7,7 @@ import SecretAgentKit
 import Brief
 import Observation
 import SSHProtocolKit
+import CertificateKit
 
 @main
 class AppDelegate: NSObject, NSApplicationDelegate {
@@ -16,6 +17,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let cryptoKit = SecureEnclave.Store()
         let migrator = SecureEnclave.CryptoKitMigrator()
         try? migrator.migrate(to: cryptoKit)
+        let certsMigrator = CertificateKitMigrator(homeDirectory: URL.homeDirectory)
+        try? certsMigrator.migrate()
         list.add(store: cryptoKit)
         list.add(store: SmartCard.Store())
         return list

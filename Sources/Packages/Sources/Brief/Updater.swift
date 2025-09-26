@@ -75,14 +75,14 @@ extension Updater {
                 .reversed()
                 .filter({ !$0.prerelease })
                 .first(where: { $0.minimumOSVersion <= osVersion }) else { return }
-        guard !userIgnored(release: release) else { return }
-        guard !release.prerelease else { return }
-        let latestVersion = SemVer(release.name)
-        if latestVersion > currentVersion {
+//        guard !userIgnored(release: release) else { return }
+//        guard !release.prerelease else { return }
+//        let latestVersion = SemVer(release.name)
+//        if latestVersion > currentVersion {
             await MainActor.run {
                 state.update = release
             }
-        }
+//        }
     }
 
     /// Checks whether the user has ignored a release.

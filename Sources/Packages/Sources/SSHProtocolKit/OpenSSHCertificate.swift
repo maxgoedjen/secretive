@@ -77,16 +77,7 @@ public struct OpenSSHCertificateParser: OpenSSHCertificateParserProtocol, Sendab
             }
             let validAfter = try dataParser.readNextBytes(as: UInt64.self, convertEndianness: true)
             let validBefore = try dataParser.readNextBytes(as: UInt64.self, convertEndianness: true)
-            let validityRange = Date(timeIntervalSince1970: TimeInterval(validAfter))..<Date(timeIntervalSince1970: TimeInterval(validBefore
-                                                                                                                                ))
-            let criticalOptionsReader = try dataParser.readNextChunkAsSubReader()
-            let extensionsReader = try dataParser.readNextChunkAsSubReader()
-            _ = try dataParser.readNextChunk() // reserved
-            let signatureKey = try dataParser.readNextChunk()
-            let signature = try dataParser.readNextChunk()
-
-            print(pkw(data: signatureKey), pkw(data: publicKey), pkw(data: signature))
-
+            let validityRange = Date(timeIntervalSince1970: TimeInterval(validAfter))..<Date(timeIntervalSince1970: TimeInterval(validBefore))
 
             return OpenSSHCertificate(
                 type: type,
@@ -101,13 +92,6 @@ public struct OpenSSHCertificateParser: OpenSSHCertificateParserProtocol, Sendab
         } catch {
             throw .parsingFailed
         }
-    }
-
-    func pkw(data: Data) -> String {
-        let base64 = Data(SHA256.hash(data: data)).base64EncodedString()
-        let paddingRange = base64.index(base64.endIndex, offsetBy: -2)..<base64.endIndex
-        let cleaned = base64.replacingOccurrences(of: "=", with: "", range: paddingRange)
-        return "SHA256:\(cleaned)"
     }
 
 }

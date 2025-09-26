@@ -116,8 +116,8 @@ extension EnvironmentValues {
     @MainActor fileprivate static let _secretStoreList: SecretStoreList = {
         let list = SecretStoreList()
         let cryptoKit = SecureEnclave.Store()
-        let migrator = SecureEnclave.CryptoKitMigrator()
-        try? migrator.migrate(to: cryptoKit)
+        let cryptoKitMigrator = SecureEnclave.CryptoKitMigrator()
+        try? cryptoKitMigrator.migrate(to: cryptoKit)
         list.add(store: cryptoKit)
         list.add(store: SmartCard.Store())
         return list
