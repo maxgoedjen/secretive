@@ -42,13 +42,14 @@ jobs:
       id: upload
       uses: actions/upload-artifact@v4
       with:
-        name: Secretive.zip
+        name: Secretive
         path: Artifact
     - name: Download Zipped Artifact
       id: download
       env: 
         ZIP_URL: ${{ steps.upload.outputs.artifact-url }}
-      run: curl -L $ZIP_URL > Secretive.zip
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: curl  -H "Authorization: Bearer $GITHUB_TOKEN" -L $ZIP_URL > Secretive.zip
     - name: SHA Zipped Artifact
       run: shasum -a 256 Secretive.zip
     - name: Notarize
