@@ -49,7 +49,7 @@ jobs:
       env: 
         ZIP_URL: ${{ steps.upload.outputs.artifact-url }}
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: curl  -H "Authorization: Bearer $GITHUB_TOKEN" -L $ZIP_URL > Secretive.zip
+      run: curl  -H "Authorization:\ Bearer $GITHUB_TOKEN" -L $ZIP_URL > Secretive.zip
     - name: SHA Zipped Artifact
       run: shasum -a 256 Secretive.zip
     - name: Notarize
