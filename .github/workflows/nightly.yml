@@ -49,6 +49,7 @@ jobs:
       uses: actions/download-artifact@v5
       with:
         artifact-ids: ${{ steps.upload.outputs.artifact-id }}
+      run: ls -R        
     - name: Notarize
       env: 
         APPLE_API_KEY_ID: ${{ secrets.APPLE_API_KEY_ID }}
