@@ -49,6 +49,8 @@ jobs:
       env: 
         ZIP_URL: ${{ steps.upload.outputs.artifact-url }}
       run: curl -L $ZIP_URL > Secretive.zip
+    - name: SHA Zipped Artifact
+      run: shasum -a 256 Secretive.zip
     - name: Notarize
       env: 
         APPLE_API_KEY_ID: ${{ secrets.APPLE_API_KEY_ID }}
