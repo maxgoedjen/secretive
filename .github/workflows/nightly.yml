@@ -46,11 +46,9 @@ jobs:
         path: Artifact
     - name: Download Zipped Artifact
       id: download
-      uses: actions/download-artifact@v5
-      with:
-        artifact-ids: ${{ steps.upload.outputs.artifact-id }}
-    - name: list
-      run: ls -R        
+      env: 
+        ZIP_URL: ${{ steps.upload.outputs.artifact-url }}
+      run: curl $ZIP_URL > Secretive.zip
     - name: Notarize
       env: 
         APPLE_API_KEY_ID: ${{ secrets.APPLE_API_KEY_ID }}
