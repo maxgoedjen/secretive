@@ -49,12 +49,13 @@ jobs:
       uses: actions/download-artifact@v5
       with:
         artifact-ids: ${{ steps.upload.outputs.artifact-id }}
+    - name: list
+      run: ls -R        
     - name: Notarize
       env: 
         APPLE_API_KEY_ID: ${{ secrets.APPLE_API_KEY_ID }}
         APPLE_API_ISSUER: ${{ secrets.APPLE_API_ISSUER }}
-        ZIP_PATH: ${{ steps.download.outputs.download-path }}
-      run: xcrun notarytool submit --key ~/.private_keys/AuthKey_$APPLE_API_KEY_ID.p8 --key-id $APPLE_API_KEY_ID --issuer $APPLE_API_ISSUER $ZIP_PATH/Secretive.zip
+      run: xcrun notarytool submit --key ~/.private_keys/AuthKey_$APPLE_API_KEY_ID.p8 --key-id $APPLE_API_KEY_ID --issuer $APPLE_API_ISSUER Secretive.zip
     - name: Attest
       id: attest
       uses: actions/attest-build-provenance@v2
