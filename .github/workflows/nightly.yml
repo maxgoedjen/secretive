@@ -12,6 +12,7 @@ jobs:
       id-token: write
       contents: write
       attestations: write
+      actions: read
     timeout-minutes: 10
     steps:
     - uses: actions/checkout@v5
@@ -36,20 +37,27 @@ jobs:
             sed -i '' -e "s/GITHUB_BUILD_URL/https:\/\/github.com\/maxgoedjen\/secretive\/actions\/runs\/$RUN_ID/g" Sources/Config/Config.xcconfig
     - name: Build
       run: xcrun xcodebuild -project Sources/Secretive.xcodeproj -scheme Secretive -configuration Release -archivePath Archive.xcarchive archive
-    - name: Create ZIP
+    - name: Move to Artifact Folder
+      run: mkdir Artifact; cp -r Archive.xcarchive/Products/Applications/Secretive.app Artifact
+    - name: Upload App to Artifacts
+      id: upload
+      uses: actions/upload-artifact@v4
+      with:
+        name: Secretive
+        path: Artifact
+    - name: Download Zipped Artifact
+      id: download
+      env: 
+        ZIP_ID: ${{ steps.upload.outputs.artifact-id }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
-            ditto -c -k --sequesterRsrc --keepParent Archive.xcarchive/Products/Applications/Secretive.app ./Secretive.zip
+            curl -L -H "Authorization: Bearer $GITHUB_TOKEN" -L \
+            https://api.github.com/repos/maxgoedjen/secretive/actions/artifacts/$ZIP_ID/zip > Secretive.zip
     - name: Notarize
       env: 
         APPLE_API_KEY_ID: ${{ secrets.APPLE_API_KEY_ID }}
         APPLE_API_ISSUER: ${{ secrets.APPLE_API_ISSUER }}
       run: xcrun notarytool submit --key ~/.private_keys/AuthKey_$APPLE_API_KEY_ID.p8 --key-id $APPLE_API_KEY_ID --issuer $APPLE_API_ISSUER Secretive.zip
-    - name: Upload App to Artifacts
-      id: upload
-      uses: actions/upload-artifact@v4
-      with:
-        name: Secretive.zip
-        path: Secretive.zip
     - name: Attest
       id: attest
       uses: actions/attest-build-provenance@v2
