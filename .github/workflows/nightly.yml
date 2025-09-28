@@ -12,6 +12,7 @@ jobs:
       id-token: write
       contents: write
       attestations: write
+      actions: read
     timeout-minutes: 10
     steps:
     - uses: actions/checkout@v5
@@ -50,7 +51,7 @@ jobs:
         ZIP_URL: ${{ steps.upload.outputs.artifact-url }}
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
-            curl -H "Authorization: Bearer $GITHUB_TOKEN" -L $ZIP_URL > Secretive.zip
+            curl -L -H "Authorization: Bearer $GITHUB_TOKEN" $ZIP_URL > Secretive.zip
     - name: SHA Zipped Artifact
       run: shasum -a 256 Secretive.zip
     - name: Notarize
