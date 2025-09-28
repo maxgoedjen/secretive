@@ -48,10 +48,11 @@ jobs:
     - name: Download Zipped Artifact
       id: download
       env: 
-        ZIP_URL: ${{ steps.upload.outputs.artifact-url }}
+        ZIP_URL: ${{ steps.upload.outputs.artifact-id }}
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
-            curl -L -H "Authorization: Bearer $GITHUB_TOKEN" $ZIP_URL > Secretive.zip
+            curl -L -H "Authorization: Bearer $GITHUB_TOKEN" -L \
+            https://api.github.com/repos/maxgoedjen/secretive/actions/artifacts/$ZIP_ID/zip > Secretive.zip
     - name: SHA Zipped Artifact
       run: shasum -a 256 Secretive.zip
     - name: Notarize
