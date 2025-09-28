@@ -84,8 +84,7 @@ jobs:
       id: attest
       uses: actions/attest-build-provenance@v2
       with:
-        subject-name: "Secretive.zip"
-        subject-digest: sha256:${{ steps.upload.outputs.artifact-digest }}
+        subject-path: "Secretive.zip"
     - name: Create Release
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
