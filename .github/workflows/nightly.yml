@@ -53,8 +53,6 @@ jobs:
       run: |
             curl -L -H "Authorization: Bearer $GITHUB_TOKEN" -L \
             https://api.github.com/repos/maxgoedjen/secretive/actions/artifacts/$ZIP_ID/zip > Secretive.zip
-    - name: SHA Zipped Artifact
-      run: shasum -a 256 Secretive.zip
     - name: Notarize
       env: 
         APPLE_API_KEY_ID: ${{ secrets.APPLE_API_KEY_ID }}
