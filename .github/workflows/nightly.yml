@@ -48,7 +48,7 @@ jobs:
     - name: Download Zipped Artifact
       id: download
       env: 
-        ZIP_URL: ${{ steps.upload.outputs.artifact-id }}
+        ZIP_ID: ${{ steps.upload.outputs.artifact-id }}
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
             curl -L -H "Authorization: Bearer $GITHUB_TOKEN" -L \
