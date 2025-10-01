@@ -60,7 +60,7 @@ struct ToolConfigurationView: View {
                 Section {
                     ConfigurationItemView(title: .integrationsPathTitle, value: stepGroup.path, action: .revealInFinder(stepGroup.path))
                     ForEach(stepGroup.steps, id: \.self.key) { step in
-                        ConfigurationItemView(title: .integrationsAddThisTitle, action: .copy(String(localized: step))) {
+                        ConfigurationItemView(title: .integrationsAddThisTitle, action: .copy(placeholdersReplaced(text: String(localized: step)))) {
                             HStack {
                                 Text(placeholdersReplaced(text: String(localized: step)))
                                     .padding(8)
