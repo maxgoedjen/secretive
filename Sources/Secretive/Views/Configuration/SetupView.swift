@@ -3,6 +3,7 @@ import SwiftUI
 struct SetupView: View {
 
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.agentLaunchController) private var agentLaunchController
     @Binding var setupComplete: Bool
 
     @State var showingIntegrations = false
@@ -31,7 +32,7 @@ struct SetupView: View {
                     ) {
                         installed = true
                         Task {
-                            await LaunchAgentController().install()
+                            try? await agentLaunchController.install()
                         }
                     }
                 }
