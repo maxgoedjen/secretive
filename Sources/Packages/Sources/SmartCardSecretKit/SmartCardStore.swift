@@ -34,6 +34,7 @@ extension SmartCard {
         public var secrets: [Secret] {
             state.secrets
         }
+        private let persistentAuthenticationHandler = PersistentAuthenticationHandler()
 
         /// Initializes a Store.
         public init() {
@@ -58,9 +59,15 @@ extension SmartCard {
 
         public func sign(data: Data, with secret: Secret, for provenance: SigningRequestProvenance) async throws -> Data {
             guard let tokenID = await state.tokenID else { fatalError() }
-            let context = LAContext()
-            context.localizedReason = String(localized: .authContextRequestSignatureDescription(appName: provenance.origin.displayName, secretName: secret.name))
-            context.localizedCancelTitle = String(localized: .authContextRequestDenyButton)
+            var context: LAContext
+            if let existing = await persistentAuthenticationHandler.existingPersistedAuthenticationContext(secret: secret) {
+                context = unsafe existing.context
+            } else {
+                let newContext = LAContext()
+                newContext.localizedReason = String(localized: .authContextRequestSignatureDescription(appName: provenance.origin.displayName, secretName: secret.name))
+                newContext.localizedCancelTitle = String(localized: .authContextRequestDenyButton)
+                context = newContext
+            }
             let attributes = KeychainDictionary([
                 kSecClass: kSecClassKey,
                 kSecAttrKeyClass: kSecAttrKeyClassPrivate,
@@ -86,11 +93,12 @@ extension SmartCard {
             return signature as Data
         }
         
-        public func existingPersistedAuthenticationContext(secret: Secret) -> PersistedAuthenticationContext? {
-            nil
+        public func existingPersistedAuthenticationContext(secret: Secret) async -> PersistedAuthenticationContext? {
+            await persistentAuthenticationHandler.existingPersistedAuthenticationContext(secret: secret)
         }
 
-        public func persistAuthentication(secret: Secret, forDuration: TimeInterval) throws {
+        public func persistAuthentication(secret: Secret, forDuration duration: TimeInterval) async throws {
+            try await persistentAuthenticationHandler.persistAuthentication(secret: secret, forDuration: duration)
         }
 
         /// Reloads all secrets from the store.
@@ -163,7 +171,7 @@ extension SmartCard.Store {
             let publicKeySecRef = SecKeyCopyPublicKey(publicKeyRef)!
             let publicKeyAttributes = SecKeyCopyAttributes(publicKeySecRef) as! [CFString: Any]
             let publicKey = publicKeyAttributes[kSecValueData] as! Data
-            let attributes = Attributes(keyType: KeyType(secAttr: algorithmSecAttr, size: keySize)!, authentication: .unknown)
+            let attributes = Attributes(keyType: KeyType(secAttr: algorithmSecAttr, size: keySize)!, authentication: .presenceRequired)
             let secret = SmartCard.Secret(id: tokenID, name: name, publicKey: publicKey, attributes: attributes)
             guard signatureAlgorithm(for: secret) != nil else { return nil }
             return secret
