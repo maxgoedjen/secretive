@@ -10,6 +10,7 @@ struct ToolConfigurationView: View {
 
     @State var creating = false
     @State var selectedSecret: AnySecret?
+    @State var email = ""
 
     init(selectedInstruction: ConfigurationFileInstructions) {
         self.selectedInstruction = selectedInstruction
@@ -47,6 +48,12 @@ struct ToolConfigurationView: View {
                                 Text(secret.name)
                                     .tag(secret)
                             }
+                        }
+                        TextField(text: $email, prompt: Text(.integrationsConfigureUsingEmailPlaceholder)) {
+                            Text(.integrationsConfigureUsingEmailTitle)
+                            Text(.integrationsConfigureUsingEmailSubtitle)
+                                .font(.subheadline)
+                                .foregroundStyle(.secondary)
                         }
                     } header: {
                         Text(.integrationsConfigureUsingSecretHeader)
@@ -102,9 +109,11 @@ struct ToolConfigurationView: View {
     func placeholdersReplaced(text: String) -> String {
         guard let selectedSecret else { return text }
         let writer = OpenSSHPublicKeyWriter()
+        let gitAllowedSignersString = [email.isEmpty ? String(localized: .integrationsConfigureUsingEmailPlaceholder) : email, writer.openSSHString(secret: selectedSecret)]
+            .joined(separator: " ")
         let fileController = PublicKeyFileStoreController(homeDirectory: URL.agentHomeURL)
         return text
-            .replacingOccurrences(of: Instructions.Constants.publicKeyPlaceholder, with: writer.openSSHString(secret: selectedSecret))
+            .replacingOccurrences(of: Instructions.Constants.publicKeyPlaceholder, with: gitAllowedSignersString)
             .replacingOccurrences(of: Instructions.Constants.publicKeyPathPlaceholder, with: fileController.publicKeyPath(for: selectedSecret))
     }
 
