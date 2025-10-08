@@ -17,7 +17,8 @@ struct Secretive: App {
                 .onReceive(NotificationCenter.default.publisher(for: NSApplication.didBecomeActiveNotification)) { _ in
                     Task {
                         @AppStorage("defaultsHasRunSetup") var hasRunSetup = false
-                        guard hasRunSetup else { return }
+                        @AppStorage("explicitlyDisabled") var explicitlyDisabled = false
+                        guard hasRunSetup && !explicitlyDisabled else { return }
                         agentLaunchController.check()
                         guard !agentLaunchController.developmentBuild else { return }
                         if justUpdatedChecker.justUpdatedBuild || !agentLaunchController.running {

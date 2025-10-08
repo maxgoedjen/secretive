@@ -15,6 +15,7 @@ struct AgentStatusView: View {
 struct AgentRunningView: View {
 
     @Environment(\.agentLaunchController) private var agentLaunchController: any AgentLaunchControllerProtocol
+    @AppStorage("explicitlyDisabled") var explicitlyDisabled = false
 
     var body: some View {
         Form {
@@ -53,6 +54,7 @@ struct AgentRunningView: View {
                         Menu(.agentDetailsRestartAgentButton) {
                             Button(.agentDetailsDisableAgentButton) {
                                 Task {
+                                    explicitlyDisabled = true
                                     try? await agentLaunchController
                                         .uninstall()
                                 }
@@ -79,6 +81,7 @@ struct AgentNotRunningView: View {
     @Environment(\.agentLaunchController) private var agentLaunchController
     @State var triedRestart = false
     @State var loading = false
+    @AppStorage("explicitlyDisabled") var explicitlyDisabled = false
 
     var body: some View {
         Form {
@@ -94,6 +97,7 @@ struct AgentNotRunningView: View {
                         if !triedRestart {
                             Spacer()
                             Button {
+                                explicitlyDisabled = false
                                 guard !loading else { return }
                                 loading = true
                                 Task {

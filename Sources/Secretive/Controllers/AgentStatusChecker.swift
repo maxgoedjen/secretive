@@ -40,7 +40,7 @@ import ServiceManagement
 
     // The process corresponding to this instance of Secretive
     var instanceSecretAgentProcess: NSRunningApplication? {
-        // FIXME: CHECK VERSION
+        // TODO: CHECK VERSION
         let agents = allSecretAgentProcesses
         for agent in agents {
             guard let url = agent.bundleURL else { continue }
