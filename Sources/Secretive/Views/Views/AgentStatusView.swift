@@ -2,10 +2,10 @@ import SwiftUI
 
 struct AgentStatusView: View {
 
-    @Environment(\.agentStatusChecker) private var agentStatusChecker: any AgentStatusCheckerProtocol
+    @Environment(\.agentLaunchController) private var agentLaunchController: any AgentLaunchControllerProtocol
 
     var body: some View {
-        if agentStatusChecker.running {
+        if agentLaunchController.running {
             AgentRunningView()
         } else {
             AgentNotRunningView()
@@ -14,12 +14,13 @@ struct AgentStatusView: View {
 }
 struct AgentRunningView: View {
 
-    @Environment(\.agentStatusChecker) private var agentStatusChecker: any AgentStatusCheckerProtocol
+    @Environment(\.agentLaunchController) private var agentLaunchController: any AgentLaunchControllerProtocol
+    @AppStorage("explicitlyDisabled") var explicitlyDisabled = false
 
     var body: some View {
         Form {
             Section {
-                if let process = agentStatusChecker.process {
+                if let process = agentLaunchController.process {
                     ConfigurationItemView(
                         title: .agentDetailsLocationTitle,
                         value: process.bundleURL!.path(),
@@ -53,19 +54,14 @@ struct AgentRunningView: View {
                         Menu(.agentDetailsRestartAgentButton) {
                             Button(.agentDetailsDisableAgentButton) {
                                 Task {
-                                    _ = await LaunchAgentController()
+                                    explicitlyDisabled = true
+                                    try? await agentLaunchController
                                         .uninstall()
-                                    agentStatusChecker.check()
                                 }
                             }
                         } primaryAction: {
                             Task {
-                                let controller = LaunchAgentController()
-                                let installed = await controller.install()
-                                if !installed {
-                                    _ = await controller.forceLaunch()
-                                }
-                                agentStatusChecker.check()
+                                try? await agentLaunchController.forceLaunch()
                             }
                         }
                     }
@@ -82,9 +78,10 @@ struct AgentRunningView: View {
 
 struct AgentNotRunningView: View {
 
-    @Environment(\.agentStatusChecker) private var agentStatusChecker: any AgentStatusCheckerProtocol
+    @Environment(\.agentLaunchController) private var agentLaunchController
     @State var triedRestart = false
     @State var loading = false
+    @AppStorage("explicitlyDisabled") var explicitlyDisabled = false
 
     var body: some View {
         Form {
@@ -100,18 +97,14 @@ struct AgentNotRunningView: View {
                         if !triedRestart {
                             Spacer()
                             Button {
+                                explicitlyDisabled = false
                                 guard !loading else { return }
                                 loading = true
                                 Task {
-                                    let controller = LaunchAgentController()
-                                    let installed = await controller.install()
-                                    if !installed {
-                                        _ = await controller.forceLaunch()
-                                    }
-                                    agentStatusChecker.check()
+                                    try await agentLaunchController.forceLaunch()
                                     loading = false
 
-                                    if !agentStatusChecker.running {
+                                    if !agentLaunchController.running {
                                         triedRestart = true
                                     }
                                 }
@@ -145,9 +138,9 @@ struct AgentNotRunningView: View {
 
 //#Preview {
 //    AgentStatusView()
-//        .environment(\.agentStatusChecker, PreviewAgentStatusChecker(running: false))
+//        .environment(\.agentLaunchController, PreviewAgentLaunchController(running: false))
 //}
 //#Preview {
 //    AgentStatusView()
-//        .environment(\.agentStatusChecker, PreviewAgentStatusChecker(running: true, process: .current))
+//        .environment(\.agentLaunchController, PreviewAgentLaunchController(running: true, process: .current))
 //}

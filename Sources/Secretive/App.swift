@@ -7,7 +7,7 @@ import Brief
 @main
 struct Secretive: App {
     
-    @Environment(\.agentStatusChecker) var agentStatusChecker
+    @Environment(\.agentLaunchController) var agentLaunchController
     @Environment(\.justUpdatedChecker) var justUpdatedChecker
 
     @SceneBuilder var body: some Scene {
@@ -15,14 +15,16 @@ struct Secretive: App {
             ContentView()
                 .environment(EnvironmentValues._secretStoreList)
                 .onReceive(NotificationCenter.default.publisher(for: NSApplication.didBecomeActiveNotification)) { _ in
-                    @AppStorage("defaultsHasRunSetup") var hasRunSetup = false
-                    guard hasRunSetup else { return }
-                    agentStatusChecker.check()
-                    if agentStatusChecker.running && justUpdatedChecker.justUpdatedBuild {
-                        // Relaunch the agent, since it'll be running from earlier update still
-                        reinstallAgent()
-                    } else if !agentStatusChecker.running && !agentStatusChecker.developmentBuild {
-                        forceLaunchAgent()
+                    Task {
+                        @AppStorage("defaultsHasRunSetup") var hasRunSetup = false
+                        @AppStorage("explicitlyDisabled") var explicitlyDisabled = false
+                        guard hasRunSetup && !explicitlyDisabled else { return }
+                        agentLaunchController.check()
+                        guard !agentLaunchController.developmentBuild else { return }
+                        if justUpdatedChecker.justUpdatedBuild || !agentLaunchController.running {
+                            // Relaunch the agent, since it'll be running from earlier update still
+                            try await agentLaunchController.forceLaunch()
+                        }
                     }
                 }
         }
@@ -79,30 +81,6 @@ extension Secretive {
 
 }
 
-extension Secretive {
-
-    private func reinstallAgent() {
-        Task {
-            _ = await LaunchAgentController().install()
-            try? await Task.sleep(for: .seconds(1))
-            agentStatusChecker.check()
-            if !agentStatusChecker.running {
-                forceLaunchAgent()
-            }
-        }
-    }
-
-    private func forceLaunchAgent() {
-        // We've run setup, we didn't just update, launchd is just not doing it's thing.
-        // Force a launch directly.
-        Task {
-            _ = await LaunchAgentController().forceLaunch()
-            agentStatusChecker.check()
-        }
-    }
-
-}
-
 private enum Constants {
     static let helpURL = URL(string: "https://github.com/maxgoedjen/secretive/blob/main/FAQ.md")!
 }
@@ -121,8 +99,8 @@ extension EnvironmentValues {
         return list
     }()
 
-    private static let _agentStatusChecker = AgentStatusChecker()
-    @Entry var agentStatusChecker: any AgentStatusCheckerProtocol = _agentStatusChecker
+    private static let _agentLaunchController = AgentLaunchController()
+    @Entry var agentLaunchController: any AgentLaunchControllerProtocol = _agentLaunchController
     private static let _updater: any UpdaterProtocol = {
         @AppStorage("defaultsHasRunSetup") var hasRunSetup = false
         return Updater(checkOnLaunch: hasRunSetup)
