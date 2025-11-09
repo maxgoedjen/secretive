@@ -34,7 +34,7 @@ extension SmartCard {
         public var secrets: [Secret] {
             state.secrets
         }
-        private let persistentAuthenticationHandler = PersistentAuthenticationHandler()
+        private let persistentAuthenticationHandler = PersistentAuthenticationHandler<Secret>()
 
         /// Initializes a Store.
         public init() {
