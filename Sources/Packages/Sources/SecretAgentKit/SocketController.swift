@@ -36,13 +36,13 @@ public struct SocketController {
         logger.debug("Socket controller path is clear")
         port = SocketPort(path: path)
         fileHandle = FileHandle(fileDescriptor: port.socket, closeOnDealloc: true)
-        Task { [fileHandle, sessionsContinuation, logger] in
+        Task { @MainActor [fileHandle, sessionsContinuation, logger] in
             for await notification in NotificationCenter.default.notifications(named: .NSFileHandleConnectionAccepted) {
                 logger.debug("Socket controller accepted connection")
                 guard let new = notification.userInfo?[NSFileHandleNotificationFileHandleItem] as? FileHandle else { continue }
                 let session = Session(fileHandle: new)
                 sessionsContinuation.yield(session)
-                await fileHandle.acceptConnectionInBackgroundAndNotifyOnMainActor()
+                fileHandle.acceptConnectionInBackgroundAndNotify()
             }
         }
         fileHandle.acceptConnectionInBackgroundAndNotify()
@@ -90,16 +90,16 @@ extension SocketController {
                     logger.debug("Socket controller yielded data.")
                 }
             }
-            Task {
-                await fileHandle.waitForDataInBackgroundAndNotifyOnMainActor()
-            }
+            fileHandle.waitForDataInBackgroundAndNotify()
         }
         
         /// Writes new data to the socket.
         /// - Parameter data: The data to write.
         public func write(_ data: Data) async throws {
             try fileHandle.write(contentsOf: data)
-            await fileHandle.waitForDataInBackgroundAndNotifyOnMainActor()
+            await MainActor.run {
+                fileHandle.waitForDataInBackgroundAndNotify()
+            }
         }
         
         /// Closes the socket and cleans up resources.
@@ -109,26 +109,6 @@ extension SocketController {
             try fileHandle.close()
         }
 
-    }
-
-}
-
-private extension FileHandle {
-
-    /// Ensures waitForDataInBackgroundAndNotify will be called on the main actor.
-    func waitForDataInBackgroundAndNotifyOnMainActor() async {
-        await MainActor.run {
-            waitForDataInBackgroundAndNotify()
-        }
-    }
-
-
-    /// Ensures acceptConnectionInBackgroundAndNotify will be called on the main actor.
-    /// - Parameter modes: the runloop modes to use.
-    func acceptConnectionInBackgroundAndNotifyOnMainActor(forModes modes: [RunLoop.Mode]? = [RunLoop.Mode.default]) async {
-        await MainActor.run {
-            acceptConnectionInBackgroundAndNotify(forModes: modes)
-        }
     }
 
 }
