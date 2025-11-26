@@ -116,15 +116,19 @@ extension SocketController {
 private extension FileHandle {
 
     /// Ensures waitForDataInBackgroundAndNotify will be called on the main actor.
-    @MainActor func waitForDataInBackgroundAndNotifyOnMainActor() async {
-        waitForDataInBackgroundAndNotify()
+    func waitForDataInBackgroundAndNotifyOnMainActor() async {
+        await MainActor.run {
+            waitForDataInBackgroundAndNotify()
+        }
     }
 
 
     /// Ensures acceptConnectionInBackgroundAndNotify will be called on the main actor.
     /// - Parameter modes: the runloop modes to use.
-    @MainActor func acceptConnectionInBackgroundAndNotifyOnMainActor(forModes modes: [RunLoop.Mode]? = [RunLoop.Mode.default]) async {
-        acceptConnectionInBackgroundAndNotify(forModes: modes)
+    func acceptConnectionInBackgroundAndNotifyOnMainActor(forModes modes: [RunLoop.Mode]? = [RunLoop.Mode.default]) async {
+        await MainActor.run {
+            acceptConnectionInBackgroundAndNotify(forModes: modes)
+        }
     }
 
 }
