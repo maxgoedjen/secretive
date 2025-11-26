@@ -45,7 +45,7 @@ public struct SocketController {
                 await fileHandle.acceptConnectionInBackgroundAndNotifyOnMainActor()
             }
         }
-        fileHandle.acceptConnectionInBackgroundAndNotify(forModes: [RunLoop.Mode.common])
+        fileHandle.acceptConnectionInBackgroundAndNotify()
         logger.debug("Socket listening at \(path)")
     }
 
@@ -123,7 +123,7 @@ private extension FileHandle {
 
     /// Ensures acceptConnectionInBackgroundAndNotify will be called on the main actor.
     /// - Parameter modes: the runloop modes to use.
-    @MainActor func acceptConnectionInBackgroundAndNotifyOnMainActor(forModes modes: [RunLoop.Mode]? = [RunLoop.Mode.common]) {
+    @MainActor func acceptConnectionInBackgroundAndNotifyOnMainActor(forModes modes: [RunLoop.Mode]? = [RunLoop.Mode.default]) {
         acceptConnectionInBackgroundAndNotify(forModes: modes)
     }
 
