@@ -6,6 +6,7 @@ import SmartCardSecretKit
 import SecretAgentKit
 import Brief
 import Observation
+import Common
 
 @main
 class AppDelegate: NSObject, NSApplicationDelegate {
@@ -26,7 +27,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         Agent(storeList: storeList, witness: notifier)
     }()
     private lazy var socketController: SocketController = {
-        let path = (NSHomeDirectory() as NSString).appendingPathComponent("socket.ssh") as String
+        let path = URL.socketPath as String
         return SocketController(path: path)
     }()
     private let logger = Logger(subsystem: "com.maxgoedjen.secretive.secretagent", category: "AppDelegate")

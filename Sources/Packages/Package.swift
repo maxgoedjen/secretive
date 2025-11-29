@@ -23,6 +23,9 @@ let package = Package(
             name: "SecretAgentKit",
             targets: ["SecretAgentKit", "XPCWrappers"]),
         .library(
+            name: "Common",
+            targets: ["Common"]),
+        .library(
             name: "Brief",
             targets: ["Brief"]),
         .library(
@@ -64,6 +67,12 @@ let package = Package(
         .testTarget(
             name: "SecretAgentKitTests",
             dependencies: ["SecretAgentKit"],
+        ),
+        .target(
+            name: "Common",
+            dependencies: [],
+            resources: [localization],
+            swiftSettings: swiftSettings,
         ),
         .target(
             name: "Brief",
