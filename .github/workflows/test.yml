@@ -10,7 +10,7 @@ jobs:
     steps:
     - uses: actions/checkout@v5
     - name: Set Environment
-      run: sudo xcrun xcode-select -s /Applications/Xcode_26.0.app
+      run: sudo xcrun xcode-select -s /Applications/Xcode_26.1.app
     - name: Test Main Packages
       run: xcrun xcodebuild -project Sources/Secretive.xcodeproj -scheme PackageTests test
       # SPM doesn't seem to pick up on the tests currently?
