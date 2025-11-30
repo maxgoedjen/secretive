@@ -54,7 +54,7 @@ Secretive checks in with GitHub's releases API to check if there's a new version
 
 ### How do I uninstall Secretive?
 
-Drag Secretive.app to the trash and remove `~/Library/Containers/com.maxgoedjen.Secretive.SecretAgent`. `SecretAgent` may continue running until you quit it or reboot.
+Drag Secretive.app to Trash. Check your `ps aux` output to kill any running `SecretAgent` instances. Remove the launch plist with `launchctl remove com.maxgoedjen.Secretive.SecretAgent`. Remove any Secretive Config entries in `~/.ssh/config`. Finally, restart your shell, relogin or reboot so that your prior SSH agent gets used.
 
 ### I have a security issue
 
