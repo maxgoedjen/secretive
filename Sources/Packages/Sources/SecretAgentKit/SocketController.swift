@@ -37,15 +37,13 @@ public struct SocketController {
         port = SocketPort(path: path)
         fileHandle = FileHandle(fileDescriptor: port.socket, closeOnDealloc: true)
         Task { @MainActor [fileHandle, sessionsContinuation, logger] in
-            // Create the iterator before triggering the notification to
+            // Create the sequence before triggering the notification to
             // ensure it will not be missed.
-            let connectionAvailableIterator = NotificationCenter.default
-                .notifications(named: .NSFileHandleConnectionAccepted)
-                .makeAsyncIterator()
+            let connectionAcceptedNotifications = NotificationCenter.default.notifications(named: .NSFileHandleConnectionAccepted)
 
             fileHandle.acceptConnectionInBackgroundAndNotify()
 
-            while let notification = await connectionAvailableIterator.next() {
+            for await notification in connectionAcceptedNotifications {
                 logger.debug("Socket controller accepted connection")
                 guard let new = notification.userInfo?[NSFileHandleNotificationFileHandleItem] as? FileHandle else { continue }
                 let session = Session(fileHandle: new)
@@ -85,15 +83,13 @@ extension SocketController {
             provenance = SigningRequestTracer().provenance(from: fileHandle)
             (messages, messagesContinuation) = AsyncStream.makeStream()
             Task { @MainActor [messagesContinuation, logger] in
-                // Create the iterator before triggering the notification to
+                // Create the sequence before triggering the notification to
                 // ensure it will not be missed.
-                let dataAvailableIterator = NotificationCenter.default
-                    .notifications(named: .NSFileHandleDataAvailable, object: fileHandle)
-                    .makeAsyncIterator()
+                let dataAvailableNotifications = NotificationCenter.default.notifications(named: .NSFileHandleDataAvailable, object: fileHandle)
 
                 fileHandle.waitForDataInBackgroundAndNotify()
 
-                while let _ = await dataAvailableIterator.next() {
+                for await _ in dataAvailableNotifications {
                     let data = fileHandle.availableData
                     guard !data.isEmpty else {
                         logger.debug("Socket controller received empty data, ending continuation.")
