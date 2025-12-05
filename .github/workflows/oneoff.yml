@@ -1,39 +1,16 @@
-name: Release
+name: One-Off Build
 
 on: 
-  push:
-    tags:
-      - '*'
+  workflow_dispatch:
+  
 jobs:
-  test:
-    permissions:
-        contents: read
-    runs-on: macos-26
-    timeout-minutes: 10
-    steps:
-    - uses: actions/checkout@v5
-    - name: Setup Signing
-      env: 
-        SIGNING_DATA: ${{ secrets.SIGNING_DATA }}
-        SIGNING_PASSWORD: ${{ secrets.SIGNING_PASSWORD }}
-        HOST_PROFILE_DATA: ${{ secrets.HOST_PROFILE_DATA }}
-        AGENT_PROFILE_DATA: ${{ secrets.AGENT_PROFILE_DATA }}
-        APPLE_API_KEY_DATA: ${{ secrets.APPLE_API_KEY_DATA }}
-        APPLE_API_KEY_ID: ${{ secrets.APPLE_API_KEY_ID }}
-      run: ./.github/scripts/signing.sh
-    - name: Set Environment
-      run: sudo xcrun xcode-select -s /Applications/Xcode_26.1.app
-    - name: Test
-      run: xcrun xcodebuild -project Sources/Secretive.xcodeproj -scheme PackageTests test
-      # SPM doesn't seem to pick up on the tests currently?
-      # run: swift test --build-system swiftbuild --package-path Sources/Packages
   build:
+    runs-on: macos-26
     permissions:
       id-token: write
       contents: write
       attestations: write
       actions: read
-    runs-on: macos-26
     timeout-minutes: 10
     steps:
     - uses: actions/checkout@v5
@@ -50,13 +27,12 @@ jobs:
       run: sudo xcrun xcode-select -s /Applications/Xcode_26.1.app
     - name: Update Build Number
       env:
-        TAG_NAME: ${{ github.ref }}
         RUN_ID: ${{ github.run_id }}
       run: |
-            export CLEAN_TAG=$(echo $TAG_NAME | sed -e 's/refs\/tags\/v//')
-            sed -i '' -e "s/GITHUB_CI_VERSION/$CLEAN_TAG/g" Sources/Config/Config.xcconfig
+            DATE=$(date "+%Y-%m-%d")
+            sed -i '' -e "s/GITHUB_CI_VERSION/0.0.0_oneoff-$DATE/g" Sources/Config/Config.xcconfig
             sed -i '' -e "s/GITHUB_BUILD_NUMBER/1.$RUN_ID/g" Sources/Config/Config.xcconfig
-            sed -i '' -e "s/GITHUB_BUILD_URL/github.com\/maxgoedjen\/secretive\/actions\/runs\/$RUN_ID/g" Sources/Config/Config.xcconfig
+            sed -i '' -e "s/GITHUB_BUILD_URL/https:\/\/github.com\/maxgoedjen\/secretive\/actions\/runs\/$RUN_ID/g" Sources/Config/Config.xcconfig
     - name: Build
       run: xcrun xcodebuild -project Sources/Secretive.xcodeproj -scheme Secretive -configuration Release -archivePath Archive.xcarchive archive
     - name: Move to Artifact Folder
@@ -65,7 +41,7 @@ jobs:
       id: upload
       uses: actions/upload-artifact@v4
       with:
-        name: Secretive.zip
+        name: Secretive
         path: Artifact
     - name: Download Zipped Artifact
       id: download
@@ -84,15 +60,5 @@ jobs:
       id: attest
       uses: actions/attest-build-provenance@v2
       with:
-        subject-path: "Secretive.zip"
-    - name: Create Release
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        TAG_NAME: ${{ github.ref }}
-        RUN_ID: ${{ github.run_id }}
-        ATTESTATION_ID: ${{ steps.attest.outputs.attestation-id }}
-      run: |
-            sed -i.tmp "s/RUN_ID/$RUN_ID/g" .github/templates/release.md
-            sed -i.tmp "s/ATTESTATION_ID/$ATTESTATION_ID/g" .github/templates/release.md
-            gh release create $TAG_NAME -d -F .github/templates/release.md
-            gh release upload $TAG_NAME Secretive.zip
+        subject-name: "Secretive.zip"
+        subject-digest: sha256:${{ steps.upload.outputs.artifact-digest }}
