@@ -42,7 +42,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                         for await message in session.messages {
                             let request = try await inputParser.parse(data: message)
                             let agentResponse = await agent.handle(request: request, provenance: session.provenance)
-                            try await session.write(agentResponse)
+                            try session.write(agentResponse)
                         }
                     } catch {
                         try session.close()
