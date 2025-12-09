@@ -20,7 +20,22 @@ jobs:
         AGENT_PROFILE_DATA: ${{ secrets.AGENT_PROFILE_DATA }}
         APPLE_API_KEY_DATA: ${{ secrets.APPLE_API_KEY_DATA }}
         APPLE_API_KEY_ID: ${{ secrets.APPLE_API_KEY_ID }}
-      run: ./.github/scripts/signing.sh
+      run: |
+            echo $SIGNING_DATA | base64 -d -o Signing.p12
+            security create-keychain -p ci ci.keychain
+            security default-keychain -s ci.keychain
+            security list-keychains -s ci.keychain
+            security import ./Signing.p12 -k ci.keychain -P $SIGNING_PASSWORD -A
+            security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k ci ci.keychain
+            mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
+            echo $HOST_PROFILE_DATA | base64 -d -o Host.provisionprofile
+            HOST_UUID=$(grep UUID -A1 -a Host.provisionprofile | grep -io "[-A-F0-9]\{36\}")
+            cp Host.provisionprofile ~/Library/MobileDevice/Provisioning\ Profiles/$HOST_UUID.provisionprofile
+            echo $AGENT_PROFILE_DATA | base64 -d -o Agent.provisionprofile
+            AGENT_UUID=$(grep UUID -A1 -a Agent.provisionprofile | grep -io "[-A-F0-9]\{36\}")
+            cp Agent.provisionprofile ~/Library/MobileDevice/Provisioning\ Profiles/$AGENT_UUID.provisionprofile
+            mkdir ~/.private_keys
+            echo -n "$APPLE_API_KEY_DATA" > ~/.private_keys/AuthKey_$APPLE_API_KEY_ID.p8
     - name: Set Environment
       run: sudo xcrun xcode-select -s /Applications/Xcode_26.1.app
     - name: Test
@@ -45,7 +60,22 @@ jobs:
         AGENT_PROFILE_DATA: ${{ secrets.AGENT_PROFILE_DATA }}
         APPLE_API_KEY_DATA: ${{ secrets.APPLE_API_KEY_DATA }}
         APPLE_API_KEY_ID: ${{ secrets.APPLE_API_KEY_ID }}
-      run: ./.github/scripts/signing.sh
+      run: |
+            echo $SIGNING_DATA | base64 -d -o Signing.p12
+            security create-keychain -p ci ci.keychain
+            security default-keychain -s ci.keychain
+            security list-keychains -s ci.keychain
+            security import ./Signing.p12 -k ci.keychain -P $SIGNING_PASSWORD -A
+            security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k ci ci.keychain
+            mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
+            echo $HOST_PROFILE_DATA | base64 -d -o Host.provisionprofile
+            HOST_UUID=$(grep UUID -A1 -a Host.provisionprofile | grep -io "[-A-F0-9]\{36\}")
+            cp Host.provisionprofile ~/Library/MobileDevice/Provisioning\ Profiles/$HOST_UUID.provisionprofile
+            echo $AGENT_PROFILE_DATA | base64 -d -o Agent.provisionprofile
+            AGENT_UUID=$(grep UUID -A1 -a Agent.provisionprofile | grep -io "[-A-F0-9]\{36\}")
+            cp Agent.provisionprofile ~/Library/MobileDevice/Provisioning\ Profiles/$AGENT_UUID.provisionprofile
+            mkdir ~/.private_keys
+            echo -n "$APPLE_API_KEY_DATA" > ~/.private_keys/AuthKey_$APPLE_API_KEY_ID.p8
     - name: Set Environment
       run: sudo xcrun xcode-select -s /Applications/Xcode_26.1.app
     - name: Update Build Number
@@ -57,34 +87,73 @@ jobs:
             sed -i '' -e "s/GITHUB_CI_VERSION/$CLEAN_TAG/g" Sources/Config/Config.xcconfig
             sed -i '' -e "s/GITHUB_BUILD_NUMBER/1.$RUN_ID/g" Sources/Config/Config.xcconfig
             sed -i '' -e "s/GITHUB_BUILD_URL/github.com\/maxgoedjen\/secretive\/actions\/runs\/$RUN_ID/g" Sources/Config/Config.xcconfig
-    - name: Build
+    - name: Build App
       run: xcrun xcodebuild -project Sources/Secretive.xcodeproj -scheme Secretive -configuration Release -archivePath Archive.xcarchive archive
-    - name: Move to Artifact Folder
-      run: mkdir Artifact; cp -r Archive.xcarchive/Products/Applications/Secretive.app Artifact
-    - name: Upload App to Artifacts
-      id: upload
-      uses: actions/upload-artifact@v4
-      with:
-        name: Secretive.zip
-        path: Artifact
-    - name: Download Zipped Artifact
-      id: download
-      env: 
-        ZIP_ID: ${{ steps.upload.outputs.artifact-id }}
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Build CLI
+      run: swift build -c release --product SecretiveCLI --package-path Sources/Packages
+    - name: Codesign CLI
       run: |
-            curl -L -H "Authorization: Bearer $GITHUB_TOKEN" -L \
-            https://api.github.com/repos/maxgoedjen/secretive/actions/artifacts/$ZIP_ID/zip > Secretive.zip
+            CLI_BINARY="Sources/Packages/.build/release/SecretiveCLI"
+            ENTITLEMENTS="Sources/Packages/Sources/SecretiveCLI/SecretiveCLI.entitlements"
+            IDENTITY=$(security find-identity -p codesigning -v 2>/dev/null | grep "Developer ID Application" | head -n1 | awk -F'"' '{print $2}')
+            codesign --force --options runtime --sign "$IDENTITY" --identifier "com.maxgoedjen.Secretive.Host" --entitlements "$ENTITLEMENTS" "$CLI_BINARY"
+    - name: Prepare Artifact Folder
+      run: |
+            mkdir -p Artifact/App
+            mkdir -p Artifact/CLI
+            cp -r Archive.xcarchive/Products/Applications/Secretive.app Artifact/App/
+            cp Sources/Packages/.build/release/SecretiveCLI Artifact/CLI/secretive
+    - name: Build Installer Package
+      run: |
+            pkgbuild --root Artifact/App --install-location /Applications --identifier com.maxgoedjen.Secretive.app --version 1.0 App.pkg
+            pkgbuild --root Artifact/CLI --install-location /usr/local/bin --identifier com.maxgoedjen.Secretive.cli --version 1.0 CLI.pkg
+            cat > distribution.xml << 'EOF'
+            <?xml version="1.0" encoding="utf-8"?>
+            <installer-gui-script minSpecVersion="2">
+                <title>Secretive</title>
+                <organization>com.maxgoedjen</organization>
+                <domains enable_localSystem="true"/>
+                <options customize="never" require-scripts="false" rootVolumeOnly="true"/>
+                <pkg-ref id="com.maxgoedjen.Secretive.app"/>
+                <pkg-ref id="com.maxgoedjen.Secretive.cli"/>
+                <choices-outline>
+                    <line choice="default">
+                        <line choice="com.maxgoedjen.Secretive.app"/>
+                        <line choice="com.maxgoedjen.Secretive.cli"/>
+                    </line>
+                </choices-outline>
+                <choice id="default"/>
+                <choice id="com.maxgoedjen.Secretive.app" visible="false">
+                    <pkg-ref id="com.maxgoedjen.Secretive.app"/>
+                </choice>
+                <choice id="com.maxgoedjen.Secretive.cli" visible="false">
+                    <pkg-ref id="com.maxgoedjen.Secretive.cli"/>
+                </choice>
+                <pkg-ref id="com.maxgoedjen.Secretive.app" version="1.0" onConclusion="none">App.pkg</pkg-ref>
+                <pkg-ref id="com.maxgoedjen.Secretive.cli" version="1.0" onConclusion="none">CLI.pkg</pkg-ref>
+            </installer-gui-script>
+            EOF
+            productbuild --distribution distribution.xml --package-path . Secretive-unsigned.pkg
+            INSTALLER_IDENTITY=$(security find-identity -p basic -v 2>/dev/null | grep "Developer ID Installer" | head -n1 | awk -F'"' '{print $2}')
+            productsign --sign "$INSTALLER_IDENTITY" Secretive-unsigned.pkg Secretive.pkg
     - name: Notarize
       env: 
         APPLE_API_KEY_ID: ${{ secrets.APPLE_API_KEY_ID }}
         APPLE_API_ISSUER: ${{ secrets.APPLE_API_ISSUER }}
-      run: xcrun notarytool submit --key ~/.private_keys/AuthKey_$APPLE_API_KEY_ID.p8 --key-id $APPLE_API_KEY_ID --issuer $APPLE_API_ISSUER Secretive.zip
+      run: |
+            xcrun notarytool submit --key ~/.private_keys/AuthKey_$APPLE_API_KEY_ID.p8 --key-id $APPLE_API_KEY_ID --issuer $APPLE_API_ISSUER --wait Secretive.pkg
+            xcrun stapler staple Secretive.pkg
+    - name: Upload Installer to Artifacts
+      id: upload
+      uses: actions/upload-artifact@v4
+      with:
+        name: Secretive.pkg
+        path: Secretive.pkg
     - name: Attest
       id: attest
       uses: actions/attest-build-provenance@v2
       with:
-        subject-path: "Secretive.zip"
+        subject-path: "Secretive.pkg"
     - name: Create Release
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -95,4 +164,4 @@ jobs:
             sed -i.tmp "s/RUN_ID/$RUN_ID/g" .github/templates/release.md
             sed -i.tmp "s/ATTESTATION_ID/$ATTESTATION_ID/g" .github/templates/release.md
             gh release create $TAG_NAME -d -F .github/templates/release.md
-            gh release upload $TAG_NAME Secretive.zip
+            gh release upload $TAG_NAME Secretive.pkg

@@ -2,23 +2,31 @@
 
 A command-line interface for Secretive that provides full key management and SSH agent functionality, sharing the same keychain and socket path as the GUI application.
 
-## Building
+## Installation
 
-Build the CLI using Swift Package Manager:
+The CLI is distributed as part of the Secretive installer package (`.pkg`). When you install Secretive via the pkg installer, the CLI binary is automatically installed to `/usr/local/bin/secretive`.
+
+Download the latest release from [GitHub Releases](https://github.com/maxgoedjen/secretive/releases).
+
+## Building (Development)
+
+For local development, build the CLI using Swift Package Manager:
 
 ```bash
-swift build -c release --product SecretiveCLI
+swift build -c release --product SecretiveCLI --package-path Sources/Packages
 ```
 
-The binary will be located at `.build/release/SecretiveCLI`.
+The binary will be located at `Sources/Packages/.build/release/SecretiveCLI`.
 
-## Code Signing
+**Note:** Production builds and code signing are handled automatically by GitHub Actions. See `.github/workflows/release.yml` and `.github/workflows/nightly.yml` for details.
 
-To use the CLI with the same keychain access as the GUI app, you must sign it with the same bundle identifier and entitlements.
+## Code Signing (Development)
+
+For local development with keychain access, you must sign the CLI with the same bundle identifier and entitlements as the GUI app.
 
 ### Required Entitlements
 
-The CLI must be signed with entitlements that include the same keychain access group as the GUI app. Create an entitlements file (e.g., `SecretiveCLI.entitlements`) with:
+The CLI uses the entitlements file at `SecretiveCLI.entitlements`:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -44,8 +52,8 @@ codesign --force \
   --sign "Developer ID Application: YOUR_TEAM_NAME" \
   --options runtime \
   --identifier com.maxgoedjen.Secretive.Host \
-  --entitlements SecretiveCLI.entitlements \
-  .build/release/SecretiveCLI
+  --entitlements Sources/Packages/Sources/SecretiveCLI/SecretiveCLI.entitlements \
+  Sources/Packages/.build/release/SecretiveCLI
 ```
 
 Replace `YOUR_TEAM_NAME` with your actual Developer ID or use your team's signing identity.
@@ -60,22 +68,22 @@ Install and manage the SSH agent as a launchd service:
 
 ```bash
 # Install the agent as a launchd service
-secretive-cli agent install
+secretive agent install
 
 # Start the agent
-secretive-cli agent start
+secretive agent start
 
 # Check agent status
-secretive-cli agent status
+secretive agent status
 
 # Stop the agent
-secretive-cli agent stop
+secretive agent stop
 
 # Uninstall the agent
-secretive-cli agent uninstall
+secretive agent uninstall
 
 # Run agent in foreground (for testing)
-secretive-cli agent run
+secretive agent run
 ```
 
 ### Key Management
@@ -84,19 +92,19 @@ Manage SSH keys stored in the Secure Enclave:
 
 ```bash
 # Generate a new key
-secretive-cli key generate "My Key Name"
+secretive key generate "My Key Name"
 
 # List all keys
-secretive-cli key list
+secretive key list
 
 # Show public key for a specific key
-secretive-cli key show "My Key Name"
+secretive key show "My Key Name"
 
 # Delete a key
-secretive-cli key delete "My Key Name"
+secretive key delete "My Key Name"
 
 # Update key (note: attributes cannot be changed after creation)
-secretive-cli key update "My Key Name"
+secretive key update "My Key Name"
 ```
 
 ## Socket Path
@@ -126,4 +134,3 @@ This is achieved by signing the CLI with the same bundle identifier (`com.maxgoe
 - Keys created via CLI will appear in the GUI app and vice versa
 - The agent can be run either via launchd (recommended) or in foreground mode for testing
 - All key operations require appropriate authentication (Touch ID, Apple Watch, or password) as configured per key
-

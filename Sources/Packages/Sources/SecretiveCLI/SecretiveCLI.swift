@@ -231,23 +231,25 @@ extension SecretiveCLI {
         logger.info("SSH agent listening on \(socketPath)")
         print("SSH agent running on \(socketPath)")
         print("Set SSH_AUTH_SOCK=\(socketPath) to use this agent")
+
+        func handleSession(_ session: SocketController.Session) async {
+            do {
+                for await message in session.messages {
+                    let request = try parser.parse(data: message)
+                    let response = await agent.handle(request: request, provenance: session.provenance)
+                    try await MainActor.run {
+                        try session.write(response)
+                    }
+                }
+            } catch {
+                logger.error("Session error: \(error.localizedDescription)")
+                try? session.close()
+            }
+        }
         
         // Handle sessions
         for await session in socket.sessions {
-            Task {
-                do {
-                    for await message in session.messages {
-                        let request = try parser.parse(data: message)
-                        let response = await agent.handle(request: request, provenance: session.provenance)
-                        try await MainActor.run {
-                            try session.write(response)
-                        }
-                    }
-                } catch {
-                    logger.error("Session error: \(error.localizedDescription)")
-                    try? session.close()
-                }
-            }
+            await handleSession(session)
         }
     }
     
