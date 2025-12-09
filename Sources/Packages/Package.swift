@@ -88,6 +88,16 @@ let package = Package(
             name: "XPCWrappers",
             swiftSettings: swiftSettings,
         ),
+        .executableTarget(
+            name: "SecretiveCLI",
+            dependencies: [
+                "SecretAgentKit",
+                "SecureEnclaveSecretKit",
+                "SecretKit",
+                "Common",
+            ],
+            swiftSettings: swiftSettings,
+        ),
     ]
 )
 
