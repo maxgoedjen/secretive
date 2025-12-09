@@ -54,7 +54,7 @@ Secretive checks in with GitHub's releases API to check if there's a new version
 
 ### How do I uninstall Secretive?
 
-Drag Secretive.app to the trash and remove `~/Library/Containers/com.maxgoedjen.Secretive.SecretAgent`. `SecretAgent` may continue running until you quit it or reboot.
+Drag Secretive.app to the trash and remove `~/Library/Containers/com.cursorinternal.Secretive.SecretAgent`. `SecretAgent` may continue running until you quit it or reboot.
 
 ### I have a security issue
 

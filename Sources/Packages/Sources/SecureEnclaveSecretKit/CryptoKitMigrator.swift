@@ -9,7 +9,7 @@ extension SecureEnclave {
 
     public struct CryptoKitMigrator {
 
-        private let logger = Logger(subsystem: "com.maxgoedjen.secretive.migration", category: "CryptoKitMigrator")
+        private let logger = Logger(subsystem: "com.cursorinternal.secretive.migration", category: "CryptoKitMigrator")
 
         public init() {
         }

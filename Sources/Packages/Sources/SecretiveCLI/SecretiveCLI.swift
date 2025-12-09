@@ -1,6 +1,5 @@
 import Foundation
-import Darwin
-import SecretAgentKit
+import AppKit
 import SecretKit
 import SecureEnclaveSecretKit
 import SmartCardSecretKit
@@ -9,7 +8,7 @@ import OSLog
 
 @main
 struct SecretiveCLI {
-    private static let logger = Logger(subsystem: "com.maxgoedjen.secretive.cli", category: "CLI")
+    private static let logger = Logger(subsystem: "com.cursorinternal.secretive.cli", category: "CLI")
     
     static func main() async {
         let args = Array(CommandLine.arguments.dropFirst())
@@ -46,13 +45,8 @@ struct SecretiveCLI {
         Usage: secretive-cli <command> [options]
         
         Commands:
-          agent <subcommand>    Manage SSH agent
-            install             Install agent as launchd service
-            uninstall           Uninstall agent from launchd
-            start               Start the agent service
-            stop                Stop the agent service
-            status              Check agent status
-            run                 Run agent in foreground (for testing)
+          agent status          Check if Secretive's SSH agent is running
+          agent start           Start Secretive's SSH agent
         
           key <subcommand>      Manage SSH keys
             generate [name]     Generate a new key (default: "Secretive Key")
@@ -70,211 +64,109 @@ struct SecretiveCLI {
 
 extension SecretiveCLI {
     
+    private static let agentBundleID = "com.cursorinternal.Secretive.SecretAgent"
+    private static let secretiveBundleID = "com.cursorinternal.Secretive.Host"
+    
     static func handleAgentCommand(args: [String]) async throws {
         guard let subcommand = args.first else {
-            print("Agent subcommand required: install, uninstall, start, stop, status, or run")
+            print("Agent subcommand required: status, start")
             exit(1)
         }
         
         switch subcommand {
-        case "install":
-            try await installAgent()
-        case "uninstall":
-            try await uninstallAgent()
-        case "start":
-            try await startAgent()
-        case "stop":
-            try await stopAgent()
         case "status":
             try await checkAgentStatus()
-        case "run":
-            try await runAgent()
+        case "start":
+            try await startAgent()
         default:
             print("Unknown agent subcommand: \(subcommand)")
+            print("Available: status, start")
             exit(1)
         }
     }
     
-    static func installAgent() async throws {
-        let plistPath = launchdPlistPath
-        let plistDir = (plistPath as NSString).deletingLastPathComponent
+    static func checkAgentStatus() async throws {
+        // Check if the main Secretive app's SecretAgent is running
+        let runningAgents = NSRunningApplication.runningApplications(withBundleIdentifier: agentBundleID)
         
-        // Create directory if needed
-        try FileManager.default.createDirectory(atPath: plistDir, withIntermediateDirectories: true)
-        
-        // Get the CLI binary path
-        guard let cliPath = Bundle.main.executablePath else {
-            throw CLIError("Could not determine CLI binary path")
+        if let agent = runningAgents.first {
+            print("Secretive agent is running")
+            if let url = agent.bundleURL {
+                print("  Path: \(url.path)")
+            }
+            print("  PID: \(agent.processIdentifier)")
+            
+            // Also check socket
+            let socketPath = URL.socketPath
+            if FileManager.default.fileExists(atPath: socketPath) {
+                print("  Socket: \(socketPath)")
+            }
+        } else {
+            print("Secretive agent is not running")
+            print("Run 'secretive agent start' to start it")
         }
-        
-        // Create plist content
-        let plist: [String: Any] = [
-            "Label": launchdServiceLabel,
-            "ProgramArguments": [cliPath, "agent", "run"],
-            "RunAtLoad": true,
-            "KeepAlive": true,
-            "StandardOutPath": "/dev/null",
-            "StandardErrorPath": "/dev/null",
-            "EnvironmentVariables": [
-                "SSH_AUTH_SOCK": socketPath
-            ]
-        ]
-        
-        let plistData = try PropertyListSerialization.data(fromPropertyList: plist, format: .xml, options: 0)
-        try plistData.write(to: URL(fileURLWithPath: plistPath))
-        
-        // Bootstrap the service
-        let process = Process()
-        process.executableURL = URL(fileURLWithPath: "/bin/launchctl")
-        process.arguments = ["bootstrap", "gui/\(getuid())", plistPath]
-        
-        try process.run()
-        process.waitUntilExit()
-        
-        if process.terminationStatus != 0 {
-            throw CLIError("Failed to install agent: launchctl bootstrap returned \(process.terminationStatus)")
-        }
-        
-        print("Agent installed successfully")
-    }
-    
-    static func uninstallAgent() async throws {
-        let plistPath = launchdPlistPath
-        
-        // Unbootstrap the service
-        let process = Process()
-        process.executableURL = URL(fileURLWithPath: "/bin/launchctl")
-        process.arguments = ["bootout", "gui/\(getuid())", launchdServiceLabel]
-        
-        try process.run()
-        process.waitUntilExit()
-        
-        // Remove plist file if it exists
-        if FileManager.default.fileExists(atPath: plistPath) {
-            try FileManager.default.removeItem(atPath: plistPath)
-        }
-        
-        print("Agent uninstalled successfully")
     }
     
     static func startAgent() async throws {
-        let process = Process()
-        process.executableURL = URL(fileURLWithPath: "/bin/launchctl")
-        process.arguments = ["kickstart", "gui/\(getuid())/\(launchdServiceLabel)"]
-        
-        try process.run()
-        process.waitUntilExit()
-        
-        if process.terminationStatus != 0 {
-            throw CLIError("Failed to start agent: launchctl kickstart returned \(process.terminationStatus)")
+        // Check if already running
+        let runningAgents = NSRunningApplication.runningApplications(withBundleIdentifier: agentBundleID)
+        if !runningAgents.isEmpty {
+            print("Secretive agent is already running")
+            return
         }
         
-        print("Agent started")
-    }
-    
-    static func stopAgent() async throws {
-        let process = Process()
-        process.executableURL = URL(fileURLWithPath: "/bin/launchctl")
-        process.arguments = ["kill", "gui/\(getuid())/\(launchdServiceLabel)"]
+        // Find the SecretAgent app inside the installed Secretive app
+        guard let agentURL = findSecretAgentApp() else {
+            throw CLIError("Could not find Secretive.app. Please ensure Secretive is installed in /Applications or ~/Applications.")
+        }
         
-        try process.run()
-        process.waitUntilExit()
+        print("Starting Secretive agent...")
+        let config = NSWorkspace.OpenConfiguration()
+        config.activates = false
         
-        print("Agent stopped")
-    }
-    
-    static func checkAgentStatus() async throws {
-        let process = Process()
-        process.executableURL = URL(fileURLWithPath: "/bin/launchctl")
-        process.arguments = ["list", launchdServiceLabel]
-        
-        let pipe = Pipe()
-        process.standardOutput = pipe
-        
-        try process.run()
-        process.waitUntilExit()
-        
-        let data = pipe.fileHandleForReading.readDataToEndOfFile()
-        let output = String(data: data, encoding: .utf8) ?? ""
-        
-        if process.terminationStatus == 0 && !output.isEmpty {
-            print("Agent is running")
-            print(output)
-        } else {
-            print("Agent is not running")
+        do {
+            try await NSWorkspace.shared.openApplication(at: agentURL, configuration: config)
+            // Give it a moment to start
+            try await Task.sleep(for: .seconds(1))
+            
+            // Verify it started
+            let agents = NSRunningApplication.runningApplications(withBundleIdentifier: agentBundleID)
+            if !agents.isEmpty {
+                print("Secretive agent started successfully")
+            } else {
+                print("Warning: Agent may not have started. Check Secretive.app for details.")
+            }
+        } catch {
+            throw CLIError("Failed to start agent: \(error.localizedDescription)")
         }
     }
     
-    static func runAgent() async throws {
-        logger.info("Starting SSH agent")
+    private static func findSecretAgentApp() -> URL? {
+        let fileManager = FileManager.default
         
-        // Set up store list
-        let storeList: SecretStoreList = await MainActor.run {
-            let list = SecretStoreList()
-            let cryptoKit = SecureEnclave.Store()
-            let migrator = SecureEnclave.CryptoKitMigrator()
-            try? migrator.migrate(to: cryptoKit)
-            list.add(store: cryptoKit)
-            list.add(store: SmartCard.Store())
-            return list
-        }
+        // Possible locations for Secretive.app
+        let searchPaths = [
+            "/Applications/Secretive.app",
+            "\(fileManager.homeDirectoryForCurrentUser.path)/Applications/Secretive.app"
+        ]
         
-        // Create agent (no witness for CLI)
-        let agent = Agent(storeList: storeList, witness: nil)
-        
-        // Set up socket controller
-        let socket = SocketController(path: socketPath)
-        
-        // Set up input parser (use direct parser, not XPC)
-        let parser = SSHAgentInputParser()
-        
-        logger.info("SSH agent listening on \(socketPath)")
-        print("SSH agent running on \(socketPath)")
-        print("Set SSH_AUTH_SOCK=\(socketPath) to use this agent")
-
-        func handleSession(_ session: SocketController.Session) async {
-            do {
-                for await message in session.messages {
-                    let request = try parser.parse(data: message)
-                    let response = await agent.handle(request: request, provenance: session.provenance)
-                    try await MainActor.run {
-                        try session.write(response)
-                    }
-                }
-            } catch {
-                logger.error("Session error: \(error.localizedDescription)")
-                try? session.close()
+        for path in searchPaths {
+            let secretiveURL = URL(fileURLWithPath: path)
+            let agentURL = secretiveURL.appendingPathComponent("Contents/Library/LoginItems/SecretAgent.app")
+            if fileManager.fileExists(atPath: agentURL.path) {
+                return agentURL
             }
         }
         
-        // Handle sessions
-        for await session in socket.sessions {
-            await handleSession(session)
+        // Also try to find via Launch Services
+        if let secretiveURL = NSWorkspace.shared.urlForApplication(withBundleIdentifier: secretiveBundleID) {
+            let agentURL = secretiveURL.appendingPathComponent("Contents/Library/LoginItems/SecretAgent.app")
+            if fileManager.fileExists(atPath: agentURL.path) {
+                return agentURL
+            }
         }
-    }
-    
-    // MARK: - Agent Paths
-    
-    static var socketPath: String {
-        // Use the same socket path as the GUI app
-        // This matches URL.socketPath from Common module, which constructs:
-        // ~/Library/Containers/com.maxgoedjen.Secretive.SecretAgent/Data/socket.ssh
-        let home = FileManager.default.homeDirectoryForCurrentUser.path
-        let containerPath = "\(home)/Library/Containers/com.maxgoedjen.Secretive.SecretAgent/Data"
-        #if DEBUG
-        return "\(containerPath)/socket-debug.ssh"
-        #else
-        return "\(containerPath)/socket.ssh"
-        #endif
-    }
-    
-    static var launchdServiceLabel: String {
-        "com.maxgoedjen.secretive.cli"
-    }
-    
-    static var launchdPlistPath: String {
-        let home = FileManager.default.homeDirectoryForCurrentUser.path
-        return "\(home)/Library/LaunchAgents/\(launchdServiceLabel).plist"
+        
+        return nil
     }
 }
 

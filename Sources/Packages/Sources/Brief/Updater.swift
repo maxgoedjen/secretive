@@ -47,7 +47,7 @@ import XPCWrappers
 
     /// Manually trigger an update check.
     public func checkForUpdates() async throws {
-        let session = try await XPCTypedSession<[Release], Never>(serviceName: "com.maxgoedjen.Secretive.SecretiveUpdater")
+        let session = try await XPCTypedSession<[Release], Never>(serviceName: "com.cursorinternal.Secretive.SecretiveUpdater")
         await evaluate(releases: try await session.send())
         session.complete()
     }
@@ -95,7 +95,7 @@ extension Updater {
 
     /// The user defaults used to store user ignore state.
     var defaults: UserDefaults {
-        UserDefaults(suiteName: "com.maxgoedjen.Secretive.updater.ignorelist")!
+        UserDefaults(suiteName: "com.cursorinternal.Secretive.updater.ignorelist")!
     }
 
 }

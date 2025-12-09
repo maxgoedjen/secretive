@@ -96,7 +96,7 @@ jobs:
             CLI_BINARY="Sources/Packages/.build/release/SecretiveCLI"
             ENTITLEMENTS="Sources/Packages/Sources/SecretiveCLI/SecretiveCLI.entitlements"
             IDENTITY=$(security find-identity -p codesigning -v 2>/dev/null | grep "Developer ID Application" | head -n1 | awk -F'"' '{print $2}')
-            codesign --force --options runtime --sign "$IDENTITY" --identifier "com.maxgoedjen.Secretive.Host" --entitlements "$ENTITLEMENTS" "$CLI_BINARY"
+            codesign --force --options runtime --sign "$IDENTITY" --identifier "com.cursorinternal.Secretive.Host" --entitlements "$ENTITLEMENTS" "$CLI_BINARY"
     - name: Prepare Artifact Folder
       run: |
             mkdir -p Artifact/App
@@ -105,32 +105,32 @@ jobs:
             cp Sources/Packages/.build/release/SecretiveCLI Artifact/CLI/secretive
     - name: Build Installer Package
       run: |
-            pkgbuild --root Artifact/App --install-location /Applications --identifier com.maxgoedjen.Secretive.app --version 1.0 App.pkg
-            pkgbuild --root Artifact/CLI --install-location /usr/local/bin --identifier com.maxgoedjen.Secretive.cli --version 1.0 CLI.pkg
+            pkgbuild --root Artifact/App --install-location /Applications --identifier com.cursorinternal.Secretive.app --version 1.0 App.pkg
+            pkgbuild --root Artifact/CLI --install-location /usr/local/bin --identifier com.cursorinternal.Secretive.cli --version 1.0 CLI.pkg
             cat > distribution.xml << 'EOF'
             <?xml version="1.0" encoding="utf-8"?>
             <installer-gui-script minSpecVersion="2">
                 <title>Secretive</title>
-                <organization>com.maxgoedjen</organization>
+                <organization>com.cursorinternal</organization>
                 <domains enable_localSystem="true"/>
                 <options customize="never" require-scripts="false" rootVolumeOnly="true"/>
-                <pkg-ref id="com.maxgoedjen.Secretive.app"/>
-                <pkg-ref id="com.maxgoedjen.Secretive.cli"/>
+                <pkg-ref id="com.cursorinternal.Secretive.app"/>
+                <pkg-ref id="com.cursorinternal.Secretive.cli"/>
                 <choices-outline>
                     <line choice="default">
-                        <line choice="com.maxgoedjen.Secretive.app"/>
-                        <line choice="com.maxgoedjen.Secretive.cli"/>
+                        <line choice="com.cursorinternal.Secretive.app"/>
+                        <line choice="com.cursorinternal.Secretive.cli"/>
                     </line>
                 </choices-outline>
                 <choice id="default"/>
-                <choice id="com.maxgoedjen.Secretive.app" visible="false">
-                    <pkg-ref id="com.maxgoedjen.Secretive.app"/>
+                <choice id="com.cursorinternal.Secretive.app" visible="false">
+                    <pkg-ref id="com.cursorinternal.Secretive.app"/>
                 </choice>
-                <choice id="com.maxgoedjen.Secretive.cli" visible="false">
-                    <pkg-ref id="com.maxgoedjen.Secretive.cli"/>
+                <choice id="com.cursorinternal.Secretive.cli" visible="false">
+                    <pkg-ref id="com.cursorinternal.Secretive.cli"/>
                 </choice>
-                <pkg-ref id="com.maxgoedjen.Secretive.app" version="1.0" onConclusion="none">App.pkg</pkg-ref>
-                <pkg-ref id="com.maxgoedjen.Secretive.cli" version="1.0" onConclusion="none">CLI.pkg</pkg-ref>
+                <pkg-ref id="com.cursorinternal.Secretive.app" version="1.0" onConclusion="none">App.pkg</pkg-ref>
+                <pkg-ref id="com.cursorinternal.Secretive.cli" version="1.0" onConclusion="none">CLI.pkg</pkg-ref>
             </installer-gui-script>
             EOF
             productbuild --distribution distribution.xml --package-path . Secretive-unsigned.pkg

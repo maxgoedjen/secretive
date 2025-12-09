@@ -30,7 +30,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let path = URL.socketPath as String
         return SocketController(path: path)
     }()
-    private let logger = Logger(subsystem: "com.maxgoedjen.secretive.secretagent", category: "AppDelegate")
+    private let logger = Logger(subsystem: "com.cursorinternal.secretive.secretagent", category: "AppDelegate")
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         logger.debug("SecretAgent finished launching")

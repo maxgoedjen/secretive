@@ -96,8 +96,8 @@ public struct KeyAvailability: Sendable {
 extension NSNotification.Name {
 
     // Distributed notification that keys were modified out of process (ie, that the management tool added/removed secrets)
-    public static let secretStoreUpdated = NSNotification.Name("com.maxgoedjen.Secretive.secretStore.updated")
+    public static let secretStoreUpdated = NSNotification.Name("com.cursorinternal.Secretive.secretStore.updated")
     // Internal notification that keys were reloaded from the backing store.
-    public static let secretStoreReloaded = NSNotification.Name("com.maxgoedjen.Secretive.secretStore.reloaded")
+    public static let secretStoreReloaded = NSNotification.Name("com.cursorinternal.Secretive.secretStore.reloaded")
 
 }

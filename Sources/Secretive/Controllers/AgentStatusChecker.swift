@@ -20,7 +20,7 @@ import Common
 
     var running: Bool = false
     var process: NSRunningApplication? = nil
-    private let logger = Logger(subsystem: "com.maxgoedjen.secretive", category: "LaunchAgentController")
+    private let logger = Logger(subsystem: "com.cursorinternal.secretive", category: "LaunchAgentController")
     private let service = SMAppService.loginItem(identifier: Bundle.agentBundleID)
 
     nonisolated init() {

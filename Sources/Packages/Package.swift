@@ -37,7 +37,7 @@ let package = Package(
     targets: [
         .target(
             name: "SecretKit",
-            dependencies: [],
+            dependencies: ["Localizations"],
             resources: [localization],
             swiftSettings: swiftSettings,
         ),
@@ -54,13 +54,13 @@ let package = Package(
         ),
         .target(
             name: "SecureEnclaveSecretKit",
-            dependencies: ["SecretKit", "Localizations"],
+            dependencies: ["SecretKit"],
             resources: [localization],
             swiftSettings: swiftSettings,
         ),
         .target(
             name: "SmartCardSecretKit",
-            dependencies: ["SecretKit", "Localizations"],
+            dependencies: ["SecretKit"],
             resources: [localization],
             swiftSettings: swiftSettings,
         ),
@@ -97,12 +97,10 @@ let package = Package(
         .executableTarget(
             name: "SecretiveCLI",
             dependencies: [
-                "SecretAgentKit",
                 "SecureEnclaveSecretKit",
                 "SmartCardSecretKit",
                 "SecretKit",
                 "Common",
-                "Localizations",
             ],
             exclude: ["Generated"],
             swiftSettings: swiftSettings,

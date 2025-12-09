@@ -7,12 +7,12 @@ import OSLog
 /// Delegates all agent input parsing to an XPC service which wraps OpenSSH
 public final class XPCAgentInputParser: SSHAgentInputParserProtocol {
 
-    private let logger = Logger(subsystem: "com.maxgoedjen.secretive.secretagent", category: "XPCAgentInputParser")
+    private let logger = Logger(subsystem: "com.cursorinternal.secretive.secretagent", category: "XPCAgentInputParser")
     private let session: XPCTypedSession<SSHAgent.Request, SSHAgentInputParser.AgentParsingError>
 
     public init() async throws {
         logger.debug("Creating XPCAgentInputParser")
-        session = try await XPCTypedSession(serviceName: "com.maxgoedjen.Secretive.SecretAgentInputParser", warmup: true)
+        session = try await XPCTypedSession(serviceName: "com.cursorinternal.Secretive.SecretAgentInputParser", warmup: true)
         logger.debug("XPCAgentInputParser is warmed up.")
     }
 

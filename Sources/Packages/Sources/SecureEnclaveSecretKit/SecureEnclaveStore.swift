@@ -287,7 +287,7 @@ extension SecureEnclave.Store {
 
     enum Constants {
         static let keyClass = kSecClassGenericPassword as String
-        static let keyTag = Data("com.maxgoedjen.secretive.secureenclave.key".utf8)
+        static let keyTag = Data("com.cursorinternal.secretive.secureenclave.key".utf8)
         static let notificationToken = UUID().uuidString
     }
     

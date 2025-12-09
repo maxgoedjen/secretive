@@ -53,7 +53,7 @@ public final class XPCServiceDelegate: NSObject, NSXPCListenerDelegate {
 extension NSError {
 
     private enum Constants {
-        static let domain = "com.maxgoedjen.secretive.xpcwrappers"
+        static let domain = "com.cursorinternal.secretive.xpcwrappers"
         static let code = -1
         static let dataKey = "underlying"
     }

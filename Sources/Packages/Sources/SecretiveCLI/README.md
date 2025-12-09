@@ -1,6 +1,8 @@
 # Secretive CLI
 
-A command-line interface for Secretive that provides full key management and SSH agent functionality, sharing the same keychain and socket path as the GUI application.
+A command-line interface companion for Secretive that provides key management capabilities, sharing the same keychain and socket path as the GUI application.
+
+**Note:** The CLI is a helper tool for the main Secretive app. The SSH agent is managed by the Secretive GUI app - the CLI can check its status but does not run its own agent.
 
 ## Installation
 
@@ -37,7 +39,7 @@ The CLI uses the entitlements file at `SecretiveCLI.entitlements`:
     <true/>
     <key>keychain-access-groups</key>
     <array>
-        <string>$(AppIdentifierPrefix)com.maxgoedjen.Secretive</string>
+        <string>$(AppIdentifierPrefix)com.cursorinternal.Secretive</string>
     </array>
 </dict>
 </plist>
@@ -51,40 +53,30 @@ Sign the CLI binary with:
 codesign --force \
   --sign "Developer ID Application: YOUR_TEAM_NAME" \
   --options runtime \
-  --identifier com.maxgoedjen.Secretive.Host \
+  --identifier com.cursorinternal.Secretive.Host \
   --entitlements Sources/Packages/Sources/SecretiveCLI/SecretiveCLI.entitlements \
   Sources/Packages/.build/release/SecretiveCLI
 ```
 
 Replace `YOUR_TEAM_NAME` with your actual Developer ID or use your team's signing identity.
 
-**Important:** The `--identifier` must be `com.maxgoedjen.Secretive.Host` to match the GUI app's bundle identifier, ensuring the CLI can access the same keychain items.
+**Important:** The `--identifier` must be `com.cursorinternal.Secretive.Host` to match the GUI app's bundle identifier, ensuring the CLI can access the same keychain items.
 
 ## Usage
 
 ### Agent Management
 
-Install and manage the SSH agent as a launchd service:
+Check and control Secretive's SSH agent:
 
 ```bash
-# Install the agent as a launchd service
-secretive agent install
-
-# Start the agent
-secretive agent start
-
 # Check agent status
 secretive agent status
 
-# Stop the agent
-secretive agent stop
-
-# Uninstall the agent
-secretive agent uninstall
-
-# Run agent in foreground (for testing)
-secretive agent run
+# Start the agent (if not already running)
+secretive agent start
 ```
+
+The SSH agent is bundled with the Secretive GUI app. The `start` command will locate and launch the agent from the installed Secretive.app.
 
 ### Key Management
 
@@ -110,27 +102,27 @@ secretive key update "My Key Name"
 ## Socket Path
 
 The CLI uses the same socket path as the GUI app:
-- Production: `~/Library/Containers/com.maxgoedjen.Secretive.SecretAgent/Data/socket.ssh`
-- Debug: `~/Library/Containers/com.maxgoedjen.Secretive.SecretAgent/Data/socket-debug.ssh`
+- Production: `~/Library/Containers/com.cursorinternal.Secretive.SecretAgent/Data/socket.ssh`
+- Debug: `~/Library/Containers/com.cursorinternal.Secretive.SecretAgent/Data/socket-debug.ssh`
 
 Set `SSH_AUTH_SOCK` to this path to use the agent:
 
 ```bash
-export SSH_AUTH_SOCK=~/Library/Containers/com.maxgoedjen.Secretive.SecretAgent/Data/socket.ssh
+export SSH_AUTH_SOCK=~/Library/Containers/com.cursorinternal.Secretive.SecretAgent/Data/socket.ssh
 ```
 
 ## Keychain Access
 
-The CLI shares the same keychain access group as the GUI app (`com.maxgoedjen.Secretive`), allowing it to:
+The CLI shares the same keychain access group as the GUI app (`com.cursorinternal.Secretive`), allowing it to:
 - Access keys created by the GUI app
 - Create keys that are accessible by the GUI app
 - Use the same Secure Enclave storage
 
-This is achieved by signing the CLI with the same bundle identifier (`com.maxgoedjen.Secretive.Host`) and keychain access group entitlements.
+This is achieved by signing the CLI with the same bundle identifier (`com.cursorinternal.Secretive.Host`) and keychain access group entitlements.
 
 ## Notes
 
 - The CLI uses the same `SecretStoreList` setup as the GUI app, including Secure Enclave and Smart Card stores
 - Keys created via CLI will appear in the GUI app and vice versa
-- The agent can be run either via launchd (recommended) or in foreground mode for testing
+- The SSH agent runs as part of the Secretive GUI app - use the CLI's `agent status` command to check if it's running
 - All key operations require appropriate authentication (Touch ID, Apple Watch, or password) as configured per key

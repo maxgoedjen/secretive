@@ -18,7 +18,7 @@ public struct SocketController {
     private let fileHandle: FileHandle
     
     /// Logger for the socket controller.
-    private let logger = Logger(subsystem: "com.maxgoedjen.secretive.secretagent", category: "SocketController")
+    private let logger = Logger(subsystem: "com.cursorinternal.secretive.secretagent", category: "SocketController")
 
     /// Tracer which determines who originates a socket connection.
     private let requestTracer = SigningRequestTracer()
@@ -74,7 +74,7 @@ extension SocketController {
         private let messagesContinuation: AsyncStream<Data>.Continuation
 
         /// A logger for the session.
-        private let logger = Logger(subsystem: "com.maxgoedjen.secretive.secretagent", category: "Session")
+        private let logger = Logger(subsystem: "com.cursorinternal.secretive.secretagent", category: "Session")
         
         /// Initializes a new Session.
         /// - Parameter fileHandle: The FileHandle used to communicate with the socket.
