@@ -1,8 +1,7 @@
 import Foundation
 import Testing
+import SSHProtocolKit
 @testable import SecretKit
-@testable import SecretAgentKit
-@testable import SmartCardSecretKit
 
 @Suite struct OpenSSHSignatureWriterTests {
 
@@ -46,7 +45,7 @@ import Testing
 private extension OpenSSHSignatureWriterTests {
 
     enum Constants {
-        static let ecdsa256Secret = SmartCard.Secret(
+        static let ecdsa256Secret = TestSecret(
             id: Data(),
             name: "Test Key (ECDSA 256)",
             publicKey: Data(repeating: 0x01, count: 65),
