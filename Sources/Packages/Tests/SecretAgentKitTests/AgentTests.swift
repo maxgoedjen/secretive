@@ -1,6 +1,7 @@
 import Foundation
 import Testing
 import CryptoKit
+@testable import SSHProtocolKit
 @testable import SecretKit
 @testable import SecretAgentKit
 
@@ -44,8 +45,8 @@ import CryptoKit
         let agent = Agent(storeList: list)
         let response = await agent.handle(request: request, provenance: .test)
         let responseReader = OpenSSHReader(data: response)
-        let length = try responseReader.readNextBytes(as: UInt32.self).bigEndian
-        let type = try responseReader.readNextBytes(as: UInt8.self).bigEndian
+        let length = try responseReader.readNextBytes(as: UInt32.self)
+        let type = try responseReader.readNextBytes(as: UInt8.self)
         #expect(length == response.count - MemoryLayout<UInt32>.size)
         #expect(type == SSHAgent.Response.agentSignResponse.rawValue)
         let outer = OpenSSHReader(data: responseReader.remaining)
