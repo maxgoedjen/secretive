@@ -8,6 +8,7 @@ import Brief
 import Observation
 import SSHProtocolKit
 import CertificateKit
+import Common
 
 @main
 class AppDelegate: NSObject, NSApplicationDelegate {
@@ -30,7 +31,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         Agent(storeList: storeList, witness: notifier)
     }()
     private lazy var socketController: SocketController = {
-        let path = (NSHomeDirectory() as NSString).appendingPathComponent("socket.ssh") as String
+        let path = URL.socketPath as String
         return SocketController(path: path)
     }()
     private let logger = Logger(subsystem: "com.maxgoedjen.secretive.secretagent", category: "AppDelegate")
@@ -45,7 +46,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                         for await message in session.messages {
                             let request = try await inputParser.parse(data: message)
                             let agentResponse = await agent.handle(request: request, provenance: session.provenance)
-                            try await session.write(agentResponse)
+                            try session.write(agentResponse)
                         }
                     } catch {
                         try session.close()

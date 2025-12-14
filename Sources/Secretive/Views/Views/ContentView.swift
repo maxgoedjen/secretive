@@ -16,7 +16,7 @@ struct ContentView: View {
     @Environment(\.secretStoreList) private var storeList
     @Environment(\.certificateStore) private var certificateStore
     @Environment(\.updater) private var updater
-    @Environment(\.agentStatusChecker) private var agentStatusChecker
+    @Environment(\.agentLaunchController) private var agentLaunchController
 
     @AppStorage("defaultsHasRunSetup") private var hasRunSetup = false
     @State private var showingCreation = false
@@ -145,7 +145,7 @@ extension ContentView {
             showingAgentInfo = true
         }, label: {
             HStack {
-                if agentStatusChecker.running {
+                if agentLaunchController.running {
                     Text(.agentRunningNoticeTitle)
                         .font(.headline)
                         .foregroundColor(colorScheme == .light ? Color(white: 0.3) : .white)
@@ -163,8 +163,8 @@ extension ContentView {
         })
         .buttonStyle(
             ToolbarStatusButtonStyle(
-                lightColor: agentStatusChecker.running ? .black.opacity(0.05) : .red.opacity(0.75),
-                darkColor: agentStatusChecker.running ? .white.opacity(0.05) : .red.opacity(0.5),
+                lightColor: agentLaunchController.running ? .black.opacity(0.05) : .red.opacity(0.75),
+                darkColor: agentLaunchController.running ? .white.opacity(0.05) : .red.opacity(0.5),
             )
         )
         .popover(isPresented: $showingAgentInfo, attachmentAnchor: attachmentAnchor, arrowEdge: .bottom) {

@@ -26,6 +26,9 @@ let package = Package(
             name: "SecretAgentKit",
             targets: ["SecretAgentKit"]),
         .library(
+            name: "Common",
+            targets: ["Common"]),
+        .library(
             name: "Brief",
             targets: ["Brief"]),
         .library(
@@ -63,7 +66,7 @@ let package = Package(
         ),
         .target(
             name: "CertificateKit",
-            dependencies: ["SecretKit"],
+            dependencies: ["SecretKit", "SSHProtocolKit"],
             resources: [localization],
 //            swiftSettings: swiftSettings,
         ),
@@ -86,6 +89,12 @@ let package = Package(
         .testTarget(
             name: "SSHProtocolKitTests",
             dependencies: ["SSHProtocolKit"],
+        ),
+        .target(
+            name: "Common",
+            dependencies: [],
+            resources: [localization],
+            swiftSettings: swiftSettings,
         ),
         .target(
             name: "Brief",

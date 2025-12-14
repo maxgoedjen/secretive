@@ -11,6 +11,7 @@ struct ToolConfigurationView: View {
 
     @State var creating = false
     @State var selectedSecret: AnySecret?
+    @State var email = ""
 
     init(selectedInstruction: ConfigurationFileInstructions) {
         self.selectedInstruction = selectedInstruction
@@ -49,6 +50,12 @@ struct ToolConfigurationView: View {
                                     .tag(secret)
                             }
                         }
+                        TextField(text: $email, prompt: Text(.integrationsConfigureUsingEmailPlaceholder)) {
+                            Text(.integrationsConfigureUsingEmailTitle)
+                            Text(.integrationsConfigureUsingEmailSubtitle)
+                                .font(.subheadline)
+                                .foregroundStyle(.secondary)
+                        }
                     } header: {
                         Text(.integrationsConfigureUsingSecretHeader)
                     }
@@ -61,7 +68,7 @@ struct ToolConfigurationView: View {
                 Section {
                     ConfigurationItemView(title: .integrationsPathTitle, value: stepGroup.path, action: .revealInFinder(stepGroup.path))
                     ForEach(stepGroup.steps, id: \.self.key) { step in
-                        ConfigurationItemView(title: .integrationsAddThisTitle, action: .copy(String(localized: step))) {
+                        ConfigurationItemView(title: .integrationsAddThisTitle, action: .copy(placeholdersReplaced(text: String(localized: step)))) {
                             HStack {
                                 Text(placeholdersReplaced(text: String(localized: step)))
                                     .padding(8)
@@ -103,9 +110,11 @@ struct ToolConfigurationView: View {
     func placeholdersReplaced(text: String) -> String {
         guard let selectedSecret else { return text }
         let writer = OpenSSHPublicKeyWriter()
+        let gitAllowedSignersString = [email.isEmpty ? String(localized: .integrationsConfigureUsingEmailPlaceholder) : email, writer.openSSHString(secret: selectedSecret)]
+            .joined(separator: " ")
         let fileController = PublicKeyFileStoreController(homeDirectory: URL.agentHomeURL)
         return text
-            .replacingOccurrences(of: Instructions.Constants.publicKeyPlaceholder, with: writer.openSSHString(secret: selectedSecret))
+            .replacingOccurrences(of: Instructions.Constants.publicKeyPlaceholder, with: gitAllowedSignersString)
             .replacingOccurrences(of: Instructions.Constants.publicKeyPathPlaceholder, with: fileController.publicKeyPath(for: selectedSecret))
     }
 

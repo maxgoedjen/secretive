@@ -4,7 +4,8 @@
 Secretive is an app for protecting and managing SSH keys with the Secure Enclave.
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="/.github/readme/app-dark.png">
-  <img src="/.github/readme/app-light.png" alt="Screenshot of Secretive" width="600">
+  <source media="(prefers-color-scheme: light)" srcset="/.github/readme/app-light.png">
+  <img src="/.github/readme/app-dark.png" alt="Screenshot of Secretive" width="600">
 </picture>
 
 
@@ -12,7 +13,7 @@ Secretive is an app for protecting and managing SSH keys with the Secure Enclave
 
 ### Safer Storage
 
-The most common setup for SSH keys is just keeping them on disk, guarded by proper permissions. This is fine in most cases, but it's not super hard for malicious users or malware to copy your private key. If you store your keys in the Secure Enclave, it's impossible to export them, by design.
+The most common setup for SSH keys is just keeping them on disk, guarded by proper permissions. This is fine in most cases, but it's not super hard for malicious users or malware to copy your private key. If you protect your keys with the Secure Enclave, it's impossible to export them, by design.
 
 ### Access Control
 
@@ -52,7 +53,7 @@ Builds are produced by GitHub Actions with an auditable build and release genera
 
 ### A Note Around Code Signing and Keychains
 
-While Secretive uses the Secure Enclave for key storage, it still relies on Keychain APIs to access them. Keychain restricts reads of keys to the app (and specifically, the bundle ID) that created them. If you build Secretive from source, make sure you are consistent in which bundle ID you use so that the Keychain is able to locate your keys.
+While Secretive uses the Secure Enclave to protect keys, it still relies on Keychain APIs to store and access them. Keychain restricts reads of keys to the app (and specifically, the bundle ID) that created them. If you build Secretive from source, make sure you are consistent in which bundle ID you use so that the Keychain is able to locate your keys.
 
 ### Backups and Transfers to New Machines
 

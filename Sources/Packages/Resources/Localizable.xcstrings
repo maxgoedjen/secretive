@@ -182,7 +182,181 @@
     },
     "**%@** (%@)" : {
       "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "**%1$@** (%2$@)"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "**%1$@** (%2$@)"
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "**%1$@** (%2$@)"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "**%1$@** (%2$@)"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "**%1$@** (%2$@)"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "**%1$@** (%2$@)"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "**%1$@** (%2$@)"
+          }
+        },
         "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "**%1$@** (%2$@)"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "**%1$@** (%2$@)"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "**%1$@** (%2$@)"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "**%1$@** (%2$@)"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "**%1$@** (%2$@)"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "**%1$@** (%2$@)"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "**%1$@** (%2$@)"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "**%1$@** (%2$@)"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "**%1$@** (%2$@)"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "**%1$@** (%2$@)"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "**%1$@** (%2$@)"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "**%1$@** (%2$@)"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "**%1$@** (%2$@)"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "**%1$@** (%2$@)"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "**%1$@** (%2$@)"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "**%1$@** (%2$@)"
+          }
+        },
+        "sr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "**%1$@** (%2$@)"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "**%1$@** (%2$@)"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "**%1$@** (%2$@)"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "**%1$@** (%2$@)"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "**%1$@** (%2$@)"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "**%1$@** (%2$@)"
+          }
+        },
+        "zh-Hant" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "**%1$@** (%2$@)"
@@ -194,10 +368,184 @@
     "about_build_log_button" : {
       "extractionState" : "manual",
       "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Build Log"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Build Log"
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Build Log"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Build Log"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Build Log"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Build Log"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Build Log"
+          }
+        },
         "en" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "new",
             "value" : "Build Log"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Build Log"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Build Log"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Journal de version"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Build Log"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Build Log"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Build Log"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ビルドログ"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "빌드 로그"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Build Log"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Build Log"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Build Log"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Build Log"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Build Log"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Build Log"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Build Log"
+          }
+        },
+        "sr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Build Log"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Build Log"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Build Log"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Build Log"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Build Log"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "构建日志"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "構建日誌"
           }
         }
       }
@@ -205,10 +553,184 @@
     "about_menu_bar_title" : {
       "extractionState" : "manual",
       "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "About Secretive"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "About Secretive"
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "About Secretive"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "About Secretive"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "About Secretive"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "About Secretive"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "About Secretive"
+          }
+        },
         "en" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "new",
             "value" : "About Secretive"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "About Secretive"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "About Secretive"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A propos"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "About Secretive"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "About Secretive"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "About Secretive"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Secretiveについて"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Secretive에 대해서"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "About Secretive"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "About Secretive"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "About Secretive"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "About Secretive"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "About Secretive"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "About Secretive"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "About Secretive"
+          }
+        },
+        "sr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "About Secretive"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "About Secretive"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "About Secretive"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "About Secretive"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "About Secretive"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "关于Secretive"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "關於Secretive"
           }
         }
       }
@@ -216,10 +738,184 @@
     "about_open_source_notice" : {
       "extractionState" : "manual",
       "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Secretive is Open Source and MIT Licensed"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Secretive is Open Source and MIT Licensed"
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Secretive is Open Source and MIT Licensed"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Secretive is Open Source and MIT Licensed"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Secretive is Open Source and MIT Licensed"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Secretive is Open Source and MIT Licensed"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Secretive is Open Source and MIT Licensed"
+          }
+        },
         "en" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "new",
             "value" : "Secretive is Open Source and MIT Licensed"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Secretive is Open Source and MIT Licensed"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Secretive is Open Source and MIT Licensed"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Secretive est Open Source et sous licence MIT"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Secretive is Open Source and MIT Licensed"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Secretive is Open Source and MIT Licensed"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Secretive is Open Source and MIT Licensed"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Secretiveはオープンソースです。MITライセンスで提供されています。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Secretive는 오픈 소스이며 MIT 라이선스입니다"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Secretive is Open Source and MIT Licensed"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Secretive is Open Source and MIT Licensed"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Secretive is Open Source and MIT Licensed"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Secretive is Open Source and MIT Licensed"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Secretive is Open Source and MIT Licensed"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Secretive is Open Source and MIT Licensed"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Secretive is Open Source and MIT Licensed"
+          }
+        },
+        "sr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Secretive is Open Source and MIT Licensed"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Secretive is Open Source and MIT Licensed"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Secretive is Open Source and MIT Licensed"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Secretive is Open Source and MIT Licensed"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Secretive is Open Source and MIT Licensed"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Secretive是开源软件并以MIT协议授权"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Secretive是開源軟體並以MIT協議授權"
           }
         }
       }
@@ -227,10 +923,184 @@
     "about_thanks" : {
       "extractionState" : "manual",
       "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Special thanks our [Contributors](%1$(contributorsLink)@) and [Sponsors](%2$(sponsorsLink)@)"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Special thanks our [Contributors](%1$(contributorsLink)@) and [Sponsors](%2$(sponsorsLink)@)"
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Special thanks our [Contributors](%1$(contributorsLink)@) and [Sponsors](%2$(sponsorsLink)@)"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Special thanks our [Contributors](%1$(contributorsLink)@) and [Sponsors](%2$(sponsorsLink)@)"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Special thanks our [Contributors](%1$(contributorsLink)@) and [Sponsors](%2$(sponsorsLink)@)"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Special thanks our [Contributors](%1$(contributorsLink)@) and [Sponsors](%2$(sponsorsLink)@)"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Special thanks our [Contributors](%1$(contributorsLink)@) and [Sponsors](%2$(sponsorsLink)@)"
+          }
+        },
         "en" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "new",
             "value" : "Special thanks our [Contributors](%1$(contributorsLink)@) and [Sponsors](%2$(sponsorsLink)@)"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Special thanks our [Contributors](%1$(contributorsLink)@) and [Sponsors](%2$(sponsorsLink)@)"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Special thanks our [Contributors](%1$(contributorsLink)@) and [Sponsors](%2$(sponsorsLink)@)"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Remerciements spéciaux à nos [Contributeurs](%1$(contributorsLink)@) et [Mécène](%2$(sponsorsLink)@)"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Special thanks our [Contributors](%1$(contributorsLink)@) and [Sponsors](%2$(sponsorsLink)@)"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Special thanks our [Contributors](%1$(contributorsLink)@) and [Sponsors](%2$(sponsorsLink)@)"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Special thanks our [Contributors](%1$(contributorsLink)@) and [Sponsors](%2$(sponsorsLink)@)"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "[コントリビューター](%1$(contributorsLink)@)と[スポンサー](%2$(sponsorsLink)@)に感謝します"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "[기여자](%1$(contributorsLink)@)와 [후원자](%2$(sponsorsLink)@)에게 특별히 감사드립니다"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Special thanks our [Contributors](%1$(contributorsLink)@) and [Sponsors](%2$(sponsorsLink)@)"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Special thanks our [Contributors](%1$(contributorsLink)@) and [Sponsors](%2$(sponsorsLink)@)"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Special thanks our [Contributors](%1$(contributorsLink)@) and [Sponsors](%2$(sponsorsLink)@)"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Special thanks our [Contributors](%1$(contributorsLink)@) and [Sponsors](%2$(sponsorsLink)@)"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Special thanks our [Contributors](%1$(contributorsLink)@) and [Sponsors](%2$(sponsorsLink)@)"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Special thanks our [Contributors](%1$(contributorsLink)@) and [Sponsors](%2$(sponsorsLink)@)"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Special thanks our [Contributors](%1$(contributorsLink)@) and [Sponsors](%2$(sponsorsLink)@)"
+          }
+        },
+        "sr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Special thanks our [Contributors](%1$(contributorsLink)@) and [Sponsors](%2$(sponsorsLink)@)"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Special thanks our [Contributors](%1$(contributorsLink)@) and [Sponsors](%2$(sponsorsLink)@)"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Special thanks our [Contributors](%1$(contributorsLink)@) and [Sponsors](%2$(sponsorsLink)@)"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Special thanks our [Contributors](%1$(contributorsLink)@) and [Sponsors](%2$(sponsorsLink)@)"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Special thanks our [Contributors](%1$(contributorsLink)@) and [Sponsors](%2$(sponsorsLink)@)"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "特别感谢我们的[贡献者](%1$(contributorsLink)@)和[赞助者](%2$(sponsorsLink)@)"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "特別感謝我們的[貢獻者](%1$(contributorsLink)@)和[贊助者](%2$(sponsorsLink)@)"
           }
         }
       }
@@ -238,10 +1108,184 @@
     "about_view_on_github_button" : {
       "extractionState" : "manual",
       "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "View on GitHub"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "View on GitHub"
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "View on GitHub"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "View on GitHub"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "View on GitHub"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "View on GitHub"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "View on GitHub"
+          }
+        },
         "en" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "new",
             "value" : "View on GitHub"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "View on GitHub"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "View on GitHub"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Voir sur GitHub"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "View on GitHub"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "View on GitHub"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "View on GitHub"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "GitHub"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "GitHub에서 보기"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "View on GitHub"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "View on GitHub"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "View on GitHub"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "View on GitHub"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "View on GitHub"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "View on GitHub"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "View on GitHub"
+          }
+        },
+        "sr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "View on GitHub"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "View on GitHub"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "View on GitHub"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "View on GitHub"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "View on GitHub"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "在GitHub上查看"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "在GitHub上檢視"
           }
         }
       }
@@ -281,14 +1325,14 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Secretive was unable to get SecretAgent to launch. Please try restarting your Mac, and if that doesn't work, file an issue on GitHub."
+            "state" : "translated",
+            "value" : "Secretive konnte den SecretAgent nicht starten. Bitte versuche Deinen Mac neu zu starten und wenn das nicht funktioniert, ein Issue auf GitHub zu erstellen."
           }
         },
         "el" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Secretive was unable to get SecretAgent to launch. Please try restarting your Mac, and if that doesn't work, file an issue on GitHub."
+            "state" : "translated",
+            "value" : "Το Secretive δεν μπόρεσε να εκκινήσει τον SecretAgent. Παρακαλώ δοκιμάστε να επανεκκινήσετε τον Mac σας, και αν αυτό δεν λειτουργήσει, ανοίξτε ένα issue στο GitHub."
           }
         },
         "en" : {
@@ -419,14 +1463,14 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Secretive was unable to get SecretAgent to launch. Please try restarting your Mac, and if that doesn't work, file an issue on GitHub."
+            "state" : "translated",
+            "value" : "Secretive无法启动SecretAgent。请尝试重启Mac，如果没有效果，请在GitHub上提交一个issue。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Secretive was unable to get SecretAgent to launch. Please try restarting your Mac, and if that doesn't work, file an issue on GitHub."
+            "state" : "translated",
+            "value" : "Secretive無法啟動SecretAgent。請嘗試重啟Mac，如果沒有效果，請在GitHub上提交一個issue。"
           }
         }
       }
@@ -466,14 +1510,14 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Disable Agent"
+            "state" : "translated",
+            "value" : "Agent deaktivieren"
           }
         },
         "el" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Disable Agent"
+            "state" : "translated",
+            "value" : "Απενεργοποίηση Πράκτορα"
           }
         },
         "en" : {
@@ -604,14 +1648,14 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Disable Agent"
+            "state" : "translated",
+            "value" : "禁用Agent"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Disable Agent"
+            "state" : "translated",
+            "value" : "禁用Agent"
           }
         }
       }
@@ -651,14 +1695,14 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Restart Agent"
+            "state" : "translated",
+            "value" : "Agent neu starten"
           }
         },
         "el" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Restart Agent"
+            "state" : "translated",
+            "value" : "Επανεκκίνηση Πράκτορα"
           }
         },
         "en" : {
@@ -789,14 +1833,14 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Restart Agent"
+            "state" : "translated",
+            "value" : "重启Agent"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Restart Agent"
+            "state" : "translated",
+            "value" : "重啟Agent"
           }
         }
       }
@@ -836,14 +1880,14 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Running Since"
+            "state" : "translated",
+            "value" : "Läuft seit"
           }
         },
         "el" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Running Since"
+            "state" : "translated",
+            "value" : "Εκτελείται Από"
           }
         },
         "en" : {
@@ -974,14 +2018,14 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Running Since"
+            "state" : "translated",
+            "value" : "运行时间始于"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Running Since"
+            "state" : "translated",
+            "value" : "執行時間始於"
           }
         }
       }
@@ -1021,13 +2065,13 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Socket Path"
+            "state" : "translated",
+            "value" : "Socket-Pfad"
           }
         },
         "el" : {
           "stringUnit" : {
-            "state" : "new",
+            "state" : "translated",
             "value" : "Socket Path"
           }
         },
@@ -1159,14 +2203,14 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Socket Path"
+            "state" : "translated",
+            "value" : "Socket路径"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Socket Path"
+            "state" : "translated",
+            "value" : "Socket路徑"
           }
         }
       }
@@ -1206,14 +2250,14 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Start Agent"
+            "state" : "translated",
+            "value" : "Agent starten"
           }
         },
         "el" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Start Agent"
+            "state" : "translated",
+            "value" : "Έναρξη SecretAgent"
           }
         },
         "en" : {
@@ -1344,14 +2388,14 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Start Agent"
+            "state" : "translated",
+            "value" : "启动Agent"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Start Agent"
+            "state" : "translated",
+            "value" : "啟動Agent"
           }
         }
       }
@@ -1391,14 +2435,14 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Starting Agent"
+            "state" : "translated",
+            "value" : "Agent wird gestartet"
           }
         },
         "el" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Starting Agent"
+            "state" : "translated",
+            "value" : "Έναρξη Πράκτορα"
           }
         },
         "en" : {
@@ -1529,14 +2573,14 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Starting Agent"
+            "state" : "translated",
+            "value" : "Agent启动中"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Starting Agent"
+            "state" : "translated",
+            "value" : "Agent啟動中"
           }
         }
       }
@@ -1576,14 +2620,14 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
+            "state" : "translated",
             "value" : "Version"
           }
         },
         "el" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Version"
+            "state" : "translated",
+            "value" : "Έκδοση"
           }
         },
         "en" : {
@@ -1714,14 +2758,14 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Version"
+            "state" : "translated",
+            "value" : "版本"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Version"
+            "state" : "translated",
+            "value" : "版本"
           }
         }
       }
@@ -1761,14 +2805,14 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "SecretAgent is a process that runs in the background to sign requests, so you don't need to keep Secretive open all the time.\n\n**Secretive will not be able to function properly unless the agent is installed and running.**"
+            "state" : "translated",
+            "value" : "SecretAgent ist ein Hintergrund-Prozess, der Anfragen signiert, sodass Du Secretive nicht durchgehend geöffnet haben musst.\n\n**Secretive wird nicht richtig funktionieren, wenn der Agent nicht installiert und ausgeführt wird.**"
           }
         },
         "el" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "SecretAgent is a process that runs in the background to sign requests, so you don't need to keep Secretive open all the time.\n\n**Secretive will not be able to function properly unless the agent is installed and running.**"
+            "state" : "translated",
+            "value" : "Το SecretAgent είναι μια διεργασία που εκτελείται στο παρασκήνιο για να υπογράφει αιτήματα. Δεν χρειάζεται να κρατάτε παράθυρο του Secretive ανοιχτό συνεχώς.\n\n**Το Secretive δεν θα μπορεί να λειτουργήσει σωστά εκτός και αν o Agent είναι εγκατεστημένος και εκτελείται.**"
           }
         },
         "en" : {
@@ -1899,14 +2943,14 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "SecretAgent is a process that runs in the background to sign requests, so you don't need to keep Secretive open all the time.\n\n**Secretive will not be able to function properly unless the agent is installed and running.**"
+            "state" : "translated",
+            "value" : "SecretAgent是个在后台处理签名请求的进程，让您无需将Secretive一直保持在前台。\n\n**需要安装并运行Agent，否则Secretive无法正常工作。**"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "SecretAgent is a process that runs in the background to sign requests, so you don't need to keep Secretive open all the time.\n\n**Secretive will not be able to function properly unless the agent is installed and running.**"
+            "state" : "translated",
+            "value" : "SecretAgent是個在後台處理簽名請求的行程，讓您無需將Secretive一直保持在前台。\n\n**需要安裝並執行Agent，否則Secretive無法正常工作。**"
           }
         }
       }
@@ -1952,8 +2996,8 @@
         },
         "el" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Agent Is Not Running"
+            "state" : "translated",
+            "value" : "Ο Agent Δεν Εκτελείται"
           }
         },
         "en" : {
@@ -2085,13 +3129,13 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "SecretAgent尚未运行"
+            "value" : "Agent尚未运行"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Agent Is Not Running"
+            "state" : "translated",
+            "value" : "Agent尚未執行"
           }
         }
       }
@@ -2137,8 +3181,8 @@
         },
         "el" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "SecretAgent is a process that runs in the background to sign requests, so you don't need to keep Secretive open all the time.\n\n**You can close Secretive, and everything will still keep working.**"
+            "state" : "translated",
+            "value" : "Το SecretAgent είναι μια διεργασία που εκτελείται στο παρασκήνιο για να υπογράφει αιτήματα. Δεν χρειάζεται να κρατάτε παράθυρο του Secretive ανοιχτό συνεχώς.\n\n**Το Secretive δεν θα μπορεί να λειτουργήσει σωστά εκτός και αν o Agent είναι εγκατεστημένος και εκτελείται.**"
           }
         },
         "en" : {
@@ -2234,7 +3278,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "SecretAgent это процесс, который работает в фоне чтобы подписывать запросы – так Вам не нужно держать Secretive открытым все время.\n\n**Вы можете закрыть Secretive, и все продолжит работать штатно.**"
+            "value" : "SecretAgent это процесс, который работает в фоне, чтобы подписывать запросы – так Вам не нужно держать Secretive открытым все время.\n\n**Вы можете закрыть Secretive, и все продолжит работать штатно.**"
           }
         },
         "sr" : {
@@ -2270,13 +3314,13 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "SecretAgent是一个在后台进行请求处理的服务，所以您可以不用让Secretive 一直保持前台运行。   \n\n\n**您可以关闭 Secretive，所有服务都将正常运行。**\n\n\n"
+            "value" : "SecretAgent是个在后台处理签名请求的进程，让您无需将Secretive一直保持在前台。\n\n**您可以关闭Secretive，所有服务都将正常运行。**"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "SecretAgent is a process that runs in the background to sign requests, so you don't need to keep Secretive open all the time.\n\n**You can close Secretive, and everything will still keep working.**"
+            "state" : "translated",
+            "value" : "SecretAgent是個在後台處理簽名請求的行程，讓您無需將Secretive一直保持在前台。\n\n**您可以關閉Secretive，所有服務都將正常執行。**"
           }
         }
       }
@@ -2322,8 +3366,8 @@
         },
         "el" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Secret Agent is Running"
+            "state" : "translated",
+            "value" : "Ο Πράκτορας εκτελείται"
           }
         },
         "en" : {
@@ -2455,13 +3499,13 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "SecretAgent运行中"
+            "value" : "Secret Agent运行中"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Secret Agent is Running"
+            "state" : "translated",
+            "value" : "Secret Agent執行中"
           }
         }
       }
@@ -2645,8 +3689,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Agent is Running"
+            "state" : "translated",
+            "value" : "Agent執行中"
           }
         }
       }
@@ -2686,14 +3730,14 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Secret Agent Location"
+            "state" : "translated",
+            "value" : "SecretAgent-Pfad"
           }
         },
         "el" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Secret Agent Location"
+            "state" : "translated",
+            "value" : "Τοποθεσία Secret Agent"
           }
         },
         "en" : {
@@ -2824,14 +3868,14 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Secret Agent Location"
+            "state" : "translated",
+            "value" : "Secret Agent的位置"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Secret Agent Location"
+            "state" : "translated",
+            "value" : "Secret Agent的位置"
           }
         }
       }
@@ -3015,8 +4059,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Help"
+            "state" : "translated",
+            "value" : "幫助"
           }
         }
       }
@@ -3200,8 +4244,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "New Secret"
+            "state" : "translated",
+            "value" : "新建Secret"
           }
         }
       }
@@ -3209,9 +4253,135 @@
     "app_not_in_applications_notice_cancel_button" : {
       "extractionState" : "manual",
       "localizations" : {
-        "en" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Later"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Later"
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Later"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Later"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Later"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Later"
+          }
+        },
+        "el" : {
           "stringUnit" : {
             "state" : "translated",
+            "value" : "Εφαρμογή αργότερα"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Later"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Later"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Later"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Plus tard"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Later"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Later"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Later"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "後にする"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "나중에"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Later"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Later"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Later"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Later"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Later"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "new",
             "value" : "Later"
           }
         },
@@ -3219,6 +4389,48 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Позже"
+          }
+        },
+        "sr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Later"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Later"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Later"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Later"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Later"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "稍后"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "稍後"
           }
         }
       }
@@ -3397,13 +4609,13 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Secretive 需要在应用程序文件夹中才能保持正常运行。请移动Secretive并重启"
+            "value" : "Secretive需要在“应用程序”文件夹中才能正常运行。请移动并重新启动Secretive。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Secretive needs to be in your Applications folder to work properly. Please move it and relaunch."
+            "state" : "translated",
+            "value" : "Secretive需要在「應用程式」資料夾中才能正常執行。請移動並重新啟動Secretive。"
           }
         }
       }
@@ -3411,9 +4623,135 @@
     "app_not_in_applications_notice_quit_button" : {
       "extractionState" : "manual",
       "localizations" : {
-        "en" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Quit"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Quit"
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Quit"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Quit"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Quit"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Quit"
+          }
+        },
+        "el" : {
           "stringUnit" : {
             "state" : "translated",
+            "value" : "Έξοδος"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Quit"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Quit"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Quit"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Quitter"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Quit"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Quit"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Quit"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "終了"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "종료"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Quit"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Quit"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Quit"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Quit"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Quit"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "new",
             "value" : "Quit"
           }
         },
@@ -3421,6 +4759,48 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Выйти"
+          }
+        },
+        "sr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Quit"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Quit"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Quit"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Quit"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Quit"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "退出"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "退出"
           }
         }
       }
@@ -3599,13 +4979,13 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Secretive 不在系统应用文件夹中"
+            "value" : "Secretive不在“应用程序”文件夹中"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Secretive Is Not in Applications Folder"
+            "state" : "translated",
+            "value" : "Secretive不在「應用程式」資料夾中"
           }
         }
       }
@@ -3785,13 +5165,13 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "解锁密钥串 “%1$(secretName)@” 给 %2$(duration)@"
+            "value" : "解锁密钥串“%1$(secretName)@”%2$(duration)@"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "unlock secret “%1$(secretName)@” for %2$(duration)@"
+            "state" : "translated",
+            "value" : "解鎖Secret「%1$(secretName)@」%2$(duration)@"
           }
         }
       }
@@ -3976,8 +5356,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Deny"
+            "state" : "translated",
+            "value" : "拒絕"
           }
         }
       }
@@ -4030,7 +5410,7 @@
         },
         "en" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "new",
             "value" : "sign a request from “%1$(appName)@” using secret “%2$(secretName)@”"
           }
         },
@@ -4157,13 +5537,13 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "使用密钥串 “%2$(secretName)@” 认证 “%1$(appName)@” "
+            "value" : "用密钥串“%2$(secretName)@”认证来自“%1$(appName)@”的请求"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "sign a request from “%1$(appName)@” using secret “%2$(secretName)@”"
+            "state" : "translated",
+            "value" : "用Secret「%2$(secretName)@」認證来自「%1$(appName)@」的请求"
           }
         }
       }
@@ -4347,8 +5727,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Click to Copy"
+            "state" : "translated",
+            "value" : "點選以拷貝"
           }
         }
       }
@@ -4532,8 +5912,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Copied"
+            "state" : "translated",
+            "value" : "已拷貝"
           }
         }
       }
@@ -4573,8 +5953,8 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Advanced"
+            "state" : "translated",
+            "value" : "Erweitert"
           }
         },
         "el" : {
@@ -4711,14 +6091,14 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Advanced"
+            "state" : "translated",
+            "value" : "高级选项"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Advanced"
+            "state" : "translated",
+            "value" : "高階選項"
           }
         }
       }
@@ -4758,8 +6138,8 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "If you change your biometric settings in _any way_, including adding a new fingerprint, this key will no longer be accessible."
+            "state" : "translated",
+            "value" : "Wenn Du Deine Biometrie-Einstellungen _irgendwie_, einschließlich des Hinzufügens eines neuen Fingerabdrucks, änderst, wird dieser Schlüssel nicht mehr zugänglich sein."
           }
         },
         "el" : {
@@ -4896,14 +6276,14 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "If you change your biometric settings in _any way_, including adding a new fingerprint, this key will no longer be accessible."
+            "state" : "translated",
+            "value" : "如果您以_任何方式_更改生物识别设置，包括新增指纹，此密钥将不再可用。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "If you change your biometric settings in _any way_, including adding a new fingerprint, this key will no longer be accessible."
+            "state" : "translated",
+            "value" : "如果您以_任何方式_更改生物識別設定，包括新增指紋，此金鑰將不再可用。"
           }
         }
       }
@@ -4949,8 +6329,8 @@
         },
         "el" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Cancel"
+            "state" : "translated",
+            "value" : "Άκυρο"
           }
         },
         "en" : {
@@ -5082,13 +6462,13 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "返回"
+            "value" : "取消"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Cancel"
+            "state" : "translated",
+            "value" : "取消"
           }
         }
       }
@@ -5272,8 +6652,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Create"
+            "state" : "translated",
+            "value" : "建立"
           }
         }
       }
@@ -5313,14 +6693,14 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "This shows at the end of your public key. It’s usually an email address."
+            "state" : "translated",
+            "value" : "Sie wird am Ende Deines öffentlichen Schlüssels angezeigt und ist üblicherweise eine E-Mail-Adresse."
           }
         },
         "el" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "This shows at the end of your public key. It’s usually an email address."
+            "state" : "translated",
+            "value" : "Αυτό εμφανίζεται στο τέλος του δημόσιου κλειδιού σας. Είναι συνήθως μια διεύθυνση ηλεκτρονικού ταχυδρομείου."
           }
         },
         "en" : {
@@ -5451,14 +6831,14 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "This shows at the end of your public key. It’s usually an email address."
+            "state" : "translated",
+            "value" : "会显示在公钥末尾。通常为电子邮箱地址。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "This shows at the end of your public key. It’s usually an email address."
+            "state" : "translated",
+            "value" : "會顯示在公鑰末尾。通常為電郵地址。"
           }
         }
       }
@@ -5498,14 +6878,14 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Key Attribution"
+            "state" : "translated",
+            "value" : "Schlüssel-Zuordnung"
           }
         },
         "el" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Key Attribution"
+            "state" : "translated",
+            "value" : "Απόδοση Κλειδιού"
           }
         },
         "en" : {
@@ -5636,14 +7016,14 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Key Attribution"
+            "state" : "translated",
+            "value" : "密钥归属"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Key Attribution"
+            "state" : "translated",
+            "value" : "金鑰歸屬"
           }
         }
       }
@@ -5683,8 +7063,8 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Key Type"
+            "state" : "translated",
+            "value" : "Schlüsseltyp"
           }
         },
         "el" : {
@@ -5821,14 +7201,14 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Key Type"
+            "state" : "translated",
+            "value" : "密钥类型"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Key Type"
+            "state" : "translated",
+            "value" : "金鑰型別"
           }
         }
       }
@@ -5836,10 +7216,184 @@
     "create_secret_key_type_macOS_update_required_label" : {
       "extractionState" : "manual",
       "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Unavailable on this version of macOS"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Unavailable on this version of macOS"
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Unavailable on this version of macOS"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Unavailable on this version of macOS"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Unavailable on this version of macOS"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Unavailable on this version of macOS"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Unavailable on this version of macOS"
+          }
+        },
         "en" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "new",
             "value" : "Unavailable on this version of macOS"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Unavailable on this version of macOS"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Unavailable on this version of macOS"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Indisponible sur cette version de macOS"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Unavailable on this version of macOS"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Unavailable on this version of macOS"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Unavailable on this version of macOS"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "このバージョンのmacOSには対応していません"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "이 버전의 macOS에서는 사용할 수 없습니다"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Unavailable on this version of macOS"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Unavailable on this version of macOS"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Unavailable on this version of macOS"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Unavailable on this version of macOS"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Unavailable on this version of macOS"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Unavailable on this version of macOS"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Unavailable on this version of macOS"
+          }
+        },
+        "sr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Unavailable on this version of macOS"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Unavailable on this version of macOS"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Unavailable on this version of macOS"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Unavailable on this version of macOS"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Unavailable on this version of macOS"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "在当前版本的macOS上不可用"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "在當前版本的macOS上不可用"
           }
         }
       }
@@ -6017,14 +7571,14 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Warning: ML-DSA keys are very new, and not supported by many servers yet. Please verify the server you'll be using this key for accepts ML-DSA keys."
+            "state" : "translated",
+            "value" : "警告：ML-DSA密钥非常新，许多服务器尚不支持。 请验证您将使用此密钥的服务器能接受ML-DSA密钥。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Warning: ML-DSA keys are very new, and not supported by many servers yet. Please verify the server you'll be using this key for accepts ML-DSA keys."
+            "state" : "translated",
+            "value" : "警告：ML-DSA金鑰非常新，許多伺服器尚不支援。 請驗證您將使用此金鑰的伺服器能接受ML-DSA金鑰。"
           }
         }
       }
@@ -6064,14 +7618,14 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
+            "state" : "translated",
             "value" : "Name"
           }
         },
         "el" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Name"
+            "state" : "translated",
+            "value" : "Τίτλος"
           }
         },
         "en" : {
@@ -6208,8 +7762,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Name"
+            "state" : "translated",
+            "value" : "名稱"
           }
         }
       }
@@ -6393,8 +7947,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Shhhhh"
+            "state" : "translated",
+            "value" : "某某"
           }
         }
       }
@@ -6573,13 +8127,13 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "当您的Mac 解锁时不需要任何验证，但您会收到一条密钥串被使用的通知"
+            "value" : "当Mac已解锁时无需验证，但密钥串被使用时会通知您。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "No authentication is required while your Mac is unlocked, but you will be notified when a secret is used."
+            "state" : "translated",
+            "value" : "當Mac已解鎖時無需驗證，但Secret被使用时會通知您。"
           }
         }
       }
@@ -6763,8 +8317,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Notify"
+            "state" : "translated",
+            "value" : "通知"
           }
         }
       }
@@ -6942,14 +8496,14 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Protection Level"
+            "state" : "translated",
+            "value" : "保护级别"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Protection Level"
+            "state" : "translated",
+            "value" : "保護級別"
           }
         }
       }
@@ -7127,14 +8681,14 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Require authentication with current set of biometrics."
+            "state" : "translated",
+            "value" : "需要用当前的生物识别特征集来认证。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Require authentication with current set of biometrics."
+            "state" : "translated",
+            "value" : "需要用當前的生物識別特徵集來認證。"
           }
         }
       }
@@ -7174,8 +8728,8 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Current Biometrics"
+            "state" : "translated",
+            "value" : "Aktuelle Biometrie"
           }
         },
         "el" : {
@@ -7312,14 +8866,14 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Current Biometrics"
+            "state" : "translated",
+            "value" : "当前的生物识别"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Current Biometrics"
+            "state" : "translated",
+            "value" : "當前的生物識別"
           }
         }
       }
@@ -7498,13 +9052,13 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "您在每次使用时都会被要求使用Touch ID 、Apple Watch 或密码进行验证。"
+            "value" : "每次使用前都会要求您使用触控ID、Apple Watch或密码进行验证。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "You will be required to authenticate using Touch ID, Apple Watch, or password before each use."
+            "state" : "translated",
+            "value" : "每次使用前都會要求您使用Touch ID、Apple Watch或密碼進行認證。"
           }
         }
       }
@@ -7688,8 +9242,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Require Authentication"
+            "state" : "translated",
+            "value" : "需要驗證"
           }
         }
       }
@@ -7873,8 +9427,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Create a New Secret"
+            "state" : "translated",
+            "value" : "建立新Secret"
           }
         }
       }
@@ -8058,8 +9612,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Don't Delete"
+            "state" : "translated",
+            "value" : "禁止刪除"
           }
         }
       }
@@ -8243,8 +9797,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Delete"
+            "state" : "translated",
+            "value" : "刪除"
           }
         }
       }
@@ -8423,13 +9977,13 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "如果您删除 %1$(secretName)@ ，您将没有任何方式恢复它。输入 “%2$(confirmSecretName)@” 以确认。"
+            "value" : "如果删除%1$(secretName)@，您将无法恢复它。输入 “%2$(confirmSecretName)@”以确认。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "If you delete %1$(secretName)@, you will not be able to recover it. Type “%2$(confirmSecretName)@” to confirm."
+            "state" : "translated",
+            "value" : "如果刪除%1$(secretName)@，您將無法恢復它。輸入“%2$(confirmSecretName)@”以確認。"
           }
         }
       }
@@ -8608,13 +10162,13 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "删除 %1$(secretName)@ 吗？"
+            "value" : "删除“%1$(secretName)@”吗？"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Delete %1$(secretName)@?"
+            "state" : "translated",
+            "value" : "刪除「%1$(secretName)@」嗎？"
           }
         }
       }
@@ -8660,8 +10214,8 @@
         },
         "el" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Cancel"
+            "state" : "translated",
+            "value" : "Άκυρο"
           }
         },
         "en" : {
@@ -8793,13 +10347,13 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "返回"
+            "value" : "取消"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Cancel"
+            "state" : "translated",
+            "value" : "取消"
           }
         }
       }
@@ -8845,8 +10399,8 @@
         },
         "el" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Save"
+            "state" : "translated",
+            "value" : "Αποθήκευση"
           }
         },
         "en" : {
@@ -8978,13 +10532,13 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "重命名"
+            "value" : "保存"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Save"
+            "state" : "translated",
+            "value" : "儲存"
           }
         }
       }
@@ -9168,8 +10722,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Create a new one by clicking here."
+            "state" : "translated",
+            "value" : "點選這裡建立一個新的Secret。"
           }
         }
       }
@@ -9353,8 +10907,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "No Secrets"
+            "state" : "translated",
+            "value" : "沒有Secret"
           }
         }
       }
@@ -9532,14 +11086,14 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like you may have recently updated macOS. Sometimes this puts the Secure Enclave into a weird state, and you might need to reboot your Mac before things start working again."
+            "state" : "translated",
+            "value" : "看起来您最近可能更新了macOS。 有时这会使安全隔区状态异常，可能需要重启Mac才能恢复正常。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like you may have recently updated macOS. Sometimes this puts the Secure Enclave into a weird state, and you might need to reboot your Mac before things start working again."
+            "state" : "translated",
+            "value" : "看起來您最近可能更新了macOS。 有時這會使安全隔離區狀態異常，可能需要重啟Mac才能恢復正常。"
           }
         }
       }
@@ -9579,8 +11133,8 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Missing Secrets?"
+            "state" : "translated",
+            "value" : "Fehlende Secrets?"
           }
         },
         "el" : {
@@ -9717,14 +11271,14 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Missing Secrets?"
+            "state" : "translated",
+            "value" : "密钥串不见了？"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Missing Secrets?"
+            "state" : "translated",
+            "value" : "Secret不見了？"
           }
         }
       }
@@ -9903,13 +11457,13 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "使用您的智能卡管理工具创建一个新的密钥串"
+            "value" : "使用您的智能卡管理工具创建一个新的密钥串。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Use your Smart Card's management tool to create a secret."
+            "state" : "translated",
+            "value" : "使用您的智慧卡管理工具建立一個新的Secret。"
           }
         }
       }
@@ -10088,13 +11642,13 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Secretive 支持 EC256, EC384, RSA1024, 和RSA2048."
+            "value" : "Secretive支持EC256、EC384、RSA2048密钥。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Secretive supports EC256, EC384, and RSA2048 keys."
+            "state" : "translated",
+            "value" : "Secretive支援EC256、EC384、RSA2048金鑰。"
           }
         }
       }
@@ -10278,8 +11832,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "No Secrets"
+            "state" : "translated",
+            "value" : "沒有Secret"
           }
         }
       }
@@ -10677,8 +12231,8 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Add This:"
+            "state" : "translated",
+            "value" : "Folgendes hinzufügen:"
           }
         },
         "el" : {
@@ -10815,14 +12369,14 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Add This:"
+            "state" : "translated",
+            "value" : "添加这些内容："
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Add This:"
+            "state" : "translated",
+            "value" : "新增這些內容："
           }
         }
       }
@@ -10862,7 +12416,7 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
+            "state" : "translated",
             "value" : "Apps"
           }
         },
@@ -11000,14 +12554,14 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Apps"
+            "state" : "translated",
+            "value" : "应用"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Apps"
+            "state" : "translated",
+            "value" : "應用"
           }
         }
       }
@@ -11185,14 +12739,14 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "There's a community-maintained list of instructions for apps on GitHub. If the app you're looking for isn't supported, create an issue and the community may be able to help."
+            "state" : "translated",
+            "value" : "GitHub上有份由社区维护的清单介绍如何配置应用。若尚不支持您要找的应用，请创建一个issue，社区或许能提供帮助。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "There's a community-maintained list of instructions for apps on GitHub. If the app you're looking for isn't supported, create an issue and the community may be able to help."
+            "state" : "translated",
+            "value" : "GitHub上有份由社群維護的清單介紹如何配置應用。若尚不支援您要找的應用，請建立一個issue，社群或許能提供幫助。"
           }
         }
       }
@@ -11370,14 +12924,48 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "There's a community-maintained list of shell instructions on GitHub. If the shell you're looking for isn't supported, create an issue and the community may be able to help."
+            "state" : "translated",
+            "value" : "GitHub上有份由社区维护的清单介绍如何配置shell。若尚不支持您要找的shell，请创建一个issue，社区或许能提供帮助。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "There's a community-maintained list of shell instructions on GitHub. If the shell you're looking for isn't supported, create an issue and the community may be able to help."
+            "state" : "translated",
+            "value" : "GitHub上有份由社群維護的清單介紹如何配置shell。若尚不支援您要找的shell，請建立一個issue，社群或許能提供幫助。"
+          }
+        }
+      }
+    },
+    "integrations_configure_using_email_placeholder" : {
+      "comment" : "Only “your_email” can be (optionally) localized. “example.com” should remain as-is.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "your_email@example.com"
+          }
+        }
+      }
+    },
+    "integrations_configure_using_email_subtitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The email address you set when you configured git (visible in gitconfig)."
+          }
+        }
+      }
+    },
+    "integrations_configure_using_email_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Email Address"
           }
         }
       }
@@ -11555,14 +13143,14 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "You'll need to create a Secret before configuring this action."
+            "state" : "translated",
+            "value" : "在配置此操作前，您需要先创建一个密钥串。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "You'll need to create a Secret before configuring this action."
+            "state" : "translated",
+            "value" : "在配置此操作前，您需要先建立一個Secret。"
           }
         }
       }
@@ -11602,8 +13190,8 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Configure Using Secret"
+            "state" : "translated",
+            "value" : "Mit Secret konfigurieren"
           }
         },
         "el" : {
@@ -11740,14 +13328,14 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Configure Using Secret"
+            "state" : "translated",
+            "value" : "用密钥串来配置"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Configure Using Secret"
+            "state" : "translated",
+            "value" : "用Secret來配置"
           }
         }
       }
@@ -11787,8 +13375,8 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "No Secret"
+            "state" : "translated",
+            "value" : "Kein Secret"
           }
         },
         "el" : {
@@ -11925,14 +13513,14 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "No Secret"
+            "state" : "translated",
+            "value" : "没有密钥串"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "No Secret"
+            "state" : "translated",
+            "value" : "沒有Secret"
           }
         }
       }
@@ -11972,7 +13560,7 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
+            "state" : "translated",
             "value" : "Secret"
           }
         },
@@ -12110,13 +13698,13 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Secret"
+            "state" : "translated",
+            "value" : "密钥串"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
+            "state" : "translated",
             "value" : "Secret"
           }
         }
@@ -12295,14 +13883,14 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "You can configure more than one tool, they generally won't interfere with each other."
+            "state" : "translated",
+            "value" : "您可以配置多个工具，它们通常不会相互干扰。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "You can configure more than one tool, they generally won't interfere with each other."
+            "state" : "translated",
+            "value" : "您可以配置多個工具，它們通常不會相互干擾。"
           }
         }
       }
@@ -12342,8 +13930,8 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Getting Started"
+            "state" : "translated",
+            "value" : "Erste Schritte"
           }
         },
         "el" : {
@@ -12480,14 +14068,14 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Getting Started"
+            "state" : "translated",
+            "value" : "入门指南"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Getting Started"
+            "state" : "translated",
+            "value" : "入門指南"
           }
         }
       }
@@ -12527,8 +14115,8 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Integrations"
+            "state" : "translated",
+            "value" : "Integrationen"
           }
         },
         "el" : {
@@ -12665,14 +14253,14 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Integrations"
+            "state" : "translated",
+            "value" : "第三方集成"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Integrations"
+            "state" : "translated",
+            "value" : "第三方整合"
           }
         }
       }
@@ -12850,14 +14438,14 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "If you're trying to sign your git commits, set up Git Signing."
+            "state" : "translated",
+            "value" : "如果您打算签署git提交，请配置“Git签名”。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "If you're trying to sign your git commits, set up Git Signing."
+            "state" : "translated",
+            "value" : "如果您打算簽署git提交，請配置「Git簽名」。"
           }
         }
       }
@@ -13035,14 +14623,14 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "If you're trying to configure anything your command line runs to use Secretive, configure your shell."
+            "state" : "translated",
+            "value" : "如果您打算让命令行运行的任何命令使用Secretive，请配置“Shell”。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "If you're trying to configure anything your command line runs to use Secretive, configure your shell."
+            "state" : "translated",
+            "value" : "如果您打算讓命令列執行的任何命令使用Secretive，請配置「Shell」。"
           }
         }
       }
@@ -13220,14 +14808,14 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "If you don't known what shell you use and haven't changed it, you're probably using `%(shellName)@`."
+            "state" : "translated",
+            "value" : "如果您不知道自己在用哪个shell且未曾更改它，您大概在用`%(shellName)@`。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "If you don't known what shell you use and haven't changed it, you're probably using `%(shellName)@`."
+            "state" : "translated",
+            "value" : "如果您不知道自己在用哪個shell且未曾更改它，您大概在用`%(shellName)@`。"
           }
         }
       }
@@ -13405,14 +14993,14 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "If you're trying to authenticate with an SSH server or authenticating with a service like GitHub over SSH, configure your SSH client."
+            "state" : "translated",
+            "value" : "如果您打算为SSH服务器配置身份认证或通过SSH与GitHub之类的服务认证身份，请配置SSH客户端。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "If you're trying to authenticate with an SSH server or authenticating with a service like GitHub over SSH, configure your SSH client."
+            "state" : "translated",
+            "value" : "如果您打算為SSH伺服器配置身份認證或透過SSH與GitHub之類的服務認證身份，請配置SSH客戶端。"
           }
         }
       }
@@ -13590,14 +15178,14 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Configuring Tools for Secretive"
+            "state" : "translated",
+            "value" : "为Secretive配置工具"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Configuring Tools for Secretive"
+            "state" : "translated",
+            "value" : "為Secretive配置工具"
           }
         }
       }
@@ -13775,14 +15363,14 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Most tools will try and look for SSH keys on disk in `~/.ssh`. To use Secretive, we need to configure those tools to talk to Secretive instead."
+            "state" : "translated",
+            "value" : "多数工具会尝试在`~/.ssh`中查找磁盘上的SSH密钥。要使用Secretive，我们需要配置这些工具来与Secretive通信。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Most tools will try and look for SSH keys on disk in `~/.ssh`. To use Secretive, we need to configure those tools to talk to Secretive instead."
+            "state" : "translated",
+            "value" : "多數工具會嘗試在`~/.ssh`中查詢磁碟上的SSH金鑰。要使用Secretive，我們需要配置這些工具來與Secretive通訊。"
           }
         }
       }
@@ -13960,14 +15548,14 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "What Should I Configure?"
+            "state" : "translated",
+            "value" : "我应该配置什么？"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "What Should I Configure?"
+            "state" : "translated",
+            "value" : "我應該配置什麼？"
           }
         }
       }
@@ -14145,14 +15733,14 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "~/.gitallowedsigners probably does not exist. You'll need to create it."
+            "state" : "translated",
+            "value" : "~/.gitallowedsigners 可能不存在。您需要创建它。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "~/.gitallowedsigners probably does not exist. You'll need to create it."
+            "state" : "translated",
+            "value" : "~/.gitallowedsigners 可能不存在。您需要建立它。"
           }
         }
       }
@@ -14378,8 +15966,8 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Integrations…"
+            "state" : "translated",
+            "value" : "Integrationen…"
           }
         },
         "el" : {
@@ -14516,14 +16104,14 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Integrations…"
+            "state" : "translated",
+            "value" : "第三方集成…"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Integrations…"
+            "state" : "translated",
+            "value" : "第三方整合…"
           }
         }
       }
@@ -14563,8 +16151,8 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Other"
+            "state" : "translated",
+            "value" : "Sonstige"
           }
         },
         "el" : {
@@ -14701,14 +16289,14 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Other"
+            "state" : "translated",
+            "value" : "其他"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Other"
+            "state" : "translated",
+            "value" : "其他"
           }
         }
       }
@@ -14748,8 +16336,8 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "other"
+            "state" : "translated",
+            "value" : "sonstige"
           }
         },
         "el" : {
@@ -14886,14 +16474,14 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "other"
+            "state" : "translated",
+            "value" : "其他"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "other"
+            "state" : "translated",
+            "value" : "其他"
           }
         }
       }
@@ -14933,8 +16521,8 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Configuration File"
+            "state" : "translated",
+            "value" : "Konfigurationsdatei"
           }
         },
         "el" : {
@@ -15071,14 +16659,14 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Configuration File"
+            "state" : "translated",
+            "value" : "配置文件"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Configuration File"
+            "state" : "translated",
+            "value" : "配置檔案"
           }
         }
       }
@@ -15118,7 +16706,7 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
+            "state" : "translated",
             "value" : "Shell"
           }
         },
@@ -15220,7 +16808,7 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "new",
             "value" : "Shell"
           }
         },
@@ -15256,13 +16844,13 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
+            "state" : "translated",
             "value" : "Shell"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
+            "state" : "translated",
             "value" : "Shell"
           }
         }
@@ -15441,14 +17029,14 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "You can tell SSH to use a specific key for a given host. See the web documentation for more details."
+            "state" : "translated",
+            "value" : "您可以让SSH为指定的主机使用特定密钥。详情请参阅在线文档。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "You can tell SSH to use a specific key for a given host. See the web documentation for more details."
+            "state" : "translated",
+            "value" : "您可以讓SSH為指定的主機使用特定金鑰。詳情請參閱線上手冊。"
           }
         }
       }
@@ -15488,7 +17076,7 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
+            "state" : "translated",
             "value" : "System"
           }
         },
@@ -15626,14 +17214,14 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "System"
+            "state" : "translated",
+            "value" : "系统"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "System"
+            "state" : "translated",
+            "value" : "系統"
           }
         }
       }
@@ -16183,14 +17771,14 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Git Signing"
+            "state" : "translated",
+            "value" : "Git签名"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Git Signing"
+            "state" : "translated",
+            "value" : "Git簽名"
           }
         }
       }
@@ -16602,8 +18190,8 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "View on GitHub"
+            "state" : "translated",
+            "value" : "Auf GitHub anzeigen"
           }
         },
         "el" : {
@@ -16740,14 +18328,14 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "View on GitHub"
+            "state" : "translated",
+            "value" : "在GitHub上查看"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "View on GitHub"
+            "state" : "translated",
+            "value" : "在GitHub上檢視"
           }
         }
       }
@@ -16787,8 +18375,8 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "View Documentation on Web"
+            "state" : "translated",
+            "value" : "Dokumentation im Web ansehen"
           }
         },
         "el" : {
@@ -16925,14 +18513,14 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "View Documentation on Web"
+            "state" : "translated",
+            "value" : "查看在线文档"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "View Documentation on Web"
+            "state" : "translated",
+            "value" : "檢視線上手冊"
           }
         }
       }
@@ -16972,8 +18560,8 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "If any section (like [user]) already exists, just add the entries in the existing section."
+            "state" : "translated",
+            "value" : "Wenn ein Abschnitt (wie [user]) bereits existiert, füge die Einträge einfach in dem vorhandenen Abschnitt hinzu."
           }
         },
         "el" : {
@@ -17110,14 +18698,14 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "If any section (like [user]) already exists, just add the entries in the existing section."
+            "state" : "translated",
+            "value" : "若某小节（比如 [user]）已存在，只需在现有小节中添加条目。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "If any section (like [user]) already exists, just add the entries in the existing section."
+            "state" : "translated",
+            "value" : "如果某小節（比如 [user]）已存在，只需在現有小節中新增條目。"
           }
         }
       }
@@ -17296,13 +18884,13 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "您的Mac 没有安全隔区，同时也没有插入兼容的智能卡。"
+            "value" : "您的Mac没有安全隔区，也没有插入兼容的智能卡。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Your Mac doesn't have a Secure Enclave, and there's not a compatible Smart Card inserted."
+            "state" : "translated",
+            "value" : "您的Mac沒有安全隔離區，也沒有插入相容的智慧卡。"
           }
         }
       }
@@ -17481,13 +19069,13 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "没有可用的密钥存储区"
+            "value" : "没有可用的安全存储区"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "No Secure Storage Available"
+            "state" : "translated",
+            "value" : "沒有可用的安全儲存區"
           }
         }
       }
@@ -17666,13 +19254,13 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "如果您想为您的Mac添加一个物理密钥， YubiKey 5 系列是一个不错的选择。"
+            "value" : "如果您想为Mac添加一个智能卡， YubiKey 5系列是个不错的选择。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "If you're looking to add one to your Mac, the YubiKey 5 Series are great."
+            "state" : "translated",
+            "value" : "如果您想為Mac新增一個智慧卡，YubiKey 5系列是個不錯的選擇。"
           }
         }
       }
@@ -17857,8 +19445,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Leave Unlocked"
+            "state" : "translated",
+            "value" : "保持解鎖"
           }
         }
       }
@@ -18043,8 +19631,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Do Not Unlock"
+            "state" : "translated",
+            "value" : "不要解鎖"
           }
         }
       }
@@ -18084,8 +19672,8 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Reveal in Finder"
+            "state" : "translated",
+            "value" : "In Finder anzeigen"
           }
         },
         "el" : {
@@ -18222,14 +19810,14 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Reveal in Finder"
+            "state" : "translated",
+            "value" : "在访达中查看"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Reveal in Finder"
+            "state" : "translated",
+            "value" : "在Finder中檢視"
           }
         }
       }
@@ -18408,13 +19996,13 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "MD5 指纹"
+            "value" : "MD5指纹"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "MD5 Fingerprint"
+            "state" : "translated",
+            "value" : "MD5指紋"
           }
         }
       }
@@ -18598,8 +20186,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Public Key"
+            "state" : "translated",
+            "value" : "公鑰"
           }
         }
       }
@@ -18783,8 +20371,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Public Key Path"
+            "state" : "translated",
+            "value" : "公鑰路徑"
           }
         }
       }
@@ -18963,13 +20551,13 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "SHA256 指纹"
+            "value" : "SHA256指纹"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "SHA256 Fingerprint"
+            "state" : "translated",
+            "value" : "SHA256指紋"
           }
         }
       }
@@ -19153,8 +20741,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Delete"
+            "state" : "translated",
+            "value" : "刪除"
           }
         }
       }
@@ -19333,13 +20921,13 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "重命名"
+            "value" : "编辑"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Edit"
+            "state" : "translated",
+            "value" : "編輯"
           }
         }
       }
@@ -19379,7 +20967,7 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
+            "state" : "translated",
             "value" : "Secure Enclave"
           }
         },
@@ -19481,7 +21069,7 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "new",
             "value" : "Secure Enclave"
           }
         },
@@ -19523,8 +21111,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Secure Enclave"
+            "state" : "translated",
+            "value" : "安全隔離區"
           }
         }
       }
@@ -19882,13 +21470,13 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "帮助文件叫做 *Secret Agent*， 之后您会经常在活动监视器中看见它。"
+            "value" : "这个辅助程序叫做**Secret Agent**， 之后您会时不时在活动监视器中看见它。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "This helper app is called **Secret Agent** and you may see it in Activity Manager from time to time."
+            "state" : "translated",
+            "value" : "這個輔助程式叫做**Secret Agent**，之後您會時不時在活動監視器中看見它。"
           }
         }
       }
@@ -20067,13 +21655,13 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Secretive 需要帮助文件来正常工作。 它会在后台识别SSH 请求, 这样您就不需要在前台一直保持Secretive 开启了。"
+            "value" : "Secretive需要设置一个辅助程序才能正常工作。它会在后台处理SSH客户端的签名请求，这样您就不需要在前台一直保持Secretive开启了。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Secretive needs to set up a helper app to work properly. It will sign requests from SSH clients in the background, so you don't need to keep the main Secretive app open."
+            "state" : "translated",
+            "value" : "Secretive需要設定一個輔助程式才能正常工作。它會在後台處理SSH客戶端的簽名請求，這樣您就不需要在前臺一直保持Secretive開啟了。"
           }
         }
       }
@@ -20257,8 +21845,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Install"
+            "state" : "translated",
+            "value" : "安裝"
           }
         }
       }
@@ -20437,13 +22025,13 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "设置"
+            "value" : "设置Agent"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Setup Agent"
+            "state" : "translated",
+            "value" : "設定Agent"
           }
         }
       }
@@ -20621,14 +22209,14 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Done"
+            "state" : "translated",
+            "value" : "完成"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Done"
+            "state" : "translated",
+            "value" : "完成"
           }
         }
       }
@@ -20668,8 +22256,8 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Configure"
+            "state" : "translated",
+            "value" : "Konfigurieren"
           }
         },
         "el" : {
@@ -20806,14 +22394,14 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Configure"
+            "state" : "translated",
+            "value" : "配置"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Configure"
+            "state" : "translated",
+            "value" : "配置"
           }
         }
       }
@@ -20853,8 +22441,8 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Tell the tools you use how to talk to Secretive."
+            "state" : "translated",
+            "value" : "Sag den Tools, die Du benutzt, wie sie mit Secretive kommunizieren können."
           }
         },
         "el" : {
@@ -20991,14 +22579,14 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Tell the tools you use how to talk to Secretive."
+            "state" : "translated",
+            "value" : "让您用的工具知道如何与Secretive通信。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Tell the tools you use how to talk to Secretive."
+            "state" : "translated",
+            "value" : "讓您用的工具知道如何與Secretive通訊。"
           }
         }
       }
@@ -21038,8 +22626,8 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Configure Integrations"
+            "state" : "translated",
+            "value" : "Integration konfigurieren"
           }
         },
         "el" : {
@@ -21176,14 +22764,14 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Configure Integrations"
+            "state" : "translated",
+            "value" : "配置第三方集成"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Configure Integrations"
+            "state" : "translated",
+            "value" : "配置第三方整合"
           }
         }
       }
@@ -21362,13 +22950,13 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Secretive 需要使用GitHub 检查更新。这就是为什么您会看见来自GitHub 的网络流量。"
+            "value" : "Secretive会定期访问GitHub来检查更新。这就是为什么您会看见发往GitHub的网络请求。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Secretive will periodically check with GitHub to see if there's a new release. If you see any network requests to GitHub, that's why."
+            "state" : "translated",
+            "value" : "Secretive會定期訪問GitHub來檢查更新。這就是為什麼您會看見發往GitHub的網路請求。"
           }
         }
       }
@@ -21408,7 +22996,7 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
+            "state" : "translated",
             "value" : "OK"
           }
         },
@@ -21546,14 +23134,14 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "OK"
+            "state" : "translated",
+            "value" : "好的"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "OK"
+            "state" : "translated",
+            "value" : "好的"
           }
         }
       }
@@ -21593,7 +23181,7 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
+            "state" : "translated",
             "value" : "Updates"
           }
         },
@@ -21737,8 +23325,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Updates"
+            "state" : "translated",
+            "value" : "更新"
           }
         }
       }
@@ -21778,8 +23366,8 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Done"
+            "state" : "translated",
+            "value" : "Fertig"
           }
         },
         "el" : {
@@ -21916,14 +23504,14 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Done"
+            "state" : "translated",
+            "value" : "已完成"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Done"
+            "state" : "translated",
+            "value" : "已完成"
           }
         }
       }
@@ -22108,8 +23696,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Using secret %1$(secretName)@"
+            "state" : "translated",
+            "value" : "使用Secret「%1$(secretName)@」"
           }
         }
       }
@@ -22289,13 +23877,13 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "已认证来自 %1$(appName)@ 的请求"
+            "value" : "已认证来自“%1$(appName)@”的请求"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Signed Request from %1$(appName)@"
+            "state" : "translated",
+            "value" : "已認證來自「%1$(appName)@」的請求"
           }
         }
       }
@@ -22479,8 +24067,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Smart Card"
+            "state" : "translated",
+            "value" : "智慧卡"
           }
         }
       }
@@ -22664,8 +24252,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Unnamed"
+            "state" : "translated",
+            "value" : "未命名"
           }
         }
       }
@@ -22849,8 +24437,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Critical Security Update Required"
+            "state" : "translated",
+            "value" : "需要重要安全更新"
           }
         }
       }
@@ -22993,7 +24581,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Пропустить"
+            "value" : "Игнорировать"
           }
         },
         "sr" : {
@@ -23034,8 +24622,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Ignore"
+            "state" : "translated",
+            "value" : "忽略"
           }
         }
       }
@@ -23214,13 +24802,13 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "更新可用"
+            "value" : "有可用更新"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Update Available"
+            "state" : "translated",
+            "value" : "有可用更新"
           }
         }
       }
@@ -23405,8 +24993,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Ignore"
+            "state" : "translated",
+            "value" : "忽略"
           }
         }
       }
@@ -23591,8 +25179,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Update"
+            "state" : "translated",
+            "value" : "更新"
           }
         }
       }
@@ -23777,8 +25365,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Critical Security Update - %1$(updateName)@"
+            "state" : "translated",
+            "value" : "重要安全更新 - %1$(updateName)@"
           }
         }
       }
@@ -23922,7 +25510,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Кликните чтобы обновить"
+            "value" : "Кликните, чтобы обновить"
           }
         },
         "sr" : {
@@ -23963,8 +25551,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Click to Update"
+            "state" : "translated",
+            "value" : "點選以更新"
           }
         }
       }
@@ -24144,13 +25732,13 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "更新可用 - %1$(updateName)@"
+            "value" : "有可用更新 - %1$(updateName)@"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Update Available - %1$(updateName)@"
+            "state" : "translated",
+            "value" : "有可用更新 - %1$(updateName)@"
           }
         }
       }
@@ -24334,8 +25922,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Release Notes"
+            "state" : "translated",
+            "value" : "發行說明"
           }
         }
       }
@@ -24375,8 +25963,8 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Test Build"
+            "state" : "translated",
+            "value" : "Testversion"
           }
         },
         "el" : {
@@ -24519,8 +26107,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Test Build"
+            "state" : "translated",
+            "value" : "測試版本"
           }
         }
       }
@@ -24704,8 +26292,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Update"
+            "state" : "translated",
+            "value" : "更新"
           }
         }
       }
@@ -24745,7 +26333,7 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
+            "state" : "translated",
             "value" : "Secretive %1$(updateName)@"
           }
         },
@@ -24848,7 +26436,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Secretive %1$(updateName)@"
+            "value" : "Секретный %1$(updateName)@"
           }
         },
         "sr" : {
@@ -24883,13 +26471,13 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
+            "state" : "translated",
             "value" : "Secretive %1$(updateName)@"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
+            "state" : "translated",
             "value" : "Secretive %1$(updateName)@"
           }
         }
@@ -24930,8 +26518,8 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Download Latest Nightly Build"
+            "state" : "translated",
+            "value" : "Letzte Nightly-Version herunterladen"
           }
         },
         "el" : {
@@ -25068,14 +26656,14 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Download Latest Nightly Build"
+            "state" : "translated",
+            "value" : "下载最新的每日构建版本"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Download Latest Nightly Build"
+            "state" : "translated",
+            "value" : "下載最新的每日構建版本"
           }
         }
       }

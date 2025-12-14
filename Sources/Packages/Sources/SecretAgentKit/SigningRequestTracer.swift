@@ -36,7 +36,7 @@ extension SigningRequestTracer {
     /// - Parameter pid: The process ID to look up.
     /// - Returns: A ``SecretKit.SigningRequestProvenance.Process`` describing the process.
     func process(from pid: Int32) -> SigningRequestProvenance.Process {
-        var pidAndNameInfo = self.pidAndNameInfo(from: pid)
+        var pidAndNameInfo = unsafe self.pidAndNameInfo(from: pid)
         let ppid = unsafe pidAndNameInfo.kp_eproc.e_ppid != 0 ? pidAndNameInfo.kp_eproc.e_ppid : nil
         let procName = unsafe withUnsafeMutablePointer(to: &pidAndNameInfo.kp_proc.p_comm.0) { pointer in
             unsafe String(cString: pointer)

@@ -37,7 +37,7 @@ jobs:
         build-mode: ${{ matrix.build-mode }}
     - if: matrix.build-mode == 'manual'
       name: "Select Xcode"
-      run: sudo xcrun xcode-select -s /Applications/Xcode_26.0.app
+      run: sudo xcrun xcode-select -s /Applications/Xcode_26.2.app
     - if: matrix.build-mode == 'manual'
       name: "Build"
       run: xcrun xcodebuild -project Sources/Secretive.xcodeproj -scheme Secretive CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
