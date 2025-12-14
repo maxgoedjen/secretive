@@ -1,5 +1,6 @@
 import Foundation
 import CryptoKit
+import SecretKit
 
 /// Generates OpenSSH representations of the public key sof secrets.
 public struct OpenSSHPublicKeyWriter: Sendable {
@@ -49,9 +50,7 @@ public struct OpenSSHPublicKeyWriter: Sendable {
     /// Generates an OpenSSH MD5 fingerprint string.
     /// - Returns: OpenSSH MD5 fingerprint string.
     public func openSSHMD5Fingerprint<SecretType: Secret>(secret: SecretType) -> String {
-        Insecure.MD5.hash(data: data(secret: secret))
-            .compactMap { ("0" + String($0, radix: 16, uppercase: false)).suffix(2) }
-            .joined(separator: ":")
+        Insecure.MD5.hash(data: data(secret: secret)).formatted(.hex(separator: ":"))
     }
 
     public func comment<SecretType: Secret>(secret: SecretType) -> String {
