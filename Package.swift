@@ -35,7 +35,7 @@ let package = Package(
         ),
         .testTarget(
             name: "SecretKitTests",
-            dependencies: ["SecretKit", "SecureEnclaveSecretKit", "SmartCardSecretKit"],
+            dependencies: ["SecretKit", "SecretAgentKit", "SecureEnclaveSecretKit", "SmartCardSecretKit"],
             path: "Sources/Packages/Tests/SecretKitTests",
             swiftSettings: swiftSettings
         ),
