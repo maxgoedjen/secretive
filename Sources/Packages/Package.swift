@@ -21,13 +21,19 @@ let package = Package(
             targets: ["SmartCardSecretKit"]),
         .library(
             name: "SecretAgentKit",
-            targets: ["SecretAgentKit", "XPCWrappers"]),
+            targets: ["SecretAgentKit"]),
+        .library(
+            name: "Common",
+            targets: ["Common"]),
         .library(
             name: "Brief",
             targets: ["Brief"]),
         .library(
             name: "XPCWrappers",
             targets: ["XPCWrappers"]),
+        .library(
+            name: "SSHProtocolKit",
+            targets: ["SSHProtocolKit"]),
     ],
     dependencies: [
     ],
@@ -40,7 +46,7 @@ let package = Package(
         ),
         .testTarget(
             name: "SecretKitTests",
-            dependencies: ["SecretKit", "SecureEnclaveSecretKit", "SmartCardSecretKit"],
+            dependencies: ["SecretKit", "SecretAgentKit", "SecureEnclaveSecretKit", "SmartCardSecretKit"],
             swiftSettings: swiftSettings,
         ),
         .target(
@@ -57,7 +63,7 @@ let package = Package(
         ),
         .target(
             name: "SecretAgentKit",
-            dependencies: ["SecretKit"],
+            dependencies: ["SecretKit", "SSHProtocolKit", "Common"],
             resources: [localization],
             swiftSettings: swiftSettings,
         ),
@@ -66,8 +72,25 @@ let package = Package(
             dependencies: ["SecretAgentKit"],
         ),
         .target(
+            name: "SSHProtocolKit",
+            dependencies: ["SecretKit"],
+            resources: [localization],
+            swiftSettings: swiftSettings,
+        ),
+        .testTarget(
+            name: "SSHProtocolKitTests",
+            dependencies: ["SSHProtocolKit"],
+            swiftSettings: swiftSettings,
+        ),
+        .target(
+            name: "Common",
+            dependencies: ["SSHProtocolKit", "SecretKit"],
+            resources: [localization],
+            swiftSettings: swiftSettings,
+        ),
+        .target(
             name: "Brief",
-            dependencies: ["XPCWrappers"],
+            dependencies: ["XPCWrappers", "SSHProtocolKit"],
             resources: [localization],
             swiftSettings: swiftSettings,
         ),

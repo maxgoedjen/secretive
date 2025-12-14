@@ -4,6 +4,7 @@ import SecretKit
 import Observation
 import OSLog
 import ServiceManagement
+import Common
 
 @MainActor protocol AgentLaunchControllerProtocol: Observable, Sendable {
     var running: Bool { get }

@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		2C4A9D2F2636FFD3008CC8E2 /* EditSecretView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4A9D2E2636FFD3008CC8E2 /* EditSecretView.swift */; };
 		50020BB024064869003D4025 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50020BAF24064869003D4025 /* AppDelegate.swift */; };
-		50033AC327813F1700253856 /* BundleIDs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50033AC227813F1700253856 /* BundleIDs.swift */; };
+		5002C3AB2EEF483300FFAD22 /* XPCWrappers in Frameworks */ = {isa = PBXBuildFile; productRef = 5002C3AA2EEF483300FFAD22 /* XPCWrappers */; };
 		5003EF3B278005E800DF2006 /* SecretKit in Frameworks */ = {isa = PBXBuildFile; productRef = 5003EF3A278005E800DF2006 /* SecretKit */; };
 		5003EF3D278005F300DF2006 /* Brief in Frameworks */ = {isa = PBXBuildFile; productRef = 5003EF3C278005F300DF2006 /* Brief */; };
 		5003EF3F278005F300DF2006 /* SecretAgentKit in Frameworks */ = {isa = PBXBuildFile; productRef = 5003EF3E278005F300DF2006 /* SecretAgentKit */; };
@@ -26,7 +26,6 @@
 		50153E22250DECA300525160 /* SecretListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50153E21250DECA300525160 /* SecretListItemView.swift */; };
 		501578132E6C0479004A37D0 /* XPCInputParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501578122E6C0479004A37D0 /* XPCInputParser.swift */; };
 		5018F54F24064786002EB505 /* Notifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5018F54E24064786002EB505 /* Notifier.swift */; };
-		504788EC2E680DC800B4556F /* URLs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504788EB2E680DC400B4556F /* URLs.swift */; };
 		504788F22E681F3A00B4556F /* Instructions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504788F12E681F3A00B4556F /* Instructions.swift */; };
 		504788F42E681F6900B4556F /* ToolConfigurationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504788F32E681F6900B4556F /* ToolConfigurationView.swift */; };
 		504788F62E68206F00B4556F /* GettingStartedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504788F52E68206F00B4556F /* GettingStartedView.swift */; };
@@ -69,6 +68,8 @@
 		50BDCB762E6450950072D2E7 /* ConfigurationItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50BDCB752E6450950072D2E7 /* ConfigurationItemView.swift */; };
 		50C385A52407A76D00AF2719 /* SecretDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C385A42407A76D00AF2719 /* SecretDetailView.swift */; };
 		50CF4ABC2E601B0F005588DC /* ActionButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50CF4ABB2E601B0F005588DC /* ActionButtonStyle.swift */; };
+		50E0145C2EDB9CDF00B121F1 /* Common in Frameworks */ = {isa = PBXBuildFile; productRef = 50E0145B2EDB9CDF00B121F1 /* Common */; };
+		50E0145E2EDB9CE400B121F1 /* Common in Frameworks */ = {isa = PBXBuildFile; productRef = 50E0145D2EDB9CE400B121F1 /* Common */; };
 		50E4C4532E73C78C00C73783 /* WindowBackgroundStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E4C4522E73C78900C73783 /* WindowBackgroundStyle.swift */; };
 		50E4C4C32E7765DF00C73783 /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E4C4C22E7765DF00C73783 /* AboutView.swift */; };
 		50E4C4C82E777E4200C73783 /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = 50E4C4C72E777E4200C73783 /* AppIcon.icon */; };
@@ -180,14 +181,12 @@
 /* Begin PBXFileReference section */
 		2C4A9D2E2636FFD3008CC8E2 /* EditSecretView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditSecretView.swift; sourceTree = "<group>"; };
 		50020BAF24064869003D4025 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		50033AC227813F1700253856 /* BundleIDs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BundleIDs.swift; sourceTree = "<group>"; };
 		5003EF39278005C800DF2006 /* Packages */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Packages; sourceTree = "<group>"; };
 		5008C23D2E525D8200507AC2 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; name = Localizable.xcstrings; path = Packages/Resources/Localizable.xcstrings; sourceTree = SOURCE_ROOT; };
 		50153E1F250AFCB200525160 /* UpdateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateView.swift; sourceTree = "<group>"; };
 		50153E21250DECA300525160 /* SecretListItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecretListItemView.swift; sourceTree = "<group>"; };
 		501578122E6C0479004A37D0 /* XPCInputParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XPCInputParser.swift; sourceTree = "<group>"; };
 		5018F54E24064786002EB505 /* Notifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifier.swift; sourceTree = "<group>"; };
-		504788EB2E680DC400B4556F /* URLs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLs.swift; sourceTree = "<group>"; };
 		504788F12E681F3A00B4556F /* Instructions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Instructions.swift; sourceTree = "<group>"; };
 		504788F32E681F6900B4556F /* ToolConfigurationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolConfigurationView.swift; sourceTree = "<group>"; };
 		504788F52E68206F00B4556F /* GettingStartedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GettingStartedView.swift; sourceTree = "<group>"; };
@@ -246,6 +245,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				50E0145C2EDB9CDF00B121F1 /* Common in Frameworks */,
 				5003EF3B278005E800DF2006 /* SecretKit in Frameworks */,
 				501421622781262300BBAA70 /* Brief in Frameworks */,
 				5003EF5F2780081600DF2006 /* SecureEnclaveSecretKit in Frameworks */,
@@ -266,6 +266,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5002C3AB2EEF483300FFAD22 /* XPCWrappers in Frameworks */,
 				50692E6C2E6FFA510043C7BB /* SecretAgentKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -279,20 +280,13 @@
 				5003EF652780081B00DF2006 /* SmartCardSecretKit in Frameworks */,
 				5003EF3F278005F300DF2006 /* SecretAgentKit in Frameworks */,
 				5003EF41278005FA00DF2006 /* SecretKit in Frameworks */,
+				50E0145E2EDB9CE400B121F1 /* Common in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		50033AC427813F1C00253856 /* Helpers */ = {
-			isa = PBXGroup;
-			children = (
-				50033AC227813F1700253856 /* BundleIDs.swift */,
-			);
-			path = Helpers;
-			sourceTree = "<group>";
-		};
 		504788ED2E681EB200B4556F /* Modifiers */ = {
 			isa = PBXGroup;
 			children = (
@@ -376,7 +370,6 @@
 				50617D8223FCE48E0099B055 /* App.swift */,
 				508A58B0241ED1C40069DC07 /* Views */,
 				508A58B1241ED1EA0069DC07 /* Controllers */,
-				50033AC427813F1C00253856 /* Helpers */,
 				50617D8E23FCE48E0099B055 /* Info.plist */,
 				508BF28D25B4F005009EFB7E /* InternetAccessPolicy.plist */,
 				50E4C4C72E777E4200C73783 /* AppIcon.icon */,
@@ -442,7 +435,6 @@
 		508A58B1241ED1EA0069DC07 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				504788EB2E680DC400B4556F /* URLs.swift */,
 				508A58B2241ED2180069DC07 /* AgentStatusChecker.swift */,
 				5091D2BB25183B830049FD9B /* ApplicationDirectoryController.swift */,
 				50571E0224393C2600F76F6C /* JustUpdatedChecker.swift */,
@@ -507,6 +499,7 @@
 				5003EF5E2780081600DF2006 /* SecureEnclaveSecretKit */,
 				5003EF602780081600DF2006 /* SmartCardSecretKit */,
 				501421612781262300BBAA70 /* Brief */,
+				50E0145B2EDB9CDF00B121F1 /* Common */,
 			);
 			productName = Secretive;
 			productReference = 50617D7F23FCE48E0099B055 /* Secretive.app */;
@@ -548,6 +541,7 @@
 			name = SecretAgentInputParser;
 			packageProductDependencies = (
 				50692E6B2E6FFA510043C7BB /* SecretAgentKit */,
+				5002C3AA2EEF483300FFAD22 /* XPCWrappers */,
 			);
 			productName = SecretAgentInputParser;
 			productReference = 50692E502E6FF9D20043C7BB /* SecretAgentInputParser.xpc */;
@@ -577,6 +571,7 @@
 				5003EF40278005FA00DF2006 /* SecretKit */,
 				5003EF622780081B00DF2006 /* SecureEnclaveSecretKit */,
 				5003EF642780081B00DF2006 /* SmartCardSecretKit */,
+				50E0145D2EDB9CE400B121F1 /* Common */,
 			);
 			productName = SecretAgent;
 			productReference = 50A3B78A24026B7500D209EA /* SecretAgent.app */;
@@ -687,7 +682,6 @@
 				2C4A9D2F2636FFD3008CC8E2 /* EditSecretView.swift in Sources */,
 				50E4C4532E73C78C00C73783 /* WindowBackgroundStyle.swift in Sources */,
 				5091D2BC25183B830049FD9B /* ApplicationDirectoryController.swift in Sources */,
-				504788EC2E680DC800B4556F /* URLs.swift in Sources */,
 				504789232E697DD300B4556F /* BoxBackgroundStyle.swift in Sources */,
 				5066A6C22516F303004B5A36 /* SetupView.swift in Sources */,
 				5065E313295517C500E16645 /* ToolbarButtonStyle.swift in Sources */,
@@ -697,7 +691,6 @@
 				50571E0324393C2600F76F6C /* JustUpdatedChecker.swift in Sources */,
 				5079BA0F250F29BF00EA86F4 /* StoreListView.swift in Sources */,
 				50617DD223FCEFA90099B055 /* PreviewStore.swift in Sources */,
-				50033AC327813F1700253856 /* BundleIDs.swift in Sources */,
 				50BDCB722E63BAF20072D2E7 /* AgentStatusView.swift in Sources */,
 				508A58B3241ED2180069DC07 /* AgentStatusChecker.swift in Sources */,
 				50C385A52407A76D00AF2719 /* SecretDetailView.swift in Sources */,
@@ -1509,6 +1502,10 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		5002C3AA2EEF483300FFAD22 /* XPCWrappers */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = XPCWrappers;
+		};
 		5003EF3A278005E800DF2006 /* SecretKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = SecretKit;
@@ -1556,6 +1553,14 @@
 		50692E6B2E6FFA510043C7BB /* SecretAgentKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = SecretAgentKit;
+		};
+		50E0145B2EDB9CDF00B121F1 /* Common */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Common;
+		};
+		50E0145D2EDB9CE400B121F1 /* Common */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Common;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

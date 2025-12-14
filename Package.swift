@@ -22,6 +22,9 @@ let package = Package(
         .library(
             name: "SmartCardSecretKit",
             targets: ["SmartCardSecretKit"]),
+        .library(
+            name: "SSHProtocolKit",
+            targets: ["SSHProtocolKit"]),
     ],
     dependencies: [
     ],
@@ -52,6 +55,19 @@ let package = Package(
             path: "Sources/Packages/Sources/SmartCardSecretKit",
             resources: [localization],
             swiftSettings: swiftSettings
+        ),
+        .target(
+            name: "SSHProtocolKit",
+            dependencies: ["SecretKit"],
+            path: "Sources/Packages/Sources/SSHProtocolKit",
+            resources: [localization],
+            swiftSettings: swiftSettings,
+        ),
+        .testTarget(
+            name: "SSHProtocolKitTests",
+            dependencies: ["SSHProtocolKit"],
+            path: "Sources/Packages/Tests/SSHProtocolKitTests",
+            swiftSettings: swiftSettings,
         ),
     ]
 )

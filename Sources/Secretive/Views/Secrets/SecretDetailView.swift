@@ -1,12 +1,13 @@
 import SwiftUI
 import SecretKit
+import Common
+import SSHProtocolKit
 
 struct SecretDetailView<SecretType: Secret>: View {
     
     let secret: SecretType
 
     private let keyWriter = OpenSSHPublicKeyWriter()
-    private let publicKeyFileStoreController = PublicKeyFileStoreController(homeDirectory: URL.agentHomeURL)
 
     var body: some View {
         ScrollView {
@@ -21,7 +22,7 @@ struct SecretDetailView<SecretType: Secret>: View {
                     CopyableView(title: .secretDetailPublicKeyLabel, image: Image(systemName: "key"), text: keyString)
                     Spacer()
                         .frame(height: 20)
-                    CopyableView(title: .secretDetailPublicKeyPathLabel, image: Image(systemName: "lock.doc"), text: publicKeyFileStoreController.publicKeyPath(for: secret), showRevealInFinder: true)
+                    CopyableView(title: .secretDetailPublicKeyPathLabel, image: Image(systemName: "lock.doc"), text: URL.publicKeyPath(for: secret, in: URL.publicKeyDirectory), showRevealInFinder: true)
                     Spacer()
                 }
             }
