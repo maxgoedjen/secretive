@@ -1,6 +1,6 @@
 import Foundation
 import Testing
-@testable import SecretAgentKit
+import SSHProtocolKit
 
 @Suite struct OpenSSHReaderTests {
 

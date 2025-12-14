@@ -1,11 +1,12 @@
 import Foundation
 import OSLog
 import SecretKit
+import SSHProtocolKit
 
 public protocol SSHAgentInputParserProtocol {
 
     func parse(data: Data) async throws -> SSHAgent.Request
-    
+
 }
 
 public struct SSHAgentInputParser: SSHAgentInputParserProtocol {
@@ -13,7 +14,7 @@ public struct SSHAgentInputParser: SSHAgentInputParserProtocol {
     private let logger = Logger(subsystem: "com.maxgoedjen.secretive.secretagent", category: "InputParser")
 
     public init() {
-        
+
     }
 
     public func parse(data: Data) throws(AgentParsingError) -> SSHAgent.Request {
