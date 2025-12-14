@@ -25,7 +25,7 @@ jobs:
         APPLE_API_KEY_ID: ${{ secrets.APPLE_API_KEY_ID }}
       run: ./.github/scripts/signing.sh
     - name: Set Environment
-      run: sudo xcrun xcode-select -s /Applications/Xcode_26.1.app
+      run: sudo xcrun xcode-select -s /Applications/Xcode_26.2.app
     - name: Update Build Number
       env:
         RUN_ID: ${{ github.run_id }}
