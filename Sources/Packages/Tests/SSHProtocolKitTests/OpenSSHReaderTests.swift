@@ -1,8 +1,6 @@
 import Foundation
 import Testing
-@testable import SecretAgentKit
-@testable import SecureEnclaveSecretKit
-@testable import SmartCardSecretKit
+import SSHProtocolKit
 
 @Suite struct OpenSSHReaderTests {
 

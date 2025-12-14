@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		2C4A9D2F2636FFD3008CC8E2 /* EditSecretView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4A9D2E2636FFD3008CC8E2 /* EditSecretView.swift */; };
 		50020BB024064869003D4025 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50020BAF24064869003D4025 /* AppDelegate.swift */; };
+		5002C3AB2EEF483300FFAD22 /* XPCWrappers in Frameworks */ = {isa = PBXBuildFile; productRef = 5002C3AA2EEF483300FFAD22 /* XPCWrappers */; };
 		5003EF3B278005E800DF2006 /* SecretKit in Frameworks */ = {isa = PBXBuildFile; productRef = 5003EF3A278005E800DF2006 /* SecretKit */; };
 		5003EF3D278005F300DF2006 /* Brief in Frameworks */ = {isa = PBXBuildFile; productRef = 5003EF3C278005F300DF2006 /* Brief */; };
 		5003EF3F278005F300DF2006 /* SecretAgentKit in Frameworks */ = {isa = PBXBuildFile; productRef = 5003EF3E278005F300DF2006 /* SecretAgentKit */; };
@@ -265,6 +266,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5002C3AB2EEF483300FFAD22 /* XPCWrappers in Frameworks */,
 				50692E6C2E6FFA510043C7BB /* SecretAgentKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -539,6 +541,7 @@
 			name = SecretAgentInputParser;
 			packageProductDependencies = (
 				50692E6B2E6FFA510043C7BB /* SecretAgentKit */,
+				5002C3AA2EEF483300FFAD22 /* XPCWrappers */,
 			);
 			productName = SecretAgentInputParser;
 			productReference = 50692E502E6FF9D20043C7BB /* SecretAgentInputParser.xpc */;
@@ -1499,6 +1502,10 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		5002C3AA2EEF483300FFAD22 /* XPCWrappers */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = XPCWrappers;
+		};
 		5003EF3A278005E800DF2006 /* SecretKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = SecretKit;

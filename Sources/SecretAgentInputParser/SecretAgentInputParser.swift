@@ -2,6 +2,7 @@ import Foundation
 import OSLog
 import XPCWrappers
 import SecretAgentKit
+import SSHProtocolKit
 
 final class SecretAgentInputParser: NSObject, XPCProtocol {
 

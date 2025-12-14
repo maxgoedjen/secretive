@@ -21,7 +21,7 @@ let package = Package(
             targets: ["SmartCardSecretKit"]),
         .library(
             name: "SecretAgentKit",
-            targets: ["SecretAgentKit", "XPCWrappers"]),
+            targets: ["SecretAgentKit"]),
         .library(
             name: "Common",
             targets: ["Common"]),
@@ -31,6 +31,9 @@ let package = Package(
         .library(
             name: "XPCWrappers",
             targets: ["XPCWrappers"]),
+        .library(
+            name: "SSHProtocolKit",
+            targets: ["SSHProtocolKit"]),
     ],
     dependencies: [
     ],
@@ -60,7 +63,7 @@ let package = Package(
         ),
         .target(
             name: "SecretAgentKit",
-            dependencies: ["SecretKit"],
+            dependencies: ["SecretKit", "SSHProtocolKit", "Common"],
             resources: [localization],
             swiftSettings: swiftSettings,
         ),
@@ -69,14 +72,25 @@ let package = Package(
             dependencies: ["SecretAgentKit"],
         ),
         .target(
+            name: "SSHProtocolKit",
+            dependencies: ["SecretKit"],
+            resources: [localization],
+            swiftSettings: swiftSettings,
+        ),
+        .testTarget(
+            name: "SSHProtocolKitTests",
+            dependencies: ["SSHProtocolKit"],
+            swiftSettings: swiftSettings,
+        ),
+        .target(
             name: "Common",
-            dependencies: [],
+            dependencies: ["SSHProtocolKit", "SecretKit"],
             resources: [localization],
             swiftSettings: swiftSettings,
         ),
         .target(
             name: "Brief",
-            dependencies: ["XPCWrappers"],
+            dependencies: ["XPCWrappers", "SSHProtocolKit"],
             resources: [localization],
             swiftSettings: swiftSettings,
         ),
