@@ -17,7 +17,7 @@ extension SecureEnclave {
         }
         public let id = UUID()
         public let name = String(localized: .secureEnclave)
-        private let persistentAuthenticationHandler = PersistentAuthenticationHandler()
+        private let persistentAuthenticationHandler = PersistentAuthenticationHandler<Secret>()
 
         /// Initializes a Store.
         @MainActor public init() {
