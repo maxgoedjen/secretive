@@ -36,11 +36,6 @@ struct SecretListItemView: View {
                 }
             }
         }
-        .showingDeleteConfirmation(isPresented: $isDeleting, secret, store as? AnySecretStoreModifiable) { deleted in
-            if deleted {
-                deletedSecret(secret)
-            }
-        }
         .sheet(isPresented: $isRenaming, onDismiss: {
             renamedSecret(secret)
         }, content: {
