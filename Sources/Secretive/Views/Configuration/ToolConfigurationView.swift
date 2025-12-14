@@ -1,5 +1,7 @@
 import SwiftUI
 import SecretKit
+import SSHProtocolKit
+import Common
 
 struct ToolConfigurationView: View {
 
@@ -111,10 +113,9 @@ struct ToolConfigurationView: View {
         let writer = OpenSSHPublicKeyWriter()
         let gitAllowedSignersString = [email.isEmpty ? String(localized: .integrationsConfigureUsingEmailPlaceholder) : email, writer.openSSHString(secret: selectedSecret)]
             .joined(separator: " ")
-        let fileController = PublicKeyFileStoreController(homeDirectory: URL.agentHomeURL)
         return text
             .replacingOccurrences(of: Instructions.Constants.publicKeyPlaceholder, with: gitAllowedSignersString)
-            .replacingOccurrences(of: Instructions.Constants.publicKeyPathPlaceholder, with: fileController.publicKeyPath(for: selectedSecret))
+            .replacingOccurrences(of: Instructions.Constants.publicKeyPathPlaceholder, with: URL.publicKeyPath(for: selectedSecret, in: URL.publicKeyDirectory))
     }
 
 }

@@ -1,11 +1,12 @@
 import Foundation
 import OSLog
 import SecretKit
+import SSHProtocolKit
 
 /// Manages storage and lookup for OpenSSH certificates.
 public actor OpenSSHCertificateHandler: Sendable {
 
-    private let publicKeyFileStoreController = PublicKeyFileStoreController(homeDirectory: URL.homeDirectory)
+    private let publicKeyFileStoreController = PublicKeyFileStoreController(directory: URL.publicKeyDirectory)
     private let logger = Logger(subsystem: "com.maxgoedjen.secretive.secretagent", category: "OpenSSHCertificateHandler")
     private let writer = OpenSSHPublicKeyWriter()
     private var keyBlobsAndNames: [AnySecret: (Data, Data)] = [:]

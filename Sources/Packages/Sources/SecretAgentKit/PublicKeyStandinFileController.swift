@@ -1,5 +1,8 @@
 import Foundation
 import OSLog
+import SecretKit
+import SSHProtocolKit
+import Common
 
 /// Controller responsible for writing public keys to disk, so that they're easily accessible by scripts.
 public final class PublicKeyFileStoreController: Sendable {
@@ -9,8 +12,8 @@ public final class PublicKeyFileStoreController: Sendable {
     private let keyWriter = OpenSSHPublicKeyWriter()
 
     /// Initializes a PublicKeyFileStoreController.
-    public init(homeDirectory: URL) {
-        directory = homeDirectory.appending(component: "PublicKeys")
+    public init(directory: URL) {
+        self.directory = directory
     }
 
     /// Writes out the keys specified to disk.
@@ -19,7 +22,7 @@ public final class PublicKeyFileStoreController: Sendable {
     public func generatePublicKeys(for secrets: [AnySecret], clear: Bool = false) throws {
         logger.log("Writing public keys to disk")
         if clear {
-            let validPaths = Set(secrets.map { publicKeyPath(for: $0) })
+            let validPaths = Set(secrets.map { URL.publicKeyPath(for: $0, in: directory) })
                 .union(Set(secrets.map { sshCertificatePath(for: $0) }))
             let contentsOfDirectory = (try? FileManager.default.contentsOfDirectory(atPath: directory.path())) ?? []
             let fullPathContents = contentsOfDirectory.map { directory.appending(path: $0).path() }
@@ -33,21 +36,13 @@ public final class PublicKeyFileStoreController: Sendable {
         }
         try? FileManager.default.createDirectory(at: directory, withIntermediateDirectories: false, attributes: nil)
         for secret in secrets {
-            let path = publicKeyPath(for: secret)
+            let path = URL.publicKeyPath(for: secret, in: directory)
             let data = Data(keyWriter.openSSHString(secret: secret).utf8)
             FileManager.default.createFile(atPath: path, contents: data, attributes: nil)
         }
         logger.log("Finished writing public keys")
     }
 
-    /// The path for a Secret's public key.
-    /// - Parameter secret: The Secret to return the path for.
-    /// - Returns: The path to the Secret's public key.
-    /// - Warning: This method returning a path does not imply that a key has been written to disk already. This method only describes where it will be written to.
-    public func publicKeyPath<SecretType: Secret>(for secret: SecretType) -> String {
-        let minimalHex = keyWriter.openSSHMD5Fingerprint(secret: secret).replacingOccurrences(of: ":", with: "")
-        return directory.appending(component: "\(minimalHex).pub").path()
-    }
 
     /// Short-circuit check to ship enumerating a bunch of paths if there's nothing in the cert directory.
     public var hasAnyCertificates: Bool {
