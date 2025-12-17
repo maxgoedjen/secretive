@@ -18,6 +18,7 @@ extension SecureEnclave {
         public let id = UUID()
         public let name = String(localized: .secureEnclave)
         private let persistentAuthenticationHandler = PersistentAuthenticationHandler<Secret>()
+        private let signingSerializer = SigningSerializer()
 
         /// Initializes a Store.
         @MainActor public init() {
@@ -38,6 +39,16 @@ extension SecureEnclave {
         // MARK: SecretStore
         
         public func sign(data: Data, with secret: Secret, for provenance: SigningRequestProvenance) async throws -> Data {
+            if secret.attributes.authentication.required {
+                return try await signingSerializer.serialize { [self] in
+                    try await self.performSign(data: data, with: secret, for: provenance)
+                }
+            } else {
+                return try await performSign(data: data, with: secret, for: provenance)
+            }
+        }
+
+        private func performSign(data: Data, with secret: Secret, for provenance: SigningRequestProvenance) async throws -> Data {
             var context: LAContext
             if let existing = await persistentAuthenticationHandler.existingPersistedAuthenticationContext(secret: secret) {
                 context = unsafe existing.context
@@ -85,7 +96,6 @@ extension SecureEnclave {
             default:
                 throw UnsupportedAlgorithmError()
             }
-
         }
 
         public func existingPersistedAuthenticationContext(secret: Secret) async -> PersistedAuthenticationContext? {
