@@ -4,6 +4,7 @@ extension ProcessInfo {
     private static let fallbackTeamID = "Z72PRUAWF6"
 
     private static let teamID: String = {
+        #if DEBUG
         guard let task = SecTaskCreateFromSelf(nil) else {
             assertionFailure("SecTaskCreateFromSelf failed")
             return fallbackTeamID
@@ -15,6 +16,10 @@ extension ProcessInfo {
         }
 
         return value
+        #else
+        /// Always use hardcoded team ID for release builds, just in case.
+        return fallbackTeamID
+        #endif
     }()
 
     public var teamID: String { Self.teamID }
