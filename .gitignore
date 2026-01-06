@@ -93,3 +93,7 @@ iOSInjectionProject/
 Archive.xcarchive
 .DS_Store
 contents.xcworkspacedata
+
+# Per-User Configs
+
+Sources/Config/OpenSource.xcconfig
