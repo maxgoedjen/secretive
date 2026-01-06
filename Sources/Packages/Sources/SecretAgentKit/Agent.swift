@@ -5,6 +5,34 @@ import SecretKit
 import AppKit
 import SSHProtocolKit
 
+/// Serializes signing operations to prevent concurrent LAContext authentication prompts.
+/// When multiple SSH connections request signatures simultaneously, this ensures only one
+/// biometric/password prompt is shown at a time.
+private actor SigningSerializer {
+    private var isRunning = false
+    private var waiting: [CheckedContinuation<Void, Never>] = []
+
+    func serialize<T: Sendable>(_ operation: @Sendable () async throws -> T) async rethrows -> T {
+        // Wait in line if another operation is running
+        if isRunning {
+            await withCheckedContinuation { continuation in
+                waiting.append(continuation)
+            }
+        }
+
+        isRunning = true
+        defer {
+            if waiting.isEmpty {
+                isRunning = false
+            } else {
+                waiting.removeFirst().resume()
+            }
+        }
+
+        return try await operation()
+    }
+}
+
 /// The `Agent` is an implementation of an SSH agent. It manages coordination and access between a socket, traces requests, notifies witnesses and passes requests to stores.
 public final class Agent: Sendable {
 
@@ -13,6 +41,7 @@ public final class Agent: Sendable {
     private let publicKeyWriter = OpenSSHPublicKeyWriter()
     private let signatureWriter = OpenSSHSignatureWriter()
     private let certificateHandler = OpenSSHCertificateHandler()
+    private let signingSerializer = SigningSerializer()
     private let logger = Logger(subsystem: "com.maxgoedjen.secretive.secretagent", category: "Agent")
 
     /// Initializes an agent with a store list and a witness.
@@ -102,16 +131,19 @@ extension Agent {
             throw NoMatchingKeyError()
         }
 
-        try await witness?.speakNowOrForeverHoldYourPeace(forAccessTo: secret, from: store, by: provenance)
+        // Serialize signing to prevent concurrent LAContext prompts
+        return try await signingSerializer.serialize { [witness, store, signatureWriter, logger] in
+            try await witness?.speakNowOrForeverHoldYourPeace(forAccessTo: secret, from: store, by: provenance)
 
-        let rawRepresentation = try await store.sign(data: data, with: secret, for: provenance)
-        let signedData = signatureWriter.data(secret: secret, signature: rawRepresentation)
+            let rawRepresentation = try await store.sign(data: data, with: secret, for: provenance)
+            let signedData = signatureWriter.data(secret: secret, signature: rawRepresentation)
 
-        try await witness?.witness(accessTo: secret, from: store, by: provenance)
+            try await witness?.witness(accessTo: secret, from: store, by: provenance)
 
-        logger.debug("Agent signed request")
+            logger.debug("Agent signed request")
 
-        return signedData
+            return signedData
+        }
     }
 
 }
