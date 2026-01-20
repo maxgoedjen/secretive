@@ -9,9 +9,10 @@ struct Secretive: App {
     
     @Environment(\.agentLaunchController) var agentLaunchController
     @Environment(\.justUpdatedChecker) var justUpdatedChecker
+    @Environment(\.dockVisibilityController) var dockVisibilityController
 
     @SceneBuilder var body: some Scene {
-        WindowGroup {
+        WindowGroup(id: "main") {
             ContentView()
                 .environment(EnvironmentValues._secretStoreList)
                 .onReceive(NotificationCenter.default.publisher(for: NSApplication.didBecomeActiveNotification)) { _ in
@@ -30,6 +31,11 @@ struct Secretive: App {
         }
         .commands {
             AppCommands()
+        }
+        MenuBarExtra {
+            MenuBarView()
+        } label: {
+            Image(systemName: "key.fill")
         }
         WindowGroup(id: String(describing: IntegrationsView.self)) {
             IntegrationsView()
@@ -109,6 +115,9 @@ extension EnvironmentValues {
 
     private static let _justUpdatedChecker = JustUpdatedChecker()
     @Entry var justUpdatedChecker: any JustUpdatedCheckerProtocol = _justUpdatedChecker
+
+    private static let _dockVisibilityController = DockVisibilityController()
+    @Entry var dockVisibilityController: DockVisibilityController = _dockVisibilityController
 
     @MainActor var secretStoreList: SecretStoreList {
         EnvironmentValues._secretStoreList
