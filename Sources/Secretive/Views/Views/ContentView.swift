@@ -15,6 +15,7 @@ struct ContentView: View {
     @Environment(\.secretStoreList) private var storeList
     @Environment(\.updater) private var updater
     @Environment(\.agentLaunchController) private var agentLaunchController
+    @Environment(\.dockVisibilityController) private var dockVisibilityController
 
     @AppStorage("defaultsHasRunSetup") private var hasRunSetup = false
     @State private var showingCreation = false
@@ -40,6 +41,18 @@ struct ContentView: View {
         .onAppear {
             if !hasRunSetup {
                 runningSetup = true
+            }
+            dockVisibilityController.showDockIcon()
+        }
+        .onReceive(NotificationCenter.default.publisher(for: NSWindow.willCloseNotification)) { notification in
+            // When a window closes, check if we should hide the dock icon
+            Task { @MainActor in
+                // Small delay to let the window actually close
+                try? await Task.sleep(for: .milliseconds(100))
+                let hasVisibleWindows = NSApp.windows.contains { window in
+                    window.isVisible && window.level == .normal && !window.title.isEmpty
+                }
+                dockVisibilityController.updateVisibility(hasRunSetup: hasRunSetup, hasOpenWindows: hasVisibleWindows)
             }
         }
         .focusedSceneValue(\.showCreateSecret,  .init(isEnabled: !runningSetup) {

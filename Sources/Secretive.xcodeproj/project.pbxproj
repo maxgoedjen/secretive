@@ -74,6 +74,8 @@
 		50E4C4C32E7765DF00C73783 /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E4C4C22E7765DF00C73783 /* AboutView.swift */; };
 		50E4C4C82E777E4200C73783 /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = 50E4C4C72E777E4200C73783 /* AppIcon.icon */; };
 		50E4C4C92E777E4200C73783 /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = 50E4C4C72E777E4200C73783 /* AppIcon.icon */; };
+		B3AE1BB82F201243007B797C /* DockVisibilityController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3AE1BB72F201243007B797C /* DockVisibilityController.swift */; };
+		B3AE1BBA2F20125C007B797C /* MenuBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3AE1BB92F20125C007B797C /* MenuBarView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -240,6 +242,8 @@
 		50E4C4522E73C78900C73783 /* WindowBackgroundStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowBackgroundStyle.swift; sourceTree = "<group>"; };
 		50E4C4C22E7765DF00C73783 /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
 		50E4C4C72E777E4200C73783 /* AppIcon.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = AppIcon.icon; sourceTree = "<group>"; };
+		B3AE1BB72F201243007B797C /* DockVisibilityController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DockVisibilityController.swift; sourceTree = "<group>"; };
+		B3AE1BB92F20125C007B797C /* MenuBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarView.swift; sourceTree = "<group>"; };
 		F418C9A82F0C57F000E9ADF8 /* OpenSource.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = OpenSource.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -333,6 +337,7 @@
 		504788F02E681F0100B4556F /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				B3AE1BB92F20125C007B797C /* MenuBarView.swift */,
 				50E4C4C22E7765DF00C73783 /* AboutView.swift */,
 				50BDCB712E63BAF20072D2E7 /* AgentStatusView.swift */,
 				50617D8423FCE48E0099B055 /* ContentView.swift */,
@@ -441,6 +446,7 @@
 		508A58B1241ED1EA0069DC07 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				B3AE1BB72F201243007B797C /* DockVisibilityController.swift */,
 				508A58B2241ED2180069DC07 /* AgentStatusChecker.swift */,
 				5091D2BB25183B830049FD9B /* ApplicationDirectoryController.swift */,
 				50571E0224393C2600F76F6C /* JustUpdatedChecker.swift */,
@@ -688,6 +694,7 @@
 				2C4A9D2F2636FFD3008CC8E2 /* EditSecretView.swift in Sources */,
 				50E4C4532E73C78C00C73783 /* WindowBackgroundStyle.swift in Sources */,
 				5091D2BC25183B830049FD9B /* ApplicationDirectoryController.swift in Sources */,
+				B3AE1BB82F201243007B797C /* DockVisibilityController.swift in Sources */,
 				504789232E697DD300B4556F /* BoxBackgroundStyle.swift in Sources */,
 				5066A6C22516F303004B5A36 /* SetupView.swift in Sources */,
 				5065E313295517C500E16645 /* ToolbarButtonStyle.swift in Sources */,
@@ -702,6 +709,7 @@
 				50C385A52407A76D00AF2719 /* SecretDetailView.swift in Sources */,
 				5099A02423FD2AAA0062B6F2 /* CreateSecretView.swift in Sources */,
 				50AE97002E5C1A420018C710 /* IntegrationsView.swift in Sources */,
+				B3AE1BBA2F20125C007B797C /* MenuBarView.swift in Sources */,
 				50153E20250AFCB200525160 /* UpdateView.swift in Sources */,
 				5066A6C82516FE6E004B5A36 /* CopyableView.swift in Sources */,
 				50B8550D24138C4F009958AC /* DeleteSecretView.swift in Sources */,
