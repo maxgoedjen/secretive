@@ -19,7 +19,7 @@ public struct OpenSSHPublicKeyWriter: Sendable {
             ("nistp" + String(describing: secret.keyType.size)).lengthAndData +
             secret.publicKey.lengthAndData
         case .mldsa:
-            // https://www.ietf.org/archive/id/draft-sfluhrer-ssh-mldsa-04.txt
+            // https://datatracker.ietf.org/doc/html/draft-sfluhrer-ssh-mldsa-05
             openSSHIdentifier(for: secret.keyType).lengthAndData +
             secret.publicKey.lengthAndData
         case .rsa:

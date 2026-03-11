@@ -3,6 +3,8 @@ import OSLog
 import SecretKit
 import SSHProtocolKit
 
+import CryptoKit
+
 public protocol SSHAgentInputParserProtocol {
 
     func parse(data: Data) async throws -> SSHAgent.Request
@@ -53,8 +55,10 @@ public struct SSHAgentInputParser: SSHAgentInputParserProtocol {
             return .unlock
         case SSHAgent.Request.addSmartcardKeyConstrained.protocolID:
             return .addSmartcardKeyConstrained
-        case SSHAgent.Request.protocolExtension.protocolID:
-            return .protocolExtension
+        case SSHAgent.Request.protocolExtension(.empty).protocolID:
+            return .protocolExtension(try protocolExtension(from: body))
+//        case SSHAgent.Request.constrainExtension(.empty).protocolID:
+//            return .constrainExtension(try constrainExtension(from: body))
         default:
             return .unknown(rawRequestInt)
         }
@@ -64,12 +68,126 @@ public struct SSHAgentInputParser: SSHAgentInputParserProtocol {
 
 extension SSHAgentInputParser {
 
+    private enum Constants {
+        static let userAuthMagic: UInt8 = 50 // SSH2_MSG_USERAUTH_REQUEST
+        static let sshSigMagic = Data("SSHSIG".utf8)
+    }
+
     func signatureRequestContext(from data: Data) throws(OpenSSHReaderError) -> SSHAgent.Request.SignatureRequestContext {
         let reader = OpenSSHReader(data: data)
         let rawKeyBlob = try reader.readNextChunk()
         let keyBlob = certificatePublicKeyBlob(from: rawKeyBlob) ?? rawKeyBlob
-        let dataToSign = try reader.readNextChunk()
-        return SSHAgent.Request.SignatureRequestContext(keyBlob: keyBlob, dataToSign: dataToSign)
+        let rawPayload = try reader.readNextChunk()
+        let payload: SSHAgent.Request.SignatureRequestContext.SignaturePayload
+        if rawPayload.count > 6 && rawPayload[0..<6] == Constants.sshSigMagic {
+            // https://github.com/openssh/openssh-portable/blob/master/PROTOCOL.sshsig#L79
+            let payloadReader = OpenSSHReader(data: rawPayload[6...])
+            let namespace = try payloadReader.readNextChunkAsString()
+            _ = try payloadReader.readNextChunk() // reserved
+            let hashAlgorithm = try payloadReader.readNextChunkAsString()
+            let hash = try payloadReader.readNextChunk()
+            payload = .init(
+                raw: data,
+                decoded: .init(
+                    .sshSig(
+                        .init(
+                            namespace: namespace,
+                            hashAlgorithm: hashAlgorithm,
+                            hash: hash
+                        )
+                    )
+                )
+            )
+        } else {
+            let payloadReader = OpenSSHReader(data: rawPayload)
+            do {
+                _ = try payloadReader.readNextChunk()
+                let magic = try payloadReader.readNextBytes(as: UInt8.self, convertEndianness: false)
+                if magic == Constants.userAuthMagic {
+                    let username = try payloadReader.readNextChunkAsString()
+                    _ = try payloadReader.readNextChunkAsString() // "ssh-connection"
+                    _ = try payloadReader.readNextChunkAsString() // "publickey-hostbound-v00@openssh.com"
+                    let hasSignature = try payloadReader.readNextByteAsBool()
+                    let pkAlg = try payloadReader.readNextChunkAsString()
+                    let pk = try payloadReader.readNextChunk()
+                    let hostKey = try payloadReader.readNextChunk()
+                    payload = .init(
+                        raw: rawPayload,
+                        decoded: .init(
+                            .sshConnection(
+                                .init(
+                                    username: username,
+                                    hasSignature: hasSignature,
+                                    publicKeyAlgorithm: pkAlg,
+                                    publicKey: pk,
+                                    hostKey: hostKey
+                                )
+                            )
+                        )
+                    )
+                } else {
+                    throw AgentParsingError.unknownRequest
+                }
+            } catch {
+                payload = .init(raw: rawPayload, decoded: nil)
+            }
+        }
+        return SSHAgent.Request.SignatureRequestContext(keyBlob: keyBlob, dataToSign: payload)
+    }
+
+    func protocolExtension(from data: Data) throws(AgentParsingError) -> SSHAgent.ProtocolExtension {
+        do {
+            let reader = OpenSSHReader(data: data)
+            let nameRaw = try reader.readNextChunkAsString()
+            let nameSplit = nameRaw.split(separator: "@")
+            guard nameSplit.count == 2 else {
+                throw AgentParsingError.invalidData
+            }
+            let (name, domain) = (nameSplit[0], nameSplit[1])
+            switch domain {
+            case SSHAgent.ProtocolExtension.OpenSSHExtension.domain:
+                switch name {
+                case SSHAgent.ProtocolExtension.OpenSSHExtension.sessionBind(.empty).name:
+                    let hostkeyBlob = try reader.readNextChunkAsSubReader()
+                    let hostKeyType = try hostkeyBlob.readNextChunkAsString()
+                    let hostKeyData = try hostkeyBlob.readNextChunk()
+                    let sessionID = try reader.readNextChunk()
+                    let signatureBlob = try reader.readNextChunkAsSubReader()
+                    _ = try signatureBlob.readNextChunk() // key type again
+                    let signature = try signatureBlob.readNextChunk()
+                    let forwarding = try reader.readNextByteAsBool()
+                    switch hostKeyType {
+                        // FIXME: FACTOR OUT?
+                        // FIXME: HANDLE OTHER KEYS
+                    case "ssh-ed25519":
+                        let hostKey = try CryptoKit.Curve25519.Signing.PublicKey(rawRepresentation: hostKeyData)
+                        guard hostKey.isValidSignature(signature, for: sessionID) else {
+                            throw AgentParsingError.invalidData
+                        }
+                    default:
+                        throw AgentParsingError.unhandledRequest
+                    }
+                    let context = SSHAgent.ProtocolExtension.OpenSSHExtension.SessionBindContext(
+                        hostKey: hostKeyData,
+                        sessionID: sessionID,
+                        signature: signature,
+                        forwarding: forwarding
+                    )
+                    return .openSSH(.sessionBind(context))
+                default:
+                    return .openSSH(.unknown(String(name)))
+                }
+            default:
+                return .unknown(nameRaw)
+            }
+
+        } catch let error as OpenSSHReaderError {
+            throw .openSSHReader(error)
+        } catch let error as AgentParsingError {
+            throw error
+        } catch {
+            throw .unknownRequest
+        }
     }
 
     func certificatePublicKeyBlob(from hash: Data) -> Data? {

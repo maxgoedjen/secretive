@@ -17,7 +17,7 @@ public struct OpenSSHSignatureWriter: Sendable {
             // https://datatracker.ietf.org/doc/html/rfc5656#section-3.1
             ecdsaSignature(signature, keyType: secret.keyType)
         case .mldsa:
-            // https://datatracker.ietf.org/doc/html/draft-sfluhrer-ssh-mldsa-00#name-public-key-algorithms
+            // https://datatracker.ietf.org/doc/html/draft-sfluhrer-ssh-mldsa-05
             mldsaSignature(signature, keyType: secret.keyType)
         case .rsa:
             // https://datatracker.ietf.org/doc/html/rfc4253#section-6.6

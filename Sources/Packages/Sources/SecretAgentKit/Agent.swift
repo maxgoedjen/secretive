@@ -33,6 +33,7 @@ public final class Agent: Sendable {
 extension Agent {
 
     public func handle(request: SSHAgent.Request, provenance: SigningRequestProvenance) async -> Data {
+        logger.debug("Agent received request of type \(request.debugDescription)")
         // Depending on the launch context (such as after macOS update), the agent may need to reload secrets before acting
         await reloadSecretsIfNeccessary()
         var response = Data()
@@ -44,8 +45,14 @@ extension Agent {
                 logger.debug("Agent returned \(SSHAgent.Response.agentIdentitiesAnswer.debugDescription)")
             case .signRequest(let context):
                 response.append(SSHAgent.Response.agentSignResponse.data)
-                response.append(try await sign(data: context.dataToSign, keyBlob: context.keyBlob, provenance: provenance))
+                response.append(try await sign(data: context.dataToSign.raw, keyBlob: context.keyBlob, provenance: provenance))
                 logger.debug("Agent returned \(SSHAgent.Response.agentSignResponse.debugDescription)")
+            case .protocolExtension(.openSSH(.sessionBind(let bind))):
+                response = SSHAgent.Response.agentSuccess.data
+                _ = bind
+                // FIXME: STORE BIND IN KEYCHAIN
+                // FIXME: CLEAR OUT BINDS BASED ON EXPIRATION?
+                logger.debug("Agent returned \(SSHAgent.Response.agentSuccess.debugDescription)")
             case .unknown(let value):
                 logger.error("Agent received unknown request of type \(value).")
                 throw UnhandledRequestError()
