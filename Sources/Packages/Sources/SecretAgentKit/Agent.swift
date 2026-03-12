@@ -15,6 +15,8 @@ public final class Agent: Sendable {
     private let certificateHandler = OpenSSHCertificateHandler()
     private let logger = Logger(subsystem: "com.maxgoedjen.secretive.secretagent", category: "Agent")
 
+    @MainActor private var sessionID: SSHAgent.ProtocolExtension.OpenSSHExtension.SessionBindContext?
+
     /// Initializes an agent with a store list and a witness.
     /// - Parameters:
     ///   - storeList: The `SecretStoreList` to make available.
@@ -44,14 +46,33 @@ extension Agent {
                 response.append(await identities())
                 logger.debug("Agent returned \(SSHAgent.Response.agentIdentitiesAnswer.debugDescription)")
             case .signRequest(let context):
+                if let boundSession = await sessionID {
+                    switch context.dataToSign.decoded {
+                    case .sshConnection(let payload):
+                        guard payload.hostKey == boundSession.hostKey else {
+                            logger.error("Agent received bind request, but host key does not match signature reqeust host key.")
+                            throw BindingFailure()
+                        }
+                    case .sshSig:
+                        // SSHSIG does not have a host binding payload.
+                        break
+                    default:
+                        break
+                    }
+                }
                 response.append(SSHAgent.Response.agentSignResponse.data)
                 response.append(try await sign(data: context.dataToSign.raw, keyBlob: context.keyBlob, provenance: provenance))
                 logger.debug("Agent returned \(SSHAgent.Response.agentSignResponse.debugDescription)")
             case .protocolExtension(.openSSH(.sessionBind(let bind))):
-                response = SSHAgent.Response.agentSuccess.data
-                _ = bind
-                // FIXME: STORE BIND IN KEYCHAIN
-                // FIXME: CLEAR OUT BINDS BASED ON EXPIRATION?
+                response = try await MainActor.run {
+                    guard sessionID == nil else {
+                        logger.error("Agent received bind request, but already bound.")
+                        throw BindingFailure()
+                    }
+                    logger.debug("Agent bound")
+                    sessionID = bind
+                    return SSHAgent.Response.agentSuccess.data
+                }
                 logger.debug("Agent returned \(SSHAgent.Response.agentSuccess.debugDescription)")
             case .unknown(let value):
                 logger.error("Agent received unknown request of type \(value).")
@@ -152,6 +173,7 @@ extension Agent {
 
     struct NoMatchingKeyError: Error {}
     struct UnhandledRequestError: Error {}
+    struct BindingFailure: Error {}
 
 }
 

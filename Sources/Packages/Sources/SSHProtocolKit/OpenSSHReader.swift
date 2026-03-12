@@ -62,5 +62,6 @@ public final class OpenSSHReader {
 }
 
 public enum OpenSSHReaderError: Error, Codable {
+    case incorrectFormat
     case beyondBounds
 }

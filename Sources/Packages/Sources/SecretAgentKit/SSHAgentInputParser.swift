@@ -57,8 +57,6 @@ public struct SSHAgentInputParser: SSHAgentInputParserProtocol {
             return .addSmartcardKeyConstrained
         case SSHAgent.Request.protocolExtension(.empty).protocolID:
             return .protocolExtension(try protocolExtension(from: body))
-//        case SSHAgent.Request.constrainExtension(.empty).protocolID:
-//            return .constrainExtension(try constrainExtension(from: body))
         default:
             return .unknown(rawRequestInt)
         }
@@ -79,60 +77,56 @@ extension SSHAgentInputParser {
         let keyBlob = certificatePublicKeyBlob(from: rawKeyBlob) ?? rawKeyBlob
         let rawPayload = try reader.readNextChunk()
         let payload: SSHAgent.Request.SignatureRequestContext.SignaturePayload
-        if rawPayload.count > 6 && rawPayload[0..<6] == Constants.sshSigMagic {
-            // https://github.com/openssh/openssh-portable/blob/master/PROTOCOL.sshsig#L79
-            let payloadReader = OpenSSHReader(data: rawPayload[6...])
-            let namespace = try payloadReader.readNextChunkAsString()
-            _ = try payloadReader.readNextChunk() // reserved
-            let hashAlgorithm = try payloadReader.readNextChunkAsString()
-            let hash = try payloadReader.readNextChunk()
-            payload = .init(
-                raw: data,
-                decoded: .init(
-                    .sshSig(
-                        .init(
-                            namespace: namespace,
-                            hashAlgorithm: hashAlgorithm,
-                            hash: hash
-                        )
-                    )
-                )
-            )
-        } else {
-            let payloadReader = OpenSSHReader(data: rawPayload)
-            do {
-                _ = try payloadReader.readNextChunk()
-                let magic = try payloadReader.readNextBytes(as: UInt8.self, convertEndianness: false)
-                if magic == Constants.userAuthMagic {
-                    let username = try payloadReader.readNextChunkAsString()
-                    _ = try payloadReader.readNextChunkAsString() // "ssh-connection"
-                    _ = try payloadReader.readNextChunkAsString() // "publickey-hostbound-v00@openssh.com"
-                    let hasSignature = try payloadReader.readNextByteAsBool()
-                    let pkAlg = try payloadReader.readNextChunkAsString()
-                    let pk = try payloadReader.readNextChunk()
-                    let hostKey = try payloadReader.readNextChunk()
-                    payload = .init(
-                        raw: rawPayload,
-                        decoded: .init(
-                            .sshConnection(
-                                .init(
-                                    username: username,
-                                    hasSignature: hasSignature,
-                                    publicKeyAlgorithm: pkAlg,
-                                    publicKey: pk,
-                                    hostKey: hostKey
-                                )
-                            )
-                        )
-                    )
-                } else {
-                    throw AgentParsingError.unknownRequest
-                }
-            } catch {
-                payload = .init(raw: rawPayload, decoded: nil)
+        do {
+            if rawPayload.count > 6 && rawPayload[0..<6] == Constants.sshSigMagic {
+                payload = .init(raw: rawPayload, decoded: .sshSig(try sshSigPayload(from: rawPayload[6...])))
+            } else {
+                payload = .init(raw: rawPayload, decoded: .sshConnection(try sshConnectionPayload(from: rawPayload)))
             }
+        } catch {
+            payload = .init(raw: rawPayload, decoded: nil)
         }
         return SSHAgent.Request.SignatureRequestContext(keyBlob: keyBlob, dataToSign: payload)
+    }
+
+    func sshSigPayload(from data: Data) throws(OpenSSHReaderError) -> SSHAgent.Request.SignatureRequestContext.SignaturePayload.DecodedPayload.SSHSigPayload {
+        // https://github.com/openssh/openssh-portable/blob/master/PROTOCOL.sshsig#L79
+        let payloadReader = OpenSSHReader(data: data)
+        let namespace = try payloadReader.readNextChunkAsString()
+        _ = try payloadReader.readNextChunk() // reserved
+        let hashAlgorithm = try payloadReader.readNextChunkAsString()
+        let hash = try payloadReader.readNextChunk()
+        return .init(
+            namespace: namespace,
+            hashAlgorithm: hashAlgorithm,
+            hash: hash
+        )
+    }
+
+    func sshConnectionPayload(from data: Data) throws(OpenSSHReaderError) -> SSHAgent.Request.SignatureRequestContext.SignaturePayload.DecodedPayload.SSHConnectionPayload {
+        let payloadReader = OpenSSHReader(data: data)
+        _ = try payloadReader.readNextChunk()
+        let magic = try payloadReader.readNextBytes(as: UInt8.self, convertEndianness: false)
+        guard magic == Constants.userAuthMagic else { throw .incorrectFormat }
+        let username = try payloadReader.readNextChunkAsString()
+        _ = try payloadReader.readNextChunkAsString() // "ssh-connection"
+        _ = try payloadReader.readNextChunkAsString() // "publickey-hostbound-v00@openssh.com"
+        let hasSignature = try payloadReader.readNextByteAsBool()
+        let algorithm = try payloadReader.readNextChunkAsString()
+        let publicKeyReader = try payloadReader.readNextChunkAsSubReader()
+        _ = try publicKeyReader.readNextChunk()
+        _ = try publicKeyReader.readNextChunk()
+        let publicKey = try publicKeyReader.readNextChunk()
+        let hostKeyReader = try payloadReader.readNextChunkAsSubReader()
+        _ = try hostKeyReader.readNextChunk()
+        let hostKey = try hostKeyReader.readNextChunk()
+        return .init(
+            username: username,
+            hasSignature: hasSignature,
+            publicKeyAlgorithm: algorithm,
+            publicKey: publicKey,
+            hostKey: hostKey,
+        )
     }
 
     func protocolExtension(from data: Data) throws(AgentParsingError) -> SSHAgent.ProtocolExtension {
@@ -158,12 +152,42 @@ extension SSHAgentInputParser {
                     let forwarding = try reader.readNextByteAsBool()
                     switch hostKeyType {
                         // FIXME: FACTOR OUT?
-                        // FIXME: HANDLE OTHER KEYS
                     case "ssh-ed25519":
                         let hostKey = try CryptoKit.Curve25519.Signing.PublicKey(rawRepresentation: hostKeyData)
                         guard hostKey.isValidSignature(signature, for: sessionID) else {
-                            throw AgentParsingError.invalidData
+                            throw AgentParsingError.incorrectSignature
                         }
+                    case "ecdsa-sha2-nistp256":
+                        let hostKey = try CryptoKit.P256.Signing.PublicKey(rawRepresentation: hostKeyData)
+                        guard hostKey.isValidSignature(try .init(rawRepresentation: signature), for: sessionID) else {
+                            throw AgentParsingError.incorrectSignature
+                        }
+                    case "ecdsa-sha2-nistp384":
+                        let hostKey = try CryptoKit.P384.Signing.PublicKey(rawRepresentation: hostKeyData)
+                        guard hostKey.isValidSignature(try .init(rawRepresentation: signature), for: sessionID) else {
+                            throw AgentParsingError.incorrectSignature
+                        }
+                    case "ssh-mldsa-65":
+                        if #available(macOS 26.0, *) {
+                            let hostKey = try CryptoKit.MLDSA65.PublicKey(rawRepresentation: hostKeyData)
+                            guard hostKey.isValidSignature(signature, for: sessionID) else {
+                                throw AgentParsingError.incorrectSignature
+                            }
+                        } else {
+                            throw AgentParsingError.unhandledRequest
+                        }
+                    case "ssh-mldsa-87":
+                        if #available(macOS 26.0, *) {
+                            let hostKey = try CryptoKit.MLDSA65.PublicKey(rawRepresentation: hostKeyData)
+                            guard hostKey.isValidSignature(signature, for: sessionID) else {
+                                throw AgentParsingError.incorrectSignature
+                            }
+                        } else {
+                            throw AgentParsingError.unhandledRequest
+                        }
+                    case "ssh-rsa":
+                        // FIXME: HANDLE
+                        throw AgentParsingError.unhandledRequest
                     default:
                         throw AgentParsingError.unhandledRequest
                     }
@@ -222,6 +246,7 @@ extension SSHAgentInputParser {
         case unknownRequest
         case unhandledRequest
         case invalidData
+        case incorrectSignature
         case openSSHReader(OpenSSHReaderError)
     }
 
