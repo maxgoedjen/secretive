@@ -1,7 +1,7 @@
 import LocalAuthentication
 
 /// A context describing a persisted authentication.
-package final class PersistentAuthenticationContext<SecretType: Secret>: PersistedAuthenticationContext {
+package struct PersistentAuthenticationContext<SecretType: Secret>: PersistedAuthenticationContext {
 
     /// The Secret to persist authentication for.
     let secret: SecretType
@@ -35,16 +35,27 @@ package final class PersistentAuthenticationContext<SecretType: Secret>: Persist
     }
 }
 
+struct ScopedPersistentAuthenticationContext<SecretType: Secret>: Hashable {
+    let provenance: SigningRequestProvenance
+    let secret: SecretType
+}
+
 package actor PersistentAuthenticationHandler<SecretType: Secret>: Sendable {
 
-    private var persistedAuthenticationContexts: [SecretType: PersistentAuthenticationContext<SecretType>] = [:]
+    private var unscopedPersistedAuthenticationContexts: [SecretType: PersistentAuthenticationContext<SecretType>] = [:]
+    private var scopedPersistedAuthenticationContexts: [ScopedPersistentAuthenticationContext<SecretType>: PersistentAuthenticationContext<SecretType>] = [:]
 
     package init() {
     }
 
-    package func existingPersistedAuthenticationContext(secret: SecretType) -> PersistentAuthenticationContext<SecretType>? {
-        guard let persisted = persistedAuthenticationContexts[secret], persisted.valid else { return nil }
-        return persisted
+    package func existingPersistedAuthenticationContext(secret: SecretType, provenance: SigningRequestProvenance) -> PersistentAuthenticationContext<SecretType>? {
+        if let unscopedPersistence = unscopedPersistedAuthenticationContexts[secret], unscopedPersistence.valid {
+            return unscopedPersistence
+        }
+        if let scopedPersistence = scopedPersistedAuthenticationContexts[.init(provenance: provenance, secret: secret)], scopedPersistence.valid {
+            return scopedPersistence
+        }
+        return nil
     }
 
     package func persistAuthentication(secret: SecretType, forDuration duration: TimeInterval) async throws {
@@ -62,7 +73,22 @@ package actor PersistentAuthenticationHandler<SecretType: Secret>: Sendable {
         let success = try await newContext.evaluatePolicy(.deviceOwnerAuthentication, localizedReason: newContext.localizedReason)
         guard success else { return }
         let context = PersistentAuthenticationContext(secret: secret, context: newContext, duration: duration)
-        persistedAuthenticationContexts[secret] = context
+        unscopedPersistedAuthenticationContexts[secret] = context
+    }
+
+    package func persistAuthentication(secret: SecretType, provenance: SigningRequestProvenance) async throws {
+        let newContext = LAContext()
+
+        // FIXME: TEMPORARY
+        let duration: TimeInterval = 10000
+        newContext.touchIDAuthenticationAllowableReuseDuration = duration
+        newContext.localizedCancelTitle = String(localized: .authContextRequestDenyButton)
+
+        newContext.localizedReason = "Batch requests"
+        let success = try await newContext.evaluatePolicy(.deviceOwnerAuthentication, localizedReason: newContext.localizedReason)
+        guard success else { return }
+        let context = PersistentAuthenticationContext(secret: secret, context: newContext, duration: duration)
+        scopedPersistedAuthenticationContexts[.init(provenance: provenance, secret: secret)] = context
     }
 
 }

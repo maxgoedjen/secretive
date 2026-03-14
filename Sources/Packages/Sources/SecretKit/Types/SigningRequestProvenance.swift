@@ -2,7 +2,7 @@ import Foundation
 import AppKit
 
 /// Describes the chain of applications that requested a signature operation.
-public struct SigningRequestProvenance: Equatable, Sendable {
+public struct SigningRequestProvenance: Equatable, Sendable, Hashable {
 
     /// A list of processes involved in the request.
     /// - Note: A chain will typically consist of many elements even for a simple request. For example, running `git fetch` in Terminal.app would generate a request chain of `ssh` -> `git` -> `zsh` -> `login` -> `Terminal.app`
@@ -25,12 +25,16 @@ extension SigningRequestProvenance {
         chain.allSatisfy { $0.validSignature }
     }
 
+    public func isSameProvenance(as other: SigningRequestProvenance) -> Bool {
+        zip(chain, other.chain).allSatisfy { $0.isSameProcess(as: $1) }
+    }
+
 }
 
 extension SigningRequestProvenance {
 
     /// Describes a process in a `SigningRequestProvenance` chain.
-    public struct Process: Equatable, Sendable {
+    public struct Process: Equatable, Sendable, Hashable {
 
         /// The pid of the process.
         public let pid: Int32
@@ -69,6 +73,15 @@ extension SigningRequestProvenance {
         /// The best user-facing name to display for the process.
         public var displayName: String {
             appName ?? processName
+        }
+
+        // Whether the
+        public func isSameProcess(as other: Process) -> Bool {
+            processName == other.processName &&
+            appName == other.appName &&
+            iconURL == other.iconURL &&
+            path == other.path &&
+            validSignature == other.validSignature
         }
 
     }

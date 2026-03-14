@@ -26,7 +26,7 @@ public protocol SecretStore<SecretType>: Identifiable, Sendable {
     /// - Parameters:
     ///   - secret: The ``Secret`` to check if there is a persisted authentication for.
     /// - Returns: A persisted authentication context, if a valid one exists.
-    func existingPersistedAuthenticationContext(secret: SecretType) async -> PersistedAuthenticationContext?
+    func existingPersistedAuthenticationContext(secret: SecretType, provenance: SigningRequestProvenance) async -> PersistedAuthenticationContext?
 
     /// Persists user authorization for access to a secret.
     /// - Parameters:
@@ -34,6 +34,8 @@ public protocol SecretStore<SecretType>: Identifiable, Sendable {
     ///   - duration: The duration that the authorization should persist for.
     ///  - Note: This is used for temporarily unlocking access to a secret which would otherwise require authentication every single use. This is useful for situations where the user anticipates several rapid accesses to a authorization-guarded secret.
     func persistAuthentication(secret: SecretType, forDuration duration: TimeInterval) async throws
+
+    func persistAuthentication(secret: SecretType, forProvenance provenance: SigningRequestProvenance) async throws
 
     /// Requests that the store reload secrets from any backing store, if neccessary.
     func reloadSecrets() async

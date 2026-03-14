@@ -39,7 +39,7 @@ extension SecureEnclave {
         
         public func sign(data: Data, with secret: Secret, for provenance: SigningRequestProvenance) async throws -> Data {
             var context: LAContext
-            if let existing = await persistentAuthenticationHandler.existingPersistedAuthenticationContext(secret: secret) {
+            if let existing = await persistentAuthenticationHandler.existingPersistedAuthenticationContext(secret: secret, provenance: provenance) {
                 context = unsafe existing.context
             } else {
                 let newContext = LAContext()
@@ -88,12 +88,16 @@ extension SecureEnclave {
 
         }
 
-        public func existingPersistedAuthenticationContext(secret: Secret) async -> PersistedAuthenticationContext? {
-            await persistentAuthenticationHandler.existingPersistedAuthenticationContext(secret: secret)
+        public func existingPersistedAuthenticationContext(secret: Secret, provenance: SigningRequestProvenance) async -> PersistedAuthenticationContext? {
+            await persistentAuthenticationHandler.existingPersistedAuthenticationContext(secret: secret, provenance: provenance)
         }
 
         public func persistAuthentication(secret: Secret, forDuration duration: TimeInterval) async throws {
             try await persistentAuthenticationHandler.persistAuthentication(secret: secret, forDuration: duration)
+        }
+
+        public func persistAuthentication(secret: SecureEnclave.Secret, forProvenance provenance: SigningRequestProvenance) async throws {
+            try await persistentAuthenticationHandler.persistAuthentication(secret: secret, provenance: provenance)
         }
 
         @MainActor public func reloadSecrets() {

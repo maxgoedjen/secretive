@@ -14,6 +14,7 @@ public final class Agent: Sendable {
     private let signatureWriter = OpenSSHSignatureWriter()
     private let certificateHandler = OpenSSHCertificateHandler()
     private let logger = Logger(subsystem: "com.maxgoedjen.secretive.secretagent", category: "Agent")
+    private let authorizationCoordinator = AuthorizationCoordinator()
 
     /// Initializes an agent with a store list and a witness.
     /// - Parameters:
@@ -102,14 +103,23 @@ extension Agent {
             throw NoMatchingKeyError()
         }
 
+        let decision = try await authorizationCoordinator.waitForAccessIfNeeded(to: secret, provenance: provenance)
+        switch decision {
+        case .proceed:
+            break
+        case .promptForSharedAuth:
+            try? await store.persistAuthentication(secret: secret, forProvenance: provenance)
+            try await authorizationCoordinator.completedPersistence()
+        }
         try await witness?.speakNowOrForeverHoldYourPeace(forAccessTo: secret, from: store, by: provenance)
-
         let rawRepresentation = try await store.sign(data: data, with: secret, for: provenance)
         let signedData = signatureWriter.data(secret: secret, signature: rawRepresentation)
 
         try await witness?.witness(accessTo: secret, from: store, by: provenance)
 
         logger.debug("Agent signed request")
+
+        try await authorizationCoordinator.completedAuthorization()
 
         return signedData
     }

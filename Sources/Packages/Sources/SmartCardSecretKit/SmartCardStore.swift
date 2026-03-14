@@ -60,7 +60,7 @@ extension SmartCard {
         public func sign(data: Data, with secret: Secret, for provenance: SigningRequestProvenance) async throws -> Data {
             guard let tokenID = await state.tokenID else { fatalError() }
             var context: LAContext
-            if let existing = await persistentAuthenticationHandler.existingPersistedAuthenticationContext(secret: secret) {
+            if let existing = await persistentAuthenticationHandler.existingPersistedAuthenticationContext(secret: secret, provenance: provenance) {
                 context = unsafe existing.context
             } else {
                 let newContext = LAContext()
@@ -93,12 +93,16 @@ extension SmartCard {
             return signature as Data
         }
         
-        public func existingPersistedAuthenticationContext(secret: Secret) async -> PersistedAuthenticationContext? {
-            await persistentAuthenticationHandler.existingPersistedAuthenticationContext(secret: secret)
+        public func existingPersistedAuthenticationContext(secret: Secret, provenance: SigningRequestProvenance) async -> PersistedAuthenticationContext? {
+            await persistentAuthenticationHandler.existingPersistedAuthenticationContext(secret: secret, provenance: provenance)
         }
 
         public func persistAuthentication(secret: Secret, forDuration duration: TimeInterval) async throws {
             try await persistentAuthenticationHandler.persistAuthentication(secret: secret, forDuration: duration)
+        }
+
+        public func persistAuthentication(secret: Secret, forProvenance provenance: SigningRequestProvenance) async throws {
+            try await persistentAuthenticationHandler.persistAuthentication(secret: secret, provenance: provenance)
         }
 
         /// Reloads all secrets from the store.

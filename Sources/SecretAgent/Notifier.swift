@@ -69,7 +69,7 @@ final class Notifier: Sendable {
         notificationContent.userInfo[Constants.persistSecretIDKey] = secret.id.description
         notificationContent.userInfo[Constants.persistStoreIDKey] = store.id.description
         notificationContent.interruptionLevel = .timeSensitive
-        if await store.existingPersistedAuthenticationContext(secret: secret) == nil && secret.authenticationRequirement.required {
+        if await store.existingPersistedAuthenticationContext(secret: secret, provenance: provenance) == nil && secret.authenticationRequirement.required {
             notificationContent.categoryIdentifier = Constants.persistAuthenticationCategoryIdentitifier
         }
         if let iconURL = provenance.origin.iconURL, let attachment = try? UNNotificationAttachment(identifier: "icon", url: iconURL, options: nil) {
@@ -77,6 +77,25 @@ final class Notifier: Sendable {
         }
         let request = UNNotificationRequest(identifier: UUID().uuidString, content: notificationContent, trigger: nil)
         try? await notificationCenter.add(request)
+    }
+
+    func notify(pendingAccessTo secret: AnySecret, from store: AnySecretStore, by provenance: SigningRequestProvenance) async {
+        await notificationDelegate.state.setPending(secret: secret, store: store)
+        let notificationCenter = UNUserNotificationCenter.current()
+        let notificationContent = UNMutableNotificationContent()
+        notificationContent.title = "pending" //String(localized: .signedNotificationTitle(appName: provenance.origin.displayName))
+        notificationContent.subtitle = "pending" //String(localized: .signedNotificationDescription(secretName: secret.name))
+        notificationContent.userInfo[Constants.persistSecretIDKey] = secret.id.description
+        notificationContent.userInfo[Constants.persistStoreIDKey] = store.id.description
+        notificationContent.interruptionLevel = .timeSensitive
+        notificationContent.categoryIdentifier = Constants.persistAuthenticationCategoryIdentitifier
+        notificationContent.threadIdentifier = "\(secret.id)_\(provenance.hashValue)"
+        if let iconURL = provenance.origin.iconURL, let attachment = try? UNNotificationAttachment(identifier: "icon", url: iconURL, options: nil) {
+            notificationContent.attachments = [attachment]
+        }
+        let request = UNNotificationRequest(identifier: UUID().uuidString, content: notificationContent, trigger: nil)
+        try? await notificationCenter.add(request)
+
     }
 
     func notify(update: Release, ignore: (@Sendable (Release) async -> Void)?) async {
@@ -101,6 +120,10 @@ final class Notifier: Sendable {
 extension Notifier: SigningWitness {
 
     func speakNowOrForeverHoldYourPeace(forAccessTo secret: AnySecret, from store: AnySecretStore, by provenance: SigningRequestProvenance) async throws {
+    }
+
+    func witness(pendingAccessTo secret: AnySecret, from store: AnySecretStore, by provenance: SigningRequestProvenance) async throws {
+        await notify(pendingAccessTo: secret, from: store, by: provenance)
     }
 
     func witness(accessTo secret: AnySecret, from store: AnySecretStore, by provenance: SigningRequestProvenance) async throws {
