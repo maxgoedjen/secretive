@@ -108,8 +108,12 @@ extension Agent {
         case .proceed:
             break
         case .promptForSharedAuth:
-            try? await store.persistAuthentication(secret: secret, forProvenance: provenance)
-            try await authorizationCoordinator.completedPersistence()
+            do {
+                try await store.persistAuthentication(secret: secret, forProvenance: provenance)
+                await authorizationCoordinator.completedPersistence(secret: secret, forProvenance: provenance)
+            } catch {
+                await authorizationCoordinator.didNotCompletePersistence(secret: secret, forProvenance: provenance)
+            }
         }
         try await witness?.speakNowOrForeverHoldYourPeace(forAccessTo: secret, from: store, by: provenance)
         let rawRepresentation = try await store.sign(data: data, with: secret, for: provenance)
@@ -118,8 +122,6 @@ extension Agent {
         try await witness?.witness(accessTo: secret, from: store, by: provenance)
 
         logger.debug("Agent signed request")
-
-        try await authorizationCoordinator.completedAuthorization()
 
         return signedData
     }

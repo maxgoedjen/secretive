@@ -15,7 +15,6 @@ struct PendingRequest: Identifiable, Hashable, CustomStringConvertible {
     func batchable(with request: PendingRequest) -> Bool {
         secret == request.secret &&
         provenance.isSameProvenance(as: request.provenance)
-
     }
 }
 
@@ -27,38 +26,30 @@ enum Decision {
 actor RequestHolder {
 
     var pending: [PendingRequest] = []
-    var active: PendingRequest?
+    var authorizing: PendingRequest?
     var preauthorized: PendingRequest?
 
+    func addPending(_ request: PendingRequest) {
+        pending.append(request)
+    }
+
+    func advanceIfIdle() {
+
+    }
+
     func shouldBlock(_ request: PendingRequest) -> Bool {
+        guard request != authorizing else { return false }
         if let preauthorized, preauthorized.batchable(with: request) {
             print("Batching: \(request)")
             pending.removeAll(where: { $0 == request })
             return false
         }
-        let isTurn = request.id == active?.id
-        if isTurn {
-            print("turn \(request)")
-            return false
-        }
-        if pending.isEmpty && active == nil {
-            active = request
-            return false
-        } else if !pending.contains(where: { $0.id == request.id }) {
-            pending.append(request)
-        }
-        return true
+        return authorizing == nil && authorizing.
     }
 
     func clear() {
         if let preauthorized, allBatchable(with: preauthorized).isEmpty {
             self.preauthorized = nil
-        }
-        if !pending.isEmpty {
-            let next = pending.removeFirst()
-            active = next
-        } else {
-            active = nil
         }
     }
 
@@ -66,8 +57,12 @@ actor RequestHolder {
         pending.filter { $0.batchable(with: request) }
     }
 
-    func completedPersistence() {
-        self.preauthorized = active
+    func completedPersistence(secret: AnySecret, forProvenance provenance: SigningRequestProvenance) {
+        self.preauthorized = PendingRequest(secret: secret, provenance: provenance)
+    }
+
+    func didNotCompletePersistence(secret: AnySecret, forProvenance provenance: SigningRequestProvenance) {
+        self.preauthorized = nil
     }
 }
 
@@ -87,7 +82,8 @@ final class AuthorizationCoordinator: Sendable {
         }
         logger.debug("\(secret.name) requires authentication.")
         let pending = PendingRequest(secret: secret, provenance: provenance)
-        while !Task.isCancelled, await holder.shouldBlock(pending) {
+        await holder.addPending(pending)
+        while await holder.shouldBlock(pending) {
             logger.debug("\(pending) waiting.")
             try await Task.sleep(for: .milliseconds(100))
         }
@@ -99,13 +95,11 @@ final class AuthorizationCoordinator: Sendable {
         return .proceed
     }
 
-    func completedAuthorization() async throws {
-        await holder.clear()
+    func completedPersistence(secret: AnySecret, forProvenance provenance: SigningRequestProvenance) async {
+        await holder.completedPersistence(secret: secret, forProvenance: provenance)
     }
 
-    func completedPersistence() async throws {
-        await holder.completedPersistence()
+    func didNotCompletePersistence(secret: AnySecret, forProvenance provenance: SigningRequestProvenance) async {
+        await holder.didNotCompletePersistence(secret: secret, forProvenance: provenance)
     }
-
-
 }
