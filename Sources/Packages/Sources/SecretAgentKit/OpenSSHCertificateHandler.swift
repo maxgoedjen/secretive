@@ -2,87 +2,87 @@ import Foundation
 import OSLog
 import SecretKit
 import SSHProtocolKit
+import Common
 
 /// Manages storage and lookup for OpenSSH certificates.
 public actor OpenSSHCertificateHandler: Sendable {
-
-    private let publicKeyFileStoreController = PublicKeyFileStoreController(directory: URL.publicKeyDirectory)
+    private let directory: URL
+    private let certificateReader: OpenSSHCertificateReader
+    private let publicKeyWriter: OpenSSHPublicKeyWriter
     private let logger = Logger(subsystem: "com.maxgoedjen.secretive.secretagent", category: "OpenSSHCertificateHandler")
-    private let writer = OpenSSHPublicKeyWriter()
-    private var keyBlobsAndNames: [AnySecret: (Data, Data)] = [:]
+    private var certificatesByFingerprint: [String: [OpenSSHCertificateReader.ParsedCertificate]] = [:]
 
     /// Initializes an OpenSSHCertificateHandler.
-    public init() {
+    public init(
+        directory: URL = URL.publicKeyDirectory,
+        certificateReader: OpenSSHCertificateReader = .init(),
+        publicKeyWriter: OpenSSHPublicKeyWriter = .init()
+    ) {
+        self.directory = directory
+        self.certificateReader = certificateReader
+        self.publicKeyWriter = publicKeyWriter
     }
 
     /// Reloads any certificates in the PublicKeys folder.
-    /// - Parameter secrets: the secrets to look up corresponding certificates for.
-    public func reloadCertificates(for secrets: [AnySecret]) {
-        guard publicKeyFileStoreController.hasAnyCertificates else {
-            logger.log("No certificates, short circuiting")
+    public func reloadCertificates() {
+        certificatesByFingerprint = [:]
+
+        let fileURLs: [URL]
+        do {
+            fileURLs = try FileManager.default
+                .contentsOfDirectory(at: directory, includingPropertiesForKeys: [.isRegularFileKey], options: [.skipsHiddenFiles])
+                .sorted { $0.lastPathComponent < $1.lastPathComponent }
+        } catch {
+            logger.debug("No readable certificate directory found at \(self.directory.path(), privacy: .public)")
             return
         }
-        keyBlobsAndNames = secrets.reduce(into: [:]) { partialResult, next in
-            partialResult[next] = try? loadKeyblobAndName(for: next)
+
+        for fileURL in fileURLs {
+            do {
+                let values = try fileURL.resourceValues(forKeys: [.isRegularFileKey])
+                guard values.isRegularFile == true else {
+                    continue
+                }
+
+                let contents = try String(contentsOf: fileURL, encoding: .utf8)
+                let parsedCertificate = try certificateReader.readPublicKeyLine(contents)
+                certificatesByFingerprint[parsedCertificate.subjectKeyFingerprint, default: []].append(
+                    parsedCertificate
+                )
+            } catch OpenSSHCertificateReader.OpenSSHCertificateError.unsupportedType,
+                OpenSSHCertificateReader.OpenSSHCertificateError.invalidPublicKeyLine {
+                continue
+            } catch {
+                logger.warning("Failed to load certificate from \(fileURL.lastPathComponent, privacy: .public)")
+            }
         }
     }
 
-    /// Attempts to find an OpenSSH Certificate  that corresponds to a ``Secret``
-    /// - Parameter secret: The secret to search for a certificate with
-    /// - Returns: A (``Data``, ``Data``) tuple containing the certificate and certificate name, respectively.
-    public func keyBlobAndName<SecretType: Secret>(for secret: SecretType) throws -> (Data, Data)? {
-        keyBlobsAndNames[AnySecret(secret)]
-    }
-    
-    /// Attempts to find an OpenSSH Certificate  that corresponds to a ``Secret``
-    /// - Parameter secret: The secret to search for a certificate with
-    /// - Returns: A (``Data``, ``Data``) tuple containing the certificate and certificate name, respectively.
-    private func loadKeyblobAndName<SecretType: Secret>(for secret: SecretType) throws -> (Data, Data)? {
-        let certificatePath = publicKeyFileStoreController.sshCertificatePath(for: secret)
-        guard FileManager.default.fileExists(atPath: certificatePath) else {
-            return nil
+    /// Returns all certificates that correspond to a ``Secret``.
+    /// - Parameter secret: The secret to search for certificates with.
+    /// - Returns: The certificate identities that correspond to the secret.
+    public func certificateIdentities<SecretType: Secret>(for secret: SecretType) -> [OpenSSHCertificateIdentity] {
+        let fingerprint = publicKeyWriter.openSSHSHA256Fingerprint(secret: secret)
+        return certificatesByFingerprint[fingerprint, default: []].map {
+            OpenSSHCertificateIdentity(
+                keyBlob: $0.certificateBlob,
+                comment: Data(($0.comment ?? secret.name).utf8)
+            )
         }
-
-        logger.debug("Found certificate for \(secret.name)")
-        let certContent = try String(contentsOfFile:certificatePath, encoding: .utf8)
-        let certElements = certContent.trimmingCharacters(in: .whitespacesAndNewlines).components(separatedBy: " ")
-
-        guard certElements.count >= 2 else {
-            logger.warning("Certificate found for \(secret.name) but failed to load")
-            throw OpenSSHCertificateError.parsingFailed
-        }
-        guard let certDecoded = Data(base64Encoded: certElements[1] as String)  else {
-            logger.warning("Certificate found for \(secret.name) but failed to decode base64 key")
-            throw OpenSSHCertificateError.parsingFailed
-        }
-
-        if certElements.count >= 3 {
-            let certName = Data(certElements[2].utf8)
-            return (certDecoded, certName)
-        }
-        let certName = Data(secret.name.utf8)
-        logger.info("Certificate for \(secret.name) does not have a name tag, using secret name instead")
-        return (certDecoded, certName)
     }
 
 }
 
 extension OpenSSHCertificateHandler {
 
-    enum OpenSSHCertificateError: LocalizedError {
-        case unsupportedType
-        case parsingFailed
-        case doesNotExist
+    /// An OpenSSH certificate identity advertised by the agent.
+    public struct OpenSSHCertificateIdentity: Sendable, Hashable {
+        public let keyBlob: Data
+        public let comment: Data
 
-        public var errorDescription: String? {
-            switch self {
-            case .unsupportedType:
-                return "The key type was unsupported"
-            case .parsingFailed:
-                return "Failed to properly parse the SSH certificate"
-            case .doesNotExist:
-                return "Certificate does not exist"
-            }
+        init(keyBlob: Data, comment: Data) {
+            self.keyBlob = keyBlob
+            self.comment = comment
         }
     }
 

@@ -28,6 +28,43 @@ import CryptoKit
         #expect(response == Constants.Responses.requestIdentitiesMultiple)
     }
 
+    @Test func identitiesListIncludesMultipleCertificatesForSingleKey() async throws {
+        let directory = try CertificateTestFixtures.temporaryDirectory()
+        defer { try? FileManager.default.removeItem(at: directory) }
+
+        try CertificateTestFixtures.write(
+            CertificateTestFixtures.certificateLine(for: CertificateTestFixtures.ecdsa256Secret, comment: "Alpha cert"),
+            to: directory.appending(path: "first-access.pub")
+        )
+        try CertificateTestFixtures.write(
+            CertificateTestFixtures.certificateLine(for: CertificateTestFixtures.ecdsa256Secret, comment: "Beta cert"),
+            to: directory.appending(path: "second-access")
+        )
+
+        let list = await storeList(with: [CertificateTestFixtures.ecdsa256Secret])
+        let agent = Agent(storeList: list, certificateHandler: OpenSSHCertificateHandler(directory: directory))
+        let response = await agent.handle(request: .requestIdentities, provenance: .test)
+
+        let responseReader = OpenSSHReader(data: response)
+        let length = try responseReader.readNextBytes(as: UInt32.self)
+        let type = try responseReader.readNextBytes(as: UInt8.self)
+        #expect(length == response.count - MemoryLayout<UInt32>.size)
+        #expect(type == SSHAgent.Response.agentIdentitiesAnswer.rawValue)
+
+        let identitiesReader = OpenSSHReader(data: responseReader.remaining)
+        let count = try identitiesReader.readNextBytes(as: UInt32.self)
+        #expect(count == 3)
+
+        _ = try identitiesReader.readNextChunk()
+        _ = try identitiesReader.readNextChunkAsString()
+        _ = try identitiesReader.readNextChunk()
+        let firstComment = try identitiesReader.readNextChunkAsString()
+        _ = try identitiesReader.readNextChunk()
+        let secondComment = try identitiesReader.readNextChunkAsString()
+        #expect(firstComment == "Alpha cert")
+        #expect(secondComment == "Beta cert")
+    }
+
     // MARK: Signatures
 
     @Test func noMatchingIdentities() async throws {
@@ -68,6 +105,40 @@ import CryptoKit
         // Correct signature
         #expect(try P256.Signing.PublicKey(x963Representation: Constants.Secrets.ecdsa256Secret.publicKey)
             .isValidSignature(signature, for: context.dataToSign))
+    }
+
+    @Test func certificateSignRequestMatchesUnderlyingKey() async throws {
+        let certificateBlob = CertificateTestFixtures.certificateBlob(for: CertificateTestFixtures.ecdsa256Secret)
+        let dataToSign = Data("certificate signing payload".utf8)
+        let request = try SSHAgentInputParser().parse(data: CertificateTestFixtures.signRequest(for: certificateBlob, dataToSign: dataToSign))
+        guard case SSHAgent.Request.signRequest(let context) = request else { return }
+        #expect(context.keyBlob == OpenSSHPublicKeyWriter().data(secret: CertificateTestFixtures.ecdsa256Secret))
+
+        let list = await storeList(with: [CertificateTestFixtures.ecdsa256Secret])
+        let agent = Agent(storeList: list)
+        let response = await agent.handle(request: request, provenance: .test)
+        let responseReader = OpenSSHReader(data: response)
+        _ = try responseReader.readNextBytes(as: UInt32.self)
+        let type = try responseReader.readNextBytes(as: UInt8.self)
+        #expect(type == SSHAgent.Response.agentSignResponse.rawValue)
+
+        let outer = OpenSSHReader(data: responseReader.remaining)
+        let inner = try outer.readNextChunkAsSubReader()
+        _ = try inner.readNextChunk()
+        let rsData = try inner.readNextChunkAsSubReader()
+        var r = try rsData.readNextChunk()
+        var s = try rsData.readNextChunk()
+        if r[0] == 0 {
+            r.removeFirst()
+        }
+        if s[0] == 0 {
+            s.removeFirst()
+        }
+        var rs = r
+        rs.append(s)
+        let signature = try P256.Signing.ECDSASignature(rawRepresentation: rs)
+        #expect(try P256.Signing.PublicKey(x963Representation: CertificateTestFixtures.ecdsa256Secret.publicKey)
+            .isValidSignature(signature, for: dataToSign))
     }
 
     // MARK: Witness protocol

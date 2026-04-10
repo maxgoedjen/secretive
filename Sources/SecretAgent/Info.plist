@@ -26,6 +26,8 @@
 	<true/>
 	<key>NSHumanReadableCopyright</key>
 	<string>$(PRODUCT_NAME) is MIT Licensed.</string>
+	<key>SecretiveDevelopmentTeam</key>
+	<string>$(SECRETIVE_DEVELOPMENT_TEAM)</string>
 	<key>NSMainStoryboardFile</key>
 	<string>Main</string>
 	<key>NSPrincipalClass</key>

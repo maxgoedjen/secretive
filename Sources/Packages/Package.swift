@@ -88,9 +88,13 @@ let package = Package(
             resources: [localization],
             swiftSettings: swiftSettings,
         ),
+        .testTarget(
+            name: "CommonTests",
+            dependencies: ["Common"],
+        ),
         .target(
             name: "Brief",
-            dependencies: ["XPCWrappers", "SSHProtocolKit"],
+            dependencies: ["Common", "XPCWrappers", "SSHProtocolKit"],
             resources: [localization],
             swiftSettings: swiftSettings,
         ),
@@ -101,6 +105,10 @@ let package = Package(
         .target(
             name: "XPCWrappers",
             swiftSettings: swiftSettings,
+        ),
+        .testTarget(
+            name: "XPCWrappersTests",
+            dependencies: ["XPCWrappers"],
         ),
     ]
 )

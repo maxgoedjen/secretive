@@ -40,17 +40,13 @@ public struct OpenSSHPublicKeyWriter: Sendable {
     /// Generates an OpenSSH SHA256 fingerprint string.
     /// - Returns: OpenSSH SHA256 fingerprint string.
     public func openSSHSHA256Fingerprint<SecretType: Secret>(secret: SecretType) -> String {
-        // OpenSSL format seems to strip the padding at the end.
-        let base64 = Data(SHA256.hash(data: data(secret: secret))).base64EncodedString()
-        let paddingRange = base64.index(base64.endIndex, offsetBy: -2)..<base64.endIndex
-        let cleaned = base64.replacingOccurrences(of: "=", with: "", range: paddingRange)
-        return "SHA256:\(cleaned)"
+        OpenSSHKeyFingerprint.sha256(for: data(secret: secret))
     }
 
     /// Generates an OpenSSH MD5 fingerprint string.
     /// - Returns: OpenSSH MD5 fingerprint string.
     public func openSSHMD5Fingerprint<SecretType: Secret>(secret: SecretType) -> String {
-        Insecure.MD5.hash(data: data(secret: secret)).formatted(.hex(separator: ":"))
+        OpenSSHKeyFingerprint.md5(for: data(secret: secret))
     }
 
     public func comment<SecretType: Secret>(secret: SecretType) -> String {
@@ -90,6 +86,21 @@ extension OpenSSHPublicKeyWriter {
         default:
             "unknown"
         }
+    }
+
+}
+
+enum OpenSSHKeyFingerprint {
+
+    static func sha256(for keyBlob: Data) -> String {
+        let base64 = Data(SHA256.hash(data: keyBlob)).base64EncodedString()
+        let paddingRange = base64.index(base64.endIndex, offsetBy: -2)..<base64.endIndex
+        let cleaned = base64.replacingOccurrences(of: "=", with: "", range: paddingRange)
+        return "SHA256:\(cleaned)"
+    }
+
+    static func md5(for keyBlob: Data) -> String {
+        Insecure.MD5.hash(data: keyBlob).formatted(.hex(separator: ":"))
     }
 
 }

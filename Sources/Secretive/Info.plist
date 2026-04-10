@@ -26,6 +26,8 @@
 	<string>$(MACOSX_DEPLOYMENT_TARGET)</string>
 	<key>NSHumanReadableCopyright</key>
 	<string>$(PRODUCT_NAME) is MIT Licensed.</string>
+	<key>SecretiveDevelopmentTeam</key>
+	<string>$(SECRETIVE_DEVELOPMENT_TEAM)</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
 	<key>NSSupportsAutomaticTermination</key>

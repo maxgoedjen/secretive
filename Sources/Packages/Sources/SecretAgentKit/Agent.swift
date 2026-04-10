@@ -12,19 +12,24 @@ public final class Agent: Sendable {
     private let witness: SigningWitness?
     private let publicKeyWriter = OpenSSHPublicKeyWriter()
     private let signatureWriter = OpenSSHSignatureWriter()
-    private let certificateHandler = OpenSSHCertificateHandler()
+    private let certificateHandler: OpenSSHCertificateHandler
     private let logger = Logger(subsystem: "com.maxgoedjen.secretive.secretagent", category: "Agent")
 
     /// Initializes an agent with a store list and a witness.
     /// - Parameters:
     ///   - storeList: The `SecretStoreList` to make available.
     ///   - witness: A witness to notify of requests.
-    public init(storeList: SecretStoreList, witness: SigningWitness? = nil) {
+    public init(
+        storeList: SecretStoreList,
+        witness: SigningWitness? = nil,
+        certificateHandler: OpenSSHCertificateHandler = OpenSSHCertificateHandler()
+    ) {
         logger.debug("Agent is running")
         self.storeList = storeList
         self.witness = witness
-        Task { @MainActor in
-            await certificateHandler.reloadCertificates(for: storeList.allSecrets)
+        self.certificateHandler = certificateHandler
+        Task {
+            await certificateHandler.reloadCertificates()
         }
     }
     
@@ -67,8 +72,8 @@ extension Agent {
     /// Lists the identities available for signing operations
     /// - Returns: An OpenSSH formatted Data payload listing the identities available for signing operations.
     func identities() async -> Data {
+        await certificateHandler.reloadCertificates()
         let secrets = await storeList.allSecrets
-        await certificateHandler.reloadCertificates(for: secrets)
         var count = 0
         var keyData = Data()
 
@@ -78,9 +83,9 @@ extension Agent {
             keyData.append(publicKeyWriter.comment(secret: secret).lengthAndData)
             count += 1
 
-            if let (certificateData, name) = try? await certificateHandler.keyBlobAndName(for: secret) {
-                keyData.append(certificateData.lengthAndData)
-                keyData.append(name.lengthAndData)
+            for certificateIdentity in await certificateHandler.certificateIdentities(for: secret) {
+                keyData.append(certificateIdentity.keyBlob.lengthAndData)
+                keyData.append(certificateIdentity.comment.lengthAndData)
                 count += 1
             }
         }

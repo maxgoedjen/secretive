@@ -12,6 +12,7 @@ public protocol SSHAgentInputParserProtocol {
 public struct SSHAgentInputParser: SSHAgentInputParserProtocol {
 
     private let logger = Logger(subsystem: "com.maxgoedjen.secretive.secretagent", category: "InputParser")
+    private let certificateReader = OpenSSHCertificateReader()
 
     public init() {
 
@@ -73,26 +74,7 @@ extension SSHAgentInputParser {
     }
 
     func certificatePublicKeyBlob(from hash: Data) -> Data? {
-        let reader = OpenSSHReader(data: hash)
-        do {
-            let certType = String(decoding: try reader.readNextChunk(), as: UTF8.self)
-            switch certType {
-            case "ecdsa-sha2-nistp256-cert-v01@openssh.com",
-                "ecdsa-sha2-nistp384-cert-v01@openssh.com",
-                "ecdsa-sha2-nistp521-cert-v01@openssh.com":
-                _ = try reader.readNextChunk() // nonce
-                let curveIdentifier = try reader.readNextChunk()
-                let publicKey = try reader.readNextChunk()
-                let openSSHIdentifier = certType.replacingOccurrences(of: "-cert-v01@openssh.com", with: "")
-                return openSSHIdentifier.lengthAndData +
-                curveIdentifier.lengthAndData +
-                publicKey.lengthAndData
-            default:
-                return nil
-            }
-        } catch {
-            return nil
-        }
+        try? certificateReader.readCertificateBlob(hash).subjectKeyBlob
     }
 
 }

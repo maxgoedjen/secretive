@@ -1,6 +1,7 @@
 import Foundation
 import Observation
 import XPCWrappers
+import Common
 
 /// A concrete implementation of ``UpdaterProtocol`` which considers the current release and OS version.
 @Observable public final class Updater: UpdaterProtocol, Sendable {
@@ -47,7 +48,7 @@ import XPCWrappers
 
     /// Manually trigger an update check.
     public func checkForUpdates() async throws {
-        let session = try await XPCTypedSession<[Release], Never>(serviceName: "com.maxgoedjen.Secretive.SecretiveUpdater")
+        let session = try await XPCTypedSession<[Release], Never>(serviceName: Bundle.secretiveUpdaterServiceBundleID)
         await evaluate(releases: try await session.send())
         session.complete()
     }

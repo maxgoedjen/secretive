@@ -4,6 +4,7 @@ import Brief
 import XPCWrappers
 import OSLog
 import SSHProtocolKit
+import Common
 
 /// Delegates all agent input parsing to an XPC service which wraps OpenSSH
 public final class XPCAgentInputParser: SSHAgentInputParserProtocol {
@@ -13,7 +14,7 @@ public final class XPCAgentInputParser: SSHAgentInputParserProtocol {
 
     public init() async throws {
         logger.debug("Creating XPCAgentInputParser")
-        session = try await XPCTypedSession(serviceName: "com.maxgoedjen.Secretive.SecretAgentInputParser", warmup: true)
+        session = try await XPCTypedSession(serviceName: Bundle.secretAgentInputParserServiceBundleID, warmup: true)
         logger.debug("XPCAgentInputParser is warmed up.")
     }
 

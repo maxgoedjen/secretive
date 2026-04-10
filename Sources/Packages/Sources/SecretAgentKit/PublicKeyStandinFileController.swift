@@ -10,6 +10,8 @@ public final class PublicKeyFileStoreController: Sendable {
     private let logger = Logger(subsystem: "com.maxgoedjen.secretive.secretagent", category: "PublicKeyFileStoreController")
     private let directory: URL
     private let keyWriter = OpenSSHPublicKeyWriter()
+    private let publicKeyReader = OpenSSHPublicKeyReader()
+    private let certificateReader = OpenSSHCertificateReader()
 
     /// Initializes a PublicKeyFileStoreController.
     public init(directory: URL) {
@@ -21,48 +23,122 @@ public final class PublicKeyFileStoreController: Sendable {
     /// - Parameter clear: Whether or not any untracked files in the directory should be removed.
     public func generatePublicKeys(for secrets: [AnySecret], clear: Bool = false) throws {
         logger.log("Writing public keys to disk")
-        if clear {
-            let validPaths = Set(secrets.map { URL.publicKeyPath(for: $0, in: directory) })
-                .union(Set(secrets.map { sshCertificatePath(for: $0) }))
-            let contentsOfDirectory = (try? FileManager.default.contentsOfDirectory(atPath: directory.path())) ?? []
-            let fullPathContents = contentsOfDirectory.map { directory.appending(path: $0).path() }
+        try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true, attributes: nil)
+        let trackedPublicKeyFilenames = Set(secrets.map(generatedPublicKeyFilename(for:)))
 
-            let untracked = Set(fullPathContents)
-                .subtracting(validPaths)
-            for path in untracked {
-                // string instead of fileURLWithPath since we're already using fileURL format.
-                try? FileManager.default.removeItem(at: URL(string: path)!)
-            }
-        }
-        try? FileManager.default.createDirectory(at: directory, withIntermediateDirectories: false, attributes: nil)
         for secret in secrets {
             let path = URL.publicKeyPath(for: secret, in: directory)
             let data = Data(keyWriter.openSSHString(secret: secret).utf8)
-            FileManager.default.createFile(atPath: path, contents: data, attributes: nil)
+            try data.write(to: URL(fileURLWithPath: path), options: .atomic)
+        }
+
+        removeLegacyManifestIfNeeded()
+        if clear {
+            try pruneManagedArtifacts(trackedPublicKeyFilenames: trackedPublicKeyFilenames)
         }
         logger.log("Finished writing public keys")
     }
 
+}
 
-    /// Short-circuit check to ship enumerating a bunch of paths if there's nothing in the cert directory.
-    public var hasAnyCertificates: Bool {
-        do {
-            return try FileManager.default
-                .contentsOfDirectory(atPath: directory.path())
-                .filter { $0.hasSuffix("-cert.pub") }
-                .isEmpty == false
-        } catch {
-            return false
+extension PublicKeyFileStoreController {
+    private static let legacyManifestFilename = ".secretive-generated-public-keys"
+
+    private func generatedPublicKeyFilename(for secret: AnySecret) -> String {
+        URL(fileURLWithPath: URL.publicKeyPath(for: secret, in: directory)).lastPathComponent
+    }
+
+    private func pruneManagedArtifacts(trackedPublicKeyFilenames: Set<String>) throws {
+        let fileURLs = try FileManager.default
+            .contentsOfDirectory(at: directory, includingPropertiesForKeys: [.isRegularFileKey], options: [.skipsHiddenFiles])
+            .sorted { $0.lastPathComponent < $1.lastPathComponent }
+
+        var activeKeysByFingerprint: [String: URL] = [:]
+        var activeCertificatesByFingerprint: [String: [URL]] = [:]
+
+        for fileURL in fileURLs {
+            let values = try fileURL.resourceValues(forKeys: [.isRegularFileKey])
+            guard values.isRegularFile == true else {
+                continue
+            }
+
+            guard let contents = try? String(contentsOf: fileURL, encoding: .utf8) else {
+                logger.warning("Failed to read public key artifact at \(fileURL.lastPathComponent, privacy: .public)")
+                continue
+            }
+
+            if let parsedPublicKey = parsedPublicKey(from: contents) {
+                if trackedPublicKeyFilenames.contains(fileURL.lastPathComponent) {
+                    activeKeysByFingerprint[parsedPublicKey.fingerprint] = fileURL
+                } else {
+                    removeItemIfNeeded(
+                        at: fileURL,
+                        successMessage: "Removed stale generated public key at \(fileURL.lastPathComponent)",
+                        failureMessage: "Failed to remove stale generated public key at \(fileURL.lastPathComponent)"
+                    )
+                }
+                continue
+            }
+
+            guard let parsedCertificate = parsedCertificate(from: contents) else {
+                continue
+            }
+
+            if parsedCertificate.isExpired() {
+                removeItemIfNeeded(
+                    at: fileURL,
+                    successMessage: "Removed expired certificate at \(fileURL.lastPathComponent)",
+                    failureMessage: "Failed to remove expired certificate at \(fileURL.lastPathComponent)"
+                )
+                continue
+            }
+
+            activeCertificatesByFingerprint[parsedCertificate.subjectKeyFingerprint, default: []].append(fileURL)
+        }
+
+        for (fingerprint, certificateURLs) in activeCertificatesByFingerprint where activeKeysByFingerprint[fingerprint] == nil {
+            for certificateURL in certificateURLs {
+                removeItemIfNeeded(
+                    at: certificateURL,
+                    successMessage: "Removed orphaned certificate at \(certificateURL.lastPathComponent)",
+                    failureMessage: "Failed to remove orphaned certificate at \(certificateURL.lastPathComponent)"
+                )
+            }
         }
     }
 
-    /// The path for a Secret's SSH Certificate public key.
-    /// - Parameter secret: The Secret to return the path for.
-    /// - Returns: The path to the SSH Certificate public key.
-    /// - Warning: This method returning a path does not imply that a key has a SSH certificates. This method only describes where it will be.
-    public func sshCertificatePath<SecretType: Secret>(for secret: SecretType) -> String {
-        let minimalHex = keyWriter.openSSHMD5Fingerprint(secret: secret).replacingOccurrences(of: ":", with: "")
-        return directory.appending(component: "\(minimalHex)-cert.pub").path()
+    private func parsedPublicKey(from contents: String) -> OpenSSHPublicKeyReader.ParsedPublicKey? {
+        try? publicKeyReader.readPublicKeyLine(contents)
+    }
+
+    private func parsedCertificate(from contents: String) -> OpenSSHCertificateReader.ParsedCertificate? {
+        try? certificateReader.readPublicKeyLine(contents)
+    }
+
+    private func removeLegacyManifestIfNeeded() {
+        let manifestURL = directory.appending(path: Self.legacyManifestFilename)
+        guard FileManager.default.fileExists(atPath: manifestURL.path()) else {
+            return
+        }
+
+        removeItemIfNeeded(
+            at: manifestURL,
+            successMessage: "Removed legacy generated public key manifest",
+            failureMessage: "Failed to remove legacy generated public key manifest"
+        )
+    }
+
+    private func removeItemIfNeeded(at fileURL: URL, successMessage: String, failureMessage: String) {
+        guard FileManager.default.fileExists(atPath: fileURL.path()) else {
+            return
+        }
+
+        do {
+            try FileManager.default.removeItem(at: fileURL)
+            logger.log("\(successMessage, privacy: .public)")
+        } catch {
+            logger.warning("\(failureMessage, privacy: .public)")
+        }
     }
 
 }
