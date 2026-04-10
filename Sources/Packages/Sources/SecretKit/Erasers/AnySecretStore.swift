@@ -1,4 +1,5 @@
 import Foundation
+import LocalAuthentication
 
 /// Type eraser for SecretStore.
 open class AnySecretStore: SecretStore, @unchecked Sendable {
@@ -8,9 +9,7 @@ open class AnySecretStore: SecretStore, @unchecked Sendable {
     private let _id: @Sendable () -> UUID
     private let _name: @MainActor @Sendable () -> String
     private let _secrets: @MainActor @Sendable () -> [AnySecret]
-    private let _sign: @Sendable (Data, AnySecret, SigningRequestProvenance) async throws -> Data
-    private let _existingPersistedAuthenticationContext: @Sendable (AnySecret) async -> PersistedAuthenticationContext?
-    private let _persistAuthentication: @Sendable (AnySecret, TimeInterval) async throws -> Void
+    private let _sign: @Sendable (Data, AnySecret, SigningRequestProvenance, AuthenticationContextProtocol) async throws -> Data
     private let _reloadSecrets: @Sendable () async -> Void
 
     public init<SecretStoreType>(_ secretStore: SecretStoreType) where SecretStoreType: SecretStore {
@@ -19,9 +18,7 @@ open class AnySecretStore: SecretStore, @unchecked Sendable {
         _name = { secretStore.name }
         _id = { secretStore.id }
         _secrets = { secretStore.secrets.map { AnySecret($0) } }
-        _sign = { try await secretStore.sign(data: $0, with: $1.base as! SecretStoreType.SecretType, for: $2) }
-        _existingPersistedAuthenticationContext = { await secretStore.existingPersistedAuthenticationContext(secret: $0.base as! SecretStoreType.SecretType) }
-        _persistAuthentication = { try await secretStore.persistAuthentication(secret: $0.base as! SecretStoreType.SecretType, forDuration: $1) }
+        _sign = { try await secretStore.sign(data: $0, with: $1.base as! SecretStoreType.SecretType, for: $2, context: $3) }
         _reloadSecrets = { await secretStore.reloadSecrets() }
     }
 
@@ -41,16 +38,8 @@ open class AnySecretStore: SecretStore, @unchecked Sendable {
         return _secrets()
     }
 
-    public func sign(data: Data, with secret: AnySecret, for provenance: SigningRequestProvenance) async throws -> Data {
-        try await _sign(data, secret, provenance)
-    }
-
-    public func existingPersistedAuthenticationContext(secret: AnySecret) async -> PersistedAuthenticationContext? {
-        await _existingPersistedAuthenticationContext(secret)
-    }
-
-    public func persistAuthentication(secret: AnySecret, forDuration duration: TimeInterval) async throws {
-        try await _persistAuthentication(secret, duration)
+    public func sign(data: Data, with secret: AnySecret, for provenance: SigningRequestProvenance, context: AuthenticationContextProtocol) async throws -> Data {
+        try await _sign(data, secret, provenance, context)
     }
 
     public func reloadSecrets() async {

@@ -2,13 +2,17 @@ import Foundation
 import AppKit
 
 /// Describes the chain of applications that requested a signature operation.
-public struct SigningRequestProvenance: Equatable, Sendable {
+public struct SigningRequestProvenance: Hashable, Sendable {
 
     /// A list of processes involved in the request.
     /// - Note: A chain will typically consist of many elements even for a simple request. For example, running `git fetch` in Terminal.app would generate a request chain of `ssh` -> `git` -> `zsh` -> `login` -> `Terminal.app`
     public var chain: [Process]
-    public init(root: Process) {
+
+    public var date: Date
+
+    public init(root: Process, date: Date = .now) {
         self.chain = [root]
+        self.date = date
     }
 
 }
@@ -30,7 +34,7 @@ extension SigningRequestProvenance {
 extension SigningRequestProvenance {
 
     /// Describes a process in a `SigningRequestProvenance` chain.
-    public struct Process: Equatable, Sendable {
+    public struct Process: Hashable, Sendable {
 
         /// The pid of the process.
         public let pid: Int32

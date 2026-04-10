@@ -17,7 +17,6 @@ extension SecureEnclave {
         }
         public let id = UUID()
         public let name = String(localized: .secureEnclave)
-        private let persistentAuthenticationHandler = PersistentAuthenticationHandler<Secret>()
 
         /// Initializes a Store.
         @MainActor public init() {
@@ -37,16 +36,7 @@ extension SecureEnclave {
         
         // MARK: SecretStore
         
-        public func sign(data: Data, with secret: Secret, for provenance: SigningRequestProvenance) async throws -> Data {
-            var context: LAContext
-            if let existing = await persistentAuthenticationHandler.existingPersistedAuthenticationContext(secret: secret) {
-                context = unsafe existing.context
-            } else {
-                let newContext = LAContext()
-                newContext.localizedReason = String(localized: .authContextRequestSignatureDescription(appName: provenance.origin.displayName, secretName: secret.name))
-                newContext.localizedCancelTitle = String(localized: .authContextRequestDenyButton)
-                context = newContext
-            }
+        public func sign(data: Data, with secret: Secret, for provenance: SigningRequestProvenance, context: AuthenticationContextProtocol) async throws -> Data {
 
             let queryAttributes = KeychainDictionary([
                 kSecClass: Constants.keyClass,
@@ -72,28 +62,20 @@ extension SecureEnclave {
 
             switch attributes.keyType {
             case .ecdsa256:
-                let key = try CryptoKit.SecureEnclave.P256.Signing.PrivateKey(dataRepresentation: keyData, authenticationContext: context)
+                let key = try CryptoKit.SecureEnclave.P256.Signing.PrivateKey(dataRepresentation: keyData, authenticationContext: context.laContext)
                 return try key.signature(for: data).rawRepresentation
             case .mldsa65:
                 guard #available(macOS 26.0, *)  else { throw UnsupportedAlgorithmError() }
-                let key = try CryptoKit.SecureEnclave.MLDSA65.PrivateKey(dataRepresentation: keyData, authenticationContext: context)
+                let key = try CryptoKit.SecureEnclave.MLDSA65.PrivateKey(dataRepresentation: keyData, authenticationContext: context.laContext)
                 return try key.signature(for: data)
             case .mldsa87:
                 guard #available(macOS 26.0, *)  else { throw UnsupportedAlgorithmError() }
-                let key = try CryptoKit.SecureEnclave.MLDSA87.PrivateKey(dataRepresentation: keyData, authenticationContext: context)
+                let key = try CryptoKit.SecureEnclave.MLDSA87.PrivateKey(dataRepresentation: keyData, authenticationContext: context.laContext)
                 return try key.signature(for: data)
             default:
                 throw UnsupportedAlgorithmError()
             }
 
-        }
-
-        public func existingPersistedAuthenticationContext(secret: Secret) async -> PersistedAuthenticationContext? {
-            await persistentAuthenticationHandler.existingPersistedAuthenticationContext(secret: secret)
-        }
-
-        public func persistAuthentication(secret: Secret, forDuration duration: TimeInterval) async throws {
-            try await persistentAuthenticationHandler.persistAuthentication(secret: secret, forDuration: duration)
         }
 
         @MainActor public func reloadSecrets() {

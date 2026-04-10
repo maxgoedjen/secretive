@@ -49,7 +49,7 @@ extension Stub {
             print("Public Key OpenSSH: \(OpenSSHPublicKeyWriter().openSSHString(secret: secret))")
         }
 
-        public func sign(data: Data, with secret: Secret, for provenance: SigningRequestProvenance) throws -> Data {
+        public func sign(data: Data, with secret: Secret, for provenance: SigningRequestProvenance, context: AuthenticationContextProtocol?) throws -> Data {
             guard !shouldThrow else {
                 throw NSError(domain: "test", code: 0, userInfo: nil)
             }
@@ -57,7 +57,7 @@ extension Stub {
             return try privateKey.signature(for: data).rawRepresentation
         }
 
-        public func existingPersistedAuthenticationContext(secret: Stub.Secret) -> PersistedAuthenticationContext? {
+        public func existingAuthenticationContextProtocol(secret: Stub.Secret) -> AuthenticationContextProtocol? {
             nil
         }
 

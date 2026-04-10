@@ -9,6 +9,7 @@ import SSHProtocolKit
 public final class Agent: Sendable {
 
     private let storeList: SecretStoreList
+    private let authenticationHandler: AuthenticationHandler
     private let witness: SigningWitness?
     private let publicKeyWriter = OpenSSHPublicKeyWriter()
     private let signatureWriter = OpenSSHSignatureWriter()
@@ -19,9 +20,10 @@ public final class Agent: Sendable {
     /// - Parameters:
     ///   - storeList: The `SecretStoreList` to make available.
     ///   - witness: A witness to notify of requests.
-    public init(storeList: SecretStoreList, witness: SigningWitness? = nil) {
+    public init(storeList: SecretStoreList, authenticationHandler: AuthenticationHandler, witness: SigningWitness? = nil) {
         logger.debug("Agent is running")
         self.storeList = storeList
+        self.authenticationHandler = authenticationHandler
         self.witness = witness
         Task { @MainActor in
             await certificateHandler.reloadCertificates(for: storeList.allSecrets)
@@ -104,10 +106,19 @@ extension Agent {
 
         try await witness?.speakNowOrForeverHoldYourPeace(forAccessTo: secret, from: store, by: provenance)
 
-        let rawRepresentation = try await store.sign(data: data, with: secret, for: provenance)
+        let context: any AuthenticationContextProtocol
+        let offerPersistence: Bool
+        if let existing = await authenticationHandler.existingAuthenticationContextProtocol(secret: secret), existing.valid {
+            context = existing
+            offerPersistence = false
+        } else {
+            context = authenticationHandler.createAuthenticationContext(secret: secret, provenance: provenance, preauthorize: false)
+            offerPersistence = secret.authenticationRequirement.required
+        }
+        let rawRepresentation = try await store.sign(data: data, with: secret, for: provenance, context: context)
         let signedData = signatureWriter.data(secret: secret, signature: rawRepresentation)
 
-        try await witness?.witness(accessTo: secret, from: store, by: provenance)
+        try await witness?.witness(accessTo: secret, from: store, by: provenance, offerPersistence: offerPersistence)
 
         logger.debug("Agent signed request")
 

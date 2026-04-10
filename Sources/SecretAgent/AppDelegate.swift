@@ -22,9 +22,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }()
     private let updater = Updater(checkOnLaunch: true)
     private let notifier = Notifier()
+    private let authenticationHandler = AuthenticationHandler()
     private let publicKeyFileStoreController = PublicKeyFileStoreController(directory: URL.publicKeyDirectory)
     private lazy var agent: Agent = {
-        Agent(storeList: storeList, witness: notifier)
+        Agent(storeList: storeList, authenticationHandler: authenticationHandler, witness: notifier)
     }()
     private lazy var socketController: SocketController = {
         let path = URL.socketPath as String
@@ -48,6 +49,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                         try session.close()
                     }
                 }
+            }
+        }
+        Task { [notifier, authenticationHandler] in
+            await notifier.registerPersistenceHandler {
+                try await authenticationHandler.persistAuthentication(secret: $0, forDuration: $1)
             }
         }
         Task {

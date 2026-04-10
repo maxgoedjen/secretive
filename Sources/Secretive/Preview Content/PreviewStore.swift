@@ -38,11 +38,11 @@ extension Preview {
             self.init(secrets: new)
         }
 
-        func sign(data: Data, with secret: Preview.Secret, for provenance: SigningRequestProvenance) throws -> Data {
+        func sign(data: Data, with secret: Preview.Secret, for provenance: SigningRequestProvenance, context: AuthenticationContextProtocol?) throws -> Data {
             return data
         }
 
-        func existingPersistedAuthenticationContext(secret: Preview.Secret) -> PersistedAuthenticationContext? {
+        func existingAuthenticationContextProtocol(secret: Preview.Secret) -> AuthenticationContextProtocol? {
             nil
         }
 
@@ -82,11 +82,11 @@ extension Preview {
             self.init(secrets: new)
         }
 
-        func sign(data: Data, with secret: Preview.Secret, for provenance: SigningRequestProvenance) throws -> Data {
+        func sign(data: Data, with secret: Preview.Secret, for provenance: SigningRequestProvenance, context: AuthenticationContextProtocol?) throws -> Data {
             return data
         }
 
-        func existingPersistedAuthenticationContext(secret: Preview.Secret) -> PersistedAuthenticationContext? {
+        func existingAuthenticationContextProtocol(secret: Preview.Secret) -> AuthenticationContextProtocol? {
             nil
         }
 

@@ -34,7 +34,6 @@ extension SmartCard {
         public var secrets: [Secret] {
             state.secrets
         }
-        private let persistentAuthenticationHandler = PersistentAuthenticationHandler<Secret>()
 
         /// Initializes a Store.
         public init() {
@@ -57,17 +56,8 @@ extension SmartCard {
 
         // MARK: Public API
 
-        public func sign(data: Data, with secret: Secret, for provenance: SigningRequestProvenance) async throws -> Data {
+        public func sign(data: Data, with secret: Secret, for provenance: SigningRequestProvenance, context: AuthenticationContextProtocol) async throws -> Data {
             guard let tokenID = await state.tokenID else { fatalError() }
-            var context: LAContext
-            if let existing = await persistentAuthenticationHandler.existingPersistedAuthenticationContext(secret: secret) {
-                context = unsafe existing.context
-            } else {
-                let newContext = LAContext()
-                newContext.localizedReason = String(localized: .authContextRequestSignatureDescription(appName: provenance.origin.displayName, secretName: secret.name))
-                newContext.localizedCancelTitle = String(localized: .authContextRequestDenyButton)
-                context = newContext
-            }
             let attributes = KeychainDictionary([
                 kSecClass: kSecClassKey,
                 kSecAttrKeyClass: kSecAttrKeyClassPrivate,
@@ -93,14 +83,6 @@ extension SmartCard {
             return signature as Data
         }
         
-        public func existingPersistedAuthenticationContext(secret: Secret) async -> PersistedAuthenticationContext? {
-            await persistentAuthenticationHandler.existingPersistedAuthenticationContext(secret: secret)
-        }
-
-        public func persistAuthentication(secret: Secret, forDuration duration: TimeInterval) async throws {
-            try await persistentAuthenticationHandler.persistAuthentication(secret: secret, forDuration: duration)
-        }
-
         /// Reloads all secrets from the store.
         @MainActor public func reloadSecrets() {
             reloadSecretsInternal()

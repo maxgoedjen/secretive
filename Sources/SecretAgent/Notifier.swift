@@ -5,6 +5,8 @@ import SecretKit
 import SecretAgentKit
 import Brief
 
+typealias PersistAction = (@Sendable (AnySecret, TimeInterval) async throws -> Void)
+
 final class Notifier: Sendable {
 
     private let notificationDelegate = NotificationDelegate()
@@ -15,6 +17,12 @@ final class Notifier: Sendable {
         let updateCategory = UNNotificationCategory(identifier: Constants.updateCategoryIdentitifier, actions: [updateAction, ignoreAction], intentIdentifiers: [], options: [])
         let criticalUpdateCategory = UNNotificationCategory(identifier: Constants.criticalUpdateCategoryIdentitifier, actions: [updateAction], intentIdentifiers: [], options: [])
 
+        UNUserNotificationCenter.current().setNotificationCategories([updateCategory, criticalUpdateCategory])
+        UNUserNotificationCenter.current().delegate = notificationDelegate
+
+    }
+
+    func registerPersistenceHandler(action: @escaping PersistAction) async {
         let rawDurations = [
             Measurement(value: 1, unit: UnitDuration.minutes),
             Measurement(value: 5, unit: UnitDuration.minutes),
@@ -24,11 +32,9 @@ final class Notifier: Sendable {
 
         let doNotPersistAction = UNNotificationAction(identifier: Constants.doNotPersistActionIdentitifier, title: String(localized: .persistAuthenticationDeclineButton), options: [])
         var allPersistenceActions = [doNotPersistAction]
-
         let formatter = DateComponentsFormatter()
         formatter.unitsStyle = .spellOut
         formatter.allowedUnits = [.hour, .minute, .day]
-
         var identifiers: [String: TimeInterval] = [:]
         for duration in rawDurations {
             let seconds = duration.converted(to: .seconds).value
@@ -43,16 +49,11 @@ final class Notifier: Sendable {
         if persistAuthenticationCategory.responds(to: Selector(("actionsMenuTitle"))) {
             persistAuthenticationCategory.setValue(String(localized: .persistAuthenticationAcceptButton), forKey: "_actionsMenuTitle")
         }
-        UNUserNotificationCenter.current().setNotificationCategories([updateCategory, criticalUpdateCategory, persistAuthenticationCategory])
-        UNUserNotificationCenter.current().delegate = notificationDelegate
+        var categories = await UNUserNotificationCenter.current().notificationCategories()
+        categories.insert(persistAuthenticationCategory)
+        UNUserNotificationCenter.current().setNotificationCategories(categories)
 
-        Task {
-            await notificationDelegate.state.setPersistenceState(options: identifiers) { secret, store, duration in
-                guard let duration = duration else { return }
-                try? await store.persistAuthentication(secret: secret, forDuration: duration)
-            }
-        }
-
+        await notificationDelegate.state.setPersistenceState(options: identifiers, action: action)
     }
 
     func prompt() {
@@ -60,7 +61,7 @@ final class Notifier: Sendable {
         notificationCenter.requestAuthorization(options: .alert) { _, _ in }
     }
 
-    func notify(accessTo secret: AnySecret, from store: AnySecretStore, by provenance: SigningRequestProvenance) async {
+    func notify(accessTo secret: AnySecret, from store: AnySecretStore, by provenance: SigningRequestProvenance, offerPersistence: Bool) async {
         await notificationDelegate.state.setPending(secret: secret, store: store)
         let notificationCenter = UNUserNotificationCenter.current()
         let notificationContent = UNMutableNotificationContent()
@@ -69,7 +70,7 @@ final class Notifier: Sendable {
         notificationContent.userInfo[Constants.persistSecretIDKey] = secret.id.description
         notificationContent.userInfo[Constants.persistStoreIDKey] = store.id.description
         notificationContent.interruptionLevel = .timeSensitive
-        if await store.existingPersistedAuthenticationContext(secret: secret) == nil && secret.authenticationRequirement.required {
+        if offerPersistence {
             notificationContent.categoryIdentifier = Constants.persistAuthenticationCategoryIdentitifier
         }
         if let iconURL = provenance.origin.iconURL, let attachment = try? UNNotificationAttachment(identifier: "icon", url: iconURL, options: nil) {
@@ -103,8 +104,8 @@ extension Notifier: SigningWitness {
     func speakNowOrForeverHoldYourPeace(forAccessTo secret: AnySecret, from store: AnySecretStore, by provenance: SigningRequestProvenance) async throws {
     }
 
-    func witness(accessTo secret: AnySecret, from store: AnySecretStore, by provenance: SigningRequestProvenance) async throws {
-        await notify(accessTo: secret, from: store, by: provenance)
+    func witness(accessTo secret: AnySecret, from store: AnySecretStore, by provenance: SigningRequestProvenance, offerPersistence: Bool) async throws {
+        await notify(accessTo: secret, from: store, by: provenance, offerPersistence: offerPersistence)
     }
 
 }
@@ -133,28 +134,24 @@ extension Notifier {
 final class NotificationDelegate: NSObject, UNUserNotificationCenterDelegate, Sendable {
 
     fileprivate actor State {
-        typealias PersistAction = (@Sendable (AnySecret, AnySecretStore, TimeInterval?) async -> Void)
         typealias IgnoreAction = (@Sendable (Release) async -> Void)
         fileprivate var release: Release?
         fileprivate var ignoreAction: IgnoreAction?
         fileprivate var persistAction: PersistAction?
         fileprivate var persistOptions: [String: TimeInterval] = [:]
-        fileprivate var pendingPersistableStores: [String: AnySecretStore] = [:]
         fileprivate var pendingPersistableSecrets: [String: AnySecret] = [:]
 
         func setPending(secret: AnySecret, store: AnySecretStore) {
             pendingPersistableSecrets[secret.id.description] = secret
-            pendingPersistableStores[store.id.description] = store
         }
 
-        func retrievePending(secretID: String, storeID: String, optionID: String) -> (AnySecret, AnySecretStore, TimeInterval)? {
+        func retrievePending(secretID: String, optionID: String) -> (AnySecret, TimeInterval)? {
             guard let secret = pendingPersistableSecrets[secretID],
-                  let store = pendingPersistableStores[storeID],
                   let options = persistOptions[optionID] else {
                 return nil
             }
             pendingPersistableSecrets.removeValue(forKey: secretID)
-            return (secret, store, options)
+            return (secret, options)
         }
 
         func setPersistenceState(options: [String: TimeInterval], action: @escaping PersistAction) {
@@ -202,13 +199,12 @@ final class NotificationDelegate: NSObject, UNUserNotificationCenterDelegate, Se
     }
 
     func handlePersistAuthenticationResponse(response: UNNotificationResponse) async {
-        guard let secretID = response.notification.request.content.userInfo[Notifier.Constants.persistSecretIDKey] as? String,
-              let storeID = response.notification.request.content.userInfo[Notifier.Constants.persistStoreIDKey] as? String else {
+        guard let secretID = response.notification.request.content.userInfo[Notifier.Constants.persistSecretIDKey] as? String else {
             return
         }
         let optionID = response.actionIdentifier
-        guard let (secret, store, persistOptions) = await state.retrievePending(secretID: secretID, storeID: storeID, optionID: optionID) else { return }
-        await state.persistAction?(secret, store, persistOptions)
+        guard let (secret, persistOptions) = await state.retrievePending(secretID: secretID, optionID: optionID) else { return }
+        try? await state.persistAction?(secret, persistOptions)
     }
 
 
