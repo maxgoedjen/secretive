@@ -104,24 +104,48 @@ extension Agent {
             throw NoMatchingKeyError()
         }
 
-        try await witness?.speakNowOrForeverHoldYourPeace(forAccessTo: secret, from: store, by: provenance)
+        logger.debug("Agent offering witness chance to object")
+        do {
+            try await witness?.speakNowOrForeverHoldYourPeace(forAccessTo: secret, from: store, by: provenance)
+        } catch {
+            logger.debug("Witness objected")
+            throw error
+        }
+        logger.debug("Witness did not object")
 
+        if secret.authenticationRequirement.required {
+            // Slow path, may block or suggest batching.
+            return try await signWithRequiredAuthentication(data: data, store: store, secret: secret, provenance: provenance)
+        } else {
+            // Fast path, no blocking/enqueing required
+            return try await signWithoutRequiredAuthentication(data: data, store: store, secret: secret, provenance: provenance)
+        }
+    }
+
+    func signWithoutRequiredAuthentication(data: Data, store: AnySecretStore, secret: AnySecret, provenance: SigningRequestProvenance) async throws -> Data {
+        let rawRepresentation = try await store.sign(data: data, with: secret, for: provenance, context: authenticationHandler.createAuthenticationContext(secret: secret, provenance: provenance, preauthorize: false))
+        let signedData = signatureWriter.data(secret: secret, signature: rawRepresentation)
+        try await witness?.witness(accessTo: secret, from: store, by: provenance, offerPersistence: false)
+        logger.debug("Agent signed request")
+        return signedData
+    }
+
+    func signWithRequiredAuthentication(data: Data, store: AnySecretStore, secret: AnySecret, provenance: SigningRequestProvenance) async throws -> Data {
         let context: any AuthenticationContextProtocol
         let offerPersistence: Bool
         if let existing = await authenticationHandler.existingAuthenticationContextProtocol(secret: secret), existing.valid {
             context = existing
             offerPersistence = false
+            logger.debug("Using existing auth context")
         } else {
             context = authenticationHandler.createAuthenticationContext(secret: secret, provenance: provenance, preauthorize: false)
             offerPersistence = secret.authenticationRequirement.required
+            logger.debug("Creating fresh auth context")
         }
         let rawRepresentation = try await store.sign(data: data, with: secret, for: provenance, context: context)
         let signedData = signatureWriter.data(secret: secret, signature: rawRepresentation)
-
         try await witness?.witness(accessTo: secret, from: store, by: provenance, offerPersistence: offerPersistence)
-
         logger.debug("Agent signed request")
-
         return signedData
     }
 

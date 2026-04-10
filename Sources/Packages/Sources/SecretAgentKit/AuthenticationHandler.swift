@@ -37,7 +37,7 @@ public final class AuthenticationContext: AuthenticationContextProtocol {
 
 }
 
-public actor AuthenticationHandler: Sendable {
+public actor AuthenticationHandler {
 
     private var persistedContexts: [AnySecret: AuthenticationContext] = [:]
 
