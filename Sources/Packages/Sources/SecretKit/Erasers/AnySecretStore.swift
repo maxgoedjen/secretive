@@ -9,7 +9,7 @@ open class AnySecretStore: SecretStore, @unchecked Sendable {
     private let _id: @Sendable () -> UUID
     private let _name: @MainActor @Sendable () -> String
     private let _secrets: @MainActor @Sendable () -> [AnySecret]
-    private let _sign: @Sendable (Data, AnySecret, SigningRequestProvenance, AuthenticationContextProtocol) async throws -> Data
+    private let _sign: @Sendable (Data, AnySecret, SigningRequestProvenance, LAContext?) async throws -> Data
     private let _reloadSecrets: @Sendable () async -> Void
 
     public init<SecretStoreType>(_ secretStore: SecretStoreType) where SecretStoreType: SecretStore {
@@ -38,7 +38,7 @@ open class AnySecretStore: SecretStore, @unchecked Sendable {
         return _secrets()
     }
 
-    public func sign(data: Data, with secret: AnySecret, for provenance: SigningRequestProvenance, context: AuthenticationContextProtocol) async throws -> Data {
+    public func sign(data: Data, with secret: AnySecret, for provenance: SigningRequestProvenance, context: LAContext?) async throws -> Data {
         try await _sign(data, secret, provenance, context)
     }
 

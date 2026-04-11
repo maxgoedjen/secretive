@@ -36,7 +36,7 @@ extension SecureEnclave {
         
         // MARK: SecretStore
         
-        public func sign(data: Data, with secret: Secret, for provenance: SigningRequestProvenance, context: AuthenticationContextProtocol) async throws -> Data {
+        public func sign(data: Data, with secret: Secret, for provenance: SigningRequestProvenance, context: LAContext?) async throws -> Data {
 
             let queryAttributes = KeychainDictionary([
                 kSecClass: Constants.keyClass,
@@ -62,15 +62,15 @@ extension SecureEnclave {
 
             switch attributes.keyType {
             case .ecdsa256:
-                let key = try CryptoKit.SecureEnclave.P256.Signing.PrivateKey(dataRepresentation: keyData, authenticationContext: context.laContext)
+                let key = try CryptoKit.SecureEnclave.P256.Signing.PrivateKey(dataRepresentation: keyData, authenticationContext: context)
                 return try key.signature(for: data).rawRepresentation
             case .mldsa65:
                 guard #available(macOS 26.0, *)  else { throw UnsupportedAlgorithmError() }
-                let key = try CryptoKit.SecureEnclave.MLDSA65.PrivateKey(dataRepresentation: keyData, authenticationContext: context.laContext)
+                let key = try CryptoKit.SecureEnclave.MLDSA65.PrivateKey(dataRepresentation: keyData, authenticationContext: context)
                 return try key.signature(for: data)
             case .mldsa87:
                 guard #available(macOS 26.0, *)  else { throw UnsupportedAlgorithmError() }
-                let key = try CryptoKit.SecureEnclave.MLDSA87.PrivateKey(dataRepresentation: keyData, authenticationContext: context.laContext)
+                let key = try CryptoKit.SecureEnclave.MLDSA87.PrivateKey(dataRepresentation: keyData, authenticationContext: context)
                 return try key.signature(for: data)
             default:
                 throw UnsupportedAlgorithmError()

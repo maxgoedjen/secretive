@@ -22,7 +22,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }()
     private let updater = Updater(checkOnLaunch: true)
     private let notifier = Notifier()
-    private let authenticationHandler = AuthenticationHandler()
+    private let authenticationHandler = AuthenticationHandler { pending, authorize in
+        print(pending)
+        print("Waiting")
+//        Task {
+            try await Task.sleep(for: .seconds(3))
+            try await authorize(pending)
+//        }
+    }
     private let publicKeyFileStoreController = PublicKeyFileStoreController(directory: URL.publicKeyDirectory)
     private lazy var agent: Agent = {
         Agent(storeList: storeList, authenticationHandler: authenticationHandler, witness: notifier)

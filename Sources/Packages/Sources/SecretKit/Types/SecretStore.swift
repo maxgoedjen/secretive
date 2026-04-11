@@ -1,4 +1,5 @@
 import Foundation
+import LocalAuthentication
 
 /// Manages access to Secrets, and performs signature operations on data using those Secrets.
 public protocol SecretStore<SecretType>: Identifiable, Sendable {
@@ -20,7 +21,7 @@ public protocol SecretStore<SecretType>: Identifiable, Sendable {
     ///   - secret: The ``Secret`` to sign with.
     ///   - provenance: A ``SigningRequestProvenance`` describing where the request came from.
     /// - Returns: The signed data.
-    func sign(data: Data, with secret: SecretType, for provenance: SigningRequestProvenance, context: AuthenticationContextProtocol) async throws -> Data
+    func sign(data: Data, with secret: SecretType, for provenance: SigningRequestProvenance, context: LAContext?) async throws -> Data
 
     /// Requests that the store reload secrets from any backing store, if neccessary.
     func reloadSecrets() async
