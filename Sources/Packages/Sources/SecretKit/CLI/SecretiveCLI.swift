@@ -4,6 +4,11 @@ public enum SecretiveCLIInvocation: Sendable, Equatable {
     case none
     case help
     case createSecret(CreateSecret)
+    case installAgent
+    case uninstallAgent
+    case agentStatus
+    case socketPath
+    case printIntegration(PrintIntegration)
 
     public static func parse(arguments: [String]) throws -> Self {
         let filtered = arguments.filter { !$0.hasPrefix("-psn_") }
@@ -16,6 +21,16 @@ public enum SecretiveCLIInvocation: Sendable, Equatable {
             return .help
         case "create-secret":
             return .createSecret(try CreateSecret.parse(arguments: Array(filtered.dropFirst())))
+        case "install-agent":
+            return .installAgent
+        case "uninstall-agent":
+            return .uninstallAgent
+        case "agent-status":
+            return .agentStatus
+        case "socket-path":
+            return .socketPath
+        case "print-integration":
+            return .printIntegration(try PrintIntegration.parse(arguments: Array(filtered.dropFirst())))
         default:
             return .none
         }
@@ -25,11 +40,22 @@ public enum SecretiveCLIInvocation: Sendable, Equatable {
         """
         Usage:
           Secretive create-secret --name <name> [--protection-level <1|2|3>] [--key-type <\(CreateSecret.supportedKeyTypes.map(\.description).joined(separator: "|"))>] [--key-attribution <value>]
+          Secretive install-agent
+          Secretive uninstall-agent
+          Secretive agent-status
+          Secretive socket-path
+          Secretive print-integration --tool <\(PrintIntegration.Tool.allCases.map(\.rawValue).joined(separator: "|"))>
 
         Protection levels:
           1  require authentication
           2  notification
           3  current biometrics
+
+        Integration tools:
+          ssh   print ~/.ssh/config content using IdentityAgent
+          zsh   print ~/.zshrc content exporting SSH_AUTH_SOCK
+          bash  print ~/.bashrc content exporting SSH_AUTH_SOCK
+          fish  print ~/.config/fish/config.fish content exporting SSH_AUTH_SOCK
 
         Defaults:
           protection-level: 1
@@ -111,7 +137,7 @@ public enum SecretiveCLIInvocation: Sendable, Equatable {
             )
         }
 
-        private static func value(after option: String, arguments: [String], index: inout Int) throws -> String {
+        fileprivate static func value(after option: String, arguments: [String], index: inout Int) throws -> String {
             let valueIndex = index + 1
             guard arguments.indices.contains(valueIndex) else {
                 throw ParseError.missingValue(option)
@@ -156,10 +182,12 @@ public enum SecretiveCLIInvocation: Sendable, Equatable {
         case emptyValue(String)
         case invalidProtectionLevel(String)
         case invalidKeyType(String)
+        case invalidIntegrationTool(String)
         case unexpectedArgument(String)
 
         public var errorDescription: String? {
             let validKeyTypes = CreateSecret.supportedKeyTypes.map(\.description).joined(separator: ", ")
+            let validIntegrationTools = PrintIntegration.Tool.allCases.map(\.rawValue).joined(separator: ", ")
             switch self {
             case .helpRequested:
                 return SecretiveCLIInvocation.usage
@@ -173,9 +201,50 @@ public enum SecretiveCLIInvocation: Sendable, Equatable {
                 return "Invalid protection level '\(value)'. Valid values: 1, 2, 3."
             case let .invalidKeyType(value):
                 return "Invalid key type '\(value)'. Valid values: \(validKeyTypes)."
+            case let .invalidIntegrationTool(value):
+                return "Invalid integration tool '\(value)'. Valid values: \(validIntegrationTools)."
             case let .unexpectedArgument(argument):
                 return "Unexpected argument '\(argument)'."
             }
+        }
+    }
+
+    public struct PrintIntegration: Sendable, Equatable {
+        public let tool: Tool
+
+        static func parse(arguments: [String]) throws -> Self {
+            var tool: Tool?
+
+            var index = 0
+            while index < arguments.count {
+                let argument = arguments[index]
+                switch argument {
+                case "--help", "-h":
+                    throw ParseError.helpRequested
+                case "--tool":
+                    let rawValue = try CreateSecret.value(after: argument, arguments: arguments, index: &index)
+                    guard let parsedTool = Tool(rawValue: rawValue.lowercased()) else {
+                        throw ParseError.invalidIntegrationTool(rawValue)
+                    }
+                    tool = parsedTool
+                default:
+                    throw ParseError.unexpectedArgument(argument)
+                }
+                index += 1
+            }
+
+            guard let tool else {
+                throw ParseError.missingRequiredOption("--tool")
+            }
+
+            return Self(tool: tool)
+        }
+
+        public enum Tool: String, Sendable, Equatable, CaseIterable {
+            case ssh
+            case zsh
+            case bash
+            case fish
         }
     }
 }

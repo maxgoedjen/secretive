@@ -93,4 +93,34 @@ import Testing
         let invocation = try SecretiveCLIInvocation.parse(arguments: ["-psn_0_12345"])
         #expect(invocation == .none)
     }
+
+    @Test func parsesAgentCommands() throws {
+        #expect(try SecretiveCLIInvocation.parse(arguments: ["install-agent"]) == .installAgent)
+        #expect(try SecretiveCLIInvocation.parse(arguments: ["uninstall-agent"]) == .uninstallAgent)
+        #expect(try SecretiveCLIInvocation.parse(arguments: ["agent-status"]) == .agentStatus)
+        #expect(try SecretiveCLIInvocation.parse(arguments: ["socket-path"]) == .socketPath)
+    }
+
+    @Test func parsesPrintIntegrationCommand() throws {
+        let invocation = try SecretiveCLIInvocation.parse(arguments: [
+            "print-integration",
+            "--tool", "ssh",
+        ])
+
+        guard case let .printIntegration(command) = invocation else {
+            Issue.record("Expected print-integration invocation")
+            return
+        }
+
+        #expect(command.tool == .ssh)
+    }
+
+    @Test func rejectsInvalidIntegrationTool() throws {
+        #expect(throws: SecretiveCLIInvocation.ParseError.invalidIntegrationTool("powershell")) {
+            try SecretiveCLIInvocation.parse(arguments: [
+                "print-integration",
+                "--tool", "powershell",
+            ])
+        }
+    }
 }
