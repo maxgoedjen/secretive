@@ -1,4 +1,5 @@
 import SwiftUI
+import AppKit
 import SecretKit
 import SecureEnclaveSecretKit
 import SmartCardSecretKit
@@ -9,6 +10,30 @@ struct Secretive: App {
     
     @Environment(\.agentLaunchController) var agentLaunchController
     @Environment(\.justUpdatedChecker) var justUpdatedChecker
+
+    init() {
+        let cliInvocation: SecretiveCLIInvocation
+        do {
+            cliInvocation = try SecretiveCLIInvocation.parse(arguments: Array(ProcessInfo.processInfo.arguments.dropFirst()))
+        } catch {
+            Self.writeCLIError(error.localizedDescription)
+            exit(1)
+        }
+
+        switch cliInvocation {
+        case .none:
+            break
+        case .help:
+            Self.writeCLIOutput(SecretiveCLIInvocation.usage)
+            exit(0)
+        case let .createSecret(command):
+            NSApplication.shared.setActivationPolicy(.prohibited)
+            Task { @MainActor in
+                let exitCode = await Self.runCLI(command: command)
+                exit(Int32(exitCode))
+            }
+        }
+    }
 
     @SceneBuilder var body: some Scene {
         WindowGroup {
@@ -42,6 +67,48 @@ struct Secretive: App {
         .windowResizability(.contentSize)
     }
 
+}
+
+extension Secretive {
+
+    @MainActor static func runCLI(command: SecretiveCLIInvocation.CreateSecret) async -> Int {
+        let store = SecureEnclave.Store()
+        guard store.isAvailable else {
+            writeCLIError("Secure Enclave is not available on this Mac.")
+            return 1
+        }
+
+        guard store.supportedKeyTypes.available.contains(command.keyType) else {
+            let available = store.supportedKeyTypes.available.map(\.description).joined(separator: ", ")
+            writeCLIError("Key type '\(command.keyType)' is not available on this macOS version. Available key types: \(available).")
+            return 1
+        }
+
+        do {
+            let secret = try await store.create(name: command.name, attributes: command.attributes)
+            writeCLIOutput(
+                """
+                id: \(secret.id)
+                name: \(secret.name)
+                protection-level: \(command.protectionLevel.rawValue)
+                key-type: \(secret.keyType)
+                key-attribution: \(secret.publicKeyAttribution ?? "")
+                """
+            )
+            return 0
+        } catch {
+            writeCLIError(error.localizedDescription)
+            return 1
+        }
+    }
+
+    static func writeCLIOutput(_ text: String) {
+        FileHandle.standardOutput.write(Data((text + "\n").utf8))
+    }
+
+    static func writeCLIError(_ text: String) {
+        FileHandle.standardError.write(Data((text + "\n").utf8))
+    }
 }
 
 extension Secretive {
