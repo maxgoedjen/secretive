@@ -1,14 +1,49 @@
 import SwiftUI
+import AppKit
 import SecretKit
 import SecureEnclaveSecretKit
 import SmartCardSecretKit
 import Brief
+import Common
+import SSHProtocolKit
 
 @main
 struct Secretive: App {
     
     @Environment(\.agentLaunchController) var agentLaunchController
     @Environment(\.justUpdatedChecker) var justUpdatedChecker
+
+    init() {
+        let cliInvocation: SecretiveCLIInvocation
+        do {
+            cliInvocation = try SecretiveCLIInvocation.parse(arguments: Array(ProcessInfo.processInfo.arguments.dropFirst()))
+        } catch {
+            Self.writeCLIError(error.localizedDescription)
+            exit(1)
+        }
+
+        switch cliInvocation {
+        case .none:
+            break
+        case .help:
+            Self.writeCLIOutput(SecretiveCLIInvocation.usage)
+            exit(0)
+        case .createSecret,
+                .listSecrets,
+                .installAgent,
+                .uninstallAgent,
+                .agentStatus,
+                .socketPath,
+                .printIntegration,
+                .publicKeyPath,
+                .exportPublicKey:
+            NSApplication.shared.setActivationPolicy(.prohibited)
+            Task { @MainActor in
+                let exitCode = await Self.runCLI(invocation: cliInvocation)
+                exit(Int32(exitCode))
+            }
+        }
+    }
 
     @SceneBuilder var body: some Scene {
         WindowGroup {
@@ -42,6 +77,301 @@ struct Secretive: App {
         .windowResizability(.contentSize)
     }
 
+}
+
+extension Secretive {
+
+    @MainActor static func runCLI(invocation: SecretiveCLIInvocation) async -> Int {
+        switch invocation {
+        case let .createSecret(command):
+            return await runCreateSecretCLI(command: command)
+        case .listSecrets:
+            return await runListSecretsCLI()
+        case .installAgent:
+            return await runInstallAgentCLI()
+        case .uninstallAgent:
+            return await runUninstallAgentCLI()
+        case .agentStatus:
+            return runAgentStatusCLI()
+        case .socketPath:
+            writeCLIOutput(URL.socketPath)
+            return 0
+        case let .printIntegration(command):
+            writeCLIOutput(integrationInstructions(for: command.tool))
+            return 0
+        case let .publicKeyPath(selector):
+            return await runPublicKeyPathCLI(selector: selector)
+        case let .exportPublicKey(selector):
+            return await runExportPublicKeyCLI(selector: selector)
+        case .help:
+            writeCLIOutput(SecretiveCLIInvocation.usage)
+            return 0
+        case .none:
+            return 0
+        }
+    }
+
+    @MainActor private static func runCreateSecretCLI(command: SecretiveCLIInvocation.CreateSecret) async -> Int {
+        let store = SecureEnclave.Store()
+        guard store.isAvailable else {
+            writeCLIError("Secure Enclave is not available on this Mac.")
+            return 1
+        }
+
+        guard store.supportedKeyTypes.available.contains(command.keyType) else {
+            let available = store.supportedKeyTypes.available.map(\.description).joined(separator: ", ")
+            writeCLIError("Key type '\(command.keyType)' is not available on this macOS version. Available key types: \(available).")
+            return 1
+        }
+
+        do {
+            let secret = try await store.create(name: command.name, attributes: command.attributes)
+            writeCLIOutput(
+                """
+                id: \(secret.id)
+                name: \(secret.name)
+                protection-level: \(command.protectionLevel.rawValue)
+                key-type: \(secret.keyType)
+                key-attribution: \(secret.publicKeyAttribution ?? "")
+                """
+            )
+            return 0
+        } catch {
+            writeCLIError(describeCLIError(error))
+            return 1
+        }
+    }
+
+    @MainActor private static func runInstallAgentCLI() async -> Int {
+        let controller = AgentLaunchController()
+        do {
+            try await controller.install()
+            UserDefaults.standard.set(true, forKey: CLIConstants.setupCompleteKey)
+            UserDefaults.standard.set(false, forKey: CLIConstants.explicitlyDisabledKey)
+            controller.check()
+            writeCLIOutput(
+                """
+                installed: true
+                running: \(controller.running)
+                setup-complete: true
+                socket-path: \(URL.socketPath)
+                """
+            )
+            return controller.running ? 0 : 1
+        } catch {
+            writeCLIError(describeCLIError(error))
+            return 1
+        }
+    }
+
+    @MainActor private static func runUninstallAgentCLI() async -> Int {
+        let controller = AgentLaunchController()
+        do {
+            UserDefaults.standard.set(true, forKey: CLIConstants.explicitlyDisabledKey)
+            try await controller.uninstall()
+            controller.check()
+            writeCLIOutput(
+                """
+                installed: false
+                running: \(controller.running)
+                explicitly-disabled: true
+                """
+            )
+            return controller.running ? 1 : 0
+        } catch {
+            writeCLIError(describeCLIError(error))
+            return 1
+        }
+    }
+
+    @MainActor private static func runAgentStatusCLI() -> Int {
+        let controller = AgentLaunchController()
+        controller.check()
+
+        let setupComplete = UserDefaults.standard.bool(forKey: CLIConstants.setupCompleteKey)
+        let explicitlyDisabled = UserDefaults.standard.bool(forKey: CLIConstants.explicitlyDisabledKey)
+
+        var lines = [
+            "running: \(controller.running)",
+            "setup-complete: \(setupComplete)",
+            "explicitly-disabled: \(explicitlyDisabled)",
+            "socket-path: \(URL.socketPath)",
+        ]
+
+        if let process = controller.process, let bundleURL = process.bundleURL {
+            lines.append("agent-path: \(bundleURL.path())")
+            if let version = Bundle(url: bundleURL)?.infoDictionary?["CFBundleShortVersionString"] as? String {
+                lines.append("agent-version: \(version)")
+            }
+        }
+
+        writeCLIOutput(lines.joined(separator: "\n"))
+        return 0
+    }
+
+    @MainActor private static func runListSecretsCLI() async -> Int {
+        let storeList = await cliSecretStoreList()
+        let secrets = storeList.allSecrets
+
+        guard !secrets.isEmpty else {
+            return 0
+        }
+
+        let output = secrets.map { secret in
+            """
+            id: \(String(describing: secret.id))
+            name: \(secret.name)
+            key-type: \(secret.keyType)
+            key-attribution: \(secret.publicKeyAttribution ?? "")
+            public-key-path: \(publicKeyPath(for: secret))
+            certificate-path: \(certificatePath(for: secret))
+            """
+        }.joined(separator: "\n\n")
+
+        writeCLIOutput(output)
+        return 0
+    }
+
+    @MainActor private static func runPublicKeyPathCLI(selector: SecretiveCLIInvocation.SecretSelector) async -> Int {
+        do {
+            let secret = try await resolveSecret(for: selector)
+            writeCLIOutput(publicKeyPath(for: secret))
+            return 0
+        } catch {
+            writeCLIError(describeCLIError(error))
+            return 1
+        }
+    }
+
+    @MainActor private static func runExportPublicKeyCLI(selector: SecretiveCLIInvocation.SecretSelector) async -> Int {
+        do {
+            let secret = try await resolveSecret(for: selector)
+            let writer = OpenSSHPublicKeyWriter()
+            writeCLIOutput(writer.openSSHString(secret: secret))
+            return 0
+        } catch {
+            writeCLIError(describeCLIError(error))
+            return 1
+        }
+    }
+
+    private static func integrationInstructions(for tool: SecretiveCLIInvocation.PrintIntegration.Tool) -> String {
+        switch tool {
+        case .ssh:
+            """
+            # ~/.ssh/config
+            Host *
+            \tIdentityAgent \(URL.socketPath)
+            """
+        case .zsh:
+            """
+            # ~/.zshrc
+            export SSH_AUTH_SOCK=\(URL.socketPath)
+            """
+        case .bash:
+            """
+            # ~/.bashrc
+            export SSH_AUTH_SOCK=\(URL.socketPath)
+            """
+        case .fish:
+            """
+            # ~/.config/fish/config.fish
+            set -x SSH_AUTH_SOCK \(URL.socketPath)
+            """
+        }
+    }
+
+    @MainActor private static func cliSecretStoreList() async -> SecretStoreList {
+        let storeList = EnvironmentValues._secretStoreList
+        for store in storeList.stores {
+            await store.reloadSecrets()
+        }
+        return storeList
+    }
+
+    @MainActor private static func resolveSecret(for selector: SecretiveCLIInvocation.SecretSelector) async throws -> AnySecret {
+        let storeList = await cliSecretStoreList()
+        let matches: [AnySecret]
+
+        if let id = selector.id {
+            matches = storeList.allSecrets.filter { String(describing: $0.id) == id }
+        } else if let name = selector.name {
+            matches = storeList.allSecrets.filter { $0.name == name }
+        } else {
+            throw CLIError.secretSelectorMissing
+        }
+
+        guard !matches.isEmpty else {
+            throw CLIError.secretNotFound(selector: selector)
+        }
+
+        guard matches.count == 1 else {
+            throw CLIError.secretSelectorAmbiguous(selector: selector, matches: matches.map { String(describing: $0.id) })
+        }
+
+        return matches[0]
+    }
+
+    private static func publicKeyPath<SecretType: Secret>(for secret: SecretType) -> String {
+        URL.publicKeyPath(for: secret, in: URL.publicKeyDirectory)
+    }
+
+    private static func certificatePath<SecretType: Secret>(for secret: SecretType) -> String {
+        publicKeyPath(for: secret).replacingOccurrences(of: ".pub", with: "-cert.pub")
+    }
+
+    private static func describeCLIError(_ error: Error) -> String {
+        if let keychainError = error as? KeychainError, let statusCode = keychainError.statusCode {
+            return "Keychain operation failed with status \(statusCode)."
+        }
+
+        let nsError = error as NSError
+        let localizedDescription = nsError.localizedDescription.trimmingCharacters(in: .whitespacesAndNewlines)
+        if !localizedDescription.isEmpty {
+            return localizedDescription
+        }
+
+        return String(describing: error)
+    }
+
+    static func writeCLIOutput(_ text: String) {
+        FileHandle.standardOutput.write(Data((text + "\n").utf8))
+    }
+
+    static func writeCLIError(_ text: String) {
+        FileHandle.standardError.write(Data((text + "\n").utf8))
+    }
+}
+
+private enum CLIConstants {
+    static let setupCompleteKey = "defaultsHasRunSetup"
+    static let explicitlyDisabledKey = "explicitlyDisabled"
+}
+
+private enum CLIError: LocalizedError {
+    case secretSelectorMissing
+    case secretNotFound(selector: SecretiveCLIInvocation.SecretSelector)
+    case secretSelectorAmbiguous(selector: SecretiveCLIInvocation.SecretSelector, matches: [String])
+
+    var errorDescription: String? {
+        switch self {
+        case .secretSelectorMissing:
+            return "Specify exactly one of --id or --name."
+        case let .secretNotFound(selector):
+            if let id = selector.id {
+                return "No secret found with id '\(id)'."
+            }
+            if let name = selector.name {
+                return "No secret found with name '\(name)'."
+            }
+            return "No secret matched the provided selector."
+        case let .secretSelectorAmbiguous(selector, matches):
+            if let name = selector.name {
+                return "Multiple secrets matched name '\(name)'. Matching ids: \(matches.joined(separator: ", ")). Use --id instead."
+            }
+            return "Multiple secrets matched the provided selector. Matching ids: \(matches.joined(separator: ", "))."
+        }
+    }
 }
 
 extension Secretive {
