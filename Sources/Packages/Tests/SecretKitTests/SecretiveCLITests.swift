@@ -95,6 +95,7 @@ import Testing
     }
 
     @Test func parsesAgentCommands() throws {
+        #expect(try SecretiveCLIInvocation.parse(arguments: ["list-secrets"]) == .listSecrets)
         #expect(try SecretiveCLIInvocation.parse(arguments: ["install-agent"]) == .installAgent)
         #expect(try SecretiveCLIInvocation.parse(arguments: ["uninstall-agent"]) == .uninstallAgent)
         #expect(try SecretiveCLIInvocation.parse(arguments: ["agent-status"]) == .agentStatus)
@@ -120,6 +121,48 @@ import Testing
             try SecretiveCLIInvocation.parse(arguments: [
                 "print-integration",
                 "--tool", "powershell",
+            ])
+        }
+    }
+
+    @Test func parsesSecretSelectorCommands() throws {
+        let byID = try SecretiveCLIInvocation.parse(arguments: [
+            "public-key-path",
+            "--id", "1234",
+        ])
+        guard case let .publicKeyPath(selectorByID) = byID else {
+            Issue.record("Expected public-key-path invocation")
+            return
+        }
+        #expect(selectorByID.id == "1234")
+        #expect(selectorByID.name == nil)
+
+        let byName = try SecretiveCLIInvocation.parse(arguments: [
+            "export-public-key",
+            "--name", "Fleet Deploy Key",
+        ])
+        guard case let .exportPublicKey(selectorByName) = byName else {
+            Issue.record("Expected export-public-key invocation")
+            return
+        }
+        #expect(selectorByName.name == "Fleet Deploy Key")
+        #expect(selectorByName.id == nil)
+    }
+
+    @Test func rejectsMissingSecretSelector() throws {
+        #expect(throws: SecretiveCLIInvocation.ParseError.missingSecretSelector) {
+            try SecretiveCLIInvocation.parse(arguments: [
+                "public-key-path",
+            ])
+        }
+    }
+
+    @Test func rejectsConflictingSecretSelectors() throws {
+        #expect(throws: SecretiveCLIInvocation.ParseError.conflictingOptions("--id", "--name")) {
+            try SecretiveCLIInvocation.parse(arguments: [
+                "export-public-key",
+                "--name", "Fleet Deploy Key",
+                "--id", "1234",
             ])
         }
     }

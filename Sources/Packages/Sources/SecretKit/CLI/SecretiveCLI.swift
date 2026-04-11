@@ -4,11 +4,14 @@ public enum SecretiveCLIInvocation: Sendable, Equatable {
     case none
     case help
     case createSecret(CreateSecret)
+    case listSecrets
     case installAgent
     case uninstallAgent
     case agentStatus
     case socketPath
     case printIntegration(PrintIntegration)
+    case publicKeyPath(SecretSelector)
+    case exportPublicKey(SecretSelector)
 
     public static func parse(arguments: [String]) throws -> Self {
         let filtered = arguments.filter { !$0.hasPrefix("-psn_") }
@@ -21,16 +24,27 @@ public enum SecretiveCLIInvocation: Sendable, Equatable {
             return .help
         case "create-secret":
             return .createSecret(try CreateSecret.parse(arguments: Array(filtered.dropFirst())))
+        case "list-secrets":
+            try validateNoArguments(arguments: Array(filtered.dropFirst()))
+            return .listSecrets
         case "install-agent":
+            try validateNoArguments(arguments: Array(filtered.dropFirst()))
             return .installAgent
         case "uninstall-agent":
+            try validateNoArguments(arguments: Array(filtered.dropFirst()))
             return .uninstallAgent
         case "agent-status":
+            try validateNoArguments(arguments: Array(filtered.dropFirst()))
             return .agentStatus
         case "socket-path":
+            try validateNoArguments(arguments: Array(filtered.dropFirst()))
             return .socketPath
         case "print-integration":
             return .printIntegration(try PrintIntegration.parse(arguments: Array(filtered.dropFirst())))
+        case "public-key-path":
+            return .publicKeyPath(try SecretSelector.parse(arguments: Array(filtered.dropFirst())))
+        case "export-public-key":
+            return .exportPublicKey(try SecretSelector.parse(arguments: Array(filtered.dropFirst())))
         default:
             return .none
         }
@@ -40,11 +54,14 @@ public enum SecretiveCLIInvocation: Sendable, Equatable {
         """
         Usage:
           Secretive create-secret --name <name> [--protection-level <1|2|3>] [--key-type <\(CreateSecret.supportedKeyTypes.map(\.description).joined(separator: "|"))>] [--key-attribution <value>]
+          Secretive list-secrets
           Secretive install-agent
           Secretive uninstall-agent
           Secretive agent-status
           Secretive socket-path
           Secretive print-integration --tool <\(PrintIntegration.Tool.allCases.map(\.rawValue).joined(separator: "|"))>
+          Secretive public-key-path (--id <id> | --name <name>)
+          Secretive export-public-key (--id <id> | --name <name>)
 
         Protection levels:
           1  require authentication
@@ -62,6 +79,17 @@ public enum SecretiveCLIInvocation: Sendable, Equatable {
           key-type: ecdsa-256
           key-attribution: omitted
         """
+    }
+
+    private static func validateNoArguments(arguments: [String]) throws {
+        for argument in arguments {
+            switch argument {
+            case "--help", "-h":
+                throw ParseError.helpRequested
+            default:
+                throw ParseError.unexpectedArgument(argument)
+            }
+        }
     }
 
     public struct CreateSecret: Sendable, Equatable {
@@ -179,6 +207,8 @@ public enum SecretiveCLIInvocation: Sendable, Equatable {
         case helpRequested
         case missingValue(String)
         case missingRequiredOption(String)
+        case missingSecretSelector
+        case conflictingOptions(String, String)
         case emptyValue(String)
         case invalidProtectionLevel(String)
         case invalidKeyType(String)
@@ -195,6 +225,10 @@ public enum SecretiveCLIInvocation: Sendable, Equatable {
                 return "Missing value for \(option)."
             case let .missingRequiredOption(option):
                 return "Missing required option \(option)."
+            case .missingSecretSelector:
+                return "Specify exactly one of --id or --name."
+            case let .conflictingOptions(first, second):
+                return "Options \(first) and \(second) cannot be used together."
             case let .emptyValue(option):
                 return "Option \(option) cannot be empty."
             case let .invalidProtectionLevel(value):
@@ -245,6 +279,54 @@ public enum SecretiveCLIInvocation: Sendable, Equatable {
             case zsh
             case bash
             case fish
+        }
+    }
+
+    public struct SecretSelector: Sendable, Equatable {
+        public let id: String?
+        public let name: String?
+
+        static func parse(arguments: [String]) throws -> Self {
+            var id: String?
+            var name: String?
+
+            var index = 0
+            while index < arguments.count {
+                let argument = arguments[index]
+                switch argument {
+                case "--help", "-h":
+                    throw ParseError.helpRequested
+                case "--id":
+                    if name != nil {
+                        throw ParseError.conflictingOptions("--id", "--name")
+                    }
+                    let rawValue = try CreateSecret.value(after: argument, arguments: arguments, index: &index)
+                    let trimmedValue = rawValue.trimmingCharacters(in: .whitespacesAndNewlines)
+                    guard !trimmedValue.isEmpty else {
+                        throw ParseError.emptyValue("--id")
+                    }
+                    id = trimmedValue
+                case "--name":
+                    if id != nil {
+                        throw ParseError.conflictingOptions("--name", "--id")
+                    }
+                    let rawValue = try CreateSecret.value(after: argument, arguments: arguments, index: &index)
+                    let trimmedValue = rawValue.trimmingCharacters(in: .whitespacesAndNewlines)
+                    guard !trimmedValue.isEmpty else {
+                        throw ParseError.emptyValue("--name")
+                    }
+                    name = trimmedValue
+                default:
+                    throw ParseError.unexpectedArgument(argument)
+                }
+                index += 1
+            }
+
+            guard id != nil || name != nil else {
+                throw ParseError.missingSecretSelector
+            }
+
+            return Self(id: id, name: name)
         }
     }
 }
