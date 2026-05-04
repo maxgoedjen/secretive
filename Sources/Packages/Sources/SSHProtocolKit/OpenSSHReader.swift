@@ -1,20 +1,20 @@
 import Foundation
 
 /// Reads OpenSSH protocol data.
-final class OpenSSHReader {
+public final class OpenSSHReader {
 
     var remaining: Data
     var done = false
 
     /// Initialize the reader with an OpenSSH data payload.
     /// - Parameter data: The data to read.
-    init(data: Data) {
+    public init(data: Data) {
         remaining = Data(data)
     }
 
     /// Reads the next chunk of data from the playload.
     /// - Returns: The next chunk of data.
-    func readNextChunk(convertEndianness: Bool = true) throws(OpenSSHReaderError) -> Data {
+    public func readNextChunk(convertEndianness: Bool = true) throws(OpenSSHReaderError) -> Data {
         let length = try readNextBytes(as: UInt32.self, convertEndianness: convertEndianness)
         guard remaining.count >= length else { throw .beyondBounds }
         let dataRange = 0..<Int(length)
@@ -26,7 +26,7 @@ final class OpenSSHReader {
         return ret
     }
 
-    func readNextBytes<T: FixedWidthInteger>(as: T.Type, convertEndianness: Bool = true) throws(OpenSSHReaderError) -> T {
+    public func readNextBytes<T: FixedWidthInteger>(as: T.Type, convertEndianness: Bool = true) throws(OpenSSHReaderError) -> T {
         let size = MemoryLayout<T>.size
         guard remaining.count >= size else { throw .beyondBounds }
         let lengthRange = 0..<size
@@ -39,11 +39,11 @@ final class OpenSSHReader {
         return convertEndianness ? T(value.bigEndian) : T(value)
     }
 
-    func readNextChunkAsString(convertEndianness: Bool = true) throws(OpenSSHReaderError) -> String {
+    public func readNextChunkAsString(convertEndianness: Bool = true) throws(OpenSSHReaderError) -> String {
         try String(decoding: readNextChunk(convertEndianness: convertEndianness), as: UTF8.self)
     }
 
-    func readNextChunkAsSubReader(convertEndianness: Bool = true) throws(OpenSSHReaderError) -> OpenSSHReader {
+    public func readNextChunkAsSubReader(convertEndianness: Bool = true) throws(OpenSSHReaderError) -> OpenSSHReader {
         OpenSSHReader(data: try readNextChunk(convertEndianness: convertEndianness))
     }
 

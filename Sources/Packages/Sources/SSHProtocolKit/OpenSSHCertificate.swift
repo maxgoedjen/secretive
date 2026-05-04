@@ -69,6 +69,7 @@ public struct OpenSSHCertificateParser: OpenSSHCertificateParserProtocol, Sendab
             let publicKey = try dataParser.readNextChunk()
             let serialNumber = try dataParser.readNextBytes(as: UInt64.self, convertEndianness: true)
             let role = try dataParser.readNextBytes(as: UInt32.self, convertEndianness: true)
+            _ = role
             let keyIdentifier = try dataParser.readNextChunkAsString()
             let principalsReader = try dataParser.readNextChunkAsSubReader()
             var principals: [String] = []

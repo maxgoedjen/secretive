@@ -1,4 +1,6 @@
 import Foundation
+import SSHProtocolKit
+import SecretKit
 
 extension URL {
 
@@ -14,6 +16,20 @@ extension URL {
         #endif
     }
 
+    public static var publicKeyDirectory: URL {
+        agentHomeURL.appending(component: "PublicKeys")
+    }
+
+    /// The path for a Secret's public key.
+    /// - Parameter secret: The Secret to return the path for.
+    /// - Returns: The path to the Secret's public key.
+    /// - Warning: This method returning a path does not imply that a key has been written to disk already. This method only describes where it will be written to.
+    public static func publicKeyPath<SecretType: Secret>(for secret: SecretType, in directory: URL) -> String {
+        let keyWriter = OpenSSHPublicKeyWriter()
+        let minimalHex = keyWriter.openSSHMD5Fingerprint(secret: secret).replacingOccurrences(of: ":", with: "")
+        return directory.appending(component: "\(minimalHex).pub").path()
+    }
+
 }
 
 extension String {
@@ -27,3 +43,4 @@ extension String {
     }
 
 }
+

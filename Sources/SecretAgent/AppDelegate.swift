@@ -26,7 +26,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }()
     private let updater = Updater(checkOnLaunch: true)
     private let notifier = Notifier()
-    private let publicKeyFileStoreController = PublicKeyFileStoreController(homeDirectory: URL.homeDirectory)
+    private let publicKeyFileStoreController = PublicKeyFileStoreController(directory: URL.publicKeyDirectory)
     private lazy var agent: Agent = {
         Agent(storeList: storeList, witness: notifier)
     }()
@@ -39,9 +39,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         logger.debug("SecretAgent finished launching")
         Task {
-            let inputParser = try await XPCAgentInputParser()
             for await session in socketController.sessions {
                 Task {
+                    let inputParser = try await XPCAgentInputParser()
                     do {
                         for await message in session.messages {
                             let request = try await inputParser.parse(data: message)

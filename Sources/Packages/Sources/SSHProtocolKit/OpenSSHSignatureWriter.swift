@@ -30,19 +30,28 @@ public struct OpenSSHSignatureWriter: Sendable {
 
 extension OpenSSHSignatureWriter {
 
+    /// Converts a fixed-width big-endian integer (e.g. r/s from CryptoKit rawRepresentation) into an SSH mpint.
+    /// Strips unnecessary leading zeros and prefixes `0x00` if needed to keep the value positive.
+    private func mpint(fromFixedWidthPositiveBytes bytes: Data) -> Data {
+        // mpint zero is encoded as a string with zero bytes of data.
+        guard let firstNonZeroIndex = bytes.firstIndex(where: { $0 != 0x00 }) else {
+            return Data()
+        }
+
+        let trimmed = Data(bytes[firstNonZeroIndex...])
+
+        if let first = trimmed.first, first >= 0x80 {
+            var prefixed = Data([0x00])
+            prefixed.append(trimmed)
+            return prefixed
+        }
+        return trimmed
+    }
+
     func ecdsaSignature(_ rawRepresentation: Data, keyType: KeyType) -> Data {
         let rawLength = rawRepresentation.count/2
-        // Check if we need to pad with 0x00 to prevent certain
-        // ssh servers from thinking r or s is negative
-        let paddingRange: ClosedRange<UInt8> = 0x80...0xFF
-        var r = Data(rawRepresentation[0..<rawLength])
-        if paddingRange ~= r.first! {
-            r.insert(0x00, at: 0)
-        }
-        var s = Data(rawRepresentation[rawLength...])
-        if paddingRange ~= s.first! {
-            s.insert(0x00, at: 0)
-        }
+        let r = mpint(fromFixedWidthPositiveBytes: Data(rawRepresentation[0..<rawLength]))
+        let s = mpint(fromFixedWidthPositiveBytes: Data(rawRepresentation[rawLength...]))
 
         var signatureChunk = Data()
         signatureChunk.append(r.lengthAndData)

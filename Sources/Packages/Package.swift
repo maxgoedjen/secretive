@@ -49,7 +49,7 @@ let package = Package(
         ),
         .testTarget(
             name: "SecretKitTests",
-            dependencies: ["SecretKit", "SecureEnclaveSecretKit", "SmartCardSecretKit"],
+            dependencies: ["SecretKit", "SecretAgentKit", "SecureEnclaveSecretKit", "SmartCardSecretKit"],
             swiftSettings: swiftSettings,
         ),
         .target(
@@ -72,7 +72,7 @@ let package = Package(
         ),
         .target(
             name: "SecretAgentKit",
-            dependencies: ["SecretKit", "SSHProtocolKit", "CertificateKit"],
+            dependencies: ["SecretKit", "SSHProtocolKit", "CertificateKit", "Common"],
             resources: [localization],
             swiftSettings: swiftSettings,
         ),
@@ -84,15 +84,16 @@ let package = Package(
             name: "SSHProtocolKit",
             dependencies: ["SecretKit"],
             resources: [localization],
-//            swiftSettings: swiftSettings,
+            swiftSettings: swiftSettings,
         ),
         .testTarget(
             name: "SSHProtocolKitTests",
             dependencies: ["SSHProtocolKit"],
+            swiftSettings: swiftSettings,
         ),
         .target(
             name: "Common",
-            dependencies: [],
+            dependencies: ["SSHProtocolKit", "SecretKit"],
             resources: [localization],
             swiftSettings: swiftSettings,
         ),

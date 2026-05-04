@@ -8,7 +8,7 @@ public struct XPCTypedSession<ResponseType: Codable & Sendable, ErrorType: Error
     public init(serviceName: String, warmup: Bool = false) async throws {
         let connection = NSXPCConnection(serviceName: serviceName)
         connection.remoteObjectInterface = NSXPCInterface(with: (any _XPCProtocol).self)
-        connection.setCodeSigningRequirement("anchor apple generic and certificate leaf[subject.OU] = Z72PRUAWF6")
+        connection.setCodeSigningRequirement("anchor apple generic and certificate leaf[subject.OU] = \"\(ProcessInfo.processInfo.teamID)\"")
         connection.resume()
         guard let proxy = connection.remoteObjectProxy as? _XPCProtocol else { fatalError() }
         self.connection = connection
