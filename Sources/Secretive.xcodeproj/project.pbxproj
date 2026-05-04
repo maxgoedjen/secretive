@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2C4A9D2F2636FFD3008CC8E2 /* EditSecretView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4A9D2E2636FFD3008CC8E2 /* EditSecretView.swift */; };
-		50020BB024064869003D4025 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50020BAF24064869003D4025 /* AppDelegate.swift */; };
+		50020BB024064869003D4025 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50020BAF24064869003D4025 /* App.swift */; };
 		5002C3AB2EEF483300FFAD22 /* XPCWrappers in Frameworks */ = {isa = PBXBuildFile; productRef = 5002C3AA2EEF483300FFAD22 /* XPCWrappers */; };
 		5003EF3B278005E800DF2006 /* SecretKit in Frameworks */ = {isa = PBXBuildFile; productRef = 5003EF3A278005E800DF2006 /* SecretKit */; };
 		5003EF3D278005F300DF2006 /* Brief in Frameworks */ = {isa = PBXBuildFile; productRef = 5003EF3C278005F300DF2006 /* Brief */; };
@@ -26,6 +26,7 @@
 		50153E22250DECA300525160 /* SecretListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50153E21250DECA300525160 /* SecretListItemView.swift */; };
 		501578132E6C0479004A37D0 /* XPCInputParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501578122E6C0479004A37D0 /* XPCInputParser.swift */; };
 		5018F54F24064786002EB505 /* Notifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5018F54E24064786002EB505 /* Notifier.swift */; };
+		503647482F870B7800977A23 /* BatchedRequestsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 503647472F870B7800977A23 /* BatchedRequestsView.swift */; };
 		504788F22E681F3A00B4556F /* Instructions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504788F12E681F3A00B4556F /* Instructions.swift */; };
 		504788F42E681F6900B4556F /* ToolConfigurationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504788F32E681F6900B4556F /* ToolConfigurationView.swift */; };
 		504788F62E68206F00B4556F /* GettingStartedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504788F52E68206F00B4556F /* GettingStartedView.swift */; };
@@ -181,7 +182,7 @@
 
 /* Begin PBXFileReference section */
 		2C4A9D2E2636FFD3008CC8E2 /* EditSecretView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditSecretView.swift; sourceTree = "<group>"; };
-		50020BAF24064869003D4025 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		50020BAF24064869003D4025 /* App.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		5003EF39278005C800DF2006 /* Packages */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Packages; sourceTree = "<group>"; };
 		500666D02F04786900328939 /* SecretiveUpdater.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SecretiveUpdater.entitlements; sourceTree = "<group>"; };
 		500666D12F04787200328939 /* SecretAgentInputParser.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SecretAgentInputParser.entitlements; sourceTree = "<group>"; };
@@ -190,6 +191,7 @@
 		50153E21250DECA300525160 /* SecretListItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecretListItemView.swift; sourceTree = "<group>"; };
 		501578122E6C0479004A37D0 /* XPCInputParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XPCInputParser.swift; sourceTree = "<group>"; };
 		5018F54E24064786002EB505 /* Notifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifier.swift; sourceTree = "<group>"; };
+		503647472F870B7800977A23 /* BatchedRequestsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatchedRequestsView.swift; sourceTree = "<group>"; };
 		504788F12E681F3A00B4556F /* Instructions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Instructions.swift; sourceTree = "<group>"; };
 		504788F32E681F6900B4556F /* ToolConfigurationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolConfigurationView.swift; sourceTree = "<group>"; };
 		504788F52E68206F00B4556F /* GettingStartedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GettingStartedView.swift; sourceTree = "<group>"; };
@@ -459,9 +461,10 @@
 		50A3B78B24026B7500D209EA /* SecretAgent */ = {
 			isa = PBXGroup;
 			children = (
-				50020BAF24064869003D4025 /* AppDelegate.swift */,
+				50020BAF24064869003D4025 /* App.swift */,
 				5018F54E24064786002EB505 /* Notifier.swift */,
 				501578122E6C0479004A37D0 /* XPCInputParser.swift */,
+				503647472F870B7800977A23 /* BatchedRequestsView.swift */,
 				50A3B79524026B7600D209EA /* Main.storyboard */,
 				50A3B79824026B7600D209EA /* Info.plist */,
 				508BF29425B4F140009EFB7E /* InternetAccessPolicy.plist */,
@@ -740,8 +743,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				50020BB024064869003D4025 /* AppDelegate.swift in Sources */,
+				50020BB024064869003D4025 /* App.swift in Sources */,
 				5018F54F24064786002EB505 /* Notifier.swift in Sources */,
+				503647482F870B7800977A23 /* BatchedRequestsView.swift in Sources */,
 				501578132E6C0479004A37D0 /* XPCInputParser.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1378,6 +1382,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"SecretAgent/Preview Content\"";
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_ENHANCED_SECURITY = YES;
+				ENABLE_FILE_ACCESS_DOWNLOADS_FOLDER = readwrite;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_INCOMING_NETWORK_CONNECTIONS = NO;
 				ENABLE_OUTGOING_NETWORK_CONNECTIONS = NO;
@@ -1415,6 +1420,7 @@
 				DEVELOPMENT_TEAM = "$(SECRETIVE_DEVELOPMENT_TEAM)";
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_ENHANCED_SECURITY = YES;
+				ENABLE_FILE_ACCESS_DOWNLOADS_FOLDER = readwrite;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_INCOMING_NETWORK_CONNECTIONS = NO;
 				ENABLE_OUTGOING_NETWORK_CONNECTIONS = NO;
@@ -1453,6 +1459,7 @@
 				DEVELOPMENT_TEAM = "$(SECRETIVE_DEVELOPMENT_TEAM)";
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_ENHANCED_SECURITY = YES;
+				ENABLE_FILE_ACCESS_DOWNLOADS_FOLDER = readwrite;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_INCOMING_NETWORK_CONNECTIONS = NO;
 				ENABLE_OUTGOING_NETWORK_CONNECTIONS = NO;

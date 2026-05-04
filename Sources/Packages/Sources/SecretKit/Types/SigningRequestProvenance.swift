@@ -15,6 +15,12 @@ public struct SigningRequestProvenance: Hashable, Sendable {
         self.date = date
     }
 
+    public var batchID: Int {
+        var hasher = Hasher()
+        chain.map(\.path).hash(into: &hasher)
+        return hasher.finalize()
+    }
+
 }
 
 extension SigningRequestProvenance {

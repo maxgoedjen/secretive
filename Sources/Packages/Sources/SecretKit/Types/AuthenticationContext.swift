@@ -13,7 +13,8 @@ public protocol AuthenticationContextProtocol: Sendable, Identifiable {
 
 }
 
-public struct SignatureRequest: Identifiable, Hashable, Sendable {
+public struct SignatureRequest: Identifiable, Hashable, Sendable, Comparable {
+
     public let id: UUID
     public let date: Date
     public let secret: AnySecret
@@ -25,4 +26,16 @@ public struct SignatureRequest: Identifiable, Hashable, Sendable {
         self.secret = secret
         self.provenance = provenance
     }
+
+    public var batchID: Int {
+        var hasher = Hasher()
+        provenance.batchID.hash(into: &hasher)
+        secret.id.hash(into: &hasher)
+        return hasher.finalize()
+    }
+
+    public static func < (lhs: SignatureRequest, rhs: SignatureRequest) -> Bool {
+        lhs.date < rhs.date
+    }
+
 }

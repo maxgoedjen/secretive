@@ -1,5 +1,6 @@
 @unsafe @preconcurrency import LocalAuthentication
 import SecretKit
+import OSLog
 
 /// A context describing a persisted authentication.
 public final class AuthenticationContext: AuthenticationContextProtocol {
@@ -63,26 +64,41 @@ public actor AuthenticationHandler {
     private var activeTask: Task<Void, any Error>?
 
     private var lastBatchAuthPresentation: Set<SignatureRequest>?
-    private var presentBatchAuth: ((Set<SignatureRequest>, @Sendable (Set<SignatureRequest>) async throws -> Void) async throws -> Void)?
+    private var presentBatchAuth: (([[SignatureRequest]], @escaping @Sendable (Set<SignatureRequest>) async throws -> Void) async throws -> Void)?
+    private let logger = Logger(subsystem: "com.maxgoedjen.secretive.secretagent", category: "Agent")
 
-    public init(presentBatchAuth: ((Set<SignatureRequest>, @Sendable (Set<SignatureRequest>) async throws -> Void) async throws -> Void)?) {
-        self.presentBatchAuth = presentBatchAuth
+    public init() {
+    }
+
+    public func setBatchAuthHandler(_ handler: @escaping (@Sendable ([[SignatureRequest]], @escaping @Sendable (Set<SignatureRequest>) async throws -> Void) async throws -> Void)) {
+        self.presentBatchAuth = handler
     }
 
     public func waitForAuthentication(for request: SignatureRequest) async throws -> any AuthenticationContextProtocol {
-        if let existing = existingAuthenticationContext(for: request) { return existing }
+        if let existing = existingAuthenticationContext(for: request) {
+            logger.log("Short circuiting wait, existing valid context already exists.")
+            return existing
+        }
         holdingRequests.insert(request)
-        defer { holdingRequests.remove(request) }
+        logger.log("Waiting for authentication for \(request.id)")
+        defer {
+            logger.log("Removed hold for \(request.id)")
+            holdingRequests.remove(request)
+        }
         while holdingRequests.count > 1 {
             if hasBatchableRequests, holdingRequests != lastBatchAuthPresentation {
+                logger.log("Batchable requests exist, cancelling existing auth prompt")
                 activeTask?.cancel()
                 lastBatchAuthPresentation = holdingRequests
-                try await presentBatchAuth?(holdingRequests) {
-                    try await persistAuthentication(for: $0)
-                }
+                logger.log("Requesting batch auth presentation")
+                try await presentBatchAuth?(batchableRequests, persistAuthentication(for:))
+                logger.log("Requested batch auth presentation")
             }
             if let preauthorized = existingAuthenticationContext(for: request) {
+                logger.log("Batch auth context found, proceededing with preauthorized context")
                 return preauthorized
+            } else {
+                logger.log("Waiting for batch request handling")
             }
             try await Task.sleep(for: .milliseconds(100))
         }
@@ -92,12 +108,20 @@ public actor AuthenticationHandler {
         let context = AuthenticationContext(secret: request.secret, context: laContext, requestID: request.id)
 
         activeTask = Task {
-            _ = try? await laContext.evaluatePolicy(.deviceOwnerAuthentication, localizedReason: laContext.localizedReason)
+            logger.log("Beginning individual auth prompt")
+            try await Task.sleep(for: .seconds(1000))
+//            _ = try? await laContext.evaluatePolicy(.deviceOwnerAuthentication, localizedReason: laContext.localizedReason)
+            logger.log("Ended individual auth prompt")
         }
         _ = try await activeTask?.value
+        // TODO: Check something beyond cancellation? id?
+        // Is this okay? Do we always assume that a cancelled task will be the proceeded on?
         if activeTask?.isCancelled ?? false {
+            logger.log("Auth prompt was cancelled, waiting for explicit auth")
+            // If we explicitly cancelled the task, hang on until we auth it.
             while true {
                 if let preauthorized = existingAuthenticationContext(for: request) {
+                    logger.log("Explicit auth context found")
                     return preauthorized
                 }
                 try await Task.sleep(for: .milliseconds(100))
@@ -106,10 +130,17 @@ public actor AuthenticationHandler {
         return context
     }
 
+    private var batchableRequests: [[SignatureRequest]] {
+        holdingRequests.reduce(into: [:]) { partialResult, next in
+            partialResult[next.batchID, default: []].append(next)
+        }
+        .values
+        .map { $0.sorted() }
+    }
+
     private var hasBatchableRequests: Bool {
         guard presentBatchAuth != nil else { return false }
-        // FIXME: THIS
-        return holdingRequests.count > 1
+        return batchableRequests.count < holdingRequests.count
     }
 
     private func existingAuthenticationContext(for request: SignatureRequest) -> (any AuthenticationContextProtocol)? {
