@@ -33,8 +33,6 @@ import SecretKit
     }
 
     @MainActor public func saveCertificate(_ data: Data, for secret: any Secret) {
-        let certificate = SecCertificateCreateWithData(nil, data as CFData)
-        print(certificate as Any)
     }
 
     @MainActor public func certificates(for secret: any Secret) -> [Certificate] {

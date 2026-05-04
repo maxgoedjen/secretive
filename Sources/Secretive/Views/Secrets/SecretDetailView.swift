@@ -19,10 +19,12 @@ struct SecretDetailView<SecretType: Secret>: View {
                     CopyableView(title: .secretDetailMd5FingerprintLabel, image: Image(systemName: "touchid"), text: keyWriter.openSSHMD5Fingerprint(secret: secret))
                     Spacer()
                         .frame(height: 20)
-                    CopyableView(title: .secretDetailPublicKeyLabel, image: Image(systemName: "key"), text: keyString)
-                    Spacer()
-                        .frame(height: 20)
-                    CopyableView(title: .secretDetailPublicKeyPathLabel, image: Image(systemName: "lock.doc"), text: publicKeyFileStoreController.publicKeyPath(for: secret), showRevealInFinder: true)
+                    CopyableView(
+                        title: .secretDetailPublicKeyLabel,
+                        path: publicKeyFileStoreController.publicKeyPath(for: secret),
+                        image: Image(systemName: "key"),
+                        text: keyString
+                    )
                     Spacer()
                 }
             }

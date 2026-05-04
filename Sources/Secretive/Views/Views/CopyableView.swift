@@ -4,6 +4,7 @@ import UniformTypeIdentifiers
 struct CopyableView: View {
 
     var title: LocalizedStringResource
+    var path: String?
     var image: Image
     var text: String
     var showRevealInFinder = false
@@ -17,9 +18,16 @@ struct CopyableView: View {
                     .renderingMode(.template)
                     .imageScale(.large)
                     .foregroundColor(primaryTextColor)
-                Text(title)
-                    .font(.headline)
-                    .foregroundColor(primaryTextColor)
+                VStack(alignment: .leading) {
+                    Text(title)
+                        .font(.headline)
+                        .foregroundColor(primaryTextColor)
+                    if let path {
+                        Text(path)
+                            .font(.system(.subheadline, design: .monospaced))
+                            .foregroundColor(secondaryTextColor)
+                    }
+                }
                 Spacer()
                 if interactionState != .normal {
                     HStack {

@@ -54,7 +54,6 @@ struct ContentView: View {
                     secret.name == cert.name
                 }
                 guard let secret = secret ?? storeList.allSecrets.first else { return }
-                print(cert.data.formatted(.hex()))
                 certificateStore.saveCertificate(cert.data, for: secret)
                 print(cert)
             }
