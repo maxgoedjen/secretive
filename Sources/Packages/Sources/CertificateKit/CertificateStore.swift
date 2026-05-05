@@ -70,7 +70,7 @@ extension CertificateStore {
             kSecReturnAttributes: true
             ])
         var untyped: CFTypeRef?
-        let status = unsafe SecItemCopyMatching(queryAttributes, &untyped)
+        unsafe SecItemCopyMatching(queryAttributes, &untyped)
         guard let typed = untyped as? [[CFString: Any]] else { return }
         let decoder = JSONDecoder()
         let wrapped: [OpenSSHCertificate] = typed.compactMap {
@@ -83,6 +83,13 @@ extension CertificateStore {
                 return nil
             }
         }
+            .filter {
+                if let validityRange = $0.validityRange {
+                    validityRange.contains(Date())
+                } else {
+                    true
+                }
+            }
         certificates.append(contentsOf: wrapped)
     }
 

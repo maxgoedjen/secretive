@@ -73,6 +73,7 @@
 		50CF4ABC2E601B0F005588DC /* ActionButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50CF4ABB2E601B0F005588DC /* ActionButtonStyle.swift */; };
 		50E0145C2EDB9CDF00B121F1 /* Common in Frameworks */ = {isa = PBXBuildFile; productRef = 50E0145B2EDB9CDF00B121F1 /* Common */; };
 		50E0145E2EDB9CE400B121F1 /* Common in Frameworks */ = {isa = PBXBuildFile; productRef = 50E0145D2EDB9CE400B121F1 /* Common */; };
+		50E204E92FA9D12700402380 /* CertificateDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E204E82FA9D12700402380 /* CertificateDetailView.swift */; };
 		50E4C4532E73C78C00C73783 /* WindowBackgroundStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E4C4522E73C78900C73783 /* WindowBackgroundStyle.swift */; };
 		50E4C4C32E7765DF00C73783 /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E4C4C22E7765DF00C73783 /* AboutView.swift */; };
 		50E4C4C82E777E4200C73783 /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = 50E4C4C72E777E4200C73783 /* AppIcon.icon */; };
@@ -241,6 +242,7 @@
 		50BDCB752E6450950072D2E7 /* ConfigurationItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationItemView.swift; sourceTree = "<group>"; };
 		50C385A42407A76D00AF2719 /* SecretDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecretDetailView.swift; sourceTree = "<group>"; };
 		50CF4ABB2E601B0F005588DC /* ActionButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionButtonStyle.swift; sourceTree = "<group>"; };
+		50E204E82FA9D12700402380 /* CertificateDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificateDetailView.swift; sourceTree = "<group>"; };
 		50E4C4522E73C78900C73783 /* WindowBackgroundStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowBackgroundStyle.swift; sourceTree = "<group>"; };
 		50E4C4C22E7765DF00C73783 /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
 		50E4C4C72E777E4200C73783 /* AppIcon.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = AppIcon.icon; sourceTree = "<group>"; };
@@ -316,6 +318,7 @@
 				50BB046A2418AAAE00D6E079 /* EmptyStoreView.swift */,
 				506772C82425BB8500034DED /* NoStoresView.swift */,
 				50C385A42407A76D00AF2719 /* SecretDetailView.swift */,
+				50E204E82FA9D12700402380 /* CertificateDetailView.swift */,
 				50153E21250DECA300525160 /* SecretListItemView.swift */,
 				5079BA0E250F29BF00EA86F4 /* StoreListView.swift */,
 			);
@@ -695,6 +698,7 @@
 				50E4C4C32E7765DF00C73783 /* AboutView.swift in Sources */,
 				2C4A9D2F2636FFD3008CC8E2 /* EditSecretView.swift in Sources */,
 				50E4C4532E73C78C00C73783 /* WindowBackgroundStyle.swift in Sources */,
+				50E204E92FA9D12700402380 /* CertificateDetailView.swift in Sources */,
 				5091D2BC25183B830049FD9B /* ApplicationDirectoryController.swift in Sources */,
 				504789232E697DD300B4556F /* BoxBackgroundStyle.swift in Sources */,
 				5066A6C22516F303004B5A36 /* SetupView.swift in Sources */,

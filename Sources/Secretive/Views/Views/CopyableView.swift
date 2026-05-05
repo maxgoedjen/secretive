@@ -1,16 +1,30 @@
 import SwiftUI
 import UniformTypeIdentifiers
 
-struct CopyableView: View {
+struct CopyableView<FooterType: View>: View {
 
     var title: LocalizedStringResource
-    var path: String?
+    var subtitle: String?
     var image: Image
     var text: String
+    var footer: FooterType?
     var showRevealInFinder = false
 
     @State private var interactionState: InteractionState = .normal
-    
+
+    init(title: LocalizedStringResource, subtitle: String? = nil, image: Image, text: String, showRevealInFinder: Bool = false) where FooterType == EmptyView {
+        self.init(title: title, subtitle: subtitle, image: image, text: text, showRevealInFinder: true, footer: nil)
+    }
+
+    init(title: LocalizedStringResource, subtitle: String? = nil, image: Image, text: String, showRevealInFinder: Bool = false, footer: (() -> FooterType)?) {
+        self.title = title
+        self.subtitle = subtitle
+        self.image = image
+        self.text = text
+        self.showRevealInFinder = showRevealInFinder
+        self.footer = footer?()
+    }
+
     var content: some View {
         VStack(alignment: .leading, spacing: 15) {
             HStack {
@@ -22,8 +36,8 @@ struct CopyableView: View {
                     Text(title)
                         .font(.headline)
                         .foregroundColor(primaryTextColor)
-                    if let path {
-                        Text(path)
+                    if let subtitle {
+                        Text(subtitle)
                             .font(.system(.subheadline, design: .monospaced))
                             .foregroundColor(secondaryTextColor)
                     }
@@ -47,6 +61,11 @@ struct CopyableView: View {
                 .foregroundColor(primaryTextColor)
                 .multilineTextAlignment(.leading)
                 .font(.system(.body, design: .monospaced))
+            if let footer {
+                Divider()
+                    .ignoresSafeArea()
+                footer
+            }
         }
         .safeAreaPadding(20)
         ._background(interactionState: interactionState)

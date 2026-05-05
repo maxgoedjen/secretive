@@ -39,7 +39,7 @@ extension URL {
     /// - Returns: The path to the OpenSSHCertificate.
     /// - Warning: This method returning a path does not imply that a certificate has been written to disk already. This method only describes where it will be written to.
     public static func certificatePath(for certificate: OpenSSHCertificate, in directory: URL) -> String {
-        return directory.appending(component: "\(certificate.id).pub").path()
+        return directory.appending(component: "\(certificate.id)-cert.pub").path()
     }
 
 }

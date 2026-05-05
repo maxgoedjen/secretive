@@ -14,20 +14,47 @@ struct SecretDetailView<SecretType: Secret>: View {
         ScrollView {
             Form {
                 Section {
-                    CopyableView(title: .secretDetailSha256FingerprintLabel, image: Image(systemName: "touchid"), text: keyWriter.openSSHSHA256Fingerprint(secret: secret))
+                    CopyableView(
+                        title: .secretDetailSha256FingerprintLabel,
+                        image: Image(systemName: "touchid"),
+                        text: keyWriter.openSSHSHA256Fingerprint(secret: secret)
+                    )
                     Spacer()
                         .frame(height: 20)
-                    CopyableView(title: .secretDetailMd5FingerprintLabel, image: Image(systemName: "touchid"), text: keyWriter.openSSHMD5Fingerprint(secret: secret))
+                    CopyableView(
+                        title: .secretDetailMd5FingerprintLabel,
+                        image: Image(systemName: "touchid"),
+                        text: keyWriter.openSSHMD5Fingerprint(secret: secret)
+                    )
                     Spacer()
                         .frame(height: 20)
-                    CopyableView(title: .secretDetailPublicKeyPathLabel, image: Image(systemName: "lock.doc"), text: URL.publicKeyPath(for: secret, in: URL.publicKeyDirectory), showRevealInFinder: true)
+                    CopyableView(
+                        title: .secretDetailPublicKeyPathLabel,
+                        image: Image(systemName: "lock.doc"),
+                        text: URL.publicKeyPath(for: secret, in: URL.publicKeyDirectory),
+                        showRevealInFinder: true
+                    )
                     Spacer()
                 }
                 if !certificates.isEmpty {
-                    Section("Certificates") {
+                    Section {
+                        Spacer()
+                            .frame(height: 20)
                         ForEach(certificates) { certificate in
-                            // FIXME: THIS
-                            CopyableView(title: .secretDetailPublicKeyPathLabel, image: Image(systemName: "checkmark.seal.text.page"), text: certificate.name!, showRevealInFinder: true)
+                            CopyableView(
+                                title: .secretDetailCertificatePathLabel,
+                                subtitle: certificate.name,
+                                image: Image(systemName: "checkmark.seal.text.page"),
+                                text: URL.certificatePath(for: certificate, in: URL.certificatesDirectory),
+                                showRevealInFinder: true
+                            ) {
+                                CertificateDetailsView(certificate: certificate)
+                            }
+                            .contextMenu {
+                                Button("Delete") {
+                                    //FIXME
+                                }
+                            }
                         }
                     }
                 }
@@ -37,10 +64,6 @@ struct SecretDetailView<SecretType: Secret>: View {
         .frame(minHeight: 200, maxHeight: .infinity)
     }
 
-
-    var keyString: String {
-        keyWriter.openSSHString(secret: secret)
-    }
 
 }
 

@@ -5548,6 +5548,72 @@
         }
       }
     },
+    "certificate_detail_key_id_label" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Key ID"
+          }
+        }
+      }
+    },
+    "certificate_detail_principals_label" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Principals"
+          }
+        }
+      }
+    },
+    "certificate_detail_serial_label" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Serial Number"
+          }
+        }
+      }
+    },
+    "certificate_detail_valid_after_label" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Valid After"
+          }
+        }
+      }
+    },
+    "certificate_detail_valid_until_label" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Valid Until"
+          }
+        }
+      }
+    },
+    "certificate_detail_validity_range_label" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Validity Range"
+          }
+        }
+      }
+    },
     "Certificates" : {
 
     },
@@ -9435,6 +9501,9 @@
           }
         }
       }
+    },
+    "Delete" : {
+
     },
     "delete_confirmation_cancel_button" : {
       "extractionState" : "manual",
@@ -18713,6 +18782,9 @@
         }
       }
     },
+    "Key 2" : {
+      "extractionState" : "manual"
+    },
     "no_secure_storage_description" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -19821,6 +19893,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "在Finder中檢視"
+          }
+        }
+      }
+    },
+    "secret_detail_certificate_path_label" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Matching Certificate"
           }
         }
       }
