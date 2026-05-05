@@ -5,12 +5,12 @@ import os
 import SecretKit
 import SSHProtocolKit
 
-@Observable public final class CertificateStore {
+@Observable @MainActor public final class CertificateStore: Sendable {
 
-    @MainActor public private(set) var certificates: [OpenSSHCertificate] = []
+    public private(set) var certificates: [OpenSSHCertificate] = []
 
     /// Initializes a Store.
-    @MainActor public init() {
+    public init() {
         loadCertificates()
         Task {
             for await note in DistributedNotificationCenter.default().notifications(named: .certificateStoreUpdated) {
@@ -23,7 +23,7 @@ import SSHProtocolKit
         }
     }
 
-    @MainActor public func reloadCertificates() {
+    public func reloadCertificates() {
         let before = certificates
         certificates.removeAll()
         loadCertificates()
@@ -33,7 +33,7 @@ import SSHProtocolKit
         }
     }
 
-    @MainActor public func saveCertificate(_ certificate: OpenSSHCertificate) throws {
+    public func saveCertificate(_ certificate: OpenSSHCertificate) throws {
         let attributes = try JSONEncoder().encode(certificate)
         let keychainAttributes = KeychainDictionary([
             kSecClass: Constants.keyClass,
@@ -50,7 +50,7 @@ import SSHProtocolKit
         }
     }
 
-    @MainActor public func certificates(for secret: any Secret) -> [OpenSSHCertificate] {
+    public func certificates(for secret: any Secret) -> [OpenSSHCertificate] {
         certificates.filter { $0.publicKey == secret.publicKey }
     }
 
@@ -60,7 +60,7 @@ import SSHProtocolKit
 extension CertificateStore {
 
     /// Loads all certificates from the store.
-    @MainActor private func loadCertificates() {
+    private func loadCertificates() {
         let queryAttributes = KeychainDictionary([
             kSecClass: Constants.keyClass,
             kSecAttrService: Constants.keyTag,

@@ -83,7 +83,7 @@ public struct OpenSSHCertificateParser: OpenSSHCertificateParserProtocol, Sendab
             return OpenSSHCertificate(
                 type: type,
                 name: comment ?? keyIdentifier,
-                data: data,
+                data: decoded,
                 publicKey: publicKey,
                 principals: principals,
                 keyID: keyIdentifier,

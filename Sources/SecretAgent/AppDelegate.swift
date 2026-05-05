@@ -38,8 +38,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     private let updater = Updater(checkOnLaunch: true)
     private let notifier = Notifier()
     private let publicKeyFileStoreController = PublicKeyFileStoreController(publicKeysURL: URL.publicKeyDirectory, certificatesURL: URL.certificatesDirectory)
-    private lazy var agent: Agent = {
-        Agent(storeList: storeList, witness: notifier)
+    @MainActor private lazy var agent: Agent = {
+        Agent(storeList: storeList, certificateStore: EnvironmentValues._certificateStore, witness: notifier)
     }()
     private lazy var socketController: SocketController = {
         let path = URL.socketPath as String
