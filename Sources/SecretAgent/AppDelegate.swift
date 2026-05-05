@@ -9,7 +9,18 @@ import Observation
 import SSHProtocolKit
 import CertificateKit
 import Common
+import SwiftUI
 
+extension EnvironmentValues {
+
+    @MainActor fileprivate static let _certificateStore: CertificateStore = CertificateStore()
+
+    @MainActor var certificateStore: CertificateStore {
+        EnvironmentValues._certificateStore
+    }
+
+
+}
 @main
 class AppDelegate: NSObject, NSApplicationDelegate {
 
@@ -18,15 +29,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let cryptoKit = SecureEnclave.Store()
         let migrator = SecureEnclave.CryptoKitMigrator()
         try? migrator.migrate(to: cryptoKit)
-        let certsMigrator = CertificateKitMigrator(homeDirectory: URL.homeDirectory)
-        try? certsMigrator.migrate()
         list.add(store: cryptoKit)
         list.add(store: SmartCard.Store())
+        let certsMigrator = CertificateKitMigrator(homeDirectory: URL.homeDirectory, certificateStore: EnvironmentValues._certificateStore)
+        try? certsMigrator.migrate()
         return list
     }()
     private let updater = Updater(checkOnLaunch: true)
     private let notifier = Notifier()
-    private let publicKeyFileStoreController = PublicKeyFileStoreController(directory: URL.publicKeyDirectory)
+    private let publicKeyFileStoreController = PublicKeyFileStoreController(publicKeysURL: URL.publicKeyDirectory, certificatesURL: URL.certificatesDirectory)
     private lazy var agent: Agent = {
         Agent(storeList: storeList, witness: notifier)
     }()
@@ -59,7 +70,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 try? publicKeyFileStoreController.generatePublicKeys(for: storeList.allSecrets, clear: true)
             }
         }
+        Task {
+            for await _ in NotificationCenter.default.notifications(named: .certificateStoreReloaded) {
+                try? publicKeyFileStoreController.generateCertificates(for: EnvironmentValues._certificateStore.certificates, clear: true)
+            }
+        }
         try? publicKeyFileStoreController.generatePublicKeys(for: storeList.allSecrets, clear: true)
+        try? publicKeyFileStoreController.generateCertificates(for: EnvironmentValues._certificateStore.certificates, clear: true)
         notifier.prompt()
         _ = withObservationTracking {
             updater.update

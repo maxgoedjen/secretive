@@ -6,6 +6,7 @@ struct StoreListView: View {
     @Binding var activeSecret: AnySecret?
 
     @Environment(\.secretStoreList) private var storeList
+    @Environment(\.certificateStore) private var certificateStore
 
     private func secretDeleted(secret: AnySecret) {
         activeSecret = nextDefaultSecret
@@ -37,11 +38,11 @@ struct StoreListView: View {
             }
         } detail: {
             if let activeSecret {
-                SecretDetailView(secret: activeSecret)
+                SecretDetailView(secret: activeSecret, certificates: certificateStore.certificates(for: activeSecret))
             } else if let nextDefaultSecret {
                 // This just means onAppear hasn't executed yet.
                 // Do this to avoid a blip.
-                SecretDetailView(secret: nextDefaultSecret)
+                SecretDetailView(secret: nextDefaultSecret, certificates: certificateStore.certificates(for: nextDefaultSecret))
             } else {
                 if let modifiable = storeList.modifiableStore, modifiable.isAvailable {
                     EmptyStoreView(store: modifiable)

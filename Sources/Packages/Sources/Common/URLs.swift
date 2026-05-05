@@ -20,6 +20,10 @@ extension URL {
         agentHomeURL.appending(component: "PublicKeys")
     }
 
+    public static var certificatesDirectory: URL {
+        agentHomeURL.appending(component: "Certificates")
+    }
+
     /// The path for a Secret's public key.
     /// - Parameter secret: The Secret to return the path for.
     /// - Returns: The path to the Secret's public key.
@@ -28,6 +32,14 @@ extension URL {
         let keyWriter = OpenSSHPublicKeyWriter()
         let minimalHex = keyWriter.openSSHMD5Fingerprint(secret: secret).replacingOccurrences(of: ":", with: "")
         return directory.appending(component: "\(minimalHex).pub").path()
+    }
+
+    /// The path for a certificate.
+    /// - Parameter certificate: The OpenSSHCertificate to return the path for.
+    /// - Returns: The path to the OpenSSHCertificate.
+    /// - Warning: This method returning a path does not imply that a certificate has been written to disk already. This method only describes where it will be written to.
+    public static func certificatePath(for certificate: OpenSSHCertificate, in directory: URL) -> String {
+        return directory.appending(component: "\(certificate.id).pub").path()
     }
 
 }

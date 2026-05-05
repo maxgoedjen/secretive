@@ -48,14 +48,10 @@ struct ContentView: View {
                 guard let url = items.first, url.pathExtension == "pub" else { return false }
             Task {
                 let data = try! Data(contentsOf: url)
-                let parser = try! await XPCCertificateParser()
-                let cert = try! await parser.parse(data: data)
-                let secret = storeList.allSecrets.first { secret in
-                    secret.name == cert.name
-                }
-                guard let secret = secret ?? storeList.allSecrets.first else { return }
-                certificateStore.saveCertificate(cert.data, for: secret)
-                print(cert)
+//                let parser = try! await XPCCertificateParser()
+                let parser = OpenSSHCertificateParser()
+                let cert = try! parser.parse(data: data)
+                try certificateStore.saveCertificate(cert)
             }
             return true
         } isTargeted: { _ in }

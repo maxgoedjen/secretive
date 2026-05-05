@@ -8,12 +8,14 @@ import Common
 public final class PublicKeyFileStoreController: Sendable {
 
     private let logger = Logger(subsystem: "com.maxgoedjen.secretive.secretagent", category: "PublicKeyFileStoreController")
-    private let directory: URL
+    private let publicKeysURL: URL
+    private let certificatesURL: URL
     private let keyWriter = OpenSSHPublicKeyWriter()
 
     /// Initializes a PublicKeyFileStoreController.
-    public init(directory: URL) {
-        self.directory = directory
+    public init(publicKeysURL: URL, certificatesURL: URL) {
+        self.publicKeysURL = publicKeysURL
+        self.certificatesURL = certificatesURL
     }
 
     /// Writes out the keys specified to disk.
@@ -22,10 +24,10 @@ public final class PublicKeyFileStoreController: Sendable {
     public func generatePublicKeys(for secrets: [AnySecret], clear: Bool = false) throws {
         logger.log("Writing public keys to disk")
         if clear {
-            let validPaths = Set(secrets.map { URL.publicKeyPath(for: $0, in: directory) })
-                .union(Set(secrets.map { sshCertificatePath(for: $0) }))
-            let contentsOfDirectory = (try? FileManager.default.contentsOfDirectory(atPath: directory.path())) ?? []
-            let fullPathContents = contentsOfDirectory.map { directory.appending(path: $0).path() }
+            let validPaths = Set(secrets.map { URL.publicKeyPath(for: $0, in: publicKeysURL) })
+                .union(Set(secrets.map { legacySSHCertificatePath(for: $0) }))
+            let contentsOfDirectory = (try? FileManager.default.contentsOfDirectory(atPath: publicKeysURL.path())) ?? []
+            let fullPathContents = contentsOfDirectory.map { publicKeysURL.appending(path: $0).path() }
 
             let untracked = Set(fullPathContents)
                 .subtracting(validPaths)
@@ -34,35 +36,47 @@ public final class PublicKeyFileStoreController: Sendable {
                 try? FileManager.default.removeItem(at: URL(string: path)!)
             }
         }
-        try? FileManager.default.createDirectory(at: directory, withIntermediateDirectories: false, attributes: nil)
+        try? FileManager.default.createDirectory(at: publicKeysURL, withIntermediateDirectories: false, attributes: nil)
         for secret in secrets {
-            let path = URL.publicKeyPath(for: secret, in: directory)
+            let path = URL.publicKeyPath(for: secret, in: publicKeysURL)
             let data = Data(keyWriter.openSSHString(secret: secret).utf8)
             FileManager.default.createFile(atPath: path, contents: data, attributes: nil)
         }
         logger.log("Finished writing public keys")
     }
 
+    /// Writes out the certificates specified to disk.
+    /// - Parameter certificates: The Secrets to generate keys for.
+    /// - Parameter clear: Whether or not any untracked files in the directory should be removed.
+    public func generateCertificates(for certificates: [OpenSSHCertificate], clear: Bool = false) throws {
+        logger.log("Writing certificates to disk")
+        if clear {
+            let validPaths = Set(certificates.map { URL.certificatePath(for: $0, in: certificatesURL) })
+            let contentsOfDirectory = (try? FileManager.default.contentsOfDirectory(atPath: certificatesURL.path())) ?? []
+            let fullPathContents = contentsOfDirectory.map { certificatesURL.appending(path: $0).path() }
 
-    /// Short-circuit check to ship enumerating a bunch of paths if there's nothing in the cert directory.
-    public var hasAnyCertificates: Bool {
-        do {
-            return try FileManager.default
-                .contentsOfDirectory(atPath: directory.path())
-                .filter { $0.hasSuffix("-cert.pub") }
-                .isEmpty == false
-        } catch {
-            return false
+            let untracked = Set(fullPathContents)
+                .subtracting(validPaths)
+            for path in untracked {
+                // string instead of fileURLWithPath since we're already using fileURL format.
+                try? FileManager.default.removeItem(at: URL(string: path)!)
+            }
         }
+        try? FileManager.default.createDirectory(at: certificatesURL, withIntermediateDirectories: false, attributes: nil)
+        for certificate in certificates {
+            let path = URL.certificatePath(for: certificate, in: certificatesURL)
+            FileManager.default.createFile(atPath: path, contents: certificate.data, attributes: nil)
+        }
+        logger.log("Finished writing certificates")
     }
 
     /// The path for a Secret's SSH Certificate public key.
     /// - Parameter secret: The Secret to return the path for.
     /// - Returns: The path to the SSH Certificate public key.
     /// - Warning: This method returning a path does not imply that a key has a SSH certificates. This method only describes where it will be.
-    public func sshCertificatePath<SecretType: Secret>(for secret: SecretType) -> String {
+    private func legacySSHCertificatePath<SecretType: Secret>(for secret: SecretType) -> String {
         let minimalHex = keyWriter.openSSHMD5Fingerprint(secret: secret).replacingOccurrences(of: ":", with: "")
-        return directory.appending(component: "\(minimalHex)-cert.pub").path()
+        return publicKeysURL.appending(component: "\(minimalHex)-cert.pub").path()
     }
 
 }

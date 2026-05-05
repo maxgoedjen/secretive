@@ -1,10 +1,7 @@
 import SwiftUI
 import SecretKit
 import SSHProtocolKit
-<<<<<<< HEAD
-=======
 import Common
->>>>>>> main
 
 struct ToolConfigurationView: View {
 

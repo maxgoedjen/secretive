@@ -1,14 +1,12 @@
 import SwiftUI
 import SecretKit
-<<<<<<< HEAD
-=======
 import Common
->>>>>>> main
 import SSHProtocolKit
 
 struct SecretDetailView<SecretType: Secret>: View {
     
     let secret: SecretType
+    let certificates: [OpenSSHCertificate]
 
     private let keyWriter = OpenSSHPublicKeyWriter()
 
@@ -22,20 +20,16 @@ struct SecretDetailView<SecretType: Secret>: View {
                     CopyableView(title: .secretDetailMd5FingerprintLabel, image: Image(systemName: "touchid"), text: keyWriter.openSSHMD5Fingerprint(secret: secret))
                     Spacer()
                         .frame(height: 20)
-<<<<<<< HEAD
-                    CopyableView(
-                        title: .secretDetailPublicKeyLabel,
-                        path: publicKeyFileStoreController.publicKeyPath(for: secret),
-                        image: Image(systemName: "key"),
-                        text: keyString
-                    )
-=======
-                    CopyableView(title: .secretDetailPublicKeyLabel, image: Image(systemName: "key"), text: keyString)
-                    Spacer()
-                        .frame(height: 20)
                     CopyableView(title: .secretDetailPublicKeyPathLabel, image: Image(systemName: "lock.doc"), text: URL.publicKeyPath(for: secret, in: URL.publicKeyDirectory), showRevealInFinder: true)
->>>>>>> main
                     Spacer()
+                }
+                if !certificates.isEmpty {
+                    Section("Certificates") {
+                        ForEach(certificates) { certificate in
+                            // FIXME: THIS
+                            CopyableView(title: .secretDetailPublicKeyPathLabel, image: Image(systemName: "checkmark.seal.text.page"), text: certificate.name!, showRevealInFinder: true)
+                        }
+                    }
                 }
             }
             .padding()
