@@ -33,14 +33,17 @@ struct CertificateDetailView: View {
                             EmptyView()
                         case (epoch, let otherEnd):
                             MultilineInfoView(title: .certificateDetailValidUntilLabel, image: Image(systemName: "calendar.badge.clock"), items: [otherEnd.formatted()])
+                            Spacer()
+                                .frame(height: 20)
                         case (let otherStart, end):
                             MultilineInfoView(title: .certificateDetailValidAfterLabel, image: Image(systemName: "calendar.badge.clock"), items: [otherStart.formatted()])
-                            LabeledContent(String(localized: .certificateDetailValidAfterLabel), value: otherStart.formatted())
+                            Spacer()
+                                .frame(height: 20)
                         default:
                             MultilineInfoView(title: .certificateDetailValidityRangeLabel, image: Image(systemName: "calendar.badge.clock"), items: [validityRange.formatted()])
+                            Spacer()
+                                .frame(height: 20)
                         }
-                        Spacer()
-                            .frame(height: 20)
                     }
                     if !certificate.principals.isEmpty {
                         MultilineInfoView(title: .certificateDetailPrincipalsLabel, image: Image(systemName: "person.2"), items: certificate.principals)

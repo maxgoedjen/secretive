@@ -35,10 +35,7 @@ struct SecretDetailView<SecretType: Secret>: View {
                         text: URL.publicKeyPath(for: secret, in: URL.publicKeyDirectory),
                         showRevealInFinder: true
                     )
-                    Spacer()
-                }
-                if !certificates.isEmpty {
-                    Section {
+                    if !certificates.isEmpty {
                         Spacer()
                             .frame(height: 20)
                         MultilineInfoView(
@@ -54,6 +51,7 @@ struct SecretDetailView<SecretType: Secret>: View {
                             })
                         )
                     }
+                    Spacer()
                 }
             }
             .padding()

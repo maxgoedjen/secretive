@@ -27,7 +27,7 @@ struct MultilineInfoView: View {
     @State private var interactionState: InteractionState = .normal
     @State private var interactionStateIndex: Int?
 
-    var content: some View {
+    var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             HStack {
                 image
@@ -76,10 +76,6 @@ struct MultilineInfoView: View {
         }
         ._background(interactionState: .normal)
         .frame(minWidth: 150, maxWidth: .infinity)
-    }
-
-    var body: some View {
-        content
     }
 
     var primaryTextColor: Color {
