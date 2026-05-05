@@ -47,12 +47,15 @@ struct ContentView: View {
         .dropDestination(for: URL.self) { items, location in
                 guard let url = items.first, url.pathExtension == "pub" else { return false }
             Task {
-                let data = try! Data(contentsOf: url)
-//                let parser = try! await XPCCertificateParser()
-                let parser = OpenSSHCertificateParser()
-                let cert = try! parser.parse(data: data)
-                try certificateStore.saveCertificate(cert)
-                selection = .certificate(cert)
+                do {
+                    let data = try Data(contentsOf: url)
+                    let parser = try await XPCCertificateParser()
+                    let cert = try await parser.parse(data: data)
+                    try certificateStore.saveCertificate(cert)
+                    selection = .certificate(cert)
+                } catch {
+
+                }
             }
             return true
         } isTargeted: { _ in }

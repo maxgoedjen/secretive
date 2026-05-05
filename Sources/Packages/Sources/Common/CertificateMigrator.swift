@@ -4,6 +4,7 @@ import CryptoTokenKit
 import CryptoKit
 import os
 import SSHProtocolKit
+import CertificateKit
 
 public struct CertificateKitMigrator {
 
@@ -25,9 +26,8 @@ public struct CertificateKitMigrator {
             for path in fileCerts {
                 do {
                     let url = directory.appending(component: path)
-                    let data = try! Data(contentsOf: url)
-                    //                let parser = try! await XPCCertificateParser()
-                    let parser = OpenSSHCertificateParser()
+                    let data = try Data(contentsOf: url)
+                    let parser = try await XPCCertificateParser()
                     let cert = try await parser.parse(data: data)
                     try certificateStore.saveCertificate(cert)
                     do {

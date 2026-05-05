@@ -44,6 +44,7 @@ public struct OpenSSHCertificateParser: OpenSSHCertificateParserProtocol, Sendab
     private let logger = Logger(subsystem: "com.maxgoedjen.secretive", category: "OpenSSHCertificateParser")
 
     public init() {
+        assert(Bundle.main.bundleURL.pathExtension == "xpc", "Potentially unsafe parsing code should run in an XPC service")
     }
 
     public func parse(data: Data) throws(OpenSSHCertificateError) -> OpenSSHCertificate {
