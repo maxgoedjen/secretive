@@ -5548,6 +5548,9 @@
         }
       }
     },
+    "Certificate Path" : {
+
+    },
     "certificate_detail_key_id_label" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -9501,9 +9504,6 @@
           }
         }
       }
-    },
-    "Delete" : {
-
     },
     "delete_confirmation_cancel_button" : {
       "extractionState" : "manual",
@@ -19903,7 +19903,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Matching Certificate"
+            "value" : "Matching Certificates"
           }
         }
       }
@@ -26753,6 +26753,9 @@
           }
         }
       }
+    },
+    "WIP" : {
+
     }
   },
   "version" : "1.0"

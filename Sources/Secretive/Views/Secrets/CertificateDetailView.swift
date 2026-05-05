@@ -3,36 +3,67 @@ import SecretKit
 import Common
 import SSHProtocolKit
 
-struct CertificateDetailsView: View {
+struct CertificateDetailView: View {
 
     let certificate: OpenSSHCertificate
 
     var body: some View {
-        Form {
-            LabeledContent(String(localized: .certificateDetailKeyIdLabel), value: certificate.keyID)
-            LabeledContent(String(localized: .certificateDetailSerialLabel), value: certificate.serial.formatted())
-            if let validityRange = certificate.validityRange {
-                let epoch = Date(timeIntervalSince1970: 0)
-                let end = Date(timeIntervalSince1970: TimeInterval(UInt64.max))
-                switch (validityRange.lowerBound, validityRange.upperBound) {
-                case (epoch, end):
-                    EmptyView()
-                case (epoch, let otherEnd):
-                    LabeledContent(String(localized: .certificateDetailValidUntilLabel), value: otherEnd.formatted())
-                case (let otherStart, end):
-                    LabeledContent(String(localized: .certificateDetailValidAfterLabel), value: otherStart.formatted())
-                default:
-                    LabeledContent(String(localized: .certificateDetailValidityRangeLabel), value: validityRange.formatted())
-                }
-            }
-            if !certificate.principals.isEmpty {
-                LabeledContent(String(localized: .certificateDetailPrincipalsLabel)) {
-                    ForEach(Array(certificate.principals.enumerated()), id: \.offset) {
-                        Text(verbatim: $0.element)
+        ScrollView {
+            Form {
+                Section {
+                    CopyableView(
+                        title: .certificateDetailKeyIdLabel,
+                        image: Image(systemName: "person.text.rectangle"),
+                        text: certificate.keyID
+                    )
+                    Spacer()
+                        .frame(height: 20)
+                    CopyableView(
+                        title: .certificateDetailSerialLabel,
+                        image: Image(systemName: "number.circle"),
+                        text: certificate.serial.formatted()
+                    )
+                    Spacer()
+                        .frame(height: 20)
+                    if let validityRange = certificate.validityRange {
+                        let epoch = Date(timeIntervalSince1970: 0)
+                        let end = Date(timeIntervalSince1970: TimeInterval(UInt64.max))
+                        switch (validityRange.lowerBound, validityRange.upperBound) {
+                        case (epoch, end):
+                            EmptyView()
+                        case (epoch, let otherEnd):
+                            MultilineInfoView(title: .certificateDetailValidUntilLabel, image: Image(systemName: "calendar.badge.clock"), items: [otherEnd.formatted()])
+                        case (let otherStart, end):
+                            MultilineInfoView(title: .certificateDetailValidAfterLabel, image: Image(systemName: "calendar.badge.clock"), items: [otherStart.formatted()])
+                            LabeledContent(String(localized: .certificateDetailValidAfterLabel), value: otherStart.formatted())
+                        default:
+                            MultilineInfoView(title: .certificateDetailValidityRangeLabel, image: Image(systemName: "calendar.badge.clock"), items: [validityRange.formatted()])
+                        }
+                        Spacer()
+                            .frame(height: 20)
                     }
+                    if !certificate.principals.isEmpty {
+                        MultilineInfoView(title: .certificateDetailPrincipalsLabel, image: Image(systemName: "person.2"), items: certificate.principals)
+                        Spacer()
+                            .frame(height: 20)
+                    }
+                    CopyableView(
+                        title: "Certificate Path",
+                        image: Image(systemName: "checkmark.seal.text.page"),
+                        text: URL.certificatePath(for: certificate, in: URL.certificatesDirectory),
+                        showRevealInFinder: true
+                    )
+                    Spacer()
                 }
             }
+            .padding()
         }
-        .formStyle(.columns)
+        .frame(minHeight: 200, maxHeight: .infinity)
     }
+
+
 }
+
+//#Preview {
+//    SecretDetailView(secret: Preview.Secret(name: "Demonstration Secret"))
+//}

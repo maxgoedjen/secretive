@@ -7,7 +7,7 @@ import SSHProtocolKit
 
 struct ContentView: View {
 
-    @State var activeSecret: AnySecret?
+    @State var selection: StoreListView.StoreListSelection?
 
     @State private var selectedUpdate: Release?
 
@@ -27,7 +27,7 @@ struct ContentView: View {
     var body: some View {
         VStack {
             if storeList.anyAvailable {
-                StoreListView(activeSecret: $activeSecret)
+                StoreListView(selection: $selection)
             } else {
                 NoStoresView()
             }
@@ -52,6 +52,7 @@ struct ContentView: View {
                 let parser = OpenSSHCertificateParser()
                 let cert = try! parser.parse(data: data)
                 try certificateStore.saveCertificate(cert)
+                selection = .certificate(cert)
             }
             return true
         } isTargeted: { _ in }
@@ -62,7 +63,7 @@ struct ContentView: View {
             if let modifiable = storeList.modifiableStore {
                 CreateSecretView(store: modifiable) { created in
                     if let created {
-                        activeSecret = created
+                        selection = .secret(created)
                     }
                 }
             }

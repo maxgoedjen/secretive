@@ -7,6 +7,7 @@ struct SecretDetailView<SecretType: Secret>: View {
     
     let secret: SecretType
     let certificates: [OpenSSHCertificate]
+    let navigateToCertificate: ((OpenSSHCertificate) -> Void)?
 
     private let keyWriter = OpenSSHPublicKeyWriter()
 
@@ -40,22 +41,18 @@ struct SecretDetailView<SecretType: Secret>: View {
                     Section {
                         Spacer()
                             .frame(height: 20)
-                        ForEach(certificates) { certificate in
-                            CopyableView(
-                                title: .secretDetailCertificatePathLabel,
-                                subtitle: certificate.name,
-                                image: Image(systemName: "checkmark.seal.text.page"),
-                                text: URL.certificatePath(for: certificate, in: URL.certificatesDirectory),
-                                showRevealInFinder: true
-                            ) {
-                                CertificateDetailsView(certificate: certificate)
-                            }
-                            .contextMenu {
-                                Button("Delete") {
-                                    //FIXME
-                                }
-                            }
-                        }
+                        MultilineInfoView(
+                            title: .secretDetailCertificatePathLabel,
+                            image: Image(
+                                systemName: "checkmark.seal.text.page"
+                            ),
+                            items: certificates.map({ certificate in
+                                MultilineInfoView.Item(
+                                    text: certificate.name,
+                                    action: (Image(systemName: "chevron.forward"), { navigateToCertificate?(certificate) })
+                                )
+                            })
+                        )
                     }
                 }
             }

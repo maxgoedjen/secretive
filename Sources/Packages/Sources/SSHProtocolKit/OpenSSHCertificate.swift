@@ -6,7 +6,7 @@ public struct OpenSSHCertificate: Sendable, Codable, Equatable, Hashable, Identi
 
     public var id: String { SHA256.hash(data: data).formatted(.base64(stripPadding: true)) }
     public var type: CertificateType
-    public let name: String?
+    public let name: String
     public let data: Data
 
     public var publicKey: Data
@@ -60,7 +60,7 @@ public struct OpenSSHCertificateParser: OpenSSHCertificateParserProtocol, Sendab
         guard let decoded = Data(base64Encoded: encodedKey)  else {
             throw OpenSSHCertificateError.parsingFailed
         }
-        let name = elements.first
+        let comment = elements.first
         do {
             let dataParser = OpenSSHReader(data: decoded)
             _ = try dataParser.readNextChunkAsString() // Redundant key type
@@ -82,7 +82,7 @@ public struct OpenSSHCertificateParser: OpenSSHCertificateParserProtocol, Sendab
 
             return OpenSSHCertificate(
                 type: type,
-                name: name,
+                name: comment ?? keyIdentifier,
                 data: data,
                 publicKey: publicKey,
                 principals: principals,

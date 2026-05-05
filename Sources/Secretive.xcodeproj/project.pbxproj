@@ -74,6 +74,8 @@
 		50E0145C2EDB9CDF00B121F1 /* Common in Frameworks */ = {isa = PBXBuildFile; productRef = 50E0145B2EDB9CDF00B121F1 /* Common */; };
 		50E0145E2EDB9CE400B121F1 /* Common in Frameworks */ = {isa = PBXBuildFile; productRef = 50E0145D2EDB9CE400B121F1 /* Common */; };
 		50E204E92FA9D12700402380 /* CertificateDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E204E82FA9D12700402380 /* CertificateDetailView.swift */; };
+		50E204ED2FAA997F00402380 /* CertificateListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E204EC2FAA997F00402380 /* CertificateListItemView.swift */; };
+		50E204EF2FAA9C1400402380 /* MultilineInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E204EE2FAA9C1400402380 /* MultilineInfoView.swift */; };
 		50E4C4532E73C78C00C73783 /* WindowBackgroundStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E4C4522E73C78900C73783 /* WindowBackgroundStyle.swift */; };
 		50E4C4C32E7765DF00C73783 /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E4C4C22E7765DF00C73783 /* AboutView.swift */; };
 		50E4C4C82E777E4200C73783 /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = 50E4C4C72E777E4200C73783 /* AppIcon.icon */; };
@@ -243,6 +245,8 @@
 		50C385A42407A76D00AF2719 /* SecretDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecretDetailView.swift; sourceTree = "<group>"; };
 		50CF4ABB2E601B0F005588DC /* ActionButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionButtonStyle.swift; sourceTree = "<group>"; };
 		50E204E82FA9D12700402380 /* CertificateDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificateDetailView.swift; sourceTree = "<group>"; };
+		50E204EC2FAA997F00402380 /* CertificateListItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificateListItemView.swift; sourceTree = "<group>"; };
+		50E204EE2FAA9C1400402380 /* MultilineInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultilineInfoView.swift; sourceTree = "<group>"; };
 		50E4C4522E73C78900C73783 /* WindowBackgroundStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowBackgroundStyle.swift; sourceTree = "<group>"; };
 		50E4C4C22E7765DF00C73783 /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
 		50E4C4C72E777E4200C73783 /* AppIcon.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = AppIcon.icon; sourceTree = "<group>"; };
@@ -320,6 +324,7 @@
 				50C385A42407A76D00AF2719 /* SecretDetailView.swift */,
 				50E204E82FA9D12700402380 /* CertificateDetailView.swift */,
 				50153E21250DECA300525160 /* SecretListItemView.swift */,
+				50E204EC2FAA997F00402380 /* CertificateListItemView.swift */,
 				5079BA0E250F29BF00EA86F4 /* StoreListView.swift */,
 			);
 			path = Secrets;
@@ -345,6 +350,7 @@
 				50BDCB712E63BAF20072D2E7 /* AgentStatusView.swift */,
 				50617D8423FCE48E0099B055 /* ContentView.swift */,
 				5066A6C72516FE6E004B5A36 /* CopyableView.swift */,
+				50E204EE2FAA9C1400402380 /* MultilineInfoView.swift */,
 				50153E1F250AFCB200525160 /* UpdateView.swift */,
 			);
 			path = Views;
@@ -701,11 +707,13 @@
 				50E204E92FA9D12700402380 /* CertificateDetailView.swift in Sources */,
 				5091D2BC25183B830049FD9B /* ApplicationDirectoryController.swift in Sources */,
 				504789232E697DD300B4556F /* BoxBackgroundStyle.swift in Sources */,
+				50E204EF2FAA9C1400402380 /* MultilineInfoView.swift in Sources */,
 				5066A6C22516F303004B5A36 /* SetupView.swift in Sources */,
 				5065E313295517C500E16645 /* ToolbarButtonStyle.swift in Sources */,
 				50617D8523FCE48E0099B055 /* ContentView.swift in Sources */,
 				504788F62E68206F00B4556F /* GettingStartedView.swift in Sources */,
 				50CF4ABC2E601B0F005588DC /* ActionButtonStyle.swift in Sources */,
+				50E204ED2FAA997F00402380 /* CertificateListItemView.swift in Sources */,
 				50571E0324393C2600F76F6C /* JustUpdatedChecker.swift in Sources */,
 				5079BA0F250F29BF00EA86F4 /* StoreListView.swift in Sources */,
 				50617DD223FCEFA90099B055 /* PreviewStore.swift in Sources */,
