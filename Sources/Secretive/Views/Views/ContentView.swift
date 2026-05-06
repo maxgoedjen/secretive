@@ -4,6 +4,7 @@ import SecureEnclaveSecretKit
 import SmartCardSecretKit
 import Brief
 import SSHProtocolKit
+import Common
 
 struct ContentView: View {
 
