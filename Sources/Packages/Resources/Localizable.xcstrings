@@ -10085,7 +10085,7 @@
         },
         "ca" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Esborrar %1$(name)@?"
           }
         },
@@ -10103,7 +10103,7 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "%1$(name)@ Löschen?"
           }
         },
@@ -10127,13 +10127,13 @@
         },
         "fi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Poista %1$(name)@?"
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Supprimer %1$(name)@?"
           }
         },
@@ -10151,19 +10151,19 @@
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Eliminare %1$(name)@?"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "%1$(name)@を削除しますか?"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "%1$(name)@를 지우겠습니까?"
           }
         },
@@ -10181,7 +10181,7 @@
         },
         "pl" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Usunąć %1$(name)@?"
           }
         },
@@ -10193,7 +10193,7 @@
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Deletar %1$(name)@?"
           }
         },
@@ -10205,7 +10205,7 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Удалить %1$(name)@?"
           }
         },
@@ -10241,13 +10241,13 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "删除“%1$(name)@”吗？"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "刪除「%1$(name)@」嗎？"
           }
         }
