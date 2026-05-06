@@ -22,7 +22,7 @@ struct DeleteCertificateConfirmationModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
             .confirmationDialog(
-                .deleteConfirmationTitle(name: certificate.name),
+                String(localized: .deleteConfirmationTitle(name: certificate.name)),
                 isPresented: isPresented,
                 titleVisibility: .visible,
                 actions: {
