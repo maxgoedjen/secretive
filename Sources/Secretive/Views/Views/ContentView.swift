@@ -51,7 +51,7 @@ struct ContentView: View {
                     let data = try Data(contentsOf: url)
                     let parser = try await XPCCertificateParser()
                     let cert = try await parser.parse(data: data)
-                    try certificateStore.saveCertificate(cert)
+                    try certificateStore.save(certificate: cert)
                     selection = .certificate(cert)
                 } catch {
 

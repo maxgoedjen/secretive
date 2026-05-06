@@ -6,7 +6,7 @@ public struct OpenSSHCertificate: Sendable, Codable, Equatable, Hashable, Identi
 
     public var id: String { SHA256.hash(data: data).formatted(.base64(stripPadding: true)) }
     public var type: CertificateType
-    public let name: String
+    public var name: String
     public let data: Data
 
     public var publicKey: Data

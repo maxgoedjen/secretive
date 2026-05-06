@@ -82,6 +82,8 @@
 		50E2052D2FAAB92000402380 /* SecretiveCertificateParser.xpc in Embed XPC Services */ = {isa = PBXBuildFile; fileRef = 50E205142FAAB81C00402380 /* SecretiveCertificateParser.xpc */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		50E205312FAAB95500402380 /* XPCWrappers in Frameworks */ = {isa = PBXBuildFile; productRef = 50E205302FAAB95500402380 /* XPCWrappers */; };
 		50E205332FAAB95A00402380 /* SSHProtocolKit in Frameworks */ = {isa = PBXBuildFile; productRef = 50E205322FAAB95A00402380 /* SSHProtocolKit */; };
+		50E205362FAABC6300402380 /* EditCertificateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E205352FAABC6300402380 /* EditCertificateView.swift */; };
+		50E205372FAABC6300402380 /* DeleteCertificateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E205342FAABC6300402380 /* DeleteCertificateView.swift */; };
 		50E4C4532E73C78C00C73783 /* WindowBackgroundStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E4C4522E73C78900C73783 /* WindowBackgroundStyle.swift */; };
 		50E4C4C32E7765DF00C73783 /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E4C4C22E7765DF00C73783 /* AboutView.swift */; };
 		50E4C4C82E777E4200C73783 /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = 50E4C4C72E777E4200C73783 /* AppIcon.icon */; };
@@ -274,6 +276,8 @@
 		50E205242FAAB82700402380 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		50E2052A2FAAB85000402380 /* SecretiveCertificateParser.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SecretiveCertificateParser.entitlements; sourceTree = "<group>"; };
 		50E2052B2FAAB85000402380 /* SecretiveCertificateParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecretiveCertificateParser.swift; sourceTree = "<group>"; };
+		50E205342FAABC6300402380 /* DeleteCertificateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteCertificateView.swift; sourceTree = "<group>"; };
+		50E205352FAABC6300402380 /* EditCertificateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditCertificateView.swift; sourceTree = "<group>"; };
 		50E4C4522E73C78900C73783 /* WindowBackgroundStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowBackgroundStyle.swift; sourceTree = "<group>"; };
 		50E4C4C22E7765DF00C73783 /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
 		50E4C4C72E777E4200C73783 /* AppIcon.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = AppIcon.icon; sourceTree = "<group>"; };
@@ -355,6 +359,8 @@
 				5099A02323FD2AAA0062B6F2 /* CreateSecretView.swift */,
 				50B8550C24138C4F009958AC /* DeleteSecretView.swift */,
 				2C4A9D2E2636FFD3008CC8E2 /* EditSecretView.swift */,
+				50E205342FAABC6300402380 /* DeleteCertificateView.swift */,
+				50E205352FAABC6300402380 /* EditCertificateView.swift */,
 				50BB046A2418AAAE00D6E079 /* EmptyStoreView.swift */,
 				506772C82425BB8500034DED /* NoStoresView.swift */,
 				50C385A42407A76D00AF2719 /* SecretDetailView.swift */,
@@ -810,12 +816,14 @@
 				5066A6C82516FE6E004B5A36 /* CopyableView.swift in Sources */,
 				50B8550D24138C4F009958AC /* DeleteSecretView.swift in Sources */,
 				50BB046B2418AAAE00D6E079 /* EmptyStoreView.swift in Sources */,
+				50E205372FAABC6300402380 /* DeleteCertificateView.swift in Sources */,
 				50BDCB762E6450950072D2E7 /* ConfigurationItemView.swift in Sources */,
 				50617D8323FCE48E0099B055 /* App.swift in Sources */,
 				504788F42E681F6900B4556F /* ToolConfigurationView.swift in Sources */,
 				506772C92425BB8500034DED /* NoStoresView.swift in Sources */,
 				50153E22250DECA300525160 /* SecretListItemView.swift in Sources */,
 				508A58B5241ED48F0069DC07 /* PreviewAgentStatusChecker.swift in Sources */,
+				50E205362FAABC6300402380 /* EditCertificateView.swift in Sources */,
 				508A58AA241E06B40069DC07 /* PreviewUpdater.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

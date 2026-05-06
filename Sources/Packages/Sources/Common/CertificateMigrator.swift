@@ -29,7 +29,7 @@ public struct CertificateKitMigrator {
                     let data = try Data(contentsOf: url)
                     let parser = try await XPCCertificateParser()
                     let cert = try await parser.parse(data: data)
-                    try certificateStore.saveCertificate(cert)
+                    try certificateStore.save(certificate: cert)
                     do {
                         try FileManager.default.removeItem(at: url)
                     } catch {

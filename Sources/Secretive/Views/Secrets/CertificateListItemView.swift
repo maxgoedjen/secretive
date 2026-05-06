@@ -4,6 +4,8 @@ import SSHProtocolKit
 
 struct CertificateListItemView: View {
 
+    @Environment(\.certificateStore) private var store
+
     var certificate: OpenSSHCertificate
 
     @State var isDeleting: Bool = false
@@ -19,14 +21,13 @@ struct CertificateListItemView: View {
         .sheet(isPresented: $isRenaming, onDismiss: {
             renamedCertificate(certificate)
         }, content: {
-            Text("WIP")
-//            EditSecretView(store: modifiable, secret: secret)
+            EditCertificateView(store: store, certificate: certificate)
         })
-//        .showingDeleteConfirmation(isPresented: $isDeleting, secret, store as? AnySecretStoreModifiable) { deleted in
-//            if deleted {
-//                deletedSecret(secret)
-//            }
-//        }
+        .showingDeleteConfirmation(isPresented: $isDeleting, certificate, store) { deleted in
+            if deleted {
+                deletedCertificate(certificate)
+            }
+        }
         .contextMenu {
                 Button(action: { isRenaming = true }) {
                     Image(systemName: "pencil")

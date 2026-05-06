@@ -9505,6 +9505,9 @@
         }
       }
     },
+    "Delete" : {
+
+    },
     "delete_confirmation_cancel_button" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -26753,9 +26756,6 @@
           }
         }
       }
-    },
-    "WIP" : {
-
     }
   },
   "version" : "1.0"

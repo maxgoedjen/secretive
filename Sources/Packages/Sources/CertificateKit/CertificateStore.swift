@@ -33,7 +33,7 @@ import SSHProtocolKit
         }
     }
 
-    public func saveCertificate(_ certificate: OpenSSHCertificate) throws {
+    public func save(certificate: OpenSSHCertificate) throws {
         let attributes = try JSONEncoder().encode(certificate)
         let keychainAttributes = KeychainDictionary([
             kSecClass: Constants.keyClass,
@@ -48,6 +48,39 @@ import SSHProtocolKit
         if status != errSecSuccess && status != errSecDuplicateItem {
             throw KeychainError(statusCode: status)
         }
+        reloadCertificates()
+    }
+
+    public func delete(certificate: OpenSSHCertificate) throws {
+        let deleteAttributes = KeychainDictionary([
+            kSecClass: Constants.keyClass,
+            kSecAttrService: Constants.keyTag,
+            kSecUseDataProtectionKeychain: true,
+            kSecAttrAccount: certificate.id,
+        ])
+        let status = SecItemDelete(deleteAttributes)
+        if status != errSecSuccess {
+            throw KeychainError(statusCode: status)
+        }
+        reloadCertificates()
+    }
+
+    public func update(certificate: OpenSSHCertificate) throws {
+        let updateQuery = KeychainDictionary([
+            kSecClass: Constants.keyClass,
+            kSecAttrAccount: certificate.id,
+        ])
+
+        let cert = try JSONEncoder().encode(certificate)
+        let updatedAttributes = KeychainDictionary([
+            kSecAttrGeneric: cert,
+        ])
+
+        let status = SecItemUpdate(updateQuery, updatedAttributes)
+        if status != errSecSuccess {
+            throw KeychainError(statusCode: status)
+        }
+        reloadCertificates()
     }
 
     public func certificates(for secret: any Secret) -> [OpenSSHCertificate] {
