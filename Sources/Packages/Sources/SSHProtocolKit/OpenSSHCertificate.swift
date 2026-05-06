@@ -4,7 +4,7 @@ import CryptoKit
 
 public struct OpenSSHCertificate: Sendable, Codable, Equatable, Hashable, Identifiable, CustomDebugStringConvertible {
 
-    public var id: String { SHA256.hash(data: data).formatted(.base64(stripPadding: true)) }
+    public var id: String { Insecure.MD5.hash(data: data).formatted(.hex(separator: "")) }
     public var type: CertificateType
     public var name: String
     public let data: Data
