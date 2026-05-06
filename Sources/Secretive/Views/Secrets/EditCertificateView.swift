@@ -22,7 +22,7 @@ struct EditCertificateView: View {
         VStack(alignment: .trailing) {
             Form {
                 Section {
-                    TextField(String(localized: .createSecretNameLabel), text: $name, prompt: Text(.createSecretNamePlaceholder))
+                    TextField(String(localized: .renameCertificateLabel), text: $name, prompt: Text(.renameCertificateNamePlaceholder))
                 } footer: {
                     if let errorText {
                         Text(verbatim: errorText)

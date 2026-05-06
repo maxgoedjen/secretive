@@ -51,7 +51,7 @@ struct CertificateDetailView: View {
                             .frame(height: 20)
                     }
                     CopyableView(
-                        title: "Certificate Path",
+                        title: .certificateDetailPathLabel,
                         image: Image(systemName: "checkmark.seal.text.page"),
                         text: URL.certificatePath(for: certificate, in: URL.certificatesDirectory),
                         showRevealInFinder: true
@@ -66,7 +66,3 @@ struct CertificateDetailView: View {
 
 
 }
-
-//#Preview {
-//    SecretDetailView(secret: Preview.Secret(name: "Demonstration Secret"))
-//}

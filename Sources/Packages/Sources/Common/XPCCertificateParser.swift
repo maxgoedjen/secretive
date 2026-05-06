@@ -1,7 +1,6 @@
 import Foundation
 import OSLog
 import SSHProtocolKit
-import Brief
 import XPCWrappers
 
 /// Delegates all agent input parsing to an XPC service which wraps OpenSSH

@@ -21,7 +21,7 @@ struct DeleteSecretConfirmationModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
             .confirmationDialog(
-                .deleteConfirmationTitle(secretName: secret.name),
+                .deleteConfirmationTitle(name: secret.name),
                 isPresented: isPresented,
                 titleVisibility: .visible,
                 actions: {

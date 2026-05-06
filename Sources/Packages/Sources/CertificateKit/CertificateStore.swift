@@ -33,7 +33,7 @@ import SSHProtocolKit
         }
     }
 
-    public func save(certificate: OpenSSHCertificate) throws {
+    public func save(certificate: OpenSSHCertificate, originalData: Data) throws {
         let attributes = try JSONEncoder().encode(certificate)
         let keychainAttributes = KeychainDictionary([
             kSecClass: Constants.keyClass,
@@ -41,7 +41,7 @@ import SSHProtocolKit
             kSecAttrAccount: certificate.id,
             kSecUseDataProtectionKeychain: true,
             kSecAttrAccessible: kSecAttrAccessibleWhenUnlockedThisDeviceOnly,
-            kSecValueData: certificate.data,
+            kSecValueData: originalData,
             kSecAttrGeneric: attributes
         ])
         let status = SecItemAdd(keychainAttributes, nil)
