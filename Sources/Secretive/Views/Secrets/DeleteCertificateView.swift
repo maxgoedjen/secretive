@@ -31,10 +31,6 @@ struct DeleteCertificateConfirmationModifier: ViewModifier {
                         dismissalBlock(false)
                     }
                 },
-                message: {
-                    Text("Delete")
-//                    Text(.deleteConfirmationDescription(secretName: certificate.name)
-                }
             )
             .dialogIcon(Image(systemName: "lock.trianglebadge.exclamationmark.fill"))
             .onExitCommand {

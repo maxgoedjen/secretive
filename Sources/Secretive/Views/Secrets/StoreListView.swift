@@ -42,14 +42,16 @@ struct StoreListView: View {
                         }
                     }
                 }
-                Section("Certificates") {
-                    ForEach(certificateStore.certificates) { certificate in
-                        CertificateListItemView(
-                            certificate: certificate,
-                            deletedCertificate: { _ in },
-                            renamedCertificate: { _ in }
-                        )
-                        .tag(StoreListSelection.certificate(certificate))
+                if !certificateStore.certificates.isEmpty {
+                    Section("Certificates") {
+                        ForEach(certificateStore.certificates) { certificate in
+                            CertificateListItemView(
+                                certificate: certificate,
+                                deletedCertificate: { _ in },
+                                renamedCertificate: { _ in }
+                            )
+                            .tag(StoreListSelection.certificate(certificate))
+                        }
                     }
                 }
             }
