@@ -31,7 +31,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         try? migrator.migrate(to: cryptoKit)
         list.add(store: cryptoKit)
         list.add(store: SmartCard.Store())
-        let certsMigrator = CertificateKitMigrator(homeDirectory: URL.homeDirectory, certificateStore: EnvironmentValues._certificateStore)
+        let certsMigrator = CertificateMigrator(homeDirectory: URL.homeDirectory, certificateStore: EnvironmentValues._certificateStore)
         try? certsMigrator.migrate()
         return list
     }()

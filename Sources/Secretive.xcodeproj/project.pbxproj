@@ -83,6 +83,9 @@
 		50E205332FAAB95A00402380 /* SSHProtocolKit in Frameworks */ = {isa = PBXBuildFile; productRef = 50E205322FAAB95A00402380 /* SSHProtocolKit */; };
 		50E205362FAABC6300402380 /* EditCertificateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E205352FAABC6300402380 /* EditCertificateView.swift */; };
 		50E205372FAABC6300402380 /* DeleteCertificateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E205342FAABC6300402380 /* DeleteCertificateView.swift */; };
+		50E205802FAB291E00402380 /* CertificateMigrator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E2057F2FAB291E00402380 /* CertificateMigrator.swift */; };
+		50E205822FAB293B00402380 /* SharedXPCServices in Frameworks */ = {isa = PBXBuildFile; productRef = 50E205812FAB293B00402380 /* SharedXPCServices */; };
+		50E205842FAB296A00402380 /* SharedXPCServices in Frameworks */ = {isa = PBXBuildFile; productRef = 50E205832FAB296A00402380 /* SharedXPCServices */; };
 		50E4C4532E73C78C00C73783 /* WindowBackgroundStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E4C4522E73C78900C73783 /* WindowBackgroundStyle.swift */; };
 		50E4C4C32E7765DF00C73783 /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E4C4C22E7765DF00C73783 /* AboutView.swift */; };
 		50E4C4C82E777E4200C73783 /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = 50E4C4C72E777E4200C73783 /* AppIcon.icon */; };
@@ -276,6 +279,7 @@
 		50E2052B2FAAB85000402380 /* SecretiveCertificateParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecretiveCertificateParser.swift; sourceTree = "<group>"; };
 		50E205342FAABC6300402380 /* DeleteCertificateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteCertificateView.swift; sourceTree = "<group>"; };
 		50E205352FAABC6300402380 /* EditCertificateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditCertificateView.swift; sourceTree = "<group>"; };
+		50E2057F2FAB291E00402380 /* CertificateMigrator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificateMigrator.swift; sourceTree = "<group>"; };
 		50E4C4522E73C78900C73783 /* WindowBackgroundStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowBackgroundStyle.swift; sourceTree = "<group>"; };
 		50E4C4C22E7765DF00C73783 /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
 		50E4C4C72E777E4200C73783 /* AppIcon.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = AppIcon.icon; sourceTree = "<group>"; };
@@ -290,6 +294,7 @@
 				50E0145C2EDB9CDF00B121F1 /* Common in Frameworks */,
 				5003EF3B278005E800DF2006 /* SecretKit in Frameworks */,
 				501421622781262300BBAA70 /* Brief in Frameworks */,
+				50E205842FAB296A00402380 /* SharedXPCServices in Frameworks */,
 				5003EF5F2780081600DF2006 /* SecureEnclaveSecretKit in Frameworks */,
 				5003EF612780081600DF2006 /* SmartCardSecretKit in Frameworks */,
 				505F5EF22FA9635700C45824 /* CertificateKit in Frameworks */,
@@ -321,6 +326,7 @@
 				5003EF3D278005F300DF2006 /* Brief in Frameworks */,
 				5003EF632780081B00DF2006 /* SecureEnclaveSecretKit in Frameworks */,
 				5003EF652780081B00DF2006 /* SmartCardSecretKit in Frameworks */,
+				50E205822FAB293B00402380 /* SharedXPCServices in Frameworks */,
 				5003EF3F278005F300DF2006 /* SecretAgentKit in Frameworks */,
 				5003EF41278005FA00DF2006 /* SecretKit in Frameworks */,
 				50E0145E2EDB9CE400B121F1 /* Common in Frameworks */,
@@ -517,6 +523,7 @@
 				50020BAF24064869003D4025 /* AppDelegate.swift */,
 				5018F54E24064786002EB505 /* Notifier.swift */,
 				501578122E6C0479004A37D0 /* XPCInputParser.swift */,
+				50E2057F2FAB291E00402380 /* CertificateMigrator.swift */,
 				50A3B79524026B7600D209EA /* Main.storyboard */,
 				50A3B79824026B7600D209EA /* Info.plist */,
 				508BF29425B4F140009EFB7E /* InternetAccessPolicy.plist */,
@@ -575,6 +582,7 @@
 				501421612781262300BBAA70 /* Brief */,
 				50E0145B2EDB9CDF00B121F1 /* Common */,
 				505F5EF12FA9635700C45824 /* CertificateKit */,
+				50E205832FAB296A00402380 /* SharedXPCServices */,
 			);
 			productName = Secretive;
 			productReference = 50617D7F23FCE48E0099B055 /* Secretive.app */;
@@ -648,6 +656,7 @@
 				5003EF622780081B00DF2006 /* SecureEnclaveSecretKit */,
 				5003EF642780081B00DF2006 /* SmartCardSecretKit */,
 				50E0145D2EDB9CE400B121F1 /* Common */,
+				50E205812FAB293B00402380 /* SharedXPCServices */,
 			);
 			productName = SecretAgent;
 			productReference = 50A3B78A24026B7500D209EA /* SecretAgent.app */;
@@ -846,6 +855,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				50E205802FAB291E00402380 /* CertificateMigrator.swift in Sources */,
 				50020BB024064869003D4025 /* AppDelegate.swift in Sources */,
 				5018F54F24064786002EB505 /* Notifier.swift in Sources */,
 				501578132E6C0479004A37D0 /* XPCInputParser.swift in Sources */,
@@ -1836,6 +1846,14 @@
 		50E205322FAAB95A00402380 /* SSHProtocolKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = SSHProtocolKit;
+		};
+		50E205812FAB293B00402380 /* SharedXPCServices */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = SharedXPCServices;
+		};
+		50E205832FAB296A00402380 /* SharedXPCServices */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = SharedXPCServices;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

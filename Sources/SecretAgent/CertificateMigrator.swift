@@ -5,8 +5,9 @@ import CryptoKit
 import os
 import SSHProtocolKit
 import CertificateKit
+import SharedXPCServices
 
-public struct CertificateKitMigrator {
+public struct CertificateMigrator {
 
     private let logger = Logger(subsystem: "com.maxgoedjen.secretive.migration", category: "CertificateKitMigrator")
     private let directory: URL

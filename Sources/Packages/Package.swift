@@ -29,6 +29,9 @@ let package = Package(
             name: "Common",
             targets: ["Common"]),
         .library(
+            name: "SharedXPCServices",
+            targets: ["SharedXPCServices"]),
+        .library(
             name: "Brief",
             targets: ["Brief"]),
         .library(
@@ -93,7 +96,13 @@ let package = Package(
         ),
         .target(
             name: "Common",
-            dependencies: ["SSHProtocolKit", "SecretKit", "CertificateKit"],
+            dependencies: ["SSHProtocolKit", "SecretKit"],
+            resources: [localization],
+            swiftSettings: swiftSettings,
+        ),
+        .target(
+            name: "SharedXPCServices",
+            dependencies: ["CertificateKit"],
             resources: [localization],
             swiftSettings: swiftSettings,
         ),
