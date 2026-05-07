@@ -86,6 +86,9 @@
 		50E205802FAB291E00402380 /* CertificateMigrator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E2057F2FAB291E00402380 /* CertificateMigrator.swift */; };
 		50E205822FAB293B00402380 /* SharedXPCServices in Frameworks */ = {isa = PBXBuildFile; productRef = 50E205812FAB293B00402380 /* SharedXPCServices */; };
 		50E205842FAB296A00402380 /* SharedXPCServices in Frameworks */ = {isa = PBXBuildFile; productRef = 50E205832FAB296A00402380 /* SharedXPCServices */; };
+		50E205862FAC2EA000402380 /* Formatters in Frameworks */ = {isa = PBXBuildFile; productRef = 50E205852FAC2EA000402380 /* Formatters */; };
+		50E205882FAC2EAB00402380 /* Formatters in Frameworks */ = {isa = PBXBuildFile; productRef = 50E205872FAC2EAB00402380 /* Formatters */; };
+		50E2058A2FAC2EB600402380 /* Formatters in Frameworks */ = {isa = PBXBuildFile; productRef = 50E205892FAC2EB600402380 /* Formatters */; };
 		50E4C4532E73C78C00C73783 /* WindowBackgroundStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E4C4522E73C78900C73783 /* WindowBackgroundStyle.swift */; };
 		50E4C4C32E7765DF00C73783 /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E4C4C22E7765DF00C73783 /* AboutView.swift */; };
 		50E4C4C82E777E4200C73783 /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = 50E4C4C72E777E4200C73783 /* AppIcon.icon */; };
@@ -292,6 +295,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				50E0145C2EDB9CDF00B121F1 /* Common in Frameworks */,
+				50E2058A2FAC2EB600402380 /* Formatters in Frameworks */,
 				5003EF3B278005E800DF2006 /* SecretKit in Frameworks */,
 				501421622781262300BBAA70 /* Brief in Frameworks */,
 				50E205842FAB296A00402380 /* SharedXPCServices in Frameworks */,
@@ -305,6 +309,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				50E205862FAC2EA000402380 /* Formatters in Frameworks */,
 				50692D2D2E6FDC000043C7BB /* XPCWrappers in Frameworks */,
 				50692D312E6FDC390043C7BB /* Brief in Frameworks */,
 			);
@@ -337,6 +342,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				50E205882FAC2EAB00402380 /* Formatters in Frameworks */,
 				50E205332FAAB95A00402380 /* SSHProtocolKit in Frameworks */,
 				50E205312FAAB95500402380 /* XPCWrappers in Frameworks */,
 			);
@@ -583,6 +589,7 @@
 				50E0145B2EDB9CDF00B121F1 /* Common */,
 				505F5EF12FA9635700C45824 /* CertificateKit */,
 				50E205832FAB296A00402380 /* SharedXPCServices */,
+				50E205892FAC2EB600402380 /* Formatters */,
 			);
 			productName = Secretive;
 			productReference = 50617D7F23FCE48E0099B055 /* Secretive.app */;
@@ -604,6 +611,7 @@
 			packageProductDependencies = (
 				50692D2C2E6FDC000043C7BB /* XPCWrappers */,
 				50692D302E6FDC390043C7BB /* Brief */,
+				50E205852FAC2EA000402380 /* Formatters */,
 			);
 			productName = SecretiveUpdater;
 			productReference = 50692D122E6FDB880043C7BB /* SecretiveUpdater.xpc */;
@@ -678,6 +686,7 @@
 			packageProductDependencies = (
 				50E205302FAAB95500402380 /* XPCWrappers */,
 				50E205322FAAB95A00402380 /* SSHProtocolKit */,
+				50E205872FAC2EAB00402380 /* Formatters */,
 			);
 			productName = SecretAgentCertificateParser;
 			productReference = 50E205142FAAB81C00402380 /* SecretiveCertificateParser.xpc */;
@@ -1856,6 +1865,18 @@
 		50E205832FAB296A00402380 /* SharedXPCServices */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = SharedXPCServices;
+		};
+		50E205852FAC2EA000402380 /* Formatters */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Formatters;
+		};
+		50E205872FAC2EAB00402380 /* Formatters */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Formatters;
+		};
+		50E205892FAC2EB600402380 /* Formatters */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Formatters;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

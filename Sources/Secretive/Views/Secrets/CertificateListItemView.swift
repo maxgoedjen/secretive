@@ -6,13 +6,13 @@ struct CertificateListItemView: View {
 
     @Environment(\.certificateStore) private var store
 
-    var certificate: OpenSSHCertificate
+    var certificate: Certificate
 
     @State var isDeleting: Bool = false
     @State var isRenaming: Bool = false
 
-    var deletedCertificate: (OpenSSHCertificate) -> Void
-    var renamedCertificate: (OpenSSHCertificate) -> Void
+    var deletedCertificate: (Certificate) -> Void
+    var renamedCertificate: (Certificate) -> Void
 
     var body: some View {
         NavigationLink(value: certificate) {

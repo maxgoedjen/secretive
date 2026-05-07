@@ -1,5 +1,6 @@
 import Foundation
 import SSHProtocolKit
+import CertificateKit
 import SecretKit
 
 extension URL {
@@ -35,11 +36,11 @@ extension URL {
     }
 
     /// The path for a certificate.
-    /// - Parameter certificate: The OpenSSHCertificate to return the path for.
-    /// - Returns: The path to the OpenSSHCertificate.
+    /// - Parameter certificate: The Certificate to return the path for.
+    /// - Returns: The path to the Certificate.
     /// - Warning: This method returning a path does not imply that a certificate has been written to disk already. This method only describes where it will be written to.
-    public static func certificatePath(for certificate: OpenSSHCertificate, in directory: URL) -> String {
-        return directory.appending(component: "\(certificate.id)-cert.pub").path()
+    public static func certificatePath(for certificateID: String, in directory: URL) -> String {
+        return directory.appending(component: "\(certificateID)-cert.pub").path()
     }
 
 }

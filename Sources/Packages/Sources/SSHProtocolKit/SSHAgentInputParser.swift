@@ -1,6 +1,7 @@
 import Foundation
 import OSLog
 import SecretKit
+import CertificateKit
 
 public protocol SSHAgentInputParserProtocol {
 

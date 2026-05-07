@@ -26,6 +26,9 @@ let package = Package(
             name: "SecretAgentKit",
             targets: ["SecretAgentKit"]),
         .library(
+            name: "Formatters",
+            targets: ["Formatters"]),
+        .library(
             name: "Common",
             targets: ["Common"]),
         .library(
@@ -69,13 +72,13 @@ let package = Package(
         ),
         .target(
             name: "CertificateKit",
-            dependencies: ["SecretKit", "SSHProtocolKit"],
+            dependencies: ["SecretKit", "Formatters"],
             resources: [localization],
             swiftSettings: swiftSettings,
         ),
         .target(
             name: "SecretAgentKit",
-            dependencies: ["SecretKit", "SSHProtocolKit", "CertificateKit", "Common"],
+            dependencies: ["SecretKit", "SSHProtocolKit", "CertificateKit", "Common", "Formatters"],
             resources: [localization],
             swiftSettings: swiftSettings,
         ),
@@ -85,13 +88,19 @@ let package = Package(
         ),
         .target(
             name: "SSHProtocolKit",
-            dependencies: ["SecretKit"],
+            dependencies: ["SecretKit", "CertificateKit"],
             resources: [localization],
             swiftSettings: swiftSettings,
         ),
         .testTarget(
             name: "SSHProtocolKitTests",
             dependencies: ["SSHProtocolKit"],
+            swiftSettings: swiftSettings,
+        ),
+        .target(
+            name: "Formatters",
+            dependencies: [],
+            resources: [localization],
             swiftSettings: swiftSettings,
         ),
         .target(
@@ -102,7 +111,7 @@ let package = Package(
         ),
         .target(
             name: "SharedXPCServices",
-            dependencies: ["CertificateKit"],
+            dependencies: ["CertificateKit", "SSHProtocolKit"],
             resources: [localization],
             swiftSettings: swiftSettings,
         ),

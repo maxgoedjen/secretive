@@ -3,11 +3,10 @@ import Observation
 import Security
 import os
 import SecretKit
-import SSHProtocolKit
 
 @Observable @MainActor public final class CertificateStore: Sendable {
 
-    public private(set) var certificates: [OpenSSHCertificate] = []
+    public private(set) var certificates: [Certificate] = []
 
     /// Initializes a Store.
     public init() {
@@ -33,15 +32,15 @@ import SSHProtocolKit
         }
     }
 
-    public func save(certificate: OpenSSHCertificate, originalData: Data) throws {
-        let attributes = try JSONEncoder().encode(certificate)
+    public func save(certificate: Certificate) throws {
+        let attributes = try JSONEncoder().encode(certificate.openSSHCertificate)
         let keychainAttributes = KeychainDictionary([
             kSecClass: Constants.keyClass,
             kSecAttrService: Constants.keyTag,
             kSecAttrAccount: certificate.id,
             kSecUseDataProtectionKeychain: true,
             kSecAttrAccessible: kSecAttrAccessibleWhenUnlockedThisDeviceOnly,
-            kSecValueData: originalData,
+            kSecValueData: certificate.rawData,
             kSecAttrGeneric: attributes
         ])
         let status = SecItemAdd(keychainAttributes, nil)
@@ -51,7 +50,7 @@ import SSHProtocolKit
         reloadCertificates()
     }
 
-    public func delete(certificate: OpenSSHCertificate) throws {
+    public func delete(certificate: Certificate) throws {
         let deleteAttributes = KeychainDictionary([
             kSecClass: Constants.keyClass,
             kSecAttrService: Constants.keyTag,
@@ -65,13 +64,13 @@ import SSHProtocolKit
         reloadCertificates()
     }
 
-    public func update(certificate: OpenSSHCertificate) throws {
+    public func update(certificate: Certificate) throws {
         let updateQuery = KeychainDictionary([
             kSecClass: Constants.keyClass,
             kSecAttrAccount: certificate.id,
         ])
 
-        let cert = try JSONEncoder().encode(certificate)
+        let cert = try JSONEncoder().encode(certificate.openSSHCertificate)
         let updatedAttributes = KeychainDictionary([
             kSecAttrGeneric: cert,
         ])
@@ -83,8 +82,8 @@ import SSHProtocolKit
         reloadCertificates()
     }
 
-    public func certificates(for secret: any Secret) -> [OpenSSHCertificate] {
-        certificates.filter { $0.publicKey == secret.publicKey }
+    public func certificates(for secret: any Secret) -> [Certificate] {
+        certificates.filter { $0.openSSHCertificate.publicKey.data == secret.publicKey }
     }
 
 
@@ -106,12 +105,13 @@ extension CertificateStore {
         unsafe SecItemCopyMatching(queryAttributes, &untyped)
         guard let typed = untyped as? [[CFString: Any]] else { return }
         let decoder = JSONDecoder()
-        let wrapped: [OpenSSHCertificate] = typed.compactMap {
+        let wrapped: [Certificate] = typed.compactMap {
             do {
-                guard let attributesData = $0[kSecAttrGeneric] as? Data else {
+                guard let data = $0[kSecValueData] as? Data,
+                      let attributesData = $0[kSecAttrGeneric] as? Data else {
                     throw MissingAttributesError()
                 }
-                return try decoder.decode(OpenSSHCertificate.self, from: attributesData)
+                return Certificate(openSSHCertificate: try decoder.decode(OpenSSHCertificate.self, from: attributesData), rawData: data)
             } catch {
                 return nil
             }
@@ -123,6 +123,7 @@ extension CertificateStore {
                     true
                 }
             }
+
         certificates.append(contentsOf: wrapped)
     }
 

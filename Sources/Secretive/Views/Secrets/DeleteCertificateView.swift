@@ -4,7 +4,7 @@ import SSHProtocolKit
 
 extension View {
 
-    func showingDeleteConfirmation(isPresented: Binding<Bool>, _ certificate: OpenSSHCertificate,  _ store: CertificateStore, dismissalBlock: @escaping (Bool) -> ()) -> some View {
+    func showingDeleteConfirmation(isPresented: Binding<Bool>, _ certificate: Certificate,  _ store: CertificateStore, dismissalBlock: @escaping (Bool) -> ()) -> some View {
         modifier(DeleteCertificateConfirmationModifier(isPresented: isPresented, certificate: certificate, store: store, dismissalBlock: dismissalBlock))
     }
 
@@ -13,7 +13,7 @@ extension View {
 struct DeleteCertificateConfirmationModifier: ViewModifier {
 
     var isPresented: Binding<Bool>
-    var certificate: OpenSSHCertificate
+    var certificate: Certificate
     var store: CertificateStore
     var dismissalBlock: (Bool) -> ()
     @State var confirmedSecretName = ""

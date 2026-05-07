@@ -1,12 +1,13 @@
 import SwiftUI
 import SecretKit
 import SSHProtocolKit
+import CertificateKit
 
 struct StoreListView: View {
 
     enum StoreListSelection: Hashable {
         case secret(AnySecret)
-        case certificate(OpenSSHCertificate)
+        case certificate(Certificate)
     }
 
     @Binding var selection: StoreListSelection?

@@ -2,6 +2,7 @@ import Foundation
 import OSLog
 import XPCWrappers
 import SSHProtocolKit
+import CertificateKit
 
 final class SecretiveCertificateParser: NSObject, XPCProtocol {
 
@@ -10,7 +11,7 @@ final class SecretiveCertificateParser: NSObject, XPCProtocol {
     func process(_ data: Data) async throws -> OpenSSHCertificate {
         let parser = OpenSSHCertificateParser()
         let result = try parser.parse(data: data)
-        logger.log("Parser parsed certificate \(result.debugDescription)")
+        logger.log("Parser parsed certificate")
         return result
     }
 

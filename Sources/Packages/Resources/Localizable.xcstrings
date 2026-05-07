@@ -5548,6 +5548,28 @@
         }
       }
     },
+    "certificate_detail_critical_options_label" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Critical Options"
+          }
+        }
+      }
+    },
+    "certificate_detail_extensions_label" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Extensions"
+          }
+        }
+      }
+    },
     "certificate_detail_key_id_label" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -5588,6 +5610,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Serial Number"
+          }
+        }
+      }
+    },
+    "certificate_detail_sha256_public_key_fingerprint_label" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Public Key Fingerprint"
+          }
+        }
+      }
+    },
+    "certificate_detail_sha256_signing_key_fingerprint_label" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Signing CA Fingerprint"
           }
         }
       }

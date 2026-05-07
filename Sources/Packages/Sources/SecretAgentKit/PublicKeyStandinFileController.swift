@@ -2,6 +2,7 @@ import Foundation
 import OSLog
 import SecretKit
 import SSHProtocolKit
+import CertificateKit
 import Common
 
 /// Controller responsible for writing public keys to disk, so that they're easily accessible by scripts.
@@ -48,10 +49,10 @@ public final class PublicKeyFileStoreController: Sendable {
     /// Writes out the certificates specified to disk.
     /// - Parameter certificates: The Secrets to generate keys for.
     /// - Parameter clear: Whether or not any untracked files in the directory should be removed.
-    public func generateCertificates(for certificates: [OpenSSHCertificate], clear: Bool = false) throws {
+    public func generateCertificates(for certificates: [Certificate], clear: Bool = false) throws {
         logger.log("Writing certificates to disk")
         if clear {
-            let validPaths = Set(certificates.map { URL.certificatePath(for: $0, in: certificatesURL) })
+            let validPaths = Set(certificates.map { URL.certificatePath(for: $0.id, in: certificatesURL) })
             let contentsOfDirectory = (try? FileManager.default.contentsOfDirectory(atPath: certificatesURL.path())) ?? []
             let fullPathContents = contentsOfDirectory.map { certificatesURL.appending(path: $0).path() }
 
@@ -64,8 +65,8 @@ public final class PublicKeyFileStoreController: Sendable {
         }
         try? FileManager.default.createDirectory(at: certificatesURL, withIntermediateDirectories: false, attributes: nil)
         for certificate in certificates {
-            let path = URL.certificatePath(for: certificate, in: certificatesURL)
-            FileManager.default.createFile(atPath: path, contents: certificate.data, attributes: nil)
+            let path = URL.certificatePath(for: certificate.id, in: certificatesURL)
+            FileManager.default.createFile(atPath: path, contents: certificate.rawData, attributes: nil)
         }
         logger.log("Finished writing certificates")
     }

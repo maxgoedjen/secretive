@@ -1,11 +1,12 @@
 import SwiftUI
 import SecretKit
 import Common
+import CertificateKit
 import SSHProtocolKit
-
+import CryptoKit
 struct CertificateDetailView: View {
 
-    let certificate: OpenSSHCertificate
+    let certificate: Certificate
 
     var body: some View {
         ScrollView {
@@ -25,6 +26,26 @@ struct CertificateDetailView: View {
                     )
                     Spacer()
                         .frame(height: 20)
+                    CopyableView(
+                        title: .secretDetailSha256FingerprintLabel,
+                        image: Image(systemName: "touchid"),
+                        text: OpenSSHCertificateWriter().openSSHSHA256KeyFingerprint(publicKey: certificate.publicKey)
+                    )
+                    Spacer()
+                        .frame(height: 20)
+                    CopyableView(
+                        title: .secretDetailSha256FingerprintLabel,
+                        image: Image(systemName: "touchid"),
+                        text: OpenSSHCertificateWriter().openSSHSHA256KeyFingerprint(publicKey: certificate.signingKey)
+                    )
+                    Spacer()
+                        .frame(height: 20)
+                    CopyableView(
+                        title: .certificateDetailPathLabel,
+                        image: Image(systemName: "checkmark.seal.text.page"),
+                        text: URL.certificatePath(for: certificate.id, in: URL.certificatesDirectory),
+                        showRevealInFinder: true
+                    )
                     if let validityRange = certificate.validityRange {
                         let epoch = Date(timeIntervalSince1970: 0)
                         let end = Date(timeIntervalSince1970: TimeInterval(UInt64.max))
@@ -32,30 +53,34 @@ struct CertificateDetailView: View {
                         case (epoch, end):
                             EmptyView()
                         case (epoch, let otherEnd):
+                            Spacer()
+                                .frame(height: 20)
                             MultilineInfoView(title: .certificateDetailValidUntilLabel, image: Image(systemName: "calendar.badge.clock"), items: [otherEnd.formatted()])
-                            Spacer()
-                                .frame(height: 20)
                         case (let otherStart, end):
+                            Spacer()
+                                .frame(height: 20)
                             MultilineInfoView(title: .certificateDetailValidAfterLabel, image: Image(systemName: "calendar.badge.clock"), items: [otherStart.formatted()])
-                            Spacer()
-                                .frame(height: 20)
                         default:
-                            MultilineInfoView(title: .certificateDetailValidityRangeLabel, image: Image(systemName: "calendar.badge.clock"), items: [validityRange.formatted()])
                             Spacer()
                                 .frame(height: 20)
+                            MultilineInfoView(title: .certificateDetailValidityRangeLabel, image: Image(systemName: "calendar.badge.clock"), items: [validityRange.formatted()])
                         }
                     }
                     if !certificate.principals.isEmpty {
-                        MultilineInfoView(title: .certificateDetailPrincipalsLabel, image: Image(systemName: "person.2"), items: certificate.principals)
                         Spacer()
                             .frame(height: 20)
+                        MultilineInfoView(title: .certificateDetailPrincipalsLabel, image: Image(systemName: "person.2"), items: certificate.principals)
                     }
-                    CopyableView(
-                        title: .certificateDetailPathLabel,
-                        image: Image(systemName: "checkmark.seal.text.page"),
-                        text: URL.certificatePath(for: certificate, in: URL.certificatesDirectory),
-                        showRevealInFinder: true
-                    )
+                    if !certificate.criticalOptions.isEmpty {
+                        Spacer()
+                            .frame(height: 20)
+                        MultilineInfoView(title: .certificateDetailCriticalOptionsLabel, image: Image(systemName: "person.2"), items: certificate.criticalOptions)
+                    }
+                    if !certificate.extensions.isEmpty {
+                        Spacer()
+                            .frame(height: 20)
+                        MultilineInfoView(title: .certificateDetailExtensionsLabel, image: Image(systemName: "person.2"), items: certificate.extensions)
+                    }
                     Spacer()
                 }
             }

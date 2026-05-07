@@ -5,6 +5,7 @@ import SmartCardSecretKit
 import Brief
 import SSHProtocolKit
 import SharedXPCServices
+import CertificateKit
 
 struct ContentView: View {
 
@@ -52,8 +53,9 @@ struct ContentView: View {
                     let data = try Data(contentsOf: url)
                     let parser = try await XPCCertificateParser()
                     let cert = try await parser.parse(data: data)
-                    try certificateStore.save(certificate: cert, originalData: data)
-                    selection = .certificate(cert)
+                    let wrapped = Certificate(openSSHCertificate: cert, rawData: data)
+                    try certificateStore.save(certificate: wrapped)
+                    selection = .certificate(wrapped)
                 } catch {
 
                 }

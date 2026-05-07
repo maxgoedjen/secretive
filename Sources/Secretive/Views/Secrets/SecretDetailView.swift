@@ -1,13 +1,14 @@
 import SwiftUI
 import SecretKit
 import Common
+import CertificateKit
 import SSHProtocolKit
 
 struct SecretDetailView<SecretType: Secret>: View {
     
     let secret: SecretType
-    let certificates: [OpenSSHCertificate]
-    let navigateToCertificate: ((OpenSSHCertificate) -> Void)?
+    let certificates: [Certificate]
+    let navigateToCertificate: ((Certificate) -> Void)?
 
     private let keyWriter = OpenSSHPublicKeyWriter()
 

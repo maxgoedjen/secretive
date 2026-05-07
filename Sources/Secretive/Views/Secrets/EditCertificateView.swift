@@ -5,14 +5,14 @@ import CertificateKit
 struct EditCertificateView: View {
 
     let store: CertificateStore
-    let certificate: OpenSSHCertificate
+    let certificate: Certificate
 
     @State private var name: String
     @State var errorText: String?
 
     @Environment(\.dismiss) var dismiss
 
-    init(store: CertificateStore, certificate: OpenSSHCertificate) {
+    init(store: CertificateStore, certificate: Certificate) {
         self.store = store
         self.certificate = certificate
         name = certificate.name
@@ -49,7 +49,7 @@ struct EditCertificateView: View {
         Task {
             do {
                 var updated = certificate
-                updated.name = name
+                updated.openSSHCertificate.name = name
                 try store.update(certificate: updated)
                 dismiss()
             } catch {

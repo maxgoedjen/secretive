@@ -1,47 +1,11 @@
 import Foundation
-import OSLog
-import CryptoKit
-
-public struct OpenSSHCertificate: Sendable, Codable, Equatable, Hashable, Identifiable, CustomDebugStringConvertible {
-
-    public var id: String { Insecure.MD5.hash(data: data).formatted(.hex(separator: "")) }
-    public var type: CertificateType
-    public var name: String
-    public let data: Data
-
-    public var publicKey: Data
-    public var principals: [String]
-    public var keyID: String
-    public var serial: UInt64
-    public var validityRange: Range<Date>?
-
-    public var debugDescription: String {
-        "OpenSSH Certificate \(name, default: "Unnamed"): \(data.formatted(.hex()))"
-    }
-
-}
-
-extension OpenSSHCertificate {
-
-    public enum CertificateType: String, Sendable, Codable {
-        case ecdsa256 = "ecdsa-sha2-nistp256-cert-v01@openssh.com"
-        case ecdsa384 = "ecdsa-sha2-nistp384-cert-v01@openssh.com"
-        case nistp521 = "ecdsa-sha2-nistp521-cert-v01@openssh.com"
-
-        var keyIdentifier: String {
-            rawValue.replacingOccurrences(of: "-cert-v01@openssh.com", with: "")
-        }
-    }
-
-}
+import CertificateKit
 
 public protocol OpenSSHCertificateParserProtocol {
     func parse(data: Data) async throws -> OpenSSHCertificate
 }
 
 public struct OpenSSHCertificateParser: OpenSSHCertificateParserProtocol, Sendable {
-
-    private let logger = Logger(subsystem: "com.maxgoedjen.secretive", category: "OpenSSHCertificateParser")
 
     public init() {
         assert(Bundle.main.bundleURL.pathExtension == "xpc" || ProcessInfo.processInfo.processName == "xctest", "Potentially unsafe parsing code should run in an XPC service")
@@ -64,10 +28,12 @@ public struct OpenSSHCertificateParser: OpenSSHCertificateParserProtocol, Sendab
         let comment = elements.first
         do {
             let dataParser = OpenSSHReader(data: decoded)
-            _ = try dataParser.readNextChunkAsString() // Redundant key type
+            let publicKeyType = try dataParser.readNextChunkAsString() // Theoretically the same as typeString, but
+                .replacingOccurrences(of: "-cert-v01@openssh.com", with: "")
             _ = try dataParser.readNextChunk() // Nonce
-            _ = try dataParser.readNextChunkAsString() // curve
-            let publicKey = try dataParser.readNextChunk()
+            let publicKeyCurveName = try dataParser.readNextChunkAsString()
+            let publicKeyData = try dataParser.readNextChunk()
+            let publicKey = OpenSSHCertificate.PublicKey(keyType: publicKeyType, curveName: publicKeyCurveName, data: publicKeyData)
             let serialNumber = try dataParser.readNextBytes(as: UInt64.self, convertEndianness: true)
             let role = try dataParser.readNextBytes(as: UInt32.self, convertEndianness: true)
             _ = role
@@ -80,6 +46,28 @@ public struct OpenSSHCertificateParser: OpenSSHCertificateParserProtocol, Sendab
             let validAfter = try dataParser.readNextBytes(as: UInt64.self, convertEndianness: true)
             let validBefore = try dataParser.readNextBytes(as: UInt64.self, convertEndianness: true)
             let validityRange = Date(timeIntervalSince1970: TimeInterval(validAfter))..<Date(timeIntervalSince1970: TimeInterval(validBefore))
+            let criticalOptionsReader = try dataParser.readNextChunkAsSubReader()
+            var criticalOptions: [String] = []
+            while !criticalOptionsReader.done {
+                let next = try criticalOptionsReader.readNextChunkAsString()
+                if !next.isEmpty {
+                    criticalOptions.append(next)
+                }
+            }
+            let extensionsReader = try dataParser.readNextChunkAsSubReader()
+            var extensions: [String] = []
+            while !extensionsReader.done {
+                let next = try extensionsReader.readNextChunkAsString()
+                if !next.isEmpty {
+                    extensions.append(next)
+                }
+            }
+            _ = try dataParser.readNextChunk() // reserved
+            let signingKeyReader = try dataParser.readNextChunkAsSubReader()
+            let signingKeyType = try signingKeyReader.readNextChunkAsString()
+            let signingKeyCurveName = try signingKeyReader.readNextChunkAsString()
+            let signingKeyData = try signingKeyReader.readNextChunk()
+            let signingKey = OpenSSHCertificate.PublicKey(keyType: signingKeyType, curveName: signingKeyCurveName, data: signingKeyData)
 
             return OpenSSHCertificate(
                 type: type,
@@ -89,7 +77,10 @@ public struct OpenSSHCertificateParser: OpenSSHCertificateParserProtocol, Sendab
                 principals: principals,
                 keyID: keyIdentifier,
                 serial: serialNumber,
-                validityRange: validityRange
+                validityRange: validityRange,
+                criticalOptions: criticalOptions,
+                extensions: extensions,
+                signingKey: signingKey,
             )
         } catch {
             throw .parsingFailed
