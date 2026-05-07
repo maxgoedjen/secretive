@@ -365,16 +365,6 @@
       },
       "shouldTranslate" : false
     },
-    "%@ - %@" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "%1$@ - %2$@"
-          }
-        }
-      }
-    },
     "about_build_log_button" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -5558,6 +5548,130 @@
         }
       }
     },
+    "certificate_detail_critical_options_label" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Critical Options"
+          }
+        }
+      }
+    },
+    "certificate_detail_extensions_label" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Extensions"
+          }
+        }
+      }
+    },
+    "certificate_detail_key_id_label" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Key ID"
+          }
+        }
+      }
+    },
+    "certificate_detail_path_label" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Certificate Path"
+          }
+        }
+      }
+    },
+    "certificate_detail_principals_label" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Principals"
+          }
+        }
+      }
+    },
+    "certificate_detail_serial_label" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Serial Number"
+          }
+        }
+      }
+    },
+    "certificate_detail_sha256_public_key_fingerprint_label" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Public Key Fingerprint"
+          }
+        }
+      }
+    },
+    "certificate_detail_sha256_signing_key_fingerprint_label" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Signing CA Fingerprint"
+          }
+        }
+      }
+    },
+    "certificate_detail_valid_after_label" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Valid After"
+          }
+        }
+      }
+    },
+    "certificate_detail_valid_until_label" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Valid Until"
+          }
+        }
+      }
+    },
+    "certificate_detail_validity_range_label" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Validity Range"
+          }
+        }
+      }
+    },
+    "Certificates" : {
+
+    },
     "copyable_click_to_copy_button" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -10004,181 +10118,181 @@
         "af" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Delete %1$(secretName)@?"
+            "value" : "Delete %1$(name)@?"
           }
         },
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Delete %1$(secretName)@?"
+            "value" : "Delete %1$(name)@?"
           }
         },
         "ca" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Esborrar %1$(secretName)@?"
+            "value" : "Esborrar %1$(name)@?"
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Delete %1$(secretName)@?"
+            "value" : "Delete %1$(name)@?"
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Delete %1$(secretName)@?"
+            "value" : "Delete %1$(name)@?"
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$(secretName)@ Löschen?"
+            "value" : "%1$(name)@ Löschen?"
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Delete %1$(secretName)@?"
+            "value" : "Delete %1$(name)@?"
           }
         },
         "en" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Delete %1$(secretName)@?"
+            "state" : "translated",
+            "value" : "Delete %1$(name)@?"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Delete %1$(secretName)@?"
+            "value" : "Delete %1$(name)@?"
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Poista %1$(secretName)@?"
+            "value" : "Poista %1$(name)@?"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Supprimer %1$(secretName)@?"
+            "value" : "Supprimer %1$(name)@?"
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Delete %1$(secretName)@?"
+            "value" : "Delete %1$(name)@?"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Delete %1$(secretName)@?"
+            "value" : "Delete %1$(name)@?"
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Eliminare %1$(secretName)@?"
+            "value" : "Eliminare %1$(name)@?"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$(secretName)@を削除しますか?"
+            "value" : "%1$(name)@を削除しますか?"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$(secretName)@를 지우겠습니까?"
+            "value" : "%1$(name)@를 지우겠습니까?"
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Delete %1$(secretName)@?"
+            "value" : "Delete %1$(name)@?"
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Delete %1$(secretName)@?"
+            "value" : "Delete %1$(name)@?"
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Usunąć %1$(secretName)@?"
+            "value" : "Usunąć %1$(name)@?"
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Delete %1$(secretName)@?"
+            "value" : "Delete %1$(name)@?"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Deletar %1$(secretName)@?"
+            "value" : "Deletar %1$(name)@?"
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Delete %1$(secretName)@?"
+            "value" : "Delete %1$(name)@?"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Удалить %1$(secretName)@?"
+            "value" : "Удалить %1$(name)@?"
           }
         },
         "sr" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Delete %1$(secretName)@?"
+            "value" : "Delete %1$(name)@?"
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Delete %1$(secretName)@?"
+            "value" : "Delete %1$(name)@?"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Delete %1$(secretName)@?"
+            "value" : "Delete %1$(name)@?"
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Delete %1$(secretName)@?"
+            "value" : "Delete %1$(name)@?"
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Delete %1$(secretName)@?"
+            "value" : "Delete %1$(name)@?"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "删除“%1$(secretName)@”吗？"
+            "value" : "删除“%1$(name)@”吗？"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "刪除「%1$(secretName)@」嗎？"
+            "value" : "刪除「%1$(name)@」嗎？"
           }
         }
       }
@@ -19647,6 +19761,28 @@
         }
       }
     },
+    "rename_certificate_label" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Name"
+          }
+        }
+      }
+    },
+    "rename_certificate_name_placeholder" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Certificate Name"
+          }
+        }
+      }
+    },
     "reveal_in_finder_button" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -19832,11 +19968,16 @@
         }
       }
     },
-    "Review" : {
-
-    },
-    "Review All" : {
-
+    "secret_detail_certificate_path_label" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Matching Certificates"
+          }
+        }
+      }
     },
     "secret_detail_md5_fingerprint_label" : {
       "extractionState" : "manual",

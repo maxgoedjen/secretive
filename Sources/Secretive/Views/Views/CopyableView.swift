@@ -4,12 +4,13 @@ import UniformTypeIdentifiers
 struct CopyableView: View {
 
     var title: LocalizedStringResource
+    var subtitle: String?
     var image: Image
     var text: String
     var showRevealInFinder = false
 
     @State private var interactionState: InteractionState = .normal
-    
+
     var content: some View {
         VStack(alignment: .leading, spacing: 15) {
             HStack {
@@ -17,9 +18,16 @@ struct CopyableView: View {
                     .renderingMode(.template)
                     .imageScale(.large)
                     .foregroundColor(primaryTextColor)
-                Text(title)
-                    .font(.headline)
-                    .foregroundColor(primaryTextColor)
+                VStack(alignment: .leading) {
+                    Text(title)
+                        .font(.headline)
+                        .foregroundColor(primaryTextColor)
+                    if let subtitle {
+                        Text(subtitle)
+                            .font(.system(.subheadline, design: .monospaced))
+                            .foregroundColor(secondaryTextColor)
+                    }
+                }
                 Spacer()
                 if interactionState != .normal {
                     HStack {

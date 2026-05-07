@@ -3,6 +3,7 @@ import SecretKit
 import SecureEnclaveSecretKit
 import SmartCardSecretKit
 import Brief
+import CertificateKit
 
 @main
 struct Secretive: App {
@@ -14,6 +15,7 @@ struct Secretive: App {
         WindowGroup {
             ContentView()
                 .environment(EnvironmentValues._secretStoreList)
+                .environment(EnvironmentValues._certificateStore)
                 .onReceive(NotificationCenter.default.publisher(for: NSApplication.didBecomeActiveNotification)) { _ in
                     Task {
                         @AppStorage("defaultsHasRunSetup") var hasRunSetup = false
@@ -92,15 +94,18 @@ extension EnvironmentValues {
     @MainActor fileprivate static let _secretStoreList: SecretStoreList = {
         let list = SecretStoreList()
         let cryptoKit = SecureEnclave.Store()
-        let migrator = SecureEnclave.CryptoKitMigrator()
-        try? migrator.migrate(to: cryptoKit)
+        let cryptoKitMigrator = SecureEnclave.CryptoKitMigrator()
+        try? cryptoKitMigrator.migrate(to: cryptoKit)
         list.add(store: cryptoKit)
         list.add(store: SmartCard.Store())
         return list
     }()
 
+    @MainActor fileprivate static let _certificateStore: CertificateStore = CertificateStore()
+    
     private static let _agentLaunchController = AgentLaunchController()
     @Entry var agentLaunchController: any AgentLaunchControllerProtocol = _agentLaunchController
+
     private static let _updater: any UpdaterProtocol = {
         @AppStorage("defaultsHasRunSetup") var hasRunSetup = false
         return Updater(checkOnLaunch: hasRunSetup)
@@ -112,6 +117,10 @@ extension EnvironmentValues {
 
     @MainActor var secretStoreList: SecretStoreList {
         EnvironmentValues._secretStoreList
+    }
+
+    @MainActor var certificateStore: CertificateStore {
+        EnvironmentValues._certificateStore
     }
 }
 

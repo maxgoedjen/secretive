@@ -10,6 +10,9 @@ public final class OpenSSHReader {
     /// - Parameter data: The data to read.
     public init(data: Data) {
         remaining = Data(data)
+        if remaining.count == 0 {
+            done = true
+        }
     }
 
     /// Reads the next chunk of data from the playload.

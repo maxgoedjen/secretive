@@ -1,19 +1,20 @@
 import SwiftUI
-import SecretKit
+import CertificateKit
+import SSHProtocolKit
 
 extension View {
 
-    func showingDeleteConfirmation(isPresented: Binding<Bool>, _ secret: AnySecret,  _ store: AnySecretStoreModifiable?, dismissalBlock: @escaping (Bool) -> ()) -> some View {
-        modifier(DeleteSecretConfirmationModifier(isPresented: isPresented, secret: secret, store: store, dismissalBlock: dismissalBlock))
+    func showingDeleteConfirmation(isPresented: Binding<Bool>, _ certificate: Certificate,  _ store: CertificateStore, dismissalBlock: @escaping (Bool) -> ()) -> some View {
+        modifier(DeleteCertificateConfirmationModifier(isPresented: isPresented, certificate: certificate, store: store, dismissalBlock: dismissalBlock))
     }
 
 }
 
-struct DeleteSecretConfirmationModifier: ViewModifier {
+struct DeleteCertificateConfirmationModifier: ViewModifier {
 
     var isPresented: Binding<Bool>
-    var secret: AnySecret
-    var store: AnySecretStoreModifiable?
+    var certificate: Certificate
+    var store: CertificateStore
     var dismissalBlock: (Bool) -> ()
     @State var confirmedSecretName = ""
     @State private var errorText: String?
@@ -21,24 +22,15 @@ struct DeleteSecretConfirmationModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
             .confirmationDialog(
-                .deleteConfirmationTitle(name: secret.name),
+                String(localized: .deleteConfirmationTitle(name: certificate.name)),
                 isPresented: isPresented,
                 titleVisibility: .visible,
                 actions: {
-                    TextField(secret.name, text: $confirmedSecretName)
-                    if let errorText {
-                        Text(verbatim: errorText)
-                            .errorStyle()
-                    }
                     Button(.deleteConfirmationDeleteButton, action: delete)
-                        .disabled(confirmedSecretName != secret.name)
                     Button(.deleteConfirmationCancelButton, role: .cancel) {
                         dismissalBlock(false)
                     }
                 },
-                message: {
-                    Text(.deleteConfirmationDescription(secretName: secret.name, confirmSecretName: secret.name))
-                }
             )
             .dialogIcon(Image(systemName: "lock.trianglebadge.exclamationmark.fill"))
             .onExitCommand {
@@ -49,7 +41,7 @@ struct DeleteSecretConfirmationModifier: ViewModifier {
     func delete() {
         Task {
             do {
-                try await store!.delete(secret: secret)
+                try store.delete(certificate: certificate)
                 dismissalBlock(true)
             } catch {
                 errorText = error.localizedDescription

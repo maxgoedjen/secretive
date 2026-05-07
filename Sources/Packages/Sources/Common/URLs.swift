@@ -1,5 +1,6 @@
 import Foundation
 import SSHProtocolKit
+import CertificateKit
 import SecretKit
 
 extension URL {
@@ -20,6 +21,10 @@ extension URL {
         agentHomeURL.appending(component: "PublicKeys")
     }
 
+    public static var certificatesDirectory: URL {
+        agentHomeURL.appending(component: "Certificates")
+    }
+
     /// The path for a Secret's public key.
     /// - Parameter secret: The Secret to return the path for.
     /// - Returns: The path to the Secret's public key.
@@ -28,6 +33,14 @@ extension URL {
         let keyWriter = OpenSSHPublicKeyWriter()
         let minimalHex = keyWriter.openSSHMD5Fingerprint(secret: secret).replacingOccurrences(of: ":", with: "")
         return directory.appending(component: "\(minimalHex).pub").path()
+    }
+
+    /// The path for a certificate.
+    /// - Parameter certificate: The Certificate to return the path for.
+    /// - Returns: The path to the Certificate.
+    /// - Warning: This method returning a path does not imply that a certificate has been written to disk already. This method only describes where it will be written to.
+    public static func certificatePath(for certificateID: String, in directory: URL) -> String {
+        return directory.appending(component: "\(certificateID)-cert.pub").path()
     }
 
 }

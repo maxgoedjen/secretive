@@ -3,16 +3,20 @@ import SecretKit
 import SecureEnclaveSecretKit
 import SmartCardSecretKit
 import Brief
+import SSHProtocolKit
+import SharedXPCServices
+import CertificateKit
 
 struct ContentView: View {
 
-    @State var activeSecret: AnySecret?
+    @State var selection: StoreListView.StoreListSelection?
 
     @State private var selectedUpdate: Release?
 
     @Environment(\.colorScheme) private var colorScheme
     @Environment(\.openWindow) private var openWindow
     @Environment(\.secretStoreList) private var storeList
+    @Environment(\.certificateStore) private var certificateStore
     @Environment(\.updater) private var updater
     @Environment(\.agentLaunchController) private var agentLaunchController
 
@@ -25,7 +29,7 @@ struct ContentView: View {
     var body: some View {
         VStack {
             if storeList.anyAvailable {
-                StoreListView(activeSecret: $activeSecret)
+                StoreListView(selection: $selection)
             } else {
                 NoStoresView()
             }
@@ -42,6 +46,22 @@ struct ContentView: View {
                 runningSetup = true
             }
         }
+        .dropDestination(for: URL.self) { items, location in
+                guard let url = items.first, url.pathExtension == "pub" else { return false }
+            Task {
+                do {
+                    let data = try Data(contentsOf: url)
+                    let parser = try await XPCCertificateParser()
+                    let cert = try await parser.parse(data: data)
+                    let wrapped = Certificate(openSSHCertificate: cert, rawData: data)
+                    try certificateStore.save(certificate: wrapped)
+                    selection = .certificate(wrapped)
+                } catch {
+
+                }
+            }
+            return true
+        } isTargeted: { _ in }
         .focusedSceneValue(\.showCreateSecret,  .init(isEnabled: !runningSetup) {
             showingCreation = true
         })
@@ -49,7 +69,7 @@ struct ContentView: View {
             if let modifiable = storeList.modifiableStore {
                 CreateSecretView(store: modifiable) { created in
                     if let created {
-                        activeSecret = created
+                        selection = .secret(created)
                     }
                 }
             }

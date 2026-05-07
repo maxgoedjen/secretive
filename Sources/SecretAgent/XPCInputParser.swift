@@ -1,5 +1,6 @@
 import Foundation
-import SecretAgentKit
+import OSLog
+import SSHProtocolKit
 import Brief
 import XPCWrappers
 import OSLog
