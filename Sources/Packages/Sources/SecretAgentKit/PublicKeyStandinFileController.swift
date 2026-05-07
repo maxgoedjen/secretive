@@ -77,7 +77,7 @@ public final class PublicKeyFileStoreController: Sendable {
     /// - Warning: This method returning a path does not imply that a key has a SSH certificates. This method only describes where it will be.
     private func legacySSHCertificatePath<SecretType: Secret>(for secret: SecretType) -> String {
         let minimalHex = keyWriter.openSSHMD5Fingerprint(secret: secret).replacingOccurrences(of: ":", with: "")
-        return publicKeysURL.appending(component: "\(minimalHex)-cert.pub").path()
+        return publicKeysURL.appending(component: "\(minimalHex).pub").path()
     }
 
 }
