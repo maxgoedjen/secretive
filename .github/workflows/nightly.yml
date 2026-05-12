@@ -60,7 +60,7 @@ jobs:
       run: xcrun notarytool submit --key ~/.private_keys/AuthKey_$APPLE_API_KEY_ID.p8 --key-id $APPLE_API_KEY_ID --issuer $APPLE_API_ISSUER Secretive.zip
     - name: Attest
       id: attest
-      uses: uses: actions/attest@v4
+      uses: actions/attest@v4
       with:
         subject-name: "Secretive.zip"
         subject-digest: sha256:${{ steps.upload.outputs.artifact-digest }}
