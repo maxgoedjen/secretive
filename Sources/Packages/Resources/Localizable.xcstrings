@@ -1660,6 +1660,23 @@
         }
       }
     },
+    "agent_details_disable_agent_failed_error" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Could not disable the agent. It may still be running."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "无法禁用 Agent，进程可能仍在运行。"
+          }
+        }
+      }
+    },
     "agent_details_restart_agent_button" : {
       "extractionState" : "manual",
       "localizations" : {

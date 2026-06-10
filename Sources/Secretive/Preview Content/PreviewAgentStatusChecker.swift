@@ -6,6 +6,8 @@ class PreviewAgentLaunchController: AgentLaunchControllerProtocol {
     let running: Bool
     let process: NSRunningApplication?
     let developmentBuild = false
+    let isCallLimitExhausted = false
+    let callLimitRemaining: Int? = nil
 
     init(running: Bool = true, process: NSRunningApplication? = nil) {
         self.running = running

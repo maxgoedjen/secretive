@@ -10,10 +10,21 @@ import Common
     var running: Bool { get }
     var developmentBuild: Bool { get }
     var process: NSRunningApplication? { get }
+    var isCallLimitExhausted: Bool { get }
+    var callLimitRemaining: Int? { get }
     func check()
     func install() async throws
     func uninstall() async throws
+    func disable() async throws
     func forceLaunch() async throws
+}
+
+extension AgentLaunchControllerProtocol {
+
+    func disable() async throws {
+        try await uninstall()
+    }
+
 }
 
 @Observable @MainActor final class AgentLaunchController: AgentLaunchControllerProtocol {
@@ -27,6 +38,16 @@ import Common
         Task { @MainActor in
             check()
         }
+    }
+
+    var isCallLimitExhausted: Bool {
+        AgentCallLimitSettings.isExhausted()
+    }
+
+    var callLimitRemaining: Int? {
+        let state = AgentCallLimitSettings.load()
+        guard state.limit > AgentCallLimitSettings.unlimited else { return nil }
+        return state.remaining
     }
 
     func check() {
@@ -76,6 +97,10 @@ import Common
         try await service.unregister()
         try await Task.sleep(for: .seconds(1))
         check()
+        if running {
+            logger.error("Agent is still running after uninstall")
+            throw AgentLaunchError.agentStillRunning
+        }
     }
 
     private func terminateInstanceAgentIfNeeded() async {
@@ -98,6 +123,9 @@ import Common
 
     func forceLaunch() async throws {
         logger.debug("Agent is not running, attempting to force launch by reinstalling")
+        if running {
+            await terminateInstanceAgentIfNeeded()
+        }
         AgentCallLimitSettings.resetForLaunch()
         try await install()
         if running {
@@ -118,6 +146,17 @@ import Common
         check()
     }
 
+}
+
+enum AgentLaunchError: LocalizedError {
+    case agentStillRunning
+
+    var errorDescription: String? {
+        switch self {
+        case .agentStillRunning:
+            return String(localized: .agentDetailsDisableAgentFailedError)
+        }
+    }
 }
 
 extension URL {

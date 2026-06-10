@@ -21,6 +21,7 @@ struct AgentRunningView: View {
 
     @Environment(\.agentLaunchController) private var agentLaunchController: any AgentLaunchControllerProtocol
     @AppStorage("explicitlyDisabled") var explicitlyDisabled = false
+    @State private var disableErrorText: String?
 
     var body: some View {
         Form {
@@ -55,9 +56,14 @@ struct AgentRunningView: View {
             } footer: {
                 VStack(alignment: .leading, spacing: 10) {
                     Text(.agentRunningNoticeDetailDescription)
+                    if let disableErrorText {
+                        Text(verbatim: disableErrorText)
+                            .errorStyle()
+                    }
                     HStack {
                         Button(.agentDetailsRestartAgentButton) {
                             Task {
+                                disableErrorText = nil
                                 explicitlyDisabled = false
                                 try? await agentLaunchController.forceLaunch()
                             }
@@ -66,7 +72,7 @@ struct AgentRunningView: View {
                         Spacer()
                         Button(.agentDetailsDisableAgentButton) {
                             Task {
-                                await disableAgent(
+                                disableErrorText = await disableAgent(
                                     explicitlyDisabled: $explicitlyDisabled,
                                     agentLaunchController: agentLaunchController
                                 )
@@ -90,6 +96,7 @@ struct AgentNotRunningView: View {
     @Environment(\.agentLaunchController) private var agentLaunchController
     @State var triedRestart = false
     @State var loading = false
+    @State private var disableErrorText: String?
     @AppStorage("explicitlyDisabled") var explicitlyDisabled = false
 
     var body: some View {
@@ -102,15 +109,20 @@ struct AgentNotRunningView: View {
             } footer: {
                 VStack(alignment: .leading, spacing: 10) {
                     Text(.agentNotRunningNoticeDetailDescription)
-                    if AgentCallLimitSettings.isExhausted() {
+                    if !explicitlyDisabled && agentLaunchController.isCallLimitExhausted {
                         Text(.agentDetailsCallLimitExhaustedNotice)
                             .foregroundStyle(.secondary)
+                    }
+                    if let disableErrorText {
+                        Text(verbatim: disableErrorText)
+                            .errorStyle()
                     }
                     if !triedRestart {
                         HStack(spacing: 8) {
                             AgentCallLimitPicker()
                             Spacer()
                             Button {
+                                disableErrorText = nil
                                 explicitlyDisabled = false
                                 guard !loading else { return }
                                 loading = true
@@ -140,7 +152,7 @@ struct AgentNotRunningView: View {
                                 Spacer()
                                 Button(.agentDetailsDisableAgentButton) {
                                     Task {
-                                        await disableAgent(
+                                        disableErrorText = await disableAgent(
                                             explicitlyDisabled: $explicitlyDisabled,
                                             agentLaunchController: agentLaunchController
                                         )
@@ -168,20 +180,27 @@ struct AgentNotRunningView: View {
 private func disableAgent(
     explicitlyDisabled: Binding<Bool>,
     agentLaunchController: any AgentLaunchControllerProtocol
-) async {
+) async -> String? {
     explicitlyDisabled.wrappedValue = true
-    try? await agentLaunchController.uninstall()
-    agentLaunchController.check()
+    do {
+        try await agentLaunchController.disable()
+        agentLaunchController.check()
+        return nil
+    } catch {
+        explicitlyDisabled.wrappedValue = false
+        agentLaunchController.check()
+        return error.localizedDescription
+    }
 }
 
 private struct AgentCallLimitRemainingView: View {
 
+    @Environment(\.agentLaunchController) private var agentLaunchController
     @State private var remaining: Int?
-    @State private var limit: Int = AgentCallLimitSettings.unlimited
 
     var body: some View {
         Group {
-            if limit > AgentCallLimitSettings.unlimited, let remaining {
+            if let remaining {
                 ConfigurationItemView(
                     title: .agentDetailsCallLimitRemainingTitle,
                     value: String(remaining)
@@ -189,12 +208,13 @@ private struct AgentCallLimitRemainingView: View {
             }
         }
         .onAppear(perform: refresh)
+        .onReceive(Timer.publish(every: 2, on: .main, in: .common).autoconnect()) { _ in
+            refresh()
+        }
     }
 
     private func refresh() {
-        let state = AgentCallLimitSettings.load()
-        limit = state.limit
-        remaining = state.remaining
+        remaining = agentLaunchController.callLimitRemaining
     }
 
 }
