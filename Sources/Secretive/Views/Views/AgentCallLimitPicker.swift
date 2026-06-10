@@ -31,6 +31,7 @@ struct AgentCallLimitPicker: View {
             Text(.agentDetailsCallLimitLabel)
                 .font(.body)
                 .foregroundStyle(.primary)
+                .fixedSize(horizontal: true, vertical: false)
             Picker("", selection: $selection) {
                 Text(.agentDetailsCallLimitUnlimited)
                     .tag(AgentCallLimitSelection.unlimited)

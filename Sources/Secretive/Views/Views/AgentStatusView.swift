@@ -56,13 +56,15 @@ struct AgentRunningView: View {
                         Menu(.agentDetailsRestartAgentButton) {
                             Button(.agentDetailsDisableAgentButton) {
                                 Task {
-                                    explicitlyDisabled = true
-                                    try? await agentLaunchController
-                                        .uninstall()
+                                    await disableAgent(
+                                        explicitlyDisabled: $explicitlyDisabled,
+                                        agentLaunchController: agentLaunchController
+                                    )
                                 }
                             }
                         } primaryAction: {
                             Task {
+                                explicitlyDisabled = false
                                 try? await agentLaunchController.forceLaunch()
                             }
                         }
@@ -99,8 +101,8 @@ struct AgentNotRunningView: View {
                         Text(.agentDetailsCallLimitExhaustedNotice)
                             .foregroundStyle(.secondary)
                     }
-                    HStack(spacing: 8) {
-                        if !triedRestart {
+                    if !triedRestart {
+                        HStack(spacing: 8) {
                             AgentCallLimitPicker()
                             Spacer()
                             Button {
@@ -127,11 +129,24 @@ struct AgentNotRunningView: View {
                                 }
                             }
                             .primaryButton()
-                        } else {
-                            Text(.agentDetailsCouldNotStartError)
-                                .bold()
-                                .foregroundStyle(.red)
                         }
+                        if !explicitlyDisabled && !loading {
+                            HStack {
+                                Spacer()
+                                Button(.agentDetailsDisableAgentButton) {
+                                    Task {
+                                        await disableAgent(
+                                            explicitlyDisabled: $explicitlyDisabled,
+                                            agentLaunchController: agentLaunchController
+                                        )
+                                    }
+                                }
+                            }
+                        }
+                    } else {
+                        Text(.agentDetailsCouldNotStartError)
+                            .bold()
+                            .foregroundStyle(.red)
                     }
                 }
                 .padding(.bottom)
@@ -141,6 +156,16 @@ struct AgentNotRunningView: View {
         .frame(width: 440)
     }
 
+}
+
+@MainActor
+private func disableAgent(
+    explicitlyDisabled: Binding<Bool>,
+    agentLaunchController: any AgentLaunchControllerProtocol
+) async {
+    explicitlyDisabled.wrappedValue = true
+    try? await agentLaunchController.uninstall()
+    agentLaunchController.check()
 }
 
 private struct AgentCallLimitRemainingView: View {

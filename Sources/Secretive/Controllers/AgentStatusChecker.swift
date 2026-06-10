@@ -71,9 +71,28 @@ import Common
 
     func uninstall() async throws {
         logger.debug("Uninstalling agent")
+        await terminateInstanceAgentIfNeeded()
         try await Task.sleep(for: .seconds(1))
         try await service.unregister()
         try await Task.sleep(for: .seconds(1))
+        check()
+    }
+
+    private func terminateInstanceAgentIfNeeded() async {
+        guard let agent = instanceSecretAgentProcess else { return }
+        logger.debug("Terminating running agent before uninstall")
+        agent.terminate()
+        for _ in 0..<15 {
+            try? await Task.sleep(for: .milliseconds(200))
+            check()
+            if !running {
+                logger.debug("Agent terminated")
+                return
+            }
+        }
+        logger.warning("Agent did not exit after terminate, forcing")
+        instanceSecretAgentProcess?.forceTerminate()
+        try? await Task.sleep(for: .milliseconds(500))
         check()
     }
 
