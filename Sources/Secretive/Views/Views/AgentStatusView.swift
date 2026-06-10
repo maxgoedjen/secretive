@@ -1,4 +1,5 @@
 import SwiftUI
+import Common
 
 struct AgentStatusView: View {
 
@@ -41,6 +42,7 @@ struct AgentRunningView: View {
                             value: launchDate.formatted()
                         )
                     }
+                    AgentCallLimitRemainingView()
                 }
             } header: {
                 Text(.agentRunningNoticeDetailTitle)
@@ -71,7 +73,7 @@ struct AgentRunningView: View {
 
         }
         .formStyle(.grouped)
-        .frame(width: 400)
+        .frame(width: 440)
     }
 
 }
@@ -93,8 +95,13 @@ struct AgentNotRunningView: View {
             } footer: {
                 VStack(alignment: .leading, spacing: 10) {
                     Text(.agentNotRunningNoticeDetailDescription)
-                    HStack {
+                    if AgentCallLimitSettings.isExhausted() {
+                        Text(.agentDetailsCallLimitExhaustedNotice)
+                            .foregroundStyle(.secondary)
+                    }
+                    HStack(spacing: 8) {
                         if !triedRestart {
+                            AgentCallLimitPicker()
                             Spacer()
                             Button {
                                 explicitlyDisabled = false
@@ -131,7 +138,32 @@ struct AgentNotRunningView: View {
             }
         }
         .formStyle(.grouped)
-        .frame(width: 400)
+        .frame(width: 440)
+    }
+
+}
+
+private struct AgentCallLimitRemainingView: View {
+
+    @State private var remaining: Int?
+    @State private var limit: Int = AgentCallLimitSettings.unlimited
+
+    var body: some View {
+        Group {
+            if limit > AgentCallLimitSettings.unlimited, let remaining {
+                ConfigurationItemView(
+                    title: .agentDetailsCallLimitRemainingTitle,
+                    value: String(remaining)
+                )
+            }
+        }
+        .onAppear(perform: refresh)
+    }
+
+    private func refresh() {
+        let state = AgentCallLimitSettings.load()
+        limit = state.limit
+        remaining = state.remaining
     }
 
 }

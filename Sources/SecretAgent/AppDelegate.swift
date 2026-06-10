@@ -46,6 +46,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         return SocketController(path: path)
     }()
     private let logger = Logger(subsystem: "com.maxgoedjen.secretive.secretagent", category: "AppDelegate")
+    private let callLimitTracker = AgentCallLimitTracker()
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         logger.debug("SecretAgent finished launching")
@@ -58,6 +59,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                             let request = try await inputParser.parse(data: message)
                             let agentResponse = await agent.handle(request: request, provenance: session.provenance)
                             try session.write(agentResponse)
+                            if case .signRequest = request, callLimitTracker.recordSignRequest() {
+                                logger.debug("Agent call limit reached, stopping")
+                                await MainActor.run {
+                                    NSApplication.shared.terminate(nil)
+                                }
+                            }
                         }
                     } catch {
                         try session.close()

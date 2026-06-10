@@ -79,6 +79,7 @@ import Common
 
     func forceLaunch() async throws {
         logger.debug("Agent is not running, attempting to force launch by reinstalling")
+        AgentCallLimitSettings.resetForLaunch()
         try await install()
         if running {
             logger.debug("Agent successfully force launched by reinstalling")

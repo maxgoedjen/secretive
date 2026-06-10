@@ -4,6 +4,7 @@ import SecureEnclaveSecretKit
 import SmartCardSecretKit
 import Brief
 import CertificateKit
+import Common
 
 @main
 struct Secretive: App {
@@ -24,6 +25,7 @@ struct Secretive: App {
                         agentLaunchController.check()
                         guard !agentLaunchController.developmentBuild else { return }
                         if justUpdatedChecker.justUpdatedBuild || !agentLaunchController.running {
+                            guard !AgentCallLimitSettings.isExhausted() else { return }
                             // Relaunch the agent, since it'll be running from earlier update still
                             try await agentLaunchController.forceLaunch()
                         }

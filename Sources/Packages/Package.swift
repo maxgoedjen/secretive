@@ -84,7 +84,7 @@ let package = Package(
         ),
         .testTarget(
             name: "SecretAgentKitTests",
-            dependencies: ["SecretAgentKit"],
+            dependencies: ["SecretAgentKit", "Common"],
         ),
         .target(
             name: "SSHProtocolKit",
