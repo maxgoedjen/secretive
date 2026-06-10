@@ -171,6 +171,7 @@ extension ContentView {
         )
         .popover(isPresented: $showingAgentInfo, attachmentAnchor: attachmentAnchor, arrowEdge: .bottom) {
             AgentStatusView()
+                .id(agentLaunchController.running)
         }
     }
 

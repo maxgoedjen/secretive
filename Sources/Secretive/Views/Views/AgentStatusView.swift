@@ -6,11 +6,15 @@ struct AgentStatusView: View {
     @Environment(\.agentLaunchController) private var agentLaunchController: any AgentLaunchControllerProtocol
 
     var body: some View {
-        if agentLaunchController.running {
-            AgentRunningView()
-        } else {
-            AgentNotRunningView()
+        Group {
+            if agentLaunchController.running {
+                AgentRunningView()
+            } else {
+                AgentNotRunningView()
+            }
         }
+        .frame(width: 440)
+        .fixedSize(horizontal: false, vertical: true)
     }
 }
 struct AgentRunningView: View {
@@ -75,7 +79,7 @@ struct AgentRunningView: View {
 
         }
         .formStyle(.grouped)
-        .frame(width: 440)
+        .scrollDisabled(true)
     }
 
 }
@@ -153,7 +157,7 @@ struct AgentNotRunningView: View {
             }
         }
         .formStyle(.grouped)
-        .frame(width: 440)
+        .scrollDisabled(true)
     }
 
 }
