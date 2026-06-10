@@ -56,22 +56,23 @@ struct AgentRunningView: View {
                 VStack(alignment: .leading, spacing: 10) {
                     Text(.agentRunningNoticeDetailDescription)
                     HStack {
-                        Spacer()
-                        Menu(.agentDetailsRestartAgentButton) {
-                            Button(.agentDetailsDisableAgentButton) {
-                                Task {
-                                    await disableAgent(
-                                        explicitlyDisabled: $explicitlyDisabled,
-                                        agentLaunchController: agentLaunchController
-                                    )
-                                }
-                            }
-                        } primaryAction: {
+                        Button(.agentDetailsRestartAgentButton) {
                             Task {
                                 explicitlyDisabled = false
                                 try? await agentLaunchController.forceLaunch()
                             }
                         }
+                        .primaryButton()
+                        Spacer()
+                        Button(.agentDetailsDisableAgentButton) {
+                            Task {
+                                await disableAgent(
+                                    explicitlyDisabled: $explicitlyDisabled,
+                                    agentLaunchController: agentLaunchController
+                                )
+                            }
+                        }
+                        .danger()
                     }
                 }
                 .padding(.vertical)
@@ -145,6 +146,7 @@ struct AgentNotRunningView: View {
                                         )
                                     }
                                 }
+                                .danger()
                             }
                         }
                     } else {
