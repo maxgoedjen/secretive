@@ -31,7 +31,7 @@ struct BatchedRequestsView: View {
                                 Spacer()
                                 Button("Review") {
                                     Task {
-                                        try await review([pending.element])
+                                        try? await review([pending.element])
                                     }
                                 }
                             }
@@ -42,7 +42,7 @@ struct BatchedRequestsView: View {
                             Spacer()
                             Button("Review All") {
                                 Task {
-                                    try await review(Set(group.element))
+                                    try? await review(Set(group.element))
                                 }
 
                             }

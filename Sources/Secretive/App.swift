@@ -25,7 +25,7 @@ struct Secretive: App {
                         guard !agentLaunchController.developmentBuild else { return }
                         if justUpdatedChecker.justUpdatedBuild || !agentLaunchController.running {
                             // Relaunch the agent, since it'll be running from earlier update still
-                            try await agentLaunchController.forceLaunch()
+                            try? await agentLaunchController.forceLaunch()
                         }
                     }
                 }

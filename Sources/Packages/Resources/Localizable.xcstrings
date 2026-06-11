@@ -365,6 +365,16 @@
       },
       "shouldTranslate" : false
     },
+    "%@ - %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$@ - %2$@"
+          }
+        }
+      }
+    },
     "about_build_log_button" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -19967,6 +19977,12 @@
           }
         }
       }
+    },
+    "Review" : {
+
+    },
+    "Review All" : {
+
     },
     "secret_detail_certificate_path_label" : {
       "extractionState" : "manual",

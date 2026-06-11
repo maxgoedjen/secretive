@@ -163,10 +163,9 @@ fileprivate struct BackgroundViewModifier: ViewModifier {
         } else {
             if #available(macOS 26.0, *) {
                 content
-                // Very thin opacity lets user hover anywhere over the view, glassEffect doesn't allow.
-                    .background(.white.opacity(0.01), in: RoundedRectangle(cornerRadius: 15))
                     .glassEffect(.regular.tint(backgroundColor(interactionState: interactionState)), in: RoundedRectangle(cornerRadius: 15))
                     .mask(RoundedRectangle(cornerRadius: 15))
+                    .contentShape(RoundedRectangle(cornerRadius: 15))
                     .shadow(color: .black.opacity(0.1), radius: 5)
             } else {
                 content
@@ -182,7 +181,7 @@ fileprivate struct BackgroundViewModifier: ViewModifier {
             let base = colorScheme == .dark ? Color(white: 0.2) : Color(white: 1)
             switch interactionState {
             case .normal:
-                return base
+                return base.mix(with: .accentColor, by: 0)
             case .hovering:
                 return base.mix(with: .accentColor, by: colorScheme == .dark ? 0.2 : 0.1)
             case .clicking, .dragging:

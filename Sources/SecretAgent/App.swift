@@ -8,6 +8,7 @@ import Brief
 import Observation
 import Common
 import SwiftUI
+import CertificateKit
 
 @main
 struct SecretAgent: App {
@@ -21,10 +22,12 @@ struct SecretAgent: App {
         list.add(store: SmartCard.Store())
         return list
     }()
+    @MainActor private let certificateStore: CertificateStore = CertificateStore()
+
     private let updater = Updater(checkOnLaunch: true)
     private let notifier = Notifier()
     private let authenticationHandler = AuthenticationHandler()
-    private let publicKeyFileStoreController = PublicKeyFileStoreController(directory: URL.publicKeyDirectory)
+    private let publicKeyFileStoreController = PublicKeyFileStoreController(publicKeysURL: URL.publicKeyDirectory, certificatesURL: URL.certificatesDirectory)
 
     @State var pending: ([[SignatureRequest]], (Set<SignatureRequest>) async throws -> Void)?
     @Environment(\.openWindow) var openWindow
@@ -42,18 +45,23 @@ struct SecretAgent: App {
                 }
                 .task {
                     let socketController = SocketController(path: URL.socketPath)
-                    let agent = Agent(storeList: storeList, authenticationHandler: authenticationHandler, witness: notifier)
+                    let agent = Agent(
+                        storeList: storeList,
+                        certificateStore: certificateStore,
+                        authenticationHandler: authenticationHandler,
+                        witness: notifier
+                    )
                     for await session in socketController.sessions {
                         Task {
-                            let inputParser = try await XPCAgentInputParser()
                             do {
+                                let inputParser = try await XPCAgentInputParser()
                                 for await message in session.messages {
                                     let request = try await inputParser.parse(data: message)
                                     let agentResponse = await agent.handle(request: request, provenance: session.provenance)
                                     try session.write(agentResponse)
                                 }
                             } catch {
-                                try session.close()
+                                try? session.close()
                             }
                         }
                     }
@@ -78,8 +86,17 @@ struct SecretAgent: App {
 //                    }
 //                }
                 .task {
+                    try? publicKeyFileStoreController.generatePublicKeys(for: storeList.allSecrets, clear: true)
                     for await _ in NotificationCenter.default.notifications(named: .secretStoreReloaded) {
                         try? publicKeyFileStoreController.generatePublicKeys(for: storeList.allSecrets, clear: true)
+                    }
+                }
+                .task {
+                    let certsMigrator = CertificateMigrator(homeDirectory: URL.homeDirectory, certificateStore: certificateStore)
+                    try? certsMigrator.migrate()
+                    try? publicKeyFileStoreController.generateCertificates(for: certificateStore.certificates, clear: true)
+                    for await _ in NotificationCenter.default.notifications(named: .certificateStoreReloaded) {
+                        try? publicKeyFileStoreController.generateCertificates(for: certificateStore.certificates, clear: true)
                     }
                 }
                 .task {
@@ -90,7 +107,6 @@ struct SecretAgent: App {
 
                 }
                 .task {
-                    try? publicKeyFileStoreController.generatePublicKeys(for: storeList.allSecrets, clear: true)
                     notifier.prompt()
                     _ = withObservationTracking {
                         updater.update

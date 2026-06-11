@@ -1,5 +1,6 @@
 import Foundation
 import SecretKit
+import LocalAuthentication
 
 enum Preview {}
 
@@ -38,15 +39,8 @@ extension Preview {
             self.init(secrets: new)
         }
 
-        func sign(data: Data, with secret: Preview.Secret, for provenance: SigningRequestProvenance, context: AuthenticationContextProtocol?) throws -> Data {
+        func sign(data: Data, with secret: Preview.Secret, for provenance: SigningRequestProvenance, context: LAContext?) async throws -> Data {
             return data
-        }
-
-        func existingAuthenticationContextProtocol(secret: Preview.Secret) -> AuthenticationContextProtocol? {
-            nil
-        }
-
-        func persistAuthentication(secret: Preview.Secret, forDuration duration: TimeInterval) throws {
         }
 
         func reloadSecrets() {
@@ -82,16 +76,10 @@ extension Preview {
             self.init(secrets: new)
         }
 
-        func sign(data: Data, with secret: Preview.Secret, for provenance: SigningRequestProvenance, context: AuthenticationContextProtocol?) throws -> Data {
+        func sign(data: Data, with secret: Preview.Secret, for provenance: SigningRequestProvenance, context: LAContext?) async throws -> Data {
             return data
         }
 
-        func existingAuthenticationContextProtocol(secret: Preview.Secret) -> AuthenticationContextProtocol? {
-            nil
-        }
-
-        func persistAuthentication(secret: Preview.Secret, forDuration duration: TimeInterval) throws {
-        }
 
         func reloadSecrets() {
         }

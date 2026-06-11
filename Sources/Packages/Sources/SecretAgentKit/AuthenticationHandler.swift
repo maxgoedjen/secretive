@@ -75,6 +75,7 @@ public actor AuthenticationHandler {
     }
 
     public func waitForAuthentication(for request: SignatureRequest) async throws -> any AuthenticationContextProtocol {
+        logger.log("Entering waitForAuthentication for \(request.id)")
         if let existing = existingAuthenticationContext(for: request) {
             logger.log("Short circuiting wait, existing valid context already exists.")
             return existing

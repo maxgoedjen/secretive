@@ -10,11 +10,8 @@ import SSHProtocolKit
 public final class Agent: Sendable {
 
     private let storeList: SecretStoreList
-<<<<<<< HEAD
     private let authenticationHandler: AuthenticationHandler
-=======
     private let certificateStore: CertificateStore
->>>>>>> main
     private let witness: SigningWitness?
     private let publicKeyWriter = OpenSSHPublicKeyWriter()
     private let signatureWriter = OpenSSHSignatureWriter()
@@ -24,17 +21,16 @@ public final class Agent: Sendable {
     /// - Parameters:
     ///   - storeList: The `SecretStoreList` to make available.
     ///   - witness: A witness to notify of requests.
-<<<<<<< HEAD
-    public init(storeList: SecretStoreList, authenticationHandler: AuthenticationHandler, witness: SigningWitness? = nil) {
-        logger.debug("Agent is running")
-        self.storeList = storeList
-        self.authenticationHandler = authenticationHandler
-=======
-    public init(storeList: SecretStoreList, certificateStore: CertificateStore, witness: SigningWitness? = nil) {
+    public init(
+        storeList: SecretStoreList,
+        certificateStore: CertificateStore,
+        authenticationHandler: AuthenticationHandler,
+        witness: SigningWitness? = nil
+    ) {
         logger.debug("Agent is running")
         self.storeList = storeList
         self.certificateStore = certificateStore
->>>>>>> main
+        self.authenticationHandler = authenticationHandler
         self.witness = witness
     }
     

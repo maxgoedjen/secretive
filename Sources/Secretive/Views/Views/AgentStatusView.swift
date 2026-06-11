@@ -101,7 +101,7 @@ struct AgentNotRunningView: View {
                                 guard !loading else { return }
                                 loading = true
                                 Task {
-                                    try await agentLaunchController.forceLaunch()
+                                    try? await agentLaunchController.forceLaunch()
                                     loading = false
 
                                     if !agentLaunchController.running {
