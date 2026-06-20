@@ -150,8 +150,8 @@ private extension SocketPort {
     convenience init(path: String) {
         var addr = sockaddr_un()
 
-        let length = withUnsafeMutablePointer(to: &addr.sun_path.0) { pointer in
-            path.withCString { cstring in
+        let length = unsafe withUnsafeMutablePointer(to: &addr.sun_path.0) { pointer in
+            unsafe path.withCString { cstring in
                 let len = unsafe strlen(cstring)
                 unsafe strncpy(pointer, cstring, len)
                 return len
