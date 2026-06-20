@@ -149,14 +149,7 @@ private extension SocketPort {
 
     convenience init(path: String) {
         var addr = sockaddr_un()
-
-        let length = unsafe withUnsafeMutablePointer(to: &addr.sun_path.0) { pointer in
-            unsafe path.withCString { cstring in
-                let len = unsafe strlen(cstring)
-                unsafe strncpy(pointer, cstring, len)
-                return len
-            }
-        }
+        let length = addr.setPath(path)
         // This doesn't seem to be _strictly_ neccessary with SocketPort.
         // but just for good form.
         addr.sun_family = sa_family_t(AF_UNIX)
@@ -165,6 +158,30 @@ private extension SocketPort {
 
         let data = unsafe Data(bytes: &addr, count: MemoryLayout<sockaddr_un>.size)
         self.init(protocolFamily: AF_UNIX, socketType: SOCK_STREAM, protocol: 0, address: data)!
+    }
+
+}
+
+private extension sockaddr_un {
+
+    mutating func setPath(_ path: String) -> Int {
+#if compiler(<6.4)
+        unsafe withUnsafeMutablePointer(to: &addr.sun_path.0) { pointer in
+            unsafe path.withCString { cstring in
+                let len = unsafe strlen(cstring)
+                unsafe strncpy(pointer, cstring, len)
+                return len
+            }
+        }
+#else
+        withUnsafeMutablePointer(to: &self.sun_path.0) { pointer in
+            path.withCString { cstring in
+                let len = unsafe strlen(cstring)
+                unsafe strncpy(pointer, cstring, len)
+                return len
+            }
+        }
+#endif
     }
 
 }
