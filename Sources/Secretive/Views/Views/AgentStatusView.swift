@@ -100,14 +100,6 @@ struct AgentNotRunningView: View {
                                 explicitlyDisabled = false
                                 guard !loading else { return }
                                 loading = true
-                                Task {
-                                    try await agentLaunchController.forceLaunch()
-                                    loading = false
-
-                                    if !agentLaunchController.running {
-                                        triedRestart = true
-                                    }
-                                }
                             } label: {
                                 if !loading {
                                     Text(.agentDetailsStartAgentButton)

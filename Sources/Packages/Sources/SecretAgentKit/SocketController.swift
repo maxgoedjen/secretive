@@ -1,6 +1,7 @@
 import Foundation
 import OSLog
 import SecretKit
+import launch
 
 /// A controller that manages socket configuration and request dispatching.
 public struct SocketController {
@@ -12,7 +13,8 @@ public struct SocketController {
     private let sessionsContinuation: AsyncStream<Session>.Continuation
 
     /// The active SocketPort. Must be retained to be kept valid.
-    private let port: SocketPort
+    /// Only applicable for legacy non-launchd sockets.
+    private let port: SocketPort?
 
     /// The FileHandle for the main socket.
     private let fileHandle: FileHandle
@@ -23,19 +25,41 @@ public struct SocketController {
     /// Tracer which determines who originates a socket connection.
     private let requestTracer = SigningRequestTracer()
 
-    /// Initializes a socket controller with a specified path.
-    /// - Parameter path: The path to use as a socket.
-    public init(path: String) {
+    public enum Socket {
+        case launchd(String)
+        case path(String)
+    }
+
+    public init(_ socket: Socket) {
         (sessions, sessionsContinuation) = AsyncStream<Session>.makeStream()
-        logger.debug("Socket controller setting up at \(path)")
-        if let _ = try? FileManager.default.removeItem(atPath: path) {
-            logger.debug("Socket controller removed existing socket")
+        switch socket {
+        case .path(let path):
+            logger.debug("Socket controller setting up at \(path)")
+            if let _ = try? FileManager.default.removeItem(atPath: path) {
+                logger.debug("Socket controller removed existing socket")
+            }
+            let exists = FileManager.default.fileExists(atPath: path)
+            assert(!exists)
+            logger.debug("Socket controller path is clear")
+            let port = SocketPort(path: path)
+            fileHandle = FileHandle(fileDescriptor: port.socket, closeOnDealloc: true)
+            self.port = port
+            logger.debug("Socket listening at \(path)")
+        case .launchd(let name):
+            logger.debug("Socket controller setting for launchd-controlled socket \(name)")
+            port = nil
+            var fileDescriptors: UnsafeMutablePointer<Int32>? = nil
+            var count = 0
+            let result = unsafe launch_activate_socket(name, &fileDescriptors, &count)
+            guard result == kOSReturnSuccess, let socket = unsafe fileDescriptors?.pointee else {
+                fatalError()
+            }
+            fileHandle = FileHandle(fileDescriptor: socket, closeOnDealloc: true)
         }
-        let exists = FileManager.default.fileExists(atPath: path)
-        assert(!exists)
-        logger.debug("Socket controller path is clear")
-        port = SocketPort(path: path)
-        fileHandle = FileHandle(fileDescriptor: port.socket, closeOnDealloc: true)
+        listen()
+    }
+
+    func listen() {
         Task { @MainActor [fileHandle, sessionsContinuation, logger] in
             // Create the sequence before triggering the notification to
             // ensure it will not be missed.
@@ -51,7 +75,7 @@ public struct SocketController {
                 fileHandle.acceptConnectionInBackgroundAndNotify()
             }
         }
-        logger.debug("Socket listening at \(path)")
+
     }
 
 }
@@ -94,7 +118,7 @@ extension SocketController {
                     guard !data.isEmpty else {
                         logger.debug("Socket controller received empty data, ending continuation.")
                         messagesContinuation.finish()
-                        try fileHandle.close()
+                        try? fileHandle.close()
                         return
                     }
                     messagesContinuation.yield(data)
@@ -126,8 +150,8 @@ private extension SocketPort {
     convenience init(path: String) {
         var addr = sockaddr_un()
 
-        let length = unsafe withUnsafeMutablePointer(to: &addr.sun_path.0) { pointer in
-            unsafe path.withCString { cstring in
+        let length = withUnsafeMutablePointer(to: &addr.sun_path.0) { pointer in
+            path.withCString { cstring in
                 let len = unsafe strlen(cstring)
                 unsafe strncpy(pointer, cstring, len)
                 return len
@@ -144,3 +168,7 @@ private extension SocketPort {
     }
 
 }
+
+// Changes the header from `UnsafeMutablePointer<UnsafeMutablePointer<Int32>?>?` -> `UnsafeMutablePointer<UnsafeMutablePointer<Int32>?>!`
+@_silgen_name("launch_activate_socket")
+func launch_activate_socket(_ name: UnsafePointer<CChar>, _ fds: UnsafeMutablePointer<UnsafeMutablePointer<Int32>?>!, _ cnt: UnsafeMutablePointer<Int>!) -> Int32

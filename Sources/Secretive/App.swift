@@ -1,4 +1,5 @@
 import SwiftUI
+import ServiceManagement
 import SecretKit
 import SecureEnclaveSecretKit
 import SmartCardSecretKit
@@ -8,7 +9,7 @@ import CertificateKit
 @main
 struct Secretive: App {
     
-    @Environment(\.agentLaunchController) var agentLaunchController
+//    @Environment(\.agentLaunchController) var agentLaunchController
     @Environment(\.justUpdatedChecker) var justUpdatedChecker
 
     @SceneBuilder var body: some Scene {
@@ -18,15 +19,10 @@ struct Secretive: App {
                 .environment(EnvironmentValues._certificateStore)
                 .onReceive(NotificationCenter.default.publisher(for: NSApplication.didBecomeActiveNotification)) { _ in
                     Task {
-                        @AppStorage("defaultsHasRunSetup") var hasRunSetup = false
-                        @AppStorage("explicitlyDisabled") var explicitlyDisabled = false
-                        guard hasRunSetup && !explicitlyDisabled else { return }
-                        agentLaunchController.check()
-                        guard !agentLaunchController.developmentBuild else { return }
-                        if justUpdatedChecker.justUpdatedBuild || !agentLaunchController.running {
-                            // Relaunch the agent, since it'll be running from earlier update still
-                            try await agentLaunchController.forceLaunch()
-                        }
+                        let service = SMAppService.agent(plistName: "com.maxgoedjen.Secretive.SecretAgent.plist")
+                        try? service.unregister()
+                        try! service.register()
+                        print("Status: \(service.status)")
                     }
                 }
         }

@@ -21,11 +21,12 @@
 		5008C23E2E525D8900507AC2 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 5008C23D2E525D8200507AC2 /* Localizable.xcstrings */; };
 		5008C2412E52D18700507AC2 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 5008C23D2E525D8200507AC2 /* Localizable.xcstrings */; };
 		501421622781262300BBAA70 /* Brief in Frameworks */ = {isa = PBXBuildFile; productRef = 501421612781262300BBAA70 /* Brief */; };
-		501421652781268000BBAA70 /* SecretAgent.app in CopyFiles */ = {isa = PBXBuildFile; fileRef = 50A3B78A24026B7500D209EA /* SecretAgent.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		501421652781268000BBAA70 /* SecretAgent.app in Copy SecretAgent */ = {isa = PBXBuildFile; fileRef = 50A3B78A24026B7500D209EA /* SecretAgent.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		50153E20250AFCB200525160 /* UpdateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50153E1F250AFCB200525160 /* UpdateView.swift */; };
 		50153E22250DECA300525160 /* SecretListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50153E21250DECA300525160 /* SecretListItemView.swift */; };
 		501578132E6C0479004A37D0 /* XPCInputParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501578122E6C0479004A37D0 /* XPCInputParser.swift */; };
 		5018F54F24064786002EB505 /* Notifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5018F54E24064786002EB505 /* Notifier.swift */; };
+		502452F92FE2026E009EE753 /* com.maxgoedjen.Secretive.SecretAgent.plist in Copy SecretAgent plist */ = {isa = PBXBuildFile; fileRef = 502452F32FE1FF89009EE753 /* com.maxgoedjen.Secretive.SecretAgent.plist */; };
 		504788F22E681F3A00B4556F /* Instructions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504788F12E681F3A00B4556F /* Instructions.swift */; };
 		504788F42E681F6900B4556F /* ToolConfigurationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504788F32E681F6900B4556F /* ToolConfigurationView.swift */; };
 		504788F62E68206F00B4556F /* GettingStartedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504788F52E68206F00B4556F /* GettingStartedView.swift */; };
@@ -181,6 +182,17 @@
 			name = "Embed XPC Services";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		502452F82FE2024D009EE753 /* Copy SecretAgent plist */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = Contents/Library/LaunchAgents;
+			dstSubfolderSpec = 1;
+			files = (
+				502452F92FE2026E009EE753 /* com.maxgoedjen.Secretive.SecretAgent.plist in Copy SecretAgent plist */,
+			);
+			name = "Copy SecretAgent plist";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		50617DBF23FCE4AB0099B055 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -201,14 +213,15 @@
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		50C385AF240E438B00AF2719 /* CopyFiles */ = {
+		50C385AF240E438B00AF2719 /* Copy SecretAgent */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = Contents/Library/LoginItems;
 			dstSubfolderSpec = 1;
 			files = (
-				501421652781268000BBAA70 /* SecretAgent.app in CopyFiles */,
+				501421652781268000BBAA70 /* SecretAgent.app in Copy SecretAgent */,
 			);
+			name = "Copy SecretAgent";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -224,6 +237,7 @@
 		50153E21250DECA300525160 /* SecretListItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecretListItemView.swift; sourceTree = "<group>"; };
 		501578122E6C0479004A37D0 /* XPCInputParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XPCInputParser.swift; sourceTree = "<group>"; };
 		5018F54E24064786002EB505 /* Notifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifier.swift; sourceTree = "<group>"; };
+		502452F32FE1FF89009EE753 /* com.maxgoedjen.Secretive.SecretAgent.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = com.maxgoedjen.Secretive.SecretAgent.plist; sourceTree = "<group>"; };
 		504788F12E681F3A00B4556F /* Instructions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Instructions.swift; sourceTree = "<group>"; };
 		504788F32E681F6900B4556F /* ToolConfigurationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolConfigurationView.swift; sourceTree = "<group>"; };
 		504788F52E68206F00B4556F /* GettingStartedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GettingStartedView.swift; sourceTree = "<group>"; };
@@ -445,6 +459,7 @@
 				508BF28D25B4F005009EFB7E /* InternetAccessPolicy.plist */,
 				50E4C4C72E777E4200C73783 /* AppIcon.icon */,
 				50617D8F23FCE48E0099B055 /* Secretive.entitlements */,
+				502452F32FE1FF89009EE753 /* com.maxgoedjen.Secretive.SecretAgent.plist */,
 				5008C23D2E525D8200507AC2 /* Localizable.xcstrings */,
 				50617D8823FCE48E0099B055 /* Preview Content */,
 			);
@@ -569,7 +584,8 @@
 				50617D7C23FCE48D0099B055 /* Frameworks */,
 				50617D7D23FCE48D0099B055 /* Resources */,
 				50617DBF23FCE4AB0099B055 /* Embed Frameworks */,
-				50C385AF240E438B00AF2719 /* CopyFiles */,
+				50C385AF240E438B00AF2719 /* Copy SecretAgent */,
+				502452F82FE2024D009EE753 /* Copy SecretAgent plist */,
 				501577C92E6BC5B4004A37D0 /* Embed XPC Services */,
 			);
 			buildRules = (
@@ -1523,7 +1539,7 @@
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_ENHANCED_SECURITY = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
-				ENABLE_INCOMING_NETWORK_CONNECTIONS = NO;
+				ENABLE_INCOMING_NETWORK_CONNECTIONS = YES;
 				ENABLE_OUTGOING_NETWORK_CONNECTIONS = NO;
 				ENABLE_POINTER_AUTHENTICATION = YES;
 				ENABLE_PREVIEWS = YES;
@@ -1560,7 +1576,7 @@
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_ENHANCED_SECURITY = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
-				ENABLE_INCOMING_NETWORK_CONNECTIONS = NO;
+				ENABLE_INCOMING_NETWORK_CONNECTIONS = YES;
 				ENABLE_OUTGOING_NETWORK_CONNECTIONS = NO;
 				ENABLE_POINTER_AUTHENTICATION = YES;
 				ENABLE_PREVIEWS = YES;
@@ -1598,7 +1614,7 @@
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_ENHANCED_SECURITY = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
-				ENABLE_INCOMING_NETWORK_CONNECTIONS = NO;
+				ENABLE_INCOMING_NETWORK_CONNECTIONS = YES;
 				ENABLE_OUTGOING_NETWORK_CONNECTIONS = NO;
 				ENABLE_POINTER_AUTHENTICATION = YES;
 				ENABLE_PREVIEWS = YES;

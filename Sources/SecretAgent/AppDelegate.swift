@@ -41,10 +41,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @MainActor private lazy var agent: Agent = {
         Agent(storeList: storeList, certificateStore: EnvironmentValues._certificateStore, witness: notifier)
     }()
-    private lazy var socketController: SocketController = {
-        let path = URL.socketPath as String
-        return SocketController(path: path)
-    }()
+    private var shutdownTask: Task<Void, Error>?
+    private let socketController = SocketController(.launchd("SecureListener"))
     private let logger = Logger(subsystem: "com.maxgoedjen.secretive.secretagent", category: "AppDelegate")
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
@@ -52,16 +50,17 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         Task {
             for await session in socketController.sessions {
                 Task {
-                    let inputParser = try await XPCAgentInputParser()
                     do {
+                        let inputParser = try await XPCAgentInputParser()
                         for await message in session.messages {
                             let request = try await inputParser.parse(data: message)
                             let agentResponse = await agent.handle(request: request, provenance: session.provenance)
                             try session.write(agentResponse)
                         }
                     } catch {
-                        try session.close()
+                        try? session.close()
                     }
+                    startCountdownClock()
                 }
             }
         }
@@ -87,6 +86,17 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                     await updater.ignore(release: release)
                 }
             }
+        }
+    }
+
+    func startCountdownClock() {
+        // FIXME: ACCOUNT FOR STORED AUTH
+        logger.log("Beginning countdown clock")
+        shutdownTask?.cancel()
+        shutdownTask = Task { [logger] in
+            try await Task.sleep(for: .seconds(30))
+            logger.log("Shutting down")
+            await NSApplication.shared.terminate(nil)
         }
     }
 
