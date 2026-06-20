@@ -1845,191 +1845,6 @@
         }
       }
     },
-    "agent_details_running_since_title" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "af" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Running Since"
-          }
-        },
-        "ar" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Running Since"
-          }
-        },
-        "ca" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Funcionant des de"
-          }
-        },
-        "cs" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Running Since"
-          }
-        },
-        "da" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Running Since"
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Läuft seit"
-          }
-        },
-        "el" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Εκτελείται Από"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Running Since"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Running Since"
-          }
-        },
-        "fi" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Käynnissä alkaen"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Actif depuis"
-          }
-        },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Running Since"
-          }
-        },
-        "hu" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Running Since"
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Running Since"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "最後に起動した日時"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "실행 시각"
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Running Since"
-          }
-        },
-        "nl" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Running Since"
-          }
-        },
-        "pl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Uruchomiony od"
-          }
-        },
-        "pt" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Running Since"
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Rodando desde"
-          }
-        },
-        "ro" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Running Since"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Запущено с"
-          }
-        },
-        "sr" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Running Since"
-          }
-        },
-        "sv" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Running Since"
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Running Since"
-          }
-        },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Running Since"
-          }
-        },
-        "vi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Running Since"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "运行时间始于"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "執行時間始於"
-          }
-        }
-      }
-    },
     "agent_details_socket_path_title" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -2770,7 +2585,7 @@
         }
       }
     },
-    "agent_not_running_notice_detail_description" : {
+    "agent_not_configured_notice_detail_description" : {
       "extractionState" : "manual",
       "localizations" : {
         "af" : {
@@ -2787,7 +2602,7 @@
         },
         "ca" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "L'agent segur (SecretAgent) és un procés que funciona en rerefons per signar peticions, tal que no hages de tindre Secretive obert tot el temps.\n\n**Secretive no funcionarà correctament a menys que l'agent estiga instal·lat i en funcionament.**"
           }
         },
@@ -2805,20 +2620,20 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "SecretAgent ist ein Hintergrund-Prozess, der Anfragen signiert, sodass Du Secretive nicht durchgehend geöffnet haben musst.\n\n**Secretive wird nicht richtig funktionieren, wenn der Agent nicht installiert und ausgeführt wird.**"
           }
         },
         "el" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Το SecretAgent είναι μια διεργασία που εκτελείται στο παρασκήνιο για να υπογράφει αιτήματα. Δεν χρειάζεται να κρατάτε παράθυρο του Secretive ανοιχτό συνεχώς.\n\n**Το Secretive δεν θα μπορεί να λειτουργήσει σωστά εκτός και αν o Agent είναι εγκατεστημένος και εκτελείται.**"
           }
         },
         "en" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "SecretAgent is a process that runs in the background to sign requests, so you don't need to keep Secretive open all the time.\n\n**Secretive will not be able to function properly unless the agent is installed and running.**"
+            "state" : "translated",
+            "value" : "SecretAgent is a process that runs in the background to sign requests, so you don't need to keep Secretive open all the time.\n\n**Secretive will not be able to function properly unless the agent is configured.**"
           }
         },
         "es" : {
@@ -2829,13 +2644,13 @@
         },
         "fi" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "SecretAgent-agenttiprosessi toimii taustalla ja allekirjoittaa pyyntöjä, jotta Secretive-käyttöliittymää ei tarvitse pitää aina auki.\n\n**Secretive ei toimi oikein, jollei agentti ole asennettu ja käynnissä.**"
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "SecretAgent est un processus qui s'exécute en arrière-plan pour signer les demandes, de sorte que vous n'ayez pas besoin de garder Secretive ouvert en permanence.\n\n**Secretive ne pourra pas fonctionner correctement sans que l'agent soit installé et fonctionne.**"
           }
         },
@@ -2859,13 +2674,13 @@
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "SecretAgentはバックグラウンドで稼働し署名を行います。Secretiveアプリを常に実行する必要はありません。\n\n**Secretiveアプリはエージェントがインストールされて稼働しない限り正しく動作しません。**"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "SecretAgent는 백그라운드에서 실행되어 요청에 서명하는 프로세스이므로 Secretive를 항상 열어 둘 필요는 없습니다.\n\n**Secretive 에이전트가 설치되어 실행 중이어야 Secretive가 제대로 작동합니다.**"
           }
         },
@@ -2883,7 +2698,7 @@
         },
         "pl" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "SecretAgent to proces działający w tle, który podpisuje żądania, dzięki czemu nie musisz mieć otwartego programu Secretive przez cały czas.\n\n**Program Secretive nie będzie działał poprawnie, jeśli agent nie zostanie zainstalowany i uruchomiony.**"
           }
         },
@@ -2895,7 +2710,7 @@
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "SecretAgent é um processo que é executado em segundo plano para assinar pedidos, então não há necessidade de manter Secretive aberto o tempo todo.\n\n**Secretive não funcionará corretamente a menos que o agente esteja instalado e executando.**"
           }
         },
@@ -2907,7 +2722,7 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "SecretAgent это процесс, который работает в фоне чтобы подписывать запросы. Так Вам не придется все время держать Secretive открытым.\n\n**Secretive не сможет нормально функционировать, пока агент не установлен и не запущен.**"
           }
         },
@@ -2943,19 +2758,19 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "SecretAgent是个在后台处理签名请求的进程，让您无需将Secretive一直保持在前台。\n\n**需要安装并运行Agent，否则Secretive无法正常工作。**"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "SecretAgent是個在後台處理簽名請求的行程，讓您無需將Secretive一直保持在前台。\n\n**需要安裝並執行Agent，否則Secretive無法正常工作。**"
           }
         }
       }
     },
-    "agent_not_running_notice_title" : {
+    "agent_not_configured_notice_title" : {
       "extractionState" : "manual",
       "localizations" : {
         "af" : {
@@ -2972,7 +2787,7 @@
         },
         "ca" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Agent inactiu"
           }
         },
@@ -2990,20 +2805,20 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Agent wird Nicht Ausgeführt"
           }
         },
         "el" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Ο Agent Δεν Εκτελείται"
           }
         },
         "en" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Agent Is Not Running"
+            "state" : "translated",
+            "value" : "Agent Is Not Configured"
           }
         },
         "es" : {
@@ -3014,13 +2829,13 @@
         },
         "fi" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Agentti ei ole käynnissä"
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "L'agent n'est pas actif"
           }
         },
@@ -3038,19 +2853,19 @@
         },
         "it" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Secret Agent non è in esecuzione"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "エージェントが稼働していません"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Agent가 실행되고 있지 않음"
           }
         },
@@ -3068,7 +2883,7 @@
         },
         "pl" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Agent nie jest uruchomiony"
           }
         },
@@ -3080,7 +2895,7 @@
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Agent não está rodando"
           }
         },
@@ -3092,7 +2907,7 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Агент не запущен"
           }
         },
@@ -3128,19 +2943,19 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Agent尚未运行"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Agent尚未執行"
           }
         }
       }
     },
-    "agent_running_notice_detail_description" : {
+    "agent_ready_notice_detail_description" : {
       "extractionState" : "manual",
       "localizations" : {
         "af" : {
@@ -3325,7 +3140,7 @@
         }
       }
     },
-    "agent_running_notice_detail_title" : {
+    "agent_ready_notice_detail_title" : {
       "extractionState" : "manual",
       "localizations" : {
         "af" : {
@@ -3342,7 +3157,7 @@
         },
         "ca" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "L'agent secret està actiu"
           }
         },
@@ -3360,20 +3175,20 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Secret Agent wird Ausgeführt"
           }
         },
         "el" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Ο Πράκτορας εκτελείται"
           }
         },
         "en" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Secret Agent is Running"
+            "state" : "translated",
+            "value" : "Secret Agent is Ready"
           }
         },
         "es" : {
@@ -3384,13 +3199,13 @@
         },
         "fi" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "SecretAgent on käynnissä"
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "SecretAgent est actif"
           }
         },
@@ -3408,19 +3223,19 @@
         },
         "it" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Secret Agent è in esecuzione"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "エージェントは稼働中"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Secret Agent가 실행 중입니다."
           }
         },
@@ -3438,7 +3253,7 @@
         },
         "pl" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Secret Agent jest uruchomiony"
           }
         },
@@ -3450,7 +3265,7 @@
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Secret Agent está rodando"
           }
         },
@@ -3462,7 +3277,7 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "SecretAgent запущен"
           }
         },
@@ -3498,19 +3313,19 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Secret Agent运行中"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Secret Agent執行中"
           }
         }
       }
     },
-    "agent_running_notice_title" : {
+    "agent_ready_notice_title" : {
       "extractionState" : "manual",
       "localizations" : {
         "af" : {
@@ -3527,7 +3342,7 @@
         },
         "ca" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Agent actiu"
           }
         },
@@ -3545,7 +3360,7 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Agent wird Ausgeführt"
           }
         },
@@ -3557,8 +3372,8 @@
         },
         "en" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Agent is Running"
+            "state" : "translated",
+            "value" : "Agent is Ready"
           }
         },
         "es" : {
@@ -3569,13 +3384,13 @@
         },
         "fi" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Agentti on käynnissä"
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "L'agent est actif"
           }
         },
@@ -3593,19 +3408,19 @@
         },
         "it" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Agent è in esecuzione"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "エージェントは稼働中"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Agent가 실행중"
           }
         },
@@ -3623,7 +3438,7 @@
         },
         "pl" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Agent jest uruchomiony"
           }
         },
@@ -3635,7 +3450,7 @@
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Agent está rodando"
           }
         },
@@ -3647,7 +3462,7 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Агент запущен"
           }
         },
@@ -3683,13 +3498,13 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Agent运行中"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Agent執行中"
           }
         }

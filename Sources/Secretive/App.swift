@@ -1,15 +1,31 @@
 import SwiftUI
-import ServiceManagement
+@unsafe @preconcurrency import ServiceManagement
 import SecretKit
 import SecureEnclaveSecretKit
 import SmartCardSecretKit
 import Brief
 import CertificateKit
 
+@Observable
+final class LaunchService: Sendable {
+    private let service = SMAppService.agent(plistName: "com.maxgoedjen.Secretive.SecretAgent.plist")
+    var status: SMAppService.Status {
+        service.status
+    }
+
+    func configure() {
+        try? service.unregister()
+        try! service.register()
+    }
+
+    func disable() {
+        try? service.unregister()
+    }
+}
+
 @main
 struct Secretive: App {
     
-//    @Environment(\.agentLaunchController) var agentLaunchController
     @Environment(\.justUpdatedChecker) var justUpdatedChecker
 
     @SceneBuilder var body: some Scene {
@@ -17,13 +33,8 @@ struct Secretive: App {
             ContentView()
                 .environment(EnvironmentValues._secretStoreList)
                 .environment(EnvironmentValues._certificateStore)
-                .onReceive(NotificationCenter.default.publisher(for: NSApplication.didBecomeActiveNotification)) { _ in
-                    Task {
-                        let service = SMAppService.agent(plistName: "com.maxgoedjen.Secretive.SecretAgent.plist")
-                        try? service.unregister()
-                        try! service.register()
-                        print("Status: \(service.status)")
-                    }
+                .onAppear {
+                    EnvironmentValues._launchService.configure()
                 }
         }
         .commands {
@@ -110,6 +121,9 @@ extension EnvironmentValues {
 
     private static let _justUpdatedChecker = JustUpdatedChecker()
     @Entry var justUpdatedChecker: any JustUpdatedCheckerProtocol = _justUpdatedChecker
+
+    fileprivate static let _launchService = LaunchService()
+    @Entry var launchService: LaunchService = _launchService
 
     @MainActor var secretStoreList: SecretStoreList {
         EnvironmentValues._secretStoreList

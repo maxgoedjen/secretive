@@ -2,10 +2,10 @@ import SwiftUI
 
 struct AgentStatusView: View {
 
-    @Environment(\.agentLaunchController) private var agentLaunchController: any AgentLaunchControllerProtocol
+    @Environment(\.launchService) private var launchService
 
     var body: some View {
-        if agentLaunchController.running {
+        if launchService.status == .enabled {
             AgentRunningView()
         } else {
             AgentNotRunningView()
@@ -14,54 +14,53 @@ struct AgentStatusView: View {
 }
 struct AgentRunningView: View {
 
-    @Environment(\.agentLaunchController) private var agentLaunchController: any AgentLaunchControllerProtocol
+    @Environment(\.launchService) private var launchService
     @AppStorage("explicitlyDisabled") var explicitlyDisabled = false
 
     var body: some View {
         Form {
             Section {
-                if let process = agentLaunchController.process {
-                    ConfigurationItemView(
-                        title: .agentDetailsLocationTitle,
-                        value: process.bundleURL!.path(),
-                        action: .revealInFinder(process.bundleURL!.path()),
-                    )
+//                if let process = agentLaunchController.process {
+//                    ConfigurationItemView(
+//                        title: .agentDetailsLocationTitle,
+//                        value: process.bundleURL!.path(),
+//                        action: .revealInFinder(process.bundleURL!.path()),
+//                    )
                     ConfigurationItemView(
                         title: .agentDetailsSocketPathTitle,
                         value: URL.socketPath,
                         action: .copy(URL.socketPath),
                     )
-                    ConfigurationItemView(
-                        title: .agentDetailsVersionTitle,
-                        value: Bundle(url: process.bundleURL!)!.infoDictionary!["CFBundleShortVersionString"] as! String
-                    )
-                    if let launchDate = process.launchDate {
-                        ConfigurationItemView(
-                            title: .agentDetailsRunningSinceTitle,
-                            value: launchDate.formatted()
-                        )
-                    }
-                }
+//                    ConfigurationItemView(
+//                        title: .agentDetailsVersionTitle,
+//                        value: Bundle(url: process.bundleURL!)!.infoDictionary!["CFBundleShortVersionString"] as! String
+//                    )
+//                    if let launchDate = process.launchDate {
+//                        ConfigurationItemView(
+//                            title: .agentDetailsRunningSinceTitle,
+//                            value: launchDate.formatted()
+//                        )
+//                    }
+//                }
             } header: {
-                Text(.agentRunningNoticeDetailTitle)
+                Text(.agentReadyNoticeDetailTitle)
                     .font(.headline)
                     .padding(.top)
             } footer: {
                 VStack(alignment: .leading, spacing: 10) {
-                    Text(.agentRunningNoticeDetailDescription)
+                    Text(.agentReadyNoticeDetailDescription)
                     HStack {
                         Spacer()
                         Menu(.agentDetailsRestartAgentButton) {
                             Button(.agentDetailsDisableAgentButton) {
                                 Task {
                                     explicitlyDisabled = true
-                                    try? await agentLaunchController
-                                        .uninstall()
+                                    launchService.disable()
                                 }
                             }
                         } primaryAction: {
                             Task {
-                                try? await agentLaunchController.forceLaunch()
+                                launchService.configure()
                             }
                         }
                     }
@@ -78,7 +77,6 @@ struct AgentRunningView: View {
 
 struct AgentNotRunningView: View {
 
-    @Environment(\.agentLaunchController) private var agentLaunchController
     @State var triedRestart = false
     @State var loading = false
     @AppStorage("explicitlyDisabled") var explicitlyDisabled = false
@@ -87,12 +85,12 @@ struct AgentNotRunningView: View {
         Form {
             Section {
             } header: {
-                Text(.agentNotRunningNoticeTitle)
+                Text(.agentNotConfiguredNoticeTitle)
                     .font(.headline)
                     .padding(.top)
             } footer: {
                 VStack(alignment: .leading, spacing: 10) {
-                    Text(.agentNotRunningNoticeDetailDescription)
+                    Text(.agentNotConfiguredNoticeDetailDescription)
                     HStack {
                         if !triedRestart {
                             Spacer()

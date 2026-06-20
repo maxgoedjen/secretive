@@ -19,6 +19,7 @@ struct ContentView: View {
     @Environment(\.certificateStore) private var certificateStore
     @Environment(\.updater) private var updater
     @Environment(\.agentLaunchController) private var agentLaunchController
+    @Environment(\.launchService) private var launchService
 
     @AppStorage("defaultsHasRunSetup") private var hasRunSetup = false
     @State private var showingCreation = false
@@ -147,15 +148,15 @@ extension ContentView {
             showingAgentInfo = true
         }, label: {
             HStack {
-                if agentLaunchController.running {
-                    Text(.agentRunningNoticeTitle)
+                if launchService.status == .enabled {
+                    Text(.agentReadyNoticeTitle)
                         .font(.headline)
                         .foregroundColor(colorScheme == .light ? Color(white: 0.3) : .white)
                     Circle()
                         .frame(width: 10, height: 10)
                         .foregroundColor(Color.green)
                 } else {
-                    Text(.agentNotRunningNoticeTitle)
+                    Text(.agentNotConfiguredNoticeTitle)
                         .font(.headline)
                     Circle()
                         .frame(width: 10, height: 10)
@@ -165,8 +166,8 @@ extension ContentView {
         })
         .buttonStyle(
             ToolbarStatusButtonStyle(
-                lightColor: agentLaunchController.running ? .black.opacity(0.05) : .red.opacity(0.75),
-                darkColor: agentLaunchController.running ? .white.opacity(0.05) : .red.opacity(0.5),
+                lightColor: launchService.status == .enabled ? .black.opacity(0.05) : .red.opacity(0.75),
+                darkColor: launchService.status == .enabled ? .white.opacity(0.05) : .red.opacity(0.5),
             )
         )
         .popover(isPresented: $showingAgentInfo, attachmentAnchor: attachmentAnchor, arrowEdge: .bottom) {
