@@ -166,7 +166,7 @@ private extension sockaddr_un {
 
     mutating func setPath(_ path: String) -> Int {
 #if compiler(<6.4)
-        unsafe withUnsafeMutablePointer(to: &addr.sun_path.0) { pointer in
+        unsafe withUnsafeMutablePointer(to: &self.sun_path.0) { pointer in
             unsafe path.withCString { cstring in
                 let len = unsafe strlen(cstring)
                 unsafe strncpy(pointer, cstring, len)
