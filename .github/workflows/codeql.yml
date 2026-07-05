@@ -29,9 +29,9 @@ jobs:
         #   build-mode: manual
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v4
+      uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd #v5
     - name: Initialize CodeQL
-      uses: github/codeql-action/init@v3
+      uses: github/codeql-action/init@d77b13a0df3134d64a457ea9003f600b09fa1c8a # v3
       with:
         languages: ${{ matrix.language }}
         build-mode: ${{ matrix.build-mode }}
@@ -42,6 +42,6 @@ jobs:
       name: "Build"
       run: xcrun xcodebuild -project Sources/Secretive.xcodeproj -scheme Secretive CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
     - name: Perform CodeQL Analysis
-      uses: github/codeql-action/analyze@v3
+      uses: github/codeql-action/analyze@d77b13a0df3134d64a457ea9003f600b09fa1c8a # v3
       with:
         category: "/language:${{matrix.language}}"
