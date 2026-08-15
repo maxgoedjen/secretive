@@ -163,9 +163,9 @@ fileprivate struct BackgroundViewModifier: ViewModifier {
         } else {
             if #available(macOS 26.0, *) {
                 content
+                    .contentShape(RoundedRectangle(cornerRadius: 15))
                     .glassEffect(.regular.tint(backgroundColor(interactionState: interactionState)), in: RoundedRectangle(cornerRadius: 15))
                     .mask(RoundedRectangle(cornerRadius: 15))
-                    .contentShape(RoundedRectangle(cornerRadius: 15))
                     .shadow(color: .black.opacity(0.1), radius: 5)
             } else {
                 content
@@ -178,7 +178,12 @@ fileprivate struct BackgroundViewModifier: ViewModifier {
     func backgroundColor(interactionState: InteractionState) -> Color {
         guard appearsActive else { return Color.clear }
         if #available(macOS 26.0, *) {
-            let base = colorScheme == .dark ? Color(white: 0.2) : Color(white: 1)
+            let base: Color
+            if #available(macOS 27.0, *) {
+                base = .clear
+            } else {
+                base = colorScheme == .dark ? Color(white: 0.2) : Color(white: 1)
+            }
             switch interactionState {
             case .normal:
                 return base.mix(with: .accentColor, by: 0)
