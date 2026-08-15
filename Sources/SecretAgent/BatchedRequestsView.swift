@@ -2,23 +2,21 @@ import SwiftUI
 import SecretKit
 import SecretAgentKit
 import SmartCardSecretKit
+import Common
 
 struct BatchedRequestsView: View {
 
-    let pending: [[SignatureRequest]]
-    let review: (Set<SignatureRequest>) async throws -> Void
+    private let authenticationHandler: any AuthenticationHandlerProtocol
 
-    init(pending: [[SignatureRequest]], review: @escaping (Set<SignatureRequest>) async throws -> Void) {
-        self.pending = pending
-        self.review = review
+    init(authenticationHandler: some AuthenticationHandlerProtocol) {
+        self.authenticationHandler = authenticationHandler
     }
 
     var body: some View {
         VStack(alignment: .leading) {
-//                .padding()
             Form {
-//                Text("Multiple authenticated requests are pending. You can approve them batches, or request they all proceed individually.")
-                ForEach(Array(pending.enumerated()), id: \.offset) { group in
+                Text("Multiple authenticated requests are pending. You can approve them batches, or request they all proceed individually.")
+                ForEach(Array(authenticationHandler.batchableRequests.enumerated()), id: \.offset) { group in
                     Section {
                         ForEach(Array(group.element.enumerated()), id: \.offset) { pending in
                             HStack {
@@ -31,7 +29,7 @@ struct BatchedRequestsView: View {
                                 Spacer()
                                 Button("Review") {
                                     Task {
-                                        try? await review([pending.element])
+                                        try? await authenticationHandler.requestAuthentication(for: [pending.element])
                                     }
                                 }
                             }
@@ -42,7 +40,7 @@ struct BatchedRequestsView: View {
                             Spacer()
                             Button("Review All") {
                                 Task {
-                                    try? await review(Set(group.element))
+                                    try? await authenticationHandler.requestAuthentication(for: Set(group.element))
                                 }
 
                             }
@@ -56,3 +54,65 @@ struct BatchedRequestsView: View {
     }
 
 }
+
+private struct TestHandler: AuthenticationHandlerProtocol {
+
+    var batchableRequests: [[SignatureRequest]] = []
+
+    func requestAuthentication(for requests: Set<SignatureRequest>) async throws {
+
+    }
+
+    func persistAuthentication<SecretType>(secret: SecretType, forDuration duration: TimeInterval) async throws where SecretType : Secret {
+
+    }
+
+    func setBatchAuthHandler(_ handler: @escaping () async throws -> Void) {
+
+    }
+
+    func waitForAuthentication(for request: SignatureRequest) async throws -> any AuthenticationContextProtocol {
+        fatalError()
+    }
+
+}
+//
+//#Preview {
+//    ScrollView {
+//        MultilineInfoView(title: "GitHub", subtitle: "Ghostty", image: Image(systemName: "lock"), items: [
+//            "
+//        ])
+////        Section {
+////            ForEach(0..<2) { _ in
+////                VStack(alignment: .leading) {
+////                    Text("Ghostty")
+////                        .font(.headline)
+////                    Text("zsh 􀯻 git 􀯻 zsh")
+////                        .font(.footnote)
+////                    Text("4:05 PM")
+////                }
+////            }
+////        } header: {
+////            Text("GitHub")
+////        }
+////        Section {
+////            ForEach(0..<2) { _ in
+////                VStack(alignment: .leading) {
+////                    Text("Ghostty")
+////                        .font(.headline)
+////                    Text("zsh 􀯻 git")
+////                        .font(.footnote.monospaced())
+////                    Text("Git Signature")
+////                        .font(.footnote)
+////                    Text("4:05 PM")
+////                        .font(.caption)
+////                }
+////            }
+////        } header: {
+////            Text("GitHub Signing Key")
+////        }
+//    }
+//    .padding()
+//    .formStyle(.grouped)
+//    .frame(minHeight: 700)
+//}

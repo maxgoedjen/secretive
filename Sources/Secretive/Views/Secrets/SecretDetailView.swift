@@ -31,6 +31,13 @@ struct SecretDetailView<SecretType: Secret>: View {
                     Spacer()
                         .frame(height: 20)
                     CopyableView(
+                        title: .secretDetailPublicKeyLabel,
+                        image: Image(systemName: "key"),
+                        text: keyWriter.openSSHString(secret: secret)
+                    )
+                    Spacer()
+                        .frame(height: 20)
+                    CopyableView(
                         title: .secretDetailPublicKeyPathLabel,
                         image: Image(systemName: "lock.doc"),
                         text: URL.publicKeyPath(for: secret, in: URL.publicKeyDirectory),

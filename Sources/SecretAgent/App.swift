@@ -29,7 +29,6 @@ struct SecretAgent: App {
     private let authenticationHandler = AuthenticationHandler()
     private let publicKeyFileStoreController = PublicKeyFileStoreController(publicKeysURL: URL.publicKeyDirectory, certificatesURL: URL.certificatesDirectory)
 
-    @State var pending: ([[SignatureRequest]], (Set<SignatureRequest>) async throws -> Void)?
     @Environment(\.openWindow) var openWindow
 
     private let logger = Logger(subsystem: "com.maxgoedjen.secretive.secretagent", category: "App")
@@ -100,8 +99,7 @@ struct SecretAgent: App {
                     }
                 }
                 .task {
-                    await authenticationHandler.setBatchAuthHandler { @MainActor pending, authorize in
-                        self.pending = (pending, authorize)
+                    authenticationHandler.setBatchAuthHandler { @MainActor in
                         openWindow(id: String(describing: BatchedRequestsView.self))
                     }
 
@@ -129,10 +127,10 @@ struct SecretAgent: App {
 
     @ViewBuilder
     var pendingView: some View {
-        if let (requests, authorize) = pending {
-            BatchedRequestsView(pending: requests, review: authorize)
+        if !authenticationHandler.batchableRequests.isEmpty {
+            BatchedRequestsView(authenticationHandler: authenticationHandler)
         }
     }
 
-
 }
+

@@ -5372,6 +5372,17 @@
         }
       }
     },
+    "auth_context_request_multiple" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "sign multiple requests from “%1$(appName)@” using secret “%2$(secretName)@”"
+          }
+        }
+      }
+    },
     "auth_context_request_signature_description" : {
       "comment" : "When the user performs a signature action using a secret, they are shown a prompt to approve the action. This is the description, showing which secret will be used, and where the request is coming from. The first placeholder is the name of the app requesting the operation. The second placeholder is the name of the secret.",
       "extractionState" : "manual",
@@ -18843,6 +18854,9 @@
           }
         }
       }
+    },
+    "Multiple authenticated requests are pending. You can approve them batches, or request they all proceed individually." : {
+
     },
     "no_secure_storage_description" : {
       "extractionState" : "manual",

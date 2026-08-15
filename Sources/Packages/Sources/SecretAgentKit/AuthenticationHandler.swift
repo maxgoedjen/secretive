@@ -57,20 +57,28 @@ public final class AuthenticationContext: AuthenticationContextProtocol {
 
 }
 
-public actor AuthenticationHandler {
+@MainActor public protocol AuthenticationHandlerProtocol: Observable {
+    func setBatchAuthHandler(_ handler: @escaping () async throws -> Void)
+    func waitForAuthentication(for request: SignatureRequest) async throws -> any AuthenticationContextProtocol
+    var batchableRequests: [[SignatureRequest]] { get }
+    func persistAuthentication<SecretType: Secret>(secret: SecretType, forDuration duration: TimeInterval) async throws
+    func requestAuthentication(for requests: Set<SignatureRequest>) async throws
+}
+
+@Observable @MainActor public class AuthenticationHandler: AuthenticationHandlerProtocol {
 
     private var persistedContexts: [AnySecret: AuthenticationContext] = [:]
     private var holdingRequests: Set<SignatureRequest> = []
     private var activeTask: Task<Void, any Error>?
 
     private var lastBatchAuthPresentation: Set<SignatureRequest>?
-    private var presentBatchAuth: (([[SignatureRequest]], @escaping @Sendable (Set<SignatureRequest>) async throws -> Void) async throws -> Void)?
+    private var presentBatchAuth: (() async throws -> Void)?
     private let logger = Logger(subsystem: "com.maxgoedjen.secretive.secretagent", category: "Agent")
 
     public init() {
     }
 
-    public func setBatchAuthHandler(_ handler: @escaping (@Sendable ([[SignatureRequest]], @escaping @Sendable (Set<SignatureRequest>) async throws -> Void) async throws -> Void)) {
+    public func setBatchAuthHandler(_ handler: @escaping () async throws -> Void) {
         self.presentBatchAuth = handler
     }
 
@@ -92,7 +100,7 @@ public actor AuthenticationHandler {
                 activeTask?.cancel()
                 lastBatchAuthPresentation = holdingRequests
                 logger.log("Requesting batch auth presentation")
-                try await presentBatchAuth?(batchableRequests, persistAuthentication(for:))
+                try await presentBatchAuth?()
                 logger.log("Requested batch auth presentation")
             }
             if let preauthorized = existingAuthenticationContext(for: request) {
@@ -110,11 +118,10 @@ public actor AuthenticationHandler {
 
         activeTask = Task {
             logger.log("Beginning individual auth prompt")
-            try await Task.sleep(for: .seconds(1000))
-//            _ = try? await laContext.evaluatePolicy(.deviceOwnerAuthentication, localizedReason: laContext.localizedReason)
+            _ = try? await laContext.evaluatePolicy(.deviceOwnerAuthentication, localizedReason: laContext.localizedReason)
             logger.log("Ended individual auth prompt")
         }
-        _ = try await activeTask?.value
+        _ = try? await activeTask?.value
         // TODO: Check something beyond cancellation? id?
         // Is this okay? Do we always assume that a cancelled task will be the proceeded on?
         if activeTask?.isCancelled ?? false {
@@ -131,7 +138,7 @@ public actor AuthenticationHandler {
         return context
     }
 
-    private var batchableRequests: [[SignatureRequest]] {
+    public var batchableRequests: [[SignatureRequest]] {
         holdingRequests.reduce(into: [:]) { partialResult, next in
             partialResult[next.batchID, default: []].append(next)
         }
@@ -167,14 +174,19 @@ public actor AuthenticationHandler {
         persistedContexts[AnySecret(secret)] = context
     }
 
-    private func persistAuthentication(for requests: Set<SignatureRequest>) async throws {
+    public func requestAuthentication(for requests: Set<SignatureRequest>) async throws {
         activeTask?.cancel()
         guard let first = requests.first else { return }
         let newContext = LAContext()
         newContext.localizedCancelTitle = String(localized: .authContextRequestDenyButton)
 
-        newContext.localizedReason = String("Multiple")
-//        newContext.localizedReason = String(localized: .authContextPersistForDuration(secretName: secret.name, duration: durationString))
+        let appNames = Set(requests.map(\.provenance.origin.displayName)).joined(separator: ", ")
+        let secretNames = Set(requests.map(\.secret.name)).joined(separator: ", ")
+        if requests.count > 1 {
+            newContext.localizedReason = String(localized: .authContextRequestMultiple(appName: appNames, secretName: secretNames))
+        } else {
+            newContext.localizedReason = String(localized: .authContextRequestSignatureDescription(appName: appNames, secretName: secretNames))
+        }
         let success = try await newContext.evaluatePolicy(.deviceOwnerAuthentication, localizedReason: newContext.localizedReason)
         guard success else { return }
         let context = AuthenticationContext(secret: first.secret, context: newContext, requestIDs: Set(requests.map(\.id)))

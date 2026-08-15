@@ -1,57 +1,71 @@
 import SwiftUI
 import UniformTypeIdentifiers
 
-struct MultilineInfoView: View {
+public struct MultilineInfoView<TitleView: View, ItemView: View>: View {
 
-    struct Item {
-        let text: String
-        let action: (Image, () -> Void)?
+//    public struct Item {
+//        public let text: String
+//        public let action: (Image, () -> Void)?
+//
+//        public init(text: String, action: (Image, () -> Void)?) {
+//            self.text = text
+//            self.action = action
+//        }
+//
+//    }
+
+    var titleView: TitleView
+    var items: [ItemView]
+
+    public init(titleView: () -> TitleView, items: () -> [ItemView]) {
+        self.titleView = titleView()
+        self.items = items()
     }
 
-    var title: LocalizedStringResource
-    var image: Image
-    var items: [Item]
-
-    init(title: LocalizedStringResource, image: Image, items: [Item]) {
-        self.title = title
-        self.image = image
-        self.items = items
-    }
-
-    init(title: LocalizedStringResource, image: Image, items: [String]) {
-        self.title = title
-        self.image = image
-        self.items = items.map({ Item(text: $0, action: nil) })
-    }
-
-    @State private var interactionState: InteractionState = .normal
-    @State private var interactionStateIndex: Int?
-
-    var body: some View {
-        VStack(alignment: .leading, spacing: 0) {
+    public init(title: LocalizedStringResource, subtitle: LocalizedStringResource, image: Image, items: [String]) where TitleView == HStack<TupleView<(Image, Text, Spacer)>> , ItemView == Text {
+        self.init {
             HStack {
                 image
                     .renderingMode(.template)
-                    .imageScale(.large)
+//                    .imageScale(.large)
                     .foregroundColor(primaryTextColor)
                 Text(title)
                     .font(.headline)
                     .foregroundColor(primaryTextColor)
                 Spacer()
             }
+        } items: {
+            [Text("Hello")]
+        }
+
+//        self.init {
+//        } items: {
+//            ForEach(items) { item in
+//                return HStack {
+//                    Text(item)
+//                    Spacer()
+//                    //                if let (image, _) = $0.1 {
+//                    //                    image
+//                    //                        .foregroundStyle(.secondary)
+//                    //                }
+//                }
+//            }
+//        }
+
+    }
+
+    @State private var interactionState: InteractionState = .normal
+    @State private var interactionStateIndex: Int?
+
+    public var body: some View {
+        VStack(alignment: .leading, spacing: 0) {
+            titleView
             .safeAreaPadding(20)
             ForEach(Array(items.enumerated()), id: \.offset) { item in
                 Divider()
                     .ignoresSafeArea()
                     .opacity(item.offset == 0 ? 1 : 0.75)
-                HStack {
-                    Text(item.element.text)
-                    Spacer()
-                    if let (image, _) = item.element.action {
-                        image
-                            .foregroundStyle(.secondary)
-                    }
-                }
+                items.element
                 .safeAreaPadding(20)
                 .onHover { hovering in
                     withAnimation {
@@ -155,16 +169,16 @@ fileprivate struct BackgroundViewModifier: ViewModifier {
     
 }
 
-#Preview {
-    MultilineInfoView(title: "Multiple", image: Image(systemName: "figure.wave"), items: [
-        MultilineInfoView.Item(text: "hello", action: (Image(systemName: "chevron.forward"), {})),
-        MultilineInfoView.Item(text: "World", action: (Image(systemName: "chevron.forward"), {})),
-    ])
-    .padding()
-}
-
-
-#Preview {
-    MultilineInfoView(title: "One", image: Image(systemName: "figure.wave"), items: ["Hello world."])
-        .padding()
-}
+//#Preview {
+//    MultilineInfoView(title: "Multiple", image: Image(systemName: "figure.wave"), items: [
+//        MultilineInfoView.Item(text: "hello", action: (Image(systemName: "chevron.forward"), {})),
+//        MultilineInfoView.Item(text: "World", action: (Image(systemName: "chevron.forward"), {})),
+//    ])
+//    .padding()
+//}
+//
+//
+//#Preview {
+//    MultilineInfoView(title: "One", image: Image(systemName: "figure.wave"), items: ["Hello world."])
+//        .padding()
+//}
