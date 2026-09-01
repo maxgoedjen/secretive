@@ -12,6 +12,7 @@ extension SecureEnclave {
     @Observable public final class Store: SecretStoreModifiable {
 
         @MainActor public var secrets: [Secret] = []
+        @MainActor public private(set) var secretsNeedReload = false
         public var isAvailable: Bool {
             CryptoKit.SecureEnclave.isAvailable
         }
@@ -192,22 +193,39 @@ extension SecureEnclave.Store {
 
     /// Loads all secrets from the store.
     @MainActor private func loadSecrets() {
+        secretsNeedReload = false
+        loadSecrets(accessibility: kSecAttrAccessibleWhenUnlockedThisDeviceOnly)
+        loadSecrets(accessibility: kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly)
+    }
+
+    /// Loads secrets with a specific keychain accessibility class.
+    @MainActor private func loadSecrets(accessibility: CFString) {
         let queryAttributes = KeychainDictionary([
             kSecClass: Constants.keyClass,
             kSecAttrService: Constants.keyTag,
             kSecUseDataProtectionKeychain: true,
+            kSecAttrAccessible: accessibility,
             kSecReturnData: true,
             kSecMatchLimit: kSecMatchLimitAll,
             kSecReturnAttributes: true
-            ])
+        ])
         var untyped: CFTypeRef?
-        unsafe SecItemCopyMatching(queryAttributes, &untyped)
-        guard let typed = untyped as? [[CFString: Any]] else { return }
+        let status = unsafe SecItemCopyMatching(queryAttributes, &untyped)
+        guard status == errSecSuccess else {
+            if status != errSecItemNotFound {
+                secretsNeedReload = true
+            }
+            return
+        }
+        guard let typed = untyped as? [[CFString: Any]] else {
+            secretsNeedReload = true
+            return
+        }
         let wrapped: [SecureEnclave.Secret] = typed.compactMap {
             do {
                 let name = $0[kSecAttrLabel] as? String ?? String(localized: "unnamed_secret")
                 guard let attributesData = $0[kSecAttrGeneric] as? Data,
-                let id = $0[kSecAttrAccount] as? String else {
+                      let id = $0[kSecAttrAccount] as? String else {
                     throw MissingAttributesError()
                 }
                 let attributes = try JSONDecoder().decode(Attributes.self, from: attributesData)
