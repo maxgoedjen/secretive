@@ -19,17 +19,25 @@ struct SecretListItemView: View {
                     Text(secret.name)
                     Spacer()
                     Image(systemName: "lock.open.trianglebadge.exclamationmark")
-                        .accessibilityLabel(String(localized: .secretListUsableWhileLockedHelp))
+                        .accessibilityLabel(String(localized: .createSecretUsableWhileLockedWarning))
                 }
-                .help(String(localized: .secretListUsableWhileLockedHelp))
+                .help(String(localized: .createSecretUsableWhileLockedWarning))
             } else if secret.authenticationRequirement.required {
                 HStack {
                     Text(secret.name)
                     Spacer()
                     Image(systemName: "lock")
+                        .accessibilityLabel(String(localized: .createSecretRequireAuthenticationDescription))
                 }
+                .help(String(localized: .createSecretRequireAuthenticationDescription))
             } else {
-                Text(secret.name)
+                HStack {
+                    Text(secret.name)
+                    Spacer()
+                    Image(systemName: "lock.open")
+                        .accessibilityLabel(String(localized: .createSecretNotifyDescription))
+                }
+                .help(String(localized: .createSecretNotifyDescription))
             }
         }
         .sheet(isPresented: $isRenaming, onDismiss: {
