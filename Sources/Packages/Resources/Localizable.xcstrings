@@ -10050,6 +10050,28 @@
         }
       }
     },
+    "create_secret_usable_while_locked_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Allow use while Mac is locked"
+          }
+        }
+      }
+    },
+    "create_secret_usable_while_locked_warning" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "After first unlock, this key remains available for signing to local processes even while your Mac is locked."
+          }
+        }
+      }
+    },
     "delete_confirmation_cancel_button" : {
       "extractionState" : "manual",
       "localizations" : {

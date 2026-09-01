@@ -11,6 +11,7 @@ struct CreateSecretView<StoreType: SecretStoreModifiable>: View {
     @State private var keyAttribution = ""
     @State private var authenticationRequirement: AuthenticationRequirement = .presenceRequired
     @State private var keyType: KeyType?
+    @State private var usableWhileLocked = false
     @State var advanced = false
     @State var errorText: String?
 
@@ -69,6 +70,17 @@ struct CreateSecretView<StoreType: SecretStoreModifiable>: View {
                                 .boxBackground(color: .red)
                         }
 
+                    }
+                }
+                if authenticationRequirement == .notRequired {
+                    Section {
+                        Toggle(.createSecretUsableWhileLockedTitle, isOn: $usableWhileLocked)
+                        if usableWhileLocked {
+                            Text(.createSecretUsableWhileLockedWarning)
+                                .padding(.horizontal, 10)
+                                .padding(.vertical, 3)
+                                .boxBackground(color: .red)
+                        }
                     }
                 }
                 if advanced {
@@ -146,6 +158,7 @@ struct CreateSecretView<StoreType: SecretStoreModifiable>: View {
                     attributes: .init(
                         keyType: keyType!,
                         authentication: authenticationRequirement,
+                        usableWhileLocked: authenticationRequirement == .notRequired && usableWhileLocked,
                         publicKeyAttribution: attribution
                     )
                 )
