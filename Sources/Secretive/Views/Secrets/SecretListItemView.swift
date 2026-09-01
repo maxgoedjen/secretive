@@ -14,7 +14,15 @@ struct SecretListItemView: View {
     
     var body: some View {
         NavigationLink(value: secret) {
-            if secret.authenticationRequirement.required {
+            if secret.attributes.usableWhileLocked {
+                HStack {
+                    Text(secret.name)
+                    Spacer()
+                    Image(systemName: "lock.open.trianglebadge.exclamationmark")
+                        .accessibilityLabel(String(localized: .secretListUsableWhileLockedHelp))
+                }
+                .help(String(localized: .secretListUsableWhileLockedHelp))
+            } else if secret.authenticationRequirement.required {
                 HStack {
                     Text(secret.name)
                     Spacer()

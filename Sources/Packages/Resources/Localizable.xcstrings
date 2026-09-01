@@ -10067,7 +10067,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "After first unlock, this key remains available for signing to local processes even while your Mac is locked."
+            "value" : "After the first unlock, the key remains available to all apps until the next boot."
           }
         }
       }
@@ -21669,6 +21669,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "編輯"
+          }
+        }
+      }
+    },
+    "secret_list_usable_while_locked_help" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Usable while Mac is locked."
           }
         }
       }

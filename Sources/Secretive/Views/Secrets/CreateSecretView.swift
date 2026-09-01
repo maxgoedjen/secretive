@@ -76,7 +76,7 @@ struct CreateSecretView<StoreType: SecretStoreModifiable>: View {
                     Section {
                         Toggle(.createSecretUsableWhileLockedTitle, isOn: $usableWhileLocked)
                         if usableWhileLocked {
-                            Text(.createSecretUsableWhileLockedWarning)
+                            Label(.createSecretUsableWhileLockedWarning, systemImage: "lock.open.trianglebadge.exclamationmark")
                                 .padding(.horizontal, 10)
                                 .padding(.vertical, 3)
                                 .boxBackground(color: .red)
