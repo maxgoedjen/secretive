@@ -115,12 +115,12 @@ extension Agent {
 
 extension Agent {
 
-    /// Gives any store with no loaded secrets a chance to reload.
+    /// Gives any store that may be missing secrets a chance to reload.
     func reloadSecretsIfNeccessary() async {
         for store in await storeList.stores {
-            if await store.secrets.isEmpty {
+            if await store.secretsNeedReload {
                 let name = await store.name
-                logger.debug("Store \(name, privacy: .public) has no loaded secrets. Reloading.")
+                logger.debug("Store \(name, privacy: .public) may be missing secrets. Reloading.")
                 await store.reloadSecrets()
             }
         }

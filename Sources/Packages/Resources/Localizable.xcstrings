@@ -9557,6 +9557,376 @@
         }
       }
     },
+    "create_secret_usable_while_locked_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Laat gebruik toe terwyl Mac gesluit is"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "السماح بالاستخدام أثناء قفل Mac"
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Permet l’ús mentre el Mac està bloquejat"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Povolit použití, když je Mac uzamčený"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tillad brug, mens Mac er låst"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Verwendung bei gesperrtem Mac erlauben"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Να επιτρέπεται η χρήση ενώ το Mac είναι κλειδωμένο"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Allow use while Mac is locked"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Permitir el uso con el Mac bloqueado"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Salli käyttö, kun Mac on lukittu"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Autoriser l’utilisation lorsque le Mac est verrouillé"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "אפשר שימוש בזמן שה‑Mac נעול"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Használat engedélyezése, amikor a Mac zárolva van"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Consenti l’uso quando il Mac è bloccato"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Macのロック中の使用を許可"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mac이 잠겨 있는 동안 사용 허용"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tillat bruk mens Mac er låst"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gebruik toestaan terwijl de Mac is vergrendeld"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pozwalaj na używanie, gdy Mac jest zablokowany"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Permitir utilização com o Mac bloqueado"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Permitir uso enquanto o Mac estiver bloqueado"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Permite utilizarea când Mac‑ul este blocat"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Разрешить использование, когда Mac заблокирован"
+          }
+        },
+        "sr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Дозволи коришћење док је Mac закључан"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tillåt användning medan Mac är låst"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mac kilitliyken kullanıma izin ver"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Дозволити використання, коли Mac замкнено"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cho phép sử dụng khi Mac bị khóa"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "允许在 Mac 锁定时使用"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "允許在 Mac 鎖定時使用"
+          }
+        }
+      }
+    },
+    "create_secret_usable_while_locked_warning" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ná die eerste ontsluiting bly die sleutel vir alle apps beskikbaar tot met die volgende herlaai."
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "بعد إلغاء القفل لأول مرة، يظل المفتاح متاحًا لجميع التطبيقات حتى إعادة التشغيل التالية."
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Després del primer desbloqueig, la clau continua disponible per a totes les apps fins a l’arrencada següent."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Po prvním odemknutí zůstane klíč dostupný všem aplikacím až do příštího spuštění systému."
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Efter den første oplåsning er nøglen fortsat tilgængelig for alle apps indtil næste genstart."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nach dem ersten Entsperren bleibt der Schlüssel bis zum nächsten Neustart für alle Apps verfügbar."
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Μετά το πρώτο ξεκλείδωμα, το κλειδί παραμένει διαθέσιμο σε όλες τις εφαρμογές μέχρι την επόμενη εκκίνηση."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "After the first unlock, the key remains available to all apps until the next boot."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tras el primer desbloqueo, la clave permanece disponible para todas las apps hasta el siguiente arranque."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ensimmäisen lukituksen avaamisen jälkeen avain on kaikkien appien käytettävissä seuraavaan käynnistykseen asti."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Après le premier déverrouillage, la clé reste accessible à toutes les apps jusqu’au prochain démarrage."
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "לאחר ביטול הנעילה הראשון, המפתח נשאר זמין לכל היישומים עד להפעלה הבאה."
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Az első feloldás után a kulcs az összes app számára elérhető marad a következő rendszerindításig."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dopo il primo sblocco, la chiave rimane disponibile per tutte le app fino all’avvio successivo."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "最初のロック解除後、次回の起動まですべてのアプリが鍵を利用できます。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "처음 잠금 해제한 후에는 다음 부팅까지 모든 앱에서 키를 사용할 수 있습니다."
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Etter den første opplåsingen forblir nøkkelen tilgjengelig for alle apper frem til neste oppstart."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Na de eerste ontgrendeling blijft de sleutel beschikbaar voor alle apps tot de volgende keer dat de Mac wordt opgestart."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Po pierwszym odblokowaniu klucz pozostaje dostępny dla wszystkich aplikacji aż do następnego uruchomienia systemu."
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Após o primeiro desbloqueio, a chave permanece disponível para todas as apps até ao arranque seguinte."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Após o primeiro desbloqueio, a chave permanece disponível para todos os apps até a próxima inicialização."
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "După prima deblocare, cheia rămâne disponibilă pentru toate aplicațiile până la următoarea pornire."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "После первой разблокировки ключ остается доступен всем приложениям до следующей загрузки системы."
+          }
+        },
+        "sr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Након првог откључавања, кључ остаје доступан свим апликацијама до следећег покретања система."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Efter den första upplåsningen förblir nyckeln tillgänglig för alla appar fram till nästa systemstart."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "İlk kilit açma işleminden sonra anahtar bir sonraki başlatmaya kadar tüm uygulamalar tarafından kullanılabilir durumda kalır."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Після першого відмикання ключ залишається доступним усім програмам до наступного запуску системи."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sau lần mở khóa đầu tiên, khóa vẫn khả dụng cho tất cả ứng dụng cho đến lần khởi động tiếp theo."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "首次解锁后，所有 App 都可使用该密钥，直至下次启动。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "首次解鎖後，所有 App 都可使用該密鑰，直到下次啟動為止。"
+          }
+        }
+      }
+    },
     "delete_confirmation_cancel_button" : {
       "extractionState" : "manual",
       "localizations" : {

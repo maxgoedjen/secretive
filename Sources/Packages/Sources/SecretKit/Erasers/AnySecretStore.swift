@@ -8,6 +8,7 @@ open class AnySecretStore: SecretStore, @unchecked Sendable {
     private let _id: @Sendable () -> UUID
     private let _name: @MainActor @Sendable () -> String
     private let _secrets: @MainActor @Sendable () -> [AnySecret]
+    private let _secretsNeedReload: @MainActor @Sendable () -> Bool
     private let _sign: @Sendable (Data, AnySecret, SigningRequestProvenance) async throws -> Data
     private let _existingPersistedAuthenticationContext: @Sendable (AnySecret) async -> PersistedAuthenticationContext?
     private let _persistAuthentication: @Sendable (AnySecret, TimeInterval) async throws -> Void
@@ -19,6 +20,7 @@ open class AnySecretStore: SecretStore, @unchecked Sendable {
         _name = { secretStore.name }
         _id = { secretStore.id }
         _secrets = { secretStore.secrets.map { AnySecret($0) } }
+        _secretsNeedReload = { secretStore.secretsNeedReload }
         _sign = { try await secretStore.sign(data: $0, with: $1.base as! SecretStoreType.SecretType, for: $2) }
         _existingPersistedAuthenticationContext = { await secretStore.existingPersistedAuthenticationContext(secret: $0.base as! SecretStoreType.SecretType) }
         _persistAuthentication = { try await secretStore.persistAuthentication(secret: $0.base as! SecretStoreType.SecretType, forDuration: $1) }
@@ -39,6 +41,10 @@ open class AnySecretStore: SecretStore, @unchecked Sendable {
 
     @MainActor public var secrets: [AnySecret] {
         return _secrets()
+    }
+
+    @MainActor public var secretsNeedReload: Bool {
+        _secretsNeedReload()
     }
 
     public func sign(data: Data, with secret: AnySecret, for provenance: SigningRequestProvenance) async throws -> Data {

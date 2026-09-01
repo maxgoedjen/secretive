@@ -14,6 +14,9 @@ public protocol SecretStore<SecretType>: Identifiable, Sendable {
     /// The secrets the store manages.
     @MainActor var secrets: [SecretType] { get }
 
+    /// Whether the store may be missing secrets and should reload before serving a request.
+    @MainActor var secretsNeedReload: Bool { get }
+
     /// Signs a data payload with a specified Secret.
     /// - Parameters:
     ///   - data: The data to sign.
@@ -38,6 +41,13 @@ public protocol SecretStore<SecretType>: Identifiable, Sendable {
     /// Requests that the store reload secrets from any backing store, if neccessary.
     func reloadSecrets() async
 
+}
+
+public extension SecretStore {
+
+    @MainActor var secretsNeedReload: Bool {
+        secrets.isEmpty
+    }
 }
 
 /// A SecretStore that the Secretive admin app can modify.

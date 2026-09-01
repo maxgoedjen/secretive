@@ -12,6 +12,7 @@ extension SecureEnclave {
     @Observable public final class Store: SecretStoreModifiable {
 
         @MainActor public var secrets: [Secret] = []
+        @MainActor public private(set) var secretsNeedReload = false
         public var isAvailable: Bool {
             CryptoKit.SecureEnclave.isAvailable
         }
@@ -122,7 +123,7 @@ extension SecureEnclave {
             }
             let access =
             unsafe SecAccessControlCreateWithFlags(kCFAllocatorDefault,
-                                                kSecAttrAccessibleWhenUnlockedThisDeviceOnly,
+                                                SecureEnclave.keyAccessibility(usableWhileLocked: attributes.usableWhileLocked),
                                                 flags,
                                                 &accessError)
             if let error = unsafe accessError {
@@ -210,22 +211,39 @@ extension SecureEnclave.Store {
 
     /// Loads all secrets from the store.
     @MainActor private func loadSecrets() {
+        secretsNeedReload = false
+        loadSecrets(accessibility: kSecAttrAccessibleWhenUnlockedThisDeviceOnly)
+        loadSecrets(accessibility: kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly)
+    }
+
+    /// Loads secrets with a specific keychain accessibility class.
+    @MainActor private func loadSecrets(accessibility: CFString) {
         let queryAttributes = KeychainDictionary([
             kSecClass: Constants.keyClass,
             kSecAttrService: Constants.keyTag,
             kSecUseDataProtectionKeychain: true,
+            kSecAttrAccessible: accessibility,
             kSecReturnData: true,
             kSecMatchLimit: kSecMatchLimitAll,
             kSecReturnAttributes: true
-            ])
+        ])
         var untyped: CFTypeRef?
-        unsafe SecItemCopyMatching(queryAttributes, &untyped)
-        guard let typed = untyped as? [[CFString: Any]] else { return }
+        let status = unsafe SecItemCopyMatching(queryAttributes, &untyped)
+        guard status == errSecSuccess else {
+            if status != errSecItemNotFound {
+                secretsNeedReload = true
+            }
+            return
+        }
+        guard let typed = untyped as? [[CFString: Any]] else {
+            secretsNeedReload = true
+            return
+        }
         let wrapped: [SecureEnclave.Secret] = typed.compactMap {
             do {
                 let name = $0[kSecAttrLabel] as? String ?? String(localized: "unnamed_secret")
                 guard let attributesData = $0[kSecAttrGeneric] as? Data,
-                let id = $0[kSecAttrAccount] as? String else {
+                      let id = $0[kSecAttrAccount] as? String else {
                     throw MissingAttributesError()
                 }
                 let attributes = try JSONDecoder().decode(Attributes.self, from: attributesData)
@@ -262,17 +280,17 @@ extension SecureEnclave.Store {
     /// - Note: Despite the name, the "Data" of the key is _not_ actual key material. This is an opaque data representation that the SEP can manipulate.
     @discardableResult
     func saveKey(_ key: Data, name: String, attributes: Attributes) throws -> String {
-        let attributes = try JSONEncoder().encode(attributes)
+        let encodedAttributes = try JSONEncoder().encode(attributes)
         let id = UUID().uuidString
         let keychainAttributes = KeychainDictionary([
             kSecClass: Constants.keyClass,
             kSecAttrService: Constants.keyTag,
             kSecUseDataProtectionKeychain: true,
-            kSecAttrAccessible: kSecAttrAccessibleWhenUnlockedThisDeviceOnly,
+            kSecAttrAccessible: SecureEnclave.keyAccessibility(usableWhileLocked: attributes.usableWhileLocked),
             kSecAttrAccount: id,
             kSecValueData: key,
             kSecAttrLabel: name,
-            kSecAttrGeneric: attributes
+            kSecAttrGeneric: encodedAttributes
         ])
         let status = SecItemAdd(keychainAttributes, nil)
         if status != errSecSuccess {
