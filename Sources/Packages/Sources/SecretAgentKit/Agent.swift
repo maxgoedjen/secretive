@@ -16,6 +16,8 @@ public final class Agent: Sendable {
     private let signatureWriter = OpenSSHSignatureWriter()
     private let logger = Logger(subsystem: "com.maxgoedjen.secretive.secretagent", category: "Agent")
 
+    @MainActor private var sessionID: SSHAgent.ProtocolExtension.OpenSSHExtension.SessionBindContext?
+
     /// Initializes an agent with a store list and a witness.
     /// - Parameters:
     ///   - storeList: The `SecretStoreList` to make available.
@@ -31,7 +33,11 @@ public final class Agent: Sendable {
 
 extension Agent {
 
-    public func handle(request: SSHAgent.Request, provenance: SigningRequestProvenance) async -> Data {
+    public func handle(
+        request: SSHAgent.Request,
+        provenance: SigningRequestProvenance
+    ) async -> Data {
+        logger.debug("Agent received request of type \(request.debugDescription)")
         // Depending on the launch context (such as after macOS update), the agent may need to reload secrets before acting
         await reloadSecretsIfNeccessary()
         var response = Data()
@@ -42,9 +48,54 @@ extension Agent {
                 response.append(await identities())
                 logger.debug("Agent returned \(SSHAgent.Response.agentIdentitiesAnswer.debugDescription)")
             case .signRequest(let context):
+                let target: SigningRequestTarget?
+                switch context.dataToSign.decoded {
+                case .sshConnection(let payload):
+                    target = .connection(
+                        .init(
+                            username: payload.username,
+                            hasSignature: payload.hasSignature,
+                            publicKeyAlgorithm: payload.publicKeyAlgorithm,
+                            publicKey: payload.publicKey,
+                            hostKey: payload.hostKey
+                        )
+                    )
+                    if let boundSession = await sessionID {
+                        guard payload.hostKey == boundSession.hostKey else {
+                            logger.error("Agent received bind request, but host key does not match signature request host key.")
+                            throw BindingFailure()
+                        }
+                    }
+                case .sshSig(let payload):
+                    target = .signature(
+                        .init(
+                            namespace: payload.namespace,
+                            hashAlgorithm: payload.hashAlgorithm,
+                            hash: payload.hash
+                        )
+                    )
+                default:
+                    target = nil
+                }
+                _ = target
                 response.append(SSHAgent.Response.agentSignResponse.data)
-                response.append(try await sign(data: context.dataToSign, keyBlob: context.keyBlob, provenance: provenance))
+                response.append(try await sign(data: context.dataToSign.raw, keyBlob: context.keyBlob, provenance: provenance))
                 logger.debug("Agent returned \(SSHAgent.Response.agentSignResponse.debugDescription)")
+            case .protocolExtension(.openSSH(.sessionBind(let bind))):
+                // This is disabled until forward enforcement is handled.
+                _ = bind
+                response = try await MainActor.run {
+                    logger.debug("Agent received bind request but not currently supported.")
+                    throw UnhandledRequestError()
+//                    guard sessionID == nil else {
+//                        logger.error("Agent received bind request, but already bound.")
+//                        throw BindingFailure()
+//                    }
+//                    logger.debug("Agent bound")
+//                    sessionID = bind
+//                    return SSHAgent.Response.agentSuccess.data
+                }
+                logger.debug("Agent returned \(SSHAgent.Response.agentSuccess.debugDescription)")
             case .unknown(let value):
                 logger.error("Agent received unknown request of type \(value).")
                 throw UnhandledRequestError()
@@ -142,6 +193,7 @@ extension Agent {
 
     struct NoMatchingKeyError: Error {}
     struct UnhandledRequestError: Error {}
+    struct BindingFailure: Error {}
 
 }
 

@@ -19,7 +19,7 @@ extension SSHAgent {
         case lock
         case unlock
         case addSmartcardKeyConstrained
-        case protocolExtension
+        case protocolExtension(ProtocolExtension)
         case unknown(UInt8)
 
         public var protocolID: UInt8 {
@@ -60,17 +60,81 @@ extension SSHAgent {
 
         public struct SignatureRequestContext: Sendable, Codable {
             public let keyBlob: Data
-            public let dataToSign: Data
+            public let dataToSign: SignaturePayload
 
-            public init(keyBlob: Data, dataToSign: Data) {
+            public init(keyBlob: Data, dataToSign: SignaturePayload) {
                 self.keyBlob = keyBlob
                 self.dataToSign = dataToSign
             }
 
             public static var empty: SignatureRequestContext {
-                SignatureRequestContext(keyBlob: Data(), dataToSign: Data())
+                SignatureRequestContext(keyBlob: Data(), dataToSign: SignaturePayload(raw: Data(), decoded: nil))
+            }
+
+            public struct SignaturePayload: Sendable, Codable {
+
+                public let raw: Data
+                public let decoded: DecodedPayload?
+
+                public init(
+                    raw: Data,
+                    decoded: DecodedPayload?
+                ) {
+                    self.raw = raw
+                    self.decoded = decoded
+                }
+
+                public enum DecodedPayload: Sendable, Codable {
+                    case sshConnection(SSHConnectionPayload)
+                    case sshSig(SSHSigPayload)
+
+                    public struct SSHConnectionPayload: Sendable, Codable {
+
+                        public let username: String
+                        public let hasSignature: Bool
+                        public let publicKeyAlgorithm: String
+                        public let publicKey: Data
+                        public let hostKey: Data
+
+                        public init(
+                            username: String,
+                            hasSignature: Bool,
+                            publicKeyAlgorithm: String,
+                            publicKey: Data,
+                            hostKey: Data
+                        ) {
+                            self.username = username
+                            self.hasSignature = hasSignature
+                            self.publicKeyAlgorithm = publicKeyAlgorithm
+                            self.publicKey = publicKey
+                            self.hostKey = hostKey
+                        }
+
+                    }
+
+                    public struct SSHSigPayload: Sendable, Codable {
+
+                        public let namespace: String
+                        public let hashAlgorithm: String
+                        public let hash: Data
+
+                        public init(
+                            namespace: String,
+                            hashAlgorithm: String,
+                            hash: Data,
+                        ) {
+                            self.namespace = namespace
+                            self.hashAlgorithm = hashAlgorithm
+                            self.hash = hash
+                        }
+
+                    }
+                    
+                }
+
             }
         }
+
 
     }
 
@@ -88,8 +152,8 @@ extension SSHAgent {
             switch self {
             case .agentFailure: "SSH_AGENT_FAILURE"
             case .agentSuccess: "SSH_AGENT_SUCCESS"
-            case .agentIdentitiesAnswer: "SSH_AGENT_IDENTITIES_ANSWER"
-            case .agentSignResponse: "SSH_AGENT_SIGN_RESPONSE"
+            case .agentIdentitiesAnswer: "SSH2_AGENT_IDENTITIES_ANSWER"
+            case .agentSignResponse: "SSH2_AGENT_SIGN_RESPONSE"
             case .agentExtensionFailure: "SSH_AGENT_EXTENSION_FAILURE"
             case .agentExtensionResponse: "SSH_AGENT_EXTENSION_RESPONSE"
             }
