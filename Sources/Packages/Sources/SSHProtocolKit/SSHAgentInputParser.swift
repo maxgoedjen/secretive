@@ -151,7 +151,6 @@ extension SSHAgentInputParser {
                     let signature = try signatureBlob.readNextChunk()
                     let forwarding = try reader.readNextByteAsBool()
                     switch hostKeyType {
-                        // FIXME: FACTOR OUT?
                     case "ssh-ed25519":
                         let hostKey = try CryptoKit.Curve25519.Signing.PublicKey(rawRepresentation: hostKeyData)
                         guard hostKey.isValidSignature(signature, for: sessionID) else {
