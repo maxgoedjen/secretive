@@ -183,6 +183,7 @@ extension SecureEnclave {
             let attributes = try JSONEncoder().encode(attributes)
             let updatedAttributes = KeychainDictionary([
                 kSecAttrLabel: name,
+                kSecAttrService: Constants.keyTag,
                 kSecAttrGeneric: attributes,
             ])
 
@@ -294,7 +295,7 @@ extension SecureEnclave.Store {
 
     enum Constants {
         static let keyClass = kSecClassGenericPassword as String
-        static let keyTag = Data("com.maxgoedjen.secretive.secureenclave.key".utf8)
+        static let keyTag = "com.maxgoedjen.secretive.secureenclave.key"
         static let notificationToken = UUID().uuidString
     }
     
