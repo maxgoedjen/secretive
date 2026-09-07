@@ -15,9 +15,9 @@ public struct MultilineInfoView<TitleView: View, ItemView: View>: View {
 //    }
 
     var titleView: TitleView
-    var items: [ItemView]
+    var items: ItemView
 
-    public init(titleView: () -> TitleView, items: () -> [ItemView]) {
+    public init(@ViewBuilder titleView: () -> TitleView, @ContentBuilder items: () -> ItemView) {
         self.titleView = titleView()
         self.items = items()
     }
@@ -60,7 +60,35 @@ public struct MultilineInfoView<TitleView: View, ItemView: View>: View {
     public var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             titleView
+                .bold()
             .safeAreaPadding(20)
+            Group(subviews: items) { subviews in
+                ForEach(subviews: subviews) { subview in
+                    Divider()
+                        .ignoresSafeArea()
+//                        .opacity(subview.offset == 0 ? 1 : 0.75)
+                    subview
+                        .safeAreaPadding(20)
+                        .onHover { hovering in
+                            withAnimation {
+//                                guard item.element.action != nil else { return }
+                                interactionState = hovering ? .hovering : .normal
+//                                interactionStateIndex = item.offset
+                            }
+                        }
+                        .gesture(
+                            TapGesture()
+                                .onEnded {
+//                                    item.element.action?.1()
+                                    withAnimation {
+                                        interactionState = .normal
+                                        interactionStateIndex = nil
+                                    }
+                                }
+                        )
+                }
+            }
+
 //            ForEach(Array(items.enumerated()), id: \.offset) { item in
 //                Divider()
 //                    .ignoresSafeArea()
@@ -178,7 +206,14 @@ fileprivate struct BackgroundViewModifier: ViewModifier {
 //}
 //
 //
-//#Preview {
+#Preview {
+    MultilineInfoView {
+        Text("Hello")
+    } items: {
+        Text("World")
+        Text("World")
+        Text("World")
+    }
 //    MultilineInfoView(title: "One", image: Image(systemName: "figure.wave"), items: ["Hello world."])
-//        .padding()
-//}
+        .padding()
+}

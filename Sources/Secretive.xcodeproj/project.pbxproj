@@ -1046,7 +1046,7 @@
 				INFOPLIST_KEY_CFBundleDisplayName = SecretAgentHostsfileReader;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2026 Max Goedjen. All rights reserved.";
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(SECRETIVE_BASE_BUNDLE_ID).SecretAgentHostsfileReader";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1078,7 +1078,7 @@
 				INFOPLIST_KEY_CFBundleDisplayName = SecretAgentHostsfileReader;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2026 Max Goedjen. All rights reserved.";
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(SECRETIVE_BASE_BUNDLE_ID).SecretAgentHostsfileReader";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1111,7 +1111,7 @@
 				INFOPLIST_KEY_CFBundleDisplayName = SecretAgentHostsfileReader;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2026 Max Goedjen. All rights reserved.";
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(SECRETIVE_BASE_BUNDLE_ID).SecretAgentHostsfileReader";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1302,7 +1302,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(SECRETIVE_BASE_BUNDLE_ID).Host";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1342,7 +1342,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(SECRETIVE_BASE_BUNDLE_ID).Host";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1381,7 +1381,7 @@
 				INFOPLIST_KEY_CFBundleDisplayName = SecretiveUpdater;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2025 Max Goedjen. All rights reserved.";
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(SECRETIVE_BASE_BUNDLE_ID).SecretiveUpdater";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1424,7 +1424,7 @@
 				INFOPLIST_KEY_CFBundleDisplayName = SecretiveUpdater;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2025 Max Goedjen. All rights reserved.";
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(SECRETIVE_BASE_BUNDLE_ID).SecretiveUpdater";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1469,7 +1469,7 @@
 				INFOPLIST_KEY_CFBundleDisplayName = SecretiveUpdater;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2025 Max Goedjen. All rights reserved.";
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(SECRETIVE_BASE_BUNDLE_ID).SecretiveUpdater";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1504,7 +1504,7 @@
 				INFOPLIST_KEY_CFBundleDisplayName = SecretAgentInputParser;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2025 Max Goedjen. All rights reserved.";
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(SECRETIVE_BASE_BUNDLE_ID).SecretAgentInputParser";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1537,7 +1537,7 @@
 				INFOPLIST_KEY_CFBundleDisplayName = SecretAgentInputParser;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2025 Max Goedjen. All rights reserved.";
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(SECRETIVE_BASE_BUNDLE_ID).SecretAgentInputParser";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1572,7 +1572,7 @@
 				INFOPLIST_KEY_CFBundleDisplayName = SecretAgentInputParser;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2025 Max Goedjen. All rights reserved.";
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(SECRETIVE_BASE_BUNDLE_ID).SecretAgentInputParser";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1693,7 +1693,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(SECRETIVE_BASE_BUNDLE_ID).Host";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1732,7 +1732,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(SECRETIVE_BASE_BUNDLE_ID).SecretAgent";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1778,7 +1778,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(SECRETIVE_BASE_BUNDLE_ID).SecretAgent";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1825,7 +1825,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(SECRETIVE_BASE_BUNDLE_ID).SecretAgent";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1858,7 +1858,7 @@
 				INFOPLIST_KEY_CFBundleDisplayName = SecretiveCertificateParser;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2026 Max Goedjen. All rights reserved.";
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(SECRETIVE_BASE_BUNDLE_ID).SecretiveCertificateParser";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1890,7 +1890,7 @@
 				INFOPLIST_KEY_CFBundleDisplayName = SecretiveCertificateParser;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2026 Max Goedjen. All rights reserved.";
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(SECRETIVE_BASE_BUNDLE_ID).SecretiveCertificateParser";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1924,7 +1924,7 @@
 				INFOPLIST_KEY_CFBundleDisplayName = SecretiveCertificateParser;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2026 Max Goedjen. All rights reserved.";
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(SECRETIVE_BASE_BUNDLE_ID).SecretiveCertificateParser";
 				PRODUCT_NAME = "$(TARGET_NAME)";
