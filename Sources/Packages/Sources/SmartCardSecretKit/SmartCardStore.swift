@@ -57,7 +57,7 @@ extension SmartCard {
 
         // MARK: Public API
 
-        public func sign(data: Data, with secret: Secret, for provenance: SigningRequestProvenance) async throws -> Data {
+        public func sign(data: Data, with secret: Secret, for provenance: SigningRequestProvenance, target: SigningRequestTarget?) async throws -> Data {
             guard let tokenID = await state.tokenID else { fatalError() }
             var context: LAContext
             if let existing = await persistentAuthenticationHandler.existingPersistedAuthenticationContext(secret: secret) {

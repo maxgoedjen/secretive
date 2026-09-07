@@ -38,7 +38,7 @@ extension Preview {
             self.init(secrets: new)
         }
 
-        func sign(data: Data, with secret: Preview.Secret, for provenance: SigningRequestProvenance) throws -> Data {
+        func sign(data: Data, with secret: Preview.Secret, for provenance: SigningRequestProvenance, target: SigningRequestTarget?) throws -> Data {
             return data
         }
 
@@ -82,7 +82,7 @@ extension Preview {
             self.init(secrets: new)
         }
 
-        func sign(data: Data, with secret: Preview.Secret, for provenance: SigningRequestProvenance) throws -> Data {
+        func sign(data: Data, with secret: Preview.Secret, for provenance: SigningRequestProvenance, target: SigningRequestTarget?) throws -> Data {
             return data
         }
 

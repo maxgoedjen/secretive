@@ -14,6 +14,7 @@ public enum SigningRequestTarget: Sendable {
         public let publicKeyAlgorithm: String
         public let publicKey: Data
         public let hostKey: Data
+        public let host: String?
 
         public init(
             username: String,
@@ -21,12 +22,14 @@ public enum SigningRequestTarget: Sendable {
             publicKeyAlgorithm: String,
             publicKey: Data,
             hostKey: Data,
+            host: String?
         ) {
             self.username = username
             self.hasSignature = hasSignature
             self.publicKeyAlgorithm = publicKeyAlgorithm
             self.publicKey = publicKey
             self.hostKey = hostKey
+            self.host = host
         }
 
     }

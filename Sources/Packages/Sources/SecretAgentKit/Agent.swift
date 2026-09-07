@@ -35,7 +35,8 @@ extension Agent {
 
     public func handle(
         request: SSHAgent.Request,
-        provenance: SigningRequestProvenance
+        provenance: SigningRequestProvenance,
+        hosts: [Data: String]?
     ) async -> Data {
         logger.debug("Agent received request of type \(request.debugDescription)")
         // Depending on the launch context (such as after macOS update), the agent may need to reload secrets before acting
@@ -57,7 +58,8 @@ extension Agent {
                             hasSignature: payload.hasSignature,
                             publicKeyAlgorithm: payload.publicKeyAlgorithm,
                             publicKey: payload.publicKey,
-                            hostKey: payload.hostKey
+                            hostKey: payload.hostKey,
+                            host: hosts?[payload.hostKey]
                         )
                     )
                     if let boundSession = await sessionID {
@@ -79,7 +81,7 @@ extension Agent {
                 }
                 _ = target
                 response.append(SSHAgent.Response.agentSignResponse.data)
-                response.append(try await sign(data: context.dataToSign.raw, keyBlob: context.keyBlob, provenance: provenance))
+                response.append(try await sign(data: context.dataToSign.raw, keyBlob: context.keyBlob, provenance: provenance, target: target))
                 logger.debug("Agent returned \(SSHAgent.Response.agentSignResponse.debugDescription)")
             case .protocolExtension(.openSSH(.sessionBind(let bind))):
                 // This is disabled until forward enforcement is handled.
@@ -143,19 +145,20 @@ extension Agent {
     ///   - data: The data to sign.
     ///   - provenance: A ``SecretKit.SigningRequestProvenance`` object describing the origin of the request.
     /// - Returns: An OpenSSH formatted Data payload containing the signed data response.
-    func sign(data: Data, keyBlob: Data, provenance: SigningRequestProvenance) async throws -> Data {
+    func sign(data: Data, keyBlob: Data, provenance: SigningRequestProvenance, target: SigningRequestTarget?) async throws -> Data {
         guard let (secret, store) = await secret(matching: keyBlob) else {
             let keyBlobHex = keyBlob.formatted(.hex())
             logger.debug("Agent did not have a key matching \(keyBlobHex)")
             throw NoMatchingKeyError()
         }
 
-        try await witness?.speakNowOrForeverHoldYourPeace(forAccessTo: secret, from: store, by: provenance)
 
-        let rawRepresentation = try await store.sign(data: data, with: secret, for: provenance)
+        try await witness?.speakNowOrForeverHoldYourPeace(forAccessTo: secret, from: store, by: provenance, target: target)
+
+        let rawRepresentation = try await store.sign(data: data, with: secret, for: provenance, target: target)
         let signedData = signatureWriter.data(secret: secret, signature: rawRepresentation)
 
-        try await witness?.witness(accessTo: secret, from: store, by: provenance)
+        try await witness?.witness(accessTo: secret, from: store, by: provenance, target: target)
 
         logger.debug("Agent signed request")
 

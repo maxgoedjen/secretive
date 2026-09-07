@@ -37,13 +37,20 @@ extension SecureEnclave {
         
         // MARK: SecretStore
         
-        public func sign(data: Data, with secret: Secret, for provenance: SigningRequestProvenance) async throws -> Data {
+        public func sign(data: Data, with secret: Secret, for provenance: SigningRequestProvenance, target: SigningRequestTarget?) async throws -> Data {
             var context: LAContext
             if let existing = await persistentAuthenticationHandler.existingPersistedAuthenticationContext(secret: secret) {
                 context = unsafe existing.context
             } else {
                 let newContext = LAContext()
-                newContext.localizedReason = String(localized: .authContextRequestSignatureDescription(appName: provenance.origin.displayName, secretName: secret.name))
+                switch target {
+                case .connection(let payload) where payload.host != nil:
+                    newContext.localizedReason = String(localized: .authContextRequestSignatureForConnectionDescription(appName: provenance.origin.displayName, targetName: payload.host!, secretName: secret.name))
+                case .signature(let payload):
+                    newContext.localizedReason = String(localized: .authContextRequestSignatureForSignatureDescription(namespace: payload.namespace, appName: provenance.origin.displayName, secretName: secret.name))
+                default:
+                    newContext.localizedReason = String(localized: .authContextRequestSignatureDescription(appName: provenance.origin.displayName, secretName: secret.name))
+                }
                 newContext.localizedCancelTitle = String(localized: .authContextRequestDenyButton)
                 context = newContext
             }
