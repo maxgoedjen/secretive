@@ -177,6 +177,7 @@ extension SecureEnclave {
         public func update(secret: Secret, name: String, attributes: Attributes) async throws {
             let updateQuery = KeychainDictionary([
                 kSecClass: Constants.keyClass,
+                kSecAttrService: Constants.keyTag,
                 kSecAttrAccount: secret.id,
             ])
 
@@ -294,7 +295,7 @@ extension SecureEnclave.Store {
 
     enum Constants {
         static let keyClass = kSecClassGenericPassword as String
-        static let keyTag = Data("com.maxgoedjen.secretive.secureenclave.key".utf8)
+        static let keyTag = "com.maxgoedjen.secretive.secureenclave.key"
         static let notificationToken = UUID().uuidString
     }
     
