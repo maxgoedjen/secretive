@@ -111,7 +111,7 @@ let package = Package(
         ),
         .target(
             name: "SharedXPCServices",
-            dependencies: ["CertificateKit", "SSHProtocolKit"],
+            dependencies: ["XPCWrappers", "CertificateKit", "SSHProtocolKit"],
             resources: [localization],
             swiftSettings: swiftSettings,
         ),
