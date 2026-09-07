@@ -20,7 +20,7 @@ public protocol SecretStore<SecretType>: Identifiable, Sendable {
     ///   - secret: The ``Secret`` to sign with.
     ///   - provenance: A ``SigningRequestProvenance`` describing where the request came from.
     /// - Returns: The signed data.
-    func sign(data: Data, with secret: SecretType, for provenance: SigningRequestProvenance) async throws -> Data
+    func sign(data: Data, with secret: SecretType, for provenance: SigningRequestProvenance, target: SigningRequestTarget?) async throws -> Data
 
     /// Checks to see if there is currently a valid persisted authentication for a given secret.
     /// - Parameters:

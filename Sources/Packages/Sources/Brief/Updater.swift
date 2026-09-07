@@ -36,7 +36,7 @@ import XPCWrappers
         self.currentVersion = currentVersion
         _ = Task {
             if checkOnLaunch {
-                try await checkForUpdates()
+                try? await checkForUpdates()
             }
             while true {
                 try await Task.sleep(for: .seconds(Int(checkFrequency)))

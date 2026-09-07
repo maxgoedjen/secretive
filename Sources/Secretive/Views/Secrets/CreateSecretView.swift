@@ -10,8 +10,9 @@ struct CreateSecretView<StoreType: SecretStoreModifiable>: View {
     @State private var name = ""
     @State private var keyAttribution = ""
     @State private var authenticationRequirement: AuthenticationRequirement = .presenceRequired
+    @State private var restrictions: Restrictions = .default
     @State private var keyType: KeyType?
-    @State var advanced = false
+    @State var advanced = true // FIXME: Set back
     @State var errorText: String?
 
     private var authenticationOptions: [AuthenticationRequirement] {
@@ -72,6 +73,7 @@ struct CreateSecretView<StoreType: SecretStoreModifiable>: View {
                     }
                 }
                 if advanced {
+                    SecretRestrictionsView(restrictions: $restrictions)
                     Section {
                         VStack {
                             Picker(.createSecretKeyTypeLabel, selection: $keyType) {
@@ -107,6 +109,8 @@ struct CreateSecretView<StoreType: SecretStoreModifiable>: View {
                                 .font(.subheadline)
                                 .foregroundStyle(.secondary)
                         }
+                    } header: {
+                        Text("Key Properties")
                     }
                 }
                 if let errorText {
@@ -146,6 +150,7 @@ struct CreateSecretView<StoreType: SecretStoreModifiable>: View {
                     attributes: .init(
                         keyType: keyType!,
                         authentication: authenticationRequirement,
+                        restrictions: restrictions,
                         publicKeyAttribution: attribution
                     )
                 )
@@ -158,7 +163,52 @@ struct CreateSecretView<StoreType: SecretStoreModifiable>: View {
     }
 
 }
+struct SecretRestrictionsView: View {
 
-//#Preview {
-//    CreateSecretView(store: Preview.StoreModifiable()) { _ in }
-//}
+    @Binding var restrictions: Restrictions
+
+    struct IdentifiedString: Identifiable {
+        let value: String
+        var id: String { value }
+    }
+
+    var body: some View {
+        Section {
+            Toggle("Allow Forwarding", isOn: $restrictions.allowForwarding)
+            Toggle("Allow Signing Operations", isOn: $restrictions.allowSigning)
+            Toggle("Allow Connection Operations", isOn: $restrictions.allowConnections)
+            Picker(selection: $restrictions.allowedDomains) {
+                Text("All")
+                    .tag(Restrictions.AllowedDomains.all)
+                Text("Specific")
+                    .tag(Restrictions.AllowedDomains.specific([]))
+            } label: {
+                Text("Allowed Domains")
+            }
+        } header: {
+            Text("Restrictions")
+        }
+        if restrictions.allowedDomains != .all {
+            Section {
+                switch restrictions.allowedDomains {
+                case .all:
+                    EmptyView()
+                case .specific(let array):
+                    if restrictions.allowedDomains != .all {
+                        ForEach((array + [""]).map({IdentifiedString(value: $0)})) {
+                            TextField("", text: .constant($0.value), prompt: Text("example.com"))
+                                .labelsHidden()
+                        }
+                    }
+                }
+            } header: {
+                Text("Allowed Domains")
+            }
+        }
+    }
+}
+
+#Preview {
+    CreateSecretView(store: Preview.StoreModifiable()) { _ in }
+        .frame(height: 1000)
+}

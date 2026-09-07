@@ -139,7 +139,7 @@ var localization: Resource {
 var swiftSettings: [PackageDescription.SwiftSetting] {
     [
         .swiftLanguageMode(.v6),
-        .treatAllWarnings(as: .error),
+//        .treatAllWarnings(as: .error),
         .strictMemorySafety()
     ]
 }

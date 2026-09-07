@@ -13,7 +13,7 @@ import SwiftUI
 
 extension EnvironmentValues {
 
-    @MainActor fileprivate static let _certificateStore: CertificateStore = CertificateStore()
+    @MainActor fileprivate static let _certificateStore = CertificateStore()
 
     @MainActor var certificateStore: CertificateStore {
         EnvironmentValues._certificateStore
@@ -49,14 +49,16 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         logger.debug("SecretAgent finished launching")
-        Task {
+        _ = Task {
             for await session in socketController.sessions {
                 Task {
                     do {
                         let inputParser = try await XPCAgentInputParser()
+                        let hostsReader = try await XPCHostsfileReader()
+                        let hosts = try await hostsReader.read()
                         for await message in session.messages {
                             let request = try await inputParser.parse(data: message)
-                            let agentResponse = await agent.handle(request: request, provenance: session.provenance)
+                            let agentResponse = await agent.handle(request: request, provenance: session.provenance, hosts: hosts)
                             try session.write(agentResponse)
                         }
                     } catch {

@@ -3880,6 +3880,21 @@
         }
       }
     },
+    "All" : {
+
+    },
+    "Allow Connection Operations" : {
+
+    },
+    "Allow Forwarding" : {
+
+    },
+    "Allow Signing Operations" : {
+
+    },
+    "Allowed Domains" : {
+
+    },
     "app_menu_help_button" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -5544,6 +5559,378 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "用Secret「%2$(secretName)@」認證来自「%1$(appName)@」的请求"
+          }
+        }
+      }
+    },
+    "auth_context_request_signature_for_connection_description" : {
+      "comment" : "When the user performs a signature action using a secret, they are shown a prompt to approve the action. This is the description, showing which secret will be used, and where the request is coming from. The first placeholder is the name of the app requesting the operation. The second placeholder is the name of the secret.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "sign a request from “%1$(appName)@” using secret “%2$(targetName)@”"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "sign a request from “%1$(appName)@” using secret “%2$(targetName)@”"
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "signa una petición de “%1$(appName)@” usant el secret “%2$(targetName)@”"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "sign a request from “%1$(appName)@” using secret “%2$(targetName)@”"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "sign a request from “%1$(appName)@” using secret “%2$(targetName)@”"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "eine Anfrage von “%1$(appName)@” mit dem Secret “%2$(targetName)@” signieren"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "sign a request from “%1$(appName)@” using secret “%2$(targetName)@”"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "sign a request from “%1$(appName)@”  to connect to “%2$(targetName)@” using secret “%3$(secretName)@”"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "sign a request from “%1$(appName)@” using secret “%2$(targetName)@”"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "allekirjoita pyyntö lähteestä “%1$(appName)@” käyttäen salaisuutta “%2$(targetName)@”"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "signer une requête de “%1$(appName)@” en utilisant le secret “%2$(targetName)@”"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "sign a request from “%1$(appName)@” using secret “%2$(targetName)@”"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "sign a request from “%1$(appName)@” using secret “%2$(targetName)@”"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "firma la richiesta di “%1$(appName)@” usando il Segreto “%2$(targetName)@”"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "シークレット“%2$(targetName)@”を使って“%1$(appName)@”の要求に署名します"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "비밀 “%2$(targetName)@”를 사용해서 “%1$(appName)@”의 요청에 서명"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "sign a request from “%1$(appName)@” using secret “%2$(targetName)@”"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "sign a request from “%1$(appName)@” using secret “%2$(targetName)@”"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "podpisz zapytanie od “%1$(appName)@” za pomocą sekretu “%2$(targetName)@”"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "sign a request from “%1$(appName)@” using secret “%2$(targetName)@”"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "assinar requisição a partir do “%1$(appName)@” utilizando o segredo “%2$(targetName)@”"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "sign a request from “%1$(appName)@” using secret “%2$(targetName)@”"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "подписать запрос от “%1$(appName)@” используя секрет “%2$(targetName)@”"
+          }
+        },
+        "sr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "sign a request from “%1$(appName)@” using secret “%2$(targetName)@”"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "sign a request from “%1$(appName)@” using secret “%2$(targetName)@”"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "sign a request from “%1$(appName)@” using secret “%2$(targetName)@”"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "sign a request from “%1$(appName)@” using secret “%2$(targetName)@”"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "sign a request from “%1$(appName)@” using secret “%2$(targetName)@”"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "用密钥串“%2$(targetName)@”认证来自“%1$(appName)@”的请求"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "用Secret「%2$(targetName)@」認證来自「%1$(appName)@」的请求"
+          }
+        }
+      }
+    },
+    "auth_context_request_signature_for_signature_description" : {
+      "comment" : "When the user performs a signature action using a secret, they are shown a prompt to approve the action. This is the description, showing which secret will be used, and where the request is coming from. The first placeholder is the name of the app requesting the operation. The second placeholder is the name of the secret.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "sign a request from “%1$(namespace)@” using secret “%2$(appName)@”"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "sign a request from “%1$(namespace)@” using secret “%2$(appName)@”"
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "signa una petición de “%1$(namespace)@” usant el secret “%2$(appName)@”"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "sign a request from “%1$(namespace)@” using secret “%2$(appName)@”"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "sign a request from “%1$(namespace)@” using secret “%2$(appName)@”"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "eine Anfrage von “%1$(namespace)@” mit dem Secret “%2$(appName)@” signieren"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "sign a request from “%1$(namespace)@” using secret “%2$(appName)@”"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "sign a %1$(namespace)@“ request from “%2$(appName)@” using secret “%3$(secretName)@”"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "sign a request from “%1$(namespace)@” using secret “%2$(appName)@”"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "allekirjoita pyyntö lähteestä “%1$(namespace)@” käyttäen salaisuutta “%2$(appName)@”"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "signer une requête de “%1$(namespace)@” en utilisant le secret “%2$(appName)@”"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "sign a request from “%1$(namespace)@” using secret “%2$(appName)@”"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "sign a request from “%1$(namespace)@” using secret “%2$(appName)@”"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "firma la richiesta di “%1$(namespace)@” usando il Segreto “%2$(appName)@”"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "シークレット“%2$(appName)@”を使って“%1$(namespace)@”の要求に署名します"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "비밀 “%2$(appName)@”를 사용해서 “%1$(namespace)@”의 요청에 서명"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "sign a request from “%1$(namespace)@” using secret “%2$(appName)@”"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "sign a request from “%1$(namespace)@” using secret “%2$(appName)@”"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "podpisz zapytanie od “%1$(namespace)@” za pomocą sekretu “%2$(appName)@”"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "sign a request from “%1$(namespace)@” using secret “%2$(appName)@”"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "assinar requisição a partir do “%1$(namespace)@” utilizando o segredo “%2$(appName)@”"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "sign a request from “%1$(namespace)@” using secret “%2$(appName)@”"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "подписать запрос от “%1$(namespace)@” используя секрет “%2$(appName)@”"
+          }
+        },
+        "sr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "sign a request from “%1$(namespace)@” using secret “%2$(appName)@”"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "sign a request from “%1$(namespace)@” using secret “%2$(appName)@”"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "sign a request from “%1$(namespace)@” using secret “%2$(appName)@”"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "sign a request from “%1$(namespace)@” using secret “%2$(appName)@”"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "sign a request from “%1$(namespace)@” using secret “%2$(appName)@”"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "用密钥串“%2$(appName)@”认证来自“%1$(namespace)@”的请求"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "用Secret「%2$(appName)@」認證来自「%1$(namespace)@」的请求"
           }
         }
       }
@@ -12027,6 +12414,9 @@
           }
         }
       }
+    },
+    "example.com" : {
+
     },
     "export SSH_AUTH_SOCK=%@" : {
       "localizations" : {
@@ -18918,6 +19308,9 @@
         }
       }
     },
+    "Key Properties" : {
+
+    },
     "no_secure_storage_description" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -19878,6 +20271,9 @@
           }
         }
       }
+    },
+    "Restrictions" : {
+
     },
     "reveal_in_finder_button" : {
       "extractionState" : "manual",
@@ -23775,6 +24171,192 @@
         }
       }
     },
+    "signed_connection_notification_description" : {
+      "comment" : "When the user performs an action using a secret, they're shown a notification describing what happened. This is the description, showing which secret was used. The placeholder is the name of the secret.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Using secret %1$(secretName)@"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Using secret %1$(secretName)@"
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Usant secret %1$(secretName)@"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Using secret %1$(secretName)@"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Using secret %1$(secretName)@"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Benutze Secret %1$(secretName)@"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Using secret %1$(secretName)@"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Using secret %1$(secretName)@ connecting to %2$(username)@@%3$(host)@"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Using secret %1$(secretName)@"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Käytetään salaisuutta %1$(secretName)@"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Utilisation du secret %1$(secretName)@"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Using secret %1$(secretName)@"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Using secret %1$(secretName)@"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Usato il Segreto %1$(secretName)@"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "%1$(secretName)@を使用中"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "비밀 %1$(secretName)@ 사용됨"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Using secret %1$(secretName)@"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Using secret %1$(secretName)@"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Użyto sekretu %1$(secretName)@"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Using secret %1$(secretName)@"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Utilizando o segredo %1$(secretName)@"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Using secret %1$(secretName)@"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Используя секрет %1$(secretName)@"
+          }
+        },
+        "sr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Using secret %1$(secretName)@"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Using secret %1$(secretName)@"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Using secret %1$(secretName)@"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Using secret %1$(secretName)@"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Using secret %1$(secretName)@"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "使用密钥串 %1$(secretName)@"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "使用Secret「%1$(secretName)@」"
+          }
+        }
+      }
+    },
     "signed_notification_description" : {
       "comment" : "When the user performs an action using a secret, they're shown a notification describing what happened. This is the description, showing which secret was used. The placeholder is the name of the secret.",
       "extractionState" : "manual",
@@ -24147,6 +24729,192 @@
         }
       }
     },
+    "signed_signature_notification_description" : {
+      "comment" : "When the user performs an action using a secret, they're shown a notification describing what happened. This is the description, showing which secret was used. The placeholder is the name of the secret.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Using secret %1$(secretName)@"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Using secret %1$(secretName)@"
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Usant secret %1$(secretName)@"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Using secret %1$(secretName)@"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Using secret %1$(secretName)@"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Benutze Secret %1$(secretName)@"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Using secret %1$(secretName)@"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Using secret %1$(secretName)@ for %2$(namespace)@"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Using secret %1$(secretName)@"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Käytetään salaisuutta %1$(secretName)@"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Utilisation du secret %1$(secretName)@"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Using secret %1$(secretName)@"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Using secret %1$(secretName)@"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Usato il Segreto %1$(secretName)@"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "%1$(secretName)@を使用中"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "비밀 %1$(secretName)@ 사용됨"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Using secret %1$(secretName)@"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Using secret %1$(secretName)@"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Użyto sekretu %1$(secretName)@"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Using secret %1$(secretName)@"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Utilizando o segredo %1$(secretName)@"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Using secret %1$(secretName)@"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Используя секрет %1$(secretName)@"
+          }
+        },
+        "sr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Using secret %1$(secretName)@"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Using secret %1$(secretName)@"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Using secret %1$(secretName)@"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Using secret %1$(secretName)@"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Using secret %1$(secretName)@"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "使用密钥串 %1$(secretName)@"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "使用Secret「%1$(secretName)@」"
+          }
+        }
+      }
+    },
     "smart_card" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -24331,6 +25099,9 @@
           }
         }
       }
+    },
+    "Specific" : {
+
     },
     "unnamed_secret" : {
       "extractionState" : "manual",
@@ -26928,5 +27699,5 @@
       }
     }
   },
-  "version" : "1.0"
+  "version" : "1.2"
 }

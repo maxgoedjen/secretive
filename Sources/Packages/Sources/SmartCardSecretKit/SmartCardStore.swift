@@ -57,7 +57,7 @@ extension SmartCard {
 
         // MARK: Public API
 
-        public func sign(data: Data, with secret: Secret, for provenance: SigningRequestProvenance) async throws -> Data {
+        public func sign(data: Data, with secret: Secret, for provenance: SigningRequestProvenance, target: SigningRequestTarget?) async throws -> Data {
             guard let tokenID = await state.tokenID else { fatalError() }
             var context: LAContext
             if let existing = await persistentAuthenticationHandler.existingPersistedAuthenticationContext(secret: secret) {
@@ -171,7 +171,7 @@ extension SmartCard.Store {
             let publicKeySecRef = SecKeyCopyPublicKey(publicKeyRef)!
             let publicKeyAttributes = SecKeyCopyAttributes(publicKeySecRef) as! [CFString: Any]
             let publicKey = publicKeyAttributes[kSecValueData] as! Data
-            let attributes = Attributes(keyType: KeyType(secAttr: algorithmSecAttr, size: keySize)!, authentication: .presenceRequired)
+            let attributes = Attributes(keyType: KeyType(secAttr: algorithmSecAttr, size: keySize)!, authentication: .presenceRequired, restrictions: .default)
             let secret = SmartCard.Secret(id: tokenID, name: name, publicKey: publicKey, attributes: attributes)
             guard signatureAlgorithm(for: secret) != nil else { return nil }
             return secret

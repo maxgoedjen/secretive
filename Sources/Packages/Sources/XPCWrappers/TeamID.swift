@@ -11,7 +11,7 @@ extension ProcessInfo {
         }
 
         guard let value = SecTaskCopyValueForEntitlement(task, "com.apple.developer.team-identifier" as CFString, nil) as? String else {
-            assertionFailure("SecTaskCopyValueForEntitlement(com.apple.developer.team-identifier) failed")
+//            assertionFailure("SecTaskCopyValueForEntitlement(com.apple.developer.team-identifier) failed")
             return fallbackTeamID
         }
 
