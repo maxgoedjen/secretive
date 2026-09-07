@@ -11,7 +11,7 @@ on:
 jobs:
   analyze:
     name: Analyze (${{ matrix.language }})
-    runs-on: ${{ (matrix.language == 'swift' && 'macos-26') || 'ubuntu-latest' }}
+    runs-on: ${{ (matrix.language == 'swift' && 'xcode-27') || 'ubuntu-latest' }}
     permissions:
       security-events: write
       packages: read
@@ -24,20 +24,15 @@ jobs:
         include:
         - language: actions
           build-mode: none
-        # Disable this until CodeQL supports Xcode 26 builds.
-        # - language: swift
-        #   build-mode: manual
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v4
+      uses: actions/checkout@v5
     - name: Initialize CodeQL
       uses: github/codeql-action/init@v3
       with:
         languages: ${{ matrix.language }}
         build-mode: ${{ matrix.build-mode }}
     - if: matrix.build-mode == 'manual'
-      name: "Select Xcode"
-      run: sudo xcrun xcode-select -s /Applications/Xcode_26.4.app
     - if: matrix.build-mode == 'manual'
       name: "Build"
       run: xcrun xcodebuild -project Sources/Secretive.xcodeproj -scheme Secretive CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
