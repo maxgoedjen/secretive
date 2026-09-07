@@ -11,7 +11,7 @@ on:
 jobs:
   analyze:
     name: Analyze (${{ matrix.language }})
-    runs-on: ${{ (matrix.language == 'swift' && 'macos-latest') || 'ubuntu-latest' }}
+    runs-on: ${{ (matrix.language == 'swift' && 'macos-26') || 'ubuntu-latest' }}
     permissions:
       security-events: write
       packages: read
@@ -37,7 +37,7 @@ jobs:
         build-mode: ${{ matrix.build-mode }}
     - if: matrix.build-mode == 'manual'
       name: "Select Xcode"
-      run: sudo xcrun xcode-select -s /Applications/Xcode_26.0.app
+      run: sudo xcrun xcode-select -s /Applications/Xcode_26.4.app
     - if: matrix.build-mode == 'manual'
       name: "Build"
       run: xcrun xcodebuild -project Sources/Secretive.xcodeproj -scheme Secretive CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO

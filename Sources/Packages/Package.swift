@@ -20,14 +20,29 @@ let package = Package(
             name: "SmartCardSecretKit",
             targets: ["SmartCardSecretKit"]),
         .library(
+            name: "CertificateKit",
+            targets: ["CertificateKit"]),
+        .library(
             name: "SecretAgentKit",
-            targets: ["SecretAgentKit", "XPCWrappers"]),
+            targets: ["SecretAgentKit"]),
+        .library(
+            name: "Formatters",
+            targets: ["Formatters"]),
+        .library(
+            name: "Common",
+            targets: ["Common"]),
+        .library(
+            name: "SharedXPCServices",
+            targets: ["SharedXPCServices"]),
         .library(
             name: "Brief",
             targets: ["Brief"]),
         .library(
             name: "XPCWrappers",
             targets: ["XPCWrappers"]),
+        .library(
+            name: "SSHProtocolKit",
+            targets: ["SSHProtocolKit"]),
     ],
     dependencies: [
     ],
@@ -40,7 +55,7 @@ let package = Package(
         ),
         .testTarget(
             name: "SecretKitTests",
-            dependencies: ["SecretKit", "SecureEnclaveSecretKit", "SmartCardSecretKit"],
+            dependencies: ["SecretKit", "SecretAgentKit", "SecureEnclaveSecretKit", "SmartCardSecretKit"],
             swiftSettings: swiftSettings,
         ),
         .target(
@@ -56,8 +71,14 @@ let package = Package(
             swiftSettings: swiftSettings,
         ),
         .target(
+            name: "CertificateKit",
+            dependencies: ["SecretKit", "Formatters"],
+            resources: [localization],
+            swiftSettings: swiftSettings,
+        ),
+        .target(
             name: "SecretAgentKit",
-            dependencies: ["SecretKit"],
+            dependencies: ["SecretKit", "SSHProtocolKit", "CertificateKit", "Common", "Formatters"],
             resources: [localization],
             swiftSettings: swiftSettings,
         ),
@@ -66,8 +87,37 @@ let package = Package(
             dependencies: ["SecretAgentKit"],
         ),
         .target(
+            name: "SSHProtocolKit",
+            dependencies: ["SecretKit", "CertificateKit"],
+            resources: [localization],
+            swiftSettings: swiftSettings,
+        ),
+        .testTarget(
+            name: "SSHProtocolKitTests",
+            dependencies: ["SSHProtocolKit"],
+            swiftSettings: swiftSettings,
+        ),
+        .target(
+            name: "Formatters",
+            dependencies: [],
+            resources: [localization],
+            swiftSettings: swiftSettings,
+        ),
+        .target(
+            name: "Common",
+            dependencies: ["SSHProtocolKit", "SecretKit"],
+            resources: [localization],
+            swiftSettings: swiftSettings,
+        ),
+        .target(
+            name: "SharedXPCServices",
+            dependencies: ["CertificateKit", "SSHProtocolKit"],
+            resources: [localization],
+            swiftSettings: swiftSettings,
+        ),
+        .target(
             name: "Brief",
-            dependencies: ["XPCWrappers"],
+            dependencies: ["XPCWrappers", "SSHProtocolKit"],
             resources: [localization],
             swiftSettings: swiftSettings,
         ),

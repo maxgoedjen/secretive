@@ -3,27 +3,33 @@ import SecretKit
 import SecureEnclaveSecretKit
 import SmartCardSecretKit
 import Brief
+import SSHProtocolKit
+import SharedXPCServices
+import CertificateKit
 
 struct ContentView: View {
 
-    @Binding var showingCreation: Bool
-    @Binding var runningSetup: Bool
-    @Binding var hasRunSetup: Bool
-    @State var showingAgentInfo = false
-    @State var activeSecret: AnySecret?
-    @Environment(\.colorScheme) var colorScheme
-
-    @Environment(\.secretStoreList) private var storeList
-    @Environment(\.updater) private var updater: any UpdaterProtocol
-    @Environment(\.agentStatusChecker) private var agentStatusChecker: any AgentStatusCheckerProtocol
+    @State var selection: StoreListView.StoreListSelection?
 
     @State private var selectedUpdate: Release?
+
+    @Environment(\.colorScheme) private var colorScheme
+    @Environment(\.openWindow) private var openWindow
+    @Environment(\.secretStoreList) private var storeList
+    @Environment(\.certificateStore) private var certificateStore
+    @Environment(\.updater) private var updater
+    @Environment(\.agentLaunchController) private var agentLaunchController
+
+    @AppStorage("defaultsHasRunSetup") private var hasRunSetup = false
+    @State private var showingCreation = false
     @State private var showingAppPathNotice = false
+    @State private var runningSetup = false
+    @State private var showingAgentInfo = false
 
     var body: some View {
         VStack {
             if storeList.anyAvailable {
-                StoreListView(activeSecret: $activeSecret)
+                StoreListView(selection: $selection)
             } else {
                 NoStoresView()
             }
@@ -34,6 +40,39 @@ struct ContentView: View {
             toolbarItem(runningOrRunSetupView, id: "setup")
             toolbarItem(appPathNoticeView, id: "appPath")
             toolbarItem(newItemView, id: "new")
+        }
+        .onAppear {
+            if !hasRunSetup {
+                runningSetup = true
+            }
+        }
+        .dropDestination(for: URL.self) { items, location in
+                guard let url = items.first, url.pathExtension == "pub" else { return false }
+            Task {
+                do {
+                    let data = try Data(contentsOf: url)
+                    let parser = try await XPCCertificateParser()
+                    let cert = try await parser.parse(data: data)
+                    let wrapped = Certificate(openSSHCertificate: cert, rawData: data)
+                    try certificateStore.save(certificate: wrapped)
+                    selection = .certificate(wrapped)
+                } catch {
+
+                }
+            }
+            return true
+        } isTargeted: { _ in }
+        .focusedSceneValue(\.showCreateSecret,  .init(isEnabled: !runningSetup) {
+            showingCreation = true
+        })
+        .sheet(isPresented: $showingCreation) {
+            if let modifiable = storeList.modifiableStore {
+                CreateSecretView(store: modifiable) { created in
+                    if let created {
+                        selection = .secret(created)
+                    }
+                }
+            }
         }
         .sheet(isPresented: $runningSetup) {
             SetupView(setupComplete: $hasRunSetup)
@@ -85,24 +124,9 @@ extension ContentView {
                     .font(.headline)
                     .foregroundColor(.white)
             })
-            .buttonStyle(ToolbarButtonStyle(color: color))
+            .buttonStyle(ToolbarStatusButtonStyle(color: color))
             .sheet(item: $selectedUpdate) { update in
-                VStack {
-                    if updater.currentVersion.isTestBuild {
-                        VStack {
-                            if let description = updater.currentVersion.previewDescription {
-                                Text(description)
-                            }
-                            Link(destination: URL(string: "https://github.com/maxgoedjen/secretive/actions/workflows/nightly.yml")!) {
-                                Button(.updaterDownloadLatestNightlyButton) {}
-                                    .frame(maxWidth: .infinity)
-                                    .primaryButton()
-                            }
-                        }
-                        .padding()
-                    }
-                    UpdateDetailView(update: update)
-                }
+                UpdateDetailView(update: update)
             }
         }
     }
@@ -113,16 +137,7 @@ extension ContentView {
             Button(.appMenuNewSecretButton, systemImage: "plus") {
                 showingCreation = true
             }
-            .menuButton()
-            .sheet(isPresented: $showingCreation) {
-                if let modifiable = storeList.modifiableStore {
-                    CreateSecretView(store: modifiable) { created in
-                        if let created {
-                            activeSecret = created
-                        }
-                    }
-                }
-            }
+            .toolbarCircleButton()
         }
     }
 
@@ -132,7 +147,7 @@ extension ContentView {
             showingAgentInfo = true
         }, label: {
             HStack {
-                if agentStatusChecker.running {
+                if agentLaunchController.running {
                     Text(.agentRunningNoticeTitle)
                         .font(.headline)
                         .foregroundColor(colorScheme == .light ? Color(white: 0.3) : .white)
@@ -149,9 +164,9 @@ extension ContentView {
             }
         })
         .buttonStyle(
-            ToolbarButtonStyle(
-                lightColor: agentStatusChecker.running ? .black.opacity(0.05) : .red.opacity(0.75),
-                darkColor: agentStatusChecker.running ? .white.opacity(0.05) : .red.opacity(0.5),
+            ToolbarStatusButtonStyle(
+                lightColor: agentLaunchController.running ? .black.opacity(0.05) : .red.opacity(0.75),
+                darkColor: agentLaunchController.running ? .white.opacity(0.05) : .red.opacity(0.5),
             )
         )
         .popover(isPresented: $showingAgentInfo, attachmentAnchor: attachmentAnchor, arrowEdge: .bottom) {
@@ -171,18 +186,18 @@ extension ContentView {
                 .font(.headline)
                 .foregroundColor(.white)
             })
-            .buttonStyle(ToolbarButtonStyle(color: .orange))
-            .popover(isPresented: $showingAppPathNotice, attachmentAnchor: attachmentAnchor, arrowEdge: .bottom) {
-                VStack {
-                    Image(systemName: "exclamationmark.triangle")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 64)
-                    Text(.appNotInApplicationsNoticeDetailDescription)
-                        .frame(maxWidth: 300)
+            .buttonStyle(ToolbarStatusButtonStyle(color: .orange))
+            .confirmationDialog(.appNotInApplicationsNoticeTitle, isPresented: $showingAppPathNotice) {
+                Button(.appNotInApplicationsNoticeCancelButton, role:  .cancel) {
                 }
-                .padding()
+                Button(.appNotInApplicationsNoticeQuitButton) {
+                    NSWorkspace.shared.selectFile(Bundle.main.bundlePath, inFileViewerRootedAtPath: Bundle.main.bundlePath)
+                    NSApplication.shared.terminate(nil)
+                }
+            } message: {
+                Text(.appNotInApplicationsNoticeDetailDescription)
             }
+            .dialogIcon(Image(systemName: "folder.fill.badge.questionmark"))
         }
     }
 

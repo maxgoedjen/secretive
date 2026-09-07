@@ -4,22 +4,30 @@ import UniformTypeIdentifiers
 struct CopyableView: View {
 
     var title: LocalizedStringResource
+    var subtitle: String?
     var image: Image
     var text: String
     var showRevealInFinder = false
 
     @State private var interactionState: InteractionState = .normal
-    
+
     var content: some View {
-        VStack(alignment: .leading) {
+        VStack(alignment: .leading, spacing: 15) {
             HStack {
                 image
                     .renderingMode(.template)
                     .imageScale(.large)
                     .foregroundColor(primaryTextColor)
-                Text(title)
-                    .font(.headline)
-                    .foregroundColor(primaryTextColor)
+                VStack(alignment: .leading) {
+                    Text(title)
+                        .font(.headline)
+                        .foregroundColor(primaryTextColor)
+                    if let subtitle {
+                        Text(subtitle)
+                            .font(.system(.subheadline, design: .monospaced))
+                            .foregroundColor(secondaryTextColor)
+                    }
+                }
                 Spacer()
                 if interactionState != .normal {
                     HStack {
@@ -28,20 +36,19 @@ struct CopyableView: View {
                         }
                         copyButton
                     }
-                        .foregroundColor(secondaryTextColor)
-                        .transition(.opacity)
+                    .foregroundColor(secondaryTextColor)
+                    .transition(.opacity)
                 }
-
             }
-            .padding(EdgeInsets(top: 20, leading: 20, bottom: 10, trailing: 20))
             Divider()
+                .ignoresSafeArea()
             Text(text)
                 .fixedSize(horizontal: false, vertical: true)
                 .foregroundColor(primaryTextColor)
-                .padding(EdgeInsets(top: 10, leading: 20, bottom: 20, trailing: 20))
                 .multilineTextAlignment(.leading)
                 .font(.system(.body, design: .monospaced))
         }
+        .safeAreaPadding(20)
         ._background(interactionState: interactionState)
         .frame(minWidth: 150, maxWidth: .infinity)
     }
@@ -53,12 +60,12 @@ struct CopyableView: View {
                 interactionState = hovering ? .hovering : .normal
             }
         }
-        .onDrag({
-            NSItemProvider(item: NSData(data: text.data(using: .utf8)!), typeIdentifier: UTType.utf8PlainText.identifier)
-        }, preview: {
-            content
+        .draggable(text) {
+                content
+                .lineLimit(3)
+                .frame(maxWidth: 300)
                 ._background(interactionState: .dragging)
-        })
+        }
         .onTapGesture {
             copy()
             withAnimation {
@@ -79,7 +86,7 @@ struct CopyableView: View {
     var copyButton: some View {
         switch interactionState {
         case .hovering:
-            Button(.copyableClickToCopyButton, systemImage: "document.on.document") {
+            Button(.copyableClickToCopyButton, systemImage: "doc.on.doc") {
                 withAnimation {
                     // Button will eat the click, so we set interaction state manually.
                     interactionState = .clicking
@@ -156,10 +163,10 @@ fileprivate struct BackgroundViewModifier: ViewModifier {
         } else {
             if #available(macOS 26.0, *) {
                 content
-                // Very thin opacity lets user hover anywhere over the view, glassEffect doesn't allow.
-                    .background(.white.opacity(0.01), in: RoundedRectangle(cornerRadius: 15))
+                    .contentShape(RoundedRectangle(cornerRadius: 15))
                     .glassEffect(.regular.tint(backgroundColor(interactionState: interactionState)), in: RoundedRectangle(cornerRadius: 15))
-                
+                    .mask(RoundedRectangle(cornerRadius: 15))
+                    .shadow(color: .black.opacity(0.1), radius: 5)
             } else {
                 content
                     .background(backgroundColor(interactionState: interactionState))
@@ -170,13 +177,30 @@ fileprivate struct BackgroundViewModifier: ViewModifier {
     
     func backgroundColor(interactionState: InteractionState) -> Color {
         guard appearsActive else { return Color.clear }
-        switch interactionState {
-        case .normal:
-            return colorScheme == .dark ? Color(white: 0.2) : Color(white: 0.885)
-        case .hovering, .dragging:
-            return colorScheme == .dark ? Color(white: 0.275) : Color(white: 0.82)
-        case .clicking:
-            return .accentColor
+        if #available(macOS 26.0, *) {
+            let base: Color
+            if #available(macOS 27.0, *) {
+                base = .clear
+            } else {
+                base = colorScheme == .dark ? Color(white: 0.2) : Color(white: 1)
+            }
+            switch interactionState {
+            case .normal:
+                return base
+            case .hovering:
+                return base.mix(with: .accentColor, by: colorScheme == .dark ? 0.2 : 0.1)
+            case .clicking, .dragging:
+                return base.mix(with: .accentColor, by: 0.8)
+            }
+        } else {
+            switch interactionState {
+            case .normal:
+                return colorScheme == .dark ? Color(white: 0.2) : Color(white: 0.885)
+            case .hovering:
+                return colorScheme == .dark ? Color(white: 0.275) : Color(white: 0.82)
+            case .clicking, .dragging:
+                return .accentColor
+            }
         }
     }
 
@@ -184,7 +208,10 @@ fileprivate struct BackgroundViewModifier: ViewModifier {
 }
 
 #Preview {
-    CopyableView(title: .secretDetailSha256FingerprintLabel, image: Image(systemName: "figure.wave"), text: "Hello world.")
+    VStack {
+        CopyableView(title: .secretDetailSha256FingerprintLabel, image: Image(systemName: "figure.wave"), text: "Hello world.")
+        CopyableView(title: .secretDetailSha256FingerprintLabel, image: Image(systemName: "figure.wave"), text: "Hello world.")
+    }
         .padding()
 }
 

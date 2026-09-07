@@ -1,6 +1,7 @@
 import Foundation
 import SecretKit
 import CryptoKit
+import SSHProtocolKit
 
 struct Stub {}
 

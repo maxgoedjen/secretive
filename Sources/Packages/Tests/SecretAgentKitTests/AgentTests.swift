@@ -1,15 +1,17 @@
 import Foundation
 import Testing
 import CryptoKit
+import CertificateKit
+@testable import SSHProtocolKit
 @testable import SecretKit
 @testable import SecretAgentKit
 
-@Suite struct AgentTests {
+@Suite @MainActor struct AgentTests {
 
     // MARK: Identity Listing
 
     @Test func emptyStores() async throws {
-        let agent = Agent(storeList: SecretStoreList())
+        let agent = Agent(storeList: SecretStoreList(), certificateStore: CertificateStore())
         let request = try SSHAgentInputParser().parse(data: Constants.Requests.requestIdentities)
         let response = await agent.handle(request: request, provenance: .test)
         #expect(response == Constants.Responses.requestIdentitiesEmpty)
@@ -17,7 +19,7 @@ import CryptoKit
 
     @Test func identitiesList() async throws {
         let list = await storeList(with: [Constants.Secrets.ecdsa256Secret, Constants.Secrets.ecdsa384Secret])
-        let agent = Agent(storeList: list)
+        let agent = Agent(storeList: list, certificateStore: CertificateStore())
         let request = try SSHAgentInputParser().parse(data: Constants.Requests.requestIdentities)
         let response = await agent.handle(request: request, provenance: .test)
 
@@ -31,7 +33,7 @@ import CryptoKit
 
     @Test func noMatchingIdentities() async throws {
         let list = await storeList(with: [Constants.Secrets.ecdsa256Secret, Constants.Secrets.ecdsa384Secret])
-        let agent = Agent(storeList: list)
+        let agent = Agent(storeList: list, certificateStore: CertificateStore())
         let request = try SSHAgentInputParser().parse(data: Constants.Requests.requestSignatureWithNoneMatching)
         let response = await agent.handle(request: request, provenance: .test)
         #expect(response == Constants.Responses.requestFailure)
@@ -41,11 +43,11 @@ import CryptoKit
         let request = try SSHAgentInputParser().parse(data: Constants.Requests.requestSignature)
         guard case SSHAgent.Request.signRequest(let context) = request else { return }
         let list = await storeList(with: [Constants.Secrets.ecdsa256Secret, Constants.Secrets.ecdsa384Secret])
-        let agent = Agent(storeList: list)
+        let agent = Agent(storeList: list, certificateStore: CertificateStore())
         let response = await agent.handle(request: request, provenance: .test)
         let responseReader = OpenSSHReader(data: response)
-        let length = try responseReader.readNextBytes(as: UInt32.self).bigEndian
-        let type = try responseReader.readNextBytes(as: UInt8.self).bigEndian
+        let length = try responseReader.readNextBytes(as: UInt32.self)
+        let type = try responseReader.readNextBytes(as: UInt8.self)
         #expect(length == response.count - MemoryLayout<UInt32>.size)
         #expect(type == SSHAgent.Response.agentSignResponse.rawValue)
         let outer = OpenSSHReader(data: responseReader.remaining)
@@ -76,7 +78,7 @@ import CryptoKit
         let witness = StubWitness(speakNow: { _,_  in
             return true
         }, witness: { _, _ in })
-        let agent = Agent(storeList: list, witness: witness)
+        let agent = Agent(storeList: list, certificateStore: CertificateStore(), witness: witness)
         let response = await agent.handle(request: .signRequest(.empty), provenance: .test)
         #expect(response == Constants.Responses.requestFailure)
     }
@@ -89,7 +91,7 @@ import CryptoKit
         }, witness: { _, trace in
             witnessed = true
         })
-        let agent = Agent(storeList: list, witness: witness)
+        let agent = Agent(storeList: list, certificateStore: CertificateStore(), witness: witness)
         let request = try SSHAgentInputParser().parse(data: Constants.Requests.requestSignature)
         _ = await agent.handle(request: request, provenance: .test)
         #expect(witnessed)
@@ -105,7 +107,7 @@ import CryptoKit
         }, witness: { _, trace in
             witnessTrace = trace
         })
-        let agent = Agent(storeList: list, witness: witness)
+        let agent = Agent(storeList: list, certificateStore: CertificateStore(), witness: witness)
         let request = try SSHAgentInputParser().parse(data: Constants.Requests.requestSignature)
         _ = await agent.handle(request: request, provenance: .test)
         #expect(witnessTrace == speakNowTrace)
@@ -116,9 +118,9 @@ import CryptoKit
 
     @Test func signatureException() async throws {
         let list = await storeList(with: [Constants.Secrets.ecdsa256Secret, Constants.Secrets.ecdsa384Secret])
-        let store = await list.stores.first?.base as! Stub.Store
+        let store = list.stores.first?.base as! Stub.Store
         store.shouldThrow = true
-        let agent = Agent(storeList: list)
+        let agent = Agent(storeList: list, certificateStore: CertificateStore())
         let request = try SSHAgentInputParser().parse(data: Constants.Requests.requestSignature)
         let response = await agent.handle(request: request, provenance: .test)
         #expect(response == Constants.Responses.requestFailure)
@@ -127,7 +129,7 @@ import CryptoKit
     // MARK: Unsupported
 
     @Test func unhandledAdd() async throws {
-        let agent = Agent(storeList: SecretStoreList())
+        let agent = Agent(storeList: SecretStoreList(), certificateStore: CertificateStore())
         let response = await agent.handle(request: .addIdentity, provenance: .test)
         #expect(response == Constants.Responses.requestFailure)
     }
@@ -142,7 +144,7 @@ extension SigningRequestProvenance {
 
 extension AgentTests {
 
-    @MainActor func storeList(with secrets: [Stub.Secret]) async -> SecretStoreList {
+    func storeList(with secrets: [Stub.Secret]) async -> SecretStoreList {
         let store = Stub.Store()
         store.secrets.append(contentsOf: secrets)
         let storeList = SecretStoreList()

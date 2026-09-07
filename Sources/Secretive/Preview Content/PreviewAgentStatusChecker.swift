@@ -1,7 +1,7 @@
 import Foundation
 import AppKit
 
-class PreviewAgentStatusChecker: AgentStatusCheckerProtocol {
+class PreviewAgentLaunchController: AgentLaunchControllerProtocol {
 
     let running: Bool
     let process: NSRunningApplication?
@@ -13,6 +13,15 @@ class PreviewAgentStatusChecker: AgentStatusCheckerProtocol {
     }
 
     func check() {
+    }
+
+    func install() async throws {
+    }
+
+    func uninstall() async throws {
+    }
+
+    func forceLaunch() async throws {
     }
 
 }

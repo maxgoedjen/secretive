@@ -24,6 +24,18 @@ struct SecretListItemView: View {
                 Text(secret.name)
             }
         }
+        .sheet(isPresented: $isRenaming, onDismiss: {
+            renamedSecret(secret)
+        }, content: {
+            if let modifiable = store as? AnySecretStoreModifiable {
+                EditSecretView(store: modifiable, secret: secret)
+            }
+        })
+        .showingDeleteConfirmation(isPresented: $isDeleting, secret, store as? AnySecretStoreModifiable) { deleted in
+            if deleted {
+                deletedSecret(secret)
+            }
+        }
         .contextMenu {
             if store is AnySecretStoreModifiable {
                 Button(action: { isRenaming = true }) {
@@ -33,21 +45,6 @@ struct SecretListItemView: View {
                 Button(action: { isDeleting = true }) {
                     Image(systemName: "trash")
                     Text(.secretListDeleteButton)
-                }
-            }
-        }
-        .showingDeleteConfirmation(isPresented: $isDeleting, secret, store as? AnySecretStoreModifiable) { deleted in
-            if deleted {
-                deletedSecret(secret)
-            }
-        }
-        .sheet(isPresented: $isRenaming) {
-            if let modifiable = store as? AnySecretStoreModifiable {
-                EditSecretView(store: modifiable, secret: secret) { renamed in
-                    isRenaming = false
-                    if renamed {
-                        renamedSecret(secret)
-                    }
                 }
             }
         }

@@ -17,7 +17,7 @@ extension SecureEnclave {
         }
         public let id = UUID()
         public let name = String(localized: .secureEnclave)
-        private let persistentAuthenticationHandler = PersistentAuthenticationHandler()
+        private let persistentAuthenticationHandler = PersistentAuthenticationHandler<Secret>()
 
         /// Initializes a Store.
         @MainActor public init() {
@@ -186,17 +186,22 @@ extension SecureEnclave {
             await reloadSecrets()
         }
         
-        public var supportedKeyTypes: [KeyType] {
-            if #available(macOS 26, *) {
-                [
-                    .ecdsa256,
-                    .mldsa65,
-                    .mldsa87,
-                ]
+        public let supportedKeyTypes: KeyAvailability = {
+            let macOS26Keys: [KeyType] = [.mldsa65, .mldsa87]
+            let isAtLeastMacOS26 = if #available(macOS 26, *) {
+                true
             } else {
-                [.ecdsa256]
+                false
             }
-        }
+            return KeyAvailability(
+                available: [
+                    .ecdsa256,
+                ] + (isAtLeastMacOS26 ? macOS26Keys : []),
+                unavailable: (isAtLeastMacOS26 ? [] : macOS26Keys).map {
+                    KeyAvailability.UnavailableKeyType(keyType: $0, reason: .macOSUpdateRequired)
+                }
+            )
+        }()
     }
 
 }

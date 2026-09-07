@@ -11,7 +11,9 @@ final class SecretiveUpdater: NSObject, XPCProtocol {
 
     func process(_: Data) async throws -> [Release] {
         let (data, _) = try await URLSession.shared.data(from: Constants.updateURL)
-        return try JSONDecoder().decode([Release].self, from: data)
+        return try JSONDecoder()
+            .decode([GitHubRelease].self, from: data)
+            .map(Release.init)
     }
 
 }

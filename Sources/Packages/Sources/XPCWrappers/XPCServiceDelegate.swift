@@ -12,7 +12,7 @@ public final class XPCServiceDelegate: NSObject, NSXPCListenerDelegate {
         newConnection.exportedInterface = NSXPCInterface(with: (any _XPCProtocol).self)
         let exportedObject = exportedObject
         newConnection.exportedObject = exportedObject
-        newConnection.setCodeSigningRequirement("anchor apple generic and certificate leaf[subject.OU] = Z72PRUAWF6")
+        newConnection.setCodeSigningRequirement("anchor apple generic and certificate leaf[subject.OU] = \"\(ProcessInfo.processInfo.teamID)\"")
         newConnection.resume()
         return true
     }
@@ -34,7 +34,9 @@ public final class XPCServiceDelegate: NSObject, NSXPCListenerDelegate {
                     if let error = error as? Codable & Error {
                         reply(nil, NSError(error))
                     } else {
-                        reply(nil, error)
+                        // Sending cast directly tries to serialize it and crashes XPCEncoder.
+                        let cast = error as NSError
+                        reply(nil, NSError(domain: cast.domain, code: cast.code, userInfo: [NSLocalizedDescriptionKey: error.localizedDescription]))
                     }
                 }
             }

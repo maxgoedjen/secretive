@@ -5,16 +5,16 @@ struct EditSecretView<StoreType: SecretStoreModifiable>: View {
 
     let store: StoreType
     let secret: StoreType.SecretType
-    let dismissalBlock: (_ renamed: Bool) -> ()
 
     @State private var name: String
     @State private var publicKeyAttribution: String
     @State var errorText: String?
 
-    init(store: StoreType, secret: StoreType.SecretType, dismissalBlock: @escaping (Bool) -> ()) {
+    @Environment(\.dismiss) var dismiss
+
+    init(store: StoreType, secret: StoreType.SecretType) {
         self.store = store
         self.secret = secret
-        self.dismissalBlock = dismissalBlock
         name = secret.name
         publicKeyAttribution = secret.publicKeyAttribution ?? ""
     }
@@ -39,7 +39,7 @@ struct EditSecretView<StoreType: SecretStoreModifiable>: View {
             }
             HStack {
                 Button(.editCancelButton) {
-                    dismissalBlock(false)
+                    dismiss()
                 }
                 .keyboardShortcut(.cancelAction)
                 Button(.editSaveButton, action: rename)
@@ -58,7 +58,7 @@ struct EditSecretView<StoreType: SecretStoreModifiable>: View {
         Task {
             do {
                 try await store.update(secret: secret, name: name, attributes: attributes)
-                dismissalBlock(true)
+                dismiss()
             } catch {
                 errorText = error.localizedDescription
             }

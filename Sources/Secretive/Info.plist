@@ -20,6 +20,8 @@
 	<string>$(CI_VERSION)</string>
 	<key>CFBundleVersion</key>
 	<string>$(CI_BUILD_NUMBER)</string>
+	<key>GitHubBuildLog</key>
+	<string>https://$(CI_BUILD_LINK)</string>
 	<key>LSMinimumSystemVersion</key>
 	<string>$(MACOSX_DEPLOYMENT_TARGET)</string>
 	<key>NSHumanReadableCopyright</key>

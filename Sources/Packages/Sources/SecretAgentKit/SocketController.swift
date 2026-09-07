@@ -36,16 +36,21 @@ public struct SocketController {
         logger.debug("Socket controller path is clear")
         port = SocketPort(path: path)
         fileHandle = FileHandle(fileDescriptor: port.socket, closeOnDealloc: true)
-        Task { [fileHandle, sessionsContinuation, logger] in
-            for await notification in NotificationCenter.default.notifications(named: .NSFileHandleConnectionAccepted) {
+        Task { @MainActor [fileHandle, sessionsContinuation, logger] in
+            // Create the sequence before triggering the notification to
+            // ensure it will not be missed.
+            let connectionAcceptedNotifications = NotificationCenter.default.notifications(named: .NSFileHandleConnectionAccepted)
+
+            fileHandle.acceptConnectionInBackgroundAndNotify()
+
+            for await notification in connectionAcceptedNotifications {
                 logger.debug("Socket controller accepted connection")
                 guard let new = notification.userInfo?[NSFileHandleNotificationFileHandleItem] as? FileHandle else { continue }
                 let session = Session(fileHandle: new)
                 sessionsContinuation.yield(session)
-                await fileHandle.acceptConnectionInBackgroundAndNotifyOnMainActor()
+                fileHandle.acceptConnectionInBackgroundAndNotify()
             }
         }
-        fileHandle.acceptConnectionInBackgroundAndNotify(forModes: [RunLoop.Mode.common])
         logger.debug("Socket listening at \(path)")
     }
 
@@ -77,8 +82,14 @@ extension SocketController {
             self.fileHandle = fileHandle
             provenance = SigningRequestTracer().provenance(from: fileHandle)
             (messages, messagesContinuation) = AsyncStream.makeStream()
-            Task { [messagesContinuation, logger] in
-                for await _ in NotificationCenter.default.notifications(named: .NSFileHandleDataAvailable, object: fileHandle) {
+            Task { @MainActor [messagesContinuation, logger] in
+                // Create the sequence before triggering the notification to
+                // ensure it will not be missed.
+                let dataAvailableNotifications = NotificationCenter.default.notifications(named: .NSFileHandleDataAvailable, object: fileHandle)
+
+                fileHandle.waitForDataInBackgroundAndNotify()
+
+                for await _ in dataAvailableNotifications {
                     let data = fileHandle.availableData
                     guard !data.isEmpty else {
                         logger.debug("Socket controller received empty data, ending continuation.")
@@ -90,16 +101,13 @@ extension SocketController {
                     logger.debug("Socket controller yielded data.")
                 }
             }
-            Task {
-                await fileHandle.waitForDataInBackgroundAndNotifyOnMainActor()
-            }
         }
         
         /// Writes new data to the socket.
         /// - Parameter data: The data to write.
-        public func write(_ data: Data) async throws {
-            try fileHandle.write(contentsOf: data)
-            await fileHandle.waitForDataInBackgroundAndNotifyOnMainActor()
+        @MainActor public func write(_ data: Data) throws {
+          try fileHandle.write(contentsOf: data)
+          fileHandle.waitForDataInBackgroundAndNotify()
         }
         
         /// Closes the socket and cleans up resources.
@@ -109,22 +117,6 @@ extension SocketController {
             try fileHandle.close()
         }
 
-    }
-
-}
-
-private extension FileHandle {
-
-    /// Ensures waitForDataInBackgroundAndNotify will be called on the main actor.
-    @MainActor func waitForDataInBackgroundAndNotifyOnMainActor() {
-        waitForDataInBackgroundAndNotify()
-    }
-
-
-    /// Ensures acceptConnectionInBackgroundAndNotify will be called on the main actor.
-    /// - Parameter modes: the runloop modes to use.
-    @MainActor func acceptConnectionInBackgroundAndNotifyOnMainActor(forModes modes: [RunLoop.Mode]? = [RunLoop.Mode.common]) {
-        acceptConnectionInBackgroundAndNotify(forModes: modes)
     }
 
 }
