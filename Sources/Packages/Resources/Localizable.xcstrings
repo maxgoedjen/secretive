@@ -12400,9 +12400,6 @@
         }
       }
     },
-    "example.com" : {
-
-    },
     "export SSH_AUTH_SOCK=%@" : {
       "localizations" : {
         "af" : {
@@ -19293,9 +19290,6 @@
         }
       }
     },
-    "Key Properties" : {
-
-    },
     "no_secure_storage_description" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -20256,9 +20250,6 @@
           }
         }
       }
-    },
-    "Restrictions" : {
-
     },
     "reveal_in_finder_button" : {
       "extractionState" : "manual",
@@ -25084,9 +25075,6 @@
           }
         }
       }
-    },
-    "Specific" : {
-
     },
     "unnamed_secret" : {
       "extractionState" : "manual",
