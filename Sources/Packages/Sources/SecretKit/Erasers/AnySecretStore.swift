@@ -9,7 +9,7 @@ open class AnySecretStore: SecretStore, @unchecked Sendable {
     private let _id: @Sendable () -> UUID
     private let _name: @MainActor @Sendable () -> String
     private let _secrets: @MainActor @Sendable () -> [AnySecret]
-    private let _sign: @Sendable (Data, AnySecret, SigningRequestProvenance, LAContext?) async throws -> Data
+    private let _sign: @Sendable (Data, AnySecret, SigningRequestProvenance, SigningRequestTarget?, LAContext?) async throws -> Data
     private let _reloadSecrets: @Sendable () async -> Void
 
     public init<SecretStoreType>(_ secretStore: SecretStoreType) where SecretStoreType: SecretStore {
@@ -18,7 +18,7 @@ open class AnySecretStore: SecretStore, @unchecked Sendable {
         _name = { secretStore.name }
         _id = { secretStore.id }
         _secrets = { secretStore.secrets.map { AnySecret($0) } }
-        _sign = { try await secretStore.sign(data: $0, with: $1.base as! SecretStoreType.SecretType, for: $2, context: $3) }
+        _sign = { try await secretStore.sign(data: $0, with: $1.base as! SecretStoreType.SecretType, for: $2, target: $3, context: $4) }
         _reloadSecrets = { await secretStore.reloadSecrets() }
     }
 
@@ -38,8 +38,8 @@ open class AnySecretStore: SecretStore, @unchecked Sendable {
         return _secrets()
     }
 
-    public func sign(data: Data, with secret: AnySecret, for provenance: SigningRequestProvenance, context: LAContext?) async throws -> Data {
-        try await _sign(data, secret, provenance, context)
+    public func sign(data: Data, with secret: AnySecret, for provenance: SigningRequestProvenance, target: SigningRequestTarget?, context: LAContext?) async throws -> Data {
+        try await _sign(data, secret, provenance, target, context)
     }
 
     public func reloadSecrets() async {

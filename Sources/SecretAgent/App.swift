@@ -54,9 +54,10 @@ struct SecretAgent: App {
                         Task {
                             do {
                                 let inputParser = try await XPCAgentInputParser()
+                                let hosts = try? await XPCHostsfileReader().read()
                                 for await message in session.messages {
                                     let request = try await inputParser.parse(data: message)
-                                    let agentResponse = await agent.handle(request: request, provenance: session.provenance)
+                                    let agentResponse = await agent.handle(request: request, provenance: session.provenance, hosts: hosts)
                                     try session.write(agentResponse)
                                 }
                             } catch {

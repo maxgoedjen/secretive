@@ -56,8 +56,7 @@ extension SmartCard {
 
         // MARK: Public API
 
-
-        public func sign(data: Data, with secret: SmartCard.Secret, for provenance: SigningRequestProvenance, context: LAContext?) async throws -> Data {
+        public func sign(data: Data, with secret: Secret, for provenance: SigningRequestProvenance, target: SigningRequestTarget?, context: LAContext?) async throws -> Data {
             guard let tokenID = await state.tokenID else { fatalError() }
             let attributes = KeychainDictionary([
                 kSecClass: kSecClassKey,

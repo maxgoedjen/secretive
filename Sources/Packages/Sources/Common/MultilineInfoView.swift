@@ -22,37 +22,37 @@ public struct MultilineInfoView<TitleView: View, ItemView: View>: View {
         self.items = items()
     }
 
-    public init(title: LocalizedStringResource, subtitle: LocalizedStringResource, image: Image, items: [String]) where TitleView == HStack<TupleView<(Image, Text, Spacer)>> , ItemView == Text {
-        self.init {
-            HStack {
-                image
-                    .renderingMode(.template)
-//                    .imageScale(.large)
-                    .foregroundColor(primaryTextColor)
-                Text(title)
-                    .font(.headline)
-                    .foregroundColor(primaryTextColor)
-                Spacer()
-            }
-        } items: {
-            [Text("Hello")]
-        }
-
+//    public init(title: LocalizedStringResource, subtitle: LocalizedStringResource, image: Image, items: [String]) where ItemView == Text {
 //        self.init {
-//        } items: {
-//            ForEach(items) { item in
-//                return HStack {
-//                    Text(item)
-//                    Spacer()
-//                    //                if let (image, _) = $0.1 {
-//                    //                    image
-//                    //                        .foregroundStyle(.secondary)
-//                    //                }
-//                }
+//            HStack {
+//                image
+//                    .renderingMode(.template)
+////                    .imageScale(.large)
+//                    .foregroundColor(primaryTextColor)
+//                Text(title)
+//                    .font(.headline)
+//                    .foregroundColor(primaryTextColor)
+//                Spacer()
 //            }
+//        } items: {
+//            [Text("Hello")]
 //        }
-
-    }
+//
+////        self.init {
+////        } items: {
+////            ForEach(items) { item in
+////                return HStack {
+////                    Text(item)
+////                    Spacer()
+////                    //                if let (image, _) = $0.1 {
+////                    //                    image
+////                    //                        .foregroundStyle(.secondary)
+////                    //                }
+////                }
+////            }
+////        }
+//
+//    }
 
     @State private var interactionState: InteractionState = .normal
     @State private var interactionStateIndex: Int?
@@ -61,31 +61,31 @@ public struct MultilineInfoView<TitleView: View, ItemView: View>: View {
         VStack(alignment: .leading, spacing: 0) {
             titleView
             .safeAreaPadding(20)
-            ForEach(Array(items.enumerated()), id: \.offset) { item in
-                Divider()
-                    .ignoresSafeArea()
-                    .opacity(item.offset == 0 ? 1 : 0.75)
-                items.element
-                .safeAreaPadding(20)
-                .onHover { hovering in
-                    withAnimation {
-                        guard item.element.action != nil else { return }
-                        interactionState = hovering ? .hovering : .normal
-                        interactionStateIndex = item.offset
-                    }
-                }
-                .gesture(
-                    TapGesture()
-                        .onEnded {
-                            item.element.action?.1()
-                            withAnimation {
-                                interactionState = .normal
-                                interactionStateIndex = nil
-                            }
-                        }
-                )
-
-            }
+//            ForEach(Array(items.enumerated()), id: \.offset) { item in
+//                Divider()
+//                    .ignoresSafeArea()
+//                    .opacity(item.offset == 0 ? 1 : 0.75)
+//                items.element
+//                .safeAreaPadding(20)
+//                .onHover { hovering in
+//                    withAnimation {
+//                        guard item.element.action != nil else { return }
+//                        interactionState = hovering ? .hovering : .normal
+//                        interactionStateIndex = item.offset
+//                    }
+//                }
+//                .gesture(
+//                    TapGesture()
+//                        .onEnded {
+//                            item.element.action?.1()
+//                            withAnimation {
+//                                interactionState = .normal
+//                                interactionStateIndex = nil
+//                            }
+//                        }
+//                )
+//
+//            }
         }
         ._background(interactionState: .normal)
         .frame(minWidth: 150, maxWidth: .infinity)

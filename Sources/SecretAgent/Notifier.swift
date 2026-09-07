@@ -61,12 +61,19 @@ final class Notifier: Sendable {
         notificationCenter.requestAuthorization(options: .alert) { _, _ in }
     }
 
-    func notify(accessTo secret: AnySecret, from store: AnySecretStore, by provenance: SigningRequestProvenance, offerPersistence: Bool) async {
+    func notify(accessTo secret: AnySecret, from store: AnySecretStore, by provenance: SigningRequestProvenance, target: SigningRequestTarget?, offerPersistence: Bool) async {
         await notificationDelegate.state.setPending(secret: secret, store: store)
         let notificationCenter = UNUserNotificationCenter.current()
         let notificationContent = UNMutableNotificationContent()
         notificationContent.title = String(localized: .signedNotificationTitle(appName: provenance.origin.displayName))
-        notificationContent.subtitle = String(localized: .signedNotificationDescription(secretName: secret.name))
+        switch target {
+        case .connection(let payload) where payload.host != nil:
+            notificationContent.subtitle = String(localized: .signedConnectionNotificationDescription(secretName: secret.name, username: payload.username, host: payload.host!))
+        case .signature(let payload):
+            notificationContent.subtitle = String(localized: .signedSignatureNotificationDescription(secretName: secret.name, namespace: payload.namespace))
+        default:
+            notificationContent.subtitle = String(localized: .signedNotificationDescription(secretName: secret.name))
+        }
         notificationContent.userInfo[Constants.persistSecretIDKey] = secret.id.description
         notificationContent.userInfo[Constants.persistStoreIDKey] = store.id.description
         notificationContent.interruptionLevel = .timeSensitive
@@ -101,11 +108,16 @@ final class Notifier: Sendable {
 
 extension Notifier: SigningWitness {
 
-    func speakNowOrForeverHoldYourPeace(forAccessTo secret: AnySecret, from store: AnySecretStore, by provenance: SigningRequestProvenance) async throws {
+    func speakNowOrForeverHoldYourPeace(
+        forAccessTo secret: AnySecret,
+        from store: AnySecretStore,
+        by provenance: SigningRequestProvenance,
+        target: SigningRequestTarget?
+    ) async throws {
     }
 
-    func witness(accessTo secret: AnySecret, from store: AnySecretStore, by provenance: SigningRequestProvenance, offerPersistence: Bool) async throws {
-        await notify(accessTo: secret, from: store, by: provenance, offerPersistence: offerPersistence)
+    func witness(accessTo secret: AnySecret, from store: AnySecretStore, by provenance: SigningRequestProvenance, target: SigningRequestTarget?, offerPersistence: Bool) async throws {
+        await notify(accessTo: secret, from: store, by: provenance, target: target, offerPersistence: offerPersistence)
     }
 
 }

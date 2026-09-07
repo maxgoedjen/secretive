@@ -34,16 +34,14 @@ import XPCWrappers
     ) {
         self.osVersion = osVersion
         self.currentVersion = currentVersion
-        Task {
-            do {
-                if checkOnLaunch {
-                    try await checkForUpdates()
-                }
-                while !Task.isCancelled {
-                    try? await Task.sleep(for: .seconds(Int(checkFrequency)))
-                    try await checkForUpdates()
-                }
-            } catch {}
+        _ = Task {
+            if checkOnLaunch {
+                try await checkForUpdates()
+            }
+            while true {
+                try await Task.sleep(for: .seconds(Int(checkFrequency)))
+                try await checkForUpdates()
+            }
         }
     }
 

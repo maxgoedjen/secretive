@@ -36,8 +36,7 @@ extension SecureEnclave {
         
         // MARK: SecretStore
         
-        public func sign(data: Data, with secret: Secret, for provenance: SigningRequestProvenance, context: LAContext?) async throws -> Data {
-
+        public func sign(data: Data, with secret: Secret, for provenance: SigningRequestProvenance, target: SigningRequestTarget?, context: LAContext?) async throws -> Data {
             let queryAttributes = KeychainDictionary([
                 kSecClass: Constants.keyClass,
                 kSecAttrService: Constants.keyTag,

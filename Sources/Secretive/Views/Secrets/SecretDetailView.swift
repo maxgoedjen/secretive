@@ -43,22 +43,22 @@ struct SecretDetailView<SecretType: Secret>: View {
                         text: URL.publicKeyPath(for: secret, in: URL.publicKeyDirectory),
                         showRevealInFinder: true
                     )
-                    if !certificates.isEmpty {
-                        Spacer()
-                            .frame(height: 20)
-                        MultilineInfoView(
-                            title: .secretDetailCertificatePathLabel,
-                            image: Image(
-                                systemName: "checkmark.seal.text.page"
-                            ),
-                            items: certificates.map({ certificate in
-                                MultilineInfoView.Item(
-                                    text: certificate.name,
-                                    action: (Image(systemName: "chevron.forward"), { navigateToCertificate?(certificate) })
-                                )
-                            })
-                        )
-                    }
+//                    if !certificates.isEmpty {
+//                        Spacer()
+//                            .frame(height: 20)
+//                        MultilineInfoView(
+//                            title: .secretDetailCertificatePathLabel,
+//                            image: Image(
+//                                systemName: "checkmark.seal.text.page"
+//                            ),
+//                            items: certificates.map({ certificate in
+//                                MultilineInfoView.Item(
+//                                    text: certificate.name,
+//                                    action: (Image(systemName: "chevron.forward"), { navigateToCertificate?(certificate) })
+//                                )
+//                            })
+//                        )
+//                    }
                     Spacer()
                 }
             }
