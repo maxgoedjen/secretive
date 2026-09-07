@@ -52,15 +52,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         Task {
             for await session in socketController.sessions {
                 Task {
-                    let inputParser = try await XPCAgentInputParser()
                     do {
+                        let inputParser = try await XPCAgentInputParser()
                         for await message in session.messages {
                             let request = try await inputParser.parse(data: message)
                             let agentResponse = await agent.handle(request: request, provenance: session.provenance)
                             try session.write(agentResponse)
                         }
                     } catch {
-                        try session.close()
+                        try? session.close()
                     }
                 }
             }
