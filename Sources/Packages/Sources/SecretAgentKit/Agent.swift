@@ -82,15 +82,18 @@ extension Agent {
                 response.append(try await sign(data: context.dataToSign.raw, keyBlob: context.keyBlob, provenance: provenance))
                 logger.debug("Agent returned \(SSHAgent.Response.agentSignResponse.debugDescription)")
             case .protocolExtension(.openSSH(.sessionBind(let bind))):
+                // This is disabled until forward enforcement is handled.
+                _ = bind
                 response = try await MainActor.run {
-                    guard sessionID == nil else {
-                        logger.error("Agent received bind request, but already bound.")
-                        // FIXME: This will break forwarding for now.
-                        throw BindingFailure()
-                    }
-                    logger.debug("Agent bound")
-                    sessionID = bind
-                    return SSHAgent.Response.agentSuccess.data
+                    logger.debug("Agent received bind request but not currently supported.")
+                    throw UnhandledRequestError()
+//                    guard sessionID == nil else {
+//                        logger.error("Agent received bind request, but already bound.")
+//                        throw BindingFailure()
+//                    }
+//                    logger.debug("Agent bound")
+//                    sessionID = bind
+//                    return SSHAgent.Response.agentSuccess.data
                 }
                 logger.debug("Agent returned \(SSHAgent.Response.agentSuccess.debugDescription)")
             case .unknown(let value):
