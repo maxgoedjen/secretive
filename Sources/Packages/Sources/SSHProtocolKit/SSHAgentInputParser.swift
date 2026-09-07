@@ -186,7 +186,6 @@ extension SSHAgentInputParser {
                             throw AgentParsingError.unhandledRequest
                         }
                     case "ssh-rsa":
-                        // FIXME: HANDLE
                         throw AgentParsingError.unhandledRequest
                     default:
                         throw AgentParsingError.unhandledRequest
