@@ -68,7 +68,7 @@ import CertificateKit
         let signature = try P256.Signing.ECDSASignature(rawRepresentation: rs)
         // Correct signature
         #expect(try P256.Signing.PublicKey(x963Representation: Constants.Secrets.ecdsa256Secret.publicKey)
-            .isValidSignature(signature, for: context.dataToSign))
+            .isValidSignature(signature, for: context.dataToSign.raw))
     }
 
     // MARK: Witness protocol
