@@ -95,7 +95,6 @@
 		50E205862FAC2EA000402380 /* Formatters in Frameworks */ = {isa = PBXBuildFile; productRef = 50E205852FAC2EA000402380 /* Formatters */; };
 		50E205882FAC2EAB00402380 /* Formatters in Frameworks */ = {isa = PBXBuildFile; productRef = 50E205872FAC2EAB00402380 /* Formatters */; };
 		50E2058A2FAC2EB600402380 /* Formatters in Frameworks */ = {isa = PBXBuildFile; productRef = 50E205892FAC2EB600402380 /* Formatters */; };
-		50E4C4532E73C78C00C73783 /* WindowBackgroundStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E4C4522E73C78900C73783 /* WindowBackgroundStyle.swift */; };
 		50E4C4C32E7765DF00C73783 /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E4C4C22E7765DF00C73783 /* AboutView.swift */; };
 		50E4C4C82E777E4200C73783 /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = 50E4C4C72E777E4200C73783 /* AppIcon.icon */; };
 		50E4C4C92E777E4200C73783 /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = 50E4C4C72E777E4200C73783 /* AppIcon.icon */; };
@@ -303,7 +302,6 @@
 		50E205342FAABC6300402380 /* DeleteCertificateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteCertificateView.swift; sourceTree = "<group>"; };
 		50E205352FAABC6300402380 /* EditCertificateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditCertificateView.swift; sourceTree = "<group>"; };
 		50E2057F2FAB291E00402380 /* CertificateMigrator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificateMigrator.swift; sourceTree = "<group>"; };
-		50E4C4522E73C78900C73783 /* WindowBackgroundStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowBackgroundStyle.swift; sourceTree = "<group>"; };
 		50E4C4C22E7765DF00C73783 /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
 		50E4C4C72E777E4200C73783 /* AppIcon.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = AppIcon.icon; sourceTree = "<group>"; };
 		F418C9A82F0C57F000E9ADF8 /* OpenSource.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = OpenSource.xcconfig; sourceTree = "<group>"; };
@@ -383,7 +381,6 @@
 		504788ED2E681EB200B4556F /* Modifiers */ = {
 			isa = PBXGroup;
 			children = (
-				50E4C4522E73C78900C73783 /* WindowBackgroundStyle.swift */,
 				50CF4ABB2E601B0F005588DC /* ActionButtonStyle.swift */,
 				50BDCB732E6436C60072D2E7 /* ErrorStyle.swift */,
 				504789222E697DD300B4556F /* BoxBackgroundStyle.swift */,
@@ -615,6 +612,8 @@
 			buildRules = (
 			);
 			dependencies = (
+				5018D81A304F55EE00F1FEE8 /* PBXTargetDependency */,
+				5018D81C304F55EE00F1FEE8 /* PBXTargetDependency */,
 			);
 			name = SecretAgentHostsfileReader;
 			packageProductDependencies = (
@@ -670,6 +669,9 @@
 			buildRules = (
 			);
 			dependencies = (
+				5018D824304F560100F1FEE8 /* PBXTargetDependency */,
+				5018D81E304F55FB00F1FEE8 /* PBXTargetDependency */,
+				5018D822304F55FB00F1FEE8 /* PBXTargetDependency */,
 			);
 			name = SecretiveUpdater;
 			packageProductDependencies = (
@@ -692,6 +694,8 @@
 			buildRules = (
 			);
 			dependencies = (
+				5018D816304F55DE00F1FEE8 /* PBXTargetDependency */,
+				5018D818304F55DE00F1FEE8 /* PBXTargetDependency */,
 			);
 			name = SecretAgentInputParser;
 			packageProductDependencies = (
@@ -746,6 +750,9 @@
 			buildRules = (
 			);
 			dependencies = (
+				5018D810304F55D000F1FEE8 /* PBXTargetDependency */,
+				5018D812304F55D000F1FEE8 /* PBXTargetDependency */,
+				5018D814304F55D000F1FEE8 /* PBXTargetDependency */,
 			);
 			name = SecretiveCertificateParser;
 			packageProductDependencies = (
@@ -892,7 +899,6 @@
 				50BDCB742E6436CA0072D2E7 /* ErrorStyle.swift in Sources */,
 				50E4C4C32E7765DF00C73783 /* AboutView.swift in Sources */,
 				2C4A9D2F2636FFD3008CC8E2 /* EditSecretView.swift in Sources */,
-				50E4C4532E73C78C00C73783 /* WindowBackgroundStyle.swift in Sources */,
 				50E204E92FA9D12700402380 /* CertificateDetailView.swift in Sources */,
 				5091D2BC25183B830049FD9B /* ApplicationDirectoryController.swift in Sources */,
 				504789232E697DD300B4556F /* BoxBackgroundStyle.swift in Sources */,
@@ -978,6 +984,46 @@
 			isa = PBXTargetDependency;
 			targetProxy = 501577D32E6BC5DD004A37D0 /* PBXContainerItemProxy */;
 		};
+		5018D810304F55D000F1FEE8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = 5018D80F304F55D000F1FEE8 /* Formatters */;
+		};
+		5018D812304F55D000F1FEE8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = 5018D811304F55D000F1FEE8 /* SSHProtocolKit */;
+		};
+		5018D814304F55D000F1FEE8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = 5018D813304F55D000F1FEE8 /* XPCWrappers */;
+		};
+		5018D816304F55DE00F1FEE8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = 5018D815304F55DE00F1FEE8 /* SecretAgentKit */;
+		};
+		5018D818304F55DE00F1FEE8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = 5018D817304F55DE00F1FEE8 /* XPCWrappers */;
+		};
+		5018D81A304F55EE00F1FEE8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = 5018D819304F55EE00F1FEE8 /* SSHProtocolKit */;
+		};
+		5018D81C304F55EE00F1FEE8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = 5018D81B304F55EE00F1FEE8 /* XPCWrappers */;
+		};
+		5018D81E304F55FB00F1FEE8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = 5018D81D304F55FB00F1FEE8 /* Formatters */;
+		};
+		5018D822304F55FB00F1FEE8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = 5018D821304F55FB00F1FEE8 /* XPCWrappers */;
+		};
+		5018D824304F560100F1FEE8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = 5018D823304F560100F1FEE8 /* Brief */;
+		};
 		505402A53034B787000C3356 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 5054028C3034B5E3000C3356 /* SecretAgentHostsfileReader */;
@@ -1038,7 +1084,6 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "$(SECRETIVE_DEVELOPMENT_TEAM)";
 				ENABLE_APP_SANDBOX = NO;
-				ENABLE_ENHANCED_SECURITY = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1046,7 +1091,6 @@
 				INFOPLIST_KEY_CFBundleDisplayName = SecretAgentHostsfileReader;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2026 Max Goedjen. All rights reserved.";
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MACOSX_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(SECRETIVE_BASE_BUNDLE_ID).SecretAgentHostsfileReader";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1070,7 +1114,6 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_APP_SANDBOX = NO;
-				ENABLE_ENHANCED_SECURITY = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1078,7 +1121,6 @@
 				INFOPLIST_KEY_CFBundleDisplayName = SecretAgentHostsfileReader;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2026 Max Goedjen. All rights reserved.";
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MACOSX_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(SECRETIVE_BASE_BUNDLE_ID).SecretAgentHostsfileReader";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1104,7 +1146,6 @@
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=macosx*]" = Z72PRUAWF6;
 				ENABLE_APP_SANDBOX = NO;
-				ENABLE_ENHANCED_SECURITY = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1112,7 +1153,6 @@
 				INFOPLIST_KEY_CFBundleDisplayName = SecretAgentHostsfileReader;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2026 Max Goedjen. All rights reserved.";
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MACOSX_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(SECRETIVE_BASE_BUNDLE_ID).SecretAgentHostsfileReader";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1285,11 +1325,9 @@
 				DEVELOPMENT_ASSET_PATHS = "\"Secretive/Preview Content\"";
 				DEVELOPMENT_TEAM = "$(SECRETIVE_DEVELOPMENT_TEAM)";
 				ENABLE_APP_SANDBOX = YES;
-				ENABLE_ENHANCED_SECURITY = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_INCOMING_NETWORK_CONNECTIONS = NO;
 				ENABLE_OUTGOING_NETWORK_CONNECTIONS = NO;
-				ENABLE_POINTER_AUTHENTICATION = YES;
 				ENABLE_PREVIEWS = YES;
 				ENABLE_RESOURCE_ACCESS_AUDIO_INPUT = NO;
 				ENABLE_RESOURCE_ACCESS_BLUETOOTH = NO;
@@ -1304,7 +1342,6 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(SECRETIVE_BASE_BUNDLE_ID).Host";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1325,11 +1362,9 @@
 				DEVELOPMENT_ASSET_PATHS = "\"Secretive/Preview Content\"";
 				DEVELOPMENT_TEAM = "$(SECRETIVE_DEVELOPMENT_TEAM)";
 				ENABLE_APP_SANDBOX = YES;
-				ENABLE_ENHANCED_SECURITY = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_INCOMING_NETWORK_CONNECTIONS = NO;
 				ENABLE_OUTGOING_NETWORK_CONNECTIONS = NO;
-				ENABLE_POINTER_AUTHENTICATION = YES;
 				ENABLE_PREVIEWS = YES;
 				ENABLE_RESOURCE_ACCESS_AUDIO_INPUT = NO;
 				ENABLE_RESOURCE_ACCESS_BLUETOOTH = NO;
@@ -1344,7 +1379,6 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(SECRETIVE_BASE_BUNDLE_ID).Host";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1364,11 +1398,9 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "$(SECRETIVE_DEVELOPMENT_TEAM)";
 				ENABLE_APP_SANDBOX = YES;
-				ENABLE_ENHANCED_SECURITY = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_INCOMING_NETWORK_CONNECTIONS = NO;
 				ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES;
-				ENABLE_POINTER_AUTHENTICATION = YES;
 				ENABLE_RESOURCE_ACCESS_AUDIO_INPUT = NO;
 				ENABLE_RESOURCE_ACCESS_BLUETOOTH = NO;
 				ENABLE_RESOURCE_ACCESS_CALENDARS = NO;
@@ -1383,7 +1415,6 @@
 				INFOPLIST_KEY_CFBundleDisplayName = SecretiveUpdater;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2025 Max Goedjen. All rights reserved.";
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MACOSX_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(SECRETIVE_BASE_BUNDLE_ID).SecretiveUpdater";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1407,11 +1438,9 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_APP_SANDBOX = YES;
-				ENABLE_ENHANCED_SECURITY = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_INCOMING_NETWORK_CONNECTIONS = NO;
 				ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES;
-				ENABLE_POINTER_AUTHENTICATION = YES;
 				ENABLE_RESOURCE_ACCESS_AUDIO_INPUT = NO;
 				ENABLE_RESOURCE_ACCESS_BLUETOOTH = NO;
 				ENABLE_RESOURCE_ACCESS_CALENDARS = NO;
@@ -1426,7 +1455,6 @@
 				INFOPLIST_KEY_CFBundleDisplayName = SecretiveUpdater;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2025 Max Goedjen. All rights reserved.";
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MACOSX_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(SECRETIVE_BASE_BUNDLE_ID).SecretiveUpdater";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1452,11 +1480,9 @@
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=macosx*]" = "$(SECRETIVE_DEVELOPMENT_TEAM)";
 				ENABLE_APP_SANDBOX = YES;
-				ENABLE_ENHANCED_SECURITY = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_INCOMING_NETWORK_CONNECTIONS = NO;
 				ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES;
-				ENABLE_POINTER_AUTHENTICATION = YES;
 				ENABLE_RESOURCE_ACCESS_AUDIO_INPUT = NO;
 				ENABLE_RESOURCE_ACCESS_BLUETOOTH = NO;
 				ENABLE_RESOURCE_ACCESS_CALENDARS = NO;
@@ -1471,7 +1497,6 @@
 				INFOPLIST_KEY_CFBundleDisplayName = SecretiveUpdater;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2025 Max Goedjen. All rights reserved.";
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MACOSX_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(SECRETIVE_BASE_BUNDLE_ID).SecretiveUpdater";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1497,16 +1522,13 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "$(SECRETIVE_DEVELOPMENT_TEAM)";
 				ENABLE_APP_SANDBOX = YES;
-				ENABLE_ENHANCED_SECURITY = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
-				ENABLE_POINTER_AUTHENTICATION = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SecretAgentInputParser/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = SecretAgentInputParser;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2025 Max Goedjen. All rights reserved.";
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MACOSX_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(SECRETIVE_BASE_BUNDLE_ID).SecretAgentInputParser";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1530,16 +1552,13 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_APP_SANDBOX = YES;
-				ENABLE_ENHANCED_SECURITY = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
-				ENABLE_POINTER_AUTHENTICATION = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SecretAgentInputParser/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = SecretAgentInputParser;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2025 Max Goedjen. All rights reserved.";
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MACOSX_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(SECRETIVE_BASE_BUNDLE_ID).SecretAgentInputParser";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1565,16 +1584,13 @@
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=macosx*]" = "$(SECRETIVE_DEVELOPMENT_TEAM)";
 				ENABLE_APP_SANDBOX = YES;
-				ENABLE_ENHANCED_SECURITY = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
-				ENABLE_POINTER_AUTHENTICATION = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SecretAgentInputParser/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = SecretAgentInputParser;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2025 Max Goedjen. All rights reserved.";
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MACOSX_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(SECRETIVE_BASE_BUNDLE_ID).SecretAgentInputParser";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1676,11 +1692,9 @@
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"Secretive/Preview Content\"";
 				ENABLE_APP_SANDBOX = YES;
-				ENABLE_ENHANCED_SECURITY = YES;
 				ENABLE_HARDENED_RUNTIME = NO;
 				ENABLE_INCOMING_NETWORK_CONNECTIONS = NO;
 				ENABLE_OUTGOING_NETWORK_CONNECTIONS = NO;
-				ENABLE_POINTER_AUTHENTICATION = YES;
 				ENABLE_PREVIEWS = YES;
 				ENABLE_RESOURCE_ACCESS_AUDIO_INPUT = NO;
 				ENABLE_RESOURCE_ACCESS_BLUETOOTH = NO;
@@ -1695,7 +1709,6 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(SECRETIVE_BASE_BUNDLE_ID).Host";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1713,12 +1726,9 @@
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"SecretAgent/Preview Content\"";
 				ENABLE_APP_SANDBOX = YES;
-				ENABLE_ENHANCED_SECURITY = YES;
-				ENABLE_FILE_ACCESS_DOWNLOADS_FOLDER = readwrite;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_INCOMING_NETWORK_CONNECTIONS = NO;
 				ENABLE_OUTGOING_NETWORK_CONNECTIONS = NO;
-				ENABLE_POINTER_AUTHENTICATION = YES;
 				ENABLE_PREVIEWS = YES;
 				ENABLE_RESOURCE_ACCESS_AUDIO_INPUT = NO;
 				ENABLE_RESOURCE_ACCESS_BLUETOOTH = NO;
@@ -1734,7 +1744,6 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(SECRETIVE_BASE_BUNDLE_ID).SecretAgent";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1759,12 +1768,9 @@
 				DEVELOPMENT_ASSET_PATHS = "\"SecretAgent/Preview Content\"";
 				DEVELOPMENT_TEAM = "$(SECRETIVE_DEVELOPMENT_TEAM)";
 				ENABLE_APP_SANDBOX = YES;
-				ENABLE_ENHANCED_SECURITY = YES;
-				ENABLE_FILE_ACCESS_DOWNLOADS_FOLDER = readwrite;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_INCOMING_NETWORK_CONNECTIONS = NO;
 				ENABLE_OUTGOING_NETWORK_CONNECTIONS = NO;
-				ENABLE_POINTER_AUTHENTICATION = YES;
 				ENABLE_PREVIEWS = YES;
 				ENABLE_RESOURCE_ACCESS_AUDIO_INPUT = NO;
 				ENABLE_RESOURCE_ACCESS_BLUETOOTH = NO;
@@ -1780,7 +1786,6 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(SECRETIVE_BASE_BUNDLE_ID).SecretAgent";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1806,12 +1811,9 @@
 				DEVELOPMENT_ASSET_PATHS = "\"SecretAgent/Preview Content\"";
 				DEVELOPMENT_TEAM = "$(SECRETIVE_DEVELOPMENT_TEAM)";
 				ENABLE_APP_SANDBOX = YES;
-				ENABLE_ENHANCED_SECURITY = YES;
-				ENABLE_FILE_ACCESS_DOWNLOADS_FOLDER = readwrite;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_INCOMING_NETWORK_CONNECTIONS = NO;
 				ENABLE_OUTGOING_NETWORK_CONNECTIONS = NO;
-				ENABLE_POINTER_AUTHENTICATION = YES;
 				ENABLE_PREVIEWS = YES;
 				ENABLE_RESOURCE_ACCESS_AUDIO_INPUT = NO;
 				ENABLE_RESOURCE_ACCESS_BLUETOOTH = NO;
@@ -1827,7 +1829,6 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(SECRETIVE_BASE_BUNDLE_ID).SecretAgent";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1852,7 +1853,6 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "$(SECRETIVE_DEVELOPMENT_TEAM)";
 				ENABLE_APP_SANDBOX = YES;
-				ENABLE_ENHANCED_SECURITY = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1860,7 +1860,6 @@
 				INFOPLIST_KEY_CFBundleDisplayName = SecretiveCertificateParser;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2026 Max Goedjen. All rights reserved.";
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MACOSX_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(SECRETIVE_BASE_BUNDLE_ID).SecretiveCertificateParser";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1884,7 +1883,6 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_APP_SANDBOX = YES;
-				ENABLE_ENHANCED_SECURITY = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1892,7 +1890,6 @@
 				INFOPLIST_KEY_CFBundleDisplayName = SecretiveCertificateParser;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2026 Max Goedjen. All rights reserved.";
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MACOSX_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(SECRETIVE_BASE_BUNDLE_ID).SecretiveCertificateParser";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1918,7 +1915,6 @@
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=macosx*]" = Z72PRUAWF6;
 				ENABLE_APP_SANDBOX = YES;
-				ENABLE_ENHANCED_SECURITY = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1926,7 +1922,6 @@
 				INFOPLIST_KEY_CFBundleDisplayName = SecretiveCertificateParser;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2026 Max Goedjen. All rights reserved.";
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MACOSX_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(SECRETIVE_BASE_BUNDLE_ID).SecretiveCertificateParser";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2054,6 +2049,46 @@
 			productName = SmartCardSecretKit;
 		};
 		501421612781262300BBAA70 /* Brief */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Brief;
+		};
+		5018D80F304F55D000F1FEE8 /* Formatters */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Formatters;
+		};
+		5018D811304F55D000F1FEE8 /* SSHProtocolKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = SSHProtocolKit;
+		};
+		5018D813304F55D000F1FEE8 /* XPCWrappers */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = XPCWrappers;
+		};
+		5018D815304F55DE00F1FEE8 /* SecretAgentKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = SecretAgentKit;
+		};
+		5018D817304F55DE00F1FEE8 /* XPCWrappers */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = XPCWrappers;
+		};
+		5018D819304F55EE00F1FEE8 /* SSHProtocolKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = SSHProtocolKit;
+		};
+		5018D81B304F55EE00F1FEE8 /* XPCWrappers */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = XPCWrappers;
+		};
+		5018D81D304F55FB00F1FEE8 /* Formatters */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Formatters;
+		};
+		5018D821304F55FB00F1FEE8 /* XPCWrappers */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = XPCWrappers;
+		};
+		5018D823304F560100F1FEE8 /* Brief */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = Brief;
 		};
