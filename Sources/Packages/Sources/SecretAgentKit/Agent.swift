@@ -86,6 +86,7 @@ extension Agent {
                 response = try await MainActor.run {
                     guard sessionID == nil else {
                         logger.error("Agent received bind request, but already bound.")
+                        // FIXME: This will break forwarding for now.
                         throw BindingFailure()
                     }
                     logger.debug("Agent bound")
@@ -147,6 +148,8 @@ extension Agent {
             throw NoMatchingKeyError()
         }
 
+        try evaluateRestrictions(secret.attributes.restrictions, from: provenance, for: target)
+
         try await witness?.speakNowOrForeverHoldYourPeace(forAccessTo: secret, from: store, by: provenance, target: target)
 
         let rawRepresentation = try await store.sign(data: data, with: secret, for: provenance, target: target)
@@ -157,6 +160,22 @@ extension Agent {
         logger.debug("Agent signed request")
 
         return signedData
+    }
+
+}
+
+extension Agent {
+
+    func evaluateRestrictions(_ restrictions: Restrictions?, from provenance: SigningRequestProvenance, for target: SigningRequestTarget?) throws(RestrictionError) {
+        guard let restrictions else { return }
+        print(restrictions)
+        throw .connectionsNotPermitted
+    }
+
+    enum RestrictionError: Error {
+        case signingNotPermitted
+        case connectionsNotPermitted
+        case hostNotAllowed(String)
     }
 
 }
