@@ -2,14 +2,10 @@ import SwiftUI
 
 struct AboutView: View {
     var body: some View {
-        if #available(macOS 15.0, *) {
-            AboutViewContent()
-                .containerBackground(
-                    .thinMaterial, for: .window
-                )
-        } else {
-            AboutViewContent()
-        }
+        AboutViewContent()
+            .containerBackground(
+                .thinMaterial, for: .window
+            )
     }
 }
 
