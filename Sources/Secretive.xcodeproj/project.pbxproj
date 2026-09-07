@@ -95,7 +95,6 @@
 		50E205862FAC2EA000402380 /* Formatters in Frameworks */ = {isa = PBXBuildFile; productRef = 50E205852FAC2EA000402380 /* Formatters */; };
 		50E205882FAC2EAB00402380 /* Formatters in Frameworks */ = {isa = PBXBuildFile; productRef = 50E205872FAC2EAB00402380 /* Formatters */; };
 		50E2058A2FAC2EB600402380 /* Formatters in Frameworks */ = {isa = PBXBuildFile; productRef = 50E205892FAC2EB600402380 /* Formatters */; };
-		50E4C4532E73C78C00C73783 /* WindowBackgroundStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E4C4522E73C78900C73783 /* WindowBackgroundStyle.swift */; };
 		50E4C4C32E7765DF00C73783 /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E4C4C22E7765DF00C73783 /* AboutView.swift */; };
 		50E4C4C82E777E4200C73783 /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = 50E4C4C72E777E4200C73783 /* AppIcon.icon */; };
 		50E4C4C92E777E4200C73783 /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = 50E4C4C72E777E4200C73783 /* AppIcon.icon */; };
@@ -303,7 +302,6 @@
 		50E205342FAABC6300402380 /* DeleteCertificateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteCertificateView.swift; sourceTree = "<group>"; };
 		50E205352FAABC6300402380 /* EditCertificateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditCertificateView.swift; sourceTree = "<group>"; };
 		50E2057F2FAB291E00402380 /* CertificateMigrator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificateMigrator.swift; sourceTree = "<group>"; };
-		50E4C4522E73C78900C73783 /* WindowBackgroundStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowBackgroundStyle.swift; sourceTree = "<group>"; };
 		50E4C4C22E7765DF00C73783 /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
 		50E4C4C72E777E4200C73783 /* AppIcon.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = AppIcon.icon; sourceTree = "<group>"; };
 		F418C9A82F0C57F000E9ADF8 /* OpenSource.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = OpenSource.xcconfig; sourceTree = "<group>"; };
@@ -383,7 +381,6 @@
 		504788ED2E681EB200B4556F /* Modifiers */ = {
 			isa = PBXGroup;
 			children = (
-				50E4C4522E73C78900C73783 /* WindowBackgroundStyle.swift */,
 				50CF4ABB2E601B0F005588DC /* ActionButtonStyle.swift */,
 				50BDCB732E6436C60072D2E7 /* ErrorStyle.swift */,
 				504789222E697DD300B4556F /* BoxBackgroundStyle.swift */,
@@ -902,7 +899,6 @@
 				50BDCB742E6436CA0072D2E7 /* ErrorStyle.swift in Sources */,
 				50E4C4C32E7765DF00C73783 /* AboutView.swift in Sources */,
 				2C4A9D2F2636FFD3008CC8E2 /* EditSecretView.swift in Sources */,
-				50E4C4532E73C78C00C73783 /* WindowBackgroundStyle.swift in Sources */,
 				50E204E92FA9D12700402380 /* CertificateDetailView.swift in Sources */,
 				5091D2BC25183B830049FD9B /* ApplicationDirectoryController.swift in Sources */,
 				504789232E697DD300B4556F /* BoxBackgroundStyle.swift in Sources */,
