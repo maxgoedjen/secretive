@@ -66,7 +66,7 @@ public struct MultilineInfoView<TitleView: View, ItemView: View>: View {
                 ForEach(subviews: subviews) { subview in
                     Divider()
                         .ignoresSafeArea()
-//                        .opacity(subview.offset == 0 ? 1 : 0.75)
+                        .opacity(subview.id == subviews.first?.id ? 1 : 0.5)
                     subview
                         .safeAreaPadding(20)
                         .onHover { hovering in
