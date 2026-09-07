@@ -32,6 +32,7 @@ jobs:
       id-token: write
       contents: write
       attestations: write
+      artifact-metadata: write
       actions: read
     runs-on: macos-26
     timeout-minutes: 10
@@ -63,7 +64,7 @@ jobs:
       run: mkdir Artifact; cp -r Archive.xcarchive/Products/Applications/Secretive.app Artifact
     - name: Upload App to Artifacts
       id: upload
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       with:
         name: Secretive.zip
         path: Artifact
@@ -82,7 +83,7 @@ jobs:
       run: xcrun notarytool submit --key ~/.private_keys/AuthKey_$APPLE_API_KEY_ID.p8 --key-id $APPLE_API_KEY_ID --issuer $APPLE_API_ISSUER Secretive.zip
     - name: Attest
       id: attest
-      uses: actions/attest-build-provenance@v2
+      uses: actions/attest@v4
       with:
         subject-path: "Secretive.zip"
     - name: Create Release
