@@ -42,6 +42,18 @@ public final class OpenSSHReader {
         return convertEndianness ? T(value.bigEndian) : T(value)
     }
 
+    public func readNextByteAsBool() throws(OpenSSHReaderError) -> Bool {
+        let size = MemoryLayout<Bool>.size
+        guard remaining.count >= size else { throw .beyondBounds }
+        let lengthRange = 0..<size
+        let lengthChunk = remaining[lengthRange]
+        remaining.removeSubrange(lengthRange)
+        if remaining.isEmpty {
+            done = true
+        }
+        return unsafe lengthChunk.bytes.unsafeLoad(as: Bool.self)
+    }
+
     public func readNextChunkAsString(convertEndianness: Bool = true) throws(OpenSSHReaderError) -> String {
         try String(decoding: readNextChunk(convertEndianness: convertEndianness), as: UTF8.self)
     }
@@ -53,5 +65,6 @@ public final class OpenSSHReader {
 }
 
 public enum OpenSSHReaderError: Error, Codable {
+    case incorrectFormat
     case beyondBounds
 }
