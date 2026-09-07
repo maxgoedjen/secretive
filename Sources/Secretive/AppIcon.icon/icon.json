@@ -1,0 +1,59 @@
+{
+  "fill" : {
+    "solid" : "srgb:0.00000,0.53333,1.00000,0.00000"
+  },
+  "groups" : [
+    {
+      "blur-material" : 0.5,
+      "layers" : [
+        {
+          "image-name" : "Icon 7.png",
+          "name" : "Signature",
+          "position" : {
+            "scale" : 1,
+            "translation-in-points" : [
+              64.00083178971097,
+              -58.21801551632592
+            ]
+          }
+        },
+        {
+          "image-name" : "Rectangle Copy 10.png",
+          "name" : "Border"
+        },
+        {
+          "fill-specializations" : [
+            {
+              "appearance" : "tinted",
+              "value" : {
+                "solid" : "display-p3:0.00000,0.00000,0.00000,0.50000"
+              }
+            }
+          ],
+          "image-name" : "Rectangle 2 8.png",
+          "name" : "Backing",
+          "opacity-specializations" : [
+            {
+              "appearance" : "tinted",
+              "value" : 1
+            }
+          ]
+        }
+      ],
+      "shadow" : {
+        "kind" : "layer-color",
+        "opacity" : 0.5
+      },
+      "specular" : true,
+      "translucency" : {
+        "enabled" : true,
+        "value" : 0.5
+      }
+    }
+  ],
+  "supported-platforms" : {
+    "squares" : [
+      "macOS"
+    ]
+  }
+}

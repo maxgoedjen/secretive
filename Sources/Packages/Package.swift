@@ -1,12 +1,13 @@
-// swift-tools-version:5.9
+// swift-tools-version:6.4
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
 
 let package = Package(
     name: "SecretivePackages",
+    defaultLocalization: "en",
     platforms: [
-        .macOS(.v12)
+        .macOS(.v15)
     ],
     products: [
         .library(
@@ -19,14 +20,32 @@ let package = Package(
             name: "SmartCardSecretKit",
             targets: ["SmartCardSecretKit"]),
         .library(
+            name: "CertificateKit",
+            targets: ["CertificateKit"]),
+        .library(
+            name: "SettingsKit",
+            targets: ["SettingsKit"]),
+        .library(
             name: "SecretAgentKit",
             targets: ["SecretAgentKit"]),
         .library(
-            name: "SecretAgentKitHeaders",
-            targets: ["SecretAgentKitHeaders"]),
+            name: "Formatters",
+            targets: ["Formatters"]),
+        .library(
+            name: "Common",
+            targets: ["Common"]),
+        .library(
+            name: "SharedXPCServices",
+            targets: ["SharedXPCServices"]),
         .library(
             name: "Brief",
             targets: ["Brief"]),
+        .library(
+            name: "XPCWrappers",
+            targets: ["XPCWrappers"]),
+        .library(
+            name: "SSHProtocolKit",
+            targets: ["SSHProtocolKit"]),
     ],
     dependencies: [
     ],
@@ -34,42 +53,102 @@ let package = Package(
         .target(
             name: "SecretKit",
             dependencies: [],
-            swiftSettings: [.unsafeFlags(["-warnings-as-errors"])]
+            resources: [localization],
+            swiftSettings: swiftSettings,
         ),
         .testTarget(
             name: "SecretKitTests",
-            dependencies: ["SecretKit", "SecureEnclaveSecretKit", "SmartCardSecretKit"],
-            swiftSettings: [.unsafeFlags(["-warnings-as-errors"])]
+            dependencies: ["SecretKit", "SecretAgentKit", "SecureEnclaveSecretKit", "SmartCardSecretKit"],
+            swiftSettings: swiftSettings,
         ),
         .target(
             name: "SecureEnclaveSecretKit",
             dependencies: ["SecretKit"],
-            swiftSettings: [.unsafeFlags(["-warnings-as-errors"])]
+            resources: [localization],
+            swiftSettings: swiftSettings,
         ),
         .target(
             name: "SmartCardSecretKit",
             dependencies: ["SecretKit"],
-            swiftSettings: [.unsafeFlags(["-warnings-as-errors"])]
+            resources: [localization],
+            swiftSettings: swiftSettings,
+        ),
+        .target(
+            name: "CertificateKit",
+            dependencies: ["SecretKit", "Formatters"],
+            resources: [localization],
+            swiftSettings: swiftSettings,
+        ),
+        .target(
+            name: "SettingsKit",
+            dependencies: [],
+            resources: [localization],
+            swiftSettings: swiftSettings,
         ),
         .target(
             name: "SecretAgentKit",
-            dependencies: ["SecretKit", "SecretAgentKitHeaders"],
-            swiftSettings: [.unsafeFlags(["-warnings-as-errors"])]
-        ),
-        .systemLibrary(
-            name: "SecretAgentKitHeaders"
+            dependencies: ["SecretKit", "SSHProtocolKit", "CertificateKit", "Common", "Formatters"],
+            resources: [localization],
+            swiftSettings: swiftSettings,
         ),
         .testTarget(
             name: "SecretAgentKitTests",
-            dependencies: ["SecretAgentKit"])
-        ,
+            dependencies: ["SecretAgentKit"],
+        ),
+        .target(
+            name: "SSHProtocolKit",
+            dependencies: ["SecretKit", "CertificateKit"],
+            resources: [localization],
+            swiftSettings: swiftSettings,
+        ),
+        .testTarget(
+            name: "SSHProtocolKitTests",
+            dependencies: ["SSHProtocolKit"],
+            swiftSettings: swiftSettings,
+        ),
+        .target(
+            name: "Formatters",
+            dependencies: [],
+            resources: [localization],
+            swiftSettings: swiftSettings,
+        ),
+        .target(
+            name: "Common",
+            dependencies: ["SSHProtocolKit", "SecretKit"],
+            resources: [localization],
+            swiftSettings: swiftSettings,
+        ),
+        .target(
+            name: "SharedXPCServices",
+            dependencies: ["XPCWrappers", "CertificateKit", "SSHProtocolKit"],
+            resources: [localization],
+            swiftSettings: swiftSettings,
+        ),
         .target(
             name: "Brief",
-            dependencies: []
+            dependencies: ["XPCWrappers", "SSHProtocolKit"],
+            resources: [localization],
+            swiftSettings: swiftSettings,
         ),
         .testTarget(
             name: "BriefTests",
-            dependencies: ["Brief"]
+            dependencies: ["Brief"],
+        ),
+        .target(
+            name: "XPCWrappers",
+            swiftSettings: swiftSettings,
         ),
     ]
 )
+
+var localization: Resource {
+    .process("../../Resources/Localizable.xcstrings")
+}
+
+var swiftSettings: [PackageDescription.SwiftSetting] {
+    [
+        .swiftLanguageMode(.v6),
+        .treatAllWarnings(as: .error),
+        .strictMemorySafety()
+    ]
+}

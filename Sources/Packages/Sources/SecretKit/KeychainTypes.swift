@@ -36,12 +36,12 @@ public struct KeychainError: Error {
 /// A signing-related error.
 public struct SigningError: Error {
     /// The underlying error reported by the API, if one was returned.
-    public let error: SecurityError?
+    public let error: CFError?
 
     /// Initializes a SigningError with an optional SecurityError.
     /// - Parameter statusCode: The SecurityError, if one is applicable.
     public init(error: SecurityError?) {
-        self.error = error
+        self.error = unsafe error?.takeRetainedValue()
     }
 
 }
@@ -51,19 +51,17 @@ public extension SecretStore {
     /// Returns the appropriate keychian signature algorithm to use for a given secret.
     /// - Parameters:
     ///   - secret: The secret which will be used for signing.
-    ///   - allowRSA: Whether or not RSA key types should be permited.
     /// - Returns: The appropriate algorithm.
-    func signatureAlgorithm(for secret: SecretType, allowRSA: Bool = false) -> SecKeyAlgorithm {
-        switch (secret.algorithm, secret.keySize) {
-        case (.ellipticCurve, 256):
-            return .ecdsaSignatureMessageX962SHA256
-        case (.ellipticCurve, 384):
-            return .ecdsaSignatureMessageX962SHA384
-        case (.rsa, 1024), (.rsa, 2048):
-            guard allowRSA else { fatalError() }
-            return .rsaSignatureMessagePKCS1v15SHA512
+    func signatureAlgorithm(for secret: SecretType) -> SecKeyAlgorithm? {
+        switch secret.keyType {
+        case .ecdsa256:
+            .ecdsaSignatureMessageX962SHA256
+        case .ecdsa384:
+            .ecdsaSignatureMessageX962SHA384
+        case .rsa2048:
+            .rsaSignatureMessagePKCS1v15SHA512
         default:
-            fatalError()
+            nil
         }
 
     }

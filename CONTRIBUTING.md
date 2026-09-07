@@ -10,6 +10,10 @@ Security is obviously paramount for a project like Secretive. As such, any contr
 
 Secretive is designed to be easily auditable by people who are considering using it. In keeping with this, Secretive has no third party dependencies, and any contributions which bring in new dependencies will be rejected.
 
+### AI/LLM Policy
+
+For security and auditing reasons similar to the policy Secretive has on dependencies, any code generated with AI or LLM tools will not be accepted.
+
 ## Code of Conduct
 
 All contributors must abide by the [Code of Conduct](CODE_OF_CONDUCT.md)
@@ -20,7 +24,7 @@ If you'd like to contribute a translation, please see [Localizing](LOCALIZING.md
 
 ## Credits
 
-If you make a material contribution to the app, please add yourself to the end of the [credits](https://github.com/maxgoedjen/secretive/blob/main/Secretive/Credits.rtf).
+If you make a material contribution to the app, please add yourself to the end of the [credits](https://github.com/maxgoedjen/secretive/blob/main/Sources/Secretive/Credits.rtf).
 
 ## Collaborator Status
 

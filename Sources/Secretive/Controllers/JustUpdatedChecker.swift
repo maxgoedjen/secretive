@@ -1,24 +1,33 @@
 import Foundation
-import Combine
 import AppKit
 
-protocol JustUpdatedCheckerProtocol: ObservableObject {
-    var justUpdated: Bool { get }
+@MainActor protocol JustUpdatedCheckerProtocol: Observable {
+    var justUpdatedBuild: Bool { get }
+    var justUpdatedOS: Bool { get }
 }
 
-class JustUpdatedChecker: ObservableObject, JustUpdatedCheckerProtocol {
+@Observable @MainActor class JustUpdatedChecker: JustUpdatedCheckerProtocol {
 
-    @Published var justUpdated: Bool = false
+    var justUpdatedBuild: Bool = false
+    var justUpdatedOS: Bool = false
 
-    init() {
-        check()
+    nonisolated init() {
+        Task { @MainActor in
+            check()
+        }
     }
 
-    func check() {
-        let lastBuild = UserDefaults.standard.object(forKey: Constants.previousVersionUserDefaultsKey) as? String ?? "None"
+    private func check() {
+        let lastBuild = UserDefaults.standard.object(forKey: Constants.previousVersionUserDefaultsKey) as? String
+        let lastOS = UserDefaults.standard.object(forKey: Constants.previousOSVersionUserDefaultsKey) as? String
         let currentBuild = Bundle.main.infoDictionary!["CFBundleShortVersionString"] as! String
+        let osRaw = ProcessInfo.processInfo.operatingSystemVersion
+        let currentOS = "\(osRaw.majorVersion).\(osRaw.minorVersion).\(osRaw.patchVersion)"
         UserDefaults.standard.set(currentBuild, forKey: Constants.previousVersionUserDefaultsKey)
-        justUpdated = lastBuild != currentBuild
+        UserDefaults.standard.set(currentOS, forKey: Constants.previousOSVersionUserDefaultsKey)
+        justUpdatedBuild = lastBuild != currentBuild
+        // To prevent this showing on first lauch for every user, only show if lastBuild is non-nil.
+        justUpdatedOS = lastBuild != nil && lastOS != currentOS
     }
 
 
@@ -29,6 +38,7 @@ extension JustUpdatedChecker {
 
     enum Constants {
         static let previousVersionUserDefaultsKey = "com.maxgoedjen.Secretive.lastBuild"
+        static let previousOSVersionUserDefaultsKey = "com.maxgoedjen.Secretive.lastOS"
     }
 
 }

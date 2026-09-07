@@ -1,49 +1,47 @@
 import Foundation
-import Combine
+import Observation
 
 /// A "Store Store," which holds a list of type-erased stores.
-public final class SecretStoreList: ObservableObject {
+@Observable @MainActor public final class SecretStoreList: Sendable {
 
     /// The Stores managed by the SecretStoreList.
-    @Published public var stores: [AnySecretStore] = []
+    public var stores: [AnySecretStore] = []
     /// A modifiable store, if one is available.
-    @Published public var modifiableStore: AnySecretStoreModifiable?
-    private var cancellables: Set<AnyCancellable> = []
+    public var modifiableStore: AnySecretStoreModifiable? = nil
 
     /// Initializes a SecretStoreList.
-    public init() {
+    public nonisolated init() {
     }
 
     /// Adds a non-type-erased SecretStore to the list.
     public func add<SecretStoreType: SecretStore>(store: SecretStoreType) {
-        addInternal(store: AnySecretStore(store))
+        stores.append(AnySecretStore(store))
     }
 
     /// Adds a non-type-erased modifiable SecretStore.
     public func add<SecretStoreType: SecretStoreModifiable>(store: SecretStoreType) {
-        let modifiable = AnySecretStoreModifiable(modifiable: store)
-        modifiableStore = modifiable
-        addInternal(store: modifiable)
+        let modifiable = AnySecretStoreModifiable(store)
+        if modifiableStore == nil {
+            modifiableStore = modifiable
+        }
+        stores.append(modifiable)
     }
 
     /// A boolean describing whether there are any Stores available.
     public var anyAvailable: Bool {
-        stores.reduce(false, { $0 || $1.isAvailable })
+        stores.contains(where: \.isAvailable)
     }
 
     public var allSecrets: [AnySecret] {
         stores.flatMap(\.secrets)
     }
 
-}
-
-extension SecretStoreList {
-
-    private func addInternal(store: AnySecretStore) {
-        stores.append(store)
-        store.objectWillChange.sink {
-            self.objectWillChange.send()
-        }.store(in: &cancellables)
+    public var allSecretsWithStores: [(AnySecret, AnySecretStore)] {
+        stores.flatMap { store in
+            store.secrets.map { secret in
+                (secret, store)
+            }
+        }
     }
 
 }

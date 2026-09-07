@@ -1,13 +1,27 @@
 import Foundation
-import Combine
+import AppKit
 
-class PreviewAgentStatusChecker: AgentStatusCheckerProtocol {
+class PreviewAgentLaunchController: AgentLaunchControllerProtocol {
 
     let running: Bool
+    let process: NSRunningApplication?
     let developmentBuild = false
 
-    init(running: Bool = true) {
+    init(running: Bool = true, process: NSRunningApplication? = nil) {
         self.running = running
+        self.process = process
+    }
+
+    func check() {
+    }
+
+    func install() async throws {
+    }
+
+    func uninstall() async throws {
+    }
+
+    func forceLaunch() async throws {
     }
 
 }

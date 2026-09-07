@@ -1,0 +1,87 @@
+import SwiftUI
+
+struct IntegrationsView: View {
+
+    @Environment(\.dismiss) private var dismiss
+
+    @State private var selectedInstruction: ConfigurationFileInstructions?
+    private let instructions = Instructions()
+
+    var body: some View {
+        NavigationSplitView {
+            List(selection: $selectedInstruction) {
+                ForEach(instructions.instructions) { group in
+                    Section(group.name) {
+                        ForEach(group.instructions) { instruction in
+                            Text(instruction.tool)
+                                .padding(.vertical, 8)
+                                .tag(instruction)
+                        }
+                    }
+                }
+            }
+        } detail: {
+            IntegrationsDetailView(selectedInstruction: $selectedInstruction)
+        }
+        .toolbar {
+            Button(.setupDoneButton) {
+                dismiss()
+            }
+        }
+        .toolbarBackgroundVisibility(.hidden, for: .automatic)
+        .containerBackground(.thinMaterial, for: .window)
+        .onAppear {
+            selectedInstruction = instructions.gettingStarted
+        }
+        .frame(minWidth: 400, minHeight: 400)
+    }
+
+}
+
+struct IntegrationsDetailView: View {
+
+    @Binding private var selectedInstruction: ConfigurationFileInstructions?
+
+    init(selectedInstruction: Binding<ConfigurationFileInstructions?>) {
+        _selectedInstruction = selectedInstruction
+    }
+
+    var body: some View {
+        if let selectedInstruction {
+            switch selectedInstruction.id {
+            case .gettingStarted:
+                GettingStartedView(selectedInstruction: $selectedInstruction)
+                case .tool:
+                    ToolConfigurationView(selectedInstruction: selectedInstruction)
+                case .otherShell:
+                    Form {
+                        Section {
+                            Link(.integrationsViewOtherGithubLink, destination: URL(string: "https://github.com/maxgoedjen/secretive-config-instructions/tree/main/shells")!)
+                        } header: {
+                            Text(.integrationsCommunityShellListDescription)
+                                .font(.body)
+                        }
+                    }
+                    .formStyle(.grouped)
+
+                case .otherApp:
+                    Form {
+                        Section {
+                            Link(.integrationsViewOtherGithubLink, destination: URL(string: "https://github.com/maxgoedjen/secretive-config-instructions/tree/main/apps")!)
+                        } header: {
+                            Text(.integrationsCommunityAppsListDescription)
+                                .font(.body)
+                        }
+                    }
+                    .formStyle(.grouped)
+                }
+        }
+
+    }
+
+}
+
+#Preview {
+    IntegrationsView()
+        .frame(height: 500)
+}

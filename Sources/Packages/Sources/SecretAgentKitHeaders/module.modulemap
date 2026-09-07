@@ -1,4 +1,0 @@
-module SecretAgentKitHeaders [system] {
-    header "include/SecretAgentKit.h"
-    export *
-}
