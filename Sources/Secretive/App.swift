@@ -10,7 +10,7 @@ import SettingsKit
 struct Secretive: App {
 
     @Environment(\.agentLaunchController) var agentLaunchController
-            @Environment(\.justUpdatedChecker) var justUpdatedChecker
+    @Environment(\.justUpdatedChecker) var justUpdatedChecker
 
     @SceneBuilder var body: some Scene {
         WindowGroup {
