@@ -184,6 +184,7 @@ extension SecureEnclave {
             let attributes = try JSONEncoder().encode(attributes)
             let updatedAttributes = KeychainDictionary([
                 kSecAttrLabel: name,
+                kSecAttrService: Constants.keyTag,
                 kSecAttrGeneric: attributes,
             ])
 
