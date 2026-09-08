@@ -3,7 +3,7 @@ import Security
 import CryptoTokenKit
 import CryptoKit
 import SecretKit
-import OSLog
+import os
 
 extension SecureEnclave {
 

@@ -4,7 +4,7 @@ import Security
 import CryptoKit
 import LocalAuthentication
 import SecretKit
-import OSLog
+import os
 
 extension SecureEnclave {
 
@@ -177,14 +177,12 @@ extension SecureEnclave {
         public func update(secret: Secret, name: String, attributes: Attributes) async throws {
             let updateQuery = KeychainDictionary([
                 kSecClass: Constants.keyClass,
-                kSecAttrService: Constants.keyTag,
                 kSecAttrAccount: secret.id,
             ])
 
             let attributes = try JSONEncoder().encode(attributes)
             let updatedAttributes = KeychainDictionary([
                 kSecAttrLabel: name,
-                kSecAttrService: Constants.keyTag,
                 kSecAttrGeneric: attributes,
             ])
 
@@ -296,7 +294,7 @@ extension SecureEnclave.Store {
 
     enum Constants {
         static let keyClass = kSecClassGenericPassword as String
-        static let keyTag = "com.maxgoedjen.secretive.secureenclave.key"
+        static let keyTag = Data("com.maxgoedjen.secretive.secureenclave.key".utf8)
         static let notificationToken = UUID().uuidString
     }
     

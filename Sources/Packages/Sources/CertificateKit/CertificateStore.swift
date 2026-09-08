@@ -1,7 +1,7 @@
 import Foundation
 import Observation
 import Security
-import OSLog
+import os
 import SecretKit
 
 @Observable @MainActor public final class CertificateStore: Sendable {
@@ -67,7 +67,6 @@ import SecretKit
     public func update(certificate: Certificate) throws {
         let updateQuery = KeychainDictionary([
             kSecClass: Constants.keyClass,
-            kSecAttrService: Constants.keyTag,
             kSecAttrAccount: certificate.id,
         ])
 
@@ -135,7 +134,7 @@ extension CertificateStore {
 
     enum Constants {
         static let keyClass = kSecClassGenericPassword as String
-        static let keyTag = "com.maxgoedjen.certificatestore.opensshcertificate"
+        static let keyTag = Data("com.maxgoedjen.certificatestore.opensshcertificate".utf8)
         static let notificationToken = UUID().uuidString
     }
     
