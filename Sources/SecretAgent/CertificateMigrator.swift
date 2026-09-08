@@ -2,7 +2,7 @@ import Foundation
 import Security
 import CryptoTokenKit
 import CryptoKit
-import os
+import OSLog
 import SSHProtocolKit
 import CertificateKit
 import SharedXPCServices
