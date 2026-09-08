@@ -47,7 +47,7 @@ extension SecureEnclave {
                     .contains("DeviceOwnerAuthentication") ? .presenceRequired : .unknown
                 do {
                     let parsed = try CryptoKit.SecureEnclave.P256.Signing.PrivateKey(dataRepresentation: tokenObjectID)
-                    let secret = Secret(id: UUID().uuidString, name: name, publicKey: parsed.publicKey.x963Representation, attributes: Attributes(keyType: .init(algorithm: .ecdsa, size: 256), authentication: auth))
+                    let secret = Secret(id: UUID().uuidString, name: name, publicKey: parsed.publicKey.x963Representation, attributes: Attributes(keyType: .init(algorithm: .ecdsa, size: 256), authentication: auth, restrictions: .default))
                     guard !migratedPublicKeys.contains(parsed.publicKey.x963Representation) else {
                         logger.log("Skipping \(name), public key already present. Marking as migrated.")
                         markMigrated(secret: secret, oldID: id)
