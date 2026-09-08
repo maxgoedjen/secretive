@@ -67,6 +67,7 @@ import SecretKit
     public func update(certificate: Certificate) throws {
         let updateQuery = KeychainDictionary([
             kSecClass: Constants.keyClass,
+            kSecAttrService: Constants.keyTag,
             kSecAttrAccount: certificate.id,
         ])
 
@@ -134,7 +135,7 @@ extension CertificateStore {
 
     enum Constants {
         static let keyClass = kSecClassGenericPassword as String
-        static let keyTag = Data("com.maxgoedjen.certificatestore.opensshcertificate".utf8)
+        static let keyTag = "com.maxgoedjen.certificatestore.opensshcertificate"
         static let notificationToken = UUID().uuidString
     }
     
