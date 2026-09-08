@@ -12579,9 +12579,6 @@
       },
       "shouldTranslate" : false
     },
-    "Hello" : {
-
-    },
     "Host *\n\tIdentityAgent %@" : {
       "localizations" : {
         "af" : {
