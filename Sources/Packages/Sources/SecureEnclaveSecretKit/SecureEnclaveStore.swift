@@ -4,7 +4,7 @@ import Security
 import CryptoKit
 import LocalAuthentication
 import SecretKit
-import os
+import OSLog
 
 extension SecureEnclave {
 

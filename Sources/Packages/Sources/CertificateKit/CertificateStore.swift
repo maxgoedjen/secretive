@@ -1,7 +1,7 @@
 import Foundation
 import Observation
 import Security
-import os
+import OSLog
 import SecretKit
 
 @Observable @MainActor public final class CertificateStore: Sendable {

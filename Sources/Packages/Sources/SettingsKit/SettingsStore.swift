@@ -1,21 +1,14 @@
 import Foundation
 import Observation
 import Security
-
-// FIXME: DEDUP
-private func KeychainDictionary(_ dictionary: [CFString: Any]) -> CFDictionary {
-    dictionary as CFDictionary
-}
-
+import OSLog
 
 // Setting store backed by macOS keychain for stronger guarantees around ownership/other-process-modification than UserDefaults offers.
 @Observable @MainActor public final class SettingsStore: Sendable {
 
+    private let logger = Logger(subsystem: "com.maxgoedjen.secretive.settings", category: "SettingsStore")
+
     public init() {
-        let old = self[RequireDestinationInformationSettingsKey.self]
-        let oldTwo = self[SomeStringSettingsKey.self]
-        print(old, oldTwo)
-        self[SomeStringSettingsKey.self] = UUID().uuidString
     }
 
     subscript<SettingsKeyType: SettingsKey>(_ key: SettingsKeyType.Type) -> SettingsKeyType.Value {
@@ -37,37 +30,38 @@ private func KeychainDictionary(_ dictionary: [CFString: Any]) -> CFDictionary {
             return (try? decoder.decode(SettingValue<SettingsKeyType.Value>.self, from: data).value) ?? SettingsKeyType.defaultValue
         }
         set {
-            guard let data = try? JSONEncoder().encode(SettingValue(value: newValue)) else { return }
-            let keychainAttributes = KeychainDictionary([
-                kSecClass: Constants.keyClass,
-                kSecAttrService: Constants.keyTag,
-                kSecAttrAccount: String(describing: SettingsKeyType.self),
-                kSecUseDataProtectionKeychain: true,
-                kSecAttrAccessible: kSecAttrAccessibleWhenUnlockedThisDeviceOnly,
-                kSecValueData: data,
-            ])
-            let status = SecItemAdd(keychainAttributes, nil)
-            switch status {
-            case errSecSuccess:
-                break
-            case errSecDuplicateItem:
-                let updateQuery = KeychainDictionary([
+            do {
+                let data = try JSONEncoder().encode(SettingValue(value: newValue))
+                let keychainAttributes = KeychainDictionary([
                     kSecClass: Constants.keyClass,
                     kSecAttrService: Constants.keyTag,
                     kSecAttrAccount: String(describing: SettingsKeyType.self),
-                ])
-                let updatedAttributes = KeychainDictionary([
+                    kSecUseDataProtectionKeychain: true,
+                    kSecAttrAccessible: kSecAttrAccessibleWhenUnlockedThisDeviceOnly,
                     kSecValueData: data,
                 ])
-                let status = SecItemUpdate(updateQuery, updatedAttributes)
-                if status != errSecSuccess {
-                    fatalError()
+                let status = SecItemAdd(keychainAttributes, nil)
+                switch status {
+                case errSecSuccess:
+                    break
+                case errSecDuplicateItem:
+                    let updateQuery = KeychainDictionary([
+                        kSecClass: Constants.keyClass,
+                        kSecAttrService: Constants.keyTag,
+                        kSecAttrAccount: String(describing: SettingsKeyType.self),
+                    ])
+                    let updatedAttributes = KeychainDictionary([
+                        kSecValueData: data,
+                    ])
+                    let status = SecItemUpdate(updateQuery, updatedAttributes)
+                    if status != errSecSuccess {
+                        throw KeychainError(statusCode: status)
+                    }
+                default:
+                    throw KeychainError(statusCode: status)
                 }
-                break
-            default:
-                // FIXME: THIS
-                fatalError()
-//                throw KeychainError(statusCode: status)
+            } catch {
+                logger.error("Error updating key: \(String(describing: SettingsKeyType.self), privacy: .public): \(error.localizedDescription.debugDescription, privacy: .public)")
             }
         }
     }
@@ -82,14 +76,6 @@ extension SettingsStore {
         static var defaultValue: Value { get }
     }
 
-    struct RequireDestinationInformationSettingsKey: SettingsKey {
-        static let defaultValue: Bool = true
-    }
-
-    struct SomeStringSettingsKey: SettingsKey {
-        static let defaultValue: String = "hello"
-    }
-
 }
 
 extension SettingsStore {
@@ -99,6 +85,20 @@ extension SettingsStore {
     }
 
 }
+
+
+extension SettingsStore {
+
+    fileprivate struct KeychainError: Error {
+        let statusCode: OSStatus?
+    }
+
+}
+
+fileprivate func KeychainDictionary(_ dictionary: [CFString: Any]) -> CFDictionary {
+    dictionary as CFDictionary
+}
+
 
 extension SettingsStore {
 
