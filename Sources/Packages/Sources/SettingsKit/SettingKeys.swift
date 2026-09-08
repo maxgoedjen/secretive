@@ -7,12 +7,8 @@ struct RequireDestinationInformationSettingsKey: SettingsStore.SettingsKey {
 extension SettingsStore {
 
     public var requireDestinationInformation: Bool {
-        get {
-            self[RequireDestinationInformationSettingsKey.self]
-        }
-        set {
-            self[RequireDestinationInformationSettingsKey.self] = newValue
-        }
+        get { self[RequireDestinationInformationSettingsKey.self] }
+        set { self[RequireDestinationInformationSettingsKey.self] = newValue }
     }
 
 }
