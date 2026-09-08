@@ -1,7 +1,14 @@
 import SwiftUI
+import SettingsKit
 
 struct SettingsView: View {
+
+    @Environment(\.settingsStore) var settingsStore
+
     var body: some View {
-        Text("Hello")
+        Form {
+        }
+        .padding()
+        .frame(minWidth: 480, minHeight: 320)
     }
 }

@@ -11,8 +11,11 @@ import OSLog
     public init() {
     }
 
+    private var state: [ObjectIdentifier: UUID] = [:]
+
     subscript<SettingsKeyType: SettingsKey>(_ key: SettingsKeyType.Type) -> SettingsKeyType.Value {
         get {
+            _ = state[ObjectIdentifier(key)]
             let queryAttributes = KeychainDictionary([
                 kSecClass: Constants.keyClass,
                 kSecAttrService: Constants.keyTag,
@@ -60,6 +63,7 @@ import OSLog
                 default:
                     throw KeychainError(statusCode: status)
                 }
+                state[ObjectIdentifier(key)] = UUID()
             } catch {
                 logger.error("Error updating key: \(String(describing: SettingsKeyType.self), privacy: .public): \(error.localizedDescription.debugDescription, privacy: .public)")
             }

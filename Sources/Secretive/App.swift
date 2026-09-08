@@ -44,6 +44,9 @@ struct Secretive: App {
         }
         .windowStyle(.hiddenTitleBar)
         .windowResizability(.contentSize)
+        Settings {
+            SettingsView()
+        }
     }
 
 }
@@ -81,9 +84,6 @@ extension Secretive {
             }
             SidebarCommands()
         }
-//        Settings {
-//            SettingsView()
-//        }
     }
 
 }
