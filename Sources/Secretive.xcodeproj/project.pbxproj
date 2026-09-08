@@ -25,6 +25,8 @@
 		50153E20250AFCB200525160 /* UpdateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50153E1F250AFCB200525160 /* UpdateView.swift */; };
 		50153E22250DECA300525160 /* SecretListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50153E21250DECA300525160 /* SecretListItemView.swift */; };
 		501578132E6C0479004A37D0 /* XPCInputParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501578122E6C0479004A37D0 /* XPCInputParser.swift */; };
+		5018D826304F6F1600F1FEE8 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5018D825304F6F1600F1FEE8 /* SettingsView.swift */; };
+		5018D828304F6F4200F1FEE8 /* SettingsKit in Frameworks */ = {isa = PBXBuildFile; productRef = 5018D827304F6F4200F1FEE8 /* SettingsKit */; };
 		5018F54F24064786002EB505 /* Notifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5018F54E24064786002EB505 /* Notifier.swift */; };
 		504788F22E681F3A00B4556F /* Instructions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504788F12E681F3A00B4556F /* Instructions.swift */; };
 		504788F42E681F6900B4556F /* ToolConfigurationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504788F32E681F6900B4556F /* ToolConfigurationView.swift */; };
@@ -236,6 +238,7 @@
 		50153E1F250AFCB200525160 /* UpdateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateView.swift; sourceTree = "<group>"; };
 		50153E21250DECA300525160 /* SecretListItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecretListItemView.swift; sourceTree = "<group>"; };
 		501578122E6C0479004A37D0 /* XPCInputParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XPCInputParser.swift; sourceTree = "<group>"; };
+		5018D825304F6F1600F1FEE8 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		5018F54E24064786002EB505 /* Notifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifier.swift; sourceTree = "<group>"; };
 		504788F12E681F3A00B4556F /* Instructions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Instructions.swift; sourceTree = "<group>"; };
 		504788F32E681F6900B4556F /* ToolConfigurationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolConfigurationView.swift; sourceTree = "<group>"; };
@@ -322,6 +325,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				50E0145C2EDB9CDF00B121F1 /* Common in Frameworks */,
+				5018D828304F6F4200F1FEE8 /* SettingsKit in Frameworks */,
 				50E2058A2FAC2EB600402380 /* Formatters in Frameworks */,
 				5003EF3B278005E800DF2006 /* SecretKit in Frameworks */,
 				501421622781262300BBAA70 /* Brief in Frameworks */,
@@ -404,6 +408,7 @@
 				50153E21250DECA300525160 /* SecretListItemView.swift */,
 				50E204EC2FAA997F00402380 /* CertificateListItemView.swift */,
 				5079BA0E250F29BF00EA86F4 /* StoreListView.swift */,
+				5018D825304F6F1600F1FEE8 /* SettingsView.swift */,
 			);
 			path = Secrets;
 			sourceTree = "<group>";
@@ -653,6 +658,7 @@
 				505F5EF12FA9635700C45824 /* CertificateKit */,
 				50E205832FAB296A00402380 /* SharedXPCServices */,
 				50E205892FAC2EB600402380 /* Formatters */,
+				5018D827304F6F4200F1FEE8 /* SettingsKit */,
 			);
 			productName = Secretive;
 			productReference = 50617D7F23FCE48E0099B055 /* Secretive.app */;
@@ -772,7 +778,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
 				LastSwiftUpdateCheck = 2700;
-				LastUpgradeCheck = 2640;
+				LastUpgradeCheck = 2700;
 				ORGANIZATIONNAME = "Max Goedjen";
 				TargetAttributes = {
 					5054028C3034B5E3000C3356 = {
@@ -916,6 +922,7 @@
 				508A58B3241ED2180069DC07 /* AgentStatusChecker.swift in Sources */,
 				50C385A52407A76D00AF2719 /* SecretDetailView.swift in Sources */,
 				5099A02423FD2AAA0062B6F2 /* CreateSecretView.swift in Sources */,
+				5018D826304F6F1600F1FEE8 /* SettingsView.swift in Sources */,
 				50AE97002E5C1A420018C710 /* IntegrationsView.swift in Sources */,
 				50153E20250AFCB200525160 /* UpdateView.swift in Sources */,
 				5066A6C82516FE6E004B5A36 /* CopyableView.swift in Sources */,
@@ -2091,6 +2098,10 @@
 		5018D823304F560100F1FEE8 /* Brief */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = Brief;
+		};
+		5018D827304F6F4200F1FEE8 /* SettingsKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = SettingsKit;
 		};
 		505402A63034B7A4000C3356 /* XPCWrappers */ = {
 			isa = XCSwiftPackageProductDependency;

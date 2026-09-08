@@ -23,6 +23,9 @@ let package = Package(
             name: "CertificateKit",
             targets: ["CertificateKit"]),
         .library(
+            name: "SettingsKit",
+            targets: ["SettingsKit"]),
+        .library(
             name: "SecretAgentKit",
             targets: ["SecretAgentKit"]),
         .library(
@@ -73,6 +76,12 @@ let package = Package(
         .target(
             name: "CertificateKit",
             dependencies: ["SecretKit", "Formatters"],
+            resources: [localization],
+            swiftSettings: swiftSettings,
+        ),
+        .target(
+            name: "SettingsKit",
+            dependencies: [],
             resources: [localization],
             swiftSettings: swiftSettings,
         ),
