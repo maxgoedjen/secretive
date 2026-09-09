@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2C4A9D2F2636FFD3008CC8E2 /* EditSecretView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4A9D2E2636FFD3008CC8E2 /* EditSecretView.swift */; };
-		50020BB024064869003D4025 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50020BAF24064869003D4025 /* AppDelegate.swift */; };
+		50020BB024064869003D4025 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50020BAF24064869003D4025 /* App.swift */; };
 		5002C3AB2EEF483300FFAD22 /* XPCWrappers in Frameworks */ = {isa = PBXBuildFile; productRef = 5002C3AA2EEF483300FFAD22 /* XPCWrappers */; };
 		5003EF3B278005E800DF2006 /* SecretKit in Frameworks */ = {isa = PBXBuildFile; productRef = 5003EF3A278005E800DF2006 /* SecretKit */; };
 		5003EF3D278005F300DF2006 /* Brief in Frameworks */ = {isa = PBXBuildFile; productRef = 5003EF3C278005F300DF2006 /* Brief */; };
@@ -28,6 +28,7 @@
 		5018D826304F6F1600F1FEE8 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5018D825304F6F1600F1FEE8 /* SettingsView.swift */; };
 		5018D828304F6F4200F1FEE8 /* SettingsKit in Frameworks */ = {isa = PBXBuildFile; productRef = 5018D827304F6F4200F1FEE8 /* SettingsKit */; };
 		5018F54F24064786002EB505 /* Notifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5018F54E24064786002EB505 /* Notifier.swift */; };
+		503647482F870B7800977A23 /* BatchedRequestsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 503647472F870B7800977A23 /* BatchedRequestsView.swift */; };
 		504788F22E681F3A00B4556F /* Instructions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504788F12E681F3A00B4556F /* Instructions.swift */; };
 		504788F42E681F6900B4556F /* ToolConfigurationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504788F32E681F6900B4556F /* ToolConfigurationView.swift */; };
 		504788F62E68206F00B4556F /* GettingStartedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504788F52E68206F00B4556F /* GettingStartedView.swift */; };
@@ -82,7 +83,6 @@
 		50E0145E2EDB9CE400B121F1 /* Common in Frameworks */ = {isa = PBXBuildFile; productRef = 50E0145D2EDB9CE400B121F1 /* Common */; };
 		50E204E92FA9D12700402380 /* CertificateDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E204E82FA9D12700402380 /* CertificateDetailView.swift */; };
 		50E204ED2FAA997F00402380 /* CertificateListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E204EC2FAA997F00402380 /* CertificateListItemView.swift */; };
-		50E204EF2FAA9C1400402380 /* MultilineInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E204EE2FAA9C1400402380 /* MultilineInfoView.swift */; };
 		50E2051D2FAAB81C00402380 /* SecretiveCertificateParser.xpc in Embed XPC Services */ = {isa = PBXBuildFile; fileRef = 50E205142FAAB81C00402380 /* SecretiveCertificateParser.xpc */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		50E205282FAAB82700402380 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E205242FAAB82700402380 /* main.swift */; };
 		50E2052C2FAAB85000402380 /* SecretiveCertificateParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E2052B2FAAB85000402380 /* SecretiveCertificateParser.swift */; };
@@ -230,7 +230,7 @@
 
 /* Begin PBXFileReference section */
 		2C4A9D2E2636FFD3008CC8E2 /* EditSecretView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditSecretView.swift; sourceTree = "<group>"; };
-		50020BAF24064869003D4025 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		50020BAF24064869003D4025 /* App.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		5003EF39278005C800DF2006 /* Packages */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Packages; sourceTree = "<group>"; };
 		500666D02F04786900328939 /* SecretiveUpdater.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SecretiveUpdater.entitlements; sourceTree = "<group>"; };
 		500666D12F04787200328939 /* SecretAgentInputParser.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SecretAgentInputParser.entitlements; sourceTree = "<group>"; };
@@ -240,6 +240,7 @@
 		501578122E6C0479004A37D0 /* XPCInputParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XPCInputParser.swift; sourceTree = "<group>"; };
 		5018D825304F6F1600F1FEE8 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		5018F54E24064786002EB505 /* Notifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifier.swift; sourceTree = "<group>"; };
+		503647472F870B7800977A23 /* BatchedRequestsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatchedRequestsView.swift; sourceTree = "<group>"; };
 		504788F12E681F3A00B4556F /* Instructions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Instructions.swift; sourceTree = "<group>"; };
 		504788F32E681F6900B4556F /* ToolConfigurationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolConfigurationView.swift; sourceTree = "<group>"; };
 		504788F52E68206F00B4556F /* GettingStartedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GettingStartedView.swift; sourceTree = "<group>"; };
@@ -296,7 +297,6 @@
 		50CF4ABB2E601B0F005588DC /* ActionButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionButtonStyle.swift; sourceTree = "<group>"; };
 		50E204E82FA9D12700402380 /* CertificateDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificateDetailView.swift; sourceTree = "<group>"; };
 		50E204EC2FAA997F00402380 /* CertificateListItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificateListItemView.swift; sourceTree = "<group>"; };
-		50E204EE2FAA9C1400402380 /* MultilineInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultilineInfoView.swift; sourceTree = "<group>"; };
 		50E205142FAAB81C00402380 /* SecretiveCertificateParser.xpc */ = {isa = PBXFileReference; explicitFileType = "wrapper.xpc-service"; includeInIndex = 0; path = SecretiveCertificateParser.xpc; sourceTree = BUILT_PRODUCTS_DIR; };
 		50E205232FAAB82700402380 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		50E205242FAAB82700402380 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
@@ -433,7 +433,6 @@
 				50BDCB712E63BAF20072D2E7 /* AgentStatusView.swift */,
 				50617D8423FCE48E0099B055 /* ContentView.swift */,
 				5066A6C72516FE6E004B5A36 /* CopyableView.swift */,
-				50E204EE2FAA9C1400402380 /* MultilineInfoView.swift */,
 				50153E1F250AFCB200525160 /* UpdateView.swift */,
 			);
 			path = Views;
@@ -570,9 +569,10 @@
 		50A3B78B24026B7500D209EA /* SecretAgent */ = {
 			isa = PBXGroup;
 			children = (
-				50020BAF24064869003D4025 /* AppDelegate.swift */,
+				50020BAF24064869003D4025 /* App.swift */,
 				5018F54E24064786002EB505 /* Notifier.swift */,
 				501578122E6C0479004A37D0 /* XPCInputParser.swift */,
+				503647472F870B7800977A23 /* BatchedRequestsView.swift */,
 				505402A93034B80E000C3356 /* XPCHostsfileReader.swift */,
 				50E2057F2FAB291E00402380 /* CertificateMigrator.swift */,
 				50A3B79524026B7600D209EA /* Main.storyboard */,
@@ -908,7 +908,6 @@
 				50E204E92FA9D12700402380 /* CertificateDetailView.swift in Sources */,
 				5091D2BC25183B830049FD9B /* ApplicationDirectoryController.swift in Sources */,
 				504789232E697DD300B4556F /* BoxBackgroundStyle.swift in Sources */,
-				50E204EF2FAA9C1400402380 /* MultilineInfoView.swift in Sources */,
 				5066A6C22516F303004B5A36 /* SetupView.swift in Sources */,
 				5065E313295517C500E16645 /* ToolbarButtonStyle.swift in Sources */,
 				50617D8523FCE48E0099B055 /* ContentView.swift in Sources */,
@@ -963,8 +962,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				50E205802FAB291E00402380 /* CertificateMigrator.swift in Sources */,
-				50020BB024064869003D4025 /* AppDelegate.swift in Sources */,
+				50020BB024064869003D4025 /* App.swift in Sources */,
 				5018F54F24064786002EB505 /* Notifier.swift in Sources */,
+				503647482F870B7800977A23 /* BatchedRequestsView.swift in Sources */,
 				501578132E6C0479004A37D0 /* XPCInputParser.swift in Sources */,
 				505402AA3034B80E000C3356 /* XPCHostsfileReader.swift in Sources */,
 			);

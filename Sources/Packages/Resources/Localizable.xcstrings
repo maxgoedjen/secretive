@@ -365,6 +365,16 @@
       },
       "shouldTranslate" : false
     },
+    "%@ - %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$@ - %2$@"
+          }
+        }
+      }
+    },
     "about_build_log_button" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -5358,6 +5368,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "拒絕"
+          }
+        }
+      }
+    },
+    "auth_context_request_multiple" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "sign multiple requests from “%1$(appName)@” using secret “%2$(secretName)@”"
           }
         }
       }
@@ -19290,6 +19311,9 @@
         }
       }
     },
+    "Multiple authenticated requests are pending. You can approve them batches, or request they all proceed individually." : {
+
+    },
     "no_secure_storage_description" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -20435,6 +20459,12 @@
           }
         }
       }
+    },
+    "Review" : {
+
+    },
+    "Review All" : {
+
     },
     "secret_detail_certificate_path_label" : {
       "extractionState" : "manual",

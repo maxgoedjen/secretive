@@ -39,7 +39,7 @@ public struct SocketController {
         Task { @MainActor [fileHandle, sessionsContinuation, logger] in
             // Create the sequence before triggering the notification to
             // ensure it will not be missed.
-            let connectionAcceptedNotifications = NotificationCenter.default.notifications(named: .NSFileHandleConnectionAccepted)
+            let connectionAcceptedNotifications = NotificationCenter.default.notifications(named: .NSFileHandleConnectionAccepted, object: fileHandle)
 
             fileHandle.acceptConnectionInBackgroundAndNotify()
 

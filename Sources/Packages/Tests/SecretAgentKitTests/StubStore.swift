@@ -2,6 +2,7 @@ import Foundation
 import SecretKit
 import CryptoKit
 import SSHProtocolKit
+import LocalAuthentication
 
 struct Stub {}
 
@@ -49,19 +50,12 @@ extension Stub {
             print("Public Key OpenSSH: \(OpenSSHPublicKeyWriter().openSSHString(secret: secret))")
         }
 
-        public func sign(data: Data, with secret: Secret, for provenance: SigningRequestProvenance, target: SigningRequestTarget?) throws -> Data {
+        public func sign(data: Data, with secret: Secret, for provenance: SigningRequestProvenance, target: SigningRequestTarget?, context: LAContext?) throws -> Data {
             guard !shouldThrow else {
                 throw NSError(domain: "test", code: 0, userInfo: nil)
             }
             let privateKey = try CryptoKit.P256.Signing.PrivateKey(x963Representation: secret.privateKey)
             return try privateKey.signature(for: data).rawRepresentation
-        }
-
-        public func existingPersistedAuthenticationContext(secret: Stub.Secret) -> PersistedAuthenticationContext? {
-            nil
-        }
-
-        public func persistAuthentication(secret: Stub.Secret, forDuration duration: TimeInterval) throws {
         }
 
         public func reloadSecrets() {

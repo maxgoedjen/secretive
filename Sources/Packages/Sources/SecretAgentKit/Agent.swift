@@ -10,6 +10,7 @@ import SSHProtocolKit
 public final class Agent: Sendable {
 
     private let storeList: SecretStoreList
+    private let authenticationHandler: AuthenticationHandler
     private let certificateStore: CertificateStore
     private let witness: SigningWitness?
     private let publicKeyWriter = OpenSSHPublicKeyWriter()
@@ -22,10 +23,16 @@ public final class Agent: Sendable {
     /// - Parameters:
     ///   - storeList: The `SecretStoreList` to make available.
     ///   - witness: A witness to notify of requests.
-    public init(storeList: SecretStoreList, certificateStore: CertificateStore, witness: SigningWitness? = nil) {
+    public init(
+        storeList: SecretStoreList,
+        certificateStore: CertificateStore,
+        authenticationHandler: AuthenticationHandler,
+        witness: SigningWitness? = nil
+    ) {
         logger.debug("Agent is running")
         self.storeList = storeList
         self.certificateStore = certificateStore
+        self.authenticationHandler = authenticationHandler
         self.witness = witness
     }
     
@@ -151,17 +158,38 @@ extension Agent {
             logger.debug("Agent did not have a key matching \(keyBlobHex)")
             throw NoMatchingKeyError()
         }
+        logger.debug("Agent offering witness chance to object")
+        do {
+            try await witness?.speakNowOrForeverHoldYourPeace(forAccessTo: secret, from: store, by: provenance, target: target)
+        } catch {
+            logger.debug("Witness objected")
+            throw error
+        }
+        logger.debug("Witness did not object")
 
+        if secret.authenticationRequirement.required {
+            // Slow path, may block or suggest batching.
+            return try await signWithRequiredAuthentication(data: data, store: store, secret: secret, provenance: provenance, target: target)
+        } else {
+            // Fast path, no blocking/enqueing required
+            return try await signWithoutRequiredAuthentication(data: data, store: store, secret: secret, provenance: provenance, target: target)
+        }
+    }
 
-        try await witness?.speakNowOrForeverHoldYourPeace(forAccessTo: secret, from: store, by: provenance, target: target)
-
-        let rawRepresentation = try await store.sign(data: data, with: secret, for: provenance, target: target)
+    func signWithoutRequiredAuthentication(data: Data, store: AnySecretStore, secret: AnySecret, provenance: SigningRequestProvenance, target: SigningRequestTarget?) async throws -> Data {
+        let rawRepresentation = try await store.sign(data: data, with: secret, for: provenance, target: target, context: nil)
         let signedData = signatureWriter.data(secret: secret, signature: rawRepresentation)
-
-        try await witness?.witness(accessTo: secret, from: store, by: provenance, target: target)
-
+        try await witness?.witness(accessTo: secret, from: store, by: provenance, target: target, offerPersistence: false)
         logger.debug("Agent signed request")
+        return signedData
+    }
 
+    func signWithRequiredAuthentication(data: Data, store: AnySecretStore, secret: AnySecret, provenance: SigningRequestProvenance, target: SigningRequestTarget?) async throws -> Data {
+        let context = try await authenticationHandler.waitForAuthentication(for: SignatureRequest(secret: secret, provenance: provenance))
+        let result = try await store.sign(data: data, with: secret, for: provenance, target: target, context: context.laContext)
+        let signedData = signatureWriter.data(secret: secret, signature: result)
+        try await witness?.witness(accessTo: secret, from: store, by: provenance, target: target, offerPersistence: false) // FIXME: THIS
+        logger.debug("Agent signed request")
         return signedData
     }
 

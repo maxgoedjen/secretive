@@ -17,7 +17,6 @@ extension SecureEnclave {
         }
         public let id = UUID()
         public let name = String(localized: .secureEnclave)
-        private let persistentAuthenticationHandler = PersistentAuthenticationHandler<Secret>()
 
         /// Initializes a Store.
         @MainActor public init() {
@@ -37,24 +36,7 @@ extension SecureEnclave {
         
         // MARK: SecretStore
         
-        public func sign(data: Data, with secret: Secret, for provenance: SigningRequestProvenance, target: SigningRequestTarget?) async throws -> Data {
-            var context: LAContext
-            if let existing = await persistentAuthenticationHandler.existingPersistedAuthenticationContext(secret: secret) {
-                context = unsafe existing.context
-            } else {
-                let newContext = LAContext()
-                switch target {
-                case .connection(let payload) where payload.host != nil:
-                    newContext.localizedReason = String(localized: .authContextRequestSignatureForConnectionDescription(appName: provenance.origin.displayName, targetName: payload.host!, secretName: secret.name))
-                case .signature(let payload):
-                    newContext.localizedReason = String(localized: .authContextRequestSignatureForSignatureDescription(namespace: payload.namespace, appName: provenance.origin.displayName, secretName: secret.name))
-                default:
-                    newContext.localizedReason = String(localized: .authContextRequestSignatureDescription(appName: provenance.origin.displayName, secretName: secret.name))
-                }
-                newContext.localizedCancelTitle = String(localized: .authContextRequestDenyButton)
-                context = newContext
-            }
-
+        public func sign(data: Data, with secret: Secret, for provenance: SigningRequestProvenance, target: SigningRequestTarget?, context: LAContext?) async throws -> Data {
             let queryAttributes = KeychainDictionary([
                 kSecClass: Constants.keyClass,
                 kSecAttrService: Constants.keyTag,
@@ -93,14 +75,6 @@ extension SecureEnclave {
                 throw UnsupportedAlgorithmError()
             }
 
-        }
-
-        public func existingPersistedAuthenticationContext(secret: Secret) async -> PersistedAuthenticationContext? {
-            await persistentAuthenticationHandler.existingPersistedAuthenticationContext(secret: secret)
-        }
-
-        public func persistAuthentication(secret: Secret, forDuration duration: TimeInterval) async throws {
-            try await persistentAuthenticationHandler.persistAuthentication(secret: secret, forDuration: duration)
         }
 
         @MainActor public func reloadSecrets() {

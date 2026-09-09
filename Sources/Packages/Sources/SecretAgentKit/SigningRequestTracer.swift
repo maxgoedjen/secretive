@@ -44,6 +44,13 @@ extension SigningRequestTracer {
 
         let pathPointer = UnsafeMutablePointer<UInt8>.allocate(capacity: Int(MAXPATHLEN))
         _ = unsafe proc_pidpath(pid, pathPointer, UInt32(MAXPATHLEN))
+
+//        let bufferLength = proc_pidinfo(pid, PROC_PIDLISTFDS, 0, nil, 0)
+        let x = UnsafeMutablePointer<UInt64>.allocate(capacity: Int(MAXPATHLEN))
+        _ = unsafe proc_pidinfo(pid, PROC_PIDLISTFDS, 0, x, Int32(MAXPATHLEN))
+        let buffer = unsafe UnsafeBufferPointer(start: x, count: Int(MAXPATHLEN)/64)
+        unsafe print(buffer)
+
         let path = unsafe String(cString: pathPointer)
         var secCode: Unmanaged<SecCode>!
         let flags: SecCSFlags = [.considerExpiration, .enforceRevocationChecks]
@@ -79,10 +86,6 @@ extension SigningRequestTracer {
     }
 
 }
-
-// from libproc.h
-@_silgen_name("proc_pidpath")
-@discardableResult func proc_pidpath(_ pid: Int32, _ buffer: UnsafeMutableRawPointer!, _ buffersize: UInt32) -> Int32
 
 //// from SecTask.h
 @_silgen_name("SecCodeCreateWithPID")
