@@ -3,17 +3,6 @@ import UniformTypeIdentifiers
 
 public struct MultilineInfoView<TitleView: View, ItemView: View>: View {
 
-//    public struct Item {
-//        public let text: String
-//        public let action: (Image, () -> Void)?
-//
-//        public init(text: String, action: (Image, () -> Void)?) {
-//            self.text = text
-//            self.action = action
-//        }
-//
-//    }
-
     var titleView: TitleView
     var items: ItemView
 
@@ -22,40 +11,20 @@ public struct MultilineInfoView<TitleView: View, ItemView: View>: View {
         self.items = items()
     }
 
-//    public init(title: LocalizedStringResource, subtitle: LocalizedStringResource, image: Image, items: [String]) where ItemView == Text {
-//        self.init {
-//            HStack {
-//                image
-//                    .renderingMode(.template)
-////                    .imageScale(.large)
-//                    .foregroundColor(primaryTextColor)
-//                Text(title)
-//                    .font(.headline)
-//                    .foregroundColor(primaryTextColor)
-//                Spacer()
-//            }
-//        } items: {
-//            [Text("Hello")]
-//        }
-//
-////        self.init {
-////        } items: {
-////            ForEach(items) { item in
-////                return HStack {
-////                    Text(item)
-////                    Spacer()
-////                    //                if let (image, _) = $0.1 {
-////                    //                    image
-////                    //                        .foregroundStyle(.secondary)
-////                    //                }
-////                }
-////            }
-////        }
-//
-//    }
-
-    @State private var interactionState: InteractionState = .normal
-    @State private var interactionStateIndex: Int?
+    public init(title: LocalizedStringResource, subtitle: LocalizedStringResource? = nil, image: Image, items: [String]) where TitleView == FixedTitleView, ItemView == FixedItemsView {
+        self.init {
+            FixedTitleView(title: title, subtitle: subtitle, image: image)
+        } items: {
+            FixedItemsView(items: items)
+        }
+    }
+    public init(title: LocalizedStringResource, subtitle: LocalizedStringResource? = nil, image: Image, @ContentBuilder items: () -> ItemView) where TitleView == FixedTitleView {
+        self.init {
+            FixedTitleView(title: title, subtitle: subtitle, image: image)
+        } items: {
+            items()
+        }
+    }
 
     public var body: some View {
         VStack(alignment: .leading, spacing: 0) {
@@ -67,72 +36,95 @@ public struct MultilineInfoView<TitleView: View, ItemView: View>: View {
                     Divider()
                         .ignoresSafeArea()
                         .opacity(subview.id == subviews.first?.id ? 1 : 0.5)
-                    subview
-                        .safeAreaPadding(20)
-                        .onHover { hovering in
-                            withAnimation {
-//                                guard item.element.action != nil else { return }
-                                interactionState = hovering ? .hovering : .normal
-//                                interactionStateIndex = item.offset
-                            }
-                        }
-                        .gesture(
-                            TapGesture()
-                                .onEnded {
-//                                    item.element.action?.1()
-                                    withAnimation {
-                                        interactionState = .normal
-                                        interactionStateIndex = nil
-                                    }
-                                }
-                        )
+                    HoveringSubview {
+                        subview
+                    }
                 }
             }
-
-//            ForEach(Array(items.enumerated()), id: \.offset) { item in
-//                Divider()
-//                    .ignoresSafeArea()
-//                    .opacity(item.offset == 0 ? 1 : 0.75)
-//                items.element
-//                .safeAreaPadding(20)
-//                .onHover { hovering in
-//                    withAnimation {
-//                        guard item.element.action != nil else { return }
-//                        interactionState = hovering ? .hovering : .normal
-//                        interactionStateIndex = item.offset
-//                    }
-//                }
-//                .gesture(
-//                    TapGesture()
-//                        .onEnded {
-//                            item.element.action?.1()
-//                            withAnimation {
-//                                interactionState = .normal
-//                                interactionStateIndex = nil
-//                            }
-//                        }
-//                )
-//
-//            }
         }
         ._background(interactionState: .normal)
         .frame(minWidth: 150, maxWidth: .infinity)
     }
 
-    var primaryTextColor: Color {
-        switch interactionState {
-        case .normal, .hovering:
-            return Color(.textColor)
-        }
+}
+
+struct HoveringSubview<Content: View>: View {
+
+    @State private var multilineAction: MultilineItemActionKey.Box?
+    private let content: Content
+    @State private var interactionState: InteractionState = .normal
+
+    init(@ViewBuilder _ content: () -> Content) {
+        self.multilineAction = nil
+        self.content = content()
     }
 
-    var secondaryTextColor: Color {
-        switch interactionState {
-        case .normal, .hovering:
-            return Color(.secondaryLabelColor)
+    var body: some View {
+        HStack {
+            content
+            Spacer()
+            if let image = multilineAction?.image {
+                image
+            }
         }
+            .safeAreaPadding(20)
+            .onHover { hovering in
+                withAnimation {
+                    guard multilineAction != nil else { return }
+                    interactionState = hovering ? .hovering : .normal
+                }
+            }
+            .gesture(
+                TapGesture()
+                    .onEnded {
+                        multilineAction?.closure()
+                        withAnimation {
+                            interactionState = .normal
+                        }
+                    }
+            )
+            .backgroundStyle(.primary.opacity(interactionState == .hovering ? 0.3 : 0))
+            .onPreferenceChange(MultilineItemActionKey.self) {
+                multilineAction = $0
+            }
     }
 
+}
+
+
+public struct FixedTitleView: View {
+    let title: LocalizedStringResource
+    let subtitle: LocalizedStringResource?
+    let image: Image
+
+    public var body: some View {
+        HStack {
+            image
+                .renderingMode(.template)
+                                .imageScale(.large)
+            VStack(alignment: .leading) {
+                Text(title)
+                    .font(.headline)
+                if let subtitle {
+                    Text(subtitle)
+                        .font(.subheadline)
+                }
+            }
+            Spacer()
+        }
+
+    }
+}
+
+public struct FixedItemsView: View {
+
+    let items: [String]
+
+    public var body: some View {
+        ForEach(Array(items.enumerated()), id: \.offset) {
+            Text($0.element)
+        }
+    }
 }
 
 fileprivate enum InteractionState {
@@ -197,23 +189,68 @@ fileprivate struct BackgroundViewModifier: ViewModifier {
     
 }
 
-//#Preview {
-//    MultilineInfoView(title: "Multiple", image: Image(systemName: "figure.wave"), items: [
-//        MultilineInfoView.Item(text: "hello", action: (Image(systemName: "chevron.forward"), {})),
-//        MultilineInfoView.Item(text: "World", action: (Image(systemName: "chevron.forward"), {})),
-//    ])
-//    .padding()
-//}
-//
-//
+public struct MultilineItemAction: ViewModifier {
+
+    let image: Image?
+    let action: () -> Void
+
+    public init(image: Image?, action: @escaping () -> Void) {
+        self.image = image
+        self.action = action
+    }
+
+    public func body(content: Content) -> some View {
+        content
+            .preference(key: MultilineItemActionKey.self, value: MultilineItemActionKey.Box(image: image, closure: action))
+    }
+
+}
+
+extension View {
+
+    public func multilineItemAction(image: Image? = nil, action: @escaping () -> Void) -> some View {
+        modifier(MultilineItemAction(image: image, action: action))
+    }
+
+}
+
+public struct MultilineItemActionKey : @MainActor PreferenceKey, ~Sendable {
+
+    public struct Box: Equatable {
+
+        let id: UUID = UUID()
+        let image: Image?
+        let closure: () -> Void
+
+        public static func == (lhs: borrowing MultilineItemActionKey.Box, rhs: borrowing MultilineItemActionKey.Box) -> Bool {
+            lhs.id == rhs.id
+        }
+
+    }
+
+    public typealias Value = Box?
+    @MainActor public static let defaultValue: Box? = nil
+
+    public static func reduce(value: inout Box?, nextValue: () -> Box?) {
+        value = nextValue()
+    }
+
+}
+
 #Preview {
     MultilineInfoView {
         Text("Hello")
     } items: {
         Text("World")
+            .multilineItemAction(image: Image(systemName: "person.wave")) {
+                print("Hello")
+            }
         Text("World")
         Text("World")
     }
-//    MultilineInfoView(title: "One", image: Image(systemName: "figure.wave"), items: ["Hello world."])
+    .padding()
+}
+#Preview {
+    MultilineInfoView(title: "One", image: Image(systemName: "figure.wave"), items: ["Hello world.", "Hello world."])
         .padding()
 }
