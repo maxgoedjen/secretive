@@ -70,6 +70,7 @@ public final class AuthenticationContext: AuthenticationContextProtocol {
     private var persistedContexts: [AnySecret: AuthenticationContext] = [:]
     private var holdingRequests: Set<SignatureRequest> = []
     private var activeTask: Task<Bool, any Error>?
+    private var activeContext: LAContext?
 
     private var lastBatchAuthPresentation: Set<SignatureRequest>?
     private var presentBatchAuth: (() async throws -> Void)?
@@ -101,6 +102,7 @@ public final class AuthenticationContext: AuthenticationContextProtocol {
                 lastBatchAuthPresentation = holdingRequests
                 logger.log("Requesting batch auth presentation")
                 try await presentBatchAuth?()
+                activeContext?.invalidate()
                 logger.log("Requested batch auth presentation")
             }
             if let preauthorized = existingAuthenticationContext(for: request) {
@@ -115,6 +117,7 @@ public final class AuthenticationContext: AuthenticationContextProtocol {
         laContext.localizedReason = String(localized: .authContextRequestSignatureDescription(appName: request.provenance.origin.displayName, secretName: request.secret.name))
         laContext.localizedCancelTitle = String(localized: .authContextRequestDenyButton)
         let context = AuthenticationContext(secret: request.secret, context: laContext, requestID: request.id)
+        activeContext = laContext
 
         activeTask = Task {
             logger.log("Beginning individual auth prompt")
@@ -123,7 +126,7 @@ public final class AuthenticationContext: AuthenticationContextProtocol {
             return result
         }
         let result = try? await activeTask?.value
-        if result == false {
+        if result == false && activeTask?.isCancelled == false {
             holdingRequests.remove(request)
             return context
         }
