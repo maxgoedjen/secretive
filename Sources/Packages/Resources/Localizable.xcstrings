@@ -365,16 +365,6 @@
       },
       "shouldTranslate" : false
     },
-    "%@ - %@" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "%1$@ - %2$@"
-          }
-        }
-      }
-    },
     "about_build_log_button" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -6129,6 +6119,19 @@
       }
     },
     "Certificates" : {
+
+    },
+    "Connecting to %@@%@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Connecting to %1$@@%2$@"
+          }
+        }
+      }
+    },
+    "Connecting to unknown host" : {
 
     },
     "copyable_click_to_copy_button" : {
@@ -20463,7 +20466,7 @@
     "Review" : {
 
     },
-    "Review All" : {
+    "Review as Batch" : {
 
     },
     "secret_detail_certificate_path_label" : {
@@ -24920,6 +24923,9 @@
           }
         }
       }
+    },
+    "Signing for %@" : {
+
     },
     "smart_card" : {
       "extractionState" : "manual",

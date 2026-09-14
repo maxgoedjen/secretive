@@ -19,17 +19,22 @@ public struct SignatureRequest: Identifiable, Hashable, Sendable, Comparable {
     public let date: Date
     public let secret: AnySecret
     public let provenance: SigningRequestProvenance
+    public let target: SigningRequestTarget?
 
-    public init(secret: AnySecret, provenance: SigningRequestProvenance) {
+    public init(secret: AnySecret, provenance: SigningRequestProvenance, target: SigningRequestTarget?) {
         self.id = UUID()
         self.date = Date()
         self.secret = secret
         self.provenance = provenance
+        self.target = target
     }
 
     public var batchID: Int {
         var hasher = Hasher()
         provenance.batchID.hash(into: &hasher)
+        if let target {
+            target.batchID.hash(into: &hasher)
+        }
         secret.id.hash(into: &hasher)
         return hasher.finalize()
     }

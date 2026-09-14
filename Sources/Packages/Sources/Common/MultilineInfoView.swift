@@ -97,6 +97,12 @@ public struct FixedTitleView: View {
     let subtitle: LocalizedStringResource?
     let image: Image
 
+    public init(title: LocalizedStringResource, subtitle: LocalizedStringResource?, image: Image) {
+        self.title = title
+        self.subtitle = subtitle
+        self.image = image
+    }
+
     public var body: some View {
         HStack {
             image

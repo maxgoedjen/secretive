@@ -185,7 +185,7 @@ extension Agent {
     }
 
     func signWithRequiredAuthentication(data: Data, store: AnySecretStore, secret: AnySecret, provenance: SigningRequestProvenance, target: SigningRequestTarget?) async throws -> Data {
-        let context = try await authenticationHandler.waitForAuthentication(for: SignatureRequest(secret: secret, provenance: provenance))
+        let context = try await authenticationHandler.waitForAuthentication(for: SignatureRequest(secret: secret, provenance: provenance, target: target))
         let result = try await store.sign(data: data, with: secret, for: provenance, target: target, context: context.laContext)
         let signedData = signatureWriter.data(secret: secret, signature: result)
         try await witness?.witness(accessTo: secret, from: store, by: provenance, target: target, offerPersistence: false) // FIXME: THIS

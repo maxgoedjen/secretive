@@ -13,44 +13,70 @@ struct BatchedRequestsView: View {
     }
 
     var body: some View {
-        VStack(alignment: .leading) {
-            Form {
-                Text("Multiple authenticated requests are pending. You can approve them batches, or request they all proceed individually.")
-                ForEach(Array(authenticationHandler.batchableRequests.enumerated()), id: \.offset) { group in
-                    Section {
-                        ForEach(Array(group.element.enumerated()), id: \.offset) { pending in
+        ScrollView {
+            Text("Multiple authenticated requests are pending. You can approve them batches, or request they all proceed individually.")
+            ForEach(Array(authenticationHandler.batchableRequests.enumerated()), id: \.offset) { group in
+                MultilineInfoView {
+                    if let first = group.element.first {
+                        HStack {
                             HStack {
+                                Image(nsImage: .init(byReferencing: first.provenance.origin.iconURL!))
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                    .frame(width: 50)
                                 VStack(alignment: .leading) {
-                                    Text(pending.element.provenance.origin.displayName)
+                                    Text(first.provenance.origin.displayName)
+                                        .font(.subheadline)
+                                    Text(first.secret.name)
                                         .font(.headline)
-                                    Text(pending.element.provenance.date.formatted())
-                                        .font(.footnote)
-                                }
-                                Spacer()
-                                Button("Review") {
-                                    Task {
-                                        try? await authenticationHandler.requestAuthentication(for: [pending.element])
+                                    switch first.target {
+                                    case .connection(let payload):
+                                        if let host = payload.host {
+                                            Text("Connecting to \(payload.username)@\(host)")
+                                                .font(.caption2)
+                                        } else {
+                                            Text("Connecting to unknown host")
+                                                .font(.caption2)
+                                        }
+                                    case .signature(let payload):
+                                        Text("Signing for \(payload.namespace)")
+                                            .font(.caption2)
+                                    default:
+                                        EmptyView()
                                     }
                                 }
                             }
-                        }
-                    } header: {
-                        HStack {
-                            Text("\(group.element.first!.provenance.origin.displayName) - \(group.element.first!.secret.name)")
                             Spacer()
-                            Button("Review All") {
-                                Task {
-                                    try? await authenticationHandler.requestAuthentication(for: Set(group.element))
+                            VStack {
+                                Button("Review as Batch") {
+                                    Task {
+                                        try? await authenticationHandler.requestAuthentication(for: Set(group.element))
+                                    }
                                 }
-
+                                .buttonBorderShape(.capsule)
+                                .primaryButton()
                             }
                         }
                     }
+                } items: {
+                    ForEach(Array(group.element.enumerated()), id: \.offset) { pending in
+                        HStack {
+                            Text(pending.element.provenance.date.formatted())
+                            Spacer()
+                            Button("Review") {
+                                Task {
+                                    try? await authenticationHandler.requestAuthentication(for: [pending.element])
+                                }
+                            }
+                            .buttonBorderShape(.capsule)
+                            .normalButton()
+                        }
+                    }
+
                 }
             }
-            .formStyle(.grouped)
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .safeAreaPadding(20)
     }
 
 }
@@ -76,43 +102,94 @@ private struct TestHandler: AuthenticationHandlerProtocol {
     }
 
 }
-//
-//#Preview {
-//    ScrollView {
-//        MultilineInfoView(title: "GitHub", subtitle: "Ghostty", image: Image(systemName: "lock"), items: [
-//            "
-//        ])
-////        Section {
-////            ForEach(0..<2) { _ in
-////                VStack(alignment: .leading) {
-////                    Text("Ghostty")
-////                        .font(.headline)
-////                    Text("zsh 􀯻 git 􀯻 zsh")
-////                        .font(.footnote)
-////                    Text("4:05 PM")
-////                }
-////            }
-////        } header: {
-////            Text("GitHub")
-////        }
-////        Section {
-////            ForEach(0..<2) { _ in
-////                VStack(alignment: .leading) {
-////                    Text("Ghostty")
-////                        .font(.headline)
-////                    Text("zsh 􀯻 git")
-////                        .font(.footnote.monospaced())
-////                    Text("Git Signature")
-////                        .font(.footnote)
-////                    Text("4:05 PM")
-////                        .font(.caption)
-////                }
-////            }
-////        } header: {
-////            Text("GitHub Signing Key")
-////        }
-//    }
-//    .padding()
-//    .formStyle(.grouped)
-//    .frame(minHeight: 700)
-//}
+
+
+    #Preview {
+        if #available(macOS 26.0, *) {
+            ScrollView {
+                MultilineInfoView {
+                    HStack {
+                        HStack {
+                            Image("ghostty")
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .frame(width: 50)
+                            VStack(alignment: .leading) {
+                                Text("Ghostty")
+                                    .font(.subheadline)
+                                Text("GitHub")
+                                    .font(.headline)
+                                Text("Authenticating git@github.com")
+                                    .font(.caption2)
+                            }
+                        }
+                        Spacer()
+                        VStack {
+                            Button("Review as Batch") {
+
+                            }
+                            .buttonBorderShape(.capsule)
+                            .buttonStyle(.glassProminent)
+                        }
+                    }
+                } items: {
+                    ForEach(0..<2) { _ in
+                        HStack {
+                            Text("4:05 PM")
+                            Spacer()
+                            Button("Review") {
+
+                            }
+                            .buttonBorderShape(.capsule)
+                            .buttonStyle(.glass)
+                        }
+                    }
+
+                }
+                MultilineInfoView {
+                    HStack {
+                        HStack {
+                            Image("ghostty")
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .frame(width: 50)
+                            VStack(alignment: .leading) {
+                                Text("Ghostty")
+                                    .font(.subheadline)
+                                Text("Git Signing")
+                                    .font(.headline)
+                                Text("Git Signature")
+                                    .font(.caption2)
+                            }
+                        }
+                        Spacer()
+                        VStack {
+                            Button("Review as Batch") {
+
+                            }
+                            .buttonBorderShape(.capsule)
+                            .buttonStyle(.glassProminent)
+                        }
+                    }
+                } items: {
+                    ForEach(0..<2) { _ in
+                        HStack {
+                            Text("4:05 PM")
+                            Spacer()
+                            Button("Review") {
+
+                            }
+                            .buttonBorderShape(.capsule)
+                            .buttonStyle(.glass)
+                        }
+                    }
+
+                }
+
+            }
+            .padding()
+            .formStyle(.grouped)
+            .frame(minHeight: 700)
+        }
+
+    }

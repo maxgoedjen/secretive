@@ -69,7 +69,7 @@ public final class AuthenticationContext: AuthenticationContextProtocol {
 
     private var persistedContexts: [AnySecret: AuthenticationContext] = [:]
     private var holdingRequests: Set<SignatureRequest> = []
-    private var activeTask: Task<Void, any Error>?
+    private var activeTask: Task<Bool, any Error>?
 
     private var lastBatchAuthPresentation: Set<SignatureRequest>?
     private var presentBatchAuth: (() async throws -> Void)?
@@ -118,10 +118,15 @@ public final class AuthenticationContext: AuthenticationContextProtocol {
 
         activeTask = Task {
             logger.log("Beginning individual auth prompt")
-            _ = try? await laContext.evaluatePolicy(.deviceOwnerAuthentication, localizedReason: laContext.localizedReason)
+            let result = (try? await laContext.evaluatePolicy(.deviceOwnerAuthentication, localizedReason: laContext.localizedReason)) ?? false
             logger.log("Ended individual auth prompt")
+            return result
         }
-        _ = try? await activeTask?.value
+        let result = try? await activeTask?.value
+        if result == false {
+            holdingRequests.remove(request)
+            return context
+        }
         // TODO: Check something beyond cancellation? id?
         // Is this okay? Do we always assume that a cancelled task will be the proceeded on?
         if activeTask?.isCancelled ?? false {

@@ -66,25 +66,6 @@ struct SecretAgent: App {
                         }
                     }
                 }
-//                .task {
-//                    let socketController = SocketController(path:     URL.agentHomeURL.appendingPathComponent("socket-two.ssh").path())
-//                    let socketController = SocketController(path: "/Users/max/Downloads/test.ssh")
-//                    let agent = Agent(storeList: storeList, authenticationHandler: authenticationHandler, witness: notifier)
-//                    for await session in socketController.sessions {
-//                        Task {
-//                            let inputParser = try await XPCAgentInputParser()
-//                            do {
-//                                for await message in session.messages {
-//                                    let request = try await inputParser.parse(data: message)
-//                                    let agentResponse = await agent.handle(request: request, provenance: session.provenance)
-//                                    try session.write(agentResponse)
-//                                }
-//                            } catch {
-//                                try session.close()
-//                            }
-//                        }
-//                    }
-//                }
                 .task {
                     try? publicKeyFileStoreController.generatePublicKeys(for: storeList.allSecrets, clear: true)
                     for await _ in NotificationCenter.default.notifications(named: .secretStoreReloaded) {
@@ -101,7 +82,7 @@ struct SecretAgent: App {
                 }
                 .task {
                     authenticationHandler.setBatchAuthHandler { @MainActor in
-                        openWindow(id: String(describing: BatchedRequestsView.self))
+                        openWindow(value: BatchedRequestsViewIdentifier())
                     }
 
                 }
@@ -119,7 +100,7 @@ struct SecretAgent: App {
                     }
                 }
         }
-        WindowGroup(id: String(describing: BatchedRequestsView.self)) {
+        WindowGroup(for: BatchedRequestsViewIdentifier.self) { _ in
             pendingView
         }
         .windowStyle(.hiddenTitleBar)
@@ -135,3 +116,4 @@ struct SecretAgent: App {
 
 }
 
+struct BatchedRequestsViewIdentifier: Codable, Hashable {}
