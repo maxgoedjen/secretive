@@ -17,7 +17,7 @@ extension StubWitness: SigningWitness {
         }
     }
 
-func witness(accessTo secret: AnySecret, from store: AnySecretStore, by provenance: SigningRequestProvenance, target: SigningRequestTarget?) throws {
+    func witness(accessTo secret: AnySecret, from store: AnySecretStore, by provenance: SigningRequestProvenance, target: SigningRequestTarget?, offerPersistence: Bool) async throws {
         witness(secret, provenance)
     }
 

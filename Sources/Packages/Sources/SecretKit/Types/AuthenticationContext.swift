@@ -3,14 +3,11 @@ import LocalAuthentication
 
 /// Protocol describing an authentication context. This is an authorization that can be reused for multiple access to a secret that requires authentication for a specific period of time.
 public protocol AuthenticationContextProtocol: Sendable, Identifiable {
-    /// Whether the context remains valid.
-
     var secret: AnySecret { get }
-
-    var laContext: LAContext { get }
-
     func valid(for request: SignatureRequest) -> Bool
-
+    var laContext: LAContext? { get }
+    func evaluate() async throws -> Bool
+    func cancel() async
 }
 
 public struct SignatureRequest: Identifiable, Hashable, Sendable, Comparable {

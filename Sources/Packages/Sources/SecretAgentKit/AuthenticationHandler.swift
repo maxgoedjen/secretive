@@ -8,7 +8,7 @@ public final class AuthenticationContext: AuthenticationContextProtocol {
     /// The Secret to persist authentication for.
     public let secret: AnySecret
     /// The LAContext used to authorize the persistent context.
-    public let laContext: LAContext
+    public let laContext: LAContext?
 
     enum Validity {
         /// - Note -  Monotonic time instead of Date() to prevent people setting the clock back.
@@ -55,12 +55,21 @@ public final class AuthenticationContext: AuthenticationContextProtocol {
         }
     }
 
+    public func evaluate() async throws -> Bool {
+        guard let laContext else { return false }
+        return try await laContext.evaluatePolicy(.deviceOwnerAuthentication, localizedReason: laContext.localizedReason)
+    }
+
+    public func cancel() async {
+        laContext?.invalidate()
+    }
+
 }
 
 @MainActor public protocol AuthenticationHandlerProtocol: Observable {
+    var batchableRequests: [[SignatureRequest]] { get }
     func setBatchAuthHandler(_ handler: @escaping () async throws -> Void)
     func waitForAuthentication(for request: SignatureRequest) async throws -> any AuthenticationContextProtocol
-    var batchableRequests: [[SignatureRequest]] { get }
     func persistAuthentication<SecretType: Secret>(secret: SecretType, forDuration duration: TimeInterval) async throws
     func requestAuthentication(for requests: Set<SignatureRequest>) async throws
 }
@@ -70,7 +79,7 @@ public final class AuthenticationContext: AuthenticationContextProtocol {
     private var persistedContexts: [AnySecret: AuthenticationContext] = [:]
     private var holdingRequests: Set<SignatureRequest> = []
     private var activeTask: Task<Bool, any Error>?
-    private var activeContext: LAContext?
+    private var activeContext: (any AuthenticationContextProtocol)?
 
     private var lastBatchAuthPresentation: Set<SignatureRequest>?
     private var presentBatchAuth: (() async throws -> Void)?
@@ -102,7 +111,7 @@ public final class AuthenticationContext: AuthenticationContextProtocol {
                 lastBatchAuthPresentation = holdingRequests
                 logger.log("Requesting batch auth presentation")
                 try await presentBatchAuth?()
-                activeContext?.invalidate()
+                await activeContext?.cancel()
                 logger.log("Requested batch auth presentation")
             }
             if let preauthorized = existingAuthenticationContext(for: request) {
@@ -117,11 +126,11 @@ public final class AuthenticationContext: AuthenticationContextProtocol {
         laContext.localizedReason = String(localized: .authContextRequestSignatureDescription(appName: request.provenance.origin.displayName, secretName: request.secret.name))
         laContext.localizedCancelTitle = String(localized: .authContextRequestDenyButton)
         let context = AuthenticationContext(secret: request.secret, context: laContext, requestID: request.id)
-        activeContext = laContext
+        activeContext = context
 
         activeTask = Task {
             logger.log("Beginning individual auth prompt")
-            let result = (try? await laContext.evaluatePolicy(.deviceOwnerAuthentication, localizedReason: laContext.localizedReason)) ?? false
+            let result = (try? await context.evaluate()) ?? false
             logger.log("Ended individual auth prompt")
             return result
         }
