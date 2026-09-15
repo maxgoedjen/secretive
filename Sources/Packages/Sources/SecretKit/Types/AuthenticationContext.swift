@@ -28,10 +28,13 @@ public struct SignatureRequest: Identifiable, Hashable, Sendable, Comparable {
 
     public var batchID: Int {
         var hasher = Hasher()
-        provenance.batchID.hash(into: &hasher)
-        if let target {
-            target.batchID.hash(into: &hasher)
+        guard let target else {
+            // Requests without target are not permitted to be batched.
+            id.hash(into: &hasher)
+            return hasher.finalize()
         }
+        provenance.batchID.hash(into: &hasher)
+        target.batchID.hash(into: &hasher)
         secret.id.hash(into: &hasher)
         return hasher.finalize()
     }
