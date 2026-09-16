@@ -142,60 +142,64 @@ extension SSHAgentInputParser {
             case SSHAgent.ProtocolExtension.OpenSSHExtension.domain:
                 switch name {
                 case SSHAgent.ProtocolExtension.OpenSSHExtension.sessionBind(.empty).name:
-                    let hostkeyBlob = try reader.readNextChunkAsSubReader()
-                    let hostKeyType = try hostkeyBlob.readNextChunkAsString()
-                    let hostKeyData = try hostkeyBlob.readNextChunk()
-                    let sessionID = try reader.readNextChunk()
-                    let signatureBlob = try reader.readNextChunkAsSubReader()
-                    _ = try signatureBlob.readNextChunk() // key type again
-                    let signature = try signatureBlob.readNextChunk()
-                    let forwarding = try reader.readNextByteAsBool()
-                    switch hostKeyType {
-                    case "ssh-ed25519":
-                        let hostKey = try CryptoKit.Curve25519.Signing.PublicKey(rawRepresentation: hostKeyData)
-                        guard hostKey.isValidSignature(signature, for: sessionID) else {
-                            throw AgentParsingError.incorrectSignature
-                        }
-                    case "ecdsa-sha2-nistp256":
-                        let hostKey = try CryptoKit.P256.Signing.PublicKey(rawRepresentation: hostKeyData)
-                        guard hostKey.isValidSignature(try .init(rawRepresentation: signature), for: sessionID) else {
-                            throw AgentParsingError.incorrectSignature
-                        }
-                    case "ecdsa-sha2-nistp384":
-                        let hostKey = try CryptoKit.P384.Signing.PublicKey(rawRepresentation: hostKeyData)
-                        guard hostKey.isValidSignature(try .init(rawRepresentation: signature), for: sessionID) else {
-                            throw AgentParsingError.incorrectSignature
-                        }
-                    case "ssh-mldsa-65":
-                        if #available(macOS 26.0, *) {
-                            let hostKey = try CryptoKit.MLDSA65.PublicKey(rawRepresentation: hostKeyData)
+                    do {
+                        let hostkeyBlob = try reader.readNextChunkAsSubReader()
+                        let hostKeyType = try hostkeyBlob.readNextChunkAsString()
+                        let hostKeyData = try hostkeyBlob.readNextChunk()
+                        let sessionID = try reader.readNextChunk()
+                        let signatureBlob = try reader.readNextChunkAsSubReader()
+                        _ = try signatureBlob.readNextChunk() // key type again
+                        let signature = try signatureBlob.readNextChunk()
+                        let forwarding = try reader.readNextByteAsBool()
+                        switch hostKeyType {
+                        case "ssh-ed25519":
+                            let hostKey = try CryptoKit.Curve25519.Signing.PublicKey(rawRepresentation: hostKeyData)
                             guard hostKey.isValidSignature(signature, for: sessionID) else {
                                 throw AgentParsingError.incorrectSignature
                             }
-                        } else {
-                            throw AgentParsingError.unhandledRequest
-                        }
-                    case "ssh-mldsa-87":
-                        if #available(macOS 26.0, *) {
-                            let hostKey = try CryptoKit.MLDSA65.PublicKey(rawRepresentation: hostKeyData)
-                            guard hostKey.isValidSignature(signature, for: sessionID) else {
+                        case "ecdsa-sha2-nistp256":
+                            let hostKey = try CryptoKit.P256.Signing.PublicKey(rawRepresentation: hostKeyData)
+                            guard hostKey.isValidSignature(try .init(rawRepresentation: signature), for: sessionID) else {
                                 throw AgentParsingError.incorrectSignature
                             }
-                        } else {
+                        case "ecdsa-sha2-nistp384":
+                            let hostKey = try CryptoKit.P384.Signing.PublicKey(rawRepresentation: hostKeyData)
+                            guard hostKey.isValidSignature(try .init(rawRepresentation: signature), for: sessionID) else {
+                                throw AgentParsingError.incorrectSignature
+                            }
+                        case "ssh-mldsa-65":
+                            if #available(macOS 26.0, *) {
+                                let hostKey = try CryptoKit.MLDSA65.PublicKey(rawRepresentation: hostKeyData)
+                                guard hostKey.isValidSignature(signature, for: sessionID) else {
+                                    throw AgentParsingError.incorrectSignature
+                                }
+                            } else {
+                                throw AgentParsingError.unhandledRequest
+                            }
+                        case "ssh-mldsa-87":
+                            if #available(macOS 26.0, *) {
+                                let hostKey = try CryptoKit.MLDSA65.PublicKey(rawRepresentation: hostKeyData)
+                                guard hostKey.isValidSignature(signature, for: sessionID) else {
+                                    throw AgentParsingError.incorrectSignature
+                                }
+                            } else {
+                                throw AgentParsingError.unhandledRequest
+                            }
+                        case "ssh-rsa":
+                            throw AgentParsingError.unhandledRequest
+                        default:
                             throw AgentParsingError.unhandledRequest
                         }
-                    case "ssh-rsa":
-                        throw AgentParsingError.unhandledRequest
-                    default:
-                        throw AgentParsingError.unhandledRequest
+                        let context = SSHAgent.ProtocolExtension.OpenSSHExtension.SessionBindContext(
+                            hostKey: hostKeyData,
+                            sessionID: sessionID,
+                            signature: signature,
+                            forwarding: forwarding
+                        )
+                        return .openSSH(.sessionBind(context))
+                    } catch {
+                        return .openSSH(.sessionBind(.empty))
                     }
-                    let context = SSHAgent.ProtocolExtension.OpenSSHExtension.SessionBindContext(
-                        hostKey: hostKeyData,
-                        sessionID: sessionID,
-                        signature: signature,
-                        forwarding: forwarding
-                    )
-                    return .openSSH(.sessionBind(context))
                 default:
                     return .openSSH(.unknown(String(name)))
                 }
