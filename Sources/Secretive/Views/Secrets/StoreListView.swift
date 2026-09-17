@@ -21,7 +21,6 @@ struct StoreListView: View {
 
     private func secretRenamed(secret: AnySecret) {
         // Pull new version from store, so we get all updated attributes
-        selection = nil
         selection = storeList.allSecrets.first(where: { $0.id == secret.id }).map(StoreListSelection.secret)
     }
 
