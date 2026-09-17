@@ -10,6 +10,7 @@ extension SmartCard {
         public let name: String
         public let publicKey: Data
         public var attributes: Attributes
+        public var restrictions: Restrictions?
 
     }
 
