@@ -1,0 +1,195 @@
+import SwiftUI
+import SecretKit
+import SecretAgentKit
+import SmartCardSecretKit
+import Common
+
+struct BatchedRequestsView: View {
+
+    private let authenticationHandler: any AuthenticationHandlerProtocol
+
+    init(authenticationHandler: some AuthenticationHandlerProtocol) {
+        self.authenticationHandler = authenticationHandler
+    }
+
+    var body: some View {
+        ScrollView {
+            Text("Multiple authenticated requests are pending. You can approve them batches, or request they all proceed individually.")
+            ForEach(Array(authenticationHandler.batchableRequests.enumerated()), id: \.offset) { group in
+                MultilineInfoView {
+                    if let first = group.element.first {
+                        HStack {
+                            HStack {
+                                Image(nsImage: .init(byReferencing: first.provenance.origin.iconURL!))
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                    .frame(width: 50)
+                                VStack(alignment: .leading) {
+                                    Text(first.provenance.origin.displayName)
+                                        .font(.subheadline)
+                                    Text(first.secret.name)
+                                        .font(.headline)
+                                    switch first.target {
+                                    case .connection(let payload):
+                                        if let host = payload.host {
+                                            Text("Connecting to \(payload.username)@\(host)")
+                                                .font(.caption2)
+                                        } else {
+                                            Text("Connecting to unknown host")
+                                                .font(.caption2)
+                                        }
+                                    case .signature(let payload):
+                                        Text("Signing for \(payload.namespace)")
+                                            .font(.caption2)
+                                    default:
+                                        EmptyView()
+                                    }
+                                }
+                            }
+                            Spacer()
+                            VStack {
+                                Button("Review as Batch") {
+                                    Task {
+                                        try? await authenticationHandler.requestAuthentication(for: Set(group.element))
+                                    }
+                                }
+                                .buttonBorderShape(.capsule)
+                                .primaryButton()
+                            }
+                        }
+                    }
+                } items: {
+                    ForEach(Array(group.element.enumerated()), id: \.offset) { pending in
+                        HStack {
+                            Text(pending.element.provenance.date.formatted())
+                            Spacer()
+                            Button("Review") {
+                                Task {
+                                    try? await authenticationHandler.requestAuthentication(for: [pending.element])
+                                }
+                            }
+                            .buttonBorderShape(.capsule)
+                            .normalButton()
+                        }
+                    }
+
+                }
+            }
+        }
+        .safeAreaPadding(20)
+    }
+
+}
+
+private struct TestHandler: AuthenticationHandlerProtocol {
+
+    var batchableRequests: [[SignatureRequest]] = []
+
+    func requestAuthentication(for requests: Set<SignatureRequest>) async throws {
+
+    }
+
+    func persistAuthentication<SecretType>(secret: SecretType, forDuration duration: TimeInterval) async throws where SecretType : Secret {
+
+    }
+
+    func setBatchAuthHandler(_ handler: @escaping () async throws -> Void) {
+
+    }
+
+    func waitForAuthentication(for request: SignatureRequest) async throws -> any AuthenticationContextProtocol {
+        fatalError()
+    }
+
+}
+
+
+    #Preview {
+        if #available(macOS 26.0, *) {
+            ScrollView {
+                MultilineInfoView {
+                    HStack {
+                        HStack {
+                            Image("ghostty")
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .frame(width: 50)
+                            VStack(alignment: .leading) {
+                                Text("Ghostty")
+                                    .font(.subheadline)
+                                Text("GitHub")
+                                    .font(.headline)
+                                Text("Authenticating git@github.com")
+                                    .font(.caption2)
+                            }
+                        }
+                        Spacer()
+                        VStack {
+                            Button("Review as Batch") {
+
+                            }
+                            .buttonBorderShape(.capsule)
+                            .buttonStyle(.glassProminent)
+                        }
+                    }
+                } items: {
+                    ForEach(0..<2) { _ in
+                        HStack {
+                            Text("4:05 PM")
+                            Spacer()
+                            Button("Review") {
+
+                            }
+                            .buttonBorderShape(.capsule)
+                            .buttonStyle(.glass)
+                        }
+                    }
+
+                }
+                MultilineInfoView {
+                    HStack {
+                        HStack {
+                            Image("ghostty")
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .frame(width: 50)
+                            VStack(alignment: .leading) {
+                                Text("Ghostty")
+                                    .font(.subheadline)
+                                Text("Git Signing")
+                                    .font(.headline)
+                                Text("Git Signature")
+                                    .font(.caption2)
+                            }
+                        }
+                        Spacer()
+                        VStack {
+                            Button("Review as Batch") {
+
+                            }
+                            .buttonBorderShape(.capsule)
+                            .buttonStyle(.glassProminent)
+                        }
+                    }
+                } items: {
+                    ForEach(0..<2) { _ in
+                        HStack {
+                            Text("4:05 PM")
+                            Spacer()
+                            Button("Review") {
+
+                            }
+                            .buttonBorderShape(.capsule)
+                            .buttonStyle(.glass)
+                        }
+                    }
+
+                }
+
+            }
+            .padding()
+            .formStyle(.grouped)
+            .frame(minHeight: 700)
+        }
+
+    }
