@@ -58,14 +58,17 @@ extension SmartCard {
 
         public func sign(data: Data, with secret: Secret, for provenance: SigningRequestProvenance, target: SigningRequestTarget?, context: LAContext?) async throws -> Data {
             guard let tokenID = await state.tokenID else { fatalError() }
-            let attributes = KeychainDictionary([
+            var rawAttributes: [CFString: Any] = [
                 kSecClass: kSecClassKey,
                 kSecAttrKeyClass: kSecAttrKeyClassPrivate,
                 kSecAttrApplicationLabel: secret.id as CFData,
                 kSecAttrTokenID: tokenID,
-                kSecUseAuthenticationContext: context!, // FIXME: THIS
                 kSecReturnRef: true
-            ])
+            ]
+            if let context {
+                rawAttributes[kSecUseAuthenticationContext] = context
+            }
+            let attributes = KeychainDictionary(rawAttributes)
             var untyped: CFTypeRef?
             let status = unsafe SecItemCopyMatching(attributes, &untyped)
             if status != errSecSuccess {
