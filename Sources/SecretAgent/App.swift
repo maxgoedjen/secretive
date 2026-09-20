@@ -81,8 +81,8 @@ struct SecretAgent: App {
                     }
                 }
                 .task {
-                    authenticationHandler.setBatchAuthHandler { @MainActor in
-                        openWindow(value: BatchedRequestsViewIdentifier())
+                    authenticationHandler.setPendingRequestHandler { @MainActor in
+                        openWindow(value: PendingRequestsViewIdentifier())
                     }
 
                 }
@@ -100,7 +100,7 @@ struct SecretAgent: App {
                     }
                 }
         }
-        WindowGroup(for: BatchedRequestsViewIdentifier.self) { _ in
+        WindowGroup(for: PendingRequestsViewIdentifier.self) { _ in
             pendingView
         }
         .windowStyle(.hiddenTitleBar)
@@ -110,10 +110,10 @@ struct SecretAgent: App {
     @ViewBuilder
     var pendingView: some View {
         if !authenticationHandler.batchableRequests.isEmpty {
-            BatchedRequestsView(authenticationHandler: authenticationHandler)
+            PendingRequestsView(authenticationHandler: authenticationHandler)
         }
     }
 
 }
 
-struct BatchedRequestsViewIdentifier: Codable, Hashable {}
+struct PendingRequestsViewIdentifier: Codable, Hashable {}

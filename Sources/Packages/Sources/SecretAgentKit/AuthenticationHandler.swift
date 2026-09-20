@@ -22,25 +22,44 @@ public final class AuthenticationContext: AuthenticationContextProtocol {
     /// Initializes a context.
     /// - Parameters:
     ///   - secret: The Secret to persist authentication for.
-    ///   - context: The LAContext used to authorize the persistent context.
     ///   - duration: The duration of the authorization context, in seconds.
-    init<SecretType: Secret>(secret: SecretType, context: LAContext, duration: TimeInterval) {
+    init<SecretType: Secret>(secret: SecretType, duration: TimeInterval) {
         self.secret = AnySecret(secret)
-        self.laContext = context
         let durationInNanoSeconds = Measurement(value: duration, unit: UnitDuration.seconds).converted(to: .nanoseconds).value
         self.validity = .time(monotonicExpiration: clock_gettime_nsec_np(CLOCK_MONOTONIC) + UInt64(durationInNanoSeconds))
+        let newContext = LAContext()
+        newContext.touchIDAuthenticationAllowableReuseDuration = duration
+        newContext.localizedCancelTitle = String(localized: .authContextRequestDenyButton)
+
+        let formatter = DateComponentsFormatter()
+        formatter.unitsStyle = .spellOut
+        formatter.allowedUnits = [.hour, .minute, .day]
+        let durationString = formatter.string(from: duration)!
+        newContext.localizedReason = String(localized: .authContextPersistForDuration(secretName: secret.name, duration: durationString))
+        laContext = newContext
     }
 
-    init<SecretType: Secret>(secret: SecretType, context: LAContext, requestIDs: Set<UUID>) {
+    init<SecretType: Secret>(secret: SecretType, requests: Set<SignatureRequest>) {
         self.secret = AnySecret(secret)
-        self.laContext = context
-        self.validity = .requestIDs(requestIDs)
-    }
-
-    init<SecretType: Secret>(secret: SecretType, context: LAContext, requestID: UUID) {
-        self.secret = AnySecret(secret)
-        self.laContext = context
-        self.validity = .exclusive(requestID)
+        if requests.count == 1 {
+            self.validity = .exclusive(requests.first!.id)
+        } else {
+            self.validity = .requestIDs(Set(requests.map(\.id)))
+        }
+        if secret.authenticationRequirement.required {
+            let newContext = LAContext()
+            newContext.localizedCancelTitle = String(localized: .authContextRequestDenyButton)
+            let appNames = Set(requests.map(\.provenance.origin.displayName)).joined(separator: ", ")
+            let secretNames = Set(requests.map(\.secret.name)).joined(separator: ", ")
+            if requests.count > 1 {
+                newContext.localizedReason = String(localized: .authContextRequestMultiple(appName: appNames, secretName: secretNames))
+            } else {
+                newContext.localizedReason = String(localized: .authContextRequestSignatureDescription(appName: appNames, secretName: secretNames))
+            }
+            laContext = newContext
+        } else {
+            laContext = nil
+        }
     }
 
     /// A boolean describing whether or not the context is still valid.
@@ -68,8 +87,8 @@ public final class AuthenticationContext: AuthenticationContextProtocol {
 
 @MainActor public protocol AuthenticationHandlerProtocol: Observable {
     var batchableRequests: [[SignatureRequest]] { get }
-    func setBatchAuthHandler(_ handler: @escaping () async throws -> Void)
-    func waitForAuthentication(for request: SignatureRequest) async throws -> any AuthenticationContextProtocol
+    func setPendingRequestHandler(_ handler: @escaping () async throws -> Void)
+    func authenticatedContext(for request: SignatureRequest, context: any AuthenticationContextProtocol) async throws -> (any AuthenticationContextProtocol)?
     func persistAuthentication<SecretType: Secret>(secret: SecretType, forDuration duration: TimeInterval) async throws
     func requestAuthentication(for requests: Set<SignatureRequest>) async throws
 }
@@ -82,17 +101,27 @@ public final class AuthenticationContext: AuthenticationContextProtocol {
     private var activeContext: (any AuthenticationContextProtocol)?
 
     private var lastBatchAuthPresentation: Set<SignatureRequest>?
-    private var presentBatchAuth: (() async throws -> Void)?
-    private let logger = Logger(subsystem: "com.maxgoedjen.secretive.secretagent", category: "Agent")
+    private var presentPendingAuth: (() async throws -> Void)?
+    private let logger = Logger(subsystem: "com.maxgoedjen.secretive.secretagent", category: "AuthenticationHandler")
 
     public init() {
     }
 
-    public func setBatchAuthHandler(_ handler: @escaping () async throws -> Void) {
-        self.presentBatchAuth = handler
+    public func setPendingRequestHandler(_ handler: @escaping () async throws -> Void) {
+        self.presentPendingAuth = handler
     }
 
-    public func waitForAuthentication(for request: SignatureRequest) async throws -> any AuthenticationContextProtocol {
+    public func authenticatedContext(for request: SignatureRequest, context: any AuthenticationContextProtocol) async throws -> (any AuthenticationContextProtocol)? {
+        if request.secret.authenticationRequirement.required {
+            // Slow path, will block caller until authenticated (either directly or via a pending requests view).
+            return try await waitForAuthentication(for: request, context: context)
+        } else {
+            // Fast path, no blocking/enqueing required
+            return context
+        }
+    }
+
+    func waitForAuthentication(for request: SignatureRequest, context: any AuthenticationContextProtocol) async throws -> any AuthenticationContextProtocol {
         logger.log("Entering waitForAuthentication for \(request.id)")
         if let existing = existingAuthenticationContext(for: request) {
             logger.log("Short circuiting wait, existing valid context already exists.")
@@ -105,12 +134,12 @@ public final class AuthenticationContext: AuthenticationContextProtocol {
             holdingRequests.remove(request)
         }
         while holdingRequests.count > 1 {
-            if hasBatchableRequests, holdingRequests != lastBatchAuthPresentation {
+            if holdingRequests != lastBatchAuthPresentation {
                 logger.log("Batchable requests exist, cancelling existing auth prompt")
                 activeTask?.cancel()
                 lastBatchAuthPresentation = holdingRequests
                 logger.log("Requesting batch auth presentation")
-                try await presentBatchAuth?()
+                try await presentPendingAuth?()
                 await activeContext?.cancel()
                 logger.log("Requested batch auth presentation")
             }
@@ -122,10 +151,6 @@ public final class AuthenticationContext: AuthenticationContextProtocol {
             }
             try await Task.sleep(for: .milliseconds(100))
         }
-        let laContext = LAContext()
-        laContext.localizedReason = String(localized: .authContextRequestSignatureDescription(appName: request.provenance.origin.displayName, secretName: request.secret.name))
-        laContext.localizedCancelTitle = String(localized: .authContextRequestDenyButton)
-        let context = AuthenticationContext(secret: request.secret, context: laContext, requestID: request.id)
         activeContext = context
 
         activeTask = Task {
@@ -163,50 +188,24 @@ public final class AuthenticationContext: AuthenticationContextProtocol {
         .map { $0.sorted() }
     }
 
-    private var hasBatchableRequests: Bool {
-        guard presentBatchAuth != nil else { return false }
-        return batchableRequests.count < holdingRequests.count
-    }
-
     private func existingAuthenticationContext(for request: SignatureRequest) -> (any AuthenticationContextProtocol)? {
         guard let persisted = persistedContexts[request.secret], persisted.valid(for: request) else { return nil }
         return persisted
     }
 
     public func persistAuthentication<SecretType: Secret>(secret: SecretType, forDuration duration: TimeInterval) async throws {
-        let newContext = LAContext()
-        newContext.touchIDAuthenticationAllowableReuseDuration = duration
-        newContext.localizedCancelTitle = String(localized: .authContextRequestDenyButton)
-
-        let formatter = DateComponentsFormatter()
-        formatter.unitsStyle = .spellOut
-        formatter.allowedUnits = [.hour, .minute, .day]
-
-
-        let durationString = formatter.string(from: duration)!
-        newContext.localizedReason = String(localized: .authContextPersistForDuration(secretName: secret.name, duration: durationString))
-        let success = try await newContext.evaluatePolicy(.deviceOwnerAuthentication, localizedReason: newContext.localizedReason)
+        let context = AuthenticationContext(secret: secret, duration: duration)
+        let success = try await context.evaluate()
         guard success else { return }
-        let context = AuthenticationContext(secret: secret, context: newContext, duration: duration)
         persistedContexts[AnySecret(secret)] = context
     }
 
     public func requestAuthentication(for requests: Set<SignatureRequest>) async throws {
         activeTask?.cancel()
         guard let first = requests.first else { return }
-        let newContext = LAContext()
-        newContext.localizedCancelTitle = String(localized: .authContextRequestDenyButton)
-
-        let appNames = Set(requests.map(\.provenance.origin.displayName)).joined(separator: ", ")
-        let secretNames = Set(requests.map(\.secret.name)).joined(separator: ", ")
-        if requests.count > 1 {
-            newContext.localizedReason = String(localized: .authContextRequestMultiple(appName: appNames, secretName: secretNames))
-        } else {
-            newContext.localizedReason = String(localized: .authContextRequestSignatureDescription(appName: appNames, secretName: secretNames))
-        }
-        let success = try await newContext.evaluatePolicy(.deviceOwnerAuthentication, localizedReason: newContext.localizedReason)
+        let context = AuthenticationContext(secret: first.secret, requests: requests)
+        let success = try await context.evaluate()
         guard success else { return }
-        let context = AuthenticationContext(secret: first.secret, context: newContext, requestIDs: Set(requests.map(\.id)))
         persistedContexts[AnySecret(first.secret)] = context
     }
 

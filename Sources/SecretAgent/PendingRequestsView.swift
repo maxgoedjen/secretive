@@ -4,7 +4,7 @@ import SecretAgentKit
 import SmartCardSecretKit
 import Common
 
-struct BatchedRequestsView: View {
+struct PendingRequestsView: View {
 
     private let authenticationHandler: any AuthenticationHandlerProtocol
 
@@ -93,12 +93,12 @@ private struct TestHandler: AuthenticationHandlerProtocol {
 
     }
 
-    func setBatchAuthHandler(_ handler: @escaping () async throws -> Void) {
+    func setPendingRequestHandler(_ handler: @escaping () async throws -> Void) {
 
     }
-
-    func waitForAuthentication(for request: SignatureRequest) async throws -> any AuthenticationContextProtocol {
-        fatalError()
+    
+    func authenticatedContext(for request: SignatureRequest, context: any AuthenticationContextProtocol) async throws -> (any AuthenticationContextProtocol)? {
+        nil
     }
 
 }

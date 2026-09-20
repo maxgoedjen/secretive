@@ -167,26 +167,10 @@ extension Agent {
         }
         logger.debug("Witness did not object")
 
-        if secret.authenticationRequirement.required {
-            // Slow path, may block or suggest batching.
-            return try await signWithRequiredAuthentication(data: data, store: store, secret: secret, provenance: provenance, target: target)
-        } else {
-            // Fast path, no blocking/enqueing required
-            return try await signWithoutRequiredAuthentication(data: data, store: store, secret: secret, provenance: provenance, target: target)
-        }
-    }
-
-    func signWithoutRequiredAuthentication(data: Data, store: AnySecretStore, secret: AnySecret, provenance: SigningRequestProvenance, target: SigningRequestTarget?) async throws -> Data {
-        let rawRepresentation = try await store.sign(data: data, with: secret, for: provenance, target: target, context: nil)
-        let signedData = signatureWriter.data(secret: secret, signature: rawRepresentation)
-        try await witness?.witness(accessTo: secret, from: store, by: provenance, target: target, offerPersistence: false)
-        logger.debug("Agent signed request")
-        return signedData
-    }
-
-    func signWithRequiredAuthentication(data: Data, store: AnySecretStore, secret: AnySecret, provenance: SigningRequestProvenance, target: SigningRequestTarget?) async throws -> Data {
-        let context = try await authenticationHandler.waitForAuthentication(for: SignatureRequest(secret: secret, provenance: provenance, target: target))
-        let result = try await store.sign(data: data, with: secret, for: provenance, target: target, context: context.laContext)
+        let request = SignatureRequest(secret: secret, provenance: provenance, target: target)
+        let newContext = AuthenticationContext(secret: secret, requests: [request])
+        let context = try await authenticationHandler.authenticatedContext(for: request, context: newContext)
+        let result = try await store.sign(data: data, with: secret, for: provenance, target: target, context: context?.laContext)
         let signedData = signatureWriter.data(secret: secret, signature: result)
         try await witness?.witness(accessTo: secret, from: store, by: provenance, target: target, offerPersistence: false) // FIXME: THIS
         logger.debug("Agent signed request")
