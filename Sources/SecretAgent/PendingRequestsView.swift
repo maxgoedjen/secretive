@@ -7,6 +7,7 @@ import Common
 struct PendingRequestsView: View {
 
     private let authenticationHandler: any AuthenticationHandlerProtocol
+    @Environment(\.dismissWindow) var dismiss
 
     init(authenticationHandler: some AuthenticationHandlerProtocol) {
         self.authenticationHandler = authenticationHandler
@@ -51,6 +52,9 @@ struct PendingRequestsView: View {
                                 Button("Review as Batch") {
                                     Task {
                                         try? await authenticationHandler.requestAuthentication(for: Set(group.element))
+                                        if authenticationHandler.batchableRequests.isEmpty {
+                                            dismiss()
+                                        }
                                     }
                                 }
                                 .buttonBorderShape(.capsule)
@@ -66,6 +70,9 @@ struct PendingRequestsView: View {
                             Button("Review") {
                                 Task {
                                     try? await authenticationHandler.requestAuthentication(for: [pending.element])
+                                    if authenticationHandler.batchableRequests.isEmpty {
+                                        dismiss()
+                                    }
                                 }
                             }
                             .buttonBorderShape(.capsule)
