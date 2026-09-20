@@ -66,118 +66,104 @@ public struct TestSecret: Secret {
 
 }
 
-extension AnySecret {
-
-    static var testNoAuth: Self {
-        AnySecret(TestSecret(attributes: .init(keyType: .ecdsa256, authentication: .notRequired)))
-    }
-
-    static var testAuth: Self {
-        AnySecret(TestSecret(attributes: .init(keyType: .ecdsa256, authentication: .presenceRequired)))
-    }
-}
-
 @MainActor @Suite struct AuthenticationHandlerTests {
 
     let handler = AuthenticationHandler()
 
-    private func createContext() -> any AuthenticationContextProtocol {
-        TestContext(authenticationRequirement: .presenceRequired, testEvaluationResult: true, approval: .duration(.zero))
-    }
-
     @Test func singleImmediatelyRequests() async throws {
-        var calledBatch = false
+        var calledPresentPending = false
         handler.setPendingRequestHandler {
-            calledBatch = true
+            calledPresentPending = true
         }
-        let context = try await handler.authenticatedContext(for: .init(secret: .testAuth, provenance: .test, target: nil), createContext: createContext) as? TestContext
-        #expect(context?.evaluationResult == true)
-        #expect(!calledBatch)
+        let context = TestContext(authenticationRequirement: .presenceRequired, testEvaluationResult: true, approval: .duration(.zero))
+        _ = try await handler.authenticatedContext(for: .init(secret: .init(context.secret), provenance: .test, target: nil), context: context)
+        #expect(context.evaluationResult == true)
+        #expect(!calledPresentPending)
     }
 
     @Test func sequentialRequestsDoNotBlock() async throws {
-        var calledBatch = false
+        var calledPresentPending = false
         handler.setPendingRequestHandler {
-            calledBatch = true
+            calledPresentPending = true
         }
         let context = TestContext(authenticationRequirement: .presenceRequired, testEvaluationResult: true, approval: .duration(.milliseconds(1)))
-        let context = try await handler.authenticatedContext(for: .init(secret: .testAuth, provenance: .test, target: nil), createContext: createContext) as? TestContext
+        _ = try await handler.authenticatedContext(for: .init(secret: .init(context.secret), provenance: .test, target: nil), context: context)
         #expect(context.evaluationResult == true)
         let second = TestContext(authenticationRequirement: .presenceRequired, testEvaluationResult: true, approval: .duration(.milliseconds(1)))
-        _ = try await handler.authenticate(for: .init(secret: .init(second.secret), provenance: .test, target: nil), context: second)
+        _ = try await handler.authenticatedContext(for: .init(secret: .init(second.secret), provenance: .test, target: nil), context: second)
         #expect(context.evaluationResult == true)
         #expect(second.evaluationResult == true)
-        #expect(!calledBatch)
+        #expect(!calledPresentPending)
     }
 
     @Test func secondRetractsAndPresentsBatch() async throws {
-        var calledBatch = false
+        var calledPresentPending = false
         handler.setPendingRequestHandler {
-            calledBatch = true
+            calledPresentPending = true
         }
         let contextA = TestContext(authenticationRequirement: .presenceRequired, testEvaluationResult: true)
         let contextB = TestContext(authenticationRequirement: .presenceRequired, testEvaluationResult: true)
         Task {
-            _ = try? await handler.authenticate(for: .init(secret: .init(contextA.secret), provenance: .test, target: nil), context: contextA)
+            _ = try? await handler.authenticatedContext(for: .init(secret: .init(contextA.secret), provenance: .test, target: nil), context: contextA)
         }
         Task {
-            _ = try? await handler.authenticate(for: .init(secret: .init(contextB.secret), provenance: .test, target: nil), context: contextB)
+            _ = try? await handler.authenticatedContext(for: .init(secret: .init(contextB.secret), provenance: .test, target: nil), context: contextB)
         }
         #expect(contextA.evaluationResult == nil)
         #expect(contextB.evaluationResult == nil)
         await Task.yield()
         #expect(contextA.canceled)
-        #expect(calledBatch)
+        #expect(calledPresentPending)
     }
 
     @Test func authRequiredDoesNotBlockNoAuthRequired() async throws {
-        var calledBatch = false
+        var calledPresentPending = false
         handler.setPendingRequestHandler {
-            calledBatch = true
+            calledPresentPending = true
         }
         let contextA = TestContext(authenticationRequirement: .presenceRequired, testEvaluationResult: true, approval: .duration(.milliseconds(10)))
         let contextB = TestContext(authenticationRequirement: .notRequired, testEvaluationResult: true)
         Task {
             Task {
-                _ = try? await handler.authenticate(for: .init(secret: .init(contextB.secret), provenance: .test, target: nil), context: contextB)
+                _ = try? await handler.authenticatedContext(for: .init(secret: .init(contextB.secret), provenance: .test, target: nil), context: contextB)
             }
-            _ = try? await handler.authenticate(for: .init(secret: .init(contextA.secret), provenance: .test, target: nil), context: contextA)
+            _ = try? await handler.authenticatedContext(for: .init(secret: .init(contextA.secret), provenance: .test, target: nil), context: contextA)
         }
         #expect(contextA.evaluationResult == nil)
         #expect(contextB.evaluationResult == true)
         await Task.yield()
         #expect(!contextA.canceled)
-        #expect(!calledBatch)
+        #expect(!calledPresentPending)
     }
 
     @Test func batchDoesNotBlockNoAuthRequired() async throws {
-//        var calledBatch = false
+//        var calledPresentPending = false
 //        handler.setPendingRequestHandler {
-//            calledBatch = true
+//            calledPresentPending = true
 //        }
 //        let context = TestContext(authenticationRequirement: .presenceRequired, testEvaluationResult: true, approval: .duration(.milliseconds(1)))
-//        _ = try await handler.authenticate(for: .init(secret: .init(context.secret), provenance: .test, target: nil), context: context)
+//        _ = try await handler.authenticatedContext(for: .init(secret: .init(context.secret), provenance: .test, target: nil), context: context)
 //        #expect(context.evaluationResult == true)
 //        let second = TestContext(authenticationRequirement: .presenceRequired, testEvaluationResult: true, approval: .duration(.milliseconds(1)))
-//        _ = try await handler.authenticate(for: .init(secret: .init(second.secret), provenance: .test, target: nil), context: second)
+//        _ = try await handler.authenticatedContext(for: .init(secret: .init(second.secret), provenance: .test, target: nil), context: second)
 //        #expect(context.evaluationResult == true)
 //        #expect(second.evaluationResult == true)
-//        #expect(!calledBatch)
+//        #expect(!calledPresentPending)
     }
 
     @Test func batchDoesNotRequestApproval() async throws {
-//        var calledBatch = false
+//        var calledPresentPending = false
 //        handler.setPendingRequestHandler {
-//            calledBatch = true
+//            calledPresentPending = true
 //        }
 //        let context = TestContext(authenticationRequirement: .presenceRequired, testEvaluationResult: true, approval: .duration(.milliseconds(1)))
-//        _ = try await handler.authenticate(for: .init(secret: .init(context.secret), provenance: .test, target: nil), context: context)
+//        _ = try await handler.authenticatedContext(for: .init(secret: .init(context.secret), provenance: .test, target: nil), context: context)
 //        #expect(context.evaluationResult == true)
 //        let second = TestContext(authenticationRequirement: .presenceRequired, testEvaluationResult: true, approval: .duration(.milliseconds(1)))
-//        _ = try await handler.authenticate(for: .init(secret: .init(second.secret), provenance: .test, target: nil), context: second)
+//        _ = try await handler.authenticatedContext(for: .init(secret: .init(second.secret), provenance: .test, target: nil), context: second)
 //        #expect(context.evaluationResult == true)
 //        #expect(second.evaluationResult == true)
-//        #expect(!calledBatch)
+//        #expect(!calledPresentPending)
     }
 
     @Test func batching() async throws {

@@ -172,7 +172,7 @@ extension Agent {
         let context = try await authenticationHandler.authenticatedContext(for: request, context: newContext)
         let result = try await store.sign(data: data, with: secret, for: provenance, target: target, context: context?.laContext)
         let signedData = signatureWriter.data(secret: secret, signature: result)
-        try await witness?.witness(accessTo: secret, from: store, by: provenance, target: target, offerPersistence: false) // FIXME: THIS
+        try await witness?.witness(accessTo: secret, from: store, by: provenance, target: target, offerPersistence: secret.authenticationRequirement.required)
         logger.debug("Agent signed request")
         return signedData
     }
