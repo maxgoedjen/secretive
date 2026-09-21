@@ -15,7 +15,7 @@ struct PendingRequestsView: View {
 
     var body: some View {
         ScrollView {
-            Text("Multiple authenticated requests are pending. You can approve them batches, or request they all proceed individually.")
+            Text(.pendingRequestDescription)
             ForEach(Array(authenticationHandler.batchableRequests.enumerated()), id: \.offset) { group in
                 MultilineInfoView {
                     if let first = group.element.first {
@@ -33,14 +33,14 @@ struct PendingRequestsView: View {
                                     switch first.target {
                                     case .connection(let payload):
                                         if let host = payload.host {
-                                            Text("Connecting to \(payload.username)@\(host)")
+                                            Text(.authContextConnectingToUsernameAndHost(username: payload.username, host: host))
                                                 .font(.caption2)
                                         } else {
-                                            Text("Connecting to unknown host")
+                                            Text(.authContextConnectingToUnknownHost)
                                                 .font(.caption2)
                                         }
                                     case .signature(let payload):
-                                        Text("Signing for \(payload.namespace)")
+                                        Text(.authContextSigningForNamespace(namespace: payload.namespace))
                                             .font(.caption2)
                                     default:
                                         EmptyView()
@@ -49,7 +49,7 @@ struct PendingRequestsView: View {
                             }
                             Spacer()
                             VStack {
-                                Button("Review as Batch") {
+                                Button(.pendingRequestsReviewBatchButton) {
                                     Task {
                                         try? await authenticationHandler.requestAuthentication(for: Set(group.element))
                                         if authenticationHandler.batchableRequests.isEmpty {
@@ -67,7 +67,7 @@ struct PendingRequestsView: View {
                         HStack {
                             Text(pending.element.provenance.date.formatted())
                             Spacer()
-                            Button("Review") {
+                            Button(.pendingRequestsReviewSingleButton) {
                                 Task {
                                     try? await authenticationHandler.requestAuthentication(for: [pending.element])
                                     if authenticationHandler.batchableRequests.isEmpty {

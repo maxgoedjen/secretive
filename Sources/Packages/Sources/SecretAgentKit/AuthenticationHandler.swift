@@ -49,12 +49,11 @@ public final class AuthenticationContext: AuthenticationContextProtocol {
         if secret.authenticationRequirement.required {
             let newContext = LAContext()
             newContext.localizedCancelTitle = String(localized: .authContextRequestDenyButton)
-            let appNames = Set(requests.map(\.provenance.origin.displayName)).joined(separator: ", ")
-            let secretNames = Set(requests.map(\.secret.name)).joined(separator: ", ")
+            let appName = requests.first!.provenance.origin.displayName
             if requests.count > 1 {
-                newContext.localizedReason = String(localized: .authContextRequestMultiple(appName: appNames, secretName: secretNames))
+                newContext.localizedReason = String(localized: .authContextRequestMultiple(appName: appName, secretName: secret.name))
             } else {
-                newContext.localizedReason = String(localized: .authContextRequestSignatureDescription(appName: appNames, secretName: secretNames))
+                newContext.localizedReason = String(localized: .authContextRequestSignatureDescription(appName: appName, secretName: secret.name))
             }
             laContext = newContext
         } else {
