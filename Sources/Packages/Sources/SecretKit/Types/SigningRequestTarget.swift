@@ -2,12 +2,17 @@ import Foundation
 import AppKit
 
 /// Describes the target of the signature operation.
-public enum SigningRequestTarget: Sendable {
+public enum SigningRequestTarget: Sendable, Hashable {
 
     case connection(ConnectionPayload)
     case signature(SignaturePayload)
 
-    public struct ConnectionPayload: Sendable, Codable{
+    public var batchID: Int {
+        hashValue
+    }
+
+
+    public struct ConnectionPayload: Sendable, Codable, Hashable {
 
         public let username: String
         public let hasSignature: Bool
@@ -34,7 +39,7 @@ public enum SigningRequestTarget: Sendable {
 
     }
 
-    public struct SignaturePayload: Sendable, Codable {
+    public struct SignaturePayload: Sendable, Codable, Hashable {
 
         public let namespace: String
         public let hashAlgorithm: String

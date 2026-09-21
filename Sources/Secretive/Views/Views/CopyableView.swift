@@ -186,7 +186,7 @@ fileprivate struct BackgroundViewModifier: ViewModifier {
             }
             switch interactionState {
             case .normal:
-                return base
+                return base.mix(with: .accentColor, by: 0)
             case .hovering:
                 return base.mix(with: .accentColor, by: colorScheme == .dark ? 0.2 : 0.1)
             case .clicking, .dragging:

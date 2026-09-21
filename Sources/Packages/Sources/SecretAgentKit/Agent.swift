@@ -10,6 +10,7 @@ import SSHProtocolKit
 public final class Agent: Sendable {
 
     private let storeList: SecretStoreList
+    private let authenticationHandler: AuthenticationHandler
     private let certificateStore: CertificateStore
     private let witness: SigningWitness?
     private let publicKeyWriter = OpenSSHPublicKeyWriter()
@@ -22,10 +23,16 @@ public final class Agent: Sendable {
     /// - Parameters:
     ///   - storeList: The `SecretStoreList` to make available.
     ///   - witness: A witness to notify of requests.
-    public init(storeList: SecretStoreList, certificateStore: CertificateStore, witness: SigningWitness? = nil) {
+    public init(
+        storeList: SecretStoreList,
+        certificateStore: CertificateStore,
+        authenticationHandler: AuthenticationHandler,
+        witness: SigningWitness? = nil
+    ) {
         logger.debug("Agent is running")
         self.storeList = storeList
         self.certificateStore = certificateStore
+        self.authenticationHandler = authenticationHandler
         self.witness = witness
     }
     
@@ -151,17 +158,22 @@ extension Agent {
             logger.debug("Agent did not have a key matching \(keyBlobHex)")
             throw NoMatchingKeyError()
         }
+        logger.debug("Agent offering witness chance to object")
+        do {
+            try await witness?.speakNowOrForeverHoldYourPeace(forAccessTo: secret, from: store, by: provenance, target: target)
+        } catch {
+            logger.debug("Witness objected")
+            throw error
+        }
+        logger.debug("Witness did not object")
 
-
-        try await witness?.speakNowOrForeverHoldYourPeace(forAccessTo: secret, from: store, by: provenance, target: target)
-
-        let rawRepresentation = try await store.sign(data: data, with: secret, for: provenance, target: target)
-        let signedData = signatureWriter.data(secret: secret, signature: rawRepresentation)
-
-        try await witness?.witness(accessTo: secret, from: store, by: provenance, target: target)
-
+        let request = SignatureRequest(secret: secret, provenance: provenance, target: target)
+        let newContext = AuthenticationContext(secret: secret, requests: [request])
+        let context = try await authenticationHandler.authenticatedContext(for: request, context: newContext)
+        let result = try await store.sign(data: data, with: secret, for: provenance, target: target, context: context?.laContext)
+        let signedData = signatureWriter.data(secret: secret, signature: result)
+        try await witness?.witness(accessTo: secret, from: store, by: provenance, target: target, offerPersistence: secret.authenticationRequirement.required)
         logger.debug("Agent signed request")
-
         return signedData
     }
 
