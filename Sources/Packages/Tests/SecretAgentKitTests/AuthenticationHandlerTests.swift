@@ -41,9 +41,8 @@ public struct TestSecret: Secret {
     nonisolated func valid(for request: SecretKit.SignatureRequest) -> Bool {
         true
     }
-    
 
-    func evaluate() async throws -> Bool {
+    func evaluate(requireBiometrics: Bool) async throws -> Bool {
         if case let .duration(duration) = approval {
             try await Task.sleep(for: duration)
         } else {
