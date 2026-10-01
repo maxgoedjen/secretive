@@ -6,7 +6,7 @@ public protocol AuthenticationContextProtocol: Sendable, Identifiable {
     var secret: AnySecret { get }
     func valid(for request: SignatureRequest) -> Bool
     var laContext: LAContext? { get }
-    func evaluate() async throws -> Bool
+    func evaluate(requireBiometrics: Bool) async throws -> Bool
     func cancel() async
 }
 

@@ -73,9 +73,10 @@ public final class AuthenticationContext: AuthenticationContextProtocol {
         }
     }
 
-    public func evaluate() async throws -> Bool {
+    public func evaluate(requireBiometrics: Bool) async throws -> Bool {
         guard let laContext else { return false }
-        return try await laContext.evaluatePolicy(.deviceOwnerAuthentication, localizedReason: laContext.localizedReason)
+        let policy: LAPolicy = requireBiometrics ? .deviceOwnerAuthenticationWithBiometrics : .deviceOwnerAuthentication
+        return try await laContext.evaluatePolicy(policy, localizedReason: laContext.localizedReason)
     }
 
     public func cancel() async {
@@ -141,7 +142,7 @@ public final class AuthenticationContext: AuthenticationContextProtocol {
         activeContext = context
         let currentTask = Task<Bool, any Error> {
             logger.log("Beginning individual auth prompt")
-            let result = (try? await context.evaluate()) ?? false
+            let result = (try? await context.evaluate(requireBiometrics: request.secret.authenticationRequirement == .biometryCurrent)) ?? false
             logger.log("Ended individual auth prompt")
             return result
         }
@@ -195,7 +196,7 @@ public final class AuthenticationContext: AuthenticationContextProtocol {
 
     public func persistAuthentication<SecretType: Secret>(secret: SecretType, forDuration duration: TimeInterval) async throws {
         let context = AuthenticationContext(secret: secret, duration: duration)
-        let success = try await context.evaluate()
+        let success = try await context.evaluate(requireBiometrics: secret.authenticationRequirement == .biometryCurrent)
         guard success else { return }
         authenticatedContexts[AnySecret(secret)] = context
     }
@@ -204,7 +205,7 @@ public final class AuthenticationContext: AuthenticationContextProtocol {
         activeTask?.cancel()
         guard let first = requests.first else { return }
         let context = AuthenticationContext(secret: first.secret, requests: requests)
-        let success = (try? await context.evaluate()) ?? false
+        let success = (try? await context.evaluate(requireBiometrics: first.secret.authenticationRequirement == .biometryCurrent)) ?? false
         guard success else {
             waitingRequests.subtract(requests)
             return
