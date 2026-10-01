@@ -23,10 +23,6 @@ extension SecureEnclave {
             self.attributes = attributes
         }
 
-        public static func ==(lhs: Self, rhs: Self) -> Bool {
-            lhs.id == rhs.id
-        }
-
     }
 
 }
