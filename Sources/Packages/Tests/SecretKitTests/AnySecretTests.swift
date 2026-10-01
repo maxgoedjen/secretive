@@ -1,4 +1,5 @@
 import Foundation
+import LocalAuthentication
 import Testing
 @testable import SecretKit
 @testable import SecureEnclaveSecretKit
@@ -17,4 +18,35 @@ import Testing
         #expect(erased.publicKey == secret.publicKey)
     }
 
+    @Test @MainActor func eraserForwardsReloadRequirement() {
+        let store = ReloadTrackingStore()
+        let erased = AnySecretStore(store)
+
+        #expect(erased.secretsNeedReload)
+        store.secretsNeedReload = false
+        #expect(!erased.secretsNeedReload)
+    }
+
+}
+
+private struct ReloadTrackingSecret: Secret {
+    let id = UUID()
+    let name = "Test"
+    let publicKey = Data()
+    let attributes = Attributes(keyType: .ecdsa256, authentication: .notRequired)
+}
+
+@MainActor private final class ReloadTrackingStore: SecretStore, @unchecked Sendable {
+    let id = UUID()
+    let isAvailable = true
+    let name = "Test"
+    var secrets: [ReloadTrackingSecret] = []
+    var secretsNeedReload = true
+
+    nonisolated func sign(data: Data, with secret: ReloadTrackingSecret, for provenance: SigningRequestProvenance, target: SigningRequestTarget?, context: LAContext?) async throws -> Data {
+        Data()
+    }
+
+    func reloadSecrets() {
+    }
 }
