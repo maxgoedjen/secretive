@@ -15,8 +15,8 @@ extension SigningRequestTracer {
     func provenance(from fileHandle: FileHandle) -> SigningRequestProvenance {
         let firstInfo = process(from: fileHandle.pidOfConnectedProcess)
         var provenance = SigningRequestProvenance(root: firstInfo)
-        while NSRunningApplication(processIdentifier: provenance.origin.pid) == nil && provenance.origin.parentPID != nil {
-            provenance.chain.append(process(from: provenance.origin.parentPID!))
+        while NSRunningApplication(processIdentifier: provenance.origin.pid) == nil, let parentPID = provenance.origin.parentPID, parentPID != 1 {
+            provenance.chain.append(process(from: parentPID))
         }
         return provenance
     }

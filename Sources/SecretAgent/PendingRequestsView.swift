@@ -21,7 +21,7 @@ struct PendingRequestsView: View {
                     if let first = group.element.first {
                         HStack {
                             HStack {
-                                Image(nsImage: .init(byReferencing: first.provenance.origin.iconURL!))
+                                icon(for: first.provenance.origin)
                                     .resizable()
                                     .aspectRatio(contentMode: .fit)
                                     .frame(width: 50)
@@ -84,6 +84,14 @@ struct PendingRequestsView: View {
             }
         }
         .safeAreaPadding(20)
+    }
+
+    private func icon(for process: SigningRequestProvenance.Process) -> Image {
+        if let iconURL = process.iconURL, let icon = NSImage(contentsOf: iconURL) {
+            Image(nsImage: icon)
+        } else {
+            Image(systemName: "apple.terminal")
+        }
     }
 
 }
@@ -200,3 +208,26 @@ private struct TestHandler: AuthenticationHandlerProtocol {
         }
 
     }
+
+#Preview("Icon fallback") {
+    let secret = AnySecret(PreviewSecret())
+    let request = { (name: String, iconURL: URL?) in
+        SignatureRequest(
+            secret: secret,
+            provenance: SigningRequestProvenance(root: .init(pid: 0, processName: name, appName: nil, iconURL: iconURL, path: "/\(name)", validSignature: true, parentPID: nil)),
+            target: nil
+        )
+    }
+    PendingRequestsView(authenticationHandler: TestHandler(batchableRequests: [
+        [request("Valid icon", URL(filePath: "/System/Applications/Utilities/Terminal.app/Contents/Resources/Terminal.icns"))],
+        [request("Missing icon file", URL(filePath: "/nonexistent.icns"))],
+        [request("No icon URL", nil)],
+    ]))
+}
+
+private struct PreviewSecret: Secret {
+    let id = UUID()
+    let name = "Secret"
+    let publicKey = Data()
+    let attributes = Attributes(keyType: KeyType(algorithm: .ecdsa, size: 256), authentication: .notRequired)
+}
