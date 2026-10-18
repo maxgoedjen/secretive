@@ -21,10 +21,18 @@ struct PendingRequestsView: View {
                     if let first = group.element.first {
                         HStack {
                             HStack {
-                                Image(nsImage: .init(byReferencing: first.provenance.origin.iconURL!))
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fit)
-                                    .frame(width: 50)
+                                if let iconURL = first.provenance.origin.iconURL {
+                                    Image(nsImage: .init(byReferencing: iconURL))
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fit)
+                                        .frame(width: 50)
+                                } else {
+                                    Image(systemName: "app.grid")
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fit)
+                                        .fontWeight(.regular)
+                                        .frame(width: 50)
+                                }
                                 VStack(alignment: .leading) {
                                     Text(first.provenance.origin.displayName)
                                         .font(.subheadline)
