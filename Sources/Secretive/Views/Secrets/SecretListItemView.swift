@@ -14,14 +14,30 @@ struct SecretListItemView: View {
     
     var body: some View {
         NavigationLink(value: secret) {
-            if secret.authenticationRequirement.required {
+            if secret.attributes.usableWhileLocked {
+                HStack {
+                    Text(secret.name)
+                    Spacer()
+                    Image(systemName: "lock.open.trianglebadge.exclamationmark")
+                        .accessibilityLabel(String(localized: .createSecretUsableWhileLockedWarning))
+                }
+                .help(String(localized: .createSecretUsableWhileLockedWarning))
+            } else if secret.authenticationRequirement.required {
                 HStack {
                     Text(secret.name)
                     Spacer()
                     Image(systemName: "lock")
+                        .accessibilityLabel(String(localized: .createSecretRequireAuthenticationDescription))
                 }
+                .help(String(localized: .createSecretRequireAuthenticationDescription))
             } else {
-                Text(secret.name)
+                HStack {
+                    Text(secret.name)
+                    Spacer()
+                    Image(systemName: "lock.open")
+                        .accessibilityLabel(String(localized: .createSecretNotifyDescription))
+                }
+                .help(String(localized: .createSecretNotifyDescription))
             }
         }
         .sheet(isPresented: $isRenaming, onDismiss: {

@@ -9,6 +9,7 @@ open class AnySecretStore: SecretStore, @unchecked Sendable {
     private let _id: @Sendable () -> UUID
     private let _name: @MainActor @Sendable () -> String
     private let _secrets: @MainActor @Sendable () -> [AnySecret]
+    private let _secretsNeedReload: @MainActor @Sendable () -> Bool
     private let _sign: @Sendable (Data, AnySecret, SigningRequestProvenance, SigningRequestTarget?, LAContext?) async throws -> Data
     private let _reloadSecrets: @Sendable () async -> Void
 
@@ -18,6 +19,7 @@ open class AnySecretStore: SecretStore, @unchecked Sendable {
         _name = { secretStore.name }
         _id = { secretStore.id }
         _secrets = { secretStore.secrets.map { AnySecret($0) } }
+        _secretsNeedReload = { secretStore.secretsNeedReload }
         _sign = { try await secretStore.sign(data: $0, with: $1.base as! SecretStoreType.SecretType, for: $2, target: $3, context: $4) }
         _reloadSecrets = { await secretStore.reloadSecrets() }
     }
@@ -36,6 +38,10 @@ open class AnySecretStore: SecretStore, @unchecked Sendable {
 
     @MainActor public var secrets: [AnySecret] {
         return _secrets()
+    }
+
+    @MainActor public var secretsNeedReload: Bool {
+        _secretsNeedReload()
     }
 
     public func sign(data: Data, with secret: AnySecret, for provenance: SigningRequestProvenance, target: SigningRequestTarget?, context: LAContext?) async throws -> Data {
