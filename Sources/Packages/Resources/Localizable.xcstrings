@@ -1649,7 +1649,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "禁用Agent"
+            "value" : "停用Agent"
           }
         },
         "zh-Hant" : {
@@ -2019,7 +2019,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "运行时间始于"
+            "value" : "启动时间"
           }
         },
         "zh-Hant" : {
@@ -2944,7 +2944,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "SecretAgent是个在后台处理签名请求的进程，让您无需将Secretive一直保持在前台。\n\n**需要安装并运行Agent，否则Secretive无法正常工作。**"
+            "value" : "SecretAgent是在后台处理签名请求的进程，因此你无需一直开着Secretive。\n\n**需要安装并运行Agent，否则Secretive无法正常工作。**"
           }
         },
         "zh-Hant" : {
@@ -3129,7 +3129,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Agent尚未运行"
+            "value" : "Agent未运行"
           }
         },
         "zh-Hant" : {
@@ -3314,7 +3314,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "SecretAgent是个在后台处理签名请求的进程，让您无需将Secretive一直保持在前台。\n\n**您可以关闭Secretive，所有服务都将正常运行。**"
+            "value" : "SecretAgent是在后台处理签名请求的进程，因此你无需一直开着Secretive。\n\n**你可以关闭Secretive，一切仍会正常运行。**"
           }
         },
         "zh-Hant" : {
@@ -4239,7 +4239,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "新密钥串"
+            "value" : "新建密钥"
           }
         },
         "zh-Hant" : {
@@ -4998,6 +4998,12 @@
             "state" : "translated",
             "value" : "Connecting to unknown host"
           }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "正在连接未知主机"
+          }
         }
       }
     },
@@ -5008,6 +5014,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Connecting to %1$(username)@@%2$(host)@"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "正在连接%1$(username)@@%2$(host)@"
           }
         }
       }
@@ -5187,7 +5199,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "解锁密钥串“%1$(secretName)@”%2$(duration)@"
+            "value" : "将密钥“%1$(secretName)@”解锁%2$(duration)@"
           }
         },
         "zh-Hant" : {
@@ -5392,6 +5404,12 @@
             "state" : "translated",
             "value" : "sign multiple requests from “%1$(appName)@” using secret “%2$(secretName)@”"
           }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "使用密钥“%2$(secretName)@”为来自“%1$(appName)@”的多个请求签名"
+          }
         }
       }
     },
@@ -5570,7 +5588,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "用密钥串“%2$(secretName)@”认证来自“%1$(appName)@”的请求"
+            "value" : "使用密钥“%2$(secretName)@”为来自“%1$(appName)@”的请求签名"
           }
         },
         "zh-Hant" : {
@@ -5755,8 +5773,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "用密钥串“%2$(targetName)@”认证来自“%1$(appName)@”的请求"
+            "state" : "translated",
+            "value" : "使用密钥“%3$(secretName)@”为来自“%1$(appName)@”的请求签名，以连接“%2$(targetName)@”"
           }
         },
         "zh-Hant" : {
@@ -5941,8 +5959,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "用密钥串“%2$(appName)@”认证来自“%1$(namespace)@”的请求"
+            "state" : "translated",
+            "value" : "使用密钥“%3$(secretName)@”为来自“%2$(appName)@”的%1$(namespace)@请求签名"
           }
         },
         "zh-Hant" : {
@@ -5961,6 +5979,12 @@
             "state" : "translated",
             "value" : "Signing for %1$(namespace)@"
           }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "正在为%1$(namespace)@签名"
+          }
         }
       }
     },
@@ -5977,6 +6001,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Opções críticas"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "关键选项"
           }
         }
       }
@@ -5995,6 +6025,12 @@
             "state" : "translated",
             "value" : "Extensões"
           }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "扩展"
+          }
         }
       }
     },
@@ -6011,6 +6047,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "ID da Chave"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "密钥ID"
           }
         }
       }
@@ -6029,6 +6071,12 @@
             "state" : "translated",
             "value" : "Caminho do Certificado"
           }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "证书路径"
+          }
         }
       }
     },
@@ -6045,6 +6093,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Entidades Principais"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "主体"
           }
         }
       }
@@ -6063,6 +6117,12 @@
             "state" : "translated",
             "value" : "Número de Série"
           }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "序列号"
+          }
         }
       }
     },
@@ -6079,6 +6139,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Impressão Digital da Chave Pública"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "公钥指纹"
           }
         }
       }
@@ -6097,6 +6163,12 @@
             "state" : "translated",
             "value" : "Impressão Digital da AC de Assinatura"
           }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "签名CA指纹"
+          }
         }
       }
     },
@@ -6113,6 +6185,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Válido após"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "有效期始于"
           }
         }
       }
@@ -6131,6 +6209,12 @@
             "state" : "translated",
             "value" : "Válido até"
           }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "有效期至"
+          }
         }
       }
     },
@@ -6148,6 +6232,12 @@
             "state" : "translated",
             "value" : "Intervalo de validade"
           }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "有效期"
+          }
         }
       }
     },
@@ -6161,6 +6251,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Certificates"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "证书"
           }
         }
       }
@@ -6339,7 +6435,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "点击拷贝"
+            "value" : "点按以拷贝"
           }
         },
         "zh-Hant" : {
@@ -6709,7 +6805,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "高级选项"
+            "value" : "高级"
           }
         },
         "zh-Hant" : {
@@ -6894,7 +6990,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "如果您以_任何方式_更改生物识别设置，包括新增指纹，此密钥将不再可用。"
+            "value" : "如果你以**任何方式**更改生物识别设置（包括添加新指纹），将无法再访问此密钥。"
           }
         },
         "zh-Hant" : {
@@ -7449,7 +7545,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "会显示在公钥末尾。通常为电子邮箱地址。"
+            "value" : "会显示在公钥末尾，通常是电子邮件地址。"
           }
         },
         "zh-Hant" : {
@@ -8189,7 +8285,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "警告：ML-DSA密钥非常新，许多服务器尚不支持。 请验证您将使用此密钥的服务器能接受ML-DSA密钥。"
+            "value" : "警告：ML-DSA密钥非常新，许多服务器尚不支持。请确认你要使用此密钥的服务器接受ML-DSA密钥。"
           }
         },
         "zh-Hant" : {
@@ -8559,7 +8655,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "张三的主机"
+            "value" : "嘘——"
           }
         },
         "zh-Hant" : {
@@ -8744,7 +8840,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "当Mac已解锁时无需验证，但密钥串被使用时会通知您。"
+            "value" : "Mac解锁时无需认证，但密钥被使用时你会收到通知。"
           }
         },
         "zh-Hant" : {
@@ -9299,7 +9395,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "需要用当前的生物识别特征集来认证。"
+            "value" : "需要使用当前的生物识别信息进行认证。"
           }
         },
         "zh-Hant" : {
@@ -9669,7 +9765,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "每次使用前都会要求您使用触控ID、Apple Watch或密码进行验证。"
+            "value" : "每次使用前都需要通过触控ID、Apple Watch或密码进行认证。"
           }
         },
         "zh-Hant" : {
@@ -9854,7 +9950,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "需要验证"
+            "value" : "需要认证"
           }
         },
         "zh-Hant" : {
@@ -10039,7 +10135,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "创建一个新的密钥串"
+            "value" : "创建新密钥"
           }
         },
         "zh-Hant" : {
@@ -10224,7 +10320,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "禁止删除"
+            "value" : "不删除"
           }
         },
         "zh-Hant" : {
@@ -10594,7 +10690,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "如果删除%1$(secretName)@，您将无法恢复它。输入 “%2$(confirmSecretName)@”以确认。"
+            "value" : "如果删除“%1$(secretName)@”，将无法恢复。输入“%2$(confirmSecretName)@”以确认。"
           }
         },
         "zh-Hant" : {
@@ -10779,7 +10875,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "删除“%1$(name)@”吗？"
+            "value" : "要删除“%1$(name)@”吗？"
           }
         },
         "zh-Hant" : {
@@ -11334,7 +11430,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "点击这里创建一个新的密钥串。"
+            "value" : "点按此处创建新密钥。"
           }
         },
         "zh-Hant" : {
@@ -11519,7 +11615,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "没有密钥串"
+            "value" : "无密钥"
           }
         },
         "zh-Hant" : {
@@ -11704,7 +11800,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "看起来您最近可能更新了macOS。 有时这会使安全隔区状态异常，可能需要重启Mac才能恢复正常。"
+            "value" : "看起来你最近可能更新了macOS。有时这会使安全隔区状态异常，你可能需要重启Mac才能恢复正常。"
           }
         },
         "zh-Hant" : {
@@ -11889,7 +11985,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "密钥串不见了？"
+            "value" : "密钥不见了？"
           }
         },
         "zh-Hant" : {
@@ -12074,7 +12170,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "使用您的智能卡管理工具创建一个新的密钥串。"
+            "value" : "使用你的智能卡管理工具创建密钥。"
           }
         },
         "zh-Hant" : {
@@ -12444,7 +12540,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "没有密钥串"
+            "value" : "无密钥"
           }
         },
         "zh-Hant" : {
@@ -13172,7 +13268,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "应用"
+            "value" : "App"
           }
         },
         "zh-Hant" : {
@@ -13357,7 +13453,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "GitHub上有份由社区维护的清单介绍如何配置应用。若尚不支持您要找的应用，请创建一个issue，社区或许能提供帮助。"
+            "value" : "GitHub上有一份由社区维护的App配置说明列表。如果其中没有你要找的App，请创建一个issue，社区或许能提供帮助。"
           }
         },
         "zh-Hant" : {
@@ -13542,7 +13638,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "GitHub上有份由社区维护的清单介绍如何配置shell。若尚不支持您要找的shell，请创建一个issue，社区或许能提供帮助。"
+            "value" : "GitHub上有一份由社区维护的shell配置说明列表。如果其中没有你要找的shell，请创建一个issue，社区或许能提供帮助。"
           }
         },
         "zh-Hant" : {
@@ -13568,6 +13664,12 @@
             "state" : "translated",
             "value" : "seu_email@exemplo.com.br"
           }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "your_email@example.com"
+          }
         }
       }
     },
@@ -13585,6 +13687,12 @@
             "state" : "translated",
             "value" : "O endereço de email que você definiu quando configurou o git (visível no gitconfig)."
           }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "你配置git时设置的电子邮件地址（可在gitconfig中查看）。"
+          }
         }
       }
     },
@@ -13601,6 +13709,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Endereço de email"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "电子邮件地址"
           }
         }
       }
@@ -13779,7 +13893,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "在配置此操作前，您需要先创建一个密钥串。"
+            "value" : "配置此操作前，你需要先创建一个密钥。"
           }
         },
         "zh-Hant" : {
@@ -13964,7 +14078,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "用密钥串来配置"
+            "value" : "使用密钥配置"
           }
         },
         "zh-Hant" : {
@@ -14149,7 +14263,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "没有密钥串"
+            "value" : "无密钥"
           }
         },
         "zh-Hant" : {
@@ -14334,7 +14448,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "密钥串"
+            "value" : "密钥"
           }
         },
         "zh-Hant" : {
@@ -14519,7 +14633,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "您可以配置多个工具，它们通常不会相互干扰。"
+            "value" : "你可以配置多个工具，它们通常不会相互干扰。"
           }
         },
         "zh-Hant" : {
@@ -14704,7 +14818,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "入门指南"
+            "value" : "开始使用"
           }
         },
         "zh-Hant" : {
@@ -15074,7 +15188,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "如果您打算签署git提交，请配置“Git签名”。"
+            "value" : "如果你打算为git提交签名，请配置“Git签名”。"
           }
         },
         "zh-Hant" : {
@@ -15259,7 +15373,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "如果您打算让命令行运行的任何命令使用Secretive，请配置“Shell”。"
+            "value" : "如果你打算让命令行中运行的任何程序使用Secretive，请配置“Shell”。"
           }
         },
         "zh-Hant" : {
@@ -15444,7 +15558,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "如果您不知道自己在用哪个shell且未曾更改它，您大概在用`%(shellName)@`。"
+            "value" : "如果你不知道自己在用哪个shell，也没有更改过，那么你用的很可能是`%(shellName)@`。"
           }
         },
         "zh-Hant" : {
@@ -15629,7 +15743,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "如果您打算为SSH服务器配置身份认证或通过SSH与GitHub之类的服务认证身份，请配置SSH客户端。"
+            "value" : "如果你要向SSH服务器认证身份，或通过SSH向GitHub等服务认证身份，请配置SSH客户端。"
           }
         },
         "zh-Hant" : {
@@ -15999,7 +16113,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "多数工具会尝试在`~/.ssh`中查找磁盘上的SSH密钥。要使用Secretive，我们需要配置这些工具来与Secretive通信。"
+            "value" : "多数工具会在磁盘上的`~/.ssh`中查找SSH密钥。要使用Secretive，需要将这些工具配置为与Secretive通信。"
           }
         },
         "zh-Hant" : {
@@ -16369,7 +16483,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "~/.gitallowedsigners 可能不存在。您需要创建它。"
+            "value" : "~/.gitallowedsigners可能不存在，你需要创建它。"
           }
         },
         "zh-Hant" : {
@@ -17665,7 +17779,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "您可以让SSH为指定的主机使用特定密钥。详情请参阅在线文档。"
+            "value" : "你可以让SSH为指定主机使用特定密钥。详情请参阅在线文档。"
           }
         },
         "zh-Hant" : {
@@ -19334,7 +19448,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "若某小节（比如 [user]）已存在，只需在现有小节中添加条目。"
+            "value" : "若某个小节（如[user]）已存在，只需将这些条目添加到现有小节中。"
           }
         },
         "zh-Hant" : {
@@ -19519,7 +19633,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "您的Mac没有安全隔区，也没有插入兼容的智能卡。"
+            "value" : "你的Mac没有安全隔区，也没有插入兼容的智能卡。"
           }
         },
         "zh-Hant" : {
@@ -19889,7 +20003,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "如果您想为Mac添加一个智能卡， YubiKey 5系列是个不错的选择。"
+            "value" : "如果你想为Mac添加一个智能卡，YubiKey 5系列是不错的选择。"
           }
         },
         "zh-Hant" : {
@@ -19908,6 +20022,12 @@
             "state" : "translated",
             "value" : "Multiple authenticated requests are pending. You can approve them batches, or request they all proceed individually."
           }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "有多个需要认证的请求正在等待处理。你可以批量批准这些请求，也可以逐个处理。"
+          }
         }
       }
     },
@@ -19919,6 +20039,12 @@
             "state" : "translated",
             "value" : "Review as Batch"
           }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "批量审核"
+          }
         }
       }
     },
@@ -19929,6 +20055,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Review"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "审核"
           }
         }
       }
@@ -20108,7 +20240,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "自动验证"
+            "value" : "保持解锁"
           }
         },
         "zh-Hant" : {
@@ -20294,7 +20426,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "不要自动验证"
+            "value" : "不保持解锁"
           }
         },
         "zh-Hant" : {
@@ -20319,6 +20451,12 @@
             "state" : "translated",
             "value" : "Nome"
           }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "名称"
+          }
         }
       }
     },
@@ -20335,6 +20473,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Nome do Certificado"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "证书名称"
           }
         }
       }
@@ -20513,7 +20657,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "在访达中查看"
+            "value" : "在访达中显示"
           }
         },
         "zh-Hant" : {
@@ -20537,6 +20681,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Certificados correspondentes"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "匹配的证书"
           }
         }
       }
@@ -22189,7 +22339,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "这个辅助程序叫做**Secret Agent**， 之后您会时不时在活动监视器中看见它。"
+            "value" : "这个辅助程序名为**Secret Agent**，你可能会不时在“活动监视器”中看到它。"
           }
         },
         "zh-Hant" : {
@@ -22374,7 +22524,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Secretive需要设置一个辅助程序才能正常工作。它会在后台处理SSH客户端的签名请求，这样您就不需要在前台一直保持Secretive开启了。"
+            "value" : "Secretive需要设置一个辅助程序才能正常工作。它会在后台为SSH客户端的请求签名，因此你无需一直开着Secretive主App。"
           }
         },
         "zh-Hant" : {
@@ -23299,7 +23449,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "让您用的工具知道如何与Secretive通信。"
+            "value" : "让你使用的工具知道如何与Secretive通信。"
           }
         },
         "zh-Hant" : {
@@ -23669,7 +23819,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Secretive会定期访问GitHub来检查更新。这就是为什么您会看见发往GitHub的网络请求。"
+            "value" : "Secretive会定期向GitHub检查是否有新版本。如果你看到发往GitHub的网络请求，原因就在于此。"
           }
         },
         "zh-Hant" : {
@@ -23854,7 +24004,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "好的"
+            "value" : "好"
           }
         },
         "zh-Hant" : {
@@ -24409,8 +24559,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "使用密钥串 %1$(secretName)@"
+            "state" : "translated",
+            "value" : "使用密钥“%1$(secretName)@”连接%2$(username)@@%3$(host)@"
           }
         },
         "zh-Hant" : {
@@ -24596,7 +24746,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "使用密钥串 %1$(secretName)@"
+            "value" : "使用密钥“%1$(secretName)@”"
           }
         },
         "zh-Hant" : {
@@ -24782,7 +24932,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "已认证来自“%1$(appName)@”的请求"
+            "value" : "已为来自“%1$(appName)@”的请求签名"
           }
         },
         "zh-Hant" : {
@@ -24967,8 +25117,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "使用密钥串 %1$(secretName)@"
+            "state" : "translated",
+            "value" : "使用密钥“%1$(secretName)@”为%2$(namespace)@签名"
           }
         },
         "zh-Hant" : {
@@ -25523,7 +25673,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "重要安全更新可用"
+            "value" : "需要安装重要安全更新"
           }
         },
         "zh-Hant" : {
@@ -25893,7 +26043,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "有可用更新"
+            "value" : "有更新可用"
           }
         },
         "zh-Hant" : {
@@ -26637,7 +26787,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "点击更新"
+            "value" : "点按以更新"
           }
         },
         "zh-Hant" : {
@@ -26823,7 +26973,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "有可用更新 - %1$(updateName)@"
+            "value" : "有更新可用 - %1$(updateName)@"
           }
         },
         "zh-Hant" : {
