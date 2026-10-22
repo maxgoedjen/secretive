@@ -98,13 +98,20 @@ public final class AuthenticationContext: AuthenticationContextProtocol {
     private var authenticatedContexts: [AnySecret: AuthenticationContext] = [:]
     private var waitingRequests: Set<SignatureRequest> = []
     private var activeTask: Task<Bool, any Error>?
-    private var activeContext: (any AuthenticationContextProtocol)?
+    private var activeContext: (requestID: UUID, context: any AuthenticationContextProtocol, cancellationTask: Task<Void, Never>?)?
 
     private var lastBatchAuthPresentation: Set<SignatureRequest>?
+    private var isPresentingPendingRequests = false
     private var presentPendingAuth: (() async throws -> Void)?
+    private let keyboardIdleWaiter: KeyboardIdleWaiter
     private let logger = Logger(subsystem: "com.maxgoedjen.secretive.secretagent", category: "AuthenticationHandler")
 
     public init() {
+        keyboardIdleWaiter = KeyboardIdleWaiter()
+    }
+
+    init(keyboardIdleWaiter: KeyboardIdleWaiter) {
+        self.keyboardIdleWaiter = keyboardIdleWaiter
     }
 
     public func setPendingRequestHandler(_ handler: @escaping () async throws -> Void) {
@@ -139,21 +146,37 @@ public final class AuthenticationContext: AuthenticationContextProtocol {
         }
 
         // Hold onto the task and context so we can cancel them when prsenting pending.
-        activeContext = context
+        activeContext = (request.id, context, nil)
         let currentTask = Task<Bool, any Error> {
+            let shouldPresent = try await waitForAutomaticPresentation {
+                waitingRequests.contains(request) && existingAuthenticationContext(for: request) == nil
+            }
+            guard shouldPresent else { return false }
+            try Task.checkCancellation()
+            guard existingAuthenticationContext(for: request) == nil else { return false }
             logger.log("Beginning individual auth prompt")
             let result = (try? await context.evaluate(requireBiometrics: request.secret.authenticationRequirement == .biometryCurrent)) ?? false
             logger.log("Ended individual auth prompt")
             return result
         }
         activeTask = currentTask
-        let result = try? await activeTask?.value
-        if result == false && activeTask?.isCancelled == false {
-            waitingRequests.remove(request)
+        let result = try? await withTaskCancellationHandler {
+            try await currentTask.value
+        } onCancel: {
+            currentTask.cancel()
+            Task { @MainActor in await self.cancelActiveContext(for: request.id) }
+        }
+        if Task.isCancelled {
+            await cancelActiveContext(for: request.id)
             throw CancellationError()
-        } else if currentTask.isCancelled {
+        }
+        if let existing = existingAuthenticationContext(for: request) {
+            return existing
+        }
+        if currentTask.isCancelled {
             return try await waitUntilRequestActedOn(request)
         }
+        guard result == true else { throw CancellationError() }
         return context
     }
 
@@ -161,19 +184,32 @@ public final class AuthenticationContext: AuthenticationContextProtocol {
         logger.log("Auth prompt was cancelled, waiting for explicit auth")
         // At this point, we essentially just block the task until either the request has been authenticated "externally" via the pending view.
         while waitingRequests.contains(request) {
-            if waitingRequests != lastBatchAuthPresentation {
-                // If we're about to present a batch, we cancel the individual auth prompt, and show the batch one.
-                logger.log("Multiple pending requests exist, cancelling existing auth prompt")
-                activeTask?.cancel()
-                lastBatchAuthPresentation = waitingRequests
-                logger.log("Requesting pending requests presentation")
-                try await presentPendingAuth?()
-                await activeContext?.cancel()
-                logger.log("Requested pending requests presentation")
-            }
+            try Task.checkCancellation()
             if let preauthenticated = existingAuthenticationContext(for: request) {
                 logger.log("Explicit auth context found")
                 return preauthenticated
+            }
+            if requestsNeedingAuthentication != lastBatchAuthPresentation && !isPresentingPendingRequests {
+                isPresentingPendingRequests = true
+                defer { isPresentingPendingRequests = false }
+                // If we're about to present a batch, we cancel the individual auth prompt, and show the batch one.
+                logger.log("Multiple pending requests exist, cancelling existing auth prompt")
+                activeTask?.cancel()
+                await cancelActiveContext()
+                let shouldPresent = try await waitForAutomaticPresentation {
+                    waitingRequests.contains(request) && existingAuthenticationContext(for: request) == nil
+                }
+                try Task.checkCancellation()
+                if let preauthenticated = existingAuthenticationContext(for: request) {
+                    return preauthenticated
+                }
+                guard shouldPresent && waitingRequests.contains(request) else { continue }
+                let pending = requestsNeedingAuthentication
+                guard !pending.isEmpty && pending != lastBatchAuthPresentation else { continue }
+                lastBatchAuthPresentation = pending
+                logger.log("Requesting pending requests presentation")
+                try await presentPendingAuth?()
+                logger.log("Requested pending requests presentation")
             }
             try await Task.sleep(for: .milliseconds(100))
         }
@@ -181,12 +217,48 @@ public final class AuthenticationContext: AuthenticationContextProtocol {
 
     }
 
+    private func cancelActiveContext(for requestID: UUID? = nil) async {
+        guard let current = activeContext else { return }
+        if let requestID, current.requestID != requestID { return }
+        let cancellationTask: Task<Void, Never>
+        if let existing = current.cancellationTask {
+            cancellationTask = existing
+        } else {
+            cancellationTask = Task { await current.context.cancel() }
+            activeContext = (current.requestID, current.context, cancellationTask)
+        }
+        await cancellationTask.value
+        if activeContext?.requestID == current.requestID {
+            activeContext = nil
+        }
+    }
+
+    private func waitForAutomaticPresentation(continuingWhile shouldContinue: () -> Bool) async throws -> Bool {
+        switch try await keyboardIdleWaiter.waitUntilIdle(continuingWhile: shouldContinue) {
+        case .idle:
+            return true
+        case .unavailable:
+            logger.error("Keyboard activity is unavailable; using existing automatic presentation behavior")
+            return true
+        case .noLongerNeeded:
+            return false
+        }
+    }
+
     public var batchableRequests: [[SignatureRequest]] {
-        waitingRequests.reduce(into: [:]) { partialResult, next in
+        requestsNeedingAuthentication.reduce(into: [:]) { partialResult, next in
             partialResult[next.batchID, default: []].append(next)
         }
         .values
         .map { $0.sorted() }
+    }
+
+    private var requestsNeedingAuthentication: Set<SignatureRequest> {
+        waitingRequests.filter { existingAuthenticationContext(for: $0) == nil }
+    }
+
+    func recordAuthenticatedContext(_ context: AuthenticationContext) {
+        authenticatedContexts[context.secret] = context
     }
 
     private func existingAuthenticationContext(for request: SignatureRequest) -> (any AuthenticationContextProtocol)? {
@@ -198,7 +270,7 @@ public final class AuthenticationContext: AuthenticationContextProtocol {
         let context = AuthenticationContext(secret: secret, duration: duration)
         let success = try await context.evaluate(requireBiometrics: secret.authenticationRequirement == .biometryCurrent)
         guard success else { return }
-        authenticatedContexts[AnySecret(secret)] = context
+        recordAuthenticatedContext(context)
     }
 
     public func requestAuthentication(for requests: Set<SignatureRequest>) async throws {
@@ -211,7 +283,7 @@ public final class AuthenticationContext: AuthenticationContextProtocol {
             return
         }
         // Even single-use ones get stuffed into authenticatedContexts, so that it can unblock the response path.
-        authenticatedContexts[AnySecret(first.secret)] = context
+        recordAuthenticatedContext(context)
     }
 
 }
