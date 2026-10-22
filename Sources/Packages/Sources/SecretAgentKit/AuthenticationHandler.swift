@@ -102,9 +102,11 @@ public final class AuthenticationContext: AuthenticationContextProtocol {
 
     private var lastBatchAuthPresentation: Set<SignatureRequest>?
     private var presentPendingAuth: (() async throws -> Void)?
+    private let willRequestAutomaticAuthentication: @MainActor () -> Void
     private let logger = Logger(subsystem: "com.maxgoedjen.secretive.secretagent", category: "AuthenticationHandler")
 
-    public init() {
+    public init(willRequestAutomaticAuthentication: @escaping @MainActor () -> Void = {}) {
+        self.willRequestAutomaticAuthentication = willRequestAutomaticAuthentication
     }
 
     public func setPendingRequestHandler(_ handler: @escaping () async throws -> Void) {
@@ -141,7 +143,10 @@ public final class AuthenticationContext: AuthenticationContextProtocol {
         // Hold onto the task and context so we can cancel them when prsenting pending.
         activeContext = context
         let currentTask = Task<Bool, any Error> {
+            guard !Task.isCancelled else { return false }
             logger.log("Beginning individual auth prompt")
+            // LocalAuthentication does not report when its UI becomes visible, so notify just before requesting it.
+            willRequestAutomaticAuthentication()
             let result = (try? await context.evaluate(requireBiometrics: request.secret.authenticationRequirement == .biometryCurrent)) ?? false
             logger.log("Ended individual auth prompt")
             return result

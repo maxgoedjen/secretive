@@ -9,6 +9,7 @@ import Observation
 import Common
 import SwiftUI
 import CertificateKit
+import SettingsKit
 
 @main
 struct SecretAgent: App {
@@ -26,7 +27,7 @@ struct SecretAgent: App {
 
     private let updater = Updater(checkOnLaunch: true)
     private let notifier = Notifier()
-    private let authenticationHandler = AuthenticationHandler()
+    private let authenticationHandler = AuthenticationHandler(willRequestAutomaticAuthentication: Self.playApprovalRequestSound)
     private let publicKeyFileStoreController = PublicKeyFileStoreController(publicKeysURL: URL.publicKeyDirectory, certificatesURL: URL.certificatesDirectory)
 
     @Environment(\.openWindow) var openWindow
@@ -111,6 +112,13 @@ struct SecretAgent: App {
     var pendingView: some View {
         if !authenticationHandler.batchableRequests.isEmpty {
             PendingRequestsView(authenticationHandler: authenticationHandler)
+                .onAppear(perform: Self.playApprovalRequestSound)
+        }
+    }
+
+    @MainActor private static func playApprovalRequestSound() {
+        if SettingsStore().playSoundForAutomaticApprovalRequests {
+            NSSound.beep()
         }
     }
 

@@ -22015,6 +22015,18 @@
       },
       "shouldTranslate" : false
     },
+    "settings_play_sound_for_automatic_approval_requests" : {
+      "comment" : "Setting to play the system alert sound before an automatic approval prompt is requested or when the pending requests window appears.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Play a sound for automatic approval requests"
+          }
+        }
+      }
+    },
     "setup_agent_activity_monitor_description" : {
       "extractionState" : "manual",
       "localizations" : {
