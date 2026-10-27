@@ -9,6 +9,8 @@ public final class AuthenticationContext: AuthenticationContextProtocol {
     public let secret: AnySecret
     /// The LAContext used to authorize the persistent context.
     public let laContext: LAContext?
+    // LAContext.invalidate() clears its localizedReason, even for a queued evaluation.
+    private let localizedReason: String?
 
     enum Validity {
         /// - Note -  Monotonic time instead of Date() to prevent people setting the clock back.
@@ -36,6 +38,7 @@ public final class AuthenticationContext: AuthenticationContextProtocol {
         formatter.allowedUnits = [.hour, .minute, .day]
         let durationString = formatter.string(from: duration)!
         newContext.localizedReason = String(localized: .authContextPersistForDuration(secretName: secret.name, duration: durationString))
+        localizedReason = newContext.localizedReason
         laContext = newContext
     }
 
@@ -55,8 +58,10 @@ public final class AuthenticationContext: AuthenticationContextProtocol {
             } else {
                 newContext.localizedReason = String(localized: .authContextRequestSignatureDescription(appName: appName, secretName: secret.name))
             }
+            localizedReason = newContext.localizedReason
             laContext = newContext
         } else {
+            localizedReason = nil
             laContext = nil
         }
     }
@@ -74,9 +79,10 @@ public final class AuthenticationContext: AuthenticationContextProtocol {
     }
 
     public func evaluate(requireBiometrics: Bool) async throws -> Bool {
-        guard let laContext else { return false }
+        try Task.checkCancellation()
+        guard let laContext, let localizedReason, !localizedReason.isEmpty else { return false }
         let policy: LAPolicy = requireBiometrics ? .deviceOwnerAuthenticationWithBiometrics : .deviceOwnerAuthentication
-        return try await laContext.evaluatePolicy(policy, localizedReason: laContext.localizedReason)
+        return try await laContext.evaluatePolicy(policy, localizedReason: localizedReason)
     }
 
     public func cancel() async {
