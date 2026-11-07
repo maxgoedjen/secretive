@@ -14,7 +14,7 @@ public struct TestSecret: Secret {
 
 }
 
-@MainActor final class TestContext: @preconcurrency AuthenticationContextProtocol, Sendable {
+@MainActor final class TestContext: @preconcurrency AuthenticationContextProtocol {
 
     let id = UUID()
     private var testEvaluationResult: Bool
@@ -123,20 +123,22 @@ public struct TestSecret: Secret {
         }
         let contextA = TestContext(authenticationRequirement: .presenceRequired, testEvaluationResult: true, approval: .manual)
         let contextB = TestContext(authenticationRequirement: .notRequired, testEvaluationResult: true)
-        var unauthenticatedResult = false
-        Task {
-            Task {
-                _ = try? await handler.authenticatedContext(for: .init(secret: .init(contextB.secret), provenance: .test, target: nil), context: contextB)
-                unauthenticatedResult = true
-            }
+
+        let taskA = Task {
             _ = try? await handler.authenticatedContext(for: .init(secret: .init(contextA.secret), provenance: .test, target: nil), context: contextA)
         }
-        try await Task.sleep(for: .milliseconds(10))
+
+        // Context B does not require authentication; it should return immediately without waiting on context A.
+        let resultB = try await handler.authenticatedContext(for: .init(secret: .init(contextB.secret), provenance: .test, target: nil), context: contextB)
+
+        #expect(resultB != nil)
         #expect(contextA.evaluationResult == nil)
-        #expect(unauthenticatedResult)
         #expect(!contextA.canceled)
         #expect(!contextB.canceled)
         #expect(!calledPresentPending)
+
+        taskA.cancel()
+        await contextA.cancel()
     }
 
     @Test func batchDoesNotBlockNoAuthRequired() async throws {
