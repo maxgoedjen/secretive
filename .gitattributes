@@ -1,55 +1,30 @@
-# .gitattributes - GitHub Linguist configuration
-# This file tells GitHub how to categorize files and what to include in language statistics.
+# .gitattributes - GitHub Linguist language detection configuration
 
-# --- Documentation & Metadata ---
-# Mark all markdown and meta files as documentation to exclude them from code stats.
+# --- Documentation & Manuals ---
 *.md linguist-documentation
 LICENSE* linguist-documentation
 CONTRIBUTING.md linguist-documentation
 CHANGELOG.md linguist-documentation
-docs/** linguist-documentation
-prompts/** linguist-documentation
-brain/** linguist-documentation
+Resources/man/** linguist-documentation
 
-# --- Assets & Media ---
-# Mark assets as vendored (binary/external) to keep them out of language breakdown.
-assets/** linguist-vendored
-*.gif linguist-vendored
-*.png linguist-vendored
-*.jpg linguist-vendored
-*.svg linguist-vendored
-*.mp4 linguist-vendored
-
-# --- Configuration & Workspace Metadata ---
-# Exclude config files and metadata from detection to reduce noise.
-Justfile* -linguist-detectable
-*.toml -linguist-detectable
-*.lock -linguist-detectable
-rust-toolchain.toml -linguist-detectable
-config.example.toml linguist-documentation
-dist-workspace.toml -linguist-detectable
+# --- Shell Scripts & Automation ---
+configure_team_id.sh linguist-documentation
+*.sh linguist-documentation
 .github/** -linguist-detectable
 
-# --- Tool-Specific Data ---
-# Exclude internal tool data for Gemini, Serena, etc.
-.gemini/** -linguist-detectable
-.serena/** -linguist-detectable
-
-# --- Scripts & Automation ---
-# Exclude shell and automation scripts from language stats to keep repository 100% Rust.
-scripts/** linguist-documentation
-build-demo.sh linguist-documentation
-benchmark.py linguist-documentation
-
 # --- Shell Completions ---
-assets/completions/** linguist-documentation
+Resources/completions/** linguist-vendored
 
-# --- Tests ---
-# Exclude tests from language stats to focus on the project's core logic.
-tests/** -linguist-detectable
+# --- Configuration & Xcode Metadata ---
+Justfile -linguist-detectable
+lefthook.yml -linguist-detectable
+.swiftformat -linguist-detectable
+.swiftlint.yml -linguist-detectable
+*.xcproj/** -linguist-detectable
+*.xcodeproj/** -linguist-detectable
+*.xcconfig -linguist-detectable
+*.plist -linguist-detectable
+*.entitlements -linguist-detectable
 
-# --- Generated & Backups ---
-# Mark build artifacts and backup files as generated.
-target/** linguist-generated
-**/*.BAK linguist-generated
-**/*.bak linguist-generated
+# --- Test Artifacts & Snapshots ---
+Tests/CLITests/Snapshots/** linguist-generated
