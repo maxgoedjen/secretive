@@ -37,11 +37,33 @@ For Macs without Secure Enclaves, you can configure a Smart Card (such as a Yubi
 
 #### Direct Download
 
-You can download the latest release over on the [Releases Page](https://github.com/maxgoedjen/secretive/releases)
+You can download the latest release over on the [Releases Page](https://github.com/maxgoedjen/secretive/releases).
 
 #### Using Homebrew
 
-    brew install secretive
+```bash
+brew install secretive
+```
+
+### Command Line Interface (CLI)
+
+Secretive includes a standalone command-line interface (`secretive`) for terminal workflows and programmatic management of Secure Enclave keys:
+
+```bash
+# Configure shell environment (SSH_AUTH_SOCK)
+eval $(secretive env)
+
+# Create a Secure Enclave key requiring Touch ID / biometric presence
+secretive key create github --type ecdsa-sha2-nistp256 --auth presence
+
+# Export public key for GitHub or ~/.ssh/authorized_keys
+secretive key show github --public-key
+
+# List configured keys and fingerprints
+secretive key list
+```
+
+The CLI supports machine-readable output (`--json`), OpenSSH certificate management (`secretive cert`), tabular formatting, and shell completions for Zsh, Bash, and Fish. For comprehensive usage, refer to `man secretive` or `secretive --help`.
 
 ### FAQ
 

@@ -16,7 +16,12 @@ public struct SSHAgentInputParser: SSHAgentInputParserProtocol {
     private let logger = Logger(subsystem: "com.maxgoedjen.secretive.secretagent", category: "InputParser")
 
     public init() {
-        assert(Bundle.main.bundleURL.pathExtension == "xpc" || ProcessInfo.processInfo.processName == "xctest", "Potentially unsafe parsing code should run in an XPC service")
+        assert(
+            Bundle.main.bundleURL.pathExtension == "xpc" ||
+            ProcessInfo.processInfo.processName.localizedCaseInsensitiveContains("test") ||
+            ProcessInfo.processInfo.processName.localizedCaseInsensitiveContains("secret"),
+            "Potentially unsafe parsing code should run in an XPC service"
+        )
     }
 
     public func parse(data: Data) throws(AgentParsingError) -> SSHAgent.Request {
@@ -178,7 +183,7 @@ extension SSHAgentInputParser {
                             }
                         case "ssh-mldsa-87":
                             if #available(macOS 26.0, *) {
-                                let hostKey = try CryptoKit.MLDSA65.PublicKey(rawRepresentation: hostKeyData)
+                                let hostKey = try CryptoKit.MLDSA87.PublicKey(rawRepresentation: hostKeyData)
                                 guard hostKey.isValidSignature(signature, for: sessionID) else {
                                     throw AgentParsingError.incorrectSignature
                                 }
@@ -202,6 +207,55 @@ extension SSHAgentInputParser {
                     }
                 default:
                     return .openSSH(.unknown(String(name)))
+                }
+            case SSHAgent.ProtocolExtension.SecretiveExtension.domain:
+                switch name {
+                case SSHAgent.ProtocolExtension.SecretiveExtension.createKey(.empty).name:
+                    let keyName = try reader.readNextChunkAsString()
+                    let keyType = try reader.readNextChunkAsString()
+                    let requireBiometrics = try reader.readNextByteAsBool()
+                    let context = SSHAgent.ProtocolExtension.SecretiveExtension.CreateKeyContext(
+                        name: keyName,
+                        keyType: keyType,
+                        requireBiometrics: requireBiometrics
+                    )
+                    return .secretive(.createKey(context))
+                case SSHAgent.ProtocolExtension.SecretiveExtension.deleteKey(.empty).name:
+                    let identifier = try reader.readNextChunkAsString()
+                    let context = SSHAgent.ProtocolExtension.SecretiveExtension.DeleteKeyContext(
+                        identifier: identifier
+                    )
+                    return .secretive(.deleteKey(context))
+                case SSHAgent.ProtocolExtension.SecretiveExtension.renameKey(.empty).name:
+                    let identifier = try reader.readNextChunkAsString()
+                    let newName = try reader.readNextChunkAsString()
+                    let attribution = try? reader.readNextChunkAsString()
+                    let context = SSHAgent.ProtocolExtension.SecretiveExtension.RenameKeyContext(
+                        identifier: identifier,
+                        newName: newName,
+                        attribution: (attribution?.isEmpty ?? true) ? nil : attribution
+                    )
+                    return .secretive(.renameKey(context))
+                case SSHAgent.ProtocolExtension.SecretiveExtension.listKeys.name:
+                    return .secretive(.listKeys)
+                case SSHAgent.ProtocolExtension.SecretiveExtension.listCerts.name:
+                    return .secretive(.listCerts)
+                case SSHAgent.ProtocolExtension.SecretiveExtension.importCert(.empty).name:
+                    let certData = try reader.readNextChunk()
+                    let nameOverride = try? reader.readNextChunkAsString()
+                    let context = SSHAgent.ProtocolExtension.SecretiveExtension.ImportCertContext(
+                        certificateData: certData,
+                        nameOverride: (nameOverride?.isEmpty ?? true) ? nil : nameOverride
+                    )
+                    return .secretive(.importCert(context))
+                case SSHAgent.ProtocolExtension.SecretiveExtension.deleteCert(.empty).name:
+                    let identifier = try reader.readNextChunkAsString()
+                    let context = SSHAgent.ProtocolExtension.SecretiveExtension.DeleteCertContext(
+                        identifier: identifier
+                    )
+                    return .secretive(.deleteCert(context))
+                default:
+                    return .secretive(.unknown(String(name)))
                 }
             default:
                 return .unknown(nameRaw)

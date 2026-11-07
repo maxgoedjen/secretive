@@ -1,0 +1,155 @@
+# lefthook.yml
+# Secretive macOS System Architecture, Hardware-Backed Cryptography & DevSecOps
+
+min_version: 1.6.0
+
+output:
+  - meta
+  - summary
+  - failure
+
+# ------------------------------------------------------------------------------
+# Stage 1: Fast In-Memory Hygiene & Secret Guard (< 250ms)
+# ------------------------------------------------------------------------------
+pre-commit:
+  piped: true
+  skip:
+    - merge
+    - rebase
+  commands:
+    # 1. Swift Code Formatting: Auto-formats and re-stages before AST linting
+    swiftformat:
+      priority: 1
+      glob: "*.swift"
+      run: swiftformat --config .swiftformat {staged_files}
+      stage_fixed: true
+      fail_text: ":: [Lefthook] SwiftFormat encountered an error. Run 'just fmt' to inspect."
+
+    # 2. SwiftLint AST Analysis on staged Swift files
+    swiftlint:
+      priority: 2
+      glob: "*.swift"
+      run: swiftlint lint --strict --quiet --force-exclude --config .swiftlint.yml {staged_files}
+      fail_text:
+        ":: [Lefthook] SwiftLint violations detected in staged files. Run 'just lint' to inspect."
+
+    # 3. Secret Detection: Scans staged delta against 160+ signatures & entropy
+    gitleaks:
+      priority: 3
+      run: gitleaks protect --staged --no-banner
+      fail_text:
+        ":: [Lefthook] Secret detected in staged changes! Run 'gitleaks protect --staged -v'."
+
+    # 4. macOS APFS Case Conflict Protection: Prevents silent collisions on APFS
+    case-conflict:
+      priority: 4
+      run: |
+        dups=$(git ls-files | tr '[:upper:]' '[:lower:]' | sort | uniq -d)
+        if [ -n "$dups" ]; then
+          printf "Case conflict detected:\n%s\n" "$dups"
+          exit 1
+        fi
+      fail_text: ":: [Lefthook] APFS case-insensitive filename conflict detected."
+
+    # 5. Git Merge Conflict Marker Guard: Prevents committing conflict markers
+    merge-conflict:
+      priority: 4
+      run: |
+        if git grep --cached -I -n -E '^(<{7}|={7}|>{7})([[:space:]]|$)'; then
+          echo ":: [Lefthook] Unresolved merge conflict markers detected!"
+          exit 1
+        fi
+      fail_text: ":: [Lefthook] Resolve all Git merge conflicts before committing."
+
+    # 6. CI Workflow Syntax: Evaluates only when workflow definitions change
+    actionlint:
+      priority: 5
+      glob: ".github/workflows/*.{yml,yaml}"
+      run: actionlint -color {staged_files}
+      fail_text: ":: [Lefthook] Workflow syntax error detected by actionlint."
+
+    # 7. CI Security Pattern Audit: Offline AST security lint
+    zizmor:
+      priority: 5
+      glob: ".github/workflows/*.{yml,yaml}"
+      run: zizmor --offline --min-severity high {staged_files}
+      fail_text: ":: [Lefthook] High-severity workflow vulnerability detected by zizmor."
+
+    # 8. Man Page Troff Lint: Validates troff formatting on manual updates
+    man-page:
+      priority: 6
+      glob: "Resources/man/secretive.1"
+      run: mandoc -Tlint -Werror {staged_files}
+      fail_text: ":: [Lefthook] Man page troff syntax error detected."
+
+    # 9. Shell Completions Syntax Check: Verifies zsh and bash completions
+    completions:
+      priority: 6
+      glob: "Resources/completions/*"
+      run: zsh -n Resources/completions/_secretive && bash -n Resources/completions/secretive.bash
+      fail_text: ":: [Lefthook] Shell completions syntax error detected."
+
+# ------------------------------------------------------------------------------
+# Stage 2: Conventional Commits Specification (< 10ms)
+# ------------------------------------------------------------------------------
+commit-msg:
+  skip:
+    - merge
+    - rebase
+  commands:
+    cog-verify:
+      run: cog verify --file {1}
+      fail_text: |
+        :: [Lefthook] Invalid Conventional Commit message.
+        Format  : <type>(<scope>): <subject>
+        Types   : feat, fix, perf, refactor, docs, style, test, build, ci, chore, revert
+        Scopes  : cli, agent, secretkit, protocol, certs, store, ui, ci, deps, tooling, docs, release, security
+
+# ------------------------------------------------------------------------------
+# Stage 3: Full Compiler, Security & Test Gates (Pre-Push: 3-5s)
+# ------------------------------------------------------------------------------
+pre-push:
+  parallel: false
+  commands:
+    # 1. Branch Protection: Prohibit direct push to main
+    no-push-to-main:
+      run: |
+        current_branch=$(git rev-parse --abbrev-ref HEAD)
+        if [ "$current_branch" = "main" ]; then
+          echo ":: [Lefthook] Direct push to main is prohibited. Use pull requests."
+          exit 1
+        fi
+      fail_text: ":: [Lefthook] Push rejected: direct push to main branch is not allowed."
+
+    # 2. Strict SwiftLint across entire codebase
+    swiftlint-all:
+      run: swiftlint lint --strict --quiet --config .swiftlint.yml
+      fail_text: ":: [Lefthook] SwiftLint violations detected across codebase."
+
+    # 3. Fast CLI Unit & Integration Test Suite
+    test:
+      run:
+        swift test --filter SecretiveCLITests --skip KeyLifecycleE2ETests --skip AgentStatusE2ETests
+        --skip CertLifecycleE2ETests
+      fail_text: ":: [Lefthook] CLI unit/integration tests failed. Run 'just test' locally."
+
+# ------------------------------------------------------------------------------
+# Stage 4: Dependency Drift Notification (Post-Merge / Checkout)
+# ------------------------------------------------------------------------------
+post-merge:
+  commands:
+    deps-alert:
+      files: git diff-tree -r --name-only --no-commit-id ORIG_HEAD HEAD
+      glob: "{Package.swift,Package.resolved}"
+      run: |
+        echo ":: [Notice] Swift package dependencies updated via merge. Run 'swift package resolve'."
+
+post-checkout:
+  commands:
+    deps-alert:
+      files: git diff-tree -r --name-only --no-commit-id {1} {2}
+      glob: "{Package.swift,Package.resolved}"
+      run: |
+        if [ "{3}" = "1" ]; then
+          echo ":: [Notice] Switched branches with modified Swift package dependencies. Run 'swift package resolve'."
+        fi

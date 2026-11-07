@@ -1,0 +1,55 @@
+# .gitattributes - GitHub Linguist configuration
+# This file tells GitHub how to categorize files and what to include in language statistics.
+
+# --- Documentation & Metadata ---
+# Mark all markdown and meta files as documentation to exclude them from code stats.
+*.md linguist-documentation
+LICENSE* linguist-documentation
+CONTRIBUTING.md linguist-documentation
+CHANGELOG.md linguist-documentation
+docs/** linguist-documentation
+prompts/** linguist-documentation
+brain/** linguist-documentation
+
+# --- Assets & Media ---
+# Mark assets as vendored (binary/external) to keep them out of language breakdown.
+assets/** linguist-vendored
+*.gif linguist-vendored
+*.png linguist-vendored
+*.jpg linguist-vendored
+*.svg linguist-vendored
+*.mp4 linguist-vendored
+
+# --- Configuration & Workspace Metadata ---
+# Exclude config files and metadata from detection to reduce noise.
+Justfile* -linguist-detectable
+*.toml -linguist-detectable
+*.lock -linguist-detectable
+rust-toolchain.toml -linguist-detectable
+config.example.toml linguist-documentation
+dist-workspace.toml -linguist-detectable
+.github/** -linguist-detectable
+
+# --- Tool-Specific Data ---
+# Exclude internal tool data for Gemini, Serena, etc.
+.gemini/** -linguist-detectable
+.serena/** -linguist-detectable
+
+# --- Scripts & Automation ---
+# Exclude shell and automation scripts from language stats to keep repository 100% Rust.
+scripts/** linguist-documentation
+build-demo.sh linguist-documentation
+benchmark.py linguist-documentation
+
+# --- Shell Completions ---
+assets/completions/** linguist-documentation
+
+# --- Tests ---
+# Exclude tests from language stats to focus on the project's core logic.
+tests/** -linguist-detectable
+
+# --- Generated & Backups ---
+# Mark build artifacts and backup files as generated.
+target/** linguist-generated
+**/*.BAK linguist-generated
+**/*.bak linguist-generated

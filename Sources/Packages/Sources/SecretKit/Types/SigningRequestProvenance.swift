@@ -7,12 +7,13 @@ public struct SigningRequestProvenance: Hashable, Sendable {
     /// A list of processes involved in the request.
     /// - Note: A chain will typically consist of many elements even for a simple request. For example, running `git fetch` in Terminal.app would generate a request chain of `ssh` -> `git` -> `zsh` -> `login` -> `Terminal.app`
     public var chain: [Process]
-
     public var date: Date
+    public var peerUID: uid_t?
 
-    public init(root: Process, date: Date = .now) {
+    public init(root: Process, date: Date = .now, peerUID: uid_t? = nil) {
         self.chain = [root]
         self.date = date
+        self.peerUID = peerUID
     }
 
     public var batchID: Int {

@@ -1,0 +1,7 @@
+Secretive CLI — List all available keys
+
+USAGE
+  secretive key list [options]
+
+OPTIONS
+  --store <name>       Filter keys by a specific Secure Enclave store.

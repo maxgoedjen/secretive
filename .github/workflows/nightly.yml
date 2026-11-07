@@ -1,11 +1,12 @@
 name: Nightly
 
-on: 
-  schedule: 
+on:
+  schedule:
     - cron: "0 8 * * *"
-  
+
 jobs:
   build:
+    name: Nightly Build & Attest
     runs-on: xcode-27
     permissions:
       id-token: write
@@ -13,52 +14,107 @@ jobs:
       attestations: write
       artifact-metadata: write
       actions: read
-    timeout-minutes: 10
+    timeout-minutes: 20
     steps:
-    - uses: actions/checkout@v5
-    - name: Setup Signing
-      env: 
-        SIGNING_DATA: ${{ secrets.SIGNING_DATA }}
-        SIGNING_PASSWORD: ${{ secrets.SIGNING_PASSWORD }}
-        HOST_PROFILE_DATA: ${{ secrets.HOST_PROFILE_DATA }}
-        AGENT_PROFILE_DATA: ${{ secrets.AGENT_PROFILE_DATA }}
-        APPLE_API_KEY_DATA: ${{ secrets.APPLE_API_KEY_DATA }}
-        APPLE_API_KEY_ID: ${{ secrets.APPLE_API_KEY_ID }}
-      run: ./.github/scripts/signing.sh
-    - name: Update Build Number
-      env:
-        RUN_ID: ${{ github.run_id }}
-      run: |
-            DATE=$(date "+%Y-%m-%d")
-            sed -i '' -e "s/GITHUB_CI_VERSION/0.0.0_nightly-$DATE/g" Sources/Config/Config.xcconfig
-            sed -i '' -e "s/GITHUB_BUILD_NUMBER/1.$RUN_ID/g" Sources/Config/Config.xcconfig
-            sed -i '' -e "s/GITHUB_BUILD_URL/https:\/\/github.com\/maxgoedjen\/secretive\/actions\/runs\/$RUN_ID/g" Sources/Config/Config.xcconfig
-    - name: Build
-      run: IDEEnableNewPackagePIFBuilder=NO xcrun xcodebuild -project Sources/Secretive.xcodeproj -scheme Secretive -configuration Release -archivePath Archive.xcarchive archive
-    - name: Move to Artifact Folder
-      run: mkdir Artifact; cp -r Archive.xcarchive/Products/Applications/Secretive.app Artifact
-    - name: Upload App to Artifacts
-      id: upload
-      uses: actions/upload-artifact@v7
-      with:
-        name: Secretive
-        path: Artifact
-    - name: Download Zipped Artifact
-      id: download
-      env: 
-        ZIP_ID: ${{ steps.upload.outputs.artifact-id }}
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: |
-            curl -L -H "Authorization: Bearer $GITHUB_TOKEN" -L \
-            https://api.github.com/repos/maxgoedjen/secretive/actions/artifacts/$ZIP_ID/zip > Secretive.zip
-    - name: Notarize
-      env: 
-        APPLE_API_KEY_ID: ${{ secrets.APPLE_API_KEY_ID }}
-        APPLE_API_ISSUER: ${{ secrets.APPLE_API_ISSUER }}
-      run: xcrun notarytool submit --key ~/.private_keys/AuthKey_$APPLE_API_KEY_ID.p8 --key-id $APPLE_API_KEY_ID --issuer $APPLE_API_ISSUER Secretive.zip
-    - name: Attest
-      id: attest
-      uses: actions/attest@v4
-      with:
-        subject-name: "Secretive.zip"
-        subject-digest: sha256:${{ steps.upload.outputs.artifact-digest }}
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Setup Signing
+        env:
+          SIGNING_DATA: ${{ secrets.SIGNING_DATA }}
+          SIGNING_PASSWORD: ${{ secrets.SIGNING_PASSWORD }}
+          HOST_PROFILE_DATA: ${{ secrets.HOST_PROFILE_DATA }}
+          AGENT_PROFILE_DATA: ${{ secrets.AGENT_PROFILE_DATA }}
+          CLI_PROFILE_DATA: ${{ secrets.CLI_PROFILE_DATA }}
+          APPLE_API_KEY_DATA: ${{ secrets.APPLE_API_KEY_DATA }}
+          APPLE_API_KEY_ID: ${{ secrets.APPLE_API_KEY_ID }}
+        run: ./.github/scripts/signing.sh
+
+      - name: Cache SPM artifacts
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: .build
+          key: ${{ runner.os }}-spm-${{ hashFiles('Package.resolved') }}
+          restore-keys: |
+            ${{ runner.os }}-spm-
+
+      - name: Update Nightly Build Number
+        env:
+          RUN_ID: ${{ github.run_id }}
+        run: |
+          DATE=$(date "+%Y-%m-%d")
+          sed -i '' -e "s/GITHUB_CI_VERSION/0.0.0_nightly-$DATE/g" Sources/Config/Config.xcconfig
+          sed -i '' -e "s/GITHUB_BUILD_NUMBER/1.$RUN_ID/g" Sources/Config/Config.xcconfig
+          sed -i '' -e "s/GITHUB_BUILD_URL/https:\/\/github.com\/maxgoedjen\/secretive\/actions\/runs\/$RUN_ID/g" Sources/Config/Config.xcconfig
+
+      - name: Build Secretive.app
+        run: >-
+          IDEEnableNewPackagePIFBuilder=NO
+          xcrun xcodebuild
+          -project Sources/Secretive.xcodeproj
+          -scheme Secretive
+          -configuration Release
+          -archivePath Archive.xcarchive
+          archive
+
+      - name: Build CLI binary (SPM release) — 4.1
+        run: |
+          swift build --build-system swiftbuild -c release --product secretive
+          CLI_BIN=$(swift build --build-system swiftbuild -c release --product secretive --show-bin-path)/secretive
+          cp "$CLI_BIN" Archive.xcarchive/Products/Applications/Secretive.app/Contents/MacOS/secretive
+          cp "$CLI_BIN" secretive-cli-unsigned
+
+      - name: Assemble artifact directory
+        run: |
+          mkdir -p Artifact
+          cp -r Archive.xcarchive/Products/Applications/Secretive.app Artifact/
+          cp secretive-cli-unsigned Artifact/secretive-cli
+          cp -r Resources/completions Artifact/
+          cp -r Resources/man Artifact/
+
+      - name: Upload artifact
+        id: upload
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: Secretive
+          path: Artifact
+
+      - name: Download zipped artifact
+        id: download
+        env:
+          ZIP_ID: ${{ steps.upload.outputs.artifact-id }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          curl -L -H "Authorization: Bearer $GITHUB_TOKEN" \
+          "https://api.github.com/repos/maxgoedjen/secretive/actions/artifacts/$ZIP_ID/zip" \
+          > Secretive.zip
+
+      - name: Run E2E tests (signed binary, real Secure Enclave)
+        # E2E tests run BEFORE notarization on the freshly signed binary.
+        # Tests gated by SecureEnclave.isAvailable — skip automatically on non-SE runners.
+        run: |
+          swift test --build-system swiftbuild \
+            --filter KeyLifecycleE2ETests \
+            --filter AgentStatusE2ETests \
+            --filter CertLifecycleE2ETests
+        env:
+          NO_COLOR: "1"
+        continue-on-error: false
+
+      - name: Notarize (wait for Apple approval)
+        env:
+          APPLE_API_KEY_ID: ${{ secrets.APPLE_API_KEY_ID }}
+          APPLE_API_ISSUER: ${{ secrets.APPLE_API_ISSUER }}
+        run: |
+          xcrun notarytool submit \
+            --key "$HOME/.private_keys/AuthKey_$APPLE_API_KEY_ID.p8" \
+            --key-id "$APPLE_API_KEY_ID" \
+            --issuer "$APPLE_API_ISSUER" \
+            --wait \
+            Secretive.zip
+
+      - name: Attest Build Provenance (SLSA)
+        id: attest
+        uses: actions/attest@1e69f48acb82d1966a394da916b4c1698aa569d6 # v4.2.2
+        with:
+          subject-name: "Secretive.zip"
+          subject-digest: "sha256:${{ steps.upload.outputs.artifact-digest }}"

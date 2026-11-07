@@ -20,7 +20,7 @@ import OSLog
                 kSecClass: Constants.keyClass,
                 kSecAttrService: Constants.keyTag,
                 kSecAttrAccount: String(describing: SettingsKeyType.self),
-                kSecUseDataProtectionKeychain: true,
+                kSecUseDataProtectionKeychain: Constants.useDataProtectionKeychain,
                 kSecReturnData: true,
                 kSecReturnAttributes: true,
                 kSecMatchLimit: kSecMatchLimitOne,
@@ -39,7 +39,7 @@ import OSLog
                     kSecClass: Constants.keyClass,
                     kSecAttrService: Constants.keyTag,
                     kSecAttrAccount: String(describing: SettingsKeyType.self),
-                    kSecUseDataProtectionKeychain: true,
+                    kSecUseDataProtectionKeychain: Constants.useDataProtectionKeychain,
                     kSecAttrAccessible: kSecAttrAccessibleWhenUnlockedThisDeviceOnly,
                     kSecValueData: data,
                 ])
@@ -109,6 +109,7 @@ extension SettingsStore {
     enum Constants {
         static let keyClass = kSecClassGenericPassword as String
         static let keyTag = "com.maxgoedjen.settingsStore"
+        static let useDataProtectionKeychain = true
     }
 
 }

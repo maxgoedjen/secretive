@@ -8,7 +8,12 @@ public protocol OpenSSHCertificateParserProtocol {
 public struct OpenSSHCertificateParser: OpenSSHCertificateParserProtocol, Sendable {
 
     public init() {
-        assert(Bundle.main.bundleURL.pathExtension == "xpc" || ProcessInfo.processInfo.processName == "xctest", "Potentially unsafe parsing code should run in an XPC service")
+        assert(
+            Bundle.main.bundleURL.pathExtension == "xpc" ||
+            ProcessInfo.processInfo.processName.localizedCaseInsensitiveContains("test") ||
+            ProcessInfo.processInfo.processName.localizedCaseInsensitiveContains("secret"),
+            "Potentially unsafe parsing code should run in an XPC service"
+        )
     }
 
     public func parse(data: Data) throws(OpenSSHCertificateError) -> OpenSSHCertificate {

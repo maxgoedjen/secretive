@@ -57,7 +57,7 @@ extension SmartCard {
         // MARK: Public API
 
         public func sign(data: Data, with secret: Secret, for provenance: SigningRequestProvenance, target: SigningRequestTarget?, context: LAContext?) async throws -> Data {
-            guard let tokenID = await state.tokenID else { fatalError() }
+            guard let tokenID = await state.tokenID else { throw TokenUnavailableError() }
             var rawAttributes: [CFString: Any] = [
                 kSecClass: kSecClassKey,
                 kSecAttrKeyClass: kSecAttrKeyClassPrivate,
@@ -149,14 +149,21 @@ extension SmartCard.Store {
         guard let typed = untyped as? [[CFString: Any]] else { return }
         let wrapped: [SecretType] = typed.compactMap {
             let name = $0[kSecAttrLabel] as? String ?? String(localized: .unnamedSecret)
-            let tokenID = $0[kSecAttrApplicationLabel] as! Data
-            let algorithmSecAttr = $0[kSecAttrKeyType] as! NSNumber
-            let keySize = $0[kSecAttrKeySizeInBits] as! Int
-            let publicKeyRef = $0[kSecValueRef] as! SecKey
-            let publicKeySecRef = SecKeyCopyPublicKey(publicKeyRef)!
-            let publicKeyAttributes = SecKeyCopyAttributes(publicKeySecRef) as! [CFString: Any]
-            let publicKey = publicKeyAttributes[kSecValueData] as! Data
-            let attributes = Attributes(keyType: KeyType(secAttr: algorithmSecAttr, size: keySize)!, authentication: .presenceRequired)
+            guard let tokenID = $0[kSecAttrApplicationLabel] as? Data,
+                  let algorithmSecAttr = $0[kSecAttrKeyType] as? NSNumber,
+                  let keySize = $0[kSecAttrKeySizeInBits] as? Int,
+                  let valueRef = $0[kSecValueRef],
+                  CFGetTypeID(valueRef as CFTypeRef) == SecKeyGetTypeID() else {
+                return nil
+            }
+            let publicKeyRef = valueRef as! SecKey
+            guard let publicKeySecRef = SecKeyCopyPublicKey(publicKeyRef),
+                  let publicKeyAttributes = SecKeyCopyAttributes(publicKeySecRef) as? [CFString: Any],
+                  let publicKey = publicKeyAttributes[kSecValueData] as? Data,
+                  let keyType = KeyType(secAttr: algorithmSecAttr, size: keySize) else {
+                return nil
+            }
+            let attributes = Attributes(keyType: keyType, authentication: .presenceRequired)
             let secret = SmartCard.Secret(id: tokenID, name: name, publicKey: publicKey, attributes: attributes)
             guard signatureAlgorithm(for: secret) != nil else { return nil }
             return secret
@@ -178,5 +185,6 @@ extension TKTokenWatcher {
 extension SmartCard {
 
     public struct UnsupportKeyType: Error {}
+    public struct TokenUnavailableError: Error {}
 
 }

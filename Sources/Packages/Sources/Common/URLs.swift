@@ -10,10 +10,13 @@ extension URL {
     }
 
     public static var socketPath: String {
+        if let customPath = ProcessInfo.processInfo.environment["SECRETIVE_SOCKET_PATH"], !customPath.isEmpty {
+            return customPath
+        }
         #if DEBUG
-        URL.agentHomeURL.appendingPathComponent("socket-debug.ssh").path()
+        return URL.agentHomeURL.appendingPathComponent("socket-debug.ssh").path()
         #else
-        URL.agentHomeURL.appendingPathComponent("socket.ssh").path()
+        return URL.agentHomeURL.appendingPathComponent("socket.ssh").path()
         #endif
     }
 

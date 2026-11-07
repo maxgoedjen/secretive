@@ -44,7 +44,7 @@ playground.xcworkspace
 #
 # Xcode automatically generates this directory with a .xcworkspacedata file and xcuserdata
 # hence it is not needed unless you have added a package configuration file to your project
-# .swiftpm
+.swiftpm/
 
 .build/
 
@@ -97,3 +97,7 @@ contents.xcworkspacedata
 # Per-User Configs
 
 Sources/Config/OpenSource.xcconfig
+
+# Build Server Protocol (SourceKit-LSP / xcode-build-server)
+buildServer.json
+.bsp/

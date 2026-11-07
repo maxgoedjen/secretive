@@ -1,0 +1,15 @@
+Secretive CLI — Manage Secure Enclave Keys
+
+USAGE
+
+  secretive key <command> [options]
+
+COMMANDS
+
+  list                 List all available keys
+  show                 Show details, public key, or fingerprint for a specific key
+  create               Create a new hardware-backed key in the Secure Enclave
+  delete               Permanently destroy a key
+  rename               Rename an existing key
+
+Run `secretive key <command> --help` for specific options and examples.
