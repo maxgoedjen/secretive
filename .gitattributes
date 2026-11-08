@@ -1,0 +1,30 @@
+# .gitattributes - GitHub Linguist language detection configuration
+
+# --- Documentation & Manuals ---
+*.md linguist-documentation
+LICENSE* linguist-documentation
+CONTRIBUTING.md linguist-documentation
+CHANGELOG.md linguist-documentation
+Resources/man/** linguist-documentation
+
+# --- Shell Scripts & Automation ---
+configure_team_id.sh linguist-documentation
+*.sh linguist-documentation
+.github/** -linguist-detectable
+
+# --- Shell Completions ---
+Resources/completions/** linguist-vendored
+
+# --- Configuration & Xcode Metadata ---
+Justfile -linguist-detectable
+lefthook.yml -linguist-detectable
+.swiftformat -linguist-detectable
+.swiftlint.yml -linguist-detectable
+*.xcproj/** -linguist-detectable
+*.xcodeproj/** -linguist-detectable
+*.xcconfig -linguist-detectable
+*.plist -linguist-detectable
+*.entitlements -linguist-detectable
+
+# --- Test Artifacts & Snapshots ---
+Tests/CLITests/Snapshots/** linguist-generated

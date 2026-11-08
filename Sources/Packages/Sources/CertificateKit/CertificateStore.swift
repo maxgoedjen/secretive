@@ -38,7 +38,7 @@ import SecretKit
             kSecClass: Constants.keyClass,
             kSecAttrService: Constants.keyTag,
             kSecAttrAccount: certificate.id,
-            kSecUseDataProtectionKeychain: true,
+            kSecUseDataProtectionKeychain: Constants.useDataProtectionKeychain,
             kSecAttrAccessible: kSecAttrAccessibleWhenUnlockedThisDeviceOnly,
             kSecValueData: certificate.rawData,
             kSecAttrGeneric: attributes
@@ -54,7 +54,7 @@ import SecretKit
         let deleteAttributes = KeychainDictionary([
             kSecClass: Constants.keyClass,
             kSecAttrService: Constants.keyTag,
-            kSecUseDataProtectionKeychain: true,
+            kSecUseDataProtectionKeychain: Constants.useDataProtectionKeychain,
             kSecAttrAccount: certificate.id,
         ])
         let status = SecItemDelete(deleteAttributes)
@@ -97,7 +97,7 @@ extension CertificateStore {
         let queryAttributes = KeychainDictionary([
             kSecClass: Constants.keyClass,
             kSecAttrService: Constants.keyTag,
-            kSecUseDataProtectionKeychain: true,
+            kSecUseDataProtectionKeychain: Constants.useDataProtectionKeychain,
             kSecReturnData: true,
             kSecMatchLimit: kSecMatchLimitAll,
             kSecReturnAttributes: true
@@ -137,6 +137,7 @@ extension CertificateStore {
         static let keyClass = kSecClassGenericPassword as String
         static let keyTag = "com.maxgoedjen.certificatestore.opensshcertificate"
         static let notificationToken = UUID().uuidString
+        static let useDataProtectionKeychain = true
     }
     
     struct UnsupportedAlgorithmError: Error {}

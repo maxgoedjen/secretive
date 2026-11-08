@@ -40,7 +40,7 @@ extension SecureEnclave {
             let queryAttributes = KeychainDictionary([
                 kSecClass: Constants.keyClass,
                 kSecAttrService: Constants.keyTag,
-                kSecUseDataProtectionKeychain: true,
+                kSecUseDataProtectionKeychain: Constants.useDataProtectionKeychain,
                 kSecAttrAccount: secret.id,
                 kSecReturnAttributes: true,
                 kSecReturnData: true,
@@ -99,13 +99,19 @@ extension SecureEnclave {
             case .biometryCurrent:
                 [.biometryCurrentSet, .privateKeyUsage]
             case .unknown:
-                fatalError()
+                throw Attributes.UnsupportedOptionError()
             }
-            let access =
-            unsafe SecAccessControlCreateWithFlags(kCFAllocatorDefault,
-                                                kSecAttrAccessibleWhenUnlockedThisDeviceOnly,
-                                                flags,
-                                                &accessError)
+            guard let access = unsafe SecAccessControlCreateWithFlags(
+                kCFAllocatorDefault,
+                kSecAttrAccessibleWhenUnlockedThisDeviceOnly,
+                flags,
+                &accessError
+            ) else {
+                if let error = unsafe accessError {
+                    throw unsafe error.takeRetainedValue() as Error
+                }
+                throw KeychainError(statusCode: errSecParam)
+            }
             if let error = unsafe accessError {
                 throw unsafe error.takeRetainedValue() as Error
             }
@@ -113,17 +119,17 @@ extension SecureEnclave {
             let publicKey: Data
             switch attributes.keyType {
             case .ecdsa256:
-                let created = try CryptoKit.SecureEnclave.P256.Signing.PrivateKey(accessControl: access!)
+                let created = try CryptoKit.SecureEnclave.P256.Signing.PrivateKey(accessControl: access)
                 dataRep = created.dataRepresentation
                 publicKey = created.publicKey.x963Representation
             case .mldsa65:
                 guard #available(macOS 26.0, *) else { throw Attributes.UnsupportedOptionError() }
-                let created = try CryptoKit.SecureEnclave.MLDSA65.PrivateKey(accessControl: access!)
+                let created = try CryptoKit.SecureEnclave.MLDSA65.PrivateKey(accessControl: access)
                 dataRep = created.dataRepresentation
                 publicKey = created.publicKey.rawRepresentation
             case .mldsa87:
                 guard #available(macOS 26.0, *) else { throw Attributes.UnsupportedOptionError() }
-                let created = try CryptoKit.SecureEnclave.MLDSA87.PrivateKey(accessControl: access!)
+                let created = try CryptoKit.SecureEnclave.MLDSA87.PrivateKey(accessControl: access)
                 dataRep = created.dataRepresentation
                 publicKey = created.publicKey.rawRepresentation
             default:
@@ -138,7 +144,7 @@ extension SecureEnclave {
             let deleteAttributes = KeychainDictionary([
                 kSecClass: Constants.keyClass,
                 kSecAttrService: Constants.keyTag,
-                kSecUseDataProtectionKeychain: true,
+                kSecUseDataProtectionKeychain: Constants.useDataProtectionKeychain,
                 kSecAttrAccount: secret.id,
             ])
             let status = SecItemDelete(deleteAttributes)
@@ -195,7 +201,7 @@ extension SecureEnclave.Store {
         let queryAttributes = KeychainDictionary([
             kSecClass: Constants.keyClass,
             kSecAttrService: Constants.keyTag,
-            kSecUseDataProtectionKeychain: true,
+            kSecUseDataProtectionKeychain: Constants.useDataProtectionKeychain,
             kSecReturnData: true,
             kSecMatchLimit: kSecMatchLimitAll,
             kSecReturnAttributes: true
@@ -211,7 +217,9 @@ extension SecureEnclave.Store {
                     throw MissingAttributesError()
                 }
                 let attributes = try JSONDecoder().decode(Attributes.self, from: attributesData)
-                let keyData = $0[kSecValueData] as! Data
+                guard let keyData = $0[kSecValueData] as? Data else {
+                    throw MissingAttributesError()
+                }
                 let publicKey: Data
                 switch attributes.keyType {
                 case .ecdsa256:
@@ -249,7 +257,7 @@ extension SecureEnclave.Store {
         let keychainAttributes = KeychainDictionary([
             kSecClass: Constants.keyClass,
             kSecAttrService: Constants.keyTag,
-            kSecUseDataProtectionKeychain: true,
+            kSecUseDataProtectionKeychain: Constants.useDataProtectionKeychain,
             kSecAttrAccessible: kSecAttrAccessibleWhenUnlockedThisDeviceOnly,
             kSecAttrAccount: id,
             kSecValueData: key,
@@ -271,6 +279,7 @@ extension SecureEnclave.Store {
         static let keyClass = kSecClassGenericPassword as String
         static let keyTag = "com.maxgoedjen.secretive.secureenclave.key"
         static let notificationToken = UUID().uuidString
+        static let useDataProtectionKeychain = true
     }
     
     struct UnsupportedAlgorithmError: Error {}

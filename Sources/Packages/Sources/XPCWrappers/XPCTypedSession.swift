@@ -23,7 +23,14 @@ public struct XPCTypedSession<ResponseType: Codable & Sendable, ErrorType: Error
     public func send(_ message: some Encodable = Data()) async throws -> ResponseType {
         let encoded = try JSONEncoder().encode(message)
         return try await withCheckedThrowingContinuation { continuation in
-            proxy.process(encoded) { data, error in
+            let activeProxy = connection.remoteObjectProxyWithErrorHandler { error in
+                continuation.resume(throwing: error)
+            }
+            guard let typedProxy = activeProxy as? _XPCProtocol else {
+                continuation.resume(throwing: NoDataError())
+                return
+            }
+            typedProxy.process(encoded) { data, error in
                 do {
                     if let error {
                         throw error

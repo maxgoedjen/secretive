@@ -1,0 +1,20 @@
+Secretive CLI — Create a new hardware-backed key
+
+USAGE
+  secretive key create <name> [options]
+
+OPTIONS
+  --type <algo>        The cryptographic algorithm to use for the new key.
+                       [choices: "ecdsa-sha2-nistp256", "ecdsa-sha2-nistp384", "mldsa-65", "mldsa-87"]
+                       [default: "ecdsa-sha2-nistp256"]
+
+  --auth <level>       The biometric authentication requirement (Touch ID / Apple Watch).
+                       [choices: "none", "presence", "biometry-current"] [default: "presence"]
+
+  -o, --output <file>  Save the generated public key to a file path.
+  --attribution <str>  Set a custom public key attribution string.
+  --exist-ok           Do not return an error if a key with this name already exists.
+
+GLOBAL OPTIONS
+  -h, --help           Output usage information
+  --json               Format output as machine-readable JSON

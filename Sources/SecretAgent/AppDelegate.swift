@@ -39,7 +39,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     private let notifier = Notifier()
     private let publicKeyFileStoreController = PublicKeyFileStoreController(publicKeysURL: URL.publicKeyDirectory, certificatesURL: URL.certificatesDirectory)
     @MainActor private lazy var agent: Agent = {
-        Agent(storeList: storeList, certificateStore: EnvironmentValues._certificateStore, witness: notifier)
+        Agent(storeList: storeList, certificateStore: EnvironmentValues._certificateStore, authenticationHandler: AuthenticationHandler(), witness: notifier)
     }()
     private lazy var socketController: SocketController = {
         let path = URL.socketPath as String
@@ -53,7 +53,16 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             for await session in socketController.sessions {
                 Task {
                     do {
-                        let inputParser = try await XPCAgentInputParser()
+                        #if DEBUG
+                        let inputParser: any SSHAgentInputParserProtocol = SSHAgentInputParser()
+                        #else
+                        let inputParser: any SSHAgentInputParserProtocol
+                        if let xpc = try? await XPCAgentInputParser() {
+                            inputParser = xpc
+                        } else {
+                            inputParser = SSHAgentInputParser()
+                        }
+                        #endif
                         let hostsReader = try? await XPCHostsfileReader()
                         let hosts = try? await hostsReader?.read()
                         for await message in session.messages {
@@ -62,6 +71,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                             try session.write(agentResponse)
                         }
                     } catch {
+                        logger.error("Session error: \(error.localizedDescription)")
                         try? session.close()
                     }
                 }

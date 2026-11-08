@@ -1,0 +1,10 @@
+Usage: secretive agent <subcommand> [args] [flags]
+
+  Check the status of the SecretAgent background service.
+
+Subcommands:
+    status      Show whether SecretAgent is running
+
+Options:
+    -h, --help  Print this help output
+    --json      Format output as JSON

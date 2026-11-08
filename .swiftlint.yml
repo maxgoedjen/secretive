@@ -1,0 +1,117 @@
+# SwiftLint Configuration — Strict Concurrency & Security Compliance
+# Focused on correctness, crash safety, and concurrency.
+# Layout & whitespace rules are delegated to SwiftFormat.
+
+disabled_rules:
+  - todo
+  - identifier_name
+  - colon
+  - comma
+  - trailing_comma
+  - trailing_whitespace
+  - vertical_whitespace
+  - trailing_newline
+  - opening_brace
+  - multiline_arguments
+  - multiline_parameters
+  - vertical_parameter_alignment_on_call
+  - implicit_optional_initialization
+  - for_where
+
+opt_in_rules:
+  - array_init
+  - contains_over_filter_count
+  - contains_over_filter_is_empty
+  - contains_over_first_not_nil
+  - empty_count
+  - fatal_error_message
+  - first_where
+  - flatmap_over_map_reduce
+  - force_unwrapping
+  - implicitly_unwrapped_optional
+  - legacy_random
+  - modifier_order
+  - prefer_self_type_over_type_of_self
+  - sorted_first_last
+  - toggle_bool
+  - unhandled_throwing_task
+  - unneeded_escaping
+
+analyzer_rules:
+  - unused_declaration
+  - unused_import
+
+# Active scope for CLI development & upcoming PR.
+# To re-enable full repository linting across legacy apps/packages later,
+# add paths below or comment out `included:`.
+included:
+  - Sources/CLI
+  - Tests/CLITests
+
+excluded:
+  - .build
+  - .swiftpm
+  - DerivedData
+  - Sources/Secretive.xcodeproj
+  - Tests/CLITests/Snapshots
+
+
+# Trap prevention in production daemon code
+force_cast: error
+force_try: error
+force_unwrapping: error
+
+line_length:
+  warning: 160
+  error: 200
+  ignores_comments: true
+  ignores_urls: true
+  ignores_function_declarations: false
+  ignores_interpolated_strings: true
+
+function_body_length:
+  warning: 100
+  error: 150
+
+file_length:
+  warning: 850
+  error: 1200
+  ignore_comment_only_lines: true
+
+type_body_length:
+  warning: 800
+  error: 1000
+
+cyclomatic_complexity:
+  warning: 20
+  error: 30
+  ignores_case_statements: true
+
+large_tuple:
+  warning: 3
+  error: 4
+
+custom_rules:
+  no_unsafe_sendable:
+    name: "Unchecked Sendable Warning"
+    regex: '@unchecked\s+Sendable\b'
+    match_kinds:
+      - attribute.builtin
+      - identifier
+      - typeidentifier
+    message:
+      "Avoid @unchecked Sendable without documented hardware or OS-level synchronization guarantee."
+    severity: warning
+
+  no_unzeroized_key_material:
+    name: "Sensitive Memory Zeroization"
+    regex: '\b(?:var|let)\s+\w*(?:privateKey|secretKey|sharedSecret|seed|passphrase|pin)\w*\s*:\s*(?:Foundation\.)?(?:Data|String|\[UInt8\]|Array<UInt8>)\b'
+    match_kinds:
+      - keyword
+      - identifier
+      - typeidentifier
+    message:
+      "Sensitive cryptographic material must not be stored in standard copy-on-write heap buffers
+      (Data/String/[UInt8]). Use SecureBytes, ~Copyable zeroizing buffers, or hardware-bound SEP
+      tokens."
+    severity: error

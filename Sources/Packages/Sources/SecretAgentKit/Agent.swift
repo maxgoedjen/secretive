@@ -5,6 +5,7 @@ import SecretKit
 import CertificateKit
 import AppKit
 import SSHProtocolKit
+import LocalAuthentication
 
 /// The `Agent` is an implementation of an SSH agent. It manages coordination and access between a socket, traces requests, notifies witnesses and passes requests to stores.
 public final class Agent: Sendable {
@@ -105,6 +106,168 @@ extension Agent {
 //                    return SSHAgent.Response.agentSuccess.data
                 }
                 logger.debug("Agent returned \(SSHAgent.Response.agentSuccess.debugDescription)")
+            case .protocolExtension(.secretive(let secretiveExtension)):
+                switch secretiveExtension {
+                case .createKey(let context):
+                    if let peerUID = provenance.peerUID, peerUID != getuid() {
+                        logger.error("Agent: Unauthorized UID \(peerUID) != current UID \(getuid())")
+                        throw UnhandledRequestError()
+                    }
+                    let keyType: KeyType = switch context.keyType.lowercased() {
+                    case "ecdsa-256", "ecdsa-sha2-nistp256", "ecdsa": .ecdsa256
+                    case "ecdsa-384", "ecdsa-sha2-nistp384": .ecdsa384
+                    case "mldsa-65": .mldsa65
+                    case "mldsa-87": .mldsa87
+                    default: .ecdsa256
+                    }
+                    let authReq: AuthenticationRequirement = context.requireBiometrics ? .presenceRequired : .notRequired
+                    let attrs = Attributes(keyType: keyType, authentication: authReq)
+                    guard let modifiableStore = await storeList.modifiableStore else {
+                        logger.error("Agent: No modifiable store available.")
+                        throw UnhandledRequestError()
+                    }
+                    let secret = try await modifiableStore.create(name: context.name, attributes: attrs)
+                    let pubKeyBlob = publicKeyWriter.data(secret: secret)
+                    response.append(SSHAgent.Response.agentSuccess.data)
+                    response.append(pubKeyBlob.lengthAndData)
+                    logger.debug("Agent successfully created key '\(context.name)' via extension")
+                case .deleteKey(let context):
+                    if let peerUID = provenance.peerUID, peerUID != getuid() {
+                        logger.error("Agent: Unauthorized UID \(peerUID) != current UID \(getuid())")
+                        throw UnhandledRequestError()
+                    }
+                    guard let modifiableStore = await storeList.modifiableStore else {
+                        logger.error("Agent: No modifiable store available.")
+                        throw UnhandledRequestError()
+                    }
+                    guard let secret = await modifiableStore.secrets.first(where: { $0.name == context.identifier || $0.id == AnyHashable(context.identifier) }) else {
+                        logger.error("Agent: Secret '\(context.identifier)' not found.")
+                        throw UnhandledRequestError()
+                    }
+                    // AAL3 Protection: LocalAuthentication prompt for key destruction
+                    let authContext = LAContext()
+                    var authError: NSError?
+                    let reason = "Delete key \(secret.name)"
+                    if unsafe authContext.canEvaluatePolicy(.deviceOwnerAuthentication, error: &authError) {
+                        let success = try await authContext.evaluatePolicy(.deviceOwnerAuthentication, localizedReason: reason)
+                        guard success else {
+                            logger.error("Agent: Authentication failed for key deletion.")
+                            throw UnhandledRequestError()
+                        }
+                    }
+                    try await modifiableStore.delete(secret: secret)
+                    response.append(SSHAgent.Response.agentSuccess.data)
+                    logger.debug("Agent successfully deleted key '\(context.identifier)' via extension")
+                case .renameKey(let context):
+                    if let peerUID = provenance.peerUID, peerUID != getuid() {
+                        logger.error("Agent: Unauthorized UID \(peerUID) != current UID \(getuid())")
+                        throw UnhandledRequestError()
+                    }
+                    guard let modifiableStore = await storeList.modifiableStore else {
+                        logger.error("Agent: No modifiable store available.")
+                        throw UnhandledRequestError()
+                    }
+                    guard let secret = await modifiableStore.secrets.first(where: { $0.name == context.identifier || $0.id == AnyHashable(context.identifier) }) else {
+                        logger.error("Agent: Secret '\(context.identifier)' not found.")
+                        throw UnhandledRequestError()
+                    }
+                    let newAttrs = Attributes(
+                        keyType: secret.keyType,
+                        authentication: secret.authenticationRequirement,
+                        publicKeyAttribution: context.attribution ?? secret.attributes.publicKeyAttribution
+                    )
+                    try await modifiableStore.update(secret: secret, name: context.newName, attributes: newAttrs)
+                    response.append(SSHAgent.Response.agentSuccess.data)
+                    logger.debug("Agent successfully renamed key '\(context.identifier)' to '\(context.newName)' via extension")
+                case .listKeys:
+                    let secretsWithStores = await storeList.allSecretsWithStores
+                    var items: [KeyListItem] = []
+                    for (secret, store) in secretsWithStores {
+                        let storeName = await store.name
+                        let pubKeyStr = publicKeyWriter.openSSHString(secret: secret)
+                        let sha256 = publicKeyWriter.openSSHSHA256Fingerprint(secret: secret)
+                        let md5 = publicKeyWriter.openSSHMD5Fingerprint(secret: secret)
+                        let minimalHex = md5.replacingOccurrences(of: ":", with: "")
+                        let pubKeyPath = "\(minimalHex).pub"
+                        items.append(KeyListItem(
+                            store: storeName,
+                            name: secret.name,
+                            algorithm: formatKeyAlgorithm(secret.keyType),
+                            authentication: secret.authenticationRequirement.rawValue,
+                            fingerprint_sha256: sha256,
+                            fingerprint_md5: md5,
+                            public_key: pubKeyStr,
+                            public_key_path: pubKeyPath
+                        ))
+                    }
+                    let encoded = try JSONEncoder().encode(items)
+                    response.append(SSHAgent.Response.agentSuccess.data)
+                    response.append(encoded.lengthAndData)
+                    logger.debug("Agent returned \(items.count) keys via listKeys extension")
+                case .listCerts:
+                    let certs = await certificateStore.certificates
+                    let dateFormatter = DateFormatter()
+                    dateFormatter.dateFormat = "yyyy-MM-dd"
+                    let items = certs.map { cert -> CertListItem in
+                        let validUntil: String? = if let range = cert.openSSHCertificate.validityRange {
+                            dateFormatter.string(from: range.upperBound)
+                        } else {
+                            nil
+                        }
+                        return CertListItem(
+                            name: cert.openSSHCertificate.name,
+                            key_id: cert.openSSHCertificate.keyID,
+                            serial: cert.openSSHCertificate.serial,
+                            principals: cert.openSSHCertificate.principals,
+                            valid_until: validUntil
+                        )
+                    }
+                    let encoded = try JSONEncoder().encode(items)
+                    response.append(SSHAgent.Response.agentSuccess.data)
+                    response.append(encoded.lengthAndData)
+                    logger.debug("Agent returned \(items.count) certificates via listCerts extension")
+                case .importCert(let context):
+                    if let peerUID = provenance.peerUID, peerUID != getuid() {
+                        logger.error("Agent: Unauthorized UID \(peerUID) != current UID \(getuid())")
+                        throw UnhandledRequestError()
+                    }
+                    let parser = OpenSSHCertificateParser()
+                    let parsedCert = try parser.parse(data: context.certificateData)
+                    var fullCert = Certificate(openSSHCertificate: parsedCert, rawData: context.certificateData)
+                    if let overrideName = context.nameOverride {
+                        fullCert.openSSHCertificate.name = overrideName
+                    }
+                    let importedName = fullCert.openSSHCertificate.name
+                    try await MainActor.run {
+                        try certificateStore.save(certificate: fullCert)
+                    }
+                    response.append(SSHAgent.Response.agentSuccess.data)
+                    response.append(importedName.lengthAndData)
+                    logger.debug("Agent successfully imported certificate '\(importedName)' via extension")
+                case .deleteCert(let context):
+                    if let peerUID = provenance.peerUID, peerUID != getuid() {
+                        logger.error("Agent: Unauthorized UID \(peerUID) != current UID \(getuid())")
+                        throw UnhandledRequestError()
+                    }
+                    let certs = await certificateStore.certificates
+                    guard let target = certs.first(where: {
+                        $0.openSSHCertificate.name == context.identifier ||
+                        $0.openSSHCertificate.keyID == context.identifier ||
+                        $0.id == context.identifier
+                    }) else {
+                        logger.error("Agent: Certificate '\(context.identifier)' not found.")
+                        throw UnhandledRequestError()
+                    }
+                    let deletedName = target.openSSHCertificate.name
+                    try await MainActor.run {
+                        try certificateStore.delete(certificate: target)
+                    }
+                    response.append(SSHAgent.Response.agentSuccess.data)
+                    logger.debug("Agent successfully deleted certificate '\(deletedName)' via extension")
+                case .unknown(let name):
+                    logger.error("Agent received unknown Secretive extension '\(name)'.")
+                    throw UnhandledRequestError()
+                }
             case .unknown(let value):
                 logger.error("Agent received unknown request of type \(value).")
                 throw UnhandledRequestError()
@@ -198,6 +361,17 @@ extension Agent {
     func secret(matching hash: Data) async -> (AnySecret, AnySecretStore)? {
         await storeList.allSecretsWithStores.first {
             hash == publicKeyWriter.data(secret: $0.0)
+        }
+    }
+
+    private func formatKeyAlgorithm(_ keyType: KeyType) -> String {
+        switch keyType {
+        case .ecdsa256: "ecdsa-sha2-nistp256"
+        case .ecdsa384: "ecdsa-sha2-nistp384"
+        case .mldsa65: "mldsa-65"
+        case .mldsa87: "mldsa-87"
+        case .rsa2048: "rsa-2048"
+        default: keyType.description
         }
     }
 

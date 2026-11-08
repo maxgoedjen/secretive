@@ -1,0 +1,39 @@
+# EditorConfig — Indentation, Character Sets & Line Terminations
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+indent_size = 4
+indent_style = space
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+[*.swift]
+indent_size = 4
+max_line_length = 140
+
+[*.{yml,yaml,json}]
+indent_size = 2
+
+[*.{sh,bash,zsh}]
+indent_size = 4
+
+[Justfile]
+indent_size = 4
+indent_style = space
+
+[Makefile]
+indent_style = tab
+
+[*.md]
+max_line_length = off
+trim_trailing_whitespace = false
+
+[*.1]
+indent_style = tab
+trim_trailing_whitespace = false
+
+[*.{pbxproj,xcworkspacedata,xcscheme,plist,entitlements,strings,xcstrings}]
+indent_style = tab
+trim_trailing_whitespace = false

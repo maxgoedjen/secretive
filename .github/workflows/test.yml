@@ -1,17 +1,109 @@
 name: Test
 
 on: [push, pull_request]
+
 jobs:
-  test:
+  # ─── CLI: Unit + Integration Tests (unsigned, no Keychain) ──
+  test-cli:
+    name: CLI Tests (SPM)
+    runs-on: xcode-27
+    timeout-minutes: 15
     permissions:
-        contents: read
+      contents: read
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Cache SPM build artifacts
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: .build
+          key: ${{ runner.os }}-spm-${{ hashFiles('Package.resolved') }}
+          restore-keys: |
+            ${{ runner.os }}-spm-
+
+      - name: Build CLI binary (required for integration tests)
+        run: swift build --build-system swiftbuild --product secretive
+
+      - name: Run CLI unit + integration tests
+        # E2E suites (KeyLifecycleE2ETests, AgentStatusE2ETests, CertLifecycleE2ETests)
+        # require a code-signed binary with Keychain entitlements — skipped here,
+        # run only in nightly.yml on a signed runner.
+        #
+        # SnapshotTests write golden files to the source tree via #filePath —
+        # run separately to update: rm Tests/CLITests/Snapshots/*.txt && swift test --filter SnapshotTests
+        run: |
+          swift test --build-system swiftbuild \
+            --filter SecretiveCLITests \
+            --skip KeyLifecycleE2ETests \
+            --skip AgentStatusE2ETests \
+            --skip CertLifecycleE2ETests \
+            --skip SnapshotTests
+        env:
+          NO_COLOR: "1"
+
+      - name: Validate man page (troff lint)
+        run: |
+          if command -v mandoc &>/dev/null; then
+            mandoc -Tlint Resources/man/secretive.1
+          else
+            grep -q '\.TH' Resources/man/secretive.1 \
+              || (echo "ERROR: man page missing .TH directive" && exit 1)
+          fi
+
+      - name: Validate shell completions syntax
+        run: |
+          zsh  -n Resources/completions/_secretive      && echo "✓ zsh OK"
+          bash -n Resources/completions/secretive.bash  && echo "✓ bash OK"
+
+  # ─── SecretKit + SSHProtocolKit: SPM swift-testing suites ───
+  test-packages-spm:
+    name: SecretKit Tests (SPM)
     runs-on: xcode-27
     timeout-minutes: 10
+    permissions:
+      contents: read
     steps:
-    - uses: actions/checkout@v5
-    - name: Test Main Packages
-      run: xcrun xcodebuild -project Sources/Secretive.xcodeproj -scheme PackageTests test
-      # SPM doesn't seem to pick up on the tests currently?
-      # run: swift test --build-system swiftbuild --package-path Sources/Packages
-    - name: Test SecretKit Packages
-      run: swift test --build-system swiftbuild
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Cache SPM build artifacts
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: .build
+          key: ${{ runner.os }}-spm-${{ hashFiles('Package.resolved') }}
+          restore-keys: |
+            ${{ runner.os }}-spm-
+
+      - name: Test SSHProtocolKit via SPM
+        # SecretKitTests uses XCTest — runs only via xcodebuild below.
+        run: swift test --build-system swiftbuild --filter SSHProtocolKitTests
+
+  # ─── All Packages: Xcode scheme (XCTest + swift-testing) ────
+  test-packages-xcode:
+    name: Package Tests (Xcode)
+    runs-on: xcode-27
+    timeout-minutes: 10
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Test Main Packages via Xcode
+        run: xcrun xcodebuild -project Sources/Secretive.xcodeproj -scheme PackageTests test
+
+  # ─── Swift Format Lint ───────────────────────────────────────
+  lint:
+    name: Swift Format Check
+    runs-on: xcode-27
+    timeout-minutes: 5
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Check formatting (CLI sources)
+        run: |
+          if command -v swift-format &>/dev/null; then
+            swift-format lint --strict --recursive Sources/CLI/ Tests/CLITests/
+          else
+            echo "swift-format not installed — skipping"
+          fi

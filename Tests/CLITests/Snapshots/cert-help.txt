@@ -1,0 +1,13 @@
+Secretive CLI — Manage OpenSSH Certificates
+
+USAGE
+
+  secretive cert <command> [options]
+
+COMMANDS
+
+  list                 List imported certificates
+  import               Import a certificate from a file
+  delete               Delete an imported certificate
+
+Run `secretive cert <command> --help` for specific options and examples.

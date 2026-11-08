@@ -1,0 +1,31 @@
+# SwiftFormat Configuration
+--swiftversion 6.4
+--language-mode 6
+
+# Whitespace & Layout
+--indent 4
+--maxwidth 140
+--trimwhitespace always
+--linebreaks lf
+--allman false
+--closingparen balanced
+--wraparguments before-first
+--wrapcollections before-first
+--wrapconditions after-first
+--commas always
+--semicolons never
+--ranges nospace
+--emptybraces no-space
+
+# Idioms & Safety
+--self remove
+--stripunusedargs closure-only
+--hexliterals uppercase
+--header strip
+--importgrouping testable-bottom
+
+# Disabled Rules (prevent fighting Swift Testing and SwiftLint)
+--disable preferKeyPath,wrapMultilineStatementBraces,swiftTestingTestCaseNames,modifierOrder
+
+# Exclude build artifacts and legacy non-CLI sources (to re-enable full repo, remove them from below)
+--exclude .build,.swiftpm,DerivedData,Sources/Secretive.xcodeproj,Tests/CLITests/Snapshots,Sources/Secretive,Sources/SecretAgent,Sources/Packages,Sources/SecretiveCertificateParser,Sources/SecretAgentHostsfileReader,Sources/SecretAgentInputParser,Sources/SecretiveUpdater

@@ -1,0 +1,42 @@
+Secretive CLI
+
+  Manage SSH keys stored securely within the Mac Secure Enclave.
+
+USAGE
+
+  secretive [options] <command> [subcommand] [args]
+
+COMMANDS
+
+  Core
+    key         Manage Secure Enclave keys (list, show, create, delete, rename)
+    cert        Manage OpenSSH certificates (list, import, delete)
+    agent       Manage the SecretAgent background service
+
+  Utility
+    env         Print shell environment configuration (SSH_AUTH_SOCK)
+    version     Print version and Secure Enclave capabilities
+
+GLOBAL OPTIONS
+
+    -h, --help  Output usage information
+    --json      Format output as machine-readable JSON
+
+EXAMPLES
+
+  – Create a new hardware-backed key and save the public key
+    $ secretive key create github_key -o ~/.ssh/id_github.pub
+
+  – List all keys stored in the Secure Enclave
+    $ secretive key list
+
+  – Export the public key of an existing key
+    $ secretive key show github_key --public-key -o ~/.ssh/id_github.pub
+
+  – Import an OpenSSH certificate
+    $ secretive cert import ~/.ssh/id_github-cert.pub
+
+  – Check the status of SecretAgent in JSON format
+    $ secretive agent status --json
+
+For command-specific help, run `secretive <command> --help`
