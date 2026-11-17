@@ -4,10 +4,14 @@ import SecretAgentKit
 import SmartCardSecretKit
 import Common
 
+import ApplicationServices
+import SettingsKit
+
 struct PendingRequestsView: View {
 
     private let authenticationHandler: any AuthenticationHandlerProtocol
     @Environment(\.dismissWindow) var dismiss
+    @Environment(\.settingsStore) var settingsStore
 
     init(authenticationHandler: some AuthenticationHandlerProtocol) {
         self.authenticationHandler = authenticationHandler
@@ -84,6 +88,19 @@ struct PendingRequestsView: View {
             }
         }
         .safeAreaPadding(20)
+        .onAppear {
+            guard settingsStore.showDockItemWithPendingRequestsScreen else { return }
+            var process = ProcessSerialNumber(highLongOfPSN: 0, lowLongOfPSN: UInt32(kCurrentProcess))
+            unsafe TransformProcessType(&process, ProcessApplicationTransformState(kProcessTransformToForegroundApplication))
+            NSApplication.shared.dockTile.showsApplicationBadge = true
+            NSApplication.shared.dockTile.display()
+            NSApplication.shared.requestUserAttention(.criticalRequest)
+        }
+        .onDisappear {
+            guard settingsStore.showDockItemWithPendingRequestsScreen else { return }
+            var process = ProcessSerialNumber(highLongOfPSN: 0, lowLongOfPSN: UInt32(kCurrentProcess))
+            unsafe TransformProcessType(&process, ProcessApplicationTransformState(kProcessTransformToBackgroundApplication))
+        }
     }
 
 }

@@ -1,6 +1,7 @@
 @unsafe @preconcurrency import LocalAuthentication
 import SecretKit
 import OSLog
+import SettingsKit
 
 /// A context describing a persisted authentication.
 public final class AuthenticationContext: AuthenticationContextProtocol {
@@ -103,8 +104,10 @@ public final class AuthenticationContext: AuthenticationContextProtocol {
     private var lastBatchAuthPresentation: Set<SignatureRequest>?
     private var presentPendingAuth: (() async throws -> Void)?
     private let logger = Logger(subsystem: "com.maxgoedjen.secretive.secretagent", category: "AuthenticationHandler")
+    private let settingsStore: SettingsStore
 
-    public init() {
+    public init(settingsStore: SettingsStore) {
+        self.settingsStore = settingsStore
     }
 
     public func setPendingRequestHandler(_ handler: @escaping () async throws -> Void) {
@@ -134,11 +137,15 @@ public final class AuthenticationContext: AuthenticationContextProtocol {
             waitingRequests.remove(request)
         }
 
-        if waitingRequests.count > 1 {
+        if settingsStore.multipleRequestScreenEnabled && waitingRequests.count >= settingsStore.multipleRequestScreenCountThreshold {
             return try await waitUntilRequestActedOn(request)
+        } else {
+            while activeTask != nil {
+                try await Task.sleep(for: .milliseconds(100))
+            }
         }
 
-        // Hold onto the task and context so we can cancel them when prsenting pending.
+        // Hold onto the task and context so we can cancel them when presenting pending.
         activeContext = context
         let currentTask = Task<Bool, any Error> {
             logger.log("Beginning individual auth prompt")
@@ -147,8 +154,10 @@ public final class AuthenticationContext: AuthenticationContextProtocol {
             return result
         }
         activeTask = currentTask
-        let result = try? await activeTask?.value
-        if result == false && activeTask?.isCancelled == false {
+        let result = try await currentTask.value
+        activeTask = nil
+        activeContext = nil
+        if result == false && currentTask.isCancelled == false {
             waitingRequests.remove(request)
             throw CancellationError()
         } else if currentTask.isCancelled {
@@ -161,7 +170,7 @@ public final class AuthenticationContext: AuthenticationContextProtocol {
         logger.log("Auth prompt was cancelled, waiting for explicit auth")
         // At this point, we essentially just block the task until either the request has been authenticated "externally" via the pending view.
         while waitingRequests.contains(request) {
-            if waitingRequests != lastBatchAuthPresentation {
+            if waitingRequests != lastBatchAuthPresentation && waitingRequests.count >= settingsStore.multipleRequestScreenCountThreshold {
                 // If we're about to present a batch, we cancel the individual auth prompt, and show the batch one.
                 logger.log("Multiple pending requests exist, cancelling existing auth prompt")
                 activeTask?.cancel()

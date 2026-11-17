@@ -22015,6 +22015,61 @@
       },
       "shouldTranslate" : false
     },
+    "settings_agent_tab_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Agent"
+          }
+        }
+      }
+    },
+    "settings_multiple_authentication_enabled_label" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Show Pending Requests Screen"
+          }
+        }
+      }
+    },
+    "settings_multiple_authentication_section_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pending Requests Screen"
+          }
+        }
+      }
+    },
+    "settings_multiple_authentication_shows_dock_icon_label" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Show Dock Item for Pending Requests Screen"
+          }
+        }
+      }
+    },
+    "settings_multiple_authentication_threshold_label" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Minimum Pending Requests Before Pending Screen"
+          }
+        }
+      }
+    },
     "setup_agent_activity_monitor_description" : {
       "extractionState" : "manual",
       "localizations" : {

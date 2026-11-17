@@ -378,6 +378,9 @@
           "product-name": "SecureEnclaveSecretKit",
           "build-phase": { "build-phase": "frameworks" },
         }, {
+          "product-name": "SettingsKit",
+          "build-phase": { "build-phase": "frameworks" },
+        }, {
           "product-name": "SharedXPCServices",
           "build-phase": { "build-phase": "frameworks" },
         }, {
