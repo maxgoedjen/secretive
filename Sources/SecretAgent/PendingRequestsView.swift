@@ -3,7 +3,6 @@ import SecretKit
 import SecretAgentKit
 import SmartCardSecretKit
 import Common
-
 import ApplicationServices
 import SettingsKit
 
