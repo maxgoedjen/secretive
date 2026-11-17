@@ -67,7 +67,7 @@ public struct TestSecret: Secret {
 
 @MainActor @Suite struct AuthenticationHandlerTests {
 
-    let handler = AuthenticationHandler()
+    let handler = AuthenticationHandler(settingsStore: .init())
 
     @Test func singleImmediatelyRequests() async throws {
         var calledPresentPending = false

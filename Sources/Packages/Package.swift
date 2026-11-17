@@ -87,7 +87,7 @@ let package = Package(
         ),
         .target(
             name: "SecretAgentKit",
-            dependencies: ["SecretKit", "SSHProtocolKit", "CertificateKit", "Common", "Formatters"],
+            dependencies: ["SecretKit", "SSHProtocolKit", "CertificateKit", "Common", "Formatters", "SettingsKit"],
             resources: [localization],
             swiftSettings: swiftSettings,
         ),

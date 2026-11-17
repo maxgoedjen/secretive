@@ -9,6 +9,7 @@ import Observation
 import Common
 import SwiftUI
 import CertificateKit
+import SettingsKit
 
 @main
 struct SecretAgent: App {
@@ -26,7 +27,7 @@ struct SecretAgent: App {
 
     private let updater = Updater(checkOnLaunch: true)
     private let notifier = Notifier()
-    private let authenticationHandler = AuthenticationHandler()
+    private let authenticationHandler = AuthenticationHandler(settingsStore: EnvironmentValues._settingsStore)
     private let publicKeyFileStoreController = PublicKeyFileStoreController(publicKeysURL: URL.publicKeyDirectory, certificatesURL: URL.certificatesDirectory)
 
     @Environment(\.openWindow) var openWindow
@@ -117,3 +118,12 @@ struct SecretAgent: App {
 }
 
 struct PendingRequestsViewIdentifier: Codable, Hashable {}
+
+extension EnvironmentValues {
+
+    @MainActor fileprivate static let _settingsStore = SettingsStore()
+    @MainActor var settingsStore: SettingsStore {
+        EnvironmentValues._settingsStore
+    }
+
+}
