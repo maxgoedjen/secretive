@@ -46,8 +46,8 @@ import SSHProtocolKit
 extension OpenSSHPublicKeyWriterTests {
 
     enum Constants {
-        static let ecdsa256Secret =  TestSecret(id: Data(), name: "Test Key (ECDSA 256)", publicKey: Data(base64Encoded: "BOVEjgAA5PHqRgwykjN5qM21uWCHFSY/Sqo5gkHAkn+e1MMQKHOLga7ucB9b3mif33MBid59GRK9GEPVlMiSQwo=")!, attributes: Attributes(keyType: KeyType(algorithm: .ecdsa, size: 256), authentication: .notRequired, publicKeyAttribution: "test@example.com"))
-        static let ecdsa384Secret = TestSecret(id: Data(), name: "Test Key (ECDSA 384)", publicKey: Data(base64Encoded: "BG2MNc/C5OTHFE2tBvbZCVcpOGa8vBMquiTLkH4lwkeqOPxhi+PyYUfQZMTRJNPiTyWPoMBqNiCIFRVv60yPN/AHufHaOgbdTP42EgMlMMImkAjYUEv9DESHTVIs2PW1yQ==")!, attributes: Attributes(keyType: KeyType(algorithm: .ecdsa, size: 384), authentication: .notRequired, publicKeyAttribution: "test@example.com"))
+        static let ecdsa256Secret =  TestSecret(id: Data(), name: "Test Key (ECDSA 256)", publicKey: Data(base64Encoded: "BOVEjgAA5PHqRgwykjN5qM21uWCHFSY/Sqo5gkHAkn+e1MMQKHOLga7ucB9b3mif33MBid59GRK9GEPVlMiSQwo=")!, attributes: Attributes(keyType: KeyType(algorithm: .ecdsa, size: 256), authentication: .notRequiredWhileUnlocked, publicKeyAttribution: "test@example.com"))
+        static let ecdsa384Secret = TestSecret(id: Data(), name: "Test Key (ECDSA 384)", publicKey: Data(base64Encoded: "BG2MNc/C5OTHFE2tBvbZCVcpOGa8vBMquiTLkH4lwkeqOPxhi+PyYUfQZMTRJNPiTyWPoMBqNiCIFRVv60yPN/AHufHaOgbdTP42EgMlMMImkAjYUEv9DESHTVIs2PW1yQ==")!, attributes: Attributes(keyType: KeyType(algorithm: .ecdsa, size: 384), authentication: .notRequiredWhileUnlocked, publicKeyAttribution: "test@example.com"))
 
     }
 
