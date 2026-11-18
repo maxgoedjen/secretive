@@ -3,7 +3,7 @@ import Foundation
 
 extension SigningRequestProvenance {
 
-    static let test = SigningRequestProvenance(root: .init(pid: 0, processName: "test", appName: nil, iconURL: nil, path: "/", validSignature: true, parentPID: 0))
+    static let test = SigningRequestProvenance(root: .init(pid: 0, processName: "test", appName: nil, iconURL: nil, path: "/", validSignature: true, parentPID: 0, processGroupID: 0, arguments: nil, workingDirectory: nil, protected: true))
 
 }
 

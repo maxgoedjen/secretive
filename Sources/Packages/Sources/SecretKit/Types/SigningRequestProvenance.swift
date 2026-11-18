@@ -56,6 +56,14 @@ extension SigningRequestProvenance {
         public let validSignature: Bool
         /// The pid of the process's parent.
         public let parentPID: Int32?
+        /// The process group ID of the process.
+        public let processGroupID: Int32
+        /// The arguments the process was launched with, if they could be read.
+        public let arguments: [String]?
+        /// The process's current working directory, if it could be read.
+        public let workingDirectory: String?
+        /// A boolean describing whether or not other processes are prevented from modifying the process while it runs.
+        public let protected: Bool
 
         /// Initializes a Process.
         /// - Parameters:
@@ -66,7 +74,11 @@ extension SigningRequestProvenance {
         ///   - path: The path the process exists at.
         ///   - validSignature: A boolean describing whether or not the process has a valid code signature.
         ///   - parentPID: The pid of the process's parent.
-        public init(pid: Int32, processName: String, appName: String?, iconURL: URL?, path: String, validSignature: Bool, parentPID: Int32?) {
+        ///   - processGroupID: The process group ID of the process.
+        ///   - arguments: The arguments the process was launched with, if they could be read.
+        ///   - workingDirectory: The process's current working directory, if it could be read.
+        ///   - protected: A boolean describing whether or not other processes are prevented from modifying the process while it runs.
+        public init(pid: Int32, processName: String, appName: String?, iconURL: URL?, path: String, validSignature: Bool, parentPID: Int32?, processGroupID: Int32, arguments: [String]?, workingDirectory: String?, protected: Bool) {
             self.pid = pid
             self.processName = processName
             self.appName = appName
@@ -74,6 +86,10 @@ extension SigningRequestProvenance {
             self.path = path
             self.validSignature = validSignature
             self.parentPID = parentPID
+            self.processGroupID = processGroupID
+            self.arguments = arguments
+            self.workingDirectory = workingDirectory
+            self.protected = protected
         }
 
         /// The best user-facing name to display for the process.
