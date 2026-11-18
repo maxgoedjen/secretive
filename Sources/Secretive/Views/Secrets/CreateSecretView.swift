@@ -10,6 +10,7 @@ struct CreateSecretView<StoreType: SecretStoreModifiable>: View {
     @State private var name = ""
     @State private var keyAttribution = ""
     @State private var authenticationRequirement: AuthenticationRequirement = .presenceRequired
+    @State private var allowWhileLocked = false
     @State private var keyType: KeyType?
     @State var advanced = false
     @State var errorText: String?
@@ -73,6 +74,12 @@ struct CreateSecretView<StoreType: SecretStoreModifiable>: View {
                 }
                 if advanced {
                     Section {
+                        Toggle(isOn: $allowWhileLocked) {
+                            Text(.createSecretAllowWhileLockedLabel)
+                            Text(.createSecretAllowWhileLockedDescription)
+                                .font(.subheadline)
+                                .foregroundStyle(.secondary)
+                        }
                         VStack {
                             Picker(.createSecretKeyTypeLabel, selection: $keyType) {
                                 ForEach(store.supportedKeyTypes.available, id: \.self) { option in
@@ -146,6 +153,7 @@ struct CreateSecretView<StoreType: SecretStoreModifiable>: View {
                     attributes: .init(
                         keyType: keyType!,
                         authentication: authenticationRequirement,
+                        allowWhileLocked: allowWhileLocked,
                         publicKeyAttribution: attribution
                     )
                 )

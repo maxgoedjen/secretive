@@ -8,6 +8,9 @@ public struct Attributes: Sendable, Codable, Hashable {
     /// The authentication requirements for the key. This is simply a description of the option recorded at creation – modifying it doers not modify the key's authentication requirements.
     public let authentication: AuthenticationRequirement
     
+    /// Whether the key can be used while unlocked. This is only applicable to keys with `notRequired` authentication requirements.
+    public let allowWhileLocked: Bool
+
     /// The string appended to the end of the SSH Public Key.
     /// If nil, a default value will be used.
     public var publicKeyAttribution: String?
@@ -15,10 +18,12 @@ public struct Attributes: Sendable, Codable, Hashable {
     public init(
         keyType: KeyType,
         authentication: AuthenticationRequirement,
+        allowWhileLocked: Bool,
         publicKeyAttribution: String? = nil
     ) {
         self.keyType = keyType
         self.authentication = authentication
+        self.allowWhileLocked = allowWhileLocked
         self.publicKeyAttribution = publicKeyAttribution
     }
 
