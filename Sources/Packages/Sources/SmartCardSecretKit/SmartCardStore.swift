@@ -1,4 +1,5 @@
 import Foundation
+import CryptoKit
 import Observation
 import Security
 @unsafe @preconcurrency import CryptoTokenKit
@@ -83,7 +84,7 @@ extension SmartCard {
             guard let signature = unsafe SecKeyCreateSignature(key, algorithm, data as CFData, &signError) else {
                 throw unsafe SigningError(error: signError)
             }
-            return signature as Data
+            return try Self.rawSignature(signature as Data, for: secret.keyType)
         }
         
         /// Reloads all secrets from the store.
@@ -96,6 +97,18 @@ extension SmartCard {
 }
 
 extension SmartCard.Store {
+
+    static func rawSignature(_ signature: Data, for keyType: KeyType) throws -> Data {
+        // Security returns X9.62 DER; SSH encoding expects fixed-width r || s.
+        switch keyType {
+        case .ecdsa256:
+            return try P256.Signing.ECDSASignature(derRepresentation: signature).rawRepresentation
+        case .ecdsa384:
+            return try P384.Signing.ECDSASignature(derRepresentation: signature).rawRepresentation
+        default:
+            return signature
+        }
+    }
 
     @MainActor private func reloadSecretsInternal() {
         let before = state.secrets
