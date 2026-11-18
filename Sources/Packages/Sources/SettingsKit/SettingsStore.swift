@@ -40,7 +40,7 @@ import OSLog
                     kSecAttrService: Constants.keyTag,
                     kSecAttrAccount: String(describing: SettingsKeyType.self),
                     kSecUseDataProtectionKeychain: true,
-                    kSecAttrAccessible: kSecAttrAccessibleWhenUnlockedThisDeviceOnly,
+                    kSecAttrAccessible: kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly,
                     kSecValueData: data,
                 ])
                 let status = SecItemAdd(keychainAttributes, nil)

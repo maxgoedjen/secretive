@@ -6720,6 +6720,28 @@
         }
       }
     },
+    "create_secret_allow_while_locked_description" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Consider enabling this if you run scripts while your Mac is locked."
+          }
+        }
+      }
+    },
+    "create_secret_allow_while_locked_label" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Allow While Locked"
+          }
+        }
+      }
+    },
     "create_secret_biometry_current_warning" : {
       "extractionState" : "manual",
       "localizations" : {

@@ -244,17 +244,17 @@ extension SecureEnclave.Store {
     /// - Note: Despite the name, the "Data" of the key is _not_ actual key material. This is an opaque data representation that the SEP can manipulate.
     @discardableResult
     func saveKey(_ key: Data, name: String, attributes: Attributes) throws -> String {
-        let attributes = try JSONEncoder().encode(attributes)
+        let encodedAttributes = try JSONEncoder().encode(attributes)
         let id = UUID().uuidString
         let keychainAttributes = KeychainDictionary([
             kSecClass: Constants.keyClass,
             kSecAttrService: Constants.keyTag,
             kSecUseDataProtectionKeychain: true,
-            kSecAttrAccessible: kSecAttrAccessibleWhenUnlockedThisDeviceOnly,
+            kSecAttrAccessible: attributes.allowWhileLocked ? kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly : kSecAttrAccessibleWhenUnlockedThisDeviceOnly,
             kSecAttrAccount: id,
             kSecValueData: key,
             kSecAttrLabel: name,
-            kSecAttrGeneric: attributes
+            kSecAttrGeneric: encodedAttributes
         ])
         let status = SecItemAdd(keychainAttributes, nil)
         if status != errSecSuccess {

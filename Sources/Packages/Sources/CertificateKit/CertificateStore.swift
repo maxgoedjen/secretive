@@ -39,7 +39,8 @@ import SecretKit
             kSecAttrService: Constants.keyTag,
             kSecAttrAccount: certificate.id,
             kSecUseDataProtectionKeychain: true,
-            kSecAttrAccessible: kSecAttrAccessibleWhenUnlockedThisDeviceOnly,
+            // Note: Previous versions used kSecAttrAccessibleWhenUnlockedThisDeviceOnly
+            kSecAttrAccessible: kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly,
             kSecValueData: certificate.rawData,
             kSecAttrGeneric: attributes
         ])

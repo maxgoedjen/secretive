@@ -15,6 +15,7 @@ extension Preview {
             Attributes(
                 keyType: .init(algorithm: .ecdsa, size: 256),
                 authentication: .presenceRequired,
+                allowWhileLocked: true,
             )
         }
     }
