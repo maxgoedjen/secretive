@@ -34,7 +34,7 @@ public struct TestSecret: Secret {
     init(authenticationRequirement: AuthenticationRequirement, testEvaluationResult: Bool, approval: ApprovalMode = .manual) {
         self.canceled = false
         self.testEvaluationResult = testEvaluationResult
-        self.secret = AnySecret(TestSecret(attributes: .init(keyType: .ecdsa256, authentication: authenticationRequirement, allowWhileLocked: false)))
+        self.secret = AnySecret(TestSecret(attributes: .init(keyType: .ecdsa256, authentication: authenticationRequirement)))
         self.approval = approval
     }
 

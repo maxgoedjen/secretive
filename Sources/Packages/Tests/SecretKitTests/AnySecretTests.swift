@@ -9,7 +9,7 @@ import Testing
 
     @Test func eraser() {
         let data = Data(UUID().uuidString.utf8)
-        let secret = SmartCard.Secret(id: data, name: "Name", publicKey: data, attributes: Attributes(keyType: KeyType(algorithm: .ecdsa, size: 256), authentication: .notRequired, allowWhileLocked: true))
+        let secret = SmartCard.Secret(id: data, name: "Name", publicKey: data, attributes: Attributes(keyType: KeyType(algorithm: .ecdsa, size: 256), authentication: .notRequired))
         let erased = AnySecret(secret)
         #expect(erased.id == secret.id as AnyHashable)
         #expect(erased.name == secret.name)

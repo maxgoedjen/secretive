@@ -10,16 +10,15 @@ struct CreateSecretView<StoreType: SecretStoreModifiable>: View {
     @State private var name = ""
     @State private var keyAttribution = ""
     @State private var authenticationRequirement: AuthenticationRequirement = .presenceRequired
-    @State private var allowWhileLocked = false
     @State private var keyType: KeyType?
     @State var advanced = false
     @State var errorText: String?
 
     private var authenticationOptions: [AuthenticationRequirement] {
         if advanced || authenticationRequirement == .biometryCurrent {
-            [.presenceRequired, .notRequired, .biometryCurrent]
+            [.presenceRequired, .notRequiredWhileUnlocked, .notRequiredAfterFirstUnlock, .biometryCurrent]
         } else {
-            [.presenceRequired, .notRequired]
+            [.presenceRequired, .notRequiredWhileUnlocked]
         }
     }
 
@@ -33,9 +32,12 @@ struct CreateSecretView<StoreType: SecretStoreModifiable>: View {
                             ForEach(authenticationOptions) { option in
                                 HStack {
                                     switch option {
-                                    case .notRequired:
+                                    case .notRequiredWhileUnlocked:
                                         Image(systemName: "bell")
-                                        Text(.createSecretNotifyTitle)
+                                        Text(.createSecretWhileUnlockedNotifyTitle)
+                                    case .notRequiredAfterFirstUnlock:
+                                        Image(systemName: "lock.display")
+                                        Text(.createSecretAfterFirstUnlockNotifyTitle)
                                     case .presenceRequired:
                                         Image(systemName: "lock")
                                         Text(.createSecretRequireAuthenticationTitle)
@@ -50,9 +52,11 @@ struct CreateSecretView<StoreType: SecretStoreModifiable>: View {
                             }
                         }
                         Group {
-                            switch  authenticationRequirement {
-                            case .notRequired:
-                                Text(.createSecretNotifyDescription)
+                            switch authenticationRequirement {
+                            case .notRequiredAfterFirstUnlock:
+                                Text(.createSecretAfterFirstUnlockNotifyDescription)
+                            case .notRequiredWhileUnlocked:
+                                Text(.createSecretWhileUnlockedNotifyDescription)
                             case .presenceRequired:
                                 Text(.createSecretRequireAuthenticationDescription)
                             case .biometryCurrent:
@@ -74,12 +78,6 @@ struct CreateSecretView<StoreType: SecretStoreModifiable>: View {
                 }
                 if advanced {
                     Section {
-                        Toggle(isOn: $allowWhileLocked) {
-                            Text(.createSecretAllowWhileLockedLabel)
-                            Text(.createSecretAllowWhileLockedDescription)
-                                .font(.subheadline)
-                                .foregroundStyle(.secondary)
-                        }
                         VStack {
                             Picker(.createSecretKeyTypeLabel, selection: $keyType) {
                                 ForEach(store.supportedKeyTypes.available, id: \.self) { option in
@@ -153,7 +151,6 @@ struct CreateSecretView<StoreType: SecretStoreModifiable>: View {
                     attributes: .init(
                         keyType: keyType!,
                         authentication: authenticationRequirement,
-                        allowWhileLocked: allowWhileLocked,
                         publicKeyAttribution: attribution
                     )
                 )

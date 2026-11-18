@@ -7,9 +7,6 @@ public struct Attributes: Sendable, Codable, Hashable {
 
     /// The authentication requirements for the key. This is simply a description of the option recorded at creation – modifying it doers not modify the key's authentication requirements.
     public let authentication: AuthenticationRequirement
-    
-    /// Whether the key can be used while unlocked. This is only applicable to keys with `notRequired` authentication requirements.
-    public let allowWhileLocked: Bool
 
     /// The string appended to the end of the SSH Public Key.
     /// If nil, a default value will be used.
@@ -18,12 +15,10 @@ public struct Attributes: Sendable, Codable, Hashable {
     public init(
         keyType: KeyType,
         authentication: AuthenticationRequirement,
-        allowWhileLocked: Bool,
         publicKeyAttribution: String? = nil
     ) {
         self.keyType = keyType
         self.authentication = authentication
-        self.allowWhileLocked = allowWhileLocked
         self.publicKeyAttribution = publicKeyAttribution
     }
 
@@ -36,9 +31,13 @@ public struct Attributes: Sendable, Codable, Hashable {
 /// The option specified
 public enum AuthenticationRequirement: String, Hashable, Sendable, Codable, Identifiable {
 
-    /// Authentication is not required for usage.
-    case notRequired
-    
+    /// Authentication is not required for usage. Authentication is not permitted while the device is locked.
+    /// - Note: This option was previously known as `notRequired` and its value is pinned accordingly.
+    case notRequiredWhileUnlocked = "notRequired"
+
+    /// Authentication is not required for usage, and authentication is permitted while the device is locked.
+    case notRequiredAfterFirstUnlock
+
     /// The user needs to authenticate, using either a biometric option, a connected authorized watch, or password entry..
     case presenceRequired
     
