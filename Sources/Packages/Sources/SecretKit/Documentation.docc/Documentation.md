@@ -31,7 +31,7 @@ SecretKit is a collection of protocols describing secrets and stores.
 
 ### Authentication Persistence
 
-- ``PersistedAuthenticationContext``
+- ``AuthenticationContextProtocol``
 
 ### Errors
 

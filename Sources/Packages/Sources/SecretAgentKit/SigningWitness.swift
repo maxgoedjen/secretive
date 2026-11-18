@@ -18,6 +18,6 @@ public protocol SigningWitness: Sendable {
     ///   - secret: The `Secret` that will was used to sign the request.
     ///   - store: The `Store` that signed the request..
     ///   - provenance: A `SigningRequestProvenance` object describing the origin of the request.
-    func witness(accessTo secret: AnySecret, from store: AnySecretStore, by provenance: SigningRequestProvenance, target: SigningRequestTarget?) async throws
+    func witness(accessTo secret: AnySecret, from store: AnySecretStore, by provenance: SigningRequestProvenance, target: SigningRequestTarget?, offerPersistence: Bool) async throws
 
 }

@@ -4,10 +4,11 @@ import SecureEnclaveSecretKit
 import SmartCardSecretKit
 import Brief
 import CertificateKit
+import SettingsKit
 
 @main
 struct Secretive: App {
-    
+
     @Environment(\.agentLaunchController) var agentLaunchController
     @Environment(\.justUpdatedChecker) var justUpdatedChecker
 
@@ -16,6 +17,7 @@ struct Secretive: App {
             ContentView()
                 .environment(EnvironmentValues._secretStoreList)
                 .environment(EnvironmentValues._certificateStore)
+                .environment(EnvironmentValues._settingsStore)
                 .onReceive(NotificationCenter.default.publisher(for: NSApplication.didBecomeActiveNotification)) { _ in
                     Task {
                         @AppStorage("defaultsHasRunSetup") var hasRunSetup = false
@@ -42,6 +44,9 @@ struct Secretive: App {
         }
         .windowStyle(.hiddenTitleBar)
         .windowResizability(.contentSize)
+        Settings {
+            SettingsView()
+        }
     }
 
 }
@@ -101,8 +106,9 @@ extension EnvironmentValues {
         return list
     }()
 
-    @MainActor fileprivate static let _certificateStore: CertificateStore = CertificateStore()
-    
+    @MainActor fileprivate static let _certificateStore = CertificateStore()
+    @MainActor fileprivate static let _settingsStore = SettingsStore()
+
     private static let _agentLaunchController = AgentLaunchController()
     @Entry var agentLaunchController: any AgentLaunchControllerProtocol = _agentLaunchController
 
@@ -121,6 +127,10 @@ extension EnvironmentValues {
 
     @MainActor var certificateStore: CertificateStore {
         EnvironmentValues._certificateStore
+    }
+
+    @MainActor var settingsStore: SettingsStore {
+        EnvironmentValues._settingsStore
     }
 }
 

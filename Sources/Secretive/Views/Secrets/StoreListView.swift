@@ -43,7 +43,7 @@ struct StoreListView: View {
                     }
                 }
                 if !certificateStore.certificates.isEmpty {
-                    Section("Certificates") {
+                    Section(.certificatesSectionTitle) {
                         ForEach(certificateStore.certificates) { certificate in
                             CertificateListItemView(
                                 certificate: certificate,

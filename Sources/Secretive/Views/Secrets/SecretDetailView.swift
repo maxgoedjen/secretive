@@ -31,6 +31,13 @@ struct SecretDetailView<SecretType: Secret>: View {
                     Spacer()
                         .frame(height: 20)
                     CopyableView(
+                        title: .secretDetailPublicKeyLabel,
+                        image: Image(systemName: "key"),
+                        text: keyWriter.openSSHString(secret: secret)
+                    )
+                    Spacer()
+                        .frame(height: 20)
+                    CopyableView(
                         title: .secretDetailPublicKeyPathLabel,
                         image: Image(systemName: "lock.doc"),
                         text: URL.publicKeyPath(for: secret, in: URL.publicKeyDirectory),
@@ -39,18 +46,14 @@ struct SecretDetailView<SecretType: Secret>: View {
                     if !certificates.isEmpty {
                         Spacer()
                             .frame(height: 20)
-                        MultilineInfoView(
-                            title: .secretDetailCertificatePathLabel,
-                            image: Image(
-                                systemName: "checkmark.seal.text.page"
-                            ),
-                            items: certificates.map({ certificate in
-                                MultilineInfoView.Item(
-                                    text: certificate.name,
-                                    action: (Image(systemName: "chevron.forward"), { navigateToCertificate?(certificate) })
-                                )
-                            })
-                        )
+                        MultilineInfoView(title: .secretDetailCertificatePathLabel, image: Image(systemName: "checkmark.seal.text.page")) {
+                            ForEach(certificates) { certificate in
+                                Text(certificate.name)
+                                    .multilineItemAction(image: Image(systemName: "chevron.forward")) {
+                                        navigateToCertificate?(certificate)
+                                    }
+                            }
+                        }
                     }
                     Spacer()
                 }

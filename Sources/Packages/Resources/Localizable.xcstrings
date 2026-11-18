@@ -4990,6 +4990,28 @@
         }
       }
     },
+    "auth_context_connecting_to_unknown_host" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Connecting to unknown host"
+          }
+        }
+      }
+    },
+    "auth_context_connecting_to_username_and_host" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Connecting to %1$(username)@@%2$(host)@"
+          }
+        }
+      }
+    },
     "auth_context_persist_for_duration" : {
       "comment" : "When the user clicks the notification to leave a secret unlocked, they are shown a prompt to approve the action. This is the description, showing which secret will used. The first placeholder is the name of the secret. The second placeholder is a localized description of the time period it will remain unlocked for (eg: “five minutes”)",
       "extractionState" : "manual",
@@ -5358,6 +5380,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "拒絕"
+          }
+        }
+      }
+    },
+    "auth_context_request_multiple" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "sign multiple requests from “%1$(appName)@” using secret “%2$(secretName)@”"
           }
         }
       }
@@ -5920,6 +5953,17 @@
         }
       }
     },
+    "auth_context_signing_for_namespace" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Signing for %1$(namespace)@"
+          }
+        }
+      }
+    },
     "certificate_detail_critical_options_label" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -6109,6 +6153,17 @@
     },
     "Certificates" : {
 
+    },
+    "certificates_section_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Certificates"
+          }
+        }
+      }
     },
     "copyable_click_to_copy_button" : {
       "extractionState" : "manual",
@@ -19845,6 +19900,39 @@
         }
       }
     },
+    "pending_request_description" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Multiple authenticated requests are pending. You can approve them batches, or request they all proceed individually."
+          }
+        }
+      }
+    },
+    "pending_requests_review_batch_button" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Review as Batch"
+          }
+        }
+      }
+    },
+    "pending_requests_review_single_button" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Review"
+          }
+        }
+      }
+    },
     "persist_authentication_accept_button" : {
       "comment" : "When the user authorizes an action using a secret that requires unlock, they're shown a notification offering to leave the secret unlocked for a set period of time. This is the title for the notification.",
       "extractionState" : "manual",
@@ -21926,6 +22014,61 @@
         }
       },
       "shouldTranslate" : false
+    },
+    "settings_agent_tab_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Agent"
+          }
+        }
+      }
+    },
+    "settings_multiple_authentication_enabled_label" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Show Pending Requests Screen"
+          }
+        }
+      }
+    },
+    "settings_multiple_authentication_section_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pending Requests Screen"
+          }
+        }
+      }
+    },
+    "settings_multiple_authentication_shows_dock_icon_label" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Show Dock Item for Pending Requests Screen"
+          }
+        }
+      }
+    },
+    "settings_multiple_authentication_threshold_label" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Minimum Pending Requests Before Pending Screen"
+          }
+        }
+      }
     },
     "setup_agent_activity_monitor_description" : {
       "extractionState" : "manual",

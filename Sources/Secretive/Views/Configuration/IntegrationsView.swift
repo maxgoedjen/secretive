@@ -28,8 +28,8 @@ struct IntegrationsView: View {
                 dismiss()
             }
         }
-        .hiddenToolbar()
-        .windowBackgroundStyle(.thinMaterial)
+        .toolbarBackgroundVisibility(.hidden, for: .automatic)
+        .containerBackground(.thinMaterial, for: .window)
         .onAppear {
             selectedInstruction = instructions.gettingStarted
         }

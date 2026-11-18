@@ -1,11 +1,11 @@
 import SwiftUI
 
-struct PrimaryButtonModifier: ViewModifier {
+public struct PrimaryButtonModifier: ViewModifier {
 
     @Environment(\.colorScheme) var colorScheme
     @Environment(\.isEnabled) var isEnabled
 
-    func body(content: Content) -> some View {
+    public func body(content: Content) -> some View {
         // Tinted glass prominent is really hard to read on 26.0.
         if #available(macOS 26.0, *), colorScheme == .dark, isEnabled {
             content.buttonStyle(.glassProminent)
@@ -18,15 +18,15 @@ struct PrimaryButtonModifier: ViewModifier {
 
 extension View {
 
-    func primaryButton() -> some View {
+    public func primaryButton() -> some View {
         modifier(PrimaryButtonModifier())
     }
 
 }
 
-struct ToolbarCircleButtonModifier: ViewModifier {
+public struct ToolbarCircleButtonModifier: ViewModifier {
 
-    func body(content: Content) -> some View {
+    public func body(content: Content) -> some View {
         if #available(macOS 26.0, *) {
             content
                 .glassEffect(.regular.tint(.white.opacity(0.1)), in: .circle)
@@ -40,15 +40,15 @@ struct ToolbarCircleButtonModifier: ViewModifier {
 
 extension View {
 
-    func toolbarCircleButton() -> some View {
+    public func toolbarCircleButton() -> some View {
         modifier(ToolbarCircleButtonModifier())
     }
 
 }
 
-struct NormalButtonModifier: ViewModifier {
+public struct NormalButtonModifier: ViewModifier {
 
-    func body(content: Content) -> some View {
+    public func body(content: Content) -> some View {
         if #available(macOS 26.0, *) {
             content.buttonStyle(.glass)
         } else {
@@ -60,17 +60,17 @@ struct NormalButtonModifier: ViewModifier {
 
 extension View {
 
-    func normalButton() -> some View {
+    public func normalButton() -> some View {
         modifier(NormalButtonModifier())
     }
 
 }
 
-struct DangerButtonModifier: ViewModifier {
+public struct DangerButtonModifier: ViewModifier {
 
     @Environment(\.colorScheme) var colorScheme
 
-    func body(content: Content) -> some View {
+    public func body(content: Content) -> some View {
         // Tinted glass prominent is really hard to read on 26.0.
         if #available(macOS 26.0, *), colorScheme == .dark {
             content.buttonStyle(.glassProminent)
@@ -87,7 +87,7 @@ struct DangerButtonModifier: ViewModifier {
 
 extension View {
 
-    func danger() -> some View {
+    public func danger() -> some View {
         modifier(DangerButtonModifier())
     }
 

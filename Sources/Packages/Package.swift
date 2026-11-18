@@ -1,4 +1,4 @@
-// swift-tools-version:6.2
+// swift-tools-version:6.4
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
@@ -7,7 +7,7 @@ let package = Package(
     name: "SecretivePackages",
     defaultLocalization: "en",
     platforms: [
-        .macOS(.v14)
+        .macOS(.v15)
     ],
     products: [
         .library(
@@ -22,6 +22,9 @@ let package = Package(
         .library(
             name: "CertificateKit",
             targets: ["CertificateKit"]),
+        .library(
+            name: "SettingsKit",
+            targets: ["SettingsKit"]),
         .library(
             name: "SecretAgentKit",
             targets: ["SecretAgentKit"]),
@@ -77,8 +80,14 @@ let package = Package(
             swiftSettings: swiftSettings,
         ),
         .target(
+            name: "SettingsKit",
+            dependencies: [],
+            resources: [localization],
+            swiftSettings: swiftSettings,
+        ),
+        .target(
             name: "SecretAgentKit",
-            dependencies: ["SecretKit", "SSHProtocolKit", "CertificateKit", "Common", "Formatters"],
+            dependencies: ["SecretKit", "SSHProtocolKit", "CertificateKit", "Common", "Formatters", "SettingsKit"],
             resources: [localization],
             swiftSettings: swiftSettings,
         ),
@@ -111,7 +120,7 @@ let package = Package(
         ),
         .target(
             name: "SharedXPCServices",
-            dependencies: ["CertificateKit", "SSHProtocolKit"],
+            dependencies: ["XPCWrappers", "CertificateKit", "SSHProtocolKit"],
             resources: [localization],
             swiftSettings: swiftSettings,
         ),
