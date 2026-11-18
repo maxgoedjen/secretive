@@ -51,7 +51,7 @@ private extension OpenSSHSignatureWriterTests {
             publicKey: Data(repeating: 0x01, count: 65),
             attributes: Attributes(
                 keyType: KeyType(algorithm: .ecdsa, size: 256),
-                authentication: .notRequired, allowWhileLocked: true,
+                authentication: .notRequiredWhileUnlocked,
                 publicKeyAttribution: "test@example.com"
             )
         )

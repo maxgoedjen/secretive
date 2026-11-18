@@ -156,7 +156,7 @@ extension SmartCard.Store {
             let publicKeySecRef = SecKeyCopyPublicKey(publicKeyRef)!
             let publicKeyAttributes = SecKeyCopyAttributes(publicKeySecRef) as! [CFString: Any]
             let publicKey = publicKeyAttributes[kSecValueData] as! Data
-            let attributes = Attributes(keyType: KeyType(secAttr: algorithmSecAttr, size: keySize)!, authentication: .presenceRequired, allowWhileLocked: false)
+            let attributes = Attributes(keyType: KeyType(secAttr: algorithmSecAttr, size: keySize)!, authentication: .presenceRequired)
             let secret = SmartCard.Secret(id: tokenID, name: name, publicKey: publicKey, attributes: attributes)
             guard signatureAlgorithm(for: secret) != nil else { return nil }
             return secret

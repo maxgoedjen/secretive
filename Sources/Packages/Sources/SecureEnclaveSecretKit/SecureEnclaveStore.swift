@@ -92,7 +92,7 @@ extension SecureEnclave {
         public func create(name: String, attributes: Attributes) async throws -> Secret {
             var accessError: SecurityError?
             let flags: SecAccessControlCreateFlags = switch attributes.authentication {
-            case .notRequired:
+            case .notRequiredWhileUnlocked, .notRequiredAfterFirstUnlock:
                 [.privateKeyUsage]
             case .presenceRequired:
                 [.userPresence, .privateKeyUsage]
@@ -246,11 +246,17 @@ extension SecureEnclave.Store {
     func saveKey(_ key: Data, name: String, attributes: Attributes) throws -> String {
         let encodedAttributes = try JSONEncoder().encode(attributes)
         let id = UUID().uuidString
+        let accessibility = switch attributes.authentication {
+        case .biometryCurrent, .presenceRequired, .notRequiredWhileUnlocked, .unknown:
+            kSecAttrAccessibleWhenUnlockedThisDeviceOnly
+        case .notRequiredAfterFirstUnlock:
+            kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly
+        }
         let keychainAttributes = KeychainDictionary([
             kSecClass: Constants.keyClass,
             kSecAttrService: Constants.keyTag,
             kSecUseDataProtectionKeychain: true,
-            kSecAttrAccessible: attributes.allowWhileLocked ? kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly : kSecAttrAccessibleWhenUnlockedThisDeviceOnly,
+            kSecAttrAccessible: accessibility,
             kSecAttrAccount: id,
             kSecValueData: key,
             kSecAttrLabel: name,

@@ -6720,24 +6720,24 @@
         }
       }
     },
-    "create_secret_allow_while_locked_description" : {
+    "create_secret_after_first_unlock_notify_description" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Consider enabling this if you run scripts while your Mac is locked."
+            "value" : "No authentication is required, and you will be notified when a secret is used. Use is allowed even when your Mac is locked."
           }
         }
       }
     },
-    "create_secret_allow_while_locked_label" : {
+    "create_secret_after_first_unlock_notify_title" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Allow While Locked"
+            "value" : "Allow While Locked and Notify"
           }
         }
       }
@@ -8592,376 +8592,6 @@
         }
       }
     },
-    "create_secret_notify_description" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "af" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "No authentication is required while your Mac is unlocked, but you will be notified when a secret is used."
-          }
-        },
-        "ar" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "No authentication is required while your Mac is unlocked, but you will be notified when a secret is used."
-          }
-        },
-        "ca" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "No es requerirà cap autenticació mentre el Mac estiga desbloquejat, però seràs notificat quan s'utilitze ùn secret."
-          }
-        },
-        "cs" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "No authentication is required while your Mac is unlocked, but you will be notified when a secret is used."
-          }
-        },
-        "da" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "No authentication is required while your Mac is unlocked, but you will be notified when a secret is used."
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Es ist keine Authentifizierung erforderlich solange dein Mac entsperrt ist, aber du wirst benachrichtigt, wenn ein Secret verwendet wird."
-          }
-        },
-        "el" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "No authentication is required while your Mac is unlocked, but you will be notified when a secret is used."
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "No authentication is required while your Mac is unlocked, but you will be notified when a secret is used."
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "No authentication is required while your Mac is unlocked, but you will be notified when a secret is used."
-          }
-        },
-        "fi" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Todennusta ei vaadita Macisi ollessa lukitsematta, mutta saat ilmoituksen kun salaisuutta käytetään."
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Aucune authentification n'est requise lorsque votre Mac est déverrouillé, mais vous serez averti lorsqu'un secret sera utilisé."
-          }
-        },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "No authentication is required while your Mac is unlocked, but you will be notified when a secret is used."
-          }
-        },
-        "hu" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "No authentication is required while your Mac is unlocked, but you will be notified when a secret is used."
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Non è richiesta alcuna autenticazione finché il tuo Mac è sbloccato, ma verrete notificati quando un Segreto viene usato."
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "お使いのMacでロックが解除されている間は認証が必要になりません。シークレットが利用されると通知されます。"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Mac이 잠금 해제되어 있는 동안에는 인증이 필요하지 않지만 비밀이 사용되면 알림을 받게 됩니다."
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "No authentication is required while your Mac is unlocked, but you will be notified when a secret is used."
-          }
-        },
-        "nl" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "No authentication is required while your Mac is unlocked, but you will be notified when a secret is used."
-          }
-        },
-        "pl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Uwierzytelnianie nie jest wymagane gdy twój Mac jest odblokowany. Otrzymasz powiadomienie kiedy sekret zostanie użyty."
-          }
-        },
-        "pt" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "No authentication is required while your Mac is unlocked, but you will be notified when a secret is used."
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Nenhuma autenticação é solicitada enquanto seu Mac estiver desbloqueado, mas você será notificado quando um segredo for usado."
-          }
-        },
-        "ro" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "No authentication is required while your Mac is unlocked, but you will be notified when a secret is used."
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Аутентификация не потребуется пока Ваш Mac разблокирован, но Вы получите уведомление, если секрет будет использован."
-          }
-        },
-        "sr" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "No authentication is required while your Mac is unlocked, but you will be notified when a secret is used."
-          }
-        },
-        "sv" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "No authentication is required while your Mac is unlocked, but you will be notified when a secret is used."
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "No authentication is required while your Mac is unlocked, but you will be notified when a secret is used."
-          }
-        },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "No authentication is required while your Mac is unlocked, but you will be notified when a secret is used."
-          }
-        },
-        "vi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "No authentication is required while your Mac is unlocked, but you will be notified when a secret is used."
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "当Mac已解锁时无需验证，但密钥串被使用时会通知您。"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "當Mac已解鎖時無需驗證，但Secret被使用时會通知您。"
-          }
-        }
-      }
-    },
-    "create_secret_notify_title" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "af" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Notify"
-          }
-        },
-        "ar" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Notify"
-          }
-        },
-        "ca" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Notifica"
-          }
-        },
-        "cs" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Notify"
-          }
-        },
-        "da" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Notify"
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Benachrichtigen"
-          }
-        },
-        "el" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Notify"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Notify"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Notify"
-          }
-        },
-        "fi" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ilmoita"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Notifier"
-          }
-        },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Notify"
-          }
-        },
-        "hu" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Notify"
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Notifica"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "通知のみ"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "알림"
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Notify"
-          }
-        },
-        "nl" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Notify"
-          }
-        },
-        "pl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Powiadom"
-          }
-        },
-        "pt" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Notify"
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Notificar"
-          }
-        },
-        "ro" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Notify"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Уведомить"
-          }
-        },
-        "sr" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Notify"
-          }
-        },
-        "sv" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Notify"
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Notify"
-          }
-        },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Notify"
-          }
-        },
-        "vi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Notify"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "通知"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "通知"
-          }
-        }
-      }
-    },
     "create_secret_protection_level_title" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -10068,6 +9698,376 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "建立新Secret"
+          }
+        }
+      }
+    },
+    "create_secret_while_unlocked_notify_description" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "No authentication is required while your Mac is unlocked, but you will be notified when a secret is used."
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "No authentication is required while your Mac is unlocked, but you will be notified when a secret is used."
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No es requerirà cap autenticació mentre el Mac estiga desbloquejat, però seràs notificat quan s'utilitze ùn secret."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "No authentication is required while your Mac is unlocked, but you will be notified when a secret is used."
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "No authentication is required while your Mac is unlocked, but you will be notified when a secret is used."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Es ist keine Authentifizierung erforderlich solange dein Mac entsperrt ist, aber du wirst benachrichtigt, wenn ein Secret verwendet wird."
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "No authentication is required while your Mac is unlocked, but you will be notified when a secret is used."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "No authentication is required while your Mac is unlocked, but you will be notified when a secret is used."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "No authentication is required while your Mac is unlocked, but you will be notified when a secret is used."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Todennusta ei vaadita Macisi ollessa lukitsematta, mutta saat ilmoituksen kun salaisuutta käytetään."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aucune authentification n'est requise lorsque votre Mac est déverrouillé, mais vous serez averti lorsqu'un secret sera utilisé."
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "No authentication is required while your Mac is unlocked, but you will be notified when a secret is used."
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "No authentication is required while your Mac is unlocked, but you will be notified when a secret is used."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Non è richiesta alcuna autenticazione finché il tuo Mac è sbloccato, ma verrete notificati quando un Segreto viene usato."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "お使いのMacでロックが解除されている間は認証が必要になりません。シークレットが利用されると通知されます。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mac이 잠금 해제되어 있는 동안에는 인증이 필요하지 않지만 비밀이 사용되면 알림을 받게 됩니다."
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "No authentication is required while your Mac is unlocked, but you will be notified when a secret is used."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "No authentication is required while your Mac is unlocked, but you will be notified when a secret is used."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Uwierzytelnianie nie jest wymagane gdy twój Mac jest odblokowany. Otrzymasz powiadomienie kiedy sekret zostanie użyty."
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "No authentication is required while your Mac is unlocked, but you will be notified when a secret is used."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nenhuma autenticação é solicitada enquanto seu Mac estiver desbloqueado, mas você será notificado quando um segredo for usado."
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "No authentication is required while your Mac is unlocked, but you will be notified when a secret is used."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Аутентификация не потребуется пока Ваш Mac разблокирован, но Вы получите уведомление, если секрет будет использован."
+          }
+        },
+        "sr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "No authentication is required while your Mac is unlocked, but you will be notified when a secret is used."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "No authentication is required while your Mac is unlocked, but you will be notified when a secret is used."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "No authentication is required while your Mac is unlocked, but you will be notified when a secret is used."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "No authentication is required while your Mac is unlocked, but you will be notified when a secret is used."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "No authentication is required while your Mac is unlocked, but you will be notified when a secret is used."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "当Mac已解锁时无需验证，但密钥串被使用时会通知您。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "當Mac已解鎖時無需驗證，但Secret被使用时會通知您。"
+          }
+        }
+      }
+    },
+    "create_secret_while_unlocked_notify_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Notify"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Notify"
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Notifica"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Notify"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Notify"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Benachrichtigen"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Notify"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Notify"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Notify"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ilmoita"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Notifier"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Notify"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Notify"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Notifica"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "通知のみ"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "알림"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Notify"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Notify"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Powiadom"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Notify"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Notificar"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Notify"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Уведомить"
+          }
+        },
+        "sr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Notify"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Notify"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Notify"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Notify"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Notify"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "通知"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "通知"
           }
         }
       }

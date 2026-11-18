@@ -34,7 +34,7 @@ public struct TestSecret: Secret {
     init(authenticationRequirement: AuthenticationRequirement, testEvaluationResult: Bool, approval: ApprovalMode = .manual) {
         self.canceled = false
         self.testEvaluationResult = testEvaluationResult
-        self.secret = AnySecret(TestSecret(attributes: .init(keyType: .ecdsa256, authentication: authenticationRequirement, allowWhileLocked: false)))
+        self.secret = AnySecret(TestSecret(attributes: .init(keyType: .ecdsa256, authentication: authenticationRequirement)))
         self.approval = approval
     }
 
@@ -121,7 +121,7 @@ public struct TestSecret: Secret {
             calledPresentPending = true
         }
         let contextA = TestContext(authenticationRequirement: .presenceRequired, testEvaluationResult: true, approval: .manual)
-        let contextB = TestContext(authenticationRequirement: .notRequired, testEvaluationResult: true)
+        let contextB = TestContext(authenticationRequirement: .notRequiredWhileUnlocked, testEvaluationResult: true)
         var unauthenticatedResult = false
         Task {
             Task {
@@ -145,7 +145,7 @@ public struct TestSecret: Secret {
         }
         let contextA = TestContext(authenticationRequirement: .presenceRequired, testEvaluationResult: true)
         let contextB = TestContext(authenticationRequirement: .presenceRequired, testEvaluationResult: true)
-        let contextC = TestContext(authenticationRequirement: .notRequired, testEvaluationResult: true)
+        let contextC = TestContext(authenticationRequirement: .notRequiredWhileUnlocked, testEvaluationResult: true)
         Task {
             _ = try? await handler.authenticatedContext(for: .init(secret: .init(contextA.secret), provenance: .test, target: nil), context: contextA)
         }

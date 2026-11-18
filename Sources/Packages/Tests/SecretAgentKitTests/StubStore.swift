@@ -77,7 +77,7 @@ extension Stub {
         let privateKey: Data
 
         init(keySize: Int, publicKey: Data, privateKey: Data) {
-            self.attributes = Attributes(keyType: .init(algorithm: .ecdsa, size: keySize), authentication: .notRequired, allowWhileLocked: false, publicKeyAttribution: "ecdsa-\(keySize)@example.com")
+            self.attributes = Attributes(keyType: .init(algorithm: .ecdsa, size: keySize), authentication: .notRequiredWhileUnlocked, publicKeyAttribution: "ecdsa-\(keySize)@example.com")
             self.publicKey = publicKey
             self.privateKey = privateKey
         }
