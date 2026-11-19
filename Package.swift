@@ -48,6 +48,12 @@ let package = Package(
             path: "Sources/Packages/Tests/SecretKitTests",
             swiftSettings: swiftSettings
         ),
+        .testTarget(
+            name: "SmartCardSecretKitTests",
+            dependencies: ["SecretKit", "SmartCardSecretKit", "SSHProtocolKit"],
+            path: "Sources/Packages/Tests/SmartCardSecretKitTests",
+            swiftSettings: swiftSettings
+        ),
         .target(
             name: "SecureEnclaveSecretKit",
             dependencies: ["SecretKit"],

@@ -1,6 +1,7 @@
 import Foundation
 import Observation
 import Security
+import CryptoKit
 @unsafe @preconcurrency import CryptoTokenKit
 import LocalAuthentication
 import SecretKit
@@ -83,7 +84,22 @@ extension SmartCard {
             guard let signature = unsafe SecKeyCreateSignature(key, algorithm, data as CFData, &signError) else {
                 throw unsafe SigningError(error: signError)
             }
-            return signature as Data
+            return try Self.rawSignature(signature: signature as Data, keyType: secret.keyType)
+        }
+
+        /// Convert signature into the representation stores return.
+        /// - Parameters:
+        ///   - signature: The signature returned by the keychain.
+        ///   - keyType: The type of the key that produced the signature.
+        static func rawSignature(signature: Data, keyType: KeyType) throws -> Data {
+            switch keyType {
+            case .ecdsa256:
+                try P256.Signing.ECDSASignature(derRepresentation: signature).rawRepresentation
+            case .ecdsa384:
+                try P384.Signing.ECDSASignature(derRepresentation: signature).rawRepresentation
+            default:
+                signature
+            }
         }
         
         /// Reloads all secrets from the store.
